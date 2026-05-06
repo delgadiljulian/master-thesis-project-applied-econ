@@ -1,0 +1,1471 @@
+% !TEX program = xelatex
+\documentclass[12pt,a4paper]{report}
+
+% ----------------------------
+% PAQUETES
+% ----------------------------
+
+% Idioma, motor y tipografía
+\usepackage{fontspec}
+\usepackage[spanish]{babel}
+\setmainfont{Times New Roman}
+\newfontfamily\cambriafont{Cambria}
+\newfontfamily\timesfont{Times New Roman}
+
+% Texto
+\usepackage{setspace}
+\usepackage{ragged2e}
+\usepackage{csquotes}
+
+% Bibliografía
+\usepackage[
+backend=biber,
+style=apa,
+sorting=nyt,
+language=spanish
+]{biblatex}
+
+% Matemática
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{mathtools}
+\usepackage{bm}
+\usepackage{mathrsfs}
+
+% Tablas
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{multirow}
+\usepackage{threeparttable}
+\usepackage[table]{xcolor}
+
+% Gráficos
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{subcaption}
+
+% Diseño
+\usepackage{geometry}
+\usepackage{xcolor}
+\usepackage[hang,flushmargin]{footmisc}
+\usepackage[toc,page]{appendix}
+
+% Referencias (orden obligatorio)
+\usepackage{hyperref}
+\usepackage{cleveref}
+
+% Utilidades
+\usepackage{etoolbox}
+
+% Figuras
+\usepackage{adjustbox}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usetikzlibrary{arrows.meta, positioning, babel}
+
+% Nombres de referencias automáticas
+\usepackage{hyperref}
+
+\addto\extraspanish{%
+	\renewcommand{\tableautorefname}{Tabla}%
+	\renewcommand{\figureautorefname}{Figura}%
+	\renewcommand{\chapterautorefname}{Capítulo}%
+	\renewcommand{\sectionautorefname}{Sección}%
+	\renewcommand{\subsectionautorefname}{Subsección}%
+}
+
+% Contador pie de pagina
+\makeatletter
+\@removefromreset{footnote}{chapter}
+\makeatother
+
+% Jerarquía visual: Capítulos, secciones y subsecciones
+\usepackage{titlesec}
+\usepackage{sectsty}
+\sectionfont{\raggedright}
+\subsectionfont{\raggedright}
+
+\titleclass{\chapter}{straight}
+
+\titleformat{\chapter}
+{\normalfont\Large\bfseries}
+{\thechapter.}
+{1em}
+{}
+
+\titlespacing*{\chapter}
+{0pt}
+{0pt}
+{20pt}
+
+% Secciones
+\titleformat{\section}[hang]
+{\normalfont\Large\bfseries\raggedright}
+{\thesection.}
+{1em}
+{}
+
+\titlespacing*{\section}
+{0pt}{17pt}{10pt}
+
+% Subsecciones
+\titleformat{\subsection}[hang]
+{\normalfont\large\bfseries\raggedright}
+{\thesubsection.}
+{1em}
+{}
+
+\titlespacing*{\subsection}
+{0pt}{12pt}{6pt}
+
+% ----------------------------
+% MÁRGENES (SEGÚN NORMATIVA)
+% ----------------------------
+\geometry{
+	left=3cm,
+	right=2.5cm,
+	top=2.5cm,
+	bottom=2.5cm
+}
+
+% ----------------------------
+% FUENTE
+% ----------------------------
+\setmainfont{Times New Roman}
+\setlength{\parindent}{0pt}
+
+% ----------------------------
+% COLOR Y LÍNEA (REPISA REAL)
+% ----------------------------
+\definecolor{lineblue}{RGB}{0,51,102}
+
+\newcommand{\ShelfRule}{%
+	\vspace{-0.15cm}
+	\par\noindent
+	\textcolor{lineblue}{\rule{\linewidth}{0.6pt}}%
+}
+
+% ----------------------------
+% CONFIGURACIÓN PREAMBULO
+% ----------------------------
+
+\titleformat{\section}
+{\centering\normalfont\bfseries\Large}
+{\thesection.}
+{1em}
+{}
+
+% ----------------------------
+% CONFIGURACIÓN BIBLIOGRAFÍA
+% ----------------------------
+
+\addbibresource{references.bib}
+
+
+\begin{document}
+		
+	% =====================================================
+	% PORTADA
+	% =====================================================
+	\begin{titlepage}
+		
+		% ----------------------------
+		% INSTITUCIÓN (CAMBRIA)
+		% ----------------------------
+		\begin{center}
+			{\cambriafont\fontsize{26}{31}\selectfont Universidad de Buenos Aires}
+			
+			\vspace{0.25cm}
+			
+			{\cambriafont\fontsize{26}{31}\selectfont Facultad de Ciencias Económicas}
+			
+			\vspace{0.25cm}
+			
+			{\cambriafont\fontsize{20}{24}\selectfont Escuela de Negocios y Administración Pública}
+		\end{center}
+		
+		\ShelfRule
+		\vspace{1.2cm}
+		
+		% ----------------------------
+		% MAESTRÍA (CAMBRIA, NEGRITA)
+		% ----------------------------
+		\begin{center}
+			{\cambriafont\fontsize{22}{26}\selectfont\textbf{MAESTRÍA EN ECONOMÍA APLICADA}}
+		\end{center}
+		
+		\ShelfRule
+		\vspace{1.5cm}
+		
+		% ----------------------------
+		% TIPO DE TRABAJO (CAMBRIA)
+		% ----------------------------
+		\begin{center}
+			{\cambriafont\fontsize{22}{26}\selectfont PROYECTO}
+			
+			\vspace{0.2cm}
+			
+			{\cambriafont\fontsize{22}{26}\selectfont TRABAJO FINAL DE MAESTRÍA}
+		\end{center}
+		
+		\ShelfRule
+		\vspace{1.5cm}
+		
+		% ----------------------------
+		% TÍTULO DEL TFM (CAMBRIA)
+		% ----------------------------
+		\begin{center}
+			\begin{minipage}{0.9\textwidth}
+				\noindent\justifying
+				{\cambriafont\fontsize{18}{22}\selectfont
+					Dependencia de recursos naturales y trayectorias de transición estructural (1980-2022)}
+			\end{minipage}
+		\end{center}
+		
+		\ShelfRule
+		\vspace{1.8cm}
+		
+		% ----------------------------
+		% AUTOR Y DIRECTOR (TIMES NEW ROMAN)
+		% ----------------------------
+		\begin{center}
+			\begin{minipage}{0.9\textwidth}
+				\raggedright
+				{\timesfont\fontsize{14}{17}\selectfont
+					\MakeUppercase{Autor: Julián Alberto Delgadillo Marín}}
+				
+				\vspace{0.25cm}
+				
+				{\timesfont\fontsize{14}{17}\selectfont
+					\MakeUppercase{Director: Sin definir}}
+			\end{minipage}
+		\end{center}
+		
+		\vfill
+		
+		% ----------------------------
+		% FECHA
+		% ----------------------------
+		\begin{center}
+			{\cambriafont\fontsize{12}{14}\selectfont FEBRERO 2026}
+		\end{center}
+		\ShelfRule
+		
+	\end{titlepage}
+	% ====================================================
+	
+	% =====================================================
+	% A PARTIR DE AQUÍ: TESIS (INTERLINEADO 1.5)
+	% =====================================================
+	\onehalfspacing
+	\justifying
+	\pagenumbering{arabic}
+	\setlength{\parindent}{0pt}
+	\setlength{\parskip}{0.8em}   
+	
+	
+	% =====================================================
+	% RESUMEN Y PALABRAS CLAVE
+	% =====================================================
+	\chapter{Resumen del Proyecto}
+	\label{chap:resumen}
+	
+	El estudio analiza los mecanismos estructurales que explican por qué algunas economías dependientes de recursos naturales transforman las rentas extractivas en procesos sostenidos de diversificación productiva y acumulación de capacidades, mientras otras permanecen atrapadas en trayectorias de dependencia en el largo plazo. La relevancia del tema radica en la heterogeneidad observada en las trayectorias de desarrollo de economías intensivas en recursos y en la persistencia de estructuras productivas concentradas, volatilidad macroeconómica y limitada transformación estructural.
+	
+	El objetivo general es analizar comparativamente los mecanismos productivos, institucionales y macroeconómicos que condicionan la transición —o no transición— hacia estructuras más diversificadas. Se examinan la enfermedad holandesa, los encadenamientos productivos, la gobernanza de las rentas, la volatilidad de los precios de los commodities y la acumulación de capital humano e innovación como determinantes de dichas trayectorias.
+	
+	El aporte del proyecto consiste en un enfoque integrador que articula economía estructural, macroeconomía y economía política, superando visiones deterministas sobre la “maldición de los recursos” y enfatizando las condiciones bajo las cuales las rentas pueden convertirse en una palanca de transformación productiva.
+	
+	Metodológicamente, la investigación adopta un enfoque empírico comparativo entre países dependientes de recursos naturales para el período 1980–2022, utilizando indicadores de dependencia extractiva, diversificación, capacidades humanas e innovación, junto con variables institucionales y macroeconómicas relevantes, lo que permite identificar regularidades estructurales y evaluar empíricamente las hipótesis planteadas.
+	
+	% \noindent\textbf{Palabras clave:} diversificación productiva, dependencia de recursos, transformación estructural.
+	
+	% =====================================================
+	% PREGUNTA
+	% =====================================================
+	\chapter{Pregunta}
+	\label{chap:pregunta}
+		
+	¿Bajo qué configuraciones productivo-institucionales la dependencia de recursos naturales no renovables se traduce en trayectorias de diversificación sostenida y acumulación de capacidades en economías intensivas en recursos (1980–2022)?
+	
+	% =====================================================
+	% JUSTIFICACIÓN
+	% =====================================================
+	\chapter{Justificación}
+	\label{chap:justificación}
+	
+	La elección del presente tema se justifica por su relevancia teórica y empírica para la comprensión de las trayectorias de desarrollo de economías dependientes de recursos naturales. La persistencia de estructuras productivas altamente concentradas en actividades extractivas, junto con la marcada heterogeneidad observada en los procesos de crecimiento y transformación estructural entre países, constituye un problema del análisis económico contemporáneo. Estas dinámicas se asocian frecuentemente con elevados niveles de volatilidad macroeconómica, limitada diversificación productiva y dificultades para la acumulación sostenida de capacidades productivas en el largo plazo \parencite{Auty1993,Sachs1995}.
+	
+	Desde una perspectiva académica, la investigación se inserta en un debate amplio y aún abierto sobre los efectos económicos de la dependencia de recursos naturales. Si bien la literatura ha avanzado de manera significativa en la identificación de mecanismos vinculados a la denominada “maldición de los recursos”, los resultados empíricos muestran una notable diversidad de experiencias \parencite{Brunnschweiler2006,Brunnschweiler2008,Lebdioui2019}. Mientras algunas economías han logrado transformar las rentas extractivas en procesos de diversificación y cambio estructural, otras permanecen atrapadas en trayectorias de especialización primaria \parencite{Lebdioui2019,Ville2013}. Esta coexistencia de resultados divergentes pone de manifiesto la necesidad de profundizar el análisis de las condiciones productivas, institucionales y macroeconómicas que median entre la disponibilidad de recursos naturales y los resultados de desarrollo observados.
+	
+	En este contexto, resulta pertinente adoptar un enfoque integrador que permita examinar de manera conjunta los mecanismos estructurales que condicionan dichas trayectorias. El análisis comparativo entre países, basado en indicadores de dependencia extractiva, diversificación productiva, capacidades humanas, innovación y desempeño macroeconómico, ofrece una vía adecuada para identificar regularidades y contrastar hipótesis sobre los determinantes de la transformación productiva. De este modo, la investigación busca contribuir a una comprensión más precisa de los procesos mediante los cuales las economías basadas en recursos naturales pueden —o no— transitar hacia estructuras productivas más diversificadas y resilientes, evitando enfoques deterministas y simplificaciones normativas.
+	
+	% =====================================================
+	% PLANTEAMIENTO DEL TEMA / PROBLEMA
+	% =====================================================
+	\chapter{Planteamiento del tema / problema}
+	\label{chap:planteamiento}
+	
+	La abundancia de recursos naturales ha sido tradicionalmente concebida como una fuente potencial de crecimiento y desarrollo económico. Sin embargo, la evidencia empírica muestra que numerosas economías altamente dependientes de actividades extractivas presentan trayectorias caracterizadas por baja diversificación productiva, elevada volatilidad macroeconómica y persistencia de estructuras concentradas en sectores primarios \parencite{Tornell1999,Arezki2012}. Al mismo tiempo, existen casos en los que las rentas provenientes de recursos naturales han sido transformadas en procesos sostenidos de acumulación de capacidades, diversificación sectorial y fortalecimiento institucional \parencite{Ville2013}.
+	
+	Esta heterogeneidad plantea un problema central: la dependencia de recursos naturales no conduce de manera automática ni a la denominada “maldición” ni al desarrollo exitoso, sino que sus efectos dependen de un conjunto de mecanismos estructurales cuya interacción aún no se encuentra plenamente sistematizada \parencite{Lebdioui2019}. En particular, persiste una brecha analítica respecto de las condiciones bajo las cuales las rentas extractivas logran traducirse en transformación estructural productiva, en contraste con aquellas situaciones donde refuerzan trayectorias de persistencia extractiva.
+	
+	El problema de investigación que aborda este trabajo consiste en explicar las diferencias observadas en las trayectorias de economías dependientes de recursos naturales durante el período reciente de alta integración financiera y volatilidad de precios de commodities (aproximadamente 1980–2022), con especial atención a los mecanismos productivos, institucionales y macroeconómicos que condicionan la transición —o no transición— hacia estructuras productivas más diversificadas.
+	
+	Este planteamiento permite una contrastación empírica a partir del análisis comparativo entre países dependientes de recursos naturales, utilizando indicadores de dependencia extractiva, diversificación productiva, acumulación de capital humano e innovación, así como variables institucionales y macroeconómicas relevantes. En este marco, la investigación se orienta a identificar regularidades estructurales que expliquen por qué algunas economías logran transformar rentas extractivas en procesos sostenidos de diversificación, mientras otras permanecen atrapadas en configuraciones de dependencia estructural.
+	
+	% =====================================================
+	% OBJETIVOS
+	% =====================================================
+	
+	\chapter{Objetivos}
+	\label{chap:objetivos}
+	
+	\section{Objetivo general}
+	\label{sec:objetivo-general}
+	
+	Analizar comparativamente los mecanismos productivos, institucionales y macroeconómicos que explican las diferencias en las trayectorias de diversificación productiva y acumulación de capacidades entre economías dependientes de recursos naturales durante el período 1980–2022, a partir de evidencia empírica cuantitativa de carácter comparativo.
+	
+	\section{Objetivos específicos}
+	\label{sec:objetivos-especificos}
+	
+	\begin{enumerate}
+		
+		\item Identificar y sistematizar los principales mecanismos productivos asociados a la persistencia de la especialización extractiva, en particular la enfermedad holandesa, la formación de enclaves y la debilidad de los encadenamientos productivos, a partir de indicadores estructurales comparables entre países.
+		
+		\item Estimar empíricamente el papel de la calidad institucional y de la gobernanza de las rentas extractivas como condiciones que inciden sobre las trayectorias de desarrollo económico en economías dependientes de recursos naturales.
+		
+		\item Analizar el impacto de la volatilidad de los precios internacionales de los commodities y de las restricciones macroeconómicas intertemporales sobre las decisiones de ahorro, inversión y acumulación de capacidades productivas.
+		
+		\item Evaluar la relación entre capital humano, innovación y acumulación de capacidades productivas mediante modelos econométricos que permitan identificar procesos de upgrading estructural.
+		
+		\item Comparar las trayectorias de transición estructural observadas entre economías dependientes de recursos naturales a partir de los resultados empíricos obtenidos, identificando patrones diferenciados de desempeño productivo y acumulación de capacidades.
+		
+	\end{enumerate}
+	
+	% =====================================================
+	% HIPÓTESIS
+	% =====================================================
+	\chapter{Hipótesis}
+	\label{chap:hipótesis}
+	
+	La presente investigación se guía por un conjunto de hipótesis orientadas a explicar las diferencias observadas en las trayectorias de economías dependientes de recursos naturales en términos de transición estructural productiva, las hipótesis formuladas se derivan directamente de los mecanismos discutidos en el ~\autoref{chap:marco-teórico}.
+	
+	\section{Hipótesis general}
+	\label{sec:hipótesis-general}
+	
+	Las economías dependientes de recursos naturales que logran transformar las rentas extractivas en procesos sostenidos de diversificación productiva y acumulación de capacidades presentan configuraciones estructurales caracterizadas por encadenamientos productivos más densos, arreglos institucionales más efectivos y una gestión macroeconómica que atenúa la volatilidad asociada a los ciclos de los commodities.
+	
+	\section{Hipótesis específicas}
+	\label{sec:hipótesis-especificas}
+	
+	\begin{enumerate}
+		
+		\item En economías dependientes de recursos naturales, una mayor dependencia extractiva se asocia con una menor diversificación productiva cuando predominan mecanismos de enfermedad holandesa, estructuras de enclave y encadenamientos productivos débiles.
+		
+		\item La calidad de los arreglos institucionales y de la gobernanza de las rentas extractivas modula el efecto de la dependencia de recursos sobre la diversificación productiva, de modo que mejores instituciones atenúan —o neutralizan— los efectos adversos de la dependencia extractiva.
+		
+		\item Una mayor volatilidad de los precios de los commodities y una gestión macroeconómica procíclica reducen la probabilidad de que las rentas extractivas se traduzcan en acumulación sostenida de capacidades productivas.
+		
+		\item En economías dependientes de recursos naturales, niveles más elevados de capital humano e innovación incrementan la probabilidad de que las rentas extractivas se conviertan en procesos de upgrading productivo y transición estructural \footnote{En este trabajo, la transición estructural se entiende como un proceso sostenido de reasignación de recursos productivos desde sectores primarios hacia actividades de mayor complejidad productiva y tecnológica, acompañado por acumulación de capacidades, aprendizaje e innovación, y no simplemente como un cambio sectorial en la composición del PIB.}.
+		
+	\end{enumerate}
+	
+	% =====================================================
+	% MARCO TEÓRICO (PRELIMINAR)
+	% =====================================================
+	\chapter{Marco teórico (Preliminar)}
+	\label{chap:marco-teórico}
+	
+	El marco teórico que sigue no adopta desde el inicio una única corriente explicativa, sino que presenta una revisión estructurada de la literatura que ha abordado la dependencia de recursos naturales desde perspectivas productivas, macroeconómicas e institucionales. Esta revisión no implica una adhesión simétrica a todos los enfoques considerados, sino que cumple una función exploratoria y analítica: identificar mecanismos recurrentes, puntos de convergencia y tensiones teóricas relevantes para delimitar el enfoque adoptado en esta investigación.
+	
+	\section{Conceptualización y debates fundacionales sobre la dependencia de recursos naturales}
+	\label{sec:conceptuaclización-debates}
+	
+	\subsection{La "maldición" de los recursos naturales}
+	\label{subsec:maldición-recursos}
+	
+	La idea de que la abundancia de recursos naturales puede constituir una desventaja para el desempeño económico, más que una fuente de prosperidad, puede resultar inicialmente contraintuitiva. Los fundamentos macroeconómicos de este argumento se vinculan con el modelo de enfermedad holandesa desarrollado por \textcite{Corden1982}, que formaliza los efectos de un boom en el sector transable sobre la estructura productiva. Estas intuiciones fueron posteriormente sistematizadas por \textcite{Auty1993} bajo la denominada “tesis de la maldición de los recursos” \footnote{El término “maldición de los recursos” se utiliza aquí como una etiqueta analítica para describir regularidades empíricas condicionadas, y no como una relación determinista entre recursos naturales y bajo desempeño económico.}, en la que se plantea que la abundancia de rentas extractivas puede generar distorsiones estructurales, debilitar los encadenamientos productivos y afectar la calidad institucional. La hipótesis fue luego popularizada y sometida a contraste empírico en el análisis de crecimiento comparado por \citeauthor{Sachs1995} (\citeyear{Sachs1995,Sachs1997,Sachs2001}), dando lugar a una extensa literatura teórica y empírica que profundizó en los canales macroeconómicos, institucionales y políticos asociados a la dependencia de recursos naturales.
+	
+	\textcite{Brunnschweiler2006} reevalúa la hipótesis de la maldición de los recursos naturales cuestionando tanto las medidas tradicionales de abundancia basadas en exportaciones primarias como la escasa consideración explícita de la calidad institucional en los análisis de crecimiento. Utilizando medidas alternativas de abundancia de recursos basadas en capital natural per cápita y estimaciones OLS y 2SLS para el período 1970–2000, se encuentra que los recursos naturales —en particular los minerales— presentan una asociación directa y positiva con el crecimiento del PIB real, incluso al controlar por calidad institucional. Asimismo, no se halla evidencia de que la abundancia de recursos deteriore las instituciones, lo que contradice la hipótesis de una maldición indirecta vía rentismo, sugiriendo que los recursos naturales han sido, en promedio, más un factor favorable que adverso para el desempeño económico.
+	
+	Una parte de la literatura cuestiona la interpretación estándar de la ``maldición de los recursos'', señalando que la alta dependencia de sectores extractivos no necesariamente constituye una causa directa de bajo desempeño económico. En particular, \textcite{Morris2013} argumentan que, en muchos casos, la elevada dependencia de recursos naturales refleja más bien un proceso previo de subdesarrollo industrial, en lugar de un efecto adverso generado por la especialización en recursos minerales. Desde esta perspectiva, lo que suele interpretarse como una debilidad inducida por la especialización en commodities corresponde con mayor frecuencia a economías con escasa o nula trayectoria de industrialización, donde la estructura productiva limitada precede —y no resulta de— la dependencia extractiva.
+	
+	\subsection{Abundancia vs dependencia de recursos naturales}
+	\label{subsec:abundancia-vs-dependencia}
+	
+	La relación negativa frecuentemente observada entre recursos naturales y crecimiento económico surge principalmente cuando se utiliza la \textit{dependencia de recursos} —medida como la proporción de exportaciones primarias en el PIB— y no la \textit{abundancia real de recursos} \footnote{La distinción entre abundancia y dependencia resulta central en esta literatura: mientras la abundancia refiere a la dotación de stocks naturales, la dependencia captura una configuración estructural de especialización productiva y exportadora, endógena a factores institucionales, históricos y de capacidades productivas.}, entendida como la dotación de stocks naturales. Esta regularidad se ilustra empíricamente al mostrar que la dependencia de recursos es endógena a factores estructurales e institucionales, mientras que la abundancia de recursos, medida mediante activos naturales per cápita, no presenta efectos adversos sistemáticos sobre el crecimiento \parencite{Brunnschweiler2008}.
+	
+	\subsection{Crecimiento económico en economías basadas en recursos}
+	\label{subsec:crecimiento-economico}
+	
+	El ingreso per cápita promedio de los países exportadores de petróleo ha disminuido en aproximadamente 29\% durante los últimos 25 años, mientras que en el resto del mundo ha aumentado en 34\% en el mismo período. Este contraste se observa a pesar de que, en promedio, la tasa de inversión agregada de los países exportadores de petróleo no ha sido inferior a la de las economías no petroleras \parencite{Nili2007}. \footnote{La tasa de inversión se entiende como inversión doméstica agregada en relación con el PIB, medida habitualmente a través de la formación bruta de capital fijo en las estadísticas macroeconómicas internacionales.}
+	
+	\textcite{Sala-i-Martin2002} documentan que las economías árabes exportadoras de petróleo presentan, en promedio, tasas de inversión relativamente elevadas junto con un desempeño de crecimiento inferior al observado en las economías de la OECD y del Este Asiático. Este contraste entre altos niveles de inversión y bajo crecimiento pone de manifiesto una aparente ineficiencia en el proceso de acumulación de capital, la cual los autores asocian principalmente a la calidad de las instituciones.
+	
+	En Sudamérica, el elevado crecimiento observado en Bolivia y Perú durante el superciclo no contradice la hipótesis de la maldición de los recursos, sino que refleja un episodio transitorio de expansión impulsado por rentas extraordinarias. La ausencia de una transformación estructural sostenida se manifiesta con mayor claridad tras el fin del boom, cuando el crecimiento se desacelera y reaparecen las restricciones externas, en un contexto de elevada dependencia de exportaciones primarias y limitada diversificación productiva \parencite{Agramont-Lechn2024}.
+	
+	Una mayor abundancia de recursos naturales tiende a asociarse con mejores resultados económicos y, en algunos casos, con una mayor calidad institucional, una vez se distingue adecuadamente entre stocks de recursos y flujos de ingresos extractivos. Esta regularidad se documenta empíricamente en análisis comparativos internacionales donde, al corregir por la endogeneidad de la dependencia de recursos, la abundancia de recursos muestra efectos positivos o no negativos sobre el crecimiento de largo plazo \parencite{Brunnschweiler2008}.
+	
+	\subsection{Extractivismo}
+	\label{subsec:extractivismo}
+	
+	La dependencia de productos primarios ha sido una característica persistente de la economía política de numerosos países de América Latina y el Caribe desde su inserción en la economía mundial. Esta situación es particularmente marcada en América del Sur, dada su abundancia de recursos minerales, y ha sido analizada en la literatura reciente bajo el concepto de extractivismo, entendido como un modelo de desarrollo basado en la explotación intensiva de recursos naturales, con limitada diversificación productiva y una fuerte orientación hacia los mercados internacionales como proveedores de materias primas \parencite{Agramont-Lechn2024}.
+	
+	En el siglo XXI se distinguen al menos dos variantes del extractivismo, diferenciadas principalmente por el grado de intervención estatal. El extractivismo clásico se caracteriza por un rol predominante del sector privado —en particular de empresas multinacionales—, una baja captación de rentas por parte del Estado y la expectativa de que los beneficios se difundan al resto de la economía mediante el llamado efecto derrame \parencite{Gudynas2018}.
+	
+	En contraste, el neoextractivismo, en su formulación original, describe una modalidad de extractivismo promovida por gobiernos progresistas, caracterizada por una mayor intervención estatal en la regulación, apropiación y redistribución de las rentas provenientes de los recursos naturales \parencite{Gudynas2018}.
+	
+	\subsection{Concentración de las exportaciones}
+	\label{subsec:concentración-exportaciones}
+	
+	La literatura documenta que economías intensivas en recursos naturales y con alta concentración exportadora en un solo commodity tienden a exhibir mayor volatilidad externa y trayectorias de crecimiento menos estables. El caso de Zambia —donde el cobre representa más del 75\% de las exportaciones totales— ilustra claramente este patrón \parencite{Lwazi2022}.
+	
+	\textcite{Agosin2012} muestran que la diversificación de las exportaciones no surge automáticamente de la apertura comercial ni del desarrollo financiero, sino que depende críticamente de la acumulación de capacidades productivas, en particular de capital humano. En ausencia de estas capacidades, los procesos de liberalización tienden a reforzar patrones de especialización preexistentes, mientras que economías con mayores dotaciones educativas exhiben estructuras exportadoras más diversas y complejas.
+	
+	Los choques favorables en los términos de intercambio y los elevados costos de comercio tienden a aumentar la concentración de las exportaciones en economías con bajas capacidades productivas, reflejando mecanismos asociados a la enfermedad holandesa. Sin embargo, este efecto es heterogéneo y se atenúa en países con mayor capital humano, donde los choques externos no se traducen necesariamente en una mayor especialización primaria \parencite{Agosin2012}.
+	
+	\subsection{Deterioro de términos de intercambio}
+	\label{subsec:deterioro-terminos-intercambio}
+	
+	\textcite{Prebisch1962,Singer1975} formulan la hipótesis según la cual, en el largo plazo, los precios de los bienes primarios tienden a deteriorarse en relación con los precios de los bienes manufacturados, lo que implica una pérdida sistemática de términos de intercambio para las economías especializadas en exportaciones primarias y refuerza la necesidad de procesos de industrialización y diversificación productiva.
+		
+	\textcite{Grilli1988} reexaminan la hipótesis de Prebisch--Singer utilizando series históricas extensas para el período 1900--1986 y encuentran que, en promedio, los precios reales de los bienes primarios tienden a disminuir en relación con los precios de los bienes manufacturados. Este resultado confirma el signo del deterioro secular de los términos de intercambio planteado por la hipótesis original, aunque no su magnitud, ya que la tendencia estimada es moderada y presenta una elevada heterogeneidad entre distintos grupos de commodities, así como una fuerte volatilidad cíclica. Además, los autores muestran que este deterioro de los precios relativos no se traduce necesariamente en una caída del ingreso real, dado que en muchos países ha sido compensado por incrementos en los volúmenes exportados, dando lugar a mejoras en los términos de intercambio de ingreso.
+	
+	La evidencia empírica basada en muestras históricas extendidas sugiere que los precios reales de los commodities no exhiben una tendencia secular descendente robusta una vez se incorporan períodos más recientes, sino que están dominados por ciclos prolongados y una elevada persistencia temporal. \textcite{Cashin2002} muestran que, aunque pueden identificarse tendencias de largo plazo en los precios reales de los bienes primarios, estas son pequeñas y estadísticamente frágiles en comparación con la magnitud de las fluctuaciones cíclicas, las cuales adoptan la forma de superciclos con duraciones superiores a dos décadas. De manera complementaria, \textcite{Jacks2011} documentan que estos ciclos largos y episodios de alta volatilidad han sido una característica recurrente de los mercados de commodities a lo largo de varios siglos, incluyendo los auges de los años setenta y de la década de 2000, lo que refuerza la idea de que los precios presentan una elevada persistencia y que el mejor predictor del precio futuro suele ser su nivel actual. En conjunto, esta evidencia cuestiona la validez empírica de una caída secular monotónica de los precios de los commodities, tal como la postulada por la hipótesis Prebisch--Singer.
+	
+	\subsection{Ventaja comparativa}
+	\label{subsec:ventaja-comparativa}
+	
+	La explotación de commodities puede constituir una fuente relevante de ventaja comparativa y crecimiento regional al generar rentas económicas superiores a las de otros sectores; sin embargo, estos beneficios no se traducen automáticamente en desarrollo sostenido. Como muestran los resultados discutidos por \textcite{Gunton2003}, el crecimiento liderado por recursos suele coexistir con riesgos de inestabilidad, disipación de rentas y dependencia excesiva cuando la gestión institucional y las políticas públicas son inadecuadas, lo que pone de manifiesto la necesidad de un enfoque analítico que integre tanto los mecanismos de ventaja comparativa como los límites estructurales del desarrollo basado en recursos. Esta regularidad se ilustra, por ejemplo, en el análisis de la industria del carbón en Canadá, donde la generación de rentas fue significativa, pero estuvo acompañada de vulnerabilidades asociadas a ciclos de precios, sobreinversión y mala asignación de recursos.
+	
+	\section{Canales productivos y sectoriales de la dependencia de recursos naturales}
+	\label{sec:canales-productivos}
+	
+	\subsection{Enfermedad holandesa}
+	\label{subsec:enférmedad-holandesa}
+	
+	El término enfermedad holandesa se introdujo originalmente para describir el deterioro del sector manufacturero en los Países Bajos tras el descubrimiento de gas natural a fines de la década de 1950. Desde una perspectiva analítica, \textcite{Corden1982} desarrollan el modelo canónico de este fenómeno, mostrando cómo un auge sectorial —típicamente asociado a la explotación de recursos naturales— puede generar presiones sistemáticas de desplazamiento sobre el sector manufacturero en una economía pequeña y abierta. Este proceso opera a través de dos canales centrales. Por un lado, el \textit{resource movement effect}, mediante el cual el aumento en la rentabilidad del sector en auge induce la reasignación de trabajo y capital desde la manufactura y la agricultura hacia dicho sector, reduciendo directamente la producción y el empleo en los sectores transables tradicionales. Por otro lado, el \textit{spending effect}, a través del cual el incremento del ingreso real eleva la demanda por bienes no transables, genera una apreciación del tipo de cambio real asociada al aumento de ingresos externos y a la entrada de capitales, y deteriora la competitividad de la manufactura. En formulaciones estrechamente relacionadas, \textcite{Corden1984} y \textcite{Neary1985} precisan que la combinación de estos mecanismos eleva los costos relativos de producción y refuerza el desplazamiento industrial, constituyendo la base microeconómica formal del concepto de enfermedad holandesa en economías exportadoras de recursos naturales.
+	
+	La literatura señala que los ingresos extraordinarios derivados de recursos naturales no renovables pueden inducir efectos asociados a la enfermedad holandesa, entendida como la apreciación del tipo de cambio real que reduce la competitividad de los sectores transables no extractivos. No obstante, cuando estas rentas son sostenidas y canalizadas hacia inversiones productivas —como infraestructura, capital humano e instituciones—, los aumentos de productividad y crecimiento de largo plazo pueden compensar, o incluso superar, los efectos adversos iniciales sobre la competitividad externa \parencite{Barder2006}.
+	
+	En un modelo de enfermedad holandesa con crecimiento endógeno, se muestra que cuando la productividad depende del aprendizaje por la práctica en el sector transable es óptimo ahorrar una mayor fracción de la renta de los recursos naturales que en modelos sin crecimiento o con crecimiento exógeno. En este contexto, cierta reasignación sectorial es inevitable y óptima, y un menor crecimiento observado en economías ricas en recursos puede formar parte de una trayectoria de largo plazo consistente con la maximización del bienestar \parencite{Matsen2005}.
+	
+	\subsection{Desplazamiento del sector manufacturero}
+	\label{subsec:desplazamiento-sector-manufacturero}
+
+	Los shocks positivos y persistentes en los precios de los commodities tienden a generar una contracción sistemática del sector manufacturero, observable tanto en términos de producción como de empleo, incluso después de controlar por efectos país, sector y tiempo. Este desplazamiento manufacturero constituye una manifestación estructural de la enfermedad holandesa y se ve amplificado en contextos de mayor integración financiera internacional, así como en sectores manufactureros intensivos en trabajo, reflejando cambios en precios relativos de los factores y en la composición productiva \parencite{Ismail2010}.
+	
+	Los shocks positivos de ingresos externos asociados a las exportaciones de commodities tienden a ajustarse principalmente mediante una contracción de las exportaciones no extractivas, más que a través de una expansión equivalente de las importaciones o del ahorro externo. La evidencia empírica indica que, por cada dólar adicional de exportaciones de recursos, las exportaciones no extractivas se reducen en un orden de magnitud cercano a tres cuartas partes de dicho valor, mientras que las importaciones aumentan en una fracción sustancialmente menor, lo que implica un efecto reducido sobre el ahorro externo. Este desplazamiento afecta de manera desproporcionada a las manufacturas, en particular a los sectores manufactureros internacionalmente móviles, revelando un patrón de reasignación estructural dentro del sector transable consistente con los mecanismos de la enfermedad holandesa y subrayando la importancia de distinguir entre exportaciones no extractivas e importaciones para comprender el proceso de desplazamiento manufacturero \parencite{Harding2016}.	
+
+	\subsection{Enclave extractivo}
+	\label{subsec:enclave-extractivo}
+	
+	Desde una perspectiva estructural del desarrollo, \textcite{Hirschman1981} destaca que la explotación de recursos naturales puede generar encadenamientos económicos hacia el resto de la economía a través de tres canales principales. (i) En primer lugar, los encadenamientos fiscales surgen cuando el Estado captura rentas provenientes del sector extractivo y las destina a financiar actividades productivas no vinculadas directamente a los commodities. (ii) En segundo lugar, los encadenamientos de consumo operan mediante el aumento de la demanda interna derivada de los ingresos generados en los sectores basados en recursos naturales. (iii) Finalmente, los encadenamientos productivos comprenden tanto vínculos hacia atrás, asociados a la provisión de insumos para la producción extractiva, como vínculos hacia adelante, relacionados con el procesamiento y la transformación posterior de los recursos naturales.
+	
+	Una explicación adicional de la llamada maldición de los recursos enfatiza la debilidad de los encadenamientos económicos entre el sector extractivo y el resto de la economía. Desde esta perspectiva, la explotación de recursos naturales puede generar escasos efectos de arrastre cuando las actividades extractivas están dominadas por empresas extranjeras que repatrian sus beneficios y mantienen una integración limitada con los sectores productivos locales. En estos contextos, la producción de commodities tiende a operar como un enclave \footnote{El carácter de enclave no se define únicamente por la presencia de capital extranjero, sino por la debilidad de los encadenamientos fiscales, productivos y de demanda interna entre el sector extractivo y el resto de la economía.}, restringiendo la formación de vínculos fiscales, productivos y de demanda interna que podrían sostener procesos de diversificación y desarrollo de largo plazo \parencite{Hirschman1958}.
+	
+	Según \textcite{Ross1999} una de las explicaciones estructurales de la maldición de los recursos es la denominada tesis del enclave extractivo. Este enfoque sostiene que las actividades basadas en la explotación de recursos naturales tienden a operar como enclaves productivos, caracterizados por una débil integración con el resto de la economía doméstica y por la ausencia de encadenamientos significativos hacia la manufactura y los servicios. Como consecuencia, la extracción puede generar exportaciones y rentas sin inducir procesos amplios de aprendizaje, diversificación productiva o desarrollo industrial, reforzando trayectorias de crecimiento estrechas y dependientes del sector primario.
+	
+	\subsection{Producción con generación de valor agregado}
+	\label{subsec:producción-valor-agregado}
+	
+	La evidencia histórica comparada sugiere que la producción basada en recursos naturales no implica necesariamente una estructura productiva de bajo valor agregado. A partir del análisis de largo plazo de Australia y Noruega, \textcite{Ville2013} muestran que estas economías lograron altos niveles de desarrollo manteniendo una fuerte especialización en recursos naturales mediante procesos reiterados de diversificación hacia nuevas industrias basadas en recursos. El valor agregado emergió no tanto de la transformación física del recurso, sino de la interacción sistemática entre las industrias extractivas y sectores habilitadores —como la ingeniería, los bienes de capital, los servicios tecnológicos y las instituciones científicas— que impulsaron innovación, aprendizaje y difusión de conocimiento en el conjunto de la economía. En este marco, las actividades extractivas actuaron como núcleos de demanda tecnológica y organizacional, generando encadenamientos productivos, spillovers intersectoriales y capacidades locales que permitieron sostener la diversificación y evitar la denominada “maldición de los recursos” \parencite{Ville2013}.
+	
+	\subsection{Efecto derrame}
+	\label{subsec:efecto-derrame}
+	
+	Literatura reciente muestra que los booms de recursos naturales pueden generar derrames salariales más allá de las regiones extractivas, incluso en ausencia de migración permanente; en particular, la expansión de opciones creíbles de conmutación hacia regiones de altos salarios fortalece el poder de negociación de los trabajadores locales, elevando los salarios en sectores y regiones no directamente vinculados a la extracción. Como ilustración empírica, \textcite{Green2017} documenta que durante el boom de recursos en Canadá una fracción sustancial del crecimiento salarial agregado se explica por estos derrames vía conmutación de larga distancia.
+	
+	Desde una perspectiva normativa, parte de la literatura ha explorado el potencial redistributivo de las rentas provenientes de recursos naturales bajo esquemas de transferencia directa a la población. En un ejercicio contrafactual a escala global, \textcite{Segal2011} evalúa el impacto hipotético de distribuir las rentas de los recursos naturales como una transferencia monetaria universal e incondicional —un \emph{resource dividend}— utilizando datos internacionales sobre rentas extractivas y distribución del ingreso para el período 2000–2006. Sus simulaciones sugieren que, de implementarse dicha política en todos los países en desarrollo, la pobreza extrema global podría reducirse sustancialmente. Este resultado no describe una regularidad empírica observada, sino que cuantifica el potencial redistributivo de una propuesta de política bajo supuestos específicos.
+	
+	Una línea de argumentación en la literatura sostiene que, en economías ricas en recursos naturales caracterizadas por instituciones débiles, los gobiernos no pueden ser considerados intermediarios confiables para la asignación eficiente y equitativa de las rentas extractivas a través del presupuesto público. En este contexto, la distorsión de incentivos, la búsqueda de rentas y la limitada rendición de cuentas han motivado propuestas que abogan por la distribución directa de los ingresos provenientes de los recursos naturales a la población, en lugar de su canalización mediante los mecanismos fiscales tradicionales \parencite{Gupta2014}.
+	
+	\subsection{Inversión extranjera directa (IED)}
+	\label{subsec:IED}
+	
+	La inversión extranjera directa tiende a concentrarse en sectores extractivos, contribuyendo a una mayor intensidad en la explotación de recursos y, consecuentemente, a un mayor agotamiento de los stocks de recursos naturales. Esta dinámica suele estar asociada con incrementos en las rentas provenientes de la extracción y con procesos de degradación ecológica, reforzando trayectorias de crecimiento basadas en el sector primario y profundizando la dependencia del mismo en el largo plazo. Como ilustración empírica, \textcite{Long2017} documentan que, en países menos desarrollados, mayores flujos de inversión extranjera se asocian sistemáticamente tanto con aumentos en la extracción como con mayores niveles de agotamiento de recursos naturales y rentas extractivas, fortaleciendo la dependencia económica del sector extractivo y generando costos persistentes para el desarrollo de largo plazo.
+	
+	El caso peruano muestra cómo la inversión extranjera directa ha sido un componente central del modelo extractivo en una economía dependiente de commodities. Desde la década de 1990, Perú adoptó un marco institucional abierto a la inversión extranjera en minería, particularmente en cobre y oro, lo que facilitó una expansión rápida y sostenida de la inversión extractiva durante el superciclo de precios. La literatura documenta que la entrada de FDI permitió movilizar capital, tecnología e infraestructura a gran escala e integrar la minería peruana a los mercados internacionales, aun cuando este proceso estuvo acompañado de tensiones distributivas, territoriales y socioambientales persistentes \parencite{Bebbington2013}.
+	
+	En economías dependientes de recursos naturales, las rentas extractivas no tienen un efecto unívocamente adverso sobre el desarrollo del sector privado y, en presencia de condiciones complementarias como capital humano, acceso al crédito y calidad institucional, pueden contribuir a su expansión y a una convergencia más rápida hacia niveles sostenibles de desarrollo. Esta regularidad se observa, por ejemplo, en países exportadores de petróleo y gas, donde las rentas de recursos se asocian con una mayor velocidad de ajuste del desarrollo del sector privado \textcite{Muhamad2020}.
+	
+	\section{Economía política y gobernanza de las rentas}
+	\label{sec:economía-política}
+	
+	\subsection{Gobernanza}
+	\label{subsec:gobernanza}
+	
+	Más allá de las diferencias ideológicas, la literatura señala que América Latina ha convergido hacia un consenso de los commodities, en el cual gobiernos de distinto signo político siguen trayectorias de desarrollo similares basadas en la inserción internacional como proveedores de bienes primarios y la expansión de proyectos extractivos, en algunos casos acompañada por mecanismos redistributivos \parencite{Svampa2013}.
+	
+	De acuerdo con \textcite{Boucekkine2021}, una mayor volatilidad en las rentas provenientes de recursos naturales tiende a asociarse con arreglos institucionales menos orientados a la liberalización económica en el largo plazo, entendida como una orientación regulatoria y financiera más pro-mercado. Esta regularidad encuentra respaldo empírico, por ejemplo, en economías dependientes del petróleo, donde incrementos en la volatilidad de los ingresos petroleros se vinculan con retrocesos en procesos de liberalización financiera.
+	
+	En el caso boliviano, la nacionalización de los hidrocarburos permitió al Estado captar una proporción sustancial de las rentas externas, con participaciones fiscales que alcanzaron hasta el 82\% de los ingresos del sector y evitaron pérdidas estimadas de hasta USD~74~mil millones entre 2006 y 2017 \parencite{CELAG2019}.
+	
+	La renacionalización de YPF en Argentina en 2012 se inscribe en un patrón más amplio de nacionalizaciones en la industria petrolera, asociado a períodos de altos precios internacionales, tensiones distributivas y debilidades institucionales que afectan la credibilidad de los contratos de largo plazo. La literatura en economía política muestra que estos episodios suelen responder menos a consideraciones estrictamente productivas y más a conflictos entre el Estado y el capital privado por la apropiación de rentas extractivas, especialmente en contextos de elevada volatilidad macroeconómica y restricción fiscal \parencite{Guriev2011}.
+	
+	\textcite{Lebdioui2019} señala que el debate académico sobre los efectos de los recursos naturales en el desarrollo económico ha estado marcado por una alternancia histórica entre enfoques pesimistas y optimistas. Mientras la visión pesimista concibe la extracción de commodities como una actividad de tipo enclave, con débiles encadenamientos productivos, la perspectiva optimista enfatiza las potenciales sinergias entre el sector extractivo, la manufactura y los servicios. La predominancia de uno u otro enfoque ha variado a lo largo del tiempo, reflejando cambios en la evidencia empírica, en los contextos institucionales y en las estrategias de desarrollo adoptadas por las economías ricas en recursos.
+	
+	\subsection{Instituciones democráticas y autocráticas}
+	\label{subsec:instituciones}
+	
+	Una de las principales hipótesis planteadas en la literatura sostiene que la abundancia de recursos naturales tiende a fomentar la corrupción, lo que, a su vez, deteriora el desempeño económico al debilitar la asignación eficiente de recursos y la calidad institucional \parencite{Isham2005,Sala-i-Martin2013}.
+		
+	Un aporte en esta línea es el de \textcite{Bhattacharyya2010}, quienes proponen un modelo teórico en el que el efecto de la abundancia de recursos naturales sobre la corrupción es condicional a la calidad de las instituciones democráticas. En particular, el modelo predice que las rentas de los recursos incrementan la corrupción en países con instituciones democráticas débiles, mientras que este efecto desaparece en países con mayores niveles de democracia, una predicción que es respaldada posteriormente mediante evidencia empírica basada en datos de panel.
+	
+	La literatura muestra que la abundancia de rentas extractivas no tiene un efecto unívoco sobre la estabilidad política, sino que opera a través de mecanismos contrapuestos que dependen de las estrategias de autoconservación de las élites. Por un lado, un mayor volumen de recursos incrementa el valor esperado de disputar el control político, lo que tiende a adelantar las transiciones institucionales. Por otro, esas mismas rentas relajan las restricciones fiscales del régimen, ampliando su capacidad de financiar redistribución o represión y, con ello, prolongar su permanencia en el poder. En un modelo dinámico de conflicto político, \textcite{Boucekkine2016} muestran que la duración de los regímenes autocráticos resulta de la interacción entre estos dos efectos, lo que explica la ambigüedad empírica observada en la relación entre recursos naturales y cambio institucional.
+	
+	\textcite{Caselli2015} documentan que los auges de ingresos provenientes de recursos naturales no tienen efectos sistemáticos sobre los regímenes democráticos, pero tienden a reforzar el carácter autocrático de los sistemas políticos en países no democráticos. Este efecto es heterogéneo: los booms de recursos intensifican la autocracia principalmente en regímenes autoritarios moderadamente consolidados, mientras que su impacto es débil o nulo tanto en democracias consolidadas como en autocracias altamente establecidas.
+	
+	Asimismo \parencite{Arezki2012} documenta que los efectos de los auges de recursos naturales sobre la estabilidad macroeconómica y el crecimiento económico son heterogéneos y dependen críticamente de la calidad de las instituciones políticas. En particular, economías con instituciones más democráticas exhiben una menor prociclicidad del gasto público y una atenuación de los efectos negativos de los booms de recursos sobre el crecimiento del sector no extractivo, en contraste con economías autocráticas, donde los shocks de recursos amplifican la volatilidad fiscal y deterioran el desempeño de largo plazo.
+	
+	Los efectos negativos de la dependencia de recursos naturales sobre el crecimiento económico no son universales, sino que dependen críticamente de la calidad de las instituciones políticas. En particular, la maldición de los recursos tiende a manifestarse con mayor intensidad en economías caracterizadas por altos niveles de corrupción y débiles mecanismos de control político, mientras que sistemas con mayores contrapesos institucionales atenúan o neutralizan dicho efecto \parencite{Brckner2010}.
+	
+	La alta dependencia de las exportaciones de recursos naturales suele reflejar debilidades institucionales preexistentes que limitan el desarrollo de sectores no extractivos, más que un deterioro institucional provocado por la abundancia de recursos en sí misma. Esta regularidad se ilustra empíricamente al observar que mejores instituciones reducen la dependencia de recursos, mientras que la causalidad inversa carece de respaldo robusto \parencite{Brunnschweiler2008}.
+	
+	Desde una perspectiva productiva e institucional convencional, la politización de PDVSA durante el gobierno de Chávez se asoció con una pérdida significativa de capacidad técnica, caída de la inversión y deterioro del desempeño de la industria petrolera. No obstante, desde una óptica de economía política crítica, \textcite{Hammond2011} enfatiza que este proceso permitió romper el carácter enclave del sector y reorientar la renta petrolera hacia objetivos redistributivos, ilustrando que los efectos de la abundancia de recursos dependen del criterio institucional adoptado y de los objetivos de política considerados.
+	
+	En el caso de Botsuana, donde la explotación de diamantes se realizó bajo un esquema institucional que combinó propiedad estatal del subsuelo con asociaciones
+	estratégicas con el sector privado, dentro de un marco de fuerte disciplina fiscal y política.
+	\textcite{Acemoglu2001} muestran que el éxito económico del país respondió menos a la dotación de recursos en sí misma que a la existencia de instituciones inclusivas, restricciones creíbles al poder político y una administración eficiente de las rentas, lo que
+	permitió evitar los mecanismos típicos de la maldición de los recursos observados en otros
+	países ricos en commodities.
+	
+	Por otro lado, \textcite{Fagbemi2022} examinan el caso de Nigeria —considerado un caso emblemático dentro de la literatura sobre la “maldición de los recursos”— mediante un enfoque ARDL y VECM para el período 1996–2019. Los autores encuentran que la interacción entre rentas de recursos naturales y debilidad institucional puede generar efectos insignificantes o incluso retardatarios sobre el crecimiento económico en el largo plazo, sugiriendo que la trayectoria de crecimiento depende conjuntamente del nivel de rentas y de la calidad de la gobernanza.
+	
+	\subsection{Comportamiento rentista}
+	\label{subsec:comportamiento-rentista}
+	
+	Desde una perspectiva de economía política, \textcite{Torvik2001} desarrolla un modelo en el que la abundancia de recursos naturales incrementa la rentabilidad relativa de las actividades de búsqueda de rentas. Este cambio en los incentivos induce a una reasignación de emprendedores desde actividades productivas hacia actividades rentistas, reduciendo el número de firmas que operan en sectores con rendimientos crecientes. Como consecuencia, la contracción de la producción fuera del sector de recursos naturales puede exceder el aumento directo asociado a la renta del recurso, dando lugar a un menor nivel de ingreso agregado y bienestar en equilibrio.
+	
+	El problema de la búsqueda de rentas es que reorienta los incentivos económicos desde la creación de valor hacia la apropiación de ingresos existentes, lo que deteriora la eficiencia, la calidad institucional y la productividad de la inversión.
+	
+	\subsection{Propiedad estatal y privada en industrias extractivas}
+	\label{subsec:propiedad-estatal-privada}
+	
+	La evolución de la industria petrolera ha estado marcada por una sucesión de fases expansivas y contractivas, determinadas por una combinación de factores económicos y políticos. En las últimas décadas, este proceso ha venido acompañado de una reconfiguración en la estructura de liderazgo del sector, caracterizada por una mayor participación de las compañías petroleras nacionales y una pérdida relativa de protagonismo de los grandes operadores privados. Como resultado, estas empresas estatales concentran hoy una parte sustancial de los recursos y de la producción petrolera a nivel mundial, controlando cerca del 80\% de las reservas y aproximadamente el 73\% de la producción global \parencite{Makarova2007}. Aunque las compañías petroleras nacionales concentran los mayores niveles de producción y reservas, los ingresos más elevados son generados por las compañías petroleras internacionales.
+	
+	Una literatura relacionada examina el papel de la propiedad estatal en sectores intensivos en recursos naturales, documentando diferencias sistemáticas en eficiencia y desempeño entre empresas estatales y privadas. Diversos estudios encuentran que, en promedio, las empresas de propiedad estatal presentan menores niveles de eficiencia técnica y rentabilidad, particularmente en contextos institucionales débiles \parencite{Vining1992,Dewenter2001,Makarova2007}. Evidencia adicional para el sector petrolero a nivel global es presentada por \textcite{Wolf2009}, quien documenta que las empresas estatales tienden a subdesempeñar a sus contrapartes privadas en términos de eficiencia productiva y rentabilidad.
+	
+	\textcite{Makarova2007} señala que la evaluación del desempeño de las compañías petroleras nacionales (NOCs) presenta dificultades sustanciales, en la medida en que estas empresas suelen operar bajo una combinación de objetivos comerciales y mandatos de carácter nacional, lo que las aleja de un comportamiento estrictamente orientado a la maximización de beneficios. Entre estos mandatos no comerciales se incluyen funciones como la generación de empleo, el financiamiento de infraestructura pública y otras tareas que no están directamente vinculadas a la actividad productiva central. Adicionalmente, el autor destaca que el análisis empírico se ve limitado por la escasez de información sistemática y confiable, ya que tanto las empresas como los gobiernos —propietarios de los recursos— enfrentan incentivos para reportar las reservas de manera estratégica, lo que introduce distorsiones en la medición y comparación del desempeño de estas empresas.
+	
+	\subsection{Regalías}
+	\label{subsec:regalías}
+	
+	En el caso peruano, la captura de la renta minera se ha articulado mediante una combinación de impuestos, regalías y esquemas contractuales, en un contexto marcado por el auge del precio internacional de los metales durante la década de 2000. Tras la limitada eficacia de las regalías ad valorem introducidas en 2004, el Estado implementó en 2011 una reforma sustantiva del régimen fiscal minero, que dio lugar a una nueva regalía basada en la utilidad operativa y estructurada con tasas marginales progresivas. Este nuevo esquema elevó significativamente la carga fiscal efectiva sobre la minería, con tasas que oscilan entre el 1\% y el 12\% según el margen operativo de las empresas, con el objetivo explícito de incrementar la apropiación estatal de la renta minera generada durante el boom extractivo \parencite{TorresCuzcano2018}.
+	
+	La reforma al esquema de regalías en Colombia constituye un ejemplo de redistribución de la renta extractiva orientada a ampliar su cobertura territorial y poblacional. Con la transición del antiguo Fondo Nacional de Regalías al Sistema General de Regalías (SGR), el país sustituyó un modelo altamente concentrado —en el que un número reducido de departamentos productores capturaba la mayor parte de los recursos— por un esquema de distribución basado en criterios de equidad, población y necesidades socioeconómicas. Como documenta el Ministerio de Hacienda, esta reforma permitió que los recursos de regalías llegaran a la totalidad de los municipios del país, incrementando significativamente la población beneficiaria y fortaleciendo el papel de las regalías como fuente de inversión pública para el cierre de brechas económicas y sociales \parencite{MaraRamrez2018}.
+	
+	\subsection{Conflicto armado}\label{marquilla1}
+	\label{subsec:conflicto}
+	
+	La literatura reciente ha cuestionado las explicaciones que atribuyen los conflictos armados en economías ricas en recursos exclusivamente a incentivos económicos o a la “codicia” asociada a la explotación de rentas. \textcite{Keen2012} argumenta que los recursos naturales pueden facilitar la financiación de la violencia, pero subraya que su efecto depende de la interacción con desigualdades persistentes, exclusión política y respuestas estatales represivas. Desde esta perspectiva, los recursos no generan conflicto de manera mecánica, sino que actúan como un factor que puede amplificar tensiones preexistentes cuando existen agravios sociales no resueltos y estructuras institucionales débiles, cuestionando así interpretaciones reduccionistas basadas únicamente en la rentabilidad económica de la guerra.
+	
+	La evidencia sugiere que las rentas provenientes de recursos naturales pueden incrementar el riesgo de conflicto no a través de transferencias estatales, sino mediante su apropiación directa por actores armados que controlan o explotan dichos recursos. Cuando estas rentas son fácilmente capturables, reducen la necesidad de apoyo social y favorecen formas de rebelión oportunista orientadas a la extracción de ingresos, desplazando conflictos motivados por agravios hacia dinámicas más disfuncionales; adicionalmente, la gestión opaca y la volatilidad de estos ingresos pueden exacerbar la inestabilidad política \parencite{Coller2005}.
+	
+	\subsection{Dependencia fiscal del recaudo de los commodities}
+	\label{subsec:dependencia-fiscal}
+	
+	La literatura ha mostrado que una alta dependencia fiscal de los ingresos provenientes de commodities puede generar respuestas fiscales procíclicas y efectos macroeconómicos adversos. En economías con instituciones débiles y múltiples grupos con capacidad de apropiación fiscal, los shocks positivos de términos de intercambio —como aumentos en los precios de los recursos naturales— inducen un incremento más que proporcional del gasto y de la redistribución fiscal, fenómeno conocido como “efecto voracidad” \footnote{El efecto voracidad describe una situación en la que múltiples grupos con poder de apropiación compiten por rentas fiscales extraordinarias, generando un aumento más que proporcional del gasto público frente a incrementos transitorios del ingreso, con efectos adversos sobre la inversión y el crecimiento.}. En este contexto, mejoras transitorias en los ingresos asociados a los commodities pueden traducirse en un deterioro de las condiciones fiscales y del crecimiento, ya que el aumento del recaudo intensifica las presiones distributivas y reduce la acumulación de capital productivo \parencite{Tornell1999}.
+	
+	En economías dependientes de recursos naturales, los ingresos públicos tienden a ser más vulnerables a shocks externos, en particular a perturbaciones en los términos de intercambio, debido a estructuras fiscales menos diversificadas y a una mayor elasticidad de la recaudación frente a fluctuaciones exógenas. Esta regularidad se ilustra, por ejemplo, en evidencia comparada internacional que muestra una mayor sensibilidad de los ingresos tributarios a shocks externos en países dependientes de recursos, especialmente entre economías de ingreso medio y alto \parencite{vonHaldenwang2018}.
+	
+	\parencite{Brckner2010} dice que una mayor dependencia de las exportaciones de recursos naturales tiende a asociarse con menores tasas de crecimiento del PIB per cápita en el largo plazo, una vez se mide adecuadamente la importancia real del sector extractivo dentro de la economía. Esta regularidad se ilustra empíricamente en comparaciones internacionales donde, al corregir por diferencias en precios de bienes no transables, la relación negativa entre dependencia de recursos y crecimiento resulta más fuerte y robusta.
+	
+	La experiencia de México muestra una elevada dependencia fiscal de los ingresos provenientes de los hidrocarburos. Como documenta \textcite{GarciaMorales2014}, en años de altos precios del petróleo los ingresos petroleros llegaron a superar el 50\% de los ingresos ordinarios del Gobierno Federal, evidenciando una fuerte “petrolización” de las finanzas públicas. Esta dependencia no se estructuró a través de un régimen de regalías a operadores privados, sino mediante un modelo de industria petrolera nacionalizada, en el cual el Estado capturó directamente la renta a través de la empresa pública y la transfirió al presupuesto mediante impuestos y derechos específicos. En consecuencia, la capacidad de gasto del Estado quedó estrechamente vinculada a las oscilaciones del precio y de la producción petrolera, incrementando la vulnerabilidad fiscal frente a choques externos.
+	
+	El caso chileno ilustra una dependencia fiscal relevante asociada a la minería del cobre, principal commodity del país. Como documenta \textcite{DeGregorio2004}, la minería ha representado en distintos periodos en torno al 15–20\% del PIB, y los ingresos fiscales vinculados al cobre han desempeñado un papel central en la posición fiscal del Estado, especialmente a través de la empresa estatal y de la tributación al sector minero. Esta estructura ha vinculado estrechamente el balance fiscal a las fluctuaciones del precio internacional del cobre, lo que llevó al desarrollo de reglas fiscales estructurales orientadas a aislar el gasto público de la volatilidad propia de los ciclos de los commodities.
+	
+	\section{Dinámica macroeconómica y condicionantes intertemporales}
+	\label{sec:dinámica-macroeconómica}
+	
+	\subsection{Volatilidad de los precios de los commodities}
+	\label{subsec:volatilidad-precios}
+	
+	La elevada volatilidad de los precios de los commodities se explica en gran medida por la baja elasticidad-precio tanto de la oferta como de la demanda en el corto plazo. La producción de recursos naturales exige inversiones intensivas en capital y tiempo considerable para ajustar la capacidad, lo que hace que la cantidad ofrecida responda muy débilmente a cambios en los precios. Por su parte, la demanda —al tratarse de insumos esenciales o bienes con escasos sustitutos inmediatos— también muestra una respuesta limitada ante variaciones de precio. En este escenario de curvas relativamente inelásticas, los shocks de oferta o de demanda se absorben principalmente a través de ajustes pronunciados en los precios, generando fluctuaciones intensas incluso frente a perturbaciones de magnitud moderada.
+	
+	Desde comienzos del siglo XXI, los países intensivos en recursos naturales han presenciado un marcado aumento en los precios internacionales de los commodities, asociado a un superciclo caracterizado por fases prolongadas de auge y caída que se repiten aproximadamente cada dos o tres décadas \parencite{Fernndez2020}. Sin embargo, desde finales de 2014 dicho superciclo ha entrado en una fase descendente, marcada por una caída generalizada de los precios de exportación en la región \parencite{Agramont-Lechn2024}.
+	
+	Como documenta \textcite{Agramont-Lechn2024}, las exportaciones de Bolivia y Perú replicaron estrechamente la dinámica del superciclo \footnote{En la literatura, los superciclos de commodities se definen como fluctuaciones prolongadas de precios reales con duraciones superiores a dos décadas, asociadas a cambios estructurales en la demanda global, particularmente de economías emergentes de gran tamaño.} de los commodities. Durante la fase de auge (2004--2013), el valor total de las exportaciones se incrementó de forma extraordinaria, con un aumento acumulado cercano al 681\% en Bolivia y al 328\% en Perú, impulsado por productos específicos que registraron expansiones superiores al 1400\% en el transcurso de una década. En contraste, en la etapa posterior al boom (2014--2022), Bolivia experimentó una contracción aproximada del 28\% en sus exportaciones, mientras que Perú mostró únicamente un crecimiento marginal del orden del 6\%.	
+	
+	La evidencia muestra que una mayor volatilidad de precios afecta las decisiones reales de producción e inversión. Cuando la incertidumbre aumenta, el valor de esperar antes de producir o invertir se incrementa, ya que las empresas prefieren posponer decisiones irreversibles hasta contar con mayor información sobre los precios futuros. De forma similar, el almacenamiento adquiere mayor valor al permitir vender el recurso en períodos de precios elevados. Estos comportamientos elevan el costo económico de producir en el presente y generan desplazamientos intertemporales de la producción y la inversión, lo que tiende a intensificar los episodios de auge y contracción, incluso en ausencia de cambios fundamentales en la oferta o la demanda \parencite{Pindyck2004}.
+	
+	\subsection{Ahorro e inversión}
+	\label{subsec:ahorro-inversión}
+	
+	\textcite{Gylfason2006} analizan los efectos indirectos de la dependencia de recursos naturales sobre la inversión. En el contexto de un modelo de crecimiento a la Solow, los autores sostienen que, a medida que aumenta la proporción de capital natural en relación con el capital físico, la acumulación de este último pierde centralidad como motor del crecimiento, lo que se traduce en menores niveles y una menor calidad tanto de la inversión como del ahorro.
+	
+	\textcite{Nili2007} sostiene que los ingresos petroleros pueden desempeñar un papel ambiguo en la relación entre desarrollo financiero e inversión. Si bien pueden constituir una fuente adicional de recursos para las instituciones financieras, también pueden actuar como un sustituto del ahorro privado y generar distorsiones en la economía, al reducir la eficiencia de los proyectos de inversión y limitar el funcionamiento del mecanismo de precios.
+	
+	De acuerdo con la hipótesis del ingreso permanente, los auges de ingresos provenientes de recursos naturales —al ser de carácter transitorio— deberían traducirse en una mayor acumulación de activos externos y, por tanto, en amplios superávits de cuenta corriente en economías abiertas sin fricciones. Sin embargo, en economías en desarrollo ricas en recursos naturales, esta predicción no suele cumplirse. La presencia de escasez de capital, restricciones de acceso al financiamiento externo y significativas necesidades de inversión para el desarrollo induce a que los ingresos extraordinarios se destinen principalmente a inversión pública y privada y a la relajación de restricciones crediticias, más que al ahorro externo. Como resultado, los booms de recursos tienden a asociarse con saldos externos moderados o incluso con déficits transitorios \parencite{Araujo2016}.
+	
+	Los auges de ingresos extractivos tienden a traducirse en aumentos de la inversión pública, pero estos incrementos no generan sistemáticamente ganancias sostenidas de crecimiento debido a la presencia de ineficiencias en la inversión, restricciones de absorción y problemas para financiar los costos recurrentes del capital. Como ilustración empírica, el análisis de países en desarrollo abundantes en recursos muestra que, en ausencia de instituciones fiscales y capacidades adecuadas, los programas de inversión financiados con rentas extractivas suelen producir beneficios transitorios y vulnerabilidad macroeconómica frente a la volatilidad de los precios de los commodities \parencite{Berg2013}.
+	
+	\subsection{Desarrollo financiero}
+	\label{desarrollo-financiero}
+	
+	\textcite{Gylfason2006} sostienen que una mayor dependencia de los recursos naturales tiende a ralentizar el desarrollo de las instituciones financieras. A partir de un análisis empírico para una muestra de 85 países, encuentran que niveles más elevados de dependencia de recursos naturales se asocian con un menor grado de desarrollo financiero, medido mediante el indicador M2/PIB.
+	
+	En economías exportadoras de petróleo, cuando la inversión se financia principalmente a partir de las rentas provenientes de los recursos naturales, en lugar del ahorro de los hogares, la relación entre la inversión y los indicadores de desarrollo financiero tiende a ser débil. En este contexto, los ingresos petroleros adquieren un papel relevante para explicar el comportamiento de la inversión \parencite{Nili2007}. El autor señala además que este patrón puede estar asociado al papel dominante del Estado en estas economías, tanto a nivel general como, de manera particular, en el funcionamiento de las instituciones financieras.
+	
+	La abundancia de recursos naturales tiende a asociarse con un menor nivel y una menor dinámica de desarrollo financiero, al debilitar la apertura comercial, la demanda de reformas financieras, la acumulación de capital social y la inversión productiva. Esta regularidad se ilustra empíricamente en regiones ricas en recursos, donde el desarrollo del sistema financiero avanza más lentamente que en economías con menor dotación extractiva \parencite{Yuxiang2011}.
+	
+	\subsection{Políticas macroeconómicas}	
+	\label{subsec:políticas-macroeconómicas}
+	
+	La dependencia de rentas extractivas tiende a amplificar la volatilidad macroeconómica, en particular la inflación, y a debilitar la efectividad estabilizadora de la política monetaria, especialmente cuando las exportaciones están poco diversificadas. La evidencia sugiere que los regímenes cambiarios juegan un papel relevante en este proceso: esquemas de tipo de cambio fijo suelen asociarse con menores niveles de inestabilidad de precios, mientras que regímenes flexibles tienden a exacerbar la volatilidad inflacionaria en contextos de alta dependencia de commodities. En este marco, la mayor prociclicidad de las políticas macroeconómicas no responde a una elección deliberada de los gobiernos, sino que emerge endógenamente del comportamiento del gasto público y de las restricciones impuestas por la volatilidad de los ingresos provenientes de recursos naturales. Como ilustración empírica, \textcite{Kamar2017} documentan que, en economías basadas en recursos del Medio Oriente —en particular exportadores de petróleo—, la concentración exportadora y los choques de precios internacionales condicionan tanto el desempeño de largo plazo como la dinámica inflacionaria, haciendo que las políticas macroeconómicas operen de manera más procíclica.
+	
+	En economías ricas en recursos naturales, una alta dependencia de las rentas extractivas suele asociarse con una elevada volatilidad macroeconómica, políticas fiscales procíclicas y una débil diversificación productiva, debido a la naturaleza cíclica de los precios de los commodities y a las limitadas vinculaciones de las industrias extractivas con el resto de la economía. Esta regularidad se observa, por ejemplo, en numerosos países africanos, donde los booms y colapsos de precios de recursos han generado ciclos de gasto ineficientes y dificultades persistentes para desarrollar sectores no extractivos, a menos que se adopten instituciones fiscales y estrategias explícitas de diversificación \parencite{Bond2014}.
+	
+	En economías exportadoras de commodities, el gasto público tiende a ser procíclico y a responder positivamente a los auges de ingresos provenientes de recursos naturales, generando episodios de expansión fiscal que inicialmente desplazan al sector no extractivo y solo posteriormente inducen su recuperación. En el largo plazo, sin embargo, los shocks positivos de recursos se asocian con un menor crecimiento del PIB no extractivo, lo que sugiere que la volatilidad fiscal constituye un canal central a través del cual los booms de recursos afectan negativamente el desempeño económico \parencite{Arezki2012}.
+	
+	La literatura reciente muestra que la adopción de políticas fiscales contracíclicas es clave para mitigar la volatilidad macroeconómica en países dependientes de recursos naturales. Analizando episodios de auge de precios de commodities a lo largo del siglo XX, \textcite{Cspedes2014} documentan que, mientras en los ciclos anteriores la política fiscal tendió a ser procíclica —con aumentos del gasto que superaban los ingresos extraordinarios—, en el superciclo de los años 2000 varios países lograron una conducta más contracíclica. Esta mejora se explicó principalmente por una contención del gasto público durante los auges y por el fortalecimiento de instituciones fiscales, como reglas fiscales y marcos presupuestales, que permitieron aislar parcialmente el balance fiscal de las fluctuaciones de los precios de los commodities.
+	
+	La experiencia noruega muestra que una política fiscal bien diseñada puede aislar el gasto público de la volatilidad asociada a los ingresos petroleros. Como documenta el informe oficial \textcite{NOU2015}, Noruega adoptó una regla fiscal que destina los ingresos petroleros al fondo soberano. De este modo, el gasto público no aumenta automáticamente cuando suben los precios del petróleo ni se contrae bruscamente cuando estos caen, lo que permite que el balance fiscal no petrolero se ajuste de forma gradual a lo largo del ciclo económico. Este marco ha contribuido a una política fiscal contracíclica, al suavizar los efectos de choques temporales en los precios del petróleo y preservar la sostenibilidad de las finanzas públicas en el largo plazo.
+	
+	\subsection{Fondos de estabilización soberanos}
+	\label{subsec:fondos-soberanos}
+	
+	Una estrategia de desarrollo basada exclusivamente en el ahorro externo de las rentas extractivas —frecuentemente a través de fondos soberanos— no garantiza una transformación productiva ni un crecimiento sostenido en ausencia de políticas activas de acumulación de capacidades y diversificación productiva. Esta regularidad se ilustra empíricamente en países ricos en recursos, donde el énfasis en la estabilización macroeconómica y el ahorro precautorio ha coexistido con un bajo dinamismo del sector transable y una limitada absorción tecnológica, en contraste con experiencias de industrialización más activas \parencite{Cherif2013}.
+	
+	El Fondo Soberano de Noruega (Government Pension Fund Global) constituye el eje del modelo de gestión de la renta petrolera \footnote{La existencia de fondos soberanos no garantiza por sí misma procesos de diversificación productiva; su efectividad depende de su articulación con políticas industriales, de innovación y de acumulación de capacidades domésticas.}. Como documenta el informe oficial \textcite{NOU2015}, todos los ingresos netos provenientes del petróleo se transfieren al fondo y se invierten en mercados financieros extranjeros, mientras que el presupuesto público no utiliza los ingresos petroleros corrientes, sino únicamente el rendimiento real esperado de largo plazo del fondo, estimado en torno al 3\% anual al momento de la formulación de la regla fiscal. De este modo, una renta volátil y no renovable se convierte en un stock de riqueza financiera de largo plazo, lo que permite preservar el capital para las generaciones futuras y reducir la exposición directa tanto de la economía como del presupuesto público a las fluctuaciones del precio del petróleo.
+	
+	En Chile, los fondos soberanos han sido institucionalizados como mecanismos de estabilización fiscal que permiten enfrentar choques adversos sin depender exclusivamente de endeudamiento. El Economic and Social Stabilization Fund (equivalente al FEES bajo la Ley de Responsabilidad Fiscal) está diseñado para acumular recursos durante períodos de superávits y financiar déficits fiscales en tiempos de bajo crecimiento o ingresos, reduciendo así la exposición de las finanzas públicas a la volatilidad de los ingresos de commodities \parencite{OECD2020}. Esta característica institucional fue un elemento relevante en la respuesta fiscal ante la crisis del COVID-19, permitiendo el uso de reservas acumuladas para financiar parte de las medidas de emergencia sin recurrir exclusivamente a mayores niveles de deuda pública. 
+	
+	La evidencia comparada sobre los fondos soberanos en Arabia Saudita, Emiratos Árabes Unidos y Qatar muestra que estos instrumentos cumplen una doble función en economías dependientes de hidrocarburos. Por un lado, permiten transformar ingresos petroleros volátiles en activos financieros diversificados, contribuyendo a la estabilización macroeconómica y a la transición hacia economías más diversificadas. Por otro, la literatura destaca que estos fondos no son actores puramente financieros, sino que, dadas sus estrechas vinculaciones institucionales con los gobiernos, amplían el margen de acción económica y estratégica de los Estados, al canalizar inversiones hacia sectores considerados clave tanto a nivel doméstico como internacional \parencite{Roll2026}
+	
+	\subsection{Sobreendeudamiento}
+	\label{subsec:sobreendeudamiento}
+	
+	Una interpretación influyente sostiene que el bajo crecimiento observado en varios exportadores de commodities no proviene necesariamente de la abundancia de recursos en sí, sino de un mecanismo de \emph{debt overhang} asociado a los ciclos de precios. \textcite{Manzano2001} muestran que la relación negativa entre exportaciones primarias y crecimiento identificada en la literatura previa no es robusta, ya que depende del tipo de ejercicio empírico utilizado. En particular, cuando se controla por características estructurales propias de cada país mediante estimaciones en panel, el supuesto “efecto negativo” de los recursos pierde fuerza o desaparece. A partir de ello, los autores proponen una explicación alternativa: durante los años setenta, los altos precios de los commodities relajaron las restricciones de financiamiento y alentaron un fuerte endeudamiento externo bajo la expectativa de ingresos persistentes, mientras que la caída de precios en los ochenta derivó en crisis de deuda, ajustes macroeconómicos severos y bajo crecimiento. En línea con este mecanismo, el efecto negativo se concentra en el periodo 1980--1990 y se debilita al introducir medidas explícitas de restricción crediticia, lo que sugiere que la variable de recursos estaba capturando principalmente el sobreendeudamiento acumulado.
+	
+	\section{Capacidades, innovación y transición estructural}
+	\label{sec:capacidades-innovación}
+	
+	\subsection{Capital humano e innovación}
+	\label{subsec:capital-humano-innovación}
+	
+	La literatura ha destacado que el impacto de los recursos naturales sobre el crecimiento económico depende, en parte, de su interacción con el capital humano. Según \textcite{Gylfason2001}, la asociación negativa entre recursos naturales y crecimiento se relaciona con menores incentivos a la inversión en educación en países ricos en recursos. En contraste, \textcite{Bravo-Ortega2005} señalan que niveles elevados de capital humano pueden atenuar estos efectos, permitiendo que la abundancia de recursos naturales se traduzca en mejores resultados económicos \footnote{Estos efectos operan principalmente a través de canales indirectos, como la asignación sectorial del talento, los incentivos a la inversión en I+D y la estructura de retornos relativos entre actividades extractivas y no extractivas.}.
+	
+	En economías dependientes de recursos naturales, las rentas extractivas no tienen un efecto unívocamente adverso sobre el desarrollo del sector privado y, en presencia de condiciones complementarias como capital humano, acceso al crédito y calidad institucional, pueden contribuir a su expansión y a una convergencia más rápida hacia niveles sostenibles de desarrollo. Esta regularidad se observa, por ejemplo, en países exportadores de petróleo y gas, donde las rentas de recursos se asocian con una mayor velocidad de ajuste del desarrollo del sector privado \textcite{Muhamad2020}.
+	
+	Una mayor dependencia extractiva puede asociarse con desempeños más débiles en las dimensiones cualitativas del desarrollo económico, no necesariamente por un desplazamiento directo de la producción manufacturera, sino a través de canales indirectos que afectan sus determinantes fundamentales. En particular, la asignación preferente de recursos hacia el sector extractivo tiende a desplazar la inversión en innovación y a limitar la acumulación y atracción de capital humano, factores clave para el upgrading productivo y el desarrollo manufacturero de mayor complejidad. Esta regularidad se ilustra, por ejemplo, en evidencia subnacional para China, donde la dependencia de recursos se vincula negativamente con el desarrollo económico de alta calidad mediante un mecanismo de crowding--out sobre la innovación y el talento \textcite{Du2020}.
+	
+	La especialización extractiva tiende a generar estructuras productivas poco diversificadas y a ejercer efectos de desplazamiento sobre actividades de mayor valor agregado, operando a través de canales como la enfermedad holandesa, el crowding--out de la inversión en innovación, capital humano, y el debilitamiento institucional, lo que limita el crecimiento sostenible. A nivel subnacional, \textcite{Lu2019} documentan este patrón para ciudades intensivas en recursos en China.
+	
+	Una regularidad empírica recurrente en economías altamente dependientes de recursos naturales es que un bajo nivel y, especialmente, una baja eficiencia en los sistemas nacionales de innovación se asocian con un desempeño económico débil y una mayor exposición a dinámicas propias de la maldición de los recursos. La evidencia sugiere que, aun en presencia de abundantes rentas extractivas, la falta de innovación eficiente limita la capacidad de estas economías para transformar recursos en crecimiento sostenido, fortalecimiento institucional y desarrollo humano, configurando trayectorias de estancamiento y vulnerabilidad. Como ilustración empírica, \textcite{Namazi2018} muestran que los países con alta dependencia exportadora de recursos y bajos niveles de eficiencia innovadora tienden a concentrarse en una “zona de dificultad”, caracterizada por escasa capacidad de mejora tecnológica y bajo desempeño económico relativo.
+	
+	Evidencia a nivel subnacional en China ilustra empíricamente esta regularidad, mostrando que la dependencia productiva en sectores basados en recursos naturales se asocia con trayectorias de crecimiento menos sostenibles \parencite{Wu2018}
+	
+	\subsection{Diversificación económica}
+	\label{subsec:diversificación-económica}
+	
+	La discusión sobre los encadenamientos productivos asociados a los commodities es central para el debate sobre las estrategias de diversificación en economías dependientes de recursos naturales. Si bien la diversificación económica es ampliamente reconocida como un objetivo de política fundamental, \textcite{Coniglio2018} señalan que existe un desacuerdo sustantivo respecto de las trayectorias más adecuadas para alcanzarla. En este contexto, la literatura identifica tres grandes vías de diversificación: la diversificación vertical, orientada a desarrollar actividades ``aguas arriba'' y ``aguas abajo'' del sector extractivo; la diversificación horizontal hacia nuevos sectores productivos con distintos grados de proximidad tecnológica y productiva; y la diversificación financiera, basada en la inversión de las rentas de los recursos naturales para generar ingresos alternativos \parencite{Lebdioui2019}.
+	
+	En este sentido, \textcite{Morris2013} argumentan que las economías ricas en recursos y de bajos ingresos enfrentan limitaciones estructurales que dificultan la replicación de trayectorias de diversificación basadas en industrias no relacionadas. Por ello, sugieren que una estrategia más realista consiste en profundizar los encadenamientos productivos en torno a los sectores extractivos. En la misma línea, \textcite{Lebdioui2019} sostienen que ``resource-rich low-income economies should follow a diversification path that focuses on production linkages around their commodities rather than attempt to build a competitive advantage in unrelated industries'', lo que refuerza la idea de que la diversificación vertical basada en encadenamientos productivos constituye una estrategia más realista que la diversificación hacia sectores no relacionados.
+	
+	No obstante, la literatura advierte que la diversificación a lo largo de la cadena de valor de los commodities no está exenta de riesgos. En particular, la expansión de encadenamientos productivos vinculados al sector extractivo puede perpetuar la dependencia de la estructura productiva respecto de la volatilidad de los precios internacionales, transmitiendo los choques del sector primario hacia actividades industriales y de servicios relacionadas. Además, la viabilidad de estos encadenamientos depende de la naturaleza exhaustible de los recursos y de la intensidad de capital del sector extractivo, lo que limita su capacidad para sostener el empleo y el crecimiento de largo plazo. En este sentido, \textcite{Lebdioui2019} subrayan que las estrategias de diversificación basadas exclusivamente en commodities pueden resultar insuficientes si no se complementan con el desarrollo de capacidades productivas en sectores no extractivos, especialmente en economías donde los recursos naturales son volátiles, agotables y poco intensivos en trabajo.
+	
+	Una regularidad empírica recurrente en economías dependientes de recursos naturales es que los intentos de diversificación productiva impulsados por políticas públicas suelen enfrentar altas tasas de fracaso, especialmente cuando se basan en estrategias verticales de selección de sectores y se implementan en contextos de capacidades estatales limitadas. La evidencia sugiere que la diversificación es más probable cuando las políticas refuerzan el capital humano, la innovación, la disciplina de mercado y los encadenamientos productivos, en lugar de promover sectores “ganadores” susceptibles de captura de rentas y motivaciones políticas. Como ilustración empírica, \textcite{Howie2018} documenta que, mientras la mayoría de economías dependientes de recursos no logra diversificarse de manera sostenida, el caso de Alberta, Canada, muestra que estrategias orientadas a fortalecer capacidades horizontales y a diversificar dentro de ventajas comparativas existentes pueden producir mejores resultados, aunque no sean plenamente transferibles a contextos institucionales distintos.
+	
+	Los efectos adversos asociados a la abundancia de recursos naturales surgen cuando los shocks de ingresos del recurso interactúan con una estructura productiva poco diversificada, mientras que la presencia de un sector transable no asociado a recursos permite absorber dichos shocks con menor volatilidad y reduce la probabilidad de impactos negativos sobre el desempeño macroeconómico \parencite{Hausmann2002}.
+	
+	La combinación de alta dependencia de un sector extractivo dominante y una fuerte presencia del sector público tiende a limitar la profundidad de los eslabonamientos productivos (o encadenamientos productivos domésticos), entendida como la densidad y extensión de las relaciones de insumo--producto entre sectores nacionales. Ello suele dar lugar a estructuras productivas con fuertes eslabonamientos hacia adelante, en las que el sector extractivo provee insumos clave al resto de la economía, pero con vínculos hacia atrás débiles, caracterizados por una reducida demanda de insumos intermedios domésticos y una elevada dependencia de importaciones, lo que dificulta los procesos de diversificación y el desarrollo del sector privado. Esta regularidad se ilustra, por ejemplo, en economías petroleras donde los sectores extractivos abastecen a otros sectores sin generar una base amplia de proveedores locales, como documenta el caso de Kuwait \parencite{Gelan2021}.
+	
+	Desde una perspectiva estructuralista, \textcite{Chang2007} enfatizan que la utilización estratégica de las rentas provenientes de los recursos naturales es un componente central para sostener procesos de desarrollo de largo plazo, en la medida en que dichas rentas se orienten a promover la diversificación hacia sectores productivos no vinculados directamente a la base extractiva y caracterizados por un mayor dinamismo tecnológico. En este enfoque, la acumulación de capacidades productivas en industrias tecnológicamente avanzadas constituye un elemento clave para reducir la dependencia de los recursos naturales y fortalecer el crecimiento sostenible.	
+	
+	La experiencia de Inglaterra durante la Revolución Industrial constituye un antecedente histórico temprano de diversificación económica inducida por recursos naturales. Como argumenta \textcite{Wrigley2013}, las economías preindustriales estaban sujetas a las restricciones propias de las llamadas economías orgánicas, en las cuales la disponibilidad de energía —limitada al ciclo anual de la fotosíntesis— imponía un techo estructural al crecimiento. La explotación masiva del carbón permitió a Inglaterra superar este límite al incorporar una fuente de energía acumulada a lo largo de escalas geológicas, ampliando de forma decisiva la disponibilidad de energía térmica y mecánica. Este cambio energético no solo redujo costos productivos, sino que hizo posible la expansión sostenida de la manufactura, la metalurgia, el transporte y la mecanización, sentando las bases para la emergencia de nuevos sectores industriales y una estructura productiva crecientemente diversificada. En este sentido, el carbón no operó como un enclave extractivo, sino como un insumo estratégico que habilitó una transición estructural desde una economía orgánica hacia una economía industrial capaz de sostener crecimiento y diversificación de largo plazo \parencite{Wrigley2013}.
+	
+	La industrialización estadounidense de finales del siglo XIX se apoyó de manera decisiva en el aprovechamiento intensivo de recursos naturales —en particular el carbón, el hierro y otros minerales industriales—, pero no como resultado mecánico de una dotación geológica excepcional, sino de un proceso endógeno de construcción de abundancia. Como argumentan \textcite{David1997}, Estados Unidos se convirtió entre 1870 y 1910 en el principal productor mundial de minerales industriales mediante una combinación de exploración sistemática, avances tecnológicos en extracción y procesamiento, expansión de infraestructuras de transporte y un marco institucional que incentivó la búsqueda y explotación de recursos. En este contexto, el carbón desempeñó un papel central como insumo energético que permitió la expansión de la manufactura a gran escala y el surgimiento de rendimientos crecientes, reforzando encadenamientos productivos entre minería, siderurgia, transporte y manufacturas. La experiencia estadounidense sugiere así que los recursos naturales pueden actuar como un factor dinámico de industrialización cuando su explotación se integra en un proceso acumulativo de aprendizaje, inversión y desarrollo institucional, desafiando la visión de que la abundancia de recursos constituye un obstáculo estructural para la diversificación productiva.
+	
+	En el contexto de economías altamente dependientes de los hidrocarburos, Arabia Saudita ha articulado una estrategia explícita de diversificación productiva a través de Saudi Vision 2030, orientada a reducir la vulnerabilidad macroeconómica asociada a la volatilidad del petróleo. Utilizando un enfoque insumo–producto y medidas de diversificación sectorial, \textcite{Havrlant2021} muestran que la estrategia saudí busca ampliar la base productiva mediante el fortalecimiento de la manufactura de mayor valor agregado, la expansión de servicios avanzados y el desarrollo de encadenamientos aguas abajo del sector energético. Sus resultados sugieren que, de implementarse plenamente, estas transformaciones aumentarían la diversidad sectorial, el contenido local y la resiliencia frente a choques externos, sin eliminar el papel central del sector energético, sino reconfigurándolo como plataforma para actividades de mayor valor agregado. 
+	
+	\section{Síntesis del marco teórico y delimitación analítica}
+	\label{sec:síntesis-marco-teórico}
+	
+	El recorrido teórico desarrollado en las secciones precedentes permite identificar un conjunto de enfoques y mecanismos a través de los cuales la dependencia de recursos naturales ha sido analizada en la literatura económica. Estas contribuciones abarcan dimensiones productivas, macroeconómicas, institucionales y vinculadas a la acumulación de capacidades, poniendo de manifiesto que la persistencia o superación de la especialización extractiva responde a la interacción de múltiples factores estructurales, más que a un determinante único.
+	
+	A partir de esta revisión, la presente investigación adopta como eje analítico central la transición estructural productiva en economías dependientes de recursos naturales, entendida como el proceso mediante el cual dichas economías reducen su dependencia de actividades extractivas dominantes y avanzan hacia estructuras productivas más diversificadas, con mayor densidad de encadenamientos y capacidades endógenas. En este sentido, el foco del análisis no se orienta a evaluar si la abundancia de recursos naturales constituye una ventaja o desventaja en términos de crecimiento agregado, sino a identificar las condiciones bajo las cuales las rentas extractivas se transforman —o no— en procesos sostenidos de diversificación productiva y acumulación de capacidades.
+	
+	Los enfoques revisados se incorporan de manera jerárquica en función de este objetivo. Los mecanismos productivos, como la enfermedad holandesa, la formación de enclaves y la debilidad de los encadenamientos, constituyen el núcleo explicativo del análisis. Los arreglos institucionales, la gobernanza de las rentas y las políticas macroeconómicas se consideran condiciones que modulan estos mecanismos, mientras que la volatilidad de los precios de los commodities y las restricciones intertemporales operan como límites estructurales al proceso de transición. Finalmente, la literatura sobre capital humano e innovación permite vincular la estructura productiva con la acumulación de capacidades, delimitando el marco conceptual desde el cual se derivan las preguntas, objetivos e hipótesis que orientan el análisis empírico de la tesis.
+		
+	% =====================================================
+	% METODOLOGÍA Y TÉCNICAS A UTILIZAR
+	% =====================================================
+	
+	\chapter{Metodología y técnicas a utilizar}
+	\label{chap:metodología}
+	
+	\section{Tipo de estudio y enfoque}
+	\label{sec:tipo-de-estudio}
+	
+	El estudio adopta un enfoque \emph{cuantitativo} con alcance \emph{explicativo} y componente \emph{correlacional}, orientado a contrastar empíricamente las hipótesis formuladas sobre la transición estructural en economías dependientes de recursos naturales. El diseño de investigación es \emph{no experimental} y \emph{longitudinal} (panel), y se apoya en el uso de datos secundarios históricos para un conjunto de países en el período 1980--2022 El análisis se realiza para el período 1980–2022 \footnote{El período 1980--2022 se selecciona por tres razones principales. En primer lugar, permite capturar la etapa de mayor integración financiera internacional y liberalización comercial posterior a los años ochenta, que redefine las condiciones macroeconómicas de las economías dependientes de recursos. En segundo lugar, incluye múltiples ciclos de precios de commodities —incluyendo el superciclo de los años 2000 y su fase descendente posterior a 2014—, lo que permite analizar dinámicas de auge y ajuste. Finalmente, el horizonte temporal amplio facilita la estimación en panel con suficiente variabilidad intertemporal para identificar efectos estructurales de mediano y largo plazo.}.
+	
+	Dado el carácter observacional del diseño y la posible endogeneidad entre algunas variables centrales (por ejemplo, dependencia de recursos, calidad institucional y diversificación), los resultados se interpretarán como asociaciones condicionales robustas, más que como estimaciones causales estrictas.
+	
+	La estrategia metodológica adoptada se deriva directamente de los mecanismos productivos, institucionales y macroeconómicos discutidos en el \autoref{chap:marco-teórico}, y tiene como objetivo contrastar empíricamente las hipótesis formuladas en el \autoref{chap:hipótesis}.
+	
+	\section{Unidad de análisis, población y muestra}
+	\label{sec:unidad-análisis}
+	
+	La unidad de análisis es el \emph{país--año}. La población de interés comprende economías con distintos grados de dependencia de recursos naturales. La muestra incluirá países con disponibilidad consistente de información anual sobre dependencia extractiva, estructura productiva/diversificación, variables macroeconómicas, indicadores institucionales y proxies de capacidades (capital humano e innovación) en el período de análisis. 
+	
+	Se procurará incluir economías con distintos niveles de ingreso y especialización productiva, a fin de asegurar variabilidad estructural en la muestra. La selección final se definirá en función de criterios de disponibilidad, calidad y comparabilidad internacional de los datos.
+	
+	\section{Criterios de selección de la muestra}
+	\label{sec:criterios-selección-muestra}
+	
+	La selección de la muestra se fundamenta en la delimitación explícita del universo de análisis a economías caracterizadas por una elevada dependencia de recursos naturales, entendida como una participación estructuralmente relevante de actividades extractivas en la producción, las exportaciones o el recaudo fiscal. La unidad de análisis es el país--año y el período de estudio comprende los años 1980--2022.
+	
+	La muestra se restringirá a países que, de acuerdo con la literatura especializada, han presentado trayectorias de desarrollo fuertemente condicionadas por la explotación de recursos naturales, incluyendo exportadores de hidrocarburos y minerales metálicos. En términos empíricos, esta selección se respaldará mediante indicadores de participación promedio de las rentas de recursos naturales en el PIB ($RES\_RENT$) y de exportaciones primarias o extractivas en el total de exportaciones ($RES\_EXP$), utilizados como criterios de validación de la pertenencia al grupo de economías dependientes de recursos.
+	
+	Entre los casos representativos que se espera incluir se encuentran economías exportadoras de hidrocarburos, tales como Arabia Saudita, Qatar, Emiratos Árabes Unidos, Kuwait, Noruega, Venezuela, Nigeria y Rusia, así como economías intensivas en recursos minerales, entre ellas Chile, Australia, Botsuana, Perú, Zambia, Mongolia y Sudáfrica. Asimismo, se considerarán otros países con perfiles extractivos comparables, sujetos a la disponibilidad consistente de información para las variables centrales del análisis.
+	
+	En conjunto, se espera conformar una muestra abarcando economías de distintos niveles de ingreso y regiones geográficas, con el fin de capturar heterogeneidad en las trayectorias productivas, institucionales y macroeconómicas dentro del grupo de economías dependientes de recursos naturales.
+	
+	Se excluirán microestados y economías con poblaciones reducidas cuando la disponibilidad de datos sea limitada o presente discontinuidades severas que impidan la construcción de series comparables. Dada la cobertura desigual de las fuentes estadísticas internacionales, el panel adoptará principalmente una estructura no balanceada, permitiendo aprovechar el mayor número posible de observaciones a lo largo del período de análisis.
+	
+	Para la identificación de economías dependientes de recursos naturales se adopta el criterio utilizado por \textcite{Anne2021} en la literatura empírica sobre dependencia de recursos. En particular, se considera que un país presenta dependencia de recursos naturales cuando la participación de las exportaciones de commodities supera el 40\% del total de exportaciones de bienes. Este umbral se utiliza como indicador de alta especialización externa en recursos naturales. Adicionalmente, con el fin de incorporar la dimensión fiscal de la dependencia, también se incluyen aquellos países en los cuales los ingresos fiscales provenientes de recursos naturales superan el 20\% de los ingresos totales del gobierno. Estos criterios permiten capturar dos mecanismos a través de los cuales los recursos naturales pueden influir en la estructura económica: la dependencia externa asociada a la especialización exportadora y la dependencia fiscal vinculada a la importancia de las rentas de recursos naturales en las finanzas públicas.
+	
+	Con el fin de caracterizar la estructura socioeconómica de la muestra, los países identificados como economías dependientes se clasifican según el nivel de ingreso de acuerdo con la tipología del Banco Mundial: países de ingreso bajo (Low Income Countries, LICs), ingreso medio-bajo (Lower-Middle Income Countries, LMICs), ingreso medio-alto (Upper-Middle Income Countries, UMICs) y países de ingreso alto (High Income Countries, HICs), siguiendo el enfoque utilizado por \textcite{Anne2021}.
+	
+	\section{Heterogeneidad estructural del extractivismo}
+	\label{sec:heterogeneidad-estructural}
+	
+	Aunque la muestra se restringe a economías dependientes de recursos naturales no renovables, se reconoce que este conjunto de países presenta diferencias estructurales asociadas al tipo de recurso predominante —principalmente hidrocarburos o minería— y a la forma de inserción de estos sectores en la estructura productiva. Estas diferencias reflejan trayectorias históricas e institucionales diversas dentro de las economías extractivas.
+	
+	No obstante, el objetivo del presente estudio no es comparar explícitamente subtipos de extractivismo, sino identificar regularidades generales en las trayectorias de transición productiva dentro de este conjunto de economías. En consecuencia, el análisis econométrico se realiza sobre la muestra completa de países dependientes de recursos, preservando la comparabilidad internacional y el tamaño muestral.
+	
+	Con fines descriptivos, y para caracterizar la heterogeneidad sectorial de la muestra, los países se clasifican según el tipo de recurso predominante en su estructura exportadora. En particular, se distinguen economías dependientes de energía (hidrocarburos) y economías dependientes de minería.
+	
+	\section{Variables del estudio y definición operacional}
+	\label{subsec:variables-estudio}
+	
+	La \autoref{tab:variables} resume la descripción, definición operacional y fuentes de las variables consideradas en el análisis empírico. La variable dependiente principal corresponde a una medida de diversificación productiva ($DIV_{it}$), operacionalizada mediante índices de concentración de exportaciones o medidas de complejidad económica. Como variables dependientes alternativas se considerarán indicadores de acumulación de capacidades, tales como capital humano ($HUMCAP_{it}$) e innovación ($INNOV_{it}$), con fines de análisis complementario y pruebas de robustez.
+	
+	La variable explicativa central es la dependencia de recursos naturales ($RES_{it}$), medida a través de la participación de rentas de recursos naturales en el PIB y, alternativamente, la participación de exportaciones primarias en el total exportado. Las condiciones institucionales ($INST_{it}$) se incorporan como variable moderadora, con el objetivo de evaluar si la calidad institucional condiciona el efecto de la dependencia de recursos sobre la transición estructural. Asimismo, se incluyen variables asociadas a mecanismos productivos y restricciones macroeconómicas, tales como el tipo de cambio real ($RER_{it}$) como proxy de enfermedad holandesa, la volatilidad de precios de commodities ($VOL_{it}$) y variables fiscales ($FISC_{it}$), que capturan restricciones intertemporales. 
+	
+	Finalmente, se incorporan variables de control macroeconómico, incluyendo el PIB per cápita ($GDPPC_{it}$), con el fin de aislar efectos asociados al nivel de desarrollo. La selección definitiva de indicadores responde a criterios de comparabilidad internacional, consistencia temporal y disponibilidad para el período 1980--2022.
+
+	\renewcommand{\arraystretch}{1.2}
+	\setlength{\tabcolsep}{4pt}
+	
+	\begin{longtable}{|
+			>{\raggedright\arraybackslash}p{0.22\textwidth}|
+			>{\centering\arraybackslash\ttfamily}p{0.10\textwidth}|
+			>{\raggedright\arraybackslash}p{0.14\textwidth}|
+			>{\raggedright\arraybackslash}p{0.34\textwidth}|
+			>{\raggedright\arraybackslash}p{0.15\textwidth}|}
+		\caption{Descripción y definición operacional de las variables}
+		\label{tab:variables} \\
+		\hline
+		\textbf{Variable}
+		& \multicolumn{1}{|>{\centering\arraybackslash\bfseries}p{0.10\textwidth}|}{Símbolo}
+		& \textbf{Tipo}
+		& \textbf{Definición operacional}
+		& \textbf{Fuente} \\
+		\hline
+		\endfirsthead
+		
+		\multicolumn{5}{c}{{\tablename\ \thetable{} -- continuación}} \\
+		\hline
+		\textbf{Variable}
+		& \multicolumn{1}{|>{\centering\arraybackslash\bfseries}p{0.10\textwidth}|}{Símbolo}
+		& \textbf{Tipo}
+		& \textbf{Definición operacional}
+		& \textbf{Fuente} \\
+		\hline
+		\endhead
+		
+		\hline
+		\multicolumn{5}{r}{\textit{Continúa en la página siguiente}} \\
+		\endfoot
+		
+		\hline
+		\multicolumn{5}{p{\textwidth}}{%
+			\textit{Fuente: Elaboración propia con base en fuentes internacionales comparables.}
+		} \\[0.3em]
+		\multicolumn{5}{p{\textwidth}}{%
+			\textit{Nota: Las variables podrán ser utilizadas en niveles o transformaciones logarítmicas según la especificación econométrica. La selección final de indicadores dependerá de la disponibilidad y consistencia temporal de los datos.}
+		} \\
+		\endlastfoot
+		
+		Diversificación productiva 
+		& DIV 
+		& Dependiente 
+		& Índice de concentración de exportaciones o medidas de complejidad económica; menor valor indica mayor diversificación. Se utilizará en niveles o logaritmos según especificación. 
+		& Banco Mundial / Atlas of Economic Complexity \\
+		\hline
+		
+		Acumulación de capacidades (capital humano)
+		& HUMCAP 
+		& Dependiente alternativa 
+		& Índice de capital humano o años promedio de escolaridad; proxy de capacidades productivas endógenas. 
+		& Barro--Lee / Banco Mundial \\
+		\hline
+		
+		Innovación
+		& INNOV 
+		& Dependiente alternativa 
+		& Gasto en I+D como porcentaje del PIB o número de patentes per cápita; proxy de upgrading productivo. 
+		& UNESCO / WIPO \\
+		\hline
+		
+		Rentas de recursos naturales (\% del PIB)
+		& RES\_RENT 
+		& Explicativa principal 
+		& Participación de rentas de recursos naturales en el PIB; mide grado de dependencia extractiva. 
+		& Banco Mundial \\
+		\hline
+		
+		Exportaciones de recursos / exportaciones totales
+		& RES\_EXP 
+		& Explicativa alternativa 
+		& Participación de exportaciones primarias o extractivas en exportaciones totales; proxy alternativa de dependencia. 
+		& UN Comtrade / Banco Mundial \\
+		\hline
+		
+		Calidad institucional
+		& INST 
+		& Moderadora 
+		& Indicadores agregados de estado de derecho, control de la corrupción y efectividad gubernamental; se utilizará índice normalizado. 
+		& Worldwide Governance Indicators \\
+		\hline
+		
+		Volatilidad de precios de commodities / términos de intercambio
+		& VOL\_TOT 
+		& Restricción macroeconómica 
+		& Desvío estándar móvil de precios relevantes o términos de intercambio (ventana de 3--5 años). 
+		& Banco Mundial / IMF \\
+		\hline
+		
+		Tipo de cambio real
+		& RER 
+		& Mecanismo productivo 
+		& Índice de tipo de cambio real; proxy de competitividad externa y enfermedad holandesa. 
+		& Banco Mundial \\
+		\hline
+		
+		PIB per cápita (PPA)
+		& GDPPC 
+		& Control 
+		& PIB per cápita en PPA (base 2021=100), utilizado en logaritmos. 
+		& Banco Mundial \\
+		\hline
+		
+		Saldo fiscal / deuda pública (\% del PIB)
+		& FISC 
+		& Control macroeconómico 
+		& Saldo fiscal o deuda pública como porcentaje del PIB; proxy de restricción intertemporal. 
+		& IMF / Banco Mundial \\
+		\hline
+		
+	\end{longtable}
+	
+	\section{Fuentes y técnicas de recolección de datos}
+	\label{sec:recolección-datos}
+	
+	Se trabajará exclusivamente con datos secundarios, es decir, información estadística previamente recopilada por organismos internacionales y utilizada con fines de análisis empírico comparativo. La recolección consistirá en la construcción de una base de panel país--año mediante la integración y armonización de series, incluyendo procedimientos de validación (consistencia temporal, detección de quiebres y valores atípicos) y documentación de transformaciones (deflactación cuando corresponda, normalización y utilización de rezagos).
+	
+	\section{Especificación del modelo econométrico}
+	\label{subsec:modelo-econométrico}
+	
+	La especificación econométrica base adoptada se presenta en la \autoref{eq:modelo_base}, la especificación econométrica presentada a continuación permite contrastar empíricamente las hipótesis formuladas en el ~\autoref{chap:hipótesis}:
+	
+	\begin{equation}
+		\label{eq:modelo_base}
+		\begin{split}
+			Y_{it} = \alpha 
+			&+ \beta_1 RES_{it} 
+			+ \beta_2 INST_{it} 
+			+ \beta_3 (RES_{it} \times INST_{it}) \\
+			&+ \beta_4 VOL_{it} 
+			+ \beta_5 RER_{it} 
+			+ \beta_6 HUMCAP_{it} \\
+			&+ \beta_7 INNOV_{it} 
+			+ \beta_8 GDPPC_{it} 
+			+ \beta_9 FISC_{it} \\
+			&+ \mu_i + \lambda_t + \varepsilon_{it}
+		\end{split}
+	\end{equation}
+	
+	La \autoref{tab:signo} presenta las expectativas teóricas de signo para las variables incluidas en la especificación econométrica.
+	
+	\begin{table}[H]
+		\centering
+		\caption{Expectativas teóricas de signo}
+		\label{tab:signo}
+		\begin{tabular}{|l|c|p{7cm}|}
+			\hline
+			\textbf{Variable} & \textbf{Signo esperado} & \textbf{Justificación teórica} \\
+			\hline
+			RES & (-) & Mayor dependencia extractiva se asocia con menor diversificación (enfermedad holandesa / enclaves). \\
+			\hline
+			INST & (+) & Mejor calidad institucional facilita transformación productiva. \\
+			\hline
+			RES × INST & (+) & La calidad institucional mitiga el efecto negativo de la dependencia. \\
+			\hline
+			VOL & (-) & Mayor volatilidad reduce inversión y acumulación de capacidades. \\
+			\hline
+			RER (apreciación) & (-) & Apreciación real reduce competitividad manufacturera. \\
+			\hline
+			HUMCAP & (+) & Mayor capital humano favorece diversificación. \\
+			\hline
+			INNOV & (+) & Innovación impulsa upgrading productivo. \\
+			\hline
+			GDPPC & (+) & Mayor nivel de desarrollo facilita complejidad productiva. \\
+			\hline
+			FISC (prociclicidad) & (-) & Restricciones fiscales limitan acumulación intertemporal. \\
+			\hline
+		\end{tabular}
+		\begin{minipage}{0.9\textwidth}
+			\textit{Nota: Los signos esperados corresponden a las hipótesis teóricas planteadas y podrán variar según la especificación econométrica y la variable dependiente utilizada.}
+		\end{minipage}
+	\end{table}
+	
+	Dado que la disponibilidad temporal de algunas variables puede variar entre países y fuentes, las estimaciones se realizarán sobre un panel potencialmente desbalanceado, lo cual es consistente con la práctica habitual en estudios comparativos internacionales y no compromete la consistencia de los estimadores bajo supuestos estándar. Se estimarán modelos de datos de panel que permitan controlar por heterogeneidad no observada a nivel país y efectos comunes en el tiempo, evaluando la pertinencia de especificaciones con efectos fijos o aleatorios según criterios econométricos estándar. En especificaciones alternativas se considerará la inclusión de términos rezagados cuando resulte conceptualmente pertinente, con el fin de capturar persistencia temporal en las trayectorias estructurales.
+	
+	\section{Procedimientos de análisis econométrico}
+	\label{subsec:análisis-econométrico}
+	
+	El análisis empírico se desarrollará en cuatro etapas complementarias:
+	
+	\begin{enumerate}
+		\item \textbf{Descripción y caracterización de trayectorias:} elaboración de estadísticos descriptivos, comparación entre grupos de países según grado de dependencia de recursos y patrones de diversificación, y análisis exploratorio de correlaciones, con el objetivo de identificar regularidades empíricas preliminares.
+		
+		\item \textbf{Estimación en datos de panel:} estimación de modelos econométricos para panel país--año con efectos fijos y, cuando resulte pertinente, efectos aleatorios, como línea de base del análisis, incorporando controles macroeconómicos e institucionales y controlando por heterogeneidad no observada.
+		
+		\item \textbf{Dinámica e interacciones:} inclusión de términos de interacción (por ejemplo, dependencia de recursos $\times$ calidad institucional; dependencia de recursos $\times$ volatilidad) y especificaciones con variables rezagadas cuando sea apropiado, con el fin de capturar persistencia temporal y mecanismos condicionales en las trayectorias estructurales.
+		
+		\item \textbf{Robustez y sensibilidad:} realización de estimaciones alternativas, análisis por submuestras, cambios de proxies de dependencia y diversificación, pruebas de sensibilidad a la inclusión de rezagos y evaluación del impacto de datos faltantes.
+	\end{enumerate}
+	
+	En conjunto, estos procedimientos permiten contrastar empíricamente las hipótesis del trabajo y analizar asociaciones estructurales robustas entre dependencia de recursos, condiciones institucionales y desempeño productivo, reconociendo las limitaciones inherentes a un diseño observacional.
+	
+	
+	% =====================================================
+	% CRONOGRAMA
+	% =====================================================
+	
+	\chapter{Cronograma}
+	\label{chap:cronograma}
+	
+	La \autoref{tab:cronograma} resume el cronograma tentativo de las actividades previstas para el desarrollo del trabajo durante el año 2026, en coherencia con las etapas metodológicas descritas en el \autoref{chap:metodología}.
+	
+	\begin{longtable}{|p{6.2cm}|*{12}{c|}}
+		\caption{Cronograma tentativo de las actividades a realizar}
+		\label{tab:cronograma} \\
+		\hline
+		\textbf{Actividad} & \multicolumn{12}{c|}{\textbf{Meses del año 2026}} \\
+		\hline
+		& 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 \\
+		\hline
+		\endfirsthead
+		
+		\multicolumn{13}{c}%
+		{{\tablename\ \thetable{} -- continuación}} \\
+		\hline
+		\textbf{Actividad} & \multicolumn{12}{c|}{\textbf{Meses del año 2026}} \\
+		\hline
+		& 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 \\
+		\hline
+		\endhead
+		
+		\hline
+		\multicolumn{13}{r}{\textit{Continúa en la página siguiente}} \\
+		\endfoot
+		
+		\hline
+		\endlastfoot
+		
+		\textbf{1.} Revisión exploratoria de literatura y organización bibliográfica (artículos académicos, Mendeley)
+		& \cellcolor{gray!40} & \cellcolor{gray!40} &  &  &  &  &  &  &  &  &  &  \\
+		\cline{2-13}
+		
+		\textbf{2.} Ajustes del marco teórico y revisión dirigida de literatura
+		&  & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} &  &  &  &  &  &  &  &  \\
+		\cline{2-13}
+		
+		\textbf{3.} Construcción, extracción y limpieza de la base de datos
+		&  & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} &  &  &  &  &  &  &  &  \\
+		\cline{2-13}
+		
+		\textbf{4.} Especificación formal del modelo econométrico y definición final de variables
+		&  &  & \cellcolor{gray!40} & \cellcolor{gray!40} &  &  &  &  &  &  &  &  \\
+		\cline{2-13}
+		
+		\textbf{5.} Análisis descriptivo y caracterización de trayectorias
+		&  &  & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} &  &  &  &  &  &  &  \\
+		\cline{2-13}
+		
+		\textbf{6.} Estimaciones econométricas y pruebas de robustez
+		&  &  &  & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} &  &  &  &  &  &  \\
+		\cline{2-13}
+		
+		\textbf{7.} Análisis de resultados e integración con el marco analítico
+		&  &  &  &  &  & \cellcolor{gray!40} & \cellcolor{gray!40} &  &  &  &  &  \\
+		\cline{2-13}
+		
+		\textbf{8.} Redacción de resultados
+		&  &  &  &  &  & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} &  &  &  &  \\
+		\cline{2-13}
+		
+		\textbf{9.} Redacción de conclusiones y recomendaciones
+		&  &  &  &  &  &  &  & \cellcolor{gray!40} & \cellcolor{gray!40} &  &  &  \\
+		\cline{2-13}
+		
+		\textbf{10.} Correcciones finales, revisión integral y entrega
+		&  &  &  &  &  &  &  &  & \cellcolor{gray!40} & \cellcolor{gray!40} & \cellcolor{gray!40} &  \\
+		
+		\hline
+		\multicolumn{13}{p{\textwidth}}{%
+			\textit{Nota: El cronograma es tentativo y puede ajustarse según el avance del trabajo y la disponibilidad de información.}
+		} 
+		
+	\end{longtable}
+	
+	% =====================================================
+	% REFERENCIAS BIBLIOGRÁFICAS (PRELIMINAR)
+	% =====================================================
+	\printbibliography
+	
+	% =====================================================
+	% ANEXOS
+	% =====================================================
+	\appendix
+	\chapter{Anexos}
+	\label{chap:anexos}
+	
+	\section{Fuentes preliminares de datos e indicadores}
+	\label{sec:fuentes}
+	
+	La \autoref{tab:fuentes_datos} presenta, de manera preliminar, posibles indicadores empíricos y posibles fuentes internacionales de datos. La selección definitiva de variables se realizará en la etapa de implementación empírica, atendiendo a criterios de disponibilidad, comparabilidad y consistencia teórica.
+
+	\renewcommand{\arraystretch}{1.2}
+	\setlength{\tabcolsep}{4pt}
+	
+	\begin{small}
+		\begin{longtable}{
+				p{2.6cm}
+				p{3.0cm}
+				p{4.2cm}
+				p{3.6cm}
+				p{1.8cm}
+			}
+			\caption{Posibles fuentes preliminares de datos e indicadores para la construcción del panel empírico}
+			\label{tab:fuentes_datos} \\
+			\hline
+			\textbf{Dimensión} & \textbf{Variable conceptual} & \textbf{Indicador posible} & \textbf{Fuente internacional} & \textbf{Cobertura} \\
+			\hline
+			\endfirsthead
+			
+			\hline
+			\textbf{Dimensión} & \textbf{Variable conceptual} & \textbf{Indicador posible} & \textbf{Fuente internacional} & \textbf{Cobertura} \\
+			\hline
+			\endhead
+			
+			Dependencia extractiva
+			& Especialización exportadora
+			& Exportaciones primarias / exportaciones totales
+			& UNCTADstat; World Bank (WDI)
+			& 1980--2022 \\
+			
+			Dependencia extractiva
+			& Peso del sector extractivo
+			& Rentas de recursos naturales (\% del PIB)
+			& World Bank (WDI)
+			& 1970--2022 \\
+			
+			Diversificación productiva
+			& Concentración exportadora
+			& Índice de Herfindahl--Hirschman de exportaciones
+			& UNCTAD; BACI--CEPII
+			& 1980--2022 \\
+			
+			Diversificación productiva
+			& Complejidad económica
+			& Índice de Complejidad Económica (ECI)
+			& Atlas of Economic Complexity
+			& 1995--2022 \\
+			
+			Capital humano
+			& Acumulación educativa
+			& Años promedio de escolaridad
+			& Barro--Lee Dataset
+			& 1950--2020 \\
+			
+			Innovación
+			& Esfuerzo tecnológico
+			& Gasto en I+D (\% del PIB)
+			& World Bank; UNESCO UIS
+			& 1996--2022 \\
+			
+			Instituciones
+			& Calidad institucional
+			& Rule of Law; Control of Corruption
+			& Worldwide Governance Indicators (WGI)
+			& 1996--2022 \\
+			
+			Instituciones
+			& Régimen político
+			& Polity Score; Liberal Democracy Index
+			& Polity V; V--Dem
+			& 1960--2022 \\
+			
+			Macroeconomía
+			& Tipo de cambio real
+			& Índice de tipo de cambio real efectivo (REER)
+			& IMF; BIS; World Bank
+			& 1980--2022 \\
+			
+			Macroeconomía
+			& Volatilidad macroeconómica
+			& Desviación estándar móvil del crecimiento del PIB (3--5 años)
+			& Cálculo propio con datos WDI
+			& 1980--2022 \\
+			
+			Macroeconomía
+			& Nivel de desarrollo
+			& PIB per cápita (PPA, constante 2021)
+			& World Bank (WDI)
+			& 1980--2022 \\
+			
+			Macroeconomía
+			& Política fiscal
+			& Balance fiscal y deuda pública (\% del PIB)
+			& IMF WEO; World Bank
+			& 1980--2022 \\
+			
+			Precios de commodities
+			& Ciclos externos
+			& Índices internacionales de precios de commodities
+			& World Bank Commodity Price Data (Pink Sheet)
+			& 1960--2022 \\
+			
+			\hline
+			\multicolumn{5}{p{14.5cm}}{\textit{Nota: El panel se construirá con frecuencia anual para el período 1980--2022. La muestra final dependerá de la disponibilidad de datos comparables, pudiendo resultar en un panel desbalanceado.}} \\
+		\end{longtable}
+	\end{small}
+	
+	\section{Figuras conceptuales y esquemas analíticos}
+	\label{sec:figuras}
+	
+	Esta sección reúne las figuras conceptuales y esquemas analíticos que apoyan la exposición teórica y metodológica del trabajo. Los diagramas permiten visualizar de forma sintética algunos de los mecanismos de transición estructural y  relaciones entre las principales variables analizadas, facilitando la interpretación del enfoque general del estudio.
+	
+	\begin{figure}[H]
+		\centering
+		\resizebox{\linewidth}{!}{%
+			\begin{tikzpicture}[
+				font=\small,
+				node distance=1.55cm and 2.9cm,
+				box/.style={
+					draw,
+					rectangle,
+					rounded corners=6pt,
+					align=center,
+					minimum width=6.0cm,
+					minimum height=1.05cm,
+					inner sep=6pt
+				},
+				sidebox/.style={
+					draw,
+					rectangle,
+					rounded corners=6pt,
+					align=center,
+					minimum width=4.3cm,
+					minimum height=0.95cm,
+					inner sep=6pt
+				},
+				arrow/.style={-{Stealth[length=3mm]}, line width=0.7pt}
+				]
+				
+				% Columna central
+				\node[box] (res) {Dependencia de recursos\\[2pt]\textit{(RES)}};
+				
+				\node[box, below=of res] (canales) {Canales productivos\\
+					Enfermedad holandesa\\
+					Enclaves productivos\\
+					Tipo de cambio real};
+				
+				\node[box, below=1.9cm of canales] (resultados) {Resultados productivos\\
+					Diversificación\\
+					Innovación\\
+					Acumulación de capacidades};
+				
+				% Laterales
+				\node[sidebox, left=of canales] (inst) {Instituciones\\[2pt]\textit{(INST)}};
+				\node[sidebox, right=of canales] (vol) {Volatilidad externa\\[2pt]\textit{(VOL)}};
+				\node[sidebox, right=of resultados] (fisc) {Restricción fiscal\\[2pt]\textit{(FISC)}};
+				
+				% Flechas
+				\draw[arrow] (res) -- (canales);
+				\draw[arrow] (canales) -- (resultados);
+				
+				\draw[arrow] (inst) -- node[above, font=\small] {modula} (canales);
+				\draw[arrow] (vol) -- node[above, font=\small] {condiciona} (canales);
+				\draw[arrow] (fisc) -- node[above, font=\small] {limita} (resultados);
+				
+			\end{tikzpicture}%
+		}
+		\caption{Arquitectura conceptual de los mecanismos de transición estructural}
+		\label{fig:arquitectura-mecanismos}
+	\end{figure}
+	
+	\begin{figure}[H]
+		\centering
+		\begin{tikzpicture}[
+			font=\small,
+			var/.style={anchor=west},
+			dep/.style={
+				draw,
+				rectangle,
+				rounded corners,
+				minimum width=4.8cm,
+				minimum height=1.3cm,
+				align=center
+			},
+			arrow/.style={->, thick}
+			]
+			
+			% Variables explicativas (incluye interacción)
+			\node[var] (res)   {RES};
+			\node[var, below=0.5cm of res]   (inst)  {INST};
+			\node[var, below=0.5cm of inst]  (inter) {$RES \times INST$};
+			\node[var, below=0.5cm of inter] (vol)   {VOL};
+			\node[var, below=0.5cm of vol]   (rer)   {RER};
+			\node[var, below=0.5cm of rer]   (hum)   {HUMCAP};
+			\node[var, below=0.5cm of hum]   (inn)   {INNOV};
+			\node[var, below=0.5cm of inn]   (gdp)   {GDPPC};
+			\node[var, below=0.5cm of gdp]   (fisc)  {FISC};
+			
+			% Variable dependiente
+			\node[dep, right=5cm of vol] (div) {Diversificación\\ \textit{(DIV)}};
+			
+			% Efectos (signos esperados)
+			\draw[arrow] (res.east)   -- node[above] {$-$} (div.west);
+			\draw[arrow] (inst.east)  -- node[above] {$+$} (div.west);
+			\draw[arrow] (inter.east) -- node[above] {$+$} (div.west);
+			
+			\draw[arrow] (vol.east)   -- node[above] {$-$} (div.west);
+			\draw[arrow] (rer.east)   -- node[above] {$-$} (div.west);
+			\draw[arrow] (hum.east)   -- node[above] {$+$} (div.west);
+			\draw[arrow] (inn.east)   -- node[above] {$+$} (div.west);
+			\draw[arrow] (gdp.east)   -- node[above] {$+$} (div.west);
+			\draw[arrow] (fisc.east)  -- node[above] {$-$} (div.west);
+			
+		\end{tikzpicture}
+		\caption{Esquema del modelo econométrico y signos esperados (\autoref{eq:modelo_base})}
+		\label{fig:modelo-econometrico}
+	\end{figure}
+
+	\begin{figure}[H]
+		\centering
+		\begin{tikzpicture}[
+			font=\normalsize,
+			box/.style={
+				draw,
+				rounded corners=3pt,
+				align=center,
+				minimum width=0.65\textwidth,
+				minimum height=10mm,
+				inner ysep=6pt
+			},
+			arr/.style={-{Stealth[length=3mm]}, thick},
+			node distance=7mm
+			]
+			
+			\node[box] (a) {Boom de commodities};
+			\node[box, below=of a] (b) {expansi\'on fiscal};
+			\node[box, below=of b] (c) {apreciaci\'on};
+			\node[box, below=of c] (d) {desplazamiento\\manufacturero};
+			\node[box, below=of d] (e) {ajuste post-boom};
+			
+			\draw[arr] (a) -- (b);
+			\draw[arr] (b) -- (c);
+			\draw[arr] (c) -- (d);
+			\draw[arr] (d) -- (e);
+			
+		\end{tikzpicture}
+		\caption{Esquema conceptual del mecanismo: boom de commodities y ajuste post-boom.}
+		\label{fig:esquema_boom_postboom_vertical}
+	\end{figure}
+	
+	\begin{figure}[H]
+		\centering
+		\begin{tikzpicture}[
+			font=\normalsize,
+			box/.style={
+				draw,
+				rounded corners=3pt,
+				align=center,
+				minimum width=0.72\textwidth,
+				minimum height=10mm,
+				inner ysep=6pt
+			},
+			arr/.style={-{Stealth[length=3mm]}, thick},
+			node distance=7mm
+			]
+			
+			\node[box] (s1) {Fuentes internacionales};
+			\node[box, below=of s1] (s2) {Construcci\'on de base panel};
+			\node[box, below=of s2] (s3) {Limpieza y armonizaci\'on};
+			\node[box, below=of s3] (s4) {Modelo econom\'etrico};
+			\node[box, below=of s4] (s5) {Resultados};
+			
+			\draw[arr] (s1) -- (s2);
+			\draw[arr] (s2) -- (s3);
+			\draw[arr] (s3) -- (s4);
+			\draw[arr] (s4) -- (s5);
+			
+		\end{tikzpicture}
+		\caption{Diagrama metodol\'ogico de construcci\'on del panel.}
+		\label{fig:diagrama_panel}
+	\end{figure}
+	
+	La evolución del debate sobre la denominada “maldición de los recursos” puede entenderse como una transición desde interpretaciones clásicas
+	que consideraban los recursos naturales como una ventaja para el desarrollo, hasta enfoques contemporáneos que analizan los mecanismos institucionales,
+	macroeconómicos y estructurales que pueden convertir dicha abundancia en un factor limitante del crecimiento económico. La \autoref{fig:resource_curse_timeline} sintetiza esta evolución conceptual.
+	
+	\begin{figure}[H]
+		\centering
+		\resizebox{\textwidth}{!}{
+			\begin{tikzpicture}[
+				box/.style={
+					rectangle,
+					rounded corners,
+					draw=black,
+					thick,
+					text width=3.5cm,
+					minimum height=2.6cm,
+					text centered,
+					align=center,
+					fill=gray!10,
+					font=\small
+				}
+				]
+				
+				% Timeline
+				\draw[thick] (-1,-2) -- (24,-2);
+				
+				% Top boxes
+				\node[box] at (0,0)
+				{Los recursos naturales\\ tienen un papel positivo\\ en el desarrollo económico};
+				
+				\node[box] at (4.8,0)
+				{Surgimiento de la teoría\\ de la enfermedad holandesa};
+				
+				\node[box] at (9.6,0)
+				{Formulación de la tesis\\ de la maldición de los\\ recursos (estudios de caso)};
+				
+				\node[box] at (14.4,0)
+				{Se acuña el término\\ ``maldición de los\\ recursos''};
+				
+				\node[box] at (19.2,0)
+				{Evidencia empírica que\\ confirma los efectos\\ adversos de la dependencia\\ de recursos};
+				
+				\node[box] at (24,0)
+				{Relación entre dependencia\\ de recursos y\\ crecimiento económico};
+				
+				% Vertical connectors
+				\draw (0,-0.8) -- (0,-2);
+				\draw (4.8,-0.8) -- (4.8,-2);
+				\draw (9.6,-0.8) -- (9.6,-2);
+				\draw (14.4,-0.8) -- (14.4,-2);
+				\draw (19.2,-0.8) -- (19.2,-2);
+				\draw (24,-0.8) -- (24,-2);
+				
+				% Years
+				\node at (0,-2.7) {Antes de 1980};
+				\node at (4.8,-2.7) {1982};
+				\node at (9.6,-2.7) {1988};
+				\node at (14.4,-2.7) {1993};
+				\node at (19.2,-2.7) {1995};
+				\node at (24,-2.7) {2001};
+				
+				% Authors (below years)
+				\node at (0,-3.4) {\small Adam Smith (1776)};
+				\node at (4.8,-3.4) {\small Corden \& Neary};
+				\node at (9.6,-3.4) {\small Gelb};
+				\node at (14.4,-3.4) {\small Auty};
+				\node at (19.2,-3.4) {\small Sachs \& Warner};
+				\node at (24,-3.4) {\small Gylfason};
+				
+			\end{tikzpicture}
+		}
+		
+		\caption{Evolución conceptual de la literatura sobre la maldición de los recursos naturales}
+		\label{fig:resource_curse_timeline}
+		
+		\footnotesize
+		\textit{Nota:} La figura resume el desarrollo histórico del debate sobre recursos naturales y crecimiento económico, desde las primeras interpretaciones clásicas hasta la evidencia empírica moderna sobre dependencia de recursos y desempeño económico.
+		
+		\textit{Fuente:} Elaboración propia con base en \textcite{Anne2021}.
+		
+	\end{figure}
+	
+	\section{Mapas y análisis exploratorio de datos}
+	
+	La \autoref{fig:resource-dependent-map} presenta la distribución geográfica preliminar de los países potencialmente incluidos en la muestra empírica.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=\textwidth]{figures/resource_dependent_map}
+		\caption{Distribución geográfica de las economías potencialmente dependientes de recursos naturales incluidas en la muestra de análisis.}
+		\label{fig:resource-dependent-map}
+	\end{figure}
+	
+	La \autoref{fig:resource-rents-world-map} muestra la distribución global de las rentas de recursos naturales como porcentaje del PIB.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=\textwidth]{figures/resource_rents_world_map}
+		\caption{Distribución global de las rentas de recursos naturales como porcentaje del PIB. El indicador captura la importancia relativa de los ingresos provenientes de recursos naturales en la estructura económica de cada país.}
+		\label{fig:resource-rents-world-map}
+	\end{figure}
+	
+	La \autoref{fig:eci-world-map} presenta la distribución global del Índice de Complejidad Económica (ECI), un indicador que captura el grado de sofisticación productiva de las economías a partir de la diversidad y ubicuidad de los bienes que exportan. En general, valores más altos del ECI se asocian con estructuras productivas más diversificadas y mayores capacidades tecnológicas, mientras que valores bajos reflejan economías más concentradas en productos primarios o de menor intensidad tecnológica; en este contexto, el mapa ofrece un marco descriptivo para observar las diferencias en capacidades productivas entre países y su posible relación con la dependencia de recursos naturales.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=\textwidth]{figures/eci_world_map}
+		\caption{Distribución global del Índice de Complejidad Económica (ECI). El mapa muestra las diferencias en la sofisticación productiva entre economías, donde valores más altos indican estructuras productivas más diversificadas y con mayores capacidades industriales y tecnológicas.}
+		\label{fig:eci-world-map}
+	\end{figure}
+	
+	La \autoref{fig:eci-world-map-quartiles} muestra la distribución global del Índice de Complejidad Económica (ECI) clasificada por cuartiles. Esta representación permite comparar de manera relativa el nivel de sofisticación productiva entre economías, agrupando a los países según su posición en la distribución mundial del indicador. En particular, el primer cuartil (Q1) corresponde a economías con menor complejidad económica, mientras que el cuarto cuartil (Q4) agrupa a las economías con estructuras productivas más diversificadas y tecnológicamente avanzadas.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=\textwidth]{figures/eci_world_map_quartiles}
+		\caption{Distribución global del Índice de Complejidad Económica (ECI) por cuartiles. Los países se clasifican según su posición relativa en la distribución del indicador, donde Q1 representa economías con menor complejidad productiva y Q4 economías con mayor sofisticación industrial y tecnológica.}
+		\label{fig:eci-world-map-quartiles}
+	\end{figure}
+	
+	La \autoref{fig:eci-vs-resource-rents-trim} muestra la relación entre el Índice de Complejidad Económica (ECI) y la dependencia de recursos naturales, medida como las rentas de recursos naturales como porcentaje del PIB. El gráfico presenta la distribución de países en función de ambos indicadores e incluye una estimación lineal por mínimos cuadrados ordinarios (OLS) y una curva de suavizamiento local (LOESS) que permiten identificar la tendencia general de la relación. En términos generales, se observa una asociación negativa entre la dependencia de recursos naturales y la complejidad económica, donde economías con mayores niveles de rentas provenientes de recursos tienden a presentar menores valores de ECI.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=\textwidth]{figures/eci_vs_resource_rents_trim}
+		\caption{Relación entre el Índice de Complejidad Económica (ECI) y las rentas de recursos naturales como porcentaje del PIB. La línea discontinua representa la estimación lineal (OLS) y la curva continua corresponde a un suavizamiento local (LOESS), permitiendo visualizar la tendencia general y posibles patrones no lineales en la relación entre ambas variables.}
+		\label{fig:eci-vs-resource-rents-trim}
+	\end{figure}
+	
+	La \autoref{fig:eci-vs-rents-log-quad} presenta la relación entre el Índice de Complejidad Económica (ECI) y la dependencia de recursos naturales, medida como las rentas de recursos naturales como porcentaje del PIB, utilizando una escala logarítmica para facilitar la visualización de la distribución de países en niveles bajos de rentas donde se concentra una parte importante de la muestra. El gráfico incluye una estimación lineal por mínimos cuadrados ordinarios (OLS) y una curva de suavizamiento local (LOESS), lo que permite identificar la tendencia general y posibles patrones no lineales en la relación entre complejidad económica y dependencia de recursos; adicionalmente, las líneas punteadas dividen el espacio en cuadrantes que facilitan la comparación entre economías con distintos niveles de complejidad productiva y especialización en recursos naturales.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=\textwidth]{figures/eci_vs_rents_log_quad}
+		\caption{Relación entre el Índice de Complejidad Económica (ECI) y las rentas de recursos naturales como porcentaje del PIB en escala logarítmica. Las líneas punteadas delimitan cuadrantes que permiten distinguir economías con alta complejidad y baja dependencia de recursos, economías exportadoras de recursos con diferentes niveles de complejidad, y economías con baja complejidad asociadas a una mayor dependencia de actividades extractivas.}
+		\label{fig:eci-vs-rents-log-quad}
+	\end{figure}
+	
+	La \autoref{fig:rents-density} muestra la distribución de las rentas de recursos naturales como porcentaje del PIB para el conjunto de países analizados. La densidad evidencia una fuerte asimetría hacia la derecha, indicando que la mayoría de las economías presentan niveles relativamente bajos de dependencia de recursos, mientras que un grupo reducido de países exhibe valores considerablemente más altos. La figura también señala la media y la mediana de la distribución, lo que permite apreciar la diferencia entre ambas medidas y resaltar la presencia de observaciones con altos niveles de rentas provenientes de recursos naturales.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=\textwidth]{figures/rents_density}
+		\caption{Distribución de las rentas de recursos naturales como porcentaje del PIB. La densidad muestra una distribución asimétrica hacia la derecha, con una concentración de países en niveles bajos de dependencia de recursos y una cola larga asociada a economías altamente dependientes de actividades extractivas.}
+		\label{fig:rents-density}
+	\end{figure}
+	
+\end{document}
