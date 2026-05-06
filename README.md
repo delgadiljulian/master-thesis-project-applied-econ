@@ -1,257 +1,250 @@
-# Master Thesis Research Repository  
-**Dependencia de recursos naturales y trayectorias de transición estructural (1980–2022)**  
+# Natural Resource Dependence and Structural Transition Trajectories (1980-2022)
 
-Reproducible research repository for a Master’s thesis in Applied Economics  
-University of Buenos Aires  
+Reproducible research repository for the **Master's Thesis Project** in the
+**Master's Program in Applied Economics** at the University of Buenos Aires.
+
+**Author:** Julián Delgadillo Marín  
+**Advisor:** Martín Grandes  
+**Institution:** University of Buenos Aires, Faculty of Economic Sciences  
+**Reference version:** Master's thesis project, February 2026
 
 ---
 
 ## Overview
 
-This repository contains the full research infrastructure for my Master’s thesis in Applied Economics.
+This repository organizes the documentary, empirical, and reproducible research
+infrastructure for a thesis on natural resource dependence, extractive rents, and
+structural transformation.
 
-It is a personal initiative designed to organize the thesis as a structured, reproducible, and transparent research system. It is not a program requirement.
+The project starts from a central tension in development economics: natural resources can
+serve as a platform for productive capability accumulation, technological learning, and
+long-run growth, but they can also reproduce trajectories of extractive specialization,
+low economic complexity, macroeconomic volatility, and institutional weakness.
 
-The project studies why some resource-dependent economies transform extractive rents into sustained processes of structural diversification and capability accumulation, while others remain locked in long-run extractive trajectories.
+The goal is not to determine whether natural resources are inherently a "blessing" or a
+"curse". Instead, the thesis analyzes the conditions under which resource-dependent
+economies are able to translate extractive rents into more favorable structural
+transformation trajectories.
 
-The repository integrates:
+The thesis distinguishes between:
 
-- Conceptual framework  
-- Literature systematization  
-- Data architecture  
-- Econometric modeling  
-- Reproducible workflows  
-- Research governance documentation  
-
-This is not only a document archive.  
-It is a structured research environment.
-
----
-
-## Core Research Question
-
-> Which productive, institutional, and macroeconomic mechanisms are systematically associated with differences in structural transformation trajectories among resource-dependent economies during 1980–2022?
-
-Conceptually, the thesis examines how different degrees of natural resource dependence condition:
-
-- Diversification dynamics  
-- Productive upgrading  
-- Structural change  
-- Long-run development trajectories  
+- **External natural resource dependence:** used as a sample selection criterion based on
+  export structure.
+- **Macroeconomic intensity of extractive rents:** treated as an explanatory mechanism in
+  the empirical analysis.
+- **External structural transformation:** sophistication and diversification of the export
+  basket, proxied by the Economic Complexity Index (ECI).
+- **Internal structural transformation:** changes in the domestic productive structure,
+  proxied by manufacturing and services value added.
 
 ---
 
-## Research Focus
+## Research Question
 
-### Central Themes
+The general research question is:
 
-- Resource dependence  
-- Structural transformation  
-- Productive diversification  
-- Dutch disease mechanisms  
-- Extractive enclaves  
-- Institutional quality and governance of rents  
-- Commodity price volatility  
-- Capital accumulation and innovation  
-- Regime transitions within extractive development paths  
+> Why are some resource-dependent economies able to translate extractive rents into more
+> favorable structural transformation trajectories, while others remain trapped in
+> patterns of extractive specialization?
 
-### Analytical Perspective
+The specific empirical question is:
 
-The project adopts a structural-comparative approach.
-
-Countries are treated as empirical cases of broader structural configurations.  
-The focus is on mechanisms and structural regularities, not on country storytelling.
-
-Resource dependence is modeled as a continuous structural condition, not as a binary classification.
-
-The analysis emphasizes:
-
-- Structural mechanisms  
-- Institutional mediation  
-- Macroeconomic constraints  
-- Dynamic transitions  
+> How do productive, institutional, and macroeconomic factors interact to explain
+> differences in structural transformation trajectories, both external and internal,
+> among resource-dependent economies during 1980-2022?
 
 ---
 
-## Research Objectives
+## General Objective
 
-### General Objective
-
-To comparatively analyze the productive, institutional, and macroeconomic mechanisms that explain differences in diversification trajectories among resource-dependent economies (1980–2022).
-
-### Specific Objectives
-
-- Systematize productive mechanisms linked to extractive persistence  
-- Estimate the role of institutional quality and rent governance  
-- Analyze the impact of commodity price volatility  
-- Evaluate the interaction between human capital, innovation, and upgrading  
-- Compare structural trajectories across economies  
-- Identify patterns of structural transformation and persistence  
+To comparatively analyze how productive, institutional, and macroeconomic mechanisms are
+associated with differences in structural transformation trajectories, both external and
+internal, and in productive capability accumulation among resource-dependent economies
+during 1980-2022, using quantitative empirical evidence.
 
 ---
 
-## Methodological Framework
+## Specific Objectives
 
-### Analytical Design
-
-- Comparative empirical analysis  
-- Structural panel approach  
-- Mechanism-based modeling  
-- Long-run trajectory analysis  
-- Regime-sensitive interpretation  
-
-### Econometric Strategy
-
-- Dynamic panel models  
-- Endogeneity control  
-- Persistence modeling  
-- Heterogeneity analysis  
-- Structural interaction terms  
-- Robustness testing  
-
-### Temporal Scope
-
-1980–2022  
-
-The period captures:
-
-- Financial globalization  
-- Commodity supercycles  
-- Institutional transitions  
-- Post-boom adjustment dynamics  
+- Identify and empirically evaluate productive mechanisms associated with extractive
+  persistence, particularly Dutch disease, enclave formation, and weak productive
+  linkages.
+- Estimate the role of institutional quality and extractive rent governance in structural
+  transformation and productive capability accumulation trajectories.
+- Analyze the impact of international commodity price volatility and intertemporal
+  macroeconomic constraints on savings, investment, and productive capability
+  accumulation.
+- Evaluate the extent to which human capital and innovation are associated with
+  productive upgrading and more favorable structural transformation trajectories.
+- Compare structural transformation trajectories across resource-dependent economies and
+  identify differentiated patterns of productive performance.
+- Analyze systematic differences between hydrocarbon-dependent and mining-dependent
+  economies.
 
 ---
 
-## Data Architecture
+## Hypotheses
 
-### Core Sources
+The general hypothesis is that resource-dependent economies that successfully translate
+extractive rents into more favorable structural transformation and productive capability
+accumulation trajectories are characterized by denser productive linkages, more effective
+institutional arrangements, and macroeconomic management capable of dampening volatility
+associated with extractive commodity cycles.
 
-- World Development Indicators (World Bank)  
-- UNCTADstat  
-- Penn World Table  
-- International Energy Agency  
-- Institutional quality datasets  
-- Historical commodity price databases  
+The specific hypotheses organize five main mechanisms:
 
-### Data Principles
+- Productive mechanisms of extractive persistence, such as Dutch disease, enclave
+  structures, and weak linkages, are associated with worse structural transformation
+  outcomes.
+- Institutional quality and extractive rent governance moderate the effect of dependence
+  on structural transformation and capability accumulation.
+- Commodity price volatility and procyclical macroeconomic management reduce the
+  probability that extractive rents are transformed into savings, investment, and
+  sustained productive capabilities.
+- Higher levels of human capital and innovation increase the probability of productive
+  upgrading.
+- The association between extractive dependence and structural transformation varies by
+  dominant resource type: hydrocarbons or mining.
 
-- Raw and processed data separation  
-- Script-based data construction  
-- Transparent variable definitions  
-- Versioned transformations  
-- Replication-ready structure  
+---
+
+## Analytical Framework
+
+The research brings together literature on:
+
+- Natural resource curse and resource-based development.
+- Dutch disease, real exchange rate dynamics, and manufacturing displacement.
+- Extractive enclaves, productive linkages, and technological learning.
+- Political economy of rents, institutional quality, and rent-seeking behavior.
+- Commodity volatility, fiscal constraints, and macroeconomic management.
+- Economic complexity, product space, and productive capability accumulation.
+- External and internal structural transformation.
+
+The approach avoids deterministic interpretations: resource dependence does not
+automatically lead either to structural lock-in or to successful development. Its effects
+depend on the interaction between productive capabilities, institutions, macroeconomic
+conditions, and the type of extractive specialization.
+
+---
+
+## Methodology
+
+The study follows a **quantitative**, **explanatory**, **non-experimental**, and
+**longitudinal** research design.
+
+The unit of analysis is the **country-year**. The empirical base is organized as an
+international panel for **1980-2022**, potentially unbalanced depending on data
+availability.
+
+The methodological strategy combines:
+
+- Comparative descriptive analysis.
+- Panel data models.
+- Dynamic specifications.
+- Interactions between extractive rents and institutions.
+- Heterogeneity analysis by resource type and income group.
+- Robustness checks using alternative indicators of structural transformation.
+
+Given the observational nature of the design, results are interpreted as robust
+conditional associations rather than strict causal estimates.
+
+---
+
+## Variables and Indicators
+
+| Dimension | Indicator | Source |
+| --- | --- | --- |
+| Extractive dependence | Resource exports / total exports | UN Comtrade, World Bank |
+| Extractive rents | Natural resource rents as % of GDP | World Development Indicators |
+| External transformation | Economic Complexity Index, HS92 | Atlas of Economic Complexity |
+| Internal transformation | Manufacturing and services value added | World Bank, UN data |
+| Export concentration | Herfindahl-Hirschman Index | UN Comtrade, Atlas of Economic Complexity |
+| Institutions | Rule of Law, Control of Corruption | Worldwide Governance Indicators |
+| Human capital | Average years of schooling | Barro-Lee, World Bank |
+| Innovation | R&D expenditure or patents | UNESCO, WIPO |
+| External volatility | Commodity price volatility | World Bank Pink Sheet |
+| Real exchange rate | Real effective exchange rate | World Bank, BIS, IMF |
+| Financial development | Domestic credit to private sector | World Development Indicators |
+| Fiscal channel | Fiscal balance or public debt | IMF, World Bank |
+| Development level | GDP per capita, PPP, log | World Development Indicators |
 
 ---
 
 ## Repository Structure
 
-docs/
-drafts/
-literature/
-methodology/
-proposal/
-theory/
-
+```text
 data/
-raw/
-processed/
-external/
+  raw/                       # Raw data or placeholders
+  processed/                 # Processed data
 
-src/
-data_pipeline/
-econometrics/
-indicators/
-
-notebooks/
-exploratory/
-modeling/
-
-outputs/
-tables/
-figures/
-logs/
-
-reproducibility/
-environment/
-requirements/
+docs/
+  drafts/                    # Chapter drafts
+  literature/                # Bibliography, maps, and literature synthesis
+  methodology/               # Models, variables, identification, and robustness
+  theory/                    # Conceptual framework and theoretical notes
 
 governance/
-research_protocol/
-data_policy/
-versioning/
-ethics/
+  data_policy.md             # Data policy
+  ethics_statement.md        # Ethics statement
+  research_protocol.md       # Research protocol
+  versioning_strategy.md     # Versioning strategy
 
+reproducibility/
+  environment.yml            # Conda environment
+  requirements.txt           # Python dependencies
+  dockerfile                 # Reproducible container environment
+  run_pipeline.sh            # Pipeline entry point
 
----
+scripts/
+  01_eci_resource_dependence_figures.R
 
-## Reproducibility Design
-
-The repository follows open science principles:
-
-- Script-based workflows  
-- Deterministic pipelines  
-- Fully documented transformations  
-- Transparent model construction  
-- Replicable output generation  
-- Traceable research decisions  
-
-All core results are designed to be reproducible from raw data to final tables.
-
----
-
-## Governance and Research Integrity
-
-This repository includes:
-
-- Research protocol  
-- Data governance documentation  
-- Version control strategy  
-- Documentation standards  
-- Replicability framework  
-
-It is structured to meet:
-
-- Academic integrity standards  
-- Journal submission expectations  
-- Transparency and reproducibility norms  
+src/
+  cleaning/                  # Cleaning and harmonization
+  construction/              # Indicator construction
+  diagnostics/               # Econometric diagnostics
+  ingestion/                 # Data download and ingestion
+  models/                    # Static, dynamic, and heterogeneity models
+  visualization/             # Descriptive and results figures
+```
 
 ---
 
-## Status
+## Project Status
 
-Stage: Proposal approved – empirical development phase  
-Phase: Data construction and econometric implementation  
-Status: Active development  
+Advanced components:
+
+- Introduction, research question, justification, and problem statement.
+- Objectives and hypotheses.
+- Theoretical framework.
+- Empirical literature review.
+- Methodological design.
+- Operational definition of variables.
+- Initial data and reproducibility architecture.
+
+Components under development:
+
+- Final empirical panel construction.
+- Econometric estimation.
+- Robustness analysis.
+- Results chapter.
+- Discussion and final conclusions.
 
 ---
 
-## Author
+## Reproducibility Principles
 
-**Julián Alberto Delgadillo Marín**  
-Master’s Program in Applied Economics  
-Universidad de Buenos Aires  
+This repository is designed as a structured and replicable research environment. Its
+organization aims to ensure:
 
-GitHub: https://github.com/delgadiljulian  
+- Separation between raw and processed data.
+- Script-based variable construction.
+- Explicit operational definitions.
+- Traceability of transformations and methodological decisions.
+- Reproduction of figures, tables, and models.
+- Sufficient documentation for academic audit and future extensions.
 
 ---
 
 ## License
 
-MIT License — open academic and research use.
-
----
-
-## Research Philosophy
-
-This repository is a long-term research platform.
-
-It is:
-
-- Structured  
-- Modular  
-- Reproducible  
-- Transparent  
-- Extendable to journal publications  
-- Scalable to doctoral research  
-
-It reflects a commitment to rigorous, structured, and replicable economic research.
+MIT License. Open for academic and research use.
