@@ -65,6 +65,8 @@ stata.log
 *.fls
 *.log
 *.out
+*.lof
+*.lot
 *.run.xml
 *.toc
 *.synctex.gz

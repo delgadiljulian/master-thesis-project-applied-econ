@@ -1,0 +1,283 @@
+% /archivo_teorico
+
+% =========================================================
+% ARCHIVO TEÓRICO / VERSIONES PREVIAS / MATERIAL DE APOYO
+% =========================================================
+%
+% Este documento funciona como repositorio interno de:
+%
+% - secciones descartadas temporalmente,
+% - versiones anteriores del marco teórico,
+% - desarrollos conceptuales alternativos,
+% - literatura secundaria,
+% - hipótesis no utilizadas,
+% - discusiones metodológicas preliminares,
+% - notas de investigación.
+%
+% IMPORTANTE:
+% Este archivo NO forma parte del manuscrito principal.
+% Su objetivo es conservar trazabilidad conceptual y
+% evitar pérdida de material útil para:
+%
+% - futuras revisiones,
+% - anexos,
+% - papers derivados,
+% - discusión académica,
+% - robustness checks,
+% - ampliaciones posteriores de la tesis.
+%
+% =========================================================
+
+\documentclass[12pt]{article}
+
+% ---------------------------------------------------------
+% PAQUETES
+% ---------------------------------------------------------
+
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usepackage{geometry}
+\geometry{
+	left=3cm,
+	right=2.5cm,
+	top=2.5cm,
+	bottom=2.5cm
+}
+
+\usepackage{setspace}
+\onehalfspacing
+
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{enumitem}
+\usepackage{tikz}
+\usetikzlibrary{babel,positioning}
+\usepackage{titlesec}
+\usepackage{hyperref}
+
+% ---------------------------------------------------------
+% FORMATO
+% ---------------------------------------------------------
+
+\titleformat{\section}
+{\large\bfseries}
+{\thesection.}
+{0.5em}
+{}
+
+\titleformat{\subsection}
+{\normalsize\bfseries}
+{\thesubsection.}
+{0.5em}
+{}
+
+% ---------------------------------------------------------
+% DOCUMENTO
+% ---------------------------------------------------------
+
+\begin{document}
+	
+	% =========================================================
+	% PORTADA SIMPLE
+	% =========================================================
+	
+	\begin{center}
+		
+		\vspace*{2cm}
+		
+		{\Large \textbf{Archivo Teórico y Material de Respaldo}}\\[1cm]
+		
+		{\large Trabajo Final de Maestría}\\[0.5cm]
+		
+		{\normalsize Maestría en Economía Aplicada}\\
+		{\normalsize Universidad de Buenos Aires}\\[1.5cm]
+		
+		{\normalsize Autor: Alberto Delgadillo}\\[0.3cm]
+		
+		{\normalsize \today}
+		
+		\vfill
+		
+	\end{center}
+	
+	
+		\subsection{Propuesta 1}
+	\label{subsec:modelo-econometrico-1}
+	
+	La especificación econométrica base adoptada se presenta en la \autoref{eq:modelo_rdep} y \autoref{fig:modelo-econometrico-1}. Esta formulación permite contrastar empíricamente las hipótesis planteadas en el capítulo de hipótesis del manuscrito principal, evaluando los determinantes de la dependencia de recursos naturales, así como el papel de la complejidad económica como mecanismo de diversificación productiva.
+	
+	En particular, el modelo se enmarca en la literatura reciente sobre la \textit{resource curse}, donde la dependencia de recursos es considerada la variable de resultado, y la complejidad económica una posible vía para mitigarla.
+	
+	\begin{equation}
+		\label{eq:modelo_rdep}
+		\begin{split}
+			RDEP_{it} = \alpha 
+			&+ \beta_1 ECI_{it} 
+			+ \beta_2 INST_{it} 
+			+ \beta_3 (ECI_{it} \times INST_{it}) \\
+			&+ \beta_4 HHI_{it}
+			+ \beta_5 VOL_{it} 
+			+ \beta_6 RER_{it} \\
+			&+ \beta_7 HUMCAP_{it} 
+			+ \beta_8 INNOV_{it} \\
+			&+ \beta_9 GDPPC_{it} 
+			+ \beta_{10} FISC_{it} \\
+			&+ \beta_{11} FIN_{it}
+			+ \mu_i + \lambda_t + \varepsilon_{it}
+		\end{split}
+	\end{equation}
+	
+	donde $RDEP_{it}$ representa la dependencia de recursos naturales del país $i$ en el periodo $t$, medida como la proporción de exportaciones de recursos sobre el total de exportaciones, $ECI_{it}$ la complejidad económica, $INST_{it}$ la calidad institucional, y $Z_{it}$ el conjunto de variables de control que capturan distintos canales asociados a la estructura productiva y al entorno macroeconómico.
+	
+	Los términos $\mu_i$ y $\lambda_t$ representan efectos fijos por país y por periodo, respectivamente, que permiten controlar por heterogeneidad no observable invariante en el tiempo y por shocks comunes a todos los países.
+	
+	Desde el punto de vista teórico, se espera que un mayor nivel de complejidad económica reduzca la dependencia de recursos naturales, al reflejar una estructura productiva más diversificada e intensiva en capacidades. Asimismo, la calidad institucional puede desempeñar un papel complementario, potenciando el efecto de la complejidad sobre la reducción de dicha dependencia.
+	
+	No obstante, esta especificación estática puede resultar insuficiente en presencia de persistencia temporal en la variable dependiente, así como de potencial endogeneidad entre la complejidad económica y la dependencia de recursos. En particular, la dependencia de recursos tiende a presentar una elevada inercia, mientras que economías menos dependientes pueden, a su vez, desarrollar mayores niveles de complejidad.
+	
+	En este contexto, se considera una extensión dinámica de la especificación base:
+	
+	\begin{equation}
+		\label{eq:modelo_dinamico}
+		\begin{split}
+			RDEP_{it} = \rho RDEP_{i,t-1} 
+			&+ \beta_1 ECI_{it} 
+			+ \beta_2 INST_{it} 
+			+ \beta_3 (ECI_{it} \times INST_{it}) \\
+			&+ \gamma Z_{it}
+			+ \lambda_t + \varepsilon_{it}
+		\end{split}
+	\end{equation}
+	
+	La inclusión de la variable dependiente rezagada permite capturar la persistencia temporal en los niveles de dependencia de recursos. Sin embargo, esta especificación introduce problemas de endogeneidad, dado que $RDEP_{i,t-1}$ se encuentra correlacionada con el término de error, lo que invalida los estimadores tradicionales de efectos fijos. Adicionalmente, la complejidad económica puede ser endógena, en la medida en que una menor dependencia de recursos facilita procesos de diversificación productiva.
+	
+	Para abordar estos problemas, la estimación se realiza mediante métodos de panel dinámico, específicamente el estimador GMM para paneles dinámicos, utilizando rezagos de las variables como instrumentos internos. Esta estrategia permite obtener estimaciones consistentes bajo supuestos estándar, controlando simultáneamente por efectos fijos, persistencia temporal y endogeneidad potencial.
+	
+	Finalmente, se complementa el análisis con especificaciones alternativas y pruebas de robustez, incluyendo modelos estáticos con efectos fijos, el uso de variables rezagadas y el empleo de medidas alternativas de dependencia de recursos y estructura productiva.
+	
+	
+	\begin{figure}[H]
+		\centering
+		\begin{tikzpicture}[
+			font=\small,
+			var/.style={anchor=west},
+			channel/.style={anchor=west, font=\bfseries},
+			dep/.style={
+				draw,
+				rectangle,
+				rounded corners,
+				minimum width=5.5cm,
+				minimum height=1.5cm,
+				align=center
+			},
+			alt/.style={
+				draw,
+				dashed,
+				rectangle,
+				rounded corners,
+				minimum width=5.5cm,
+				minimum height=1.2cm,
+				align=center
+			},
+			arrow/.style={->, thick}
+			]
+			
+			% -------------------------------
+			% CANAL INSTITUCIONAL
+			% -------------------------------
+			\node[channel] (c1) {Canal institucional};
+			\node[var, below=0.3cm of c1] (inst) {INST};
+			\node[var, below=0.3cm of inst] (inter) {$ECI \times INST$};
+			
+			% -------------------------------
+			% CANAL ESTRUCTURAL
+			% -------------------------------
+			\node[channel, below=1cm of inter] (c2) {Canal estructural};
+			\node[var, below=0.3cm of c2] (hhi) {HHI};
+			\node[var, below=0.3cm of hhi] (eci) {ECI};
+			
+			% -------------------------------
+			% CANAL MACRO
+			% -------------------------------
+			\node[channel, below=1cm of eci] (c3) {Canal macroeconómico};
+			\node[var, below=0.3cm of c3] (vol) {VOL};
+			\node[var, below=0.3cm of vol] (rer) {RER};
+			
+			% -------------------------------
+			% CAPACIDADES
+			% -------------------------------
+			\node[channel, below=1cm of rer] (c4) {Capacidades productivas};
+			\node[var, below=0.3cm of c4] (hum) {HUMCAP};
+			\node[var, below=0.3cm of hum] (inn) {INNOV};
+			
+			% -------------------------------
+			% CONTROL
+			% -------------------------------
+			\node[channel, below=1cm of inn] (c5) {Control};
+			\node[var, below=0.3cm of c5] (gdp) {$\log(GDPPC)$};
+			
+			% -------------------------------
+			% FINANCIERO
+			% -------------------------------
+			\node[channel, below=1cm of gdp] (c6) {Canal financiero};
+			\node[var, below=0.3cm of c6] (fisc) {FISC};
+			\node[var, below=0.3cm of fisc] (fin) {FIN};
+			
+			% -------------------------------
+			% VARIABLE DEPENDIENTE (MODELO PRINCIPAL)
+			% -------------------------------
+			\node[dep, right=6cm of vol] (depvar) {
+				\textbf{Dependencia de recursos}\\
+				\textit{(RDEP / NRD)}
+			};
+			
+			% -------------------------------
+			% ESPECIFICACIONES ALTERNATIVAS
+			% -------------------------------
+			\node[alt, below=1.2cm of depvar] (altvar) {
+				\textbf{Especificaciones alternativas}\\
+				\textit{Robustez: MANVA, SERVVA}
+			};
+			
+			% -------------------------------
+			% FLECHAS PRINCIPALES
+			% -------------------------------
+			\draw[arrow] (inst.east)  -- node[above] {$-$} (depvar.west);
+			\draw[arrow] (inter.east) -- node[above] {$-$} (depvar.west);
+			
+			\draw[arrow] (hhi.east)   -- node[above] {$+$} (depvar.west);
+			\draw[arrow] (eci.east)   -- node[above] {$-$} (depvar.west);
+			
+			\draw[arrow] (vol.east)   -- node[above] {$+$} (depvar.west);
+			\draw[arrow] (rer.east)   -- node[above] {$+$} (depvar.west);
+			
+			\draw[arrow] (hum.east)   -- node[above] {$-$} (depvar.west);
+			\draw[arrow] (inn.east)   -- node[above] {$-$} (depvar.west);
+			
+			\draw[arrow] (gdp.east)   -- node[above] {$-$} (depvar.west);
+			
+			\draw[arrow] (fisc.east)  -- node[above] {$+$} (depvar.west);
+			\draw[arrow] (fin.east)   -- node[above] {$+$} (depvar.west);
+			
+			% -------------------------------
+			% FLECHA A ROBUSTEZ
+			% -------------------------------
+			\draw[arrow, dashed] (eci.east) -- (altvar.west);
+			
+		\end{tikzpicture}
+		
+		\caption[Modelo de dependencia de recursos]{
+			Esquema conceptual del modelo econométrico orientado a explicar la dependencia de recursos naturales. La complejidad económica (ECI) se incorpora como mecanismo principal de diversificación, mientras que la participación del valor agregado manufacturero y de servicios (MANVA, SERVVA) se utiliza en especificaciones alternativas como ejercicios de robustez. Discutido en \autoref{subsec:modelo-econometrico-1}.
+		}
+		
+		\label{fig:modelo-econometrico-1}
+	\end{figure}
+	
+
+	
+\end{document}
