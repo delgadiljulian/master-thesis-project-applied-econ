@@ -1,0 +1,70 @@
+% !TEX program = xelatex
+\documentclass[../../TFM.tex]{subfiles}
+
+\begin{document}
+
+
+	% =====================================================
+	% RESULTADOS / HALLAZGOS / DESARROLLO
+	% =====================================================
+	\chapter{Resultados}
+	\label{chap:resultados}
+	\thesisstartchap{resultados}
+	
+	\section{Resultados principales}
+	\label{sec:resultados-principales}
+
+	Esta sección presentará los resultados econométricos principales una vez se complete la construcción definitiva de la base de datos y se estimen las especificaciones propuestas en el capítulo metodológico. Aquí se reportarán los coeficientes asociados a la dependencia de recursos naturales, sus efectos sobre la complejidad económica y las interacciones relevantes con capacidades productivas, instituciones y condiciones macroeconómicas.
+
+	La versión final de esta sección se organizará en torno a tres bloques: estimaciones de referencia, interpretación económica de las magnitudes estimadas y comparación entre especificaciones alternativas. Con ello se busca distinguir entre significancia estadística, relevancia sustantiva y consistencia con las hipótesis de trabajo.
+
+	Asimismo, se incorporarán tablas y figuras sintéticas que permitan comparar signos esperados, elasticidades y diferencias entre grupos de países. Una vez se disponga de las estimaciones, se integrarán comentarios específicos sobre heterogeneidad por nivel de ingreso, tipo de especialización extractiva y desempeño relativo en complejidad económica.
+	
+
+	\section{Análisis de robustez}
+	\label{sec:robustez}
+
+	En esta sección se documentarán las pruebas de robustez orientadas a evaluar la estabilidad de los resultados principales frente a cambios en la definición de variables, la composición de la muestra y la estrategia de estimación. Entre las verificaciones previstas se incluyen medidas alternativas de dependencia de recursos, distintos rezagos para la complejidad económica y especificaciones con controles institucionales y macroeconómicos adicionales.
+
+	También se considerarán ejercicios de sensibilidad para examinar la influencia de valores atípicos, el papel de economías altamente especializadas y las posibles diferencias entre países exportadores de energía y exportadores mineros. El objetivo es mostrar en qué medida los hallazgos dependen de supuestos particulares o, por el contrario, reflejan patrones empíricos robustos.
+	
+	
+	\section{Discusión de resultados}
+	\label{sec:discusion-resultados}
+
+	La discusión integrará la evidencia econométrica con el marco teórico desarrollado en los capítulos anteriores. En lugar de limitarse a resumir coeficientes, esta sección interpretará los resultados a la luz de los mecanismos de enfermedad holandesa, acumulación de capacidades, diversificación exportadora y restricciones institucionales que condicionan la transición estructural en economías dependientes de recursos naturales.
+
+	Adicionalmente, se contrastarán los resultados obtenidos con la literatura empírica revisada, identificando coincidencias, diferencias y posibles aportes del estudio. Esta lectura comparada permitirá valorar si la relación entre dependencia extractiva y complejidad económica es sistemática o si depende de mediaciones institucionales y productivas específicas.
+	
+	
+	
+	\subsection{Ranking de capacidad de diversificación en economías dependientes de recursos naturales}
+	\label{sec:ranking}
+	
+	Con el fin de complementar el análisis econométrico, se propone un ejercicio descriptivo orientado a comparar la posición relativa de las economías dependientes de recursos naturales en términos de su capacidad de diversificación productiva. A diferencia de enfoques que miden la transformación estructural a partir del crecimiento del sector no extractivo, este trabajo utiliza el \textit{Economic Complexity Index} (ECI) como una medida sintética de las capacidades productivas subyacentes.
+	
+	La lógica de este enfoque se basa en la literatura de complejidad económica, según la cual la diversificación no debe entenderse únicamente como la expansión de sectores no extractivos, sino como la acumulación de capacidades que permiten a una economía producir y exportar bienes más diversos y sofisticados. En este sentido, el ECI captura de manera indirecta el grado de diversificación efectiva de la estructura productiva, penalizando la dependencia en productos primarios y reflejando la proximidad hacia actividades de mayor complejidad.
+	
+	En consecuencia, el ejercicio propuesto considera dos dimensiones complementarias de la diversificación: (i) el nivel de complejidad económica, que refleja el estado actual de las capacidades productivas, y (ii) la dinámica de la complejidad, que captura la evolución de dichas capacidades en el tiempo.
+	
+	Formalmente, se definen:
+	
+	\begin{equation}
+		RTC_i^{nivel} = ECI_i
+	\end{equation}
+	
+	\begin{equation}
+		RTC_i^{din} = \Delta ECI_i = ECI_{i,t} - ECI_{i,t-k}
+	\end{equation}
+	
+	donde $RTC_i^{nivel}$ representa la capacidad de diversificación en términos de la estructura productiva actual, mientras que $RTC_i^{din}$ captura el cambio en dicha capacidad a lo largo del tiempo.
+	
+	Esta distinción permite diferenciar entre economías que ya poseen estructuras productivas complejas y aquellas que, aun partiendo de niveles bajos de complejidad, muestran procesos de transformación estructural dinámicos. En particular, el análisis conjunto de ambas dimensiones permite identificar trayectorias diferenciadas de desarrollo productivo dentro del grupo de economías dependientes de recursos naturales.
+	
+	De este modo, el ranking no solo ordena a los países según su nivel de complejidad económica, sino que también permite clasificar su desempeño en términos de transición estructural, distinguiendo entre economías consolidadas, economías en proceso de diversificación y economías con persistente dependencia de recursos naturales.
+	
+	Finalmente, este enfoque permite identificar heterogeneidad significativa entre economías con similares niveles de dependencia de recursos, evidenciando que dicha dependencia no determina de manera unívoca la capacidad de diversificación productiva. Por el contrario, algunos países logran desarrollar estructuras productivas más complejas o avanzar dinámicamente hacia ellas, lo que sugiere la existencia de factores adicionales —institucionales, educativos y tecnológicos— que condicionan las trayectorias de transformación estructural.
+	
+	\thesisendchap{resultados}
+	
+\end{document}

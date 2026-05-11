@@ -1,0 +1,130 @@
+% !TEX program = xelatex
+\documentclass[../../TFM.tex]{subfiles}
+
+\begin{document}
+	
+% =====================================================
+%  DATOS Y CONSTRUCCIÓN DE VARIABLES
+% =====================================================
+
+	\chapter{Datos y construcción de variables}
+	\label{chap:datos-variables}
+	\thesisstartchap{datos-variables}
+	
+	\section{Fuentes de datos y muestra}
+	\label{sec:fuentes-datos-muestra}
+	
+	Este capítulo no replica el detalle metodológico sobre criterios de selección muestral ni sobre la justificación de cada indicador. Su propósito es presentar una caracterización descriptiva del panel de datos finalmente consolidado antes de la estimación econométrica. En consecuencia, aquí solo se identifican de manera general las fuentes de información empleadas y la lógica de integración de la base, mientras que la discusión completa sobre selección de países, período de análisis y especificación del modelo se desarrolla en el capítulo metodológico.
+	
+	De manera sintética, la base combina información de comercio internacional, estructura productiva, desempeño macroeconómico y calidad institucional. El \textit{Economic Complexity Index} ($ECI$) proviene del \textit{Atlas of Economic Complexity} del Harvard Growth Lab; las series macroeconómicas y sectoriales se obtienen principalmente de los \textit{World Development Indicators} del Banco Mundial; y los indicadores institucionales se apoyan en los \textit{Worldwide Governance Indicators}. De forma complementaria, algunas variables de capital humano, innovación y estructura exportadora se nutren de fuentes como Penn World Table, Barro--Lee, UNESCO, WIPO, UNCTAD, IMF y UN Comtrade. La muestra efectiva que se describe en este capítulo corresponde, por tanto, a la intersección final de estas fuentes una vez realizada la depuración y armonización del panel.
+	
+	
+	\section{Definición y construcción de variables}
+	\label{sec:definicion-construccion-variables}
+	
+	Dado que las definiciones operativas completas de las variables del modelo ya fueron establecidas en el capítulo metodológico, esta sección se limita a precisar cuáles indicadores se utilizan en la descripción del panel y en el análisis exploratorio previo a la econometría. En esta etapa se privilegian las variables que permiten caracterizar tres dimensiones centrales de la base: la especialización extractiva, el nivel de desarrollo económico y la transformación estructural.
+	
+	Para la caracterización de la especialización extractiva se emplean indicadores de participación de exportaciones mineras, energéticas y de commodities en el total exportado, así como las rentas de recursos naturales como porcentaje del PIB. Para la transformación estructural se utiliza principalmente el Índice de Complejidad Económica ($ECI$), complementado cuando corresponde con indicadores de estructura productiva interna. Por su parte, el nivel de desarrollo se resume mediante el ingreso per cápita y, en algunos ejercicios descriptivos, mediante la clasificación de países por grupos de ingreso. Las transformaciones aplicadas en este capítulo son, sobre todo, participaciones porcentuales, escalas logarítmicas y agrupaciones de países, ya que el objetivo no es todavía estimar el modelo, sino describir la distribución de las variables y explorar patrones preliminares en los datos.
+	
+	En consecuencia, este capítulo no vuelve a desarrollar variable por variable la lógica del modelo econométrico, sino que utiliza el panel ya depurado para documentar regularidades empíricas básicas antes de pasar a las estimaciones. Las definiciones detalladas, los criterios exactos de construcción y la justificación de las variables de control se mantienen en el capítulo de metodología para evitar redundancias innecesarias.
+	
+	
+	\section{Estadística descriptiva}
+	\label{sec:estadistica-descriptiva}
+	
+	Esta sección ofrece una caracterización descriptiva de la base empírica utilizada en la investigación. El objetivo es identificar regularidades básicas en la distribución de las variables, en la composición de la muestra y en las asociaciones bivariadas más relevantes antes de proceder a la estimación econométrica. Para ello, se combinan gráficos de contextualización y ejercicios exploratorios que permiten examinar la heterogeneidad de las economías analizadas.
+	
+	\subsection{Hechos estilizados}
+	\label{subsec:hechos-estilizados}
+	
+	Antes de examinar el panel consolidado de esta investigación, resulta útil presentar algunos hechos estilizados que sirven como punto de referencia para interpretar la heterogeneidad de las economías dependientes de recursos naturales. Los gráficos presentados en las Figuras \ref{fig:extractive-specialization}, \ref{fig:commodities-income}, \ref{fig:energy-income-boxplot} y \ref{fig:mining-income-boxplot} se construyen a partir de los datos reportados en las tablas de \textcite[27--30]{Anne2021}. Su función en esta sección es contextual: permiten situar el problema empírico general antes de pasar al análisis exploratorio del panel utilizado en la tesis.
+	
+	Un primer hecho estilizado surge al analizar conjuntamente la participación de las exportaciones mineras y energéticas en la canasta exportadora de los países considerados. El diagrama de dispersión de la \autoref{fig:extractive-specialization} muestra que las observaciones no se distribuyen de manera homogénea en el plano, sino que tienden a agruparse en tres configuraciones. En una de ellas predominan las economías con alta participación de exportaciones energéticas y baja participación de exportaciones mineras; en otra se ubican las economías con especialización minera marcada y escasa presencia de recursos energéticos; y entre ambos extremos aparece un grupo de economías mixtas con participaciones moderadas en ambos tipos de recursos. En conjunto, el gráfico sugiere que la dependencia extractiva suele adoptar perfiles relativamente especializados, mientras que los casos de alta dependencia simultánea en minería y energía son menos frecuentes.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=\textwidth]{\subfix{../../figures/extractive_specialization_scatter}}
+		
+		\caption[Exportaciones mineras y energéticas]{Relación entre la participación de las exportaciones mineras y energéticas en la canasta exportadora de los países considerados. Las líneas punteadas indican umbrales del 20\% que permiten distinguir distintos patrones de especialización extractiva.}
+		
+		\label{fig:extractive-specialization}
+	\end{figure}
+	
+	Un segundo hecho estilizado aparece al relacionar la dependencia exportadora de recursos extractivos con el nivel de ingreso de los países. La \autoref{fig:commodities-income} sugiere que la especialización en commodities no disminuye de manera monotónica a medida que aumenta el ingreso per cápita. Aunque las economías de bajos ingresos exhiben una elevada dispersión, los grupos de ingreso medio alto y alto también presentan niveles considerables de dependencia exportadora. En particular, la mediana de la participación de commodities se mantiene relativamente elevada en estos grupos, lo que indica que la especialización en recursos naturales puede coexistir con niveles altos de ingreso.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=\textwidth]{\subfix{../../figures/p_commodities_income_boxplot}}
+		
+		\caption[Dependencia exportadora de commodities por nivel de ingreso]{Distribución de la participación de las exportaciones de commodities en el total de exportaciones según grupo de ingreso: bajos ingresos (LIC), ingresos medios bajos (LMIC), ingresos medios altos (UMIC) y altos ingresos (HIC).}
+		
+		\label{fig:commodities-income}
+	\end{figure}
+	
+	Un tercer hecho estilizado se observa al comparar la intensidad de la dependencia exportadora entre distintos tipos de recursos extractivos. Las Figuras \ref{fig:energy-income-boxplot} y \ref{fig:mining-income-boxplot} muestran que las economías especializadas en recursos energéticos alcanzan niveles de concentración exportadora más altos que aquellas especializadas en minería. Mientras las exportaciones energéticas pueden representar una fracción dominante de la canasta exportadora, la participación de las exportaciones mineras tiende a ser menor y más dispersa entre grupos de ingreso. Este contraste sugiere que no todas las economías extractivas enfrentan el mismo tipo de restricción estructural: la especialización basada en hidrocarburos parece asociarse con patrones de concentración más intensos que los observados en economías mineras.
+	
+	\begin{figure}[H]
+		\centering
+		
+		\begin{subfigure}{0.49\textwidth}
+			\centering
+			\includegraphics[width=\textwidth]{\subfix{../../figures/p_energy_income_boxplot}}
+			\caption{Dependencia de exportaciones energéticas por grupo de ingreso.}
+			\label{fig:energy-income-boxplot}
+		\end{subfigure}
+		\hfill
+		\begin{subfigure}{0.49\textwidth}
+			\centering
+			\includegraphics[width=\textwidth]{\subfix{../../figures/p_mining_income_boxplot}}
+			\caption{Dependencia de exportaciones mineras por grupo de ingreso.}
+			\label{fig:mining-income-boxplot}
+		\end{subfigure}
+		
+		\caption[Dependencia exportadora por tipo de recurso]{Comparación de la participación de las exportaciones de recursos energéticos y mineros en el total de exportaciones de los países considerados.}
+		
+		\label{fig:energy-mining-income-comparison}
+		
+	\end{figure}
+	
+	\section{Análisis exploratorio de datos}
+	\label{sec:analisis-exploratorio}
+	
+	A diferencia de los hechos estilizados anteriores, esta sección se centra en patrones observados en el panel de datos empleado en la investigación. El propósito no es todavía contrastar hipótesis mediante un modelo econométrico, sino identificar asociaciones preliminares, posibles no linealidades y rasgos distributivos relevantes de las variables centrales del análisis.
+	
+	La \autoref{fig:eci-vs-resource-rents-trim} muestra la relación entre el Índice de Complejidad Económica (ECI) y las rentas de recursos naturales como porcentaje del PIB. El gráfico incluye tanto una recta de ajuste lineal por mínimos cuadrados ordinarios (OLS) como una curva de suavizamiento local (LOESS), con el fin de resumir la tendencia general de la nube de puntos. En términos descriptivos, se observa una asociación negativa entre ambas variables: las economías con mayores niveles de rentas provenientes de recursos tienden a registrar menores valores de ECI.
+	
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=\textwidth]{\subfix{../../figures/eci_vs_resource_rents_trim}}
+		
+		\caption[ECI y rentas de recursos naturales]{Relación entre el Índice de Complejidad Económica (ECI) y las rentas de recursos naturales como porcentaje del PIB.}
+		
+		\label{fig:eci-vs-resource-rents-trim}
+	\end{figure}
+	
+	La \autoref{fig:eci-vs-rents-log-quad} presenta la misma relación utilizando una escala logarítmica en el eje de rentas, lo que facilita la visualización de la alta concentración de observaciones en niveles bajos de dependencia. Esta transformación permite apreciar con mayor claridad la forma de la relación en el tramo donde se ubica una parte importante de la muestra y explorar posibles desviaciones respecto del ajuste lineal. Además, las líneas punteadas dividen el plano en cuadrantes que facilitan la comparación entre economías con distintos niveles de complejidad productiva y dependencia de recursos.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=\textwidth]{\subfix{../../figures/eci_vs_rents_log_quad}}
+		
+		\caption[ECI y rentas de recursos (escala log)]{Relación entre el Índice de Complejidad Económica (ECI) y las rentas de recursos naturales como porcentaje del PIB en escala logarítmica.}
+		
+		\label{fig:eci-vs-rents-log-quad}
+	\end{figure}
+	
+	La \autoref{fig:rents-density} muestra la distribución de las rentas de recursos naturales como porcentaje del PIB para el conjunto de países analizados. La densidad exhibe una marcada asimetría hacia la derecha: la mayor parte de las observaciones se concentra en niveles relativamente bajos de dependencia, mientras que un grupo más reducido de países presenta valores considerablemente más altos. La distancia entre la media y la mediana refuerza esta lectura y sugiere la presencia de observaciones extremas en la cola superior de la distribución.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=\textwidth]{\subfix{../../figures/rents_density}}
+		
+		\caption[Distribución de rentas de recursos naturales (\% del PIB)]{Distribución de las rentas de recursos naturales como porcentaje del PIB.}
+		
+		\label{fig:rents-density}
+	\end{figure}
+	
+	\thesisendchap{datos-variables}
+
+\end{document}

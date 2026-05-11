@@ -1,0 +1,615 @@
+% !TEX program = xelatex
+\documentclass[../../TFM.tex]{subfiles}
+
+\begin{document}
+
+	% =====================================================
+	% ANEXOS
+	% =====================================================
+	\appendix
+	\chapter{Anexos}
+	\label{chap:anexos}
+	\thesisstartchap{anexos}
+
+	Este capítulo reúne materiales complementarios de apoyo empírico, gráfico y descriptivo. Su propósito es documentar las fuentes del análisis, sintetizar visualmente los principales mecanismos teóricos y presentar información comparativa que respalda el argumento central de la tesis.
+	
+	\section{Fuentes preliminares de datos e indicadores}
+	\label{sec:fuentes}
+	
+	La \autoref{tab:fuentes_datos} resume los principales indicadores considerados para la construcción del panel empírico, sus fuentes internacionales de referencia y su cobertura temporal. La selección definitiva de variables se realizará en la etapa de implementación empírica, con base en criterios de disponibilidad, comparabilidad y consistencia teórica.
+	
+	\renewcommand{\arraystretch}{1.15}
+	\setlength{\tabcolsep}{3pt}
+	
+	\begin{footnotesize}
+		\begin{longtable}{
+				L{2.35cm}
+				L{2.5cm}
+				L{3.8cm}
+				L{3.25cm}
+				L{1.6cm}
+			}
+			
+			\caption[Fuentes de datos para el panel empírico]{Fuentes de datos utilizadas para la construcción del panel empírico.}
+			
+			\label{tab:fuentes_datos} \\
+			\hline
+			\textbf{Dimensión} & \textbf{Variable conceptual} & \textbf{Indicador utilizado} & \textbf{Fuente internacional} & \textbf{Período} \\
+			\hline
+			\endfirsthead
+			
+			\hline
+			\textbf{Dimensión} & \textbf{Variable conceptual} & \textbf{Indicador utilizado} & \textbf{Fuente internacional} & \textbf{Período} \\
+			\hline
+			\endhead
+			
+			Dependencia extractiva
+			& Dependencia de recursos (principal)
+			& Rentas de recursos naturales (\% del PIB) (RES\_RENT)
+			& World Bank (WDI)
+			& 1970--2022 \\
+			
+			Dependencia extractiva
+			& Dependencia de recursos (alternativa)
+			& Exportaciones de recursos / exportaciones totales (RES\_EXP)
+			& UN Comtrade; World Bank
+			& 1980--2022 \\
+			
+			Estructura productiva
+			& Complejidad económica
+			& Índice de Complejidad Económica (ECI, HS92)
+			& Atlas of Economic Complexity
+			& 1995--2022 \\
+			
+			Estructura productiva
+			& Concentración exportadora
+			& Índice de Herfindahl--Hirschman (HHI)
+			& UN Comtrade; Atlas of Economic Complexity
+			& 1980--2022 \\
+			
+			Instituciones
+			& Calidad institucional
+			& Rule of Law; Control of Corruption (INST)
+			& Worldwide Governance Indicators (WGI)
+			& 1996--2022 \\
+			
+			Capacidades productivas
+			& Capital humano
+			& Años promedio de escolaridad (HUMCAP)
+			& Barro--Lee; World Bank
+			& 1950--2020 \\
+			
+			Capacidades productivas
+			& Innovación
+			& Gasto en I+D (\% del PIB) o patentes (INNOV)
+			& UNESCO; WIPO
+			& 1996--2022 \\
+			
+			Macroeconomía
+			& Volatilidad externa
+			& Volatilidad de precios de commodities (VOL\_TOT)
+			& World Bank (Pink Sheet)
+			& 1960--2022 \\
+			
+			Macroeconomía
+			& Tipo de cambio real
+			& Tipo de cambio real efectivo (RER)
+			& World Bank; BIS; IMF
+			& 1980--2022 \\
+			
+			Control
+			& Nivel de desarrollo
+			& PIB per cápita (PPA, log) (GDPPC)
+			& World Bank (WDI)
+			& 1980--2022 \\
+			
+			Canal financiero
+			& Política fiscal
+			& Balance fiscal / deuda (\% del PIB) (FISC)
+			& IMF; World Bank
+			& 1980--2022 \\
+			
+			Canal financiero
+			& Desarrollo financiero
+			& Crédito doméstico al sector privado (\% PIB) (FIN)
+			& World Bank (WDI)
+			& 1980--2022 \\
+			
+			\hline
+			\multicolumn{5}{p{14.5cm}}{\textit{Nota: El panel se construye con frecuencia anual. La variable principal de complejidad corresponde al ECI basado en clasificación HS92 para asegurar consistencia temporal. Las variables de dependencia de recursos se incorporan de forma alternativa en las estimaciones para evitar problemas de multicolinealidad. La muestra final es un panel desbalanceado determinado por la disponibilidad de datos.}} \\
+		\end{longtable}
+	\end{footnotesize}
+	
+	\section{Figuras conceptuales y esquemas analíticos}
+	\label{sec:figuras}
+	
+	Esta sección reúne figuras conceptuales y esquemas analíticos que complementan la exposición teórica y metodológica del trabajo. Los diagramas permiten sintetizar los principales mecanismos de transición estructural y las relaciones entre las variables centrales del estudio, facilitando la lectura del enfoque general de la tesis.
+	
+	\begin{figure}[H]
+		\centering
+		\resizebox{\linewidth}{!}{%
+			\begin{tikzpicture}[
+				font=\small,
+				node distance=1.55cm and 2.9cm,
+				box/.style={
+					draw,
+					rectangle,
+					rounded corners=6pt,
+					align=center,
+					minimum width=6.0cm,
+					minimum height=1.05cm,
+					inner sep=6pt
+				},
+				sidebox/.style={
+					draw,
+					rectangle,
+					rounded corners=6pt,
+					align=center,
+					minimum width=4.3cm,
+					minimum height=0.95cm,
+					inner sep=6pt
+				},
+				arrow/.style={-{Stealth[length=3mm]}, line width=0.7pt}
+				]
+				
+				% Columna central
+				\node[box] (res) {Dependencia de recursos\\[2pt]\textit{(RES)}};
+				
+				\node[box, below=of res] (canales) {Canales productivos\\
+					Enfermedad holandesa\\
+					Enclaves productivos\\
+					Tipo de cambio real};
+				
+				\node[box, below=1.9cm of canales] (resultados) {Resultados productivos\\
+					Diversificación\\
+					Innovación\\
+					Acumulación de capacidades};
+				
+				% Laterales
+				\node[sidebox, left=of canales] (inst) {Instituciones\\[2pt]\textit{(INST)}};
+				\node[sidebox, right=of canales] (vol) {Volatilidad externa\\[2pt]\textit{(VOL)}};
+				\node[sidebox, right=of resultados] (fisc) {Restricción fiscal\\[2pt]\textit{(FISC)}};
+				
+				% Flechas
+				\draw[arrow] (res) -- (canales);
+				\draw[arrow] (canales) -- (resultados);
+				
+				\draw[arrow] (inst) -- node[above, font=\small] {modula} (canales);
+				\draw[arrow] (vol) -- node[above, font=\small] {condiciona} (canales);
+				\draw[arrow] (fisc) -- node[above, font=\small] {limita} (resultados);
+				
+			\end{tikzpicture}%
+		}
+		
+		\caption[Arquitectura conceptual de la transición estructural]{Arquitectura conceptual de los mecanismos que vinculan la dependencia de recursos naturales con los resultados de diversificación, innovación y acumulación de capacidades.}
+		
+		\label{fig:arquitectura-mecanismos}
+	\end{figure}
+	
+	Con el fin de evaluar la robustez de los resultados y considerar dimensiones adicionales de la transformación estructural no capturadas por el \textit{Economic Complexity Index (ECI)}, se estiman especificaciones alternativas en las que la variable dependiente corresponde a indicadores de la estructura productiva interna. En particular, se utilizan \textit{Manufacturing Value Added (MANVA)} y \textit{Services Value Added (SERVVA)} como proporción del PIB, como aproximaciones a la composición sectorial de la economía. Estas variables permiten capturar procesos de diversificación productiva que tienen lugar en el ámbito doméstico, complementando así el análisis basado en la sofisticación de la estructura exportadora. De este modo, se contrasta si los efectos de la dependencia de recursos naturales y los demás determinantes del modelo se mantienen al analizar la transformación estructural desde una perspectiva interna.
+	
+	\begin{figure}[H]
+		\centering
+		\begin{tikzpicture}[
+			font=\normalsize,
+			box/.style={
+				draw,
+				rounded corners=3pt,
+				align=center,
+				minimum width=0.65\textwidth,
+				minimum height=10mm,
+				inner ysep=6pt
+			},
+			arr/.style={-{Stealth[length=3mm]}, thick},
+			node distance=7mm
+			]
+			
+			\node[box] (a) {Boom de commodities};
+			\node[box, below=of a] (b) {expansi\'on fiscal};
+			\node[box, below=of b] (c) {apreciaci\'on};
+			\node[box, below=of c] (d) {desplazamiento\\manufacturero};
+			\node[box, below=of d] (e) {ajuste post-boom};
+			
+			\draw[arr] (a) -- (b);
+			\draw[arr] (b) -- (c);
+			\draw[arr] (c) -- (d);
+			\draw[arr] (d) -- (e);
+			
+		\end{tikzpicture}
+		\caption[Mecanismo boom y ajuste post-boom]{Esquema conceptual del mecanismo de boom de commodities y el proceso de ajuste posterior en la estructura productiva.}
+		
+		\label{fig:esquema_boom_postboom_vertical}
+	\end{figure}
+	
+	\begin{figure}[H]
+		\centering
+		\begin{tikzpicture}[
+			font=\normalsize,
+			box/.style={
+				draw,
+				rounded corners=3pt,
+				align=center,
+				minimum width=0.72\textwidth,
+				minimum height=10mm,
+				inner ysep=6pt
+			},
+			arr/.style={-{Stealth[length=3mm]}, thick},
+			node distance=7mm
+			]
+			
+			\node[box] (s1) {Fuentes internacionales};
+			\node[box, below=of s1] (s2) {Construcci\'on de base panel};
+			\node[box, below=of s2] (s3) {Limpieza y armonizaci\'on};
+			\node[box, below=of s3] (s4) {Modelo econom\'etrico};
+			\node[box, below=of s4] (s5) {Resultados};
+			
+			\draw[arr] (s1) -- (s2);
+			\draw[arr] (s2) -- (s3);
+			\draw[arr] (s3) -- (s4);
+			\draw[arr] (s4) -- (s5);
+			
+		\end{tikzpicture}
+		
+		\caption[Construcción del panel de datos]{Diagrama metodológico del proceso de construcción del panel de datos utilizado en el análisis empírico.}
+		
+		\label{fig:diagrama_panel}
+	\end{figure}
+	
+	La evolución del debate sobre la denominada “maldición de los recursos” puede entenderse como una transición desde interpretaciones clásicas
+	que consideraban los recursos naturales como una ventaja para el desarrollo, hasta enfoques contemporáneos que analizan los mecanismos institucionales,
+	macroeconómicos y estructurales que pueden convertir dicha abundancia en un factor limitante del crecimiento económico. La \autoref{fig:resource_curse_timeline} sintetiza esta evolución conceptual.
+	
+	\begin{figure}[H]
+		\centering
+		\resizebox{\textwidth}{!}{
+			\begin{tikzpicture}[
+				box/.style={
+					rectangle,
+					rounded corners,
+					draw=black,
+					thick,
+					text width=3.5cm,
+					minimum height=2.6cm,
+					text centered,
+					align=center,
+					fill=gray!10,
+					font=\small
+				}
+				]
+				
+				% Timeline
+				\draw[thick] (-1,-2) -- (24,-2);
+				
+				% Top boxes
+				\node[box] at (0,0)
+				{Los recursos naturales\\ tienen un papel positivo\\ en el desarrollo económico};
+				
+				\node[box] at (4.8,0)
+				{Surgimiento de la teoría\\ de la enfermedad holandesa};
+				
+				\node[box] at (9.6,0)
+				{Formulación de la tesis\\ de la maldición de los\\ recursos (estudios de caso)};
+				
+				\node[box] at (14.4,0)
+				{Se acuña el término\\ ``maldición de los\\ recursos''};
+				
+				\node[box] at (19.2,0)
+				{Evidencia empírica que\\ confirma los efectos\\ adversos de la dependencia\\ de recursos};
+				
+				\node[box] at (24,0)
+				{Relación entre dependencia\\ de recursos y\\ crecimiento económico};
+				
+				% Vertical connectors
+				\draw (0,-0.8) -- (0,-2);
+				\draw (4.8,-0.8) -- (4.8,-2);
+				\draw (9.6,-0.8) -- (9.6,-2);
+				\draw (14.4,-0.8) -- (14.4,-2);
+				\draw (19.2,-0.8) -- (19.2,-2);
+				\draw (24,-0.8) -- (24,-2);
+				
+				% Years
+				\node at (0,-2.7) {Antes de 1980};
+				\node at (4.8,-2.7) {1982};
+				\node at (9.6,-2.7) {1988};
+				\node at (14.4,-2.7) {1993};
+				\node at (19.2,-2.7) {1995};
+				\node at (24,-2.7) {2001};
+				
+				% Authors (below years)
+				\node at (0,-3.4) {\small Adam Smith (1776)};
+				\node at (4.8,-3.4) {\small Corden \& Neary};
+				\node at (9.6,-3.4) {\small Gelb};
+				\node at (14.4,-3.4) {\small Auty};
+				\node at (19.2,-3.4) {\small Sachs \& Warner};
+				\node at (24,-3.4) {\small Gylfason};
+				
+			\end{tikzpicture}
+		}
+		
+		\caption[Evolución de la literatura sobre la maldición de los recursos]{Evolución conceptual de la literatura sobre la maldición de los recursos naturales.}
+		
+		\label{fig:resource_curse_timeline}
+		
+		\footnotesize
+		\textit{Nota:} La figura resume el desarrollo histórico del debate sobre recursos naturales y crecimiento económico, desde las primeras interpretaciones clásicas hasta la evidencia empírica moderna sobre dependencia de recursos y desempeño económico.
+		
+		\textit{Fuente: Elaboración propia con base en \textcite{Anne2021}.}
+		
+	\end{figure}
+	
+	
+	\vspace{1cm}
+	
+	
+	\begin{figure}[H]
+		\centering
+		\begin{tikzpicture}[
+			node distance=0.95cm,
+			box/.style={
+				draw,
+				rectangle,
+				rounded corners=4pt,
+				align=center,
+				minimum width=6.5cm,
+				minimum height=1.1cm,
+				font=\small
+			},
+			arrow/.style={->, thick}
+			]
+			
+			\node[box] (cap) {Capacidades productivas};
+			\node[box, below=of cap] (ps) {\textit{Product space}};
+			\node[box, below=of ps] (div) {Diversificación productiva};
+			\node[box, below=of div] (eci) {Complejidad económica (ECI)};
+			\node[box, below=of eci] (growth) {Crecimiento económico de largo plazo};
+			
+			\draw[arrow] (cap) -- (ps);
+			\draw[arrow] (ps) -- (div);
+			\draw[arrow] (div) -- (eci);
+			\draw[arrow] (eci) -- (growth);
+			
+		\end{tikzpicture}
+		
+		\caption[Capacidades productivas y complejidad económica]{Relación conceptual entre capacidades productivas, diversificación y complejidad económica.}
+		
+		\label{fig:secuencia-complejidad}
+	\end{figure}
+	
+	Como se ilustra en la Figura \ref{fig:ul-durar-2023}, la relación entre la complejidad económica y las rentas de recursos puede adoptar una forma de U invertida. En etapas tempranas del desarrollo, caracterizadas por bajos niveles de complejidad, un aumento en la sofisticación productiva puede estar asociado con una expansión de las rentas derivadas de recursos naturales, reflejando una mejor organización productiva y aprovechamiento de dichos recursos. Sin embargo, a partir de cierto umbral de complejidad, se observa un proceso de sustitución en el cual las economías tienden a diversificarse hacia actividades más sofisticadas, reduciendo gradualmente la dependencia relativa de las rentas de recursos. Este patrón es consistente con los hallazgos de \textcite{Ul-Durar2023}, quienes documentan una relación no lineal entre complejidad económica y dependencia de recursos.
+	
+	\begin{figure}[htbp]
+		\centering
+		\includegraphics[width=0.8\textwidth]{\subfix{../../figures/1_ul-durar_2023.png}}
+		\caption[Relación ECI y rentas de recursos (U invertida)]{
+			Relación en forma de U invertida entre complejidad económica y rentas de recursos.
+		}
+		\label{fig:ul-durar-2023}
+		\caption*{\footnotesize \textit{Fuente: Tomado de \textcite{Ul-Durar2023}.}}
+	\end{figure}
+	
+	Por otra parte, la literatura también ha identificado una relación en forma de U, asociada al concepto de \textit{load capacity curve} (LCC), en la cual los incrementos iniciales en la complejidad económica reducen la dependencia de recursos a través de procesos de diversificación, pero en etapas avanzadas generan un efecto de escala que incrementa nuevamente la demanda por recursos naturales.
+	
+	\begin{figure}[htbp]
+		\centering
+		\includegraphics[width=0.8\textwidth]{\subfix{../../figures/2_ul-durar_2023.png}}
+		\caption[Relación ECI y rentas de recursos (forma de U)]{
+			Relación en forma de U entre complejidad económica y rentas de recursos: diversificación y efecto escala (\textit{load capacity curve}).
+		}
+		\label{fig:ul-durar-u-shape}
+		\caption*{\footnotesize \textit{Fuente: Tomado de \textcite{Ul-Durar2023}.}}
+	\end{figure}
+	
+	\section{Gráficos complementarios}
+	\label{sec:plots}
+	
+	La \autoref{fig:eci_income_resources} muestra la relación entre el índice de complejidad económica (ECI) y el ingreso per cápita para 128 países. Los países se distinguen según su dependencia de recursos naturales: en rojo, aquellos cuyas exportaciones de recursos naturales superan el 10\% del PIB; en azul, aquellos con menor dependencia. En las economías con baja presencia de recursos naturales, el ECI explica aproximadamente el 75\% de la variación del ingreso per cápita, lo que sugiere una asociación estrecha entre complejidad productiva y nivel de desarrollo. En contraste, algunas economías intensivas en recursos exhiben niveles de ingreso superiores a los que su complejidad productiva sugeriría, reflejando el efecto de las rentas derivadas de la explotación de petróleo, gas o minerales. Aun así, incluso dentro de este grupo la complejidad económica mantiene una correlación positiva con el ingreso.
+	
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.9\textwidth]{\subfix{../../figures/2_hausmann_2014.png}}
+		
+		\caption[ECI e ingreso per cápita]{Relación entre el Índice de Complejidad Económica (ECI) y el ingreso per cápita para 128 países. Los colores distinguen economías dependientes de recursos naturales y economías con menor dependencia.}
+		
+		\label{fig:eci_income_resources}
+		\caption*{\footnotesize \textit{Fuente: Tomado de \textcite{Hausmann2014}.}}
+	\end{figure}
+	
+	La Figura~\ref{fig:anexo_nr_eci} muestra la relación entre la abundancia de recursos naturales y la complejidad económica. Se observa una asociación negativa en promedio, aunque con alta dispersión y diferencias entre países desarrollados y en desarrollo.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.85\textwidth]{\subfix{../../figures/1_avom_2022.png}}
+		\caption{
+			Abundancia de recursos naturales y complejidad económica (ECI) en países desarrollados y en desarrollo.
+		}
+		\label{fig:anexo_nr_eci}
+		\caption*{\footnotesize \textit{Fuente: Tomado de Hausmann et al. (2014).}}
+	\end{figure}
+	
+	La Figura~\ref{fig:anexo_nr_eci_finance} ilustra la relación entre dependencia de recursos, complejidad económica y niveles de desarrollo financiero, mostrando diferencias sistemáticas según el grado de desarrollo financiero.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.85\textwidth]{\subfix{../../figures/1_valentine_2024.png}}
+		\caption{
+			Recursos naturales, complejidad económica (ECI) y desarrollo financiero en países en desarrollo.
+		}
+		\label{fig:anexo_nr_eci_finance}
+		\caption*{\footnotesize \textit{Fuente: Tomado de Valentine et al. (2024).}}
+	\end{figure}
+	
+	\section{Mapas}
+	\label{sec:mapas}
+	
+	La \autoref{fig:resource-dependent-map} presenta la distribución geográfica preliminar de los países potencialmente incluidos en la muestra empírica.
+	
+	\begin{figure}[htbp]
+		\centering
+		\includegraphics[width=\textwidth]{\subfix{../../figures/resource_dependent_map}}
+		
+		\caption[Distribución geográfica de economías dependientes de recursos]{Distribución geográfica de las economías potencialmente dependientes de recursos naturales incluidas en la muestra de análisis.}
+		
+		\label{fig:resource-dependent-map}
+	\end{figure}
+	
+	La \autoref{fig:resource-rents-world-map} muestra la distribución global de las rentas de recursos naturales como porcentaje del PIB.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=\textwidth]{\subfix{../../figures/resource_rents_world_map}}
+		
+		\caption[Rentas de recursos naturales (\% del PIB)]{Distribución global de las rentas de recursos naturales como porcentaje del PIB.}
+		
+		\label{fig:resource-rents-world-map}
+	\end{figure}
+	
+	La \autoref{fig:eci-world-map} presenta la distribución global del Índice de Complejidad Económica (ECI), un indicador que captura el grado de sofisticación productiva de las economías a partir de la diversidad y ubicuidad de los bienes que exportan. En general, valores más altos del ECI se asocian con estructuras productivas más diversificadas y mayores capacidades tecnológicas, mientras que valores bajos reflejan economías más concentradas en productos primarios o de menor intensidad tecnológica; en este contexto, el mapa ofrece un marco descriptivo para observar las diferencias en capacidades productivas entre países y su posible relación con la dependencia de recursos naturales.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=\textwidth]{\subfix{../../figures/eci_world_map}}
+		
+		\caption[Distribución global del ECI]{Distribución global del Índice de Complejidad Económica (ECI).}
+		
+		\label{fig:eci-world-map}
+	\end{figure}
+	
+	La \autoref{fig:eci-world-map-quartiles} muestra la distribución global del Índice de Complejidad Económica (ECI) clasificada por cuartiles. Esta representación permite comparar de manera relativa el nivel de sofisticación productiva entre economías, agrupando a los países según su posición en la distribución mundial del indicador. En particular, el primer cuartil (Q1) corresponde a economías con menor complejidad económica, mientras que el cuarto cuartil (Q4) agrupa a las economías con estructuras productivas más diversificadas y tecnológicamente avanzadas.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=\textwidth]{\subfix{../../figures/eci_world_map_quartiles}}
+		
+		\caption[ECI por cuartiles]{Distribución global del Índice de Complejidad Económica (ECI) por cuartiles.}
+		
+		\label{fig:eci-world-map-quartiles}
+	\end{figure}
+	
+	
+	Una representación especialmente ilustrativa de la estructura productiva mundial es el denominado \textit{Product Space}, desarrollado por \textcite{Hausmann2014}. Esta red vincula productos según su proximidad productiva, definida a partir de la probabilidad de que dos bienes sean exportados conjuntamente por los mismos países. La visualización resultante revela una topología altamente estructurada en la que los bienes primarios y los \textit{commodities} tienden a ubicarse en la periferia, mientras que las manufacturas complejas —como maquinaria, productos químicos y electrónica— ocupan el núcleo densamente interconectado. En este marco, el desarrollo económico puede entenderse como un proceso de acumulación gradual de capacidades productivas que permite a los países desplazarse desde actividades periféricas hacia sectores más centrales y complejos.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.95\textwidth]{\subfix{../../figures/3_hausmann_2014.png}}
+		
+		\caption[El Product Space]{El \textit{Product Space}: red global de proximidad entre productos basada en patrones de coexportación entre países. Los nodos representan productos y los enlaces reflejan proximidad productiva.}
+		
+		\label{fig:product_space_hausmann}
+		\caption*{\footnotesize \textit{Fuente: Adaptado de \textcite{Hausmann2014}.}}
+	\end{figure}
+	
+	La literatura sobre la \textit{Dutch disease} ha señalado que los auges en los sectores de recursos naturales pueden generar apreciaciones del tipo de cambio real, reasignación de factores productivos y pérdida de competitividad en sectores transables, particularmente en la manufactura \parencite{Barder2006}. Desde la perspectiva del \textit{Product Space} propuesto por \textcite{Hausmann2014}, este fenómeno puede interpretarse como un desplazamiento estructural de la economía hacia regiones periféricas del espacio productivo. En dicho espacio, las actividades de manufactura —especialmente aquellas asociadas a productos más sofisticados— tienden a ubicarse en el núcleo densamente interconectado de la red, debido a la gran cantidad de capacidades productivas compartidas que requieren. En contraste, los bienes primarios y extractivos suelen localizarse en la periferia, caracterizada por un menor número de conexiones con otras actividades productivas. En este sentido, una especialización excesiva en recursos naturales no solo debilita la base manufacturera de la economía, sino que también reduce las oportunidades cercanas para diversificación hacia productos más complejos. En consecuencia, la \textit{Dutch disease} no solo tiene implicaciones macroeconómicas de corto plazo, sino que también puede afectar la trayectoria de acumulación de capacidades productivas, limitando la capacidad de la economía para transitar hacia sectores de manufactura ubicados en el núcleo del espacio productivo.
+	
+	Como complemento visual al marco analítico de la tesis, la \autoref{fig:product_space_communities} muestra cómo distintos grupos de productos se ubican en posiciones heterogéneas en términos de complejidad económica y conectividad productiva. En particular, los sectores asociados a manufacturas y bienes industriales tienden a concentrarse en regiones más densamente conectadas del espacio productivo, mientras que muchas actividades primarias y extractivas aparecen en posiciones más periféricas. Esta configuración sugiere que las economías especializadas en recursos naturales pueden enfrentar mayores restricciones estructurales para diversificar hacia actividades de mayor complejidad.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.9\textwidth]{\subfix{../../figures/4_hausmann_2014.png}}
+		
+		\caption[Complejidad y conectividad en el Product Space]{Complejidad promedio y conectividad de comunidades de productos en el espacio productivo global. El tamaño de las burbujas es proporcional a la participación de cada comunidad en el comercio mundial.}
+		
+		\label{fig:product_space_communities}
+		\caption*{\footnotesize \textit{Fuente: Adaptado de \textcite{Hausmann2014}, The Atlas of Economic Complexity.}}
+	\end{figure}
+	
+	Como se observa en la Tabla \ref{tab:product_communities_selected}, las comunidades asociadas a industrias extractivas presentan valores sustancialmente menores del \textit{Product Complexity Index} (PCI) en comparación con sectores manufactureros intensivos en conocimiento. Este contraste refleja diferencias estructurales en las capacidades productivas requeridas por cada tipo de actividad y resulta consistente con la literatura sobre complejidad económica y diversificación productiva \parencite{Hausmann2014}.
+	
+	\begin{table}[H]
+		\centering
+		\small
+		\caption[Comunidades de productos y complejidad (PCI)]{
+			Características seleccionadas de comunidades de productos en el espacio productivo, incluyendo complejidad promedio (PCI), número de productos y participación en el comercio mundial.
+		}
+		\label{tab:product_communities_selected}
+		
+		\begin{threeparttable}
+			\begin{adjustbox}{max width=\textwidth}
+			\begin{tabular}{L{2.8cm}L{2.2cm}L{2.6cm}L{2.2cm}L{2.8cm}}
+				\toprule
+				\textbf{Comunidad} & \textbf{PCI promedio} & \textbf{Número de productos} & \textbf{Comercio mundial} & \textbf{Participación mundial} \\
+				\midrule
+				\multicolumn{5}{l}{\textit{Industrias extractivas}} \\
+				
+				Petróleo & -2.08 & 4 & 2.3T & 10.49\% \\
+				Minería & -0.59 & 48 & 1.1T & 5.01\% \\
+				Carbón & 0.21 & 6 & 183B & 0.83\% \\
+				
+				\midrule
+				\multicolumn{5}{l}{\textit{Sectores manufactureros (contraste)}} \\
+				
+				Maquinaria & 2.54 & 125 & 4.4T & 20.29\% \\
+				Electrónica & 2.25 & 52 & 3.6T & 16.71\% \\
+				Químicos \& salud & 2.52 & 64 & 1.6T & 7.47\% \\
+				
+				\bottomrule
+			\end{tabular}
+			\end{adjustbox}
+			
+			\begin{tablenotes}
+				\footnotesize
+				\item \textit{Fuente: Elaboración propia a partir de datos reportados en} \textcite{Hausmann2014}, \textit{The Atlas of Economic Complexity}.
+			\end{tablenotes}
+			
+		\end{threeparttable}
+	\end{table}
+	
+	
+	Las visualizaciones del espacio productivo pueden consultarse de forma interactiva en el \textit{Atlas of Economic Complexity}, desarrollado por el Harvard Growth Lab \parencite{HarvardGrowthLab2024}.
+	
+	\section{Tablas descriptivas sobre dependencia de recursos naturales}
+	\label{sec:tablas}
+	
+	Las economías dependientes de recursos naturales no constituyen un grupo homogéneo. Difieren tanto en su nivel de desarrollo económico como en el tipo de sector extractivo dominante. En particular, algunos países presentan una fuerte especialización en exportaciones energéticas (petróleo y gas), mientras que otros se especializan principalmente en minerales o exhiben estructuras extractivas mixtas. La Tabla \ref{tab:extractive_typology} presenta una tipología estilizada que clasifica estas economías según el tipo de sector extractivo predominante y su nivel de ingreso, siguiendo la clasificación del Banco Mundial.
+	
+	\begin{table}[H]
+		\centering
+		\small
+		\caption[Tipología de economías extractivas]{Tipología de economías dependientes de recursos naturales según tipo de sector extractivo y nivel de ingreso.}
+		\label{tab:extractive_typology}
+		
+		\begin{threeparttable}
+				\begin{tabular}{L{3.6cm}L{2.0cm}L{2.3cm}L{2.7cm}L{2.2cm}}
+					\toprule
+					\textbf{Tipo de economía extractiva} & \textbf{LIC} & \textbf{LMIC} & \textbf{UMIC} & \textbf{HIC} \\
+					& (Low Income) & (Lower Middle) & (Upper Middle) & (High Income) \\
+					\midrule
+					
+					\textbf{Economías energéticas} \\
+					(Energy $\gg$ Mining)
+					& Chad, Sudan
+					& Nigeria
+					& Azerbaijan
+					& Norway \\
+					
+					\addlinespace
+					
+					\textbf{Economías mineras} \\
+					(Mining $\gg$ Energy)
+					& DR Congo
+					& Guinea, Zambia
+					& Mongolia, Peru, Kazakhstan
+					& Chile, Australia \\
+					
+					\addlinespace
+					
+					\textbf{Economías extractivas mixtas} \\
+					(Mining + Energy)
+					& 
+					& Mauritania
+					& Indonesia, Colombia
+					& Russia, Canada \\
+					
+					\bottomrule
+				\end{tabular}
+			
+			\begin{tablenotes}[para,flushleft]
+				\footnotesize
+				\item \textit{Nota: LIC = Low Income Countries; LMIC = Lower Middle Income Countries; UMIC = Upper Middle Income Countries; HIC = High Income Countries. La clasificación por ingreso sigue la tipología vigente del Banco Mundial (FY2026). Venezuela, RB, aparece actualmente sin clasificar por falta de datos comparables y por ello no se incluye en la tabla.}
+			\end{tablenotes}
+		\end{threeparttable}
+	\end{table}
+
+	\thesisendchap{anexos}
+	
+\end{document}
