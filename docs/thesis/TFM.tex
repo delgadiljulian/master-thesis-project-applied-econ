@@ -17,7 +17,6 @@
 \usepackage{setspace}
 \usepackage{ragged2e}
 \usepackage{csquotes}
-\usepackage{subcaption}
 \usepackage{subfiles}
 
 \newcommand{\thesisbodyformat}{%
@@ -151,8 +150,8 @@ isbn=false
 {20pt}
 
 % Secciones
-\titleformat{\section}[hang]
-{\normalfont\Large\bfseries\raggedright}
+\titleformat{\section}
+{\centering\normalfont\bfseries\Large}
 {\thesection.}
 {1em}
 {}
@@ -183,7 +182,6 @@ isbn=false
 % ----------------------------
 % FUENTE
 % ----------------------------
-\setmainfont{Times New Roman}
 \setlength{\parindent}{0pt}
 
 % ----------------------------
@@ -196,16 +194,6 @@ isbn=false
 	\par\noindent
 	\textcolor{lineblue}{\rule{\linewidth}{0.6pt}}%
 }
-
-% ----------------------------
-% CONFIGURACIÓN PREAMBULO
-% ----------------------------
-
-\titleformat{\section}
-{\centering\normalfont\bfseries\Large}
-{\thesection.}
-{1em}
-{}
 
 % ----------------------------
 % CONFIGURACIÓN BIBLIOGRAFÍA
@@ -279,10 +267,6 @@ isbn=false
 		% TIPO DE TRABAJO (CAMBRIA)
 		% ----------------------------
 		\begin{center}
-			{\cambriafont\fontsize{22}{26}\selectfont PROYECTO}
-			
-			\vspace{0.2cm}
-			
 			{\cambriafont\fontsize{22}{26}\selectfont TRABAJO FINAL DE MAESTRÍA}
 		\end{center}
 		
@@ -296,7 +280,7 @@ isbn=false
 			\begin{minipage}{0.9\textwidth}
 				\noindent\justifying
 				{\cambriafont\fontsize{18}{22}\selectfont
-					Dependencia de recursos naturales y trayectorias de transición estructural (1980-2022)}
+					Dependencia de recursos naturales y trayectorias de transición estructural (1996--2022)}
 			\end{minipage}
 		\end{center}
 		
@@ -325,7 +309,7 @@ isbn=false
 		% FECHA
 		% ----------------------------
 		\begin{center}
-			{\cambriafont\fontsize{12}{14}\selectfont FEBRERO 2026}
+			{\cambriafont\fontsize{12}{14}\selectfont \MakeUppercase{\today}}
 		\end{center}
 		\ShelfRule
 		

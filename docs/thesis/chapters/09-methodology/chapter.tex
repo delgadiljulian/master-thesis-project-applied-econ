@@ -25,18 +25,18 @@
 	\emph{no experimental} y \emph{longitudinal} (panel), y se basa en el
 	uso de datos secundarios comparables internacionalmente para un conjunto
 	de países. El horizonte general de recopilación de datos cubre el período
-	1980--2022, sujeto a la disponibilidad de cada fuente. No obstante, dado
+	1980--2022\footnote{
+		El horizonte general 1980--2022 permite capturar la etapa de mayor integración
+		financiera internacional y liberalización comercial posterior a los años
+		ochenta, así como múltiples ciclos de precios de commodities,
+		incluyendo el superciclo de los años 2000 y su fase descendente
+		posterior a 2014.}, sujeto a la disponibilidad de cada fuente. No obstante, dado
 	que la variable principal de complejidad económica se encuentra disponible
 	desde 1995 y los indicadores institucionales comparables
 	internacionalmente desde 1996, el período principal de estimación
 	econométrica se define como 1996--2022. El intervalo 1990--1995 se utiliza
 	exclusivamente como período base para clasificar la dependencia externa de
-	recursos naturales mediante el indicador $DRES$.\footnote{El horizonte
-		general 1980--2022 permite capturar la etapa de mayor integración
-		financiera internacional y liberalización comercial posterior a los años
-		ochenta, así como múltiples ciclos de precios de commodities,
-		incluyendo el superciclo de los años 2000 y su fase descendente
-		posterior a 2014.}
+	recursos naturales mediante el indicador $DRES$.
 
 	Al mismo tiempo, la amplitud del horizonte temporal y la naturaleza
 	histórica del fenómeno estudiado hacen razonable esperar la presencia de
@@ -94,7 +94,7 @@
 	institucionales y variables macroeconómicas relevantes durante el período
 	principal de estimación 1996--2022. A partir de este universo, la base
 	empírica se organiza como un panel internacional, potencialmente
-	desbalanceado, en función de la
+	desbalanceado,\footnote{Un panel desbalanceado permite que no todos los países cuenten con observaciones para todos los años, siempre que la ausencia de datos sea tratada de forma consistente con la estrategia econométrica y no responda sistemáticamente al resultado que se busca explicar.} en función de la
 	disponibilidad y consistencia temporal de los datos.
 	
 	La muestra analítica principal se concentra en economías dependientes de
@@ -137,7 +137,7 @@
 	pequeñas distorsionen las comparaciones internacionales. A continuación,
 	la muestra se restringe a economías con presencia significativa en el
 	comercio internacional, reteniendo únicamente aquellos países cuyas
-	exportaciones anuales superan un billón de dólares estadounidenses.
+	exportaciones anuales superan mil millones de dólares estadounidenses (1 billion USD).
 	
 	Sobre este conjunto de economías se identifica el grupo de países con
 	elevada dependencia externa de recursos naturales. Para ello se construye
@@ -202,9 +202,10 @@
 	recursos naturales. El número exacto puede variar entre especificaciones
 	según la cobertura temporal y la disponibilidad de datos para cada
 	variable incluida.
+
 	\begin{figure}[htbp]
 		\centering
-		
+
 		\begin{tikzpicture}[
 			node distance=1.2cm,
 			every node/.style={font=\small},
@@ -228,7 +229,7 @@
 			{147 países};
 			
 			\node[below=of step2] (text3)
-			{Exportaciones $>$ 1 billón USD};
+			{Exportaciones $>$ 1.000 millones USD};
 			
 			\node[draw, rectangle, minimum width=4.8cm, minimum height=0.8cm, align=center, below=of text3] (step3)
 			{131 países};
@@ -335,7 +336,7 @@
 	para interpretar, en etapas posteriores, posibles diferencias en sus
 	trayectorias de transformación estructural.
 	\section{Variables del estudio y definición operacional}
-	\label{subsec:variables-estudio}
+	\label{sec:variables-estudio}
 	
 La definición operativa de recursos naturales adoptada en este trabajo se
 alinea con la evolución reciente de la literatura sobre la denominada
@@ -601,7 +602,7 @@ y disponibilidad de información para el período principal de estimación
 		Innovación
 		& INNOV
 		& Explicativa de capacidades
-		& Gasto en I+D como porcentaje del PIB o patentes per cápita; proxy de capacidades tecnológicas y upgrading productivo.
+		& Gasto en I+D como porcentaje del PIB o patentes per cápita; proxy de capacidades tecnológicas y escalamiento productivo.
 		& UNESCO / WIPO \\
 		\hline
 		
@@ -617,7 +618,7 @@ y disponibilidad de información para el período principal de estimación
 		% -----------------------------------------------------
 		
 		Logaritmo del PIB per cápita
-		& $\log(GDPPC_{it})$
+		& \begin{tabular}[c]{@{}c@{}}LOG\_\\GDPPC\end{tabular}
 		& Control
 		& Logaritmo del Producto Interno Bruto per cápita en términos de paridad de poder adquisitivo; se utiliza como proxy del nivel de desarrollo económico.
 		& Banco Mundial \\
@@ -657,7 +658,7 @@ y disponibilidad de información para el período principal de estimación
 	UNESCO, WIPO e ITU, según la variable considerada y tal como se resume en
 	la \autoref{tab:variables}. La elección de estas fuentes responde a
 	criterios de comparabilidad internacional, cobertura temporal,
-	transparencia metodológica y disponibilidad para el período 1980--2022.
+	transparencia metodológica y disponibilidad para el horizonte general de recopilación 1980--2022 y, especialmente, para el período principal de estimación 1996--2022.
 	
 	La recolección de datos consistirá en la construcción de una base de panel
 	país--año mediante la descarga, integración y armonización de series
@@ -683,7 +684,7 @@ y disponibilidad de información para el período principal de estimación
 	especificaciones según la cobertura efectiva de cada indicador.
 	
 	\section{Especificación del modelo econométrico}
-	\label{subsec:modelo-econometrico}
+	\label{sec:modelo-econometrico}
 	
 	
 	La especificación econométrica adoptada se presenta en la \autoref{eq:modelo_base} y se ilustra conceptualmente en la \autoref{fig:modelo-econometrico}. Esta propuesta desplaza el foco analítico desde la dependencia de recursos naturales como variable de resultado, hacia la transformación estructural como proceso central del desarrollo económico.
@@ -727,7 +728,8 @@ y disponibilidad de información para el período principal de estimación
 	
 	Los términos $\mu_i$ y $\lambda_t$ corresponden a efectos fijos por país y por periodo, respectivamente, permitiendo controlar por heterogeneidad no observable y por shocks comunes.
 
-	No obstante, dado el horizonte 1980--2022, no resulta plausible suponer
+	No obstante, dado el horizonte general de recopilación 1980--2022 y el
+	período principal de estimación 1996--2022, no resulta plausible suponer
 	que la relación entre rentas extractivas y transformación estructural haya
 	permanecido estrictamente estable a lo largo de todo el período. La
 	ocurrencia de quiebres estructurales puede afectar la estabilidad de
@@ -756,7 +758,7 @@ y disponibilidad de información para el período principal de estimación
 	justifiquen, un conjunto acotado de interacciones entre variables de
 	interés y dummies de período. En particular, se considerará la inclusión
 	de un indicador $Post2003_t$, que toma valor 1 a partir de 2003, para
-	aproximar el régimen asociado al boom de commodities. Dado que en
+	aproximar el régimen asociado al auge de commodities. Dado que en
 	especificaciones con efectos temporales completos la dummy $Post2003_t$
 	queda absorbida por $\lambda_t$, el parámetro sustantivo de interés será
 	la interacción $RENTS_{it} \times Post2003_t$, que permite evaluar si el
@@ -775,7 +777,7 @@ y disponibilidad de información para el período principal de estimación
 	que un mismo aumento de las rentas extractivas produzca efectos
 	diferenciados según el entorno institucional, mientras que la interacción
 	$RENTS_{it} \times Post2003_t$ aproxima de forma parsimoniosa un cambio de
-	régimen asociado al boom de commodities. De este modo, la presencia
+	régimen asociado al auge de commodities. De este modo, la presencia
 	potencial de cambios estructurales se integra de forma natural al enfoque
 	sustantivo de la tesis, en lugar de constituir un problema separado de su
 	pregunta central.
@@ -914,7 +916,7 @@ y disponibilidad de información para el período principal de estimación
 		
 		PEXP
 		& (-)
-		& Una mayor participación de exportaciones primarias en la canasta exportadora refleja especialización en bienes de bajo procesamiento y menores oportunidades de upgrading productivo.
+		& Una mayor participación de exportaciones primarias en la canasta exportadora refleja especialización en bienes de bajo procesamiento y menores oportunidades de escalamiento productivo.
 		\\
 		\hline
 		
@@ -941,7 +943,7 @@ y disponibilidad de información para el período principal de estimación
 		
 		INNOV
 		& (+)
-		& La innovación impulsa procesos de upgrading productivo, difusión tecnológica y expansión hacia actividades de mayor sofisticación económica. \\
+		& La innovación impulsa procesos de escalamiento productivo, difusión tecnológica y expansión hacia actividades de mayor sofisticación económica. \\
 		\hline
 		
 		NET
@@ -1086,7 +1088,7 @@ y disponibilidad de información para el período principal de estimación
 	
 	
 	\section{Procedimientos de análisis econométrico}
-	\label{subsec:analisis-econometrico}
+	\label{sec:analisis-econometrico}
 	
 	El análisis empírico se estructura en cuatro etapas complementarias,
 	ordenadas desde una caracterización descriptiva inicial hasta la
@@ -1138,7 +1140,7 @@ y disponibilidad de información para el período principal de estimación
 		el tiempo a nivel de país y por shocks comunes entre períodos. De
 		manera complementaria, estas estimaciones incorporarán efectos
 		temporales y una interacción parsimoniosa entre $RENTS_{it}$ y
-		$Post2003_t$ para evaluar si el régimen del boom de commodities alteró
+		$Post2003_t$ para evaluar si el régimen del auge de commodities alteró
 		el efecto de las rentas extractivas sobre la transformación estructural.
 		Dado el uso de efectos temporales completos, la dummy $Post2003_t$ en sí
 		misma quedará absorbida por dichos efectos; por ello, el interés
@@ -1158,7 +1160,7 @@ y disponibilidad de información para el período principal de estimación
 		variable dependiente y de algunas variables potencialmente endógenas
 		puede sesgar las estimaciones convencionales, en esta etapa se empleará
 		como estrategia principal el estimador de Momentos Generalizados en
-		sistema (System GMM). La validez de esta especificación se evaluará
+		sistema (System GMM).\footnote{El estimador System GMM combina ecuaciones en diferencias y en niveles, utilizando rezagos internos como instrumentos. Su uso es habitual en paneles dinámicos cuando existe persistencia temporal, efectos fijos y posible endogeneidad de algunas covariables.} La validez de esta especificación se evaluará
 		mediante las pruebas habituales de autocorrelación y de validez de
 		instrumentos. Esta etapa resulta particularmente relevante para evaluar
 		persistencia, heterogeneidad de efectos e inestabilidad gradual de las
