@@ -106,7 +106,11 @@ isbn=false
 }
 
 \newcommand{\thesischappages}[1]{%
-	\the\numexpr\zref@extract{#1-end}{abspage}-\zref@extract{#1-start}{abspage}+1\relax
+	\zref@ifrefundefined{#1-start}{--}{%
+		\zref@ifrefundefined{#1-end}{--}{%
+			\the\numexpr\zref@extract{#1-end}{abspage}-\zref@extract{#1-start}{abspage}+1\relax
+		}%
+	}%
 }
 \makeatother
 
