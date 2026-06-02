@@ -65,7 +65,7 @@
 	estrategia metodológica.
 	
 	En este marco, la estrategia metodológica combina análisis descriptivo,
-	estimaciones en datos de panel y especificaciones dinámicas, con el fin
+	estimaciones en datos de panel y ejercicios de robustez, con el fin
 	de examinar tanto regularidades empíricas generales como mecanismos
 	condicionales asociados al papel de las rentas extractivas y de la
 	calidad institucional. De este modo, el estudio se inscribe en una
@@ -76,8 +76,8 @@
 	entre algunas variables centrales, los resultados se interpretarán como
 	asociaciones condicionales robustas más que como estimaciones causales
 	estrictas. En particular, el uso de modelos con efectos fijos,
-	especificaciones dinámicas e interacciones contribuye a reducir sesgos de
-	variable omitida y a capturar persistencia temporal, aunque no elimina
+	interacciones y pruebas de sensibilidad contribuye a reducir sesgos de
+	variable omitida y a evaluar la estabilidad de los resultados, aunque no elimina
 	por completo las limitaciones propias de este tipo de diseño.
 	
 	La estrategia metodológica adoptada se deriva directamente de los
@@ -166,9 +166,11 @@
 	condición extractiva y los resultados que se pretende explicar. Sobre esa
 	base, se define un umbral $\theta$ que representa la participación mínima
 	de exportaciones de recursos naturales en el total exportado requerida
-	para clasificar una economía como dependiente de recursos. Con el fin de
-	evaluar la robustez de la clasificación, se consideran distintos valores
-	de $\theta$ (20\%, 30\% y 40\%).
+	para clasificar una economía como dependiente de recursos. La estimación
+	de referencia utiliza $\theta=40\%$, mientras que $\theta=50\%$ y
+	$\theta=60\%$ se emplean como definiciones progresivamente más estrictas
+	para evaluar la sensibilidad de los resultados a la regla de selección
+	muestral.
 	
 	Este criterio de selección responde a que el interés del estudio se
 	centra en la dependencia externa asociada a la estructura exportadora, y
@@ -197,11 +199,10 @@
 	diferenciadas.
 	
 	Finalmente, se excluyen aquellos países con ausencia persistente de
-	información para las variables centrales del análisis, lo que conduce a
-	una muestra final de aproximadamente 60--70 economías dependientes de
-	recursos naturales. El número exacto puede variar entre especificaciones
-	según la cobertura temporal y la disponibilidad de datos para cada
-	variable incluida.
+	información para las variables centrales del análisis. El número exacto
+	de países puede variar entre especificaciones según el umbral aplicado,
+	la cobertura temporal y la disponibilidad de datos para cada variable
+	incluida.
 
 	\begin{figure}[htbp]
 		\centering
@@ -235,16 +236,16 @@
 			{131 países};
 			
 			\node[below=of step3, align=center] (text4)
-			{Dependencia externa de recursos \\ ($DRES$ promedio 1990--1995) $>\theta$};
+			{Dependencia externa de recursos \\ ($DRES$ promedio 1990--1995) $>\theta$ \\ $\theta=40\%, 50\%, 60\%$};
 			
 			\node[draw, rectangle, minimum width=4.0cm, minimum height=0.8cm, align=center, below=of text4] (step4)
-			{60--80 países};
+			{Muestras alternativas};
 			
 			\node[below=of step4, align=center] (text5)
 			{Datos completos \\ para todas las variables};
 			
 			\node[draw, rectangle, minimum width=3.2cm, minimum height=0.8cm, align=center, below=of text5] (final)
-			{Muestra final \\ $\approx$ 60--70 países};
+			{Muestras finales \\ según $\theta$};
 			
 			% Flechas
 			\draw[arrow] (all) -- (text1);
@@ -273,7 +274,7 @@
 			
 		\end{tikzpicture}
 		
-		\caption[Selección de la muestra]{Procedimiento de selección de países utilizado para construir la muestra analítica principal del estudio. Se aplica un umbral $\theta$ sobre la dependencia externa de recursos, medida mediante $DRES$, definida como la participación de las exportaciones de recursos naturales en el total de exportaciones durante el período base.}
+		\caption[Selección de la muestra]{Procedimiento de selección de países utilizado para construir las muestras analíticas del estudio. La muestra de referencia aplica $\theta=40\%$ sobre la dependencia externa de recursos, medida mediante $DRES$, mientras que los umbrales de 50\% y 60\% se utilizan como definiciones progresivamente más estrictas.}
 		
 		\label{fig:sample_selection_pipeline}
 		
@@ -381,17 +382,14 @@ sentido, el ECI permite captar de forma más estructural la evolución de
 las capacidades productivas, relativamente menos expuesta a fluctuaciones
 coyunturales asociadas a los ciclos de precios de commodities.
 
-No obstante, dado que el ECI se basa en información de comercio exterior,
-no refleja por completo los procesos de transformación productiva que
-tienen lugar en el ámbito doméstico. Por ello, el análisis incorpora una
-dimensión interna de transformación estructural aproximada mediante el
-valor agregado manufacturero y el valor agregado de servicios como
-porcentaje del PIB ($MANVA_{it}$ y $SERVVA_{it}$). Estas variables
-constituyen aproximaciones complementarias, en la medida en que tanto la
-manufactura como ciertos servicios transables y modernos han sido
-asociados en la literatura con aprendizaje productivo, difusión
-tecnológica, encadenamientos sectoriales y acumulación de capacidades
-\parencite{McMillan2014, Szirmai2012}.
+No obstante, dado que el ECI combina información sobre diversificación y
+sofisticación exportadora, el análisis incorpora como resultado
+complementario una medida más directa de diversificación de la canasta
+exportadora. Esta variable, denotada como $DIVX_{it}=1-HHI_{it}$, permite
+evaluar si los mecanismos asociados a mayores niveles de complejidad
+económica también se relacionan con una menor concentración exportadora.
+La medida se interpreta como complemento del ECI, no como sustituto de la
+sofisticación productiva capturada por dicho índice.
 
 En el plano explicativo, además de $RENTS_{it}$ se incorporan variables
 que capturan distintas dimensiones de la inserción extractiva y de sus
@@ -465,7 +463,7 @@ y disponibilidad de información para el período principal de estimación
 		} \\[0.3em]
 		
 		\multicolumn{5}{p{\textwidth}}{%
-			\textit{Nota: La transformación estructural se aproxima mediante una dimensión externa representada por el Índice de Complejidad Económica (ECI) y una dimensión interna aproximada mediante indicadores de estructura productiva como el valor agregado manufacturero (MANVA) y el valor agregado de servicios (SERVVA). Las variables podrán utilizarse en niveles o transformaciones logarítmicas según la especificación econométrica y la disponibilidad temporal de los datos. En particular, el nivel de desarrollo económico se aproxima mediante el logaritmo del PIB per cápita, $\log(GDPPC_{it})$.}
+			\textit{Nota: La transformación estructural se aproxima desde su dimensión externa mediante el Índice de Complejidad Económica (ECI) como variable dependiente principal y la diversificación exportadora ($DIVX=1-HHI$) como resultado complementario. Las variables podrán utilizarse en niveles o transformaciones logarítmicas según la especificación econométrica y la disponibilidad temporal de los datos. En particular, el nivel de desarrollo económico se aproxima mediante el logaritmo del PIB per cápita, $\log(GDPPC_{it})$.}
 		} \\
 		
 		\endlastfoot
@@ -481,18 +479,11 @@ y disponibilidad de información para el período principal de estimación
 		& Atlas of Economic Complexity / Harvard Growth Lab \\
 		\hline
 		
-		Valor agregado manufacturero (\% del PIB)
-		& MANVA
-		& Dependiente (interna)
-		& Participación del valor agregado manufacturero en el PIB; proxy de transformación productiva interna y desarrollo industrial.
-		& Banco Mundial \\
-		\hline
-		
-		Valor agregado de servicios (\% del PIB)
-		& SERVVA
-		& Dependiente (interna)
-		& Participación del valor agregado del sector servicios en el PIB; indicador complementario de transformación estructural interna.
-		& Banco Mundial \\
+		Diversificación exportadora
+		& DIVX
+		& Dependiente complementaria
+		& Complemento del índice de concentración de Herfindahl--Hirschman, definido como $1-HHI$; valores mayores indican una canasta exportadora menos concentrada.
+		& UN Comtrade / Atlas of Economic Complexity / elaboración propia \\
 		\hline
 		
 		% -----------------------------------------------------
@@ -551,8 +542,8 @@ y disponibilidad de información para el período principal de estimación
 		
 		Concentración de la estructura exportadora
 		& HHI
-		& Explicativa estructural
-		& Índice de Herfindahl--Hirschman calculado como la suma de los cuadrados de las participaciones de cada producto en las exportaciones totales; valores mayores indican mayor concentración productiva y exportadora.
+		& Explicativa estructural condicionada
+		& Índice de Herfindahl--Hirschman calculado como la suma de los cuadrados de las participaciones de cada producto en las exportaciones totales; valores mayores indican mayor concentración productiva y exportadora. Se excluye cuando $DIVX=1-HHI$ se utiliza como variable dependiente.
 		& UN Comtrade / Atlas of Economic Complexity \\
 		\hline
 		
@@ -687,20 +678,20 @@ y disponibilidad de información para el período principal de estimación
 	\label{sec:modelo-econometrico}
 	
 	
-	La especificación econométrica adoptada se presenta en la \autoref{eq:modelo_base} y se ilustra conceptualmente en la \autoref{fig:modelo-econometrico}. Esta propuesta desplaza el foco analítico desde la dependencia de recursos naturales como variable de resultado, hacia la transformación estructural como proceso central del desarrollo económico.
+	La especificación econométrica adoptada se presenta en la \autoref{eq:modelo_base} y se ilustra conceptualmente en la \autoref{fig:modelo-econometrico}. Esta propuesta desplaza el foco analítico desde la dependencia de recursos naturales como variable de resultado hacia la transformación estructural externa, aproximada principalmente mediante la complejidad económica.
 	
-	En este marco, la transformación estructural se aproxima mediante dos dimensiones complementarias: (i) una dimensión externa, capturada por la complejidad económica ($ECI$), que refleja la sofisticación de la canasta exportadora; y (ii) una dimensión interna, aproximada a través de la participación del valor agregado manufacturero y de servicios ($MANVA$, $SERVVA$), que da cuenta de la composición productiva doméstica.
+	En este marco, la transformación estructural se aproxima desde su dimensión externa. La variable dependiente principal es la complejidad económica ($ECI$), que refleja la sofisticación de la canasta exportadora, y se considera como resultado complementario la diversificación exportadora ($DIVX=1-HHI$), que captura el grado de dispersión de dicha canasta.
 	
-	A diferencia de la especificación anterior, en este modelo la variable principal de interés no es la dependencia externa de recursos utilizada para seleccionar la muestra, sino la intensidad macroeconómica de las rentas extractivas ($RENTS$). En particular, su efecto se encuentra mediado por la calidad institucional ($INST$), lo que permite capturar mecanismos mediante los cuales el peso económico de los recursos puede traducirse en trayectorias divergentes de desarrollo.
+	A diferencia de enfoques que tratan la dependencia exportadora de recursos como resultado, en este modelo la variable principal de interés no es $DRES$, utilizada para seleccionar la muestra, sino la intensidad macroeconómica de las rentas extractivas ($RENTS$). En particular, su efecto se encuentra mediado por la calidad institucional ($INST$), lo que permite capturar mecanismos mediante los cuales el peso económico de los recursos puede traducirse en trayectorias divergentes de desarrollo.
 	
 	En términos analíticos, el modelo se organiza en varios canales complementarios: (i) un canal institucional, capturado por $RENTS$, $INST$ y su interacción; (ii) un canal de abundancia, aproximado mediante $OILPC$, $GASPC$ y $COALPC$; (iii) un canal estructural, representado por la concentración exportadora ($HHI$) y por indicadores de especialización externa ($PEXP$ y $FEXP$); (iv) un canal macroeconómico, asociado a la volatilidad ($VOL$) y al tipo de cambio real ($RER$); y (v) un canal de capacidades productivas, reflejado por $HUMCAP$, $INNOV$ y $NET$. Adicionalmente, se incorporan controles económicos y financieros ($\log(GDPPC_{it})$, $FISC$, $FIN$), donde el logaritmo del PIB per cápita actúa como proxy del nivel de desarrollo económico.
 	
-	La especificación econométrica base se define como:
+	La especificación econométrica de referencia se define como:
 	
 	\begin{equation}
 		\label{eq:modelo_base}
 		\begin{aligned}
-			TS_{it} = \alpha 
+			ECI_{it} = \alpha
 			&+ \beta_1 RENTS_{it}
 			+ \beta_2 INST_{it}
 			+ \beta_3(RENTS_{it} \times INST_{it}) \\
@@ -722,11 +713,9 @@ y disponibilidad de información para el período principal de estimación
 		\end{aligned}
 	\end{equation}
 	
-	donde $TS_{it}$ representa la transformación estructural del país $i$ en el periodo $t$. En la implementación empírica, esta variable se aproxima alternativamente mediante $ECI_{it}$ (dimensión externa) y mediante indicadores de estructura productiva interna ($MANVA_{it}$ y $SERVVA_{it}$), con el fin de evaluar la robustez de los resultados frente a distintas métricas de diversificación económica.
+	donde $ECI_{it}$ representa la complejidad económica del país $i$ en el período $t$, $\mu_i$ corresponde a efectos fijos por país, $\lambda_t$ a efectos temporales comunes y $\varepsilon_{it}$ al término de error. Esta especificación constituye el modelo principal de la tesis, dado que el ECI captura la sofisticación de la canasta exportadora y las capacidades productivas reveladas.
 
-	La especificación base incorpora de manera explícita los canales de abundancia ($OILPC_{it}$, $GASPC_{it}$, $COALPC_{it}$), estructura exportadora ($HHI_{it}$, $PEXP_{it}$, $FEXP_{it}$), condiciones macroeconómicas ($VOL_{it}$, $RER_{it}$), capacidades productivas ($HUMCAP_{it}$, $INNOV_{it}$, $NET_{it}$) y controles económicos y financieros ($\log(GDPPC_{it})$, $FISC_{it}$, $FIN_{it}$). En esta especificación, $\log(GDPPC_{it})$ se interpreta explícitamente como proxy del nivel de desarrollo económico, y no como el PIB per cápita en niveles. Este conjunto de variables es consistente con el esquema conceptual presentado en la \autoref{fig:modelo-econometrico}.
-	
-	Los términos $\mu_i$ y $\lambda_t$ corresponden a efectos fijos por país y por periodo, respectivamente, permitiendo controlar por heterogeneidad no observable y por shocks comunes.
+	La especificación incorpora de manera explícita los canales de abundancia ($OILPC_{it}$, $GASPC_{it}$, $COALPC_{it}$), estructura exportadora ($HHI_{it}$, $PEXP_{it}$, $FEXP_{it}$), condiciones macroeconómicas ($VOL_{it}$, $RER_{it}$), capacidades productivas ($HUMCAP_{it}$, $INNOV_{it}$, $NET_{it}$) y controles económicos y financieros ($\log(GDPPC_{it})$, $FISC_{it}$, $FIN_{it}$). En esta especificación, $\log(GDPPC_{it})$ se interpreta explícitamente como proxy del nivel de desarrollo económico, y no como el PIB per cápita en niveles. Este conjunto de variables es consistente con el esquema conceptual presentado en la \autoref{fig:modelo-econometrico}.
 
 	No obstante, dado el horizonte general de recopilación 1980--2022 y el
 	período principal de estimación 1996--2022, no resulta plausible suponer
@@ -767,7 +756,7 @@ y disponibilidad de información para el período principal de estimación
 	considerarse una interacción análoga con $Post2008_t$ como ejercicio de
 	robustez frente a la crisis financiera internacional.
 	
-	Desde el punto de vista teórico, se espera que una mayor concentración exportadora ($HHI$), así como condiciones macroeconómicas adversas —particularmente la volatilidad y la apreciación del tipo de cambio real—, afecten negativamente los procesos de transformación estructural. Por el contrario, mayores niveles de capital humano e innovación deberían favorecer la diversificación productiva.
+	Desde el punto de vista teórico, se espera que una mayor concentración exportadora ($HHI$), así como condiciones macroeconómicas adversas ---particularmente la volatilidad y la apreciación del tipo de cambio real---, afecten negativamente la complejidad económica. Por el contrario, mayores niveles de capital humano e innovación deberían favorecer la acumulación de capacidades productivas y la diversificación exportadora.
 	
 	En relación con el canal institucional, el efecto de las rentas de recursos ($RENTS$) sobre la transformación estructural no es unívoco, sino que depende de la calidad institucional. En economías con instituciones débiles, una mayor intensidad de rentas extractivas puede reforzar patrones de especialización, mientras que en contextos institucionales sólidos puede facilitar procesos de transformación productiva.
 
@@ -782,48 +771,35 @@ y disponibilidad de información para el período principal de estimación
 	sustantivo de la tesis, en lugar de constituir un problema separado de su
 	pregunta central.
 	
-	No obstante, al igual que en la propuesta anterior, esta especificación puede resultar insuficiente en presencia de persistencia temporal en la variable dependiente y de potencial endogeneidad. En particular, la transformación estructural tiende a evolucionar de manera gradual, reflejando dinámicas de acumulación de capacidades y trayectorias de desarrollo dependientes (\textit{path dependence}).
-	
-	En este contexto, se considera una extensión dinámica del modelo:
+	Como resultado complementario, la tesis estima una segunda especificación en la que la variable dependiente es la diversificación exportadora, definida como $DIVX_{it}=1-HHI_{it}$. Esta especificación permite evaluar si los mecanismos asociados a la complejidad económica también se relacionan con una menor concentración de la canasta exportadora:
 	
 	\begin{equation}
-		\label{eq:modelo_transformacion_dinamico}
-		\begin{split}
-			TS_{it} = \rho TS_{i,t-1}
-			&+ \beta_1 RENTS_{it}
-			+ \beta_2 INST_{it}
-			+ \beta_3 (RENTS_{it} \times INST_{it}) \\
-			&+ \gamma Z_{it}
-			+ \lambda_t + \varepsilon_{it}
-		\end{split}
+		\label{eq:modelo_divx}
+		\begin{aligned}
+			DIVX_{it} = \alpha
+			&+ \delta_1 RENTS_{it}
+			+ \delta_2 INST_{it}
+			+ \delta_3(RENTS_{it} \times INST_{it}) \\
+			&+ \delta_4 OILPC_{it}
+			+ \delta_5 GASPC_{it}
+			+ \delta_6 COALPC_{it} \\
+			&+ \delta_7 PEXP_{it}
+			+ \delta_8 FEXP_{it} \\
+			&+ \delta_9 VOL_{it}
+			+ \delta_{10} RER_{it} \\
+			&+ \delta_{11} HUMCAP_{it}
+			+ \delta_{12} INNOV_{it}
+			+ \delta_{13} NET_{it} \\
+			&+ \delta_{14}\log(GDPPC_{it})
+			+ \delta_{15} FISC_{it}
+			+ \delta_{16} FIN_{it} \\
+			&+ \mu_i + \lambda_t + u_{it}
+		\end{aligned}
 	\end{equation}
 	
-	donde $Z_{it}$ representa el conjunto de covariables incluidas en la especificación base, esto es, los canales de abundancia, estructura exportadora, condiciones macroeconómicas, capacidades productivas y controles económicos y financieros resumidos en la \autoref{eq:modelo_base}.
+	En la \autoref{eq:modelo_divx}, $HHI_{it}$ se excluye del conjunto de regresores porque $DIVX_{it}$ se construye directamente como su complemento. De este modo, se evita introducir una relación mecánica entre la variable dependiente y una covariable explicativa. La interpretación de esta especificación es complementaria a la del modelo principal: mientras el ECI mide sofisticación y capacidades productivas reveladas, $DIVX$ captura la dispersión de la canasta exportadora.
 	
-	La inclusión del rezago de la variable dependiente permite capturar la
-	persistencia inherente a los procesos de transformación estructural, así
-	como ajustes graduales compatibles con transiciones entre regímenes
-	productivos e institucionales. Sin embargo, esta formulación introduce
-	problemas de endogeneidad, dado que el término rezagado se encuentra
-	correlacionado con el error. Adicionalmente, variables como la estructura
-	productiva y las capacidades pueden presentar relaciones bidireccionales.
-	
-	Para abordar estos problemas, la estimación se realiza mediante métodos de
-	panel dinámico, específicamente el estimador GMM, utilizando rezagos de
-	las variables como instrumentos internos. Esta estrategia permite obtener
-	estimaciones consistentes, controlando simultáneamente por efectos fijos,
-	persistencia temporal y endogeneidad potencial. Asimismo, la inclusión de
-	efectos temporales y de interacciones temporales parsimoniosas ---en
-	particular $RENTS_{it} \times Post2003_t$ y, de forma complementaria,
-	$RENTS_{it} \times Post2008_t$--- contribuye a no forzar una hipótesis de
-	estabilidad completa de parámetros frente a un contexto histórico
-	caracterizado por shocks globales y cambios de régimen.
-	
-	Finalmente, el análisis se complementa con especificaciones alternativas y
-	ejercicios de robustez, considerando distintas medidas de transformación
-	estructural (externas e internas), así como variaciones en la
-	especificación econométrica y en el tratamiento de posibles cambios de
-	régimen.
+	Finalmente, el análisis se complementa con ejercicios de robustez que consideran variaciones en los umbrales de selección muestral, especificaciones alternativas e interacciones temporales parsimoniosas ---en particular $RENTS_{it} \times Post2003_t$ y, de forma complementaria, $RENTS_{it} \times Post2008_t$--- para evaluar la sensibilidad de los resultados frente a posibles cambios de régimen.
 	
 	%%%%%%%%
 	
@@ -871,7 +847,7 @@ y disponibilidad de información para el período principal de estimación
 		
 		\multicolumn{3}{p{\textwidth}}{
 			\footnotesize
-			\textit{Nota: Los signos esperados corresponden a las hipótesis teóricas planteadas para el modelo de transformación estructural. La variable dependiente considera tanto una dimensión externa aproximada mediante el Índice de Complejidad Económica (ECI), como una dimensión interna aproximada mediante indicadores de estructura productiva como el valor agregado manufacturero (MANVA) y el valor agregado de servicios (SERVVA). Los efectos esperados podrán variar según la especificación econométrica y la dimensión de transformación estructural analizada.}
+			\textit{Nota: Los signos esperados corresponden a las hipótesis teóricas planteadas para el modelo de transformación estructural externa. La variable dependiente principal es el Índice de Complejidad Económica (ECI), y la diversificación exportadora ($DIVX=1-HHI$) se utiliza como resultado complementario. Los efectos esperados podrán variar según la especificación econométrica y la métrica analizada.}
 		} \\
 		
 		\endlastfoot
@@ -909,9 +885,9 @@ y disponibilidad de información para el período principal de estimación
 		\\
 		\hline
 		
-		HHI
+		HHI$^{*}$
 		& (-)
-		& Un mayor nivel de concentración productiva y exportadora indica especialización en pocos sectores o productos, lo que suele asociarse con menor diversificación y menor transformación estructural. \\
+		& Un mayor nivel de concentración productiva y exportadora indica especialización en pocos sectores o productos, lo que suele asociarse con menor diversificación y menor transformación estructural. Se incluye únicamente en las especificaciones donde $ECI$ es la variable dependiente. \\
 		\hline
 		
 		PEXP
@@ -1012,7 +988,7 @@ y disponibilidad de información para el período principal de estimación
 			% CANAL ESTRUCTURAL
 			% -------------------------------
 			\node[channel, below=0.5cm of coal] (c2) {Canal estructural};
-			\node[var, below=of c2] (hhi) {HHI};
+			\node[var, below=of c2] (hhi) {HHI$^{*}$};
 			\node[var, below=of hhi] (pexp) {PEXP};
 			\node[var, below=of pexp] (fexp) {FEXP};
 			
@@ -1050,7 +1026,7 @@ y disponibilidad de información para el período principal de estimación
 			\node[dep, right=5cm of vol] (depvar) {
 				\textbf{Transformación estructural}\\
 				\textit{ECI}\\
-				\textit{MANVA, SERVVA}
+				\textit{DIVX = 1 - HHI}
 			};
 			
 			% -------------------------------
@@ -1082,7 +1058,7 @@ y disponibilidad de información para el período principal de estimación
 			
 		\end{tikzpicture}
 		
-		\caption{Modelo econométrico de transformación estructural. Esquema conceptual organizado por canales teóricos, incorporando abundancia de recursos, dependencia estructural y capacidades productivas.}
+		\caption[Modelo econométrico de transformación estructural externa]{Modelo econométrico de transformación estructural externa. Esquema conceptual organizado por canales teóricos, incorporando abundancia de recursos, dependencia estructural, capacidades productivas y diversificación exportadora como resultado complementario.\protect\\[0.3em]\textit{Nota:} $HHI$ se incluye únicamente en las especificaciones donde $ECI$ es la variable dependiente; en las estimaciones complementarias con $DIVX=1-HHI$, se excluye del conjunto de regresores.}
 		\label{fig:modelo-econometrico}
 	\end{figure}
 	
@@ -1092,11 +1068,11 @@ y disponibilidad de información para el período principal de estimación
 	
 	El análisis empírico se estructura en cuatro etapas complementarias,
 	ordenadas desde una caracterización descriptiva inicial hasta la
-	estimación de especificaciones dinámicas y ejercicios de robustez. Esta
-	secuencia permite combinar una lectura comparativa de las trayectorias de
-	transformación estructural con estimaciones econométricas orientadas a
-	evaluar asociaciones condicionales entre rentas extractivas,
-	instituciones y capacidades productivas.
+	estimación de referencia, los resultados complementarios y los ejercicios
+	de robustez. Esta secuencia permite combinar una lectura comparativa de
+	las trayectorias de transformación estructural externa con estimaciones
+	econométricas orientadas a evaluar asociaciones condicionales entre rentas
+	extractivas, instituciones y capacidades productivas.
 
 	Dado el horizonte de largo plazo y la naturaleza macroeconómica del panel,
 	esta secuencia incorpora de manera explícita la posibilidad de cambios
@@ -1133,7 +1109,7 @@ y disponibilidad de información para el período principal de estimación
 		con efectos fijos. Estas estimaciones incorporarán controles
 		macroeconómicos, institucionales, estructurales y financieros, con el
 		fin de aislar la relación entre las variables de interés y la
-		transformación estructural. La variable principal de interés será
+		transformación estructural externa. La variable principal de interés será
 		$RENTS_{it}$, que captura el peso de las rentas de recursos naturales
 		como porcentaje del PIB. En particular, las especificaciones con efectos
 		fijos permitirán controlar por heterogeneidad no observable constante en
@@ -1141,7 +1117,7 @@ y disponibilidad de información para el período principal de estimación
 		manera complementaria, estas estimaciones incorporarán efectos
 		temporales y una interacción parsimoniosa entre $RENTS_{it}$ y
 		$Post2003_t$ para evaluar si el régimen del auge de commodities alteró
-		el efecto de las rentas extractivas sobre la transformación estructural.
+		el efecto de las rentas extractivas sobre la transformación estructural externa.
 		Dado el uso de efectos temporales completos, la dummy $Post2003_t$ en sí
 		misma quedará absorbida por dichos efectos; por ello, el interés
 		económico recae en el cambio de pendiente asociado a la interacción. De
@@ -1150,25 +1126,19 @@ y disponibilidad de información para el período principal de estimación
 		considerarse especificaciones con efectos aleatorios cuando resulten
 		útiles como contraste econométrico.
 		
-		\item \emph{Dinámica, interacciones y endogeneidad.} En una tercera
-		etapa se especificará un modelo dinámico que incorpore el rezago de la
-		variable dependiente, con el fin de capturar la persistencia temporal
-		propia de los procesos de transformación estructural. Asimismo, se
-		incluirán términos de interacción ---en particular entre $RENTS_{it}$ y
-		$INST_{it}$--- para evaluar si la calidad institucional modifica el
-		efecto de las rentas extractivas. Dado que la inclusión del rezago de la
-		variable dependiente y de algunas variables potencialmente endógenas
-		puede sesgar las estimaciones convencionales, en esta etapa se empleará
-		como estrategia principal el estimador de Momentos Generalizados en
-		sistema (System GMM).\footnote{El estimador System GMM combina ecuaciones en diferencias y en niveles, utilizando rezagos internos como instrumentos. Su uso es habitual en paneles dinámicos cuando existe persistencia temporal, efectos fijos y posible endogeneidad de algunas covariables.} La validez de esta especificación se evaluará
-		mediante las pruebas habituales de autocorrelación y de validez de
-		instrumentos. Esta etapa resulta particularmente relevante para evaluar
-		persistencia, heterogeneidad de efectos e inestabilidad gradual de las
-		relaciones estimadas, sin abandonar la estructura central FE + GMM que
-		organiza la estrategia empírica del trabajo. En las especificaciones
-		dinámicas se mantendrá la misma lógica parsimoniosa de cambio de régimen,
-		privilegiando la interacción $RENTS_{it} \times Post2003_t$ y dejando
-		$RENTS_{it} \times Post2008_t$ para ejercicios complementarios.
+		\item \emph{Interacciones, persistencia y endogeneidad.} En una tercera
+		etapa se evaluarán extensiones de la especificación de referencia para
+		tratar posibles fuentes de heterogeneidad y persistencia temporal. En
+		particular, se incluirán términos de interacción ---especialmente entre
+		$RENTS_{it}$ y $INST_{it}$--- para examinar si la calidad institucional
+		modifica el efecto de las rentas extractivas. Cuando la evidencia
+		descriptiva o los diagnósticos econométricos lo justifiquen, podrán
+		estimarse especificaciones con rezagos de la variable dependiente o
+		estrategias de panel dinámico como ejercicios complementarios, evaluando
+		su validez mediante pruebas de autocorrelación y de instrumentos. Esta
+		etapa no sustituye la especificación principal, sino que permite valorar
+		la estabilidad de las relaciones estimadas frente a persistencia,
+		endogeneidad potencial e interacciones entre mecanismos.
 		
 		\item \emph{Robustez y sensibilidad.} Finalmente, se realizarán
 		estimaciones alternativas y ejercicios de sensibilidad orientados a

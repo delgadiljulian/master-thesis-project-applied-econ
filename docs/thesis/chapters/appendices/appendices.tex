@@ -45,29 +45,65 @@
 			\endhead
 			
 			Dependencia extractiva
-			& Dependencia de recursos (principal)
-			& Rentas de recursos naturales (\% del PIB) (RES\_RENT)
+			& Dependencia externa de recursos
+			& Exportaciones de recursos naturales no renovables / exportaciones totales (DRES)
+			& UN Comtrade; World Bank; elaboración propia
+			& 1980--2022 \\
+
+			Rentas extractivas
+			& Intensidad macroeconómica de las rentas
+			& Rentas de recursos naturales (\% del PIB) (RENTS)
 			& World Bank (WDI)
 			& 1970--2022 \\
 			
-			Dependencia extractiva
-			& Dependencia de recursos (alternativa)
-			& Exportaciones de recursos / exportaciones totales (RES\_EXP)
-			& UN Comtrade; World Bank
-			& 1980--2022 \\
-			
-			Estructura productiva
+			Transformación estructural externa
 			& Complejidad económica
 			& Índice de Complejidad Económica (ECI, HS92)
 			& Atlas of Economic Complexity
 			& 1995--2022 \\
 			
-			Estructura productiva
+			Transformación estructural externa
+			& Diversificación exportadora
+			& Complemento del índice de concentración exportadora ($DIVX=1-HHI$)
+			& Elaboración propia con base en HHI
+			& 1980--2022 \\
+
+			Estructura exportadora
 			& Concentración exportadora
 			& Índice de Herfindahl--Hirschman (HHI)
 			& UN Comtrade; Atlas of Economic Complexity
 			& 1980--2022 \\
 			
+			Abundancia de recursos
+			& Dotación de petróleo
+			& Producción o reservas de petróleo per cápita (OILPC)
+			& World Bank; EIA; fuentes internacionales comparables
+			& 1980--2022 \\
+
+			Abundancia de recursos
+			& Dotación de gas
+			& Producción o reservas de gas per cápita (GASPC)
+			& World Bank; EIA; fuentes internacionales comparables
+			& 1980--2022 \\
+
+			Abundancia de recursos
+			& Dotación de carbón
+			& Producción o reservas de carbón per cápita (COALPC)
+			& World Bank; EIA; fuentes internacionales comparables
+			& 1980--2022 \\
+
+			Estructura exportadora
+			& Especialización primaria
+			& Participación de exportaciones primarias en el total exportado (PEXP)
+			& UN Comtrade; World Bank; elaboración propia
+			& 1980--2022 \\
+
+			Estructura exportadora
+			& Especialización en combustibles
+			& Participación de exportaciones de combustibles en el total exportado (FEXP)
+			& UN Comtrade; World Bank; elaboración propia
+			& 1980--2022 \\
+
 			Instituciones
 			& Calidad institucional
 			& Rule of Law; Control of Corruption (INST)
@@ -86,6 +122,12 @@
 			& UNESCO; WIPO
 			& 1996--2022 \\
 			
+			Capacidades productivas
+			& Conectividad
+			& Acceso o uso de internet / infraestructura digital (NET)
+			& World Bank (WDI); ITU
+			& 1990--2022 \\
+
 			Macroeconomía
 			& Volatilidad externa
 			& Volatilidad de precios de commodities (VOL\_TOT)
@@ -104,7 +146,7 @@
 			& World Bank (WDI)
 			& 1980--2022 \\
 			
-			Canal financiero
+			Canal fiscal
 			& Política fiscal
 			& Balance fiscal / deuda (\% del PIB) (FISC)
 			& IMF; World Bank
@@ -117,7 +159,7 @@
 			& 1980--2022 \\
 			
 			\hline
-			\multicolumn{5}{p{14.5cm}}{\textit{Nota: El panel se construye con frecuencia anual. La variable principal de complejidad corresponde al ECI basado en clasificación HS92 para asegurar consistencia temporal. Las variables de dependencia de recursos se incorporan de forma alternativa en las estimaciones para evitar problemas de multicolinealidad. La muestra final es un panel desbalanceado determinado por la disponibilidad de datos.}} \\
+			\multicolumn{5}{p{14.5cm}}{\textit{Nota: El panel se construye con frecuencia anual. La dependencia externa de recursos ($DRES$) se utiliza como criterio de selección muestral, mientras que las rentas de recursos naturales ($RENTS$) se incorporan como variable explicativa. La variable $DIVX=1-HHI$ se construye como complemento del índice de concentración exportadora. Por esta razón, $HHI$ se incluye únicamente en las especificaciones donde $ECI$ es la variable dependiente y se excluye cuando $DIVX$ se utiliza como resultado complementario. La muestra final es un panel desbalanceado determinado por la disponibilidad de datos.}} \\
 		\end{longtable}
 	\end{footnotesize}
 	
@@ -154,17 +196,17 @@
 				]
 				
 				% Columna central
-				\node[box] (res) {Dependencia de recursos\\[2pt]\textit{(RES)}};
+				\node[box] (res) {Dependencia externa de recursos\\[2pt]\textit{(DRES)}};
 				
 				\node[box, below=of res] (canales) {Canales productivos\\
 					Enfermedad holandesa\\
 					Enclaves productivos\\
 					Tipo de cambio real};
 				
-				\node[box, below=1.9cm of canales] (resultados) {Resultados productivos\\
-					Diversificación\\
-					Innovación\\
-					Acumulación de capacidades};
+				\node[box, below=1.9cm of canales] (resultados) {Transformación estructural externa\\
+					Complejidad económica\\
+					Diversificación exportadora\\
+					Capacidades reveladas};
 				
 				% Laterales
 				\node[sidebox, left=of canales] (inst) {Instituciones\\[2pt]\textit{(INST)}};
@@ -182,12 +224,12 @@
 			\end{tikzpicture}%
 		}
 		
-		\caption[Arquitectura conceptual de la transición estructural]{Arquitectura conceptual de los mecanismos que vinculan la dependencia de recursos naturales con los resultados de diversificación, innovación y acumulación de capacidades.}
+		\caption[Arquitectura conceptual de la transición estructural]{Arquitectura conceptual de los mecanismos que vinculan la dependencia externa de recursos naturales con la complejidad económica, la diversificación exportadora y la acumulación de capacidades reveladas.}
 		
 		\label{fig:arquitectura-mecanismos}
 	\end{figure}
 	
-	Con el fin de evaluar la robustez de los resultados y considerar dimensiones adicionales de la transformación estructural no capturadas por el \textit{Economic Complexity Index (ECI)}, se estiman especificaciones alternativas en las que la variable dependiente corresponde a indicadores de la estructura productiva interna. En particular, se utilizan \textit{Manufacturing Value Added (MANVA)} y \textit{Services Value Added (SERVVA)} como proporción del PIB, como aproximaciones a la composición sectorial de la economía. Estas variables permiten capturar procesos de diversificación productiva que tienen lugar en el ámbito doméstico, complementando así el análisis basado en la sofisticación de la estructura exportadora. De este modo, se contrasta si los efectos de la dependencia de recursos naturales y los demás determinantes del modelo se mantienen al analizar la transformación estructural desde una perspectiva interna.
+	Con el fin de evaluar resultados complementarios de transformación estructural externa, la tesis contrasta las estimaciones basadas en el \textit{Economic Complexity Index} (ECI) con especificaciones en las que la variable dependiente corresponde a la diversificación exportadora ($DIVX=1-HHI$). Esta medida no reemplaza al ECI, sino que permite observar si los mecanismos asociados a la sofisticación de la canasta exportadora también se relacionan con una menor concentración de dicha canasta. En estas especificaciones, $HHI$ se excluye del conjunto de regresores para evitar una relación mecánica entre la variable dependiente y sus componentes de construcción.
 	
 	\begin{figure}[H]
 		\centering
@@ -208,7 +250,7 @@
 			\node[box] (a) {Boom de commodities};
 			\node[box, below=of a] (b) {expansi\'on fiscal};
 			\node[box, below=of b] (c) {apreciaci\'on};
-			\node[box, below=of c] (d) {desplazamiento\\manufacturero};
+			\node[box, below=of c] (d) {desplazamiento de\\actividades transables};
 			\node[box, below=of d] (e) {ajuste post-boom};
 			
 			\draw[arr] (a) -- (b);
@@ -217,7 +259,7 @@
 			\draw[arr] (d) -- (e);
 			
 		\end{tikzpicture}
-		\caption[Mecanismo boom y ajuste post-boom]{Esquema conceptual del mecanismo de boom de commodities y el proceso de ajuste posterior en la estructura productiva.}
+		\caption[Mecanismo boom y ajuste post-boom]{Esquema conceptual del mecanismo de boom de commodities y el proceso de ajuste posterior sobre actividades transables y transformación estructural externa.}
 		
 		\label{fig:esquema_boom_postboom_vertical}
 	\end{figure}
@@ -561,7 +603,7 @@
 	\section{Tablas descriptivas sobre dependencia de recursos naturales}
 	\label{sec:tablas}
 	
-	Las economías dependientes de recursos naturales no constituyen un grupo homogéneo. Difieren tanto en su nivel de desarrollo económico como en el tipo de sector extractivo dominante. En particular, algunos países presentan una fuerte especialización en exportaciones energéticas (petróleo y gas), mientras que otros se especializan principalmente en minerales o exhiben estructuras extractivas mixtas. La Tabla \ref{tab:extractive_typology} presenta una tipología estilizada que clasifica estas economías según el tipo de sector extractivo predominante y su nivel de ingreso, siguiendo la clasificación del Banco Mundial.
+	Las economías dependientes de recursos naturales no constituyen un grupo homogéneo. Difieren tanto en su nivel de desarrollo económico como en el tipo de sector extractivo dominante. En particular, algunos países presentan una fuerte especialización en exportaciones energéticas (petróleo y gas), mientras que otros se especializan principalmente en minerales o exhiben estructuras extractivas mixtas. La Tabla \ref{tab:extractive_typology} presenta una tipología estilizada e ilustrativa que clasifica algunas economías según el tipo de sector extractivo predominante y su nivel de ingreso, siguiendo la clasificación del Banco Mundial como referencia descriptiva.
 	
 	\begin{table}[H]
 		\centering
@@ -577,7 +619,7 @@
 					\midrule
 					
 					\textbf{Economías energéticas} \\
-					(Energy $\gg$ Mining)
+					(Energía $\gg$ minería)
 					& Chad, Sudan
 					& Nigeria
 					& Azerbaijan
@@ -586,7 +628,7 @@
 					\addlinespace
 					
 					\textbf{Economías mineras} \\
-					(Mining $\gg$ Energy)
+					(Minería $\gg$ energía)
 					& DR Congo
 					& Guinea, Zambia
 					& Mongolia, Peru, Kazakhstan
@@ -595,7 +637,7 @@
 					\addlinespace
 					
 					\textbf{Economías extractivas mixtas} \\
-					(Mining + Energy)
+					(Minería + energía)
 					& 
 					& Mauritania
 					& Indonesia, Colombia
@@ -606,7 +648,7 @@
 			
 			\begin{tablenotes}[para,flushleft]
 				\footnotesize
-				\item \textit{Nota: LIC = Low Income Countries; LMIC = Lower Middle Income Countries; UMIC = Upper Middle Income Countries; HIC = High Income Countries. La clasificación por ingreso sigue la tipología vigente del Banco Mundial (FY2026). Venezuela, RB, aparece actualmente sin clasificar por falta de datos comparables y por ello no se incluye en la tabla.}
+				\item \textit{Nota: LIC = Low Income Countries; LMIC = Lower Middle Income Countries; UMIC = Upper Middle Income Countries; HIC = High Income Countries. La clasificación por ingreso sigue la tipología del Banco Mundial utilizada como referencia descriptiva. La tabla es ilustrativa y podrá ajustarse una vez consolidada la muestra final del panel.}
 			\end{tablenotes}
 		\end{threeparttable}
 	\end{table}
