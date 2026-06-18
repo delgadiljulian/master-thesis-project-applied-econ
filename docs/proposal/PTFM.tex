@@ -56,6 +56,7 @@ isbn=false
 
 % Gráficos
 \usepackage{graphicx}
+\usepackage{pdfpages}
 \usepackage{float}
 \usepackage{subcaption}
 
@@ -371,6 +372,11 @@ isbn=false
 	\subfile{chapters/13-cronograma/cronograma.tex}
 	\subfile{chapters/bibliography/bibliography.tex}
 	\subfile{chapters/appendices/appendices.tex}
-	\subfile{chapters/14-approval-form/approval-form.tex}
+	\clearpage
+	\includepdf[
+		pages=-,
+		pagecommand={\thispagestyle{empty}},
+		fitpaper=true
+	]{chapters/14-approval-form/approval-form-director.pdf}
 	
 \end{document}
