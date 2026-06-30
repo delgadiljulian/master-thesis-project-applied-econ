@@ -203,7 +203,39 @@ docs/thesis/figures/
 ```text
 data/
   raw/                       # Raw data or placeholders
+    00_sample_selection_dres/ # Inputs for DRES and sample filters
+    eci/                     # Economic Complexity Index inputs
+    rents/                   # Natural resource rents inputs
+    inst/                    # Institutional quality inputs
+    oilpc_gaspc_coalpc/      # Resource abundance inputs
+    hhi_divx/                # Export concentration/diversification inputs
+    pexp_fexp/               # Primary and fuel export share inputs
+    vol/                     # Commodity volatility inputs
+    rer/                     # Real exchange rate inputs
+    humcap/                  # Human capital inputs
+    innov/                   # Innovation inputs
+    net/                     # Connectivity inputs
+    gdppc/                   # GDP per capita inputs
+    fisc/                    # Fiscal channel inputs
+    fin/                     # Financial development inputs
+  DATA_INVENTORY.md          # Variable checklist and source folders
   processed/                 # Processed data and harmonized outputs
+    00_master_panel/         # Integrated country-year panels
+    dres/                    # Sample-selection and dependence outputs
+    eci/                     # Economic Complexity Index outputs
+    rents/                   # Natural resource rents outputs
+    inst/                    # Institutional quality outputs
+    oilpc_gaspc_coalpc/      # Resource abundance outputs
+    hhi_divx/                # Export concentration/diversification outputs
+    pexp_fexp/               # Primary and fuel export share outputs
+    vol/                     # Commodity volatility outputs
+    rer/                     # Real exchange rate outputs
+    humcap/                  # Human capital outputs
+    innov/                   # Innovation outputs
+    net/                     # Connectivity outputs
+    gdppc/                   # GDP per capita outputs
+    fisc/                    # Fiscal channel outputs
+    fin/                     # Financial development outputs
 
 docs/
   drafts/                    # Draft materials
@@ -214,18 +246,22 @@ docs/
 outputs/                     # Generated empirical or document outputs
 
 scripts/
-  01_eci_resource_dependence_figures.R
-  02_commodity_specialization_countries.R
-  03_commodity_shock_exposure.R
-  04_fin_wdi_data.R
-  05_res_rent_data.R
-  06_rer_wdi_data.R
-  07_humcap_wdi_data.R
-  08_humcap_pwt_wdi_data.R
-  09_patents_wdi_data.R
-  10_gdppc_wdi_data.R
-  11_inst_wgi_data.R
-  12_fisc_wdi_data.R
+  00_master_panel/           # Integrated panel builders
+  dres/                      # Sample-selection and dependence scripts
+  eci/                       # Economic complexity scripts
+  rents/                     # Natural resource rents scripts
+  inst/                      # Institutional quality scripts
+  oilpc_gaspc_coalpc/        # Resource abundance scripts
+  hhi_divx/                  # Export concentration/diversification scripts
+  pexp_fexp/                 # Primary and fuel export share scripts
+  vol/                       # Commodity volatility scripts
+  rer/                       # Real exchange rate scripts
+  humcap/                    # Human capital scripts
+  innov/                     # Innovation scripts
+  net/                       # Connectivity scripts
+  gdppc/                     # GDP per capita scripts
+  fisc/                      # Fiscal channel scripts
+  fin/                       # Financial development scripts
 ```
 
 ---

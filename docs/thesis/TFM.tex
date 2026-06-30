@@ -1,4 +1,4 @@
-﻿% !TeX program = xelatex
+% !TeX program = xelatex
 % !TEX root = TFM.tex
 \documentclass[12pt,a4paper]{report}
 
@@ -34,8 +34,10 @@ sorting=nyt,
 language=spanish,
 doi=true,
 url=true,
-isbn=false
+isbn=false,
+hyperref=true
 ]{biblatex}
+\DeclareNameWrapperFormat{labelname}{\bibhyperref{#1}}
 
 % Matemática
 \usepackage{amsmath, amssymb, amsfonts}
@@ -234,50 +236,50 @@ isbn=false
 
 
 \begin{document}
-	
+
 	% =====================================================
 	% PORTADA
 	% =====================================================
 	\begin{titlepage}
-		
+
 		% ----------------------------
 		% INSTITUCIÓN (CAMBRIA)
 		% ----------------------------
 		\begin{center}
 			{\cambriafont\fontsize{26}{31}\selectfont Universidad de Buenos Aires}
-			
+
 			\vspace{0.25cm}
-			
+
 			{\cambriafont\fontsize{26}{31}\selectfont Facultad de Ciencias Económicas}
-			
+
 			\vspace{0.25cm}
-			
+
 			{\cambriafont\fontsize{20}{24}\selectfont Escuela de Negocios y Administración Pública}
 		\end{center}
-		
+
 		\ShelfRule
 		\vspace{1.2cm}
-		
+
 		% ----------------------------
 		% MAESTRÍA (CAMBRIA, NEGRITA)
 		% ----------------------------
 		\begin{center}
 			{\cambriafont\fontsize{22}{26}\selectfont\textbf{MAESTRÍA EN ECONOMÍA APLICADA}}
 		\end{center}
-		
+
 		\ShelfRule
 		\vspace{1.5cm}
-		
+
 		% ----------------------------
 		% TIPO DE TRABAJO (CAMBRIA)
 		% ----------------------------
 		\begin{center}
 			{\cambriafont\fontsize{22}{26}\selectfont TRABAJO FINAL DE MAESTRÍA}
 		\end{center}
-		
+
 		\ShelfRule
 		\vspace{1.5cm}
-		
+
 		% ----------------------------
 		% TÍTULO DEL TFM (CAMBRIA)
 		% ----------------------------
@@ -288,10 +290,10 @@ isbn=false
 					Rentas extractivas y transformación estructural externa en economías dependientes de recursos naturales no renovables (1996--2022)}
 			\end{minipage}
 		\end{center}
-		
+
 		\ShelfRule
 		\vspace{1.8cm}
-		
+
 		% ----------------------------
 		% AUTOR Y DIRECTOR (TIMES NEW ROMAN)
 		% ----------------------------
@@ -300,16 +302,16 @@ isbn=false
 				\raggedright
 				{\timesfont\fontsize{14}{17}\selectfont
 					\MakeUppercase{Autor: Julián Delgadillo Marín}}
-				
+
 				\vspace{0.25cm}
-				
+
 				{\timesfont\fontsize{14}{17}\selectfont
 					\MakeUppercase{Director: Martín Grandes}}
 			\end{minipage}
 		\end{center}
-		
+
 		\vfill
-		
+
 		% ----------------------------
 		% FECHA
 		% ----------------------------
@@ -317,22 +319,22 @@ isbn=false
 			{\cambriafont\fontsize{12}{14}\selectfont \MakeUppercase{\today}}
 		\end{center}
 		\ShelfRule
-		
+
 	\end{titlepage}
 	% ====================================================
-	
+
 	% =====================================================
 	% A PARTIR DE AQUÍ: TESIS (INTERLINEADO 1.5)
 	% =====================================================
 	\thesisbodyformat
 	\pagenumbering{arabic}
-	
+
 		% =====================================================
 	% DEDICATORIA (OPCIONAL)
 	% =====================================================
 	% \section*{Dedicatoria}
 	% \label{chap:dedicatoria}
-	
+
 	% =====================================================
 	% AGRADECIMIENTOS (OPCIONAL)
 	% =====================================================
@@ -346,22 +348,22 @@ isbn=false
 	% =====================================================
 	\chapter*{Resumen}
 	\label{chap:resumen}
-	
+
 	\noindent\textbf{Palabras clave:}
-	
-	
+
+
 	% \chapter*{Abstract}
 	% \label{chap:abstract}
-	
+
 	% \noindent\textbf{Keywords:} productive diversification, resource dependence, structural transformation.
-	
+
 	% =====================================================
 	% ÍNDICE GENERAL
 	% =====================================================
 	\tableofcontents
 	\listoffigures
 	\listoftables
-	
+
 	% =====================================================
 	% CUERPO DE LA TESIS
 	% =====================================================
@@ -381,5 +383,5 @@ isbn=false
 		pagecommand={\thispagestyle{empty}},
 		fitpaper=true
 	]{chapters/14-approval-form/approval-form-director.pdf}
-	
+
 \end{document}
