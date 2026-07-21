@@ -33,9 +33,10 @@ favorable trajectories of external structural transformation.
 The current empirical design distinguishes between:
 
 - **External natural resource dependence (`DRES`)**: used as a sample selection
-  criterion based on the share of non-renewable resource exports in total exports.
+  criterion based on the share of non-renewable subsoil-resource exports in
+  merchandise exports.
 - **Extractive rents (`RENTS`)**: treated as an explanatory mechanism, measured as
-  natural resource rents as a share of GDP.
+  the sum of oil, natural-gas, coal and mineral rents as a share of GDP.
 - **Economic complexity (`ECI`)**: the main dependent variable, used as a measure
   of export sophistication and revealed productive capabilities.
 - **Export diversification (`DIVX = 1 - HHI`)**: complementary dependent variable,
@@ -81,8 +82,9 @@ comparative framework:
   abundance, export structure, macroeconomic conditions, productive capabilities,
   fiscal constraints, and financial development.
 - It compares economies dependent on oil, gas, and mining in a panel setting,
-  using `theta = 40%` as the reference resource-dependence threshold and
-  `theta = 50%` and `theta = 60%` as stricter sensitivity checks.
+  using `theta = 20%` as the reference resource-dependence threshold and
+  `theta = 30%` and `theta = 40%` as stricter sensitivity checks. The resulting
+  nested samples contain 55, 49, and 42 countries, respectively.
 
 The thesis is therefore best understood as a comprehensive master's-level
 empirical contribution: it does not claim causal closure, but it provides
@@ -134,7 +136,7 @@ The methodological strategy combines:
 - panel data models with country and time effects;
 - interactions between extractive rents and institutional quality;
 - complementary estimations using `DIVX = 1 - HHI`;
-- sensitivity checks using the `DRES` thresholds `40%`, `50%`, and `60%`;
+- sensitivity checks using the `DRES` thresholds `20%`, `30%`, and `40%`;
 - heterogeneity analysis by dominant resource type;
 - additional robustness checks, including alternative specifications when
   justified by the data.
@@ -148,22 +150,42 @@ conditional associations rather than strict causal estimates.
 
 | Dimension | Indicator | Role | Source |
 | --- | --- | --- | --- |
-| External resource dependence | `DRES`: non-renewable resource exports / total exports | Sample selection criterion | UN Comtrade, World Bank, own construction |
-| Extractive rents | `RENTS`: natural resource rents as % of GDP | Explanatory variable | World Development Indicators |
+| External resource dependence | `DRES`: non-renewable subsoil-resource exports / merchandise exports | Sample selection criterion | Atlas of Economic Complexity, own construction |
+| Extractive rents | `RENTS`: oil, natural-gas, coal and mineral rents as % of GDP | Explanatory variable | World Development Indicators |
 | External structural transformation | `ECI`: Economic Complexity Index, HS92 | Main dependent variable | Atlas of Economic Complexity |
 | Export diversification | `DIVX = 1 - HHI` | Complementary dependent variable | Own construction based on HHI |
 | Export concentration | `HHI`: Herfindahl-Hirschman Index | Structural regressor in ECI models | UN Comtrade, Atlas of Economic Complexity |
 | Resource abundance | `OILPC`, `GASPC`, `COALPC` | Abundance channel | International energy and resource data |
 | Export specialization | `PEXP`, `FEXP` | Structural channel | UN Comtrade, World Bank |
 | Institutions | `INST`: Rule of Law, Control of Corruption | Institutional channel | Worldwide Governance Indicators |
-| Human capital | `HUMCAP`: average years of schooling | Capability channel | Barro-Lee, World Bank |
-| Innovation | `INNOV`: R&D expenditure or patents | Capability channel | UNESCO, WIPO |
+| Human capital | `HUMCAP`: PWT human-capital index | Capability channel | Penn World Table 11.0 |
+| Innovation | `INNOV`: log of scientific and technical articles per million inhabitants | Capability channel | World Development Indicators / NSF |
 | Connectivity | `NET`: internet access/use or digital infrastructure | Capability channel | World Bank, ITU |
 | External volatility | `VOL`: commodity price volatility | Macroeconomic channel | World Bank Pink Sheet |
-| Real exchange rate | `RER`: real effective exchange rate | Macroeconomic channel | World Bank, BIS, IMF |
+| Real exchange rate | `RER`: `log(pl_gdpo)`; REER as robustness | Macroeconomic channel | Penn World Table, World Bank / IMF |
 | Fiscal channel | `FISC`: fiscal balance or public debt | Fiscal channel | IMF, World Bank |
 | Financial development | `FIN`: domestic credit to private sector | Financial channel | World Development Indicators |
 | Development level | `log(GDPPC)`: GDP per capita, PPP, log | Control | World Development Indicators |
+
+---
+
+## Current Data Status
+
+- `DRES` is constructed and validated for 1990-1995, producing nested samples
+  of 55, 49, and 42 countries at the 20%, 30%, and 40% thresholds.
+- `ECI`, `HHI`, and `DIVX` have reproducible processed country-year panels.
+- The shared Atlas trade source is stored once and supplies `DRES`, `HHI`,
+  `DIVX`, `PEXP`, and `FEXP`.
+- The shared WDI download contains 17 indicators needed for the remaining
+  variables. Forest rents and total natural-resource rents are excluded.
+- `INNOV` raw inputs use scientific and technical articles as the main measure;
+  the 55-country grid is complete for 1996-2022. Resident patents are retained
+  for robustness.
+- `RER` raw inputs use PWT 11.0 `pl_gdpo` as the main measure, covering 52 of
+  the 55 countries completely. WDI/IMF REER is retained for robustness.
+
+Detailed coverage and pending decisions are documented in
+[`data/DATA_INVENTORY.md`](data/DATA_INVENTORY.md).
 
 ---
 
@@ -203,7 +225,11 @@ docs/thesis/figures/
 ```text
 data/
   raw/                       # Raw data or placeholders
-    00_sample_selection_dres/ # Inputs for DRES and sample filters
+    atlas/                   # Shared Atlas source data
+      sitc_rev2_trade/       # Country-year-product exports for several variables
+    pwt/                     # Shared Penn World Table source for HUMCAP and RER
+    world_bank_wdi/          # Shared WDI source for several variables
+    dres/                     # Inputs for DRES and sample filters
     eci/                     # Economic Complexity Index inputs
     rents/                   # Natural resource rents inputs
     inst/                    # Institutional quality inputs
@@ -246,22 +272,30 @@ docs/
 outputs/                     # Generated empirical or document outputs
 
 scripts/
-  00_master_panel/           # Integrated panel builders
-  dres/                      # Sample-selection and dependence scripts
-  eci/                       # Economic complexity scripts
-  rents/                     # Natural resource rents scripts
-  inst/                      # Institutional quality scripts
-  oilpc_gaspc_coalpc/        # Resource abundance scripts
-  hhi_divx/                  # Export concentration/diversification scripts
-  pexp_fexp/                 # Primary and fuel export share scripts
-  vol/                       # Commodity volatility scripts
-  rer/                       # Real exchange rate scripts
-  humcap/                    # Human capital scripts
-  innov/                     # Innovation scripts
-  net/                       # Connectivity scripts
-  gdppc/                     # GDP per capita scripts
-  fisc/                      # Fiscal channel scripts
-  fin/                       # Financial development scripts
+  data/                      # Data acquisition and preparation by variable
+    atlas/                   # Shared Atlas trade-data acquisition
+    pwt/                     # Shared Penn World Table acquisition
+    world_bank_wdi/          # Shared WDI acquisition
+    dres/                    # Sample-selection and dependence scripts
+    eci/                     # Economic complexity scripts
+    rents/                   # Natural resource rents scripts
+    inst/                    # Institutional quality scripts
+    oilpc_gaspc_coalpc/      # Resource abundance scripts
+    hhi_divx/                # Export concentration/diversification scripts
+    pexp_fexp/               # Primary and fuel export share scripts
+    vol/                     # Commodity volatility scripts
+    rer/                     # Real exchange rate scripts
+    humcap/                  # Human capital scripts
+    innov/                   # Innovation scripts
+    net/                     # Connectivity scripts
+    gdppc/                   # GDP per capita scripts
+    fisc/                    # Fiscal channel scripts
+    fin/                     # Financial development scripts
+  panel/                     # Integrated country-year panel builders
+  literature/                # Reproduction and extraction from prior studies
+    anne2021/                # Anne (2021) commodity-specialization extraction
+  econometrics/              # Thesis models, diagnostics, and robustness checks
+  project_paths.R            # Shared R helper for project-relative paths
 ```
 
 ---
@@ -276,7 +310,10 @@ Advanced components:
 - Empirical literature review.
 - Methodological design.
 - Operational definition of variables.
-- Initial data and reproducibility architecture.
+- Reorganized data and reproducibility architecture.
+- Validated DRES samples and processed ECI, HHI, and DIVX panels.
+- Shared Atlas, WDI, and PWT raw sources with documented coverage.
+- Raw inputs for INNOV and RER, including robustness alternatives.
 - Placeholder structure for the results chapter.
 
 Components under development:

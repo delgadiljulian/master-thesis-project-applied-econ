@@ -119,30 +119,36 @@
 	\section{Criterios de selección de la muestra}
 	\label{sec:criterios-seleccion-muestra}
 
-	La construcción de la muestra sigue un procedimiento secuencial de
-	filtrado orientado a identificar economías con elevada dependencia
-	externa de recursos naturales. Aunque la unidad de análisis del estudio
-	es el país--año, los criterios de inclusión en la muestra se definen a
-	nivel de país y se aplican sobre un período base, con el propósito de
-	evitar que la clasificación de economías dependientes quede afectada por
-	trayectorias posteriores de transformación estructural. La
+	La construcción de la muestra sigue un procedimiento secuencial orientado
+	a identificar economías con elevada dependencia externa de recursos
+	naturales no renovables del subsuelo. Aunque la unidad de análisis del
+	estudio es el país--año, la pertenencia a cada muestra se define a nivel de
+	país durante un período anterior a la estimación, con el propósito de evitar
+	que la clasificación quede afectada por trayectorias posteriores de
+	transformación estructural. La
 	\autoref{fig:sample_selection_pipeline} resume este procedimiento.
 
-	En una primera etapa se consideran los países para los cuales existe
-	información simultánea sobre PIB y comercio internacional, condición
-	necesaria para construir indicadores comparables de estructura productiva
-	y especialización exportadora. Posteriormente se excluyen economías con
-	poblaciones muy reducidas, estableciendo como umbral mínimo un millón de
-	habitantes, a fin de evitar que microestados o economías extremadamente
-	pequeñas distorsionen las comparaciones internacionales. A continuación,
-	la muestra se restringe a economías con presencia significativa en el
-	comercio internacional, reteniendo únicamente aquellos países cuyas
-	exportaciones anuales superan mil millones de dólares estadounidenses (1 billion USD).
+	El universo inicial corresponde a las 233 economías del catálogo comercial
+	del \textit{Atlas of Economic Complexity} para la clasificación SITC
+	Revisión 2. Se exige que las exportaciones de mercancías sean positivas en cada uno
+	de los seis años comprendidos entre 1990 y 1995, condición que cumplen 185
+	economías. Posteriormente se restringe el universo a 159 países, excluyendo
+	territorios dependientes, regiones administrativas especiales, entidades
+	históricas disueltas y códigos comerciales sin un país identificable. Esta
+	delimitación conserva países con independencia del tamaño de su población y
+	del valor absoluto de sus exportaciones.
+
+	Los umbrales de un millón de habitantes y de mil millones de dólares de
+	exportaciones no se utilizan como exclusiones de la muestra principal. Ambas
+	variables se conservan como diagnósticos para ejercicios de robustez, pues su
+	aplicación mecánica excluiría economías extractivas pequeñas o de bajos
+	ingresos y podría introducir un sesgo de selección asociado al tamaño del
+	país, en lugar de identificar su grado de dependencia externa de recursos.
 
 	Sobre este conjunto de economías se identifica el grupo de países con
-	elevada dependencia externa de recursos naturales. Para ello se construye
+	elevada dependencia externa de recursos naturales no renovables del subsuelo. Para ello se construye
 	el indicador $DRES_{it}$, definido como la participación de las
-	exportaciones de recursos naturales en el total de exportaciones del
+	exportaciones de estos recursos en el total de exportaciones de mercancías del
 	país, tal como se presenta en la \autoref{eq:selection_dependence}:
 
 	\begin{equation}
@@ -152,11 +158,36 @@
 	\end{equation}
 
 	donde $DRES_{it}$ representa el grado de dependencia externa de recursos
-	naturales del país $i$ en el año $t$; $X^{\text{res}}_{it}$ denota el
-	valor de las exportaciones de recursos naturales ---incluyendo petróleo,
-	gas, minerales y otros bienes primarios--- del país $i$ en el año $t$; y
-	$X_{it}$ corresponde al valor total de las exportaciones de bienes del
+	naturales no renovables del subsuelo del país $i$ en el año $t$;
+	$X^{\text{res}}_{it}$ denota el valor de las exportaciones de combustibles
+	minerales, minerales crudos, minerales metalíferos, metales no ferrosos,
+	piedras preciosas y oro no monetario del país $i$ en el año $t$; y
+	$X_{it}$ corresponde al valor total de las exportaciones de mercancías del
 	país $i$ en el año $t$.
+
+	La construcción utiliza exportaciones a cuatro dígitos de la clasificación
+	SITC Revisión 2. El numerador reúne la sección 3, las divisiones 27, 28 y 68,
+	los códigos 6672 y 6673, y el código 9710. Estos últimos incorporan
+	explícitamente diamantes y piedras preciosas naturales, y oro no monetario,
+	recursos del subsuelo que no están incluidos en el indicador estándar de
+	minerales y metales de los WDI. Dentro de los grupos amplios se excluyen el
+	código 2711, correspondiente a fertilizantes de origen animal o vegetal; el
+	código 3510, correspondiente a electricidad; los códigos 2786, 2820, 2881 y
+	2882, que corresponden a escorias, cenizas, residuos y chatarra; las perlas
+	del código 6671; y las piedras sintéticas o reconstruidas del código 6674. La
+	definición excluye así bienes agrícolas, forestales, pesqueros y los demás
+	recursos naturales renovables, además de electricidad, materiales recuperados
+	y productos sintéticos.
+
+	El denominador incorpora todas las mercancías con código SITC y conserva la
+	categoría \texttt{XXXX}, utilizada por el Atlas para comercio de bienes cuyo
+	producto no pudo clasificarse. Mantener esta categoría evita elevar
+	mecánicamente $DRES$ al retirar exportaciones de mercancías que sí forman parte
+	del total comercial. En cambio, se excluyen expresamente las categorías de
+	servicios financieros, servicios empresariales, transporte, viajes y servicios
+	no especificados. Esta distinción resulta necesaria porque los archivos del
+	Atlas reúnen comercio de bienes y servicios, mientras que $DRES$ se define
+	exclusivamente sobre exportaciones de mercancías.
 
 	La clasificación de economías dependientes se realiza utilizando el
 	promedio de $DRES_{it}$ durante el período base 1990--1995. Esta decisión
@@ -167,17 +198,52 @@
 	base, se define un umbral $\theta$ que representa la participación mínima
 	de exportaciones de recursos naturales en el total exportado requerida
 	para clasificar una economía como dependiente de recursos. La estimación
-	de referencia utiliza $\theta=40\%$, mientras que $\theta=50\%$ y
-	$\theta=60\%$ se emplean como definiciones progresivamente más estrictas
-	para evaluar la sensibilidad de los resultados a la regla de selección
-	muestral.
+	de referencia utiliza $\theta=20\%$, umbral empleado por el Fondo Monetario
+	Internacional para identificar economías en las que los recursos agotables
+	representan una proporción significativa de las exportaciones
+	\parencite{IMF2012}. Este valor se adopta como referencia externa y no como
+	una réplica exacta de la clasificación del FMI, originalmente construida para
+	otro período y un universo específico de economías en desarrollo. Los umbrales
+	de $\theta=30\%$ y $\theta=40\%$ se
+	emplean como definiciones progresivamente más estrictas para evaluar la
+	sensibilidad de los resultados a la regla de selección muestral. Con los
+	datos del período base, estas reglas producen muestras anidadas de 55, 49 y
+	42 países, respectivamente.
+
+	La robustez de la clasificación se evalúa adicionalmente frente a decisiones
+	sobre el ámbito de productos y la agregación temporal. En primer lugar, se
+	construye una variante que excluye oro no monetario y piedras preciosas, con el
+	fin de reducir la posible influencia de reexportaciones, y una definición
+	restrictiva que conserva solamente productos extractivos ubicados aguas arriba.
+	En segundo lugar, el promedio simple de los seis valores anuales se contrasta
+	con la mediana, el cociente entre exportaciones extractivas acumuladas y
+	exportaciones acumuladas de mercancías, y ejercicios que retiran un año del
+	período base cada vez. El cociente de exportaciones acumuladas conserva los 55
+	países de la muestra principal del 20\%, mientras que la mediana conserva 54;
+	además, 53
+	permanecen clasificados al retirar cualquiera de los seis años, mientras que
+	las variantes sin oro y piedras preciosas y estrictamente aguas arriba contienen
+	49 y 48 países, respectivamente. Estas definiciones se emplean como pruebas de
+	sensibilidad y no reemplazan la especificación principal.
+
+	Como validación concurrente, la construcción se compara con la suma de los
+	indicadores WDI de exportaciones de combustibles y de minerales y metales. En
+	las 495 observaciones país--año comparables de 123 países, la variante del Atlas
+	que reproduce esas categorías alcanza una correlación de 0,974 y un error
+	absoluto mediano de 0,58 puntos porcentuales frente a WDI. Debido a la elevada
+	presencia de valores faltantes en estos indicadores durante 1990--1995, WDI se
+	utiliza como fuente de validación y no como insumo principal de la selección.
 
 	Este criterio de selección responde a que el interés del estudio se
 	centra en la dependencia externa asociada a la estructura exportadora, y
 	no en la mera disponibilidad geológica o física de recursos. En
 	consecuencia, economías que poseen recursos naturales pero los destinan
 	principalmente al consumo interno no se clasifican como dependientes de
-	recursos en este trabajo. Asimismo, conviene subrayar que $DRES$ se
+	recursos en este trabajo. Al basarse en exportaciones brutas, la medida tampoco
+	distingue perfectamente entre extracción doméstica, procesamiento y
+	reexportación; por ello, $DRES$ debe interpretarse como un indicador de
+	dependencia y especialización exportadora, no como una medida directa de
+	dotación geológica o producción física. Asimismo, conviene subrayar que $DRES$ se
 	emplea exclusivamente como criterio de selección muestral, mientras que
 	la variable principal de interés en las estimaciones econométricas es
 	$RENTS_{it}$, que captura la intensidad macroeconómica de las rentas
@@ -198,11 +264,13 @@
 	ello, ambas medidas se utilizan en este capítulo con funciones analíticas
 	diferenciadas.
 
-	Finalmente, se excluyen aquellos países con ausencia persistente de
-	información para las variables centrales del análisis. El número exacto
-	de países puede variar entre especificaciones según el umbral aplicado,
-	la cobertura temporal y la disponibilidad de datos para cada variable
-	incluida.
+	La disponibilidad de PIB y de las demás variables del modelo no interviene
+	en el cálculo de DRES ni en la clasificación inicial. La muestra efectiva de
+	cada especificación corresponde posteriormente a la intersección entre la
+	lista definida por el umbral y la información disponible para las variables
+	econométricas. Por ello, el número de países y observaciones puede disminuir
+	en las estimaciones sin modificar la definición previa de dependencia
+	extractiva.
 
 	\begin{figure}[htbp]
 		\centering
@@ -215,31 +283,31 @@
 
 			% Cajas con anchos decrecientes
 			\node[draw, rectangle, minimum width=7.2cm, minimum height=0.8cm, align=center] (all)
-			{Todos los países};
+			{Catálogo Atlas SITC: 233 economías};
 
 			\node[below=of all] (text1)
-			{con información de PIB y comercio};
+			{Mercancías positivas en cada año de 1990--1995};
 
 			\node[draw, rectangle, minimum width=6.4cm, minimum height=0.8cm, align=center, below=of text1] (step1)
-			{185 países};
+			{185 economías};
 
 			\node[below=of step1] (text2)
-			{Población $>$ 1,000,000};
+			{Ámbito nacional del estudio};
 
 			\node[draw, rectangle, minimum width=5.6cm, minimum height=0.8cm, align=center, below=of text2] (step2)
-			{147 países};
+			{159 países};
 
-			\node[below=of step2] (text3)
-			{Exportaciones $>$ 1.000 millones USD};
+			\node[below=of step2, align=center] (text3)
+			{$DRES$ promedio 1990--1995 $\geq \theta$};
 
 			\node[draw, rectangle, minimum width=4.8cm, minimum height=0.8cm, align=center, below=of text3] (step3)
-			{131 países};
+			{$\theta=20\%$: 55; $\theta=30\%$: 49; $\theta=40\%$: 42};
 
 			\node[below=of step3, align=center] (text4)
-			{Dependencia externa de recursos \\ ($DRES$ promedio 1990--1995) $>\theta$ \\ $\theta=40\%, 50\%, 60\%$};
+			{Muestras anidadas de dependencia extractiva};
 
 			\node[draw, rectangle, minimum width=4.0cm, minimum height=0.8cm, align=center, below=of text4] (step4)
-			{Muestras alternativas};
+			{20\% de referencia; 30\% y 40\% de sensibilidad};
 
 			\node[below=of step4, align=center] (text5)
 			{Datos completos \\ para todas las variables};
@@ -274,10 +342,10 @@
 
 		\end{tikzpicture}
 
-		\caption[Selección de la muestra]{Procedimiento de selección de países utilizado para construir las muestras analíticas del estudio. La muestra de referencia aplica $\theta=40\%$ sobre la dependencia externa de recursos, medida mediante $DRES$, mientras que los umbrales de 50\% y 60\% se utilizan como definiciones progresivamente más estrictas.}
+		\caption[Selección de la muestra]{Procedimiento reproducible de selección de países utilizado para construir las muestras analíticas del estudio. La muestra de referencia aplica $\theta=20\%$ sobre la dependencia externa de recursos, medida mediante $DRES$, mientras que los umbrales de 30\% y 40\% se utilizan como definiciones progresivamente más estrictas. Los conteos corresponden a los resultados efectivos del procesamiento del período 1990--1995.}
 
 		\label{fig:sample_selection_pipeline}
-		\caption*{\footnotesize \textit{Fuente: Elaboración propia.}}
+		\caption*{\footnotesize \textit{Fuente: Elaboración propia con base en el Atlas of Economic Complexity del Harvard Growth Lab.}}
 
 	\end{figure}
 
@@ -356,7 +424,10 @@ dinámicas rentistas de carácter institucional, fiscal y macroeconómico
 
 En consonancia con este criterio, el estudio se centra en economías
 históricamente dependientes de recursos naturales no renovables,
-particularmente economías dependientes de petróleo, gas y minería. No obstante, la
+particularmente economías dependientes de recursos del subsuelo como petróleo,
+gas, carbón, minerales y metales. Esta definición excluye expresamente los bienes
+agrícolas, forestales y pesqueros, así como los demás recursos naturales renovables.
+No obstante, la
 dependencia de recursos y la importancia macroeconómica de la actividad
 extractiva no se tratan como conceptos equivalentes. La primera se
 aproxima mediante $DRES_{it}$ y se utiliza exclusivamente como criterio
