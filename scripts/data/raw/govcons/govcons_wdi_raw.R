@@ -1,9 +1,13 @@
 # CAPA: RAW
 # VARIABLE: GOVCONS
-# SALIDAS: data/raw/govcons/
-# Proposito: preparar el indicador raw de consumo gubernamental GOVCONS.
+# SALIDAS: data/raw/_archive_unused_sources/govcons_world_bank_wdi/
+# Proposito: regenerar el extracto histórico WDI de GOVCONS.
 # Entrada: panel WDI compartido y muestra DRES de referencia.
-# Salidas: insumo raw en CSV y Stata, y diagnosticos de cobertura.
+# Salidas: insumo archivado en CSV y Stata, y diagnosticos de cobertura.
+#
+# Este extracto dejó de ser una entrada activa cuando GOVCONS fue sustituida
+# por la serie de Naciones Unidas. La comparación vigente lee directamente el
+# panel WDI compartido para no duplicar datos.
 
 # Reunir las ubicaciones desde las cuales puede encontrarse el helper de rutas.
 helper_path <- c(
@@ -234,8 +238,8 @@ output_path <- file.path(
   project_path,
   "data",
   "raw",
-  "govcons",
-  "world_bank_wdi"
+  "_archive_unused_sources",
+  "govcons_world_bank_wdi"
 )
 dir.create(output_path, recursive = TRUE, showWarnings = FALSE)
 csv_file <- file.path(

@@ -1,38 +1,46 @@
-# Insumo raw de GOVCONS
+# Insumos raw de GOVCONS
 
-`world_bank_wdi/govcons_wdi_input_1980_2022.csv` y su archivo equivalente para
-Stata contienen el gasto de consumo final del gobierno general como porcentaje
-del PIB publicado por los World Development Indicators
-(`NE.CON.GOVT.ZS`).
+La fuente activa es la base *National Accounts Main Aggregates* de la División
+de Estadística de Naciones Unidas. La captura utiliza la serie 16
+(`GDP by Expenditure, Percentage Distribution (Shares)`) y su componente 3
+(`General government final consumption expenditure`).
 
-La variable se utilizará como control del tamaño relativo del consumo público.
-No mide la capacidad fiscal, la presión tributaria, el balance presupuestario ni
-la prociclicidad de la política fiscal. La serie se conserva en la escala
-original de la fuente: la capa raw no aplica logaritmos, interpolaciones,
-imputaciones ni recortes.
+## Fuente activa: Naciones Unidas
 
-`world_bank_wdi/govcons_raw_coverage_summary_dres20.csv` resume la cobertura y
-el rango para los 55 países de la muestra DRES durante 1996-2022.
-`world_bank_wdi/govcons_raw_country_coverage_dres20.csv` identifica los años
-faltantes y el rango observado de cada país.
+`un_ama/govcons_un_ama_1970_2024.csv` contiene la serie porcentual para los 55
+países de la muestra DRES. La captura conserva 2.986 país-años históricos y
+cubre las 1.430 celdas requeridas entre 1996 y 2021.
 
-La serie está disponible en 1.211 de las 1.485 celdas país-año (81,5 %).
-Cuarenta y nueve países tienen al menos una observación y 40 presentan
-cobertura completa. Antigua y Barbuda, Jamaica, Liberia, Nigeria, Nauru y
-Trinidad y Tobago no tienen observaciones durante 1996-2022.
+`un_ama/govcons_un_ama_metadata.csv` conserva los metadatos país-específicos:
+fuente, publicación, período y método de construcción. Estos campos permiten
+distinguir valores directos, derivados y períodos con métodos superpuestos.
 
-WDI publica 16 valores iguales a cero para Venezuela entre 1996 y 2011. El
-archivo fuente original confirma que no fueron creados por el script. Se
-conservan sin modificación en raw. En processed se marcan como faltantes porque
-forman una secuencia incompatible con el dominio económico del indicador; no
-se sustituyen ni imputan.
+`un_ama/download_manifest.csv` registra la fecha UTC de consulta, la fecha de
+actualización informada por la fuente, los endpoints, los conteos y los hashes
+SHA-256 de las capturas.
 
-El archivo `world_bank_wdi/govcons.dta` se conserva como alias de compatibilidad
-construido a partir de la misma serie WDI. No representa una definición
-adicional de la variable.
+La descarga se regenera con:
 
-El script reproducible es
-[`scripts/data/raw/govcons/govcons_wdi_raw.R`](../../../scripts/data/raw/govcons/govcons_wdi_raw.R).
+```text
+python scripts/data/raw/govcons/govcons_un_ama_raw.py
+```
 
-La construcción definitiva y sus diagnósticos están documentados en
+## Referencia de contraste: WDI
+
+El indicador `NE.CON.GOVT.ZS` utilizado anteriormente se consulta en la
+descarga compartida `data/raw/world_bank_wdi/wdi_thesis_inputs_1980_2022.csv`.
+WDI ya no define la variable activa y no se usa para rellenar selectivamente
+la serie de Naciones Unidas. Se mantiene únicamente como referencia para la
+comparación de 1.152 país-años comunes.
+
+El antiguo extracto específico de GOVCONS, que duplicaba esa descarga
+compartida, se conserva de forma recuperable en
+`data/raw/_archive_unused_sources/govcons_world_bank_wdi/`. Ningún proceso
+activo lee los archivos archivados.
+
+Los 16 ceros publicados por WDI para Venezuela entre 1996 y 2011 permanecen en
+raw. En la comparación se marcan como no utilizables, tal como ocurría en el
+flujo anterior.
+
+La variable activa y los diagnósticos comparativos se construyen en
 [`data/processed/govcons/`](../../processed/govcons/).

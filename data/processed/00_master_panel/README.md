@@ -26,8 +26,8 @@ RENTS_X_INST = RENTS * INST
 - `VOL`, conservada como la desviación estándar móvil de cinco variaciones
   porcentuales logarítmicas del índice CTOT.
 - `RER`, definida como `log(pl_gdpo)` de PWT 11.0.
-- `HUMCAP`, definida como el índice `hc` de PWT 11.0 en sus niveles
-  publicados.
+- `HUMCAP`, construida con los años promedio de escolaridad de adultos
+  publicados por el PNUD y la función de retornos educativos utilizada por PWT.
 - `INNOV`, definida como `log(1 + artículos científicos y técnicos por millón
   de habitantes)`.
 - `NET`, definida como personas que utilizan internet en porcentaje de la
@@ -36,8 +36,8 @@ RENTS_X_INST = RENTS * INST
   constante.
 - `GOVCONS`, definida como gasto de consumo final del gobierno general en
   porcentaje del PIB.
-- `FIN`, definida como crédito doméstico al sector privado en porcentaje del
-  PIB.
+- `FIN`, definida como crédito doméstico al sector privado otorgado por bancos
+  en porcentaje del PIB.
 - `ECI`, variable dependiente principal, tomada del campo `countryYear.eci` de
   la API oficial del Atlas.
 - `HHI`, concentración de las exportaciones de mercancías clasificadas;
@@ -61,8 +61,9 @@ valores ni completar observaciones faltantes.
 `RER` se incorpora después de su transformación logarítmica en la capa
 procesada. No se vuelve a transformar, combinar con otras fuentes ni imputar.
 
-`HUMCAP` se incorpora directamente como índice; no se interpreta como años de
-escolaridad y no recibe logaritmos, estandarización ni imputación.
+`HUMCAP` se incorpora directamente como índice después de aplicar su
+transformación en la capa procesada; no se interpreta como años de escolaridad
+y no recibe otra transformación ni imputación durante la integración.
 
 `INNOV` se incorpora después de su transformación en la capa procesada. No se
 mezcla con patentes ni otros indicadores y conserva como válidos sus valores
@@ -74,12 +75,15 @@ estandarización, interpolación ni imputación.
 `LOG_GDPPC` se incorpora después de su transformación en la capa procesada. No
 se utiliza el nivel ni una medida de PIB per cápita sin ajuste por PPA.
 
-`GOVCONS` se incorpora después del control de calidad aplicado en processed.
-No se interpreta como presión tributaria ni capacidad fiscal, y no recupera la
-definición descartada `FISC`.
+`GOVCONS` se incorpora desde la serie 16, componente 3, de Cuentas Nacionales
+de Naciones Unidas. WDI se conserva como referencia de contraste, pero no se
+mezcla con la variable activa. GOVCONS no se interpreta como presión tributaria
+ni capacidad fiscal y no recupera la definición descartada `FISC`.
 
-`FIN` se incorpora en su escala porcentual publicada, sin logaritmos,
-estandarización, interpolación, imputación ni recorte.
+`FIN` se incorpora íntegramente desde `FD.AST.PRVT.GD.ZS` en su escala
+porcentual publicada, sin logaritmos, estandarización, interpolación,
+imputación ni recorte. La definición amplia `FS.AST.PRVT.GD.ZS` se conserva
+solo como contraste y no se mezcla con la variable activa.
 
 `ECI` se incorpora bajo el nombre `eci` para 1996–2021. La serie completa
 procede de una única captura de la API oficial del Atlas: no se rellenan
@@ -123,9 +127,11 @@ observaciones y Rusia conserva como faltante únicamente 1996.
 `RER` está disponible en 1.352 país-años (94,55 %). Libia, Nauru y Papúa Nueva
 Guinea conservan sus 78 observaciones como faltantes.
 
-`HUMCAP` está disponible en 1.222 país-años (85,45 %). Los ocho países sin
-observaciones de PWT conservan sus 208 país-años como faltantes; los otros 47
-países tienen cobertura completa.
+`HUMCAP` está disponible en 1.403 país-años (98,11 %). Los 55 países tienen al
+menos una observación: 49 poseen cobertura completa y seis cobertura parcial.
+Los 27 faltantes se concentran en Angola (1996--1998), Antigua y Barbuda,
+Nauru, Omán y Seychelles (1996--1999) y Surinam (1996--2003). PWT se conserva
+solo como contraste y no se usa para rellenarlos.
 
 `INNOV` tiene cobertura completa en las 1.430 observaciones. Quince país-años
 con cero artículos conservan `INNOV = 0`.
@@ -138,13 +144,16 @@ observación.
 conservan como faltantes sus 52 país-años; los otros 53 países tienen cobertura
 completa.
 
-`GOVCONS` está disponible en 1.152 país-años (80,56 %). Los 278 faltantes
-incluyen los 16 ceros anómalos de Venezuela marcados previamente como no
-utilizables; no se imputan ni reemplazan.
+`GOVCONS` tiene cobertura completa: 1.430 país-años y 55 países. La serie activa
+de Naciones Unidas recupera las 278 celdas que no estaban disponibles en la
+referencia WDI. Los metadatos país-año distinguen valores directos, derivados y
+mixtos; no se rellenan vacíos selectivamente ni se mezclan fuentes.
 
-`FIN` está disponible en 1.202 país-años (84,06 %). Nauru no tiene
-observaciones. Las 84 observaciones superiores a 100 % se conservan como
-valores económicamente admisibles.
+`FIN` está disponible en 1.328 país-años (92,87 %). Cuarenta países tienen
+cobertura completa, 14 cobertura parcial y Nauru no tiene observaciones. Las
+42 observaciones superiores a 100 % se conservan como valores económicamente
+admisibles. La definición activa recupera 126 celdas y no pierde ninguna
+observación disponible en la referencia amplia.
 
 `ECI` tiene cobertura completa en las 1.430 observaciones: los 55 países
 disponen de 26 años entre 1996 y 2021. No existen valores faltantes, llaves
@@ -152,6 +161,11 @@ duplicadas ni valores infinitos en esta variable.
 
 `HHI` y `DIVX` tienen cobertura completa en las 1.430 observaciones del panel.
 La identidad entre ambas se cumple dentro de la tolerancia numérica.
+
+Al exigir simultáneamente todas las variables de las especificaciones
+econométricas, la muestra completa queda en 1.044 país-años de 49 países
+(73,01 % de la grilla). Este cálculo corresponde a la intersección de
+disponibilidad y no altera la muestra fija de 55 economías.
 
 ## Archivos
 

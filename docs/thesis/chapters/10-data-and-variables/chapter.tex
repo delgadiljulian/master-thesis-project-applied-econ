@@ -17,27 +17,38 @@
 
 	Este capítulo no replica el detalle metodológico sobre criterios de selección muestral ni sobre la justificación de cada indicador. Su propósito es presentar una caracterización descriptiva del panel consolidado antes de la estimación econométrica. En consecuencia, aquí se identifican de manera general las fuentes de información empleadas, su cobertura y la lógica de integración de la base, mientras que la discusión completa sobre selección de países, período de análisis y especificación del modelo se desarrolla en el capítulo metodológico.
 
-	De manera sintética, la base combina información de comercio internacional, estructura productiva, desempeño macroeconómico y calidad institucional. El \textit{Economic Complexity Index} ($ECI$), $DRES$, $HHI$, $DIVX$, $PEXP$ y $FEXP$ se obtienen o construyen a partir del \textit{Atlas of Economic Complexity}; $RENTS$, $OILPC$, $GASPC$, $COALPC$, $INNOV$, $NET$, $LOG\_GDPPC$, $GOVCONS$ y $FIN$ utilizan insumos de los \textit{World Development Indicators}; $INST$ emplea tres estimadores de los \textit{Worldwide Governance Indicators}; $VOL$ utiliza el índice CTOT del Fondo Monetario Internacional con ponderaciones fijas; y $HUMCAP$ y $RER$ proceden exclusivamente de Penn World Table 11.0.
+	De manera sintética, la base combina información de comercio internacional, estructura productiva, desempeño macroeconómico y calidad institucional. El \textit{Economic Complexity Index} ($ECI$), $DRES$, $HHI$, $DIVX$, $PEXP$ y $FEXP$ se obtienen o construyen a partir del \textit{Atlas of Economic Complexity}; $RENTS$, $OILPC$, $GASPC$, $COALPC$, $INNOV$, $NET$, $LOG\_GDPPC$ y $FIN$ utilizan insumos de los \textit{World Development Indicators}; $GOVCONS$ procede de \textit{National Accounts Main Aggregates} de Naciones Unidas; $INST$ emplea tres estimadores de los \textit{Worldwide Governance Indicators}; $VOL$ utiliza el índice CTOT del Fondo Monetario Internacional con ponderaciones fijas; $RER$ procede de Penn World Table 11.0; y $HUMCAP$ se construye con los años promedio de escolaridad de adultos publicados por el PNUD y la función de retornos educativos utilizada por PWT.
 
-	La selección mediante $DRES\geq20\%$ identifica 55 países, pero esta cifra
-	no equivale necesariamente al número final de países de cada estimación.
-	La captura oficial de $ECI$ mediante la API del Atlas cubre los 55 países y
-	los 1.430 país--años de 1996--2021. Los cuatro componentes conjuntos de
-	$RENTS$ tienen información para 53 países; $HUMCAP$ para 47; $RER$ para 52;
-	$VOL$ para 54; y
-	$GOVCONS$ para 48. En esta última variable, los 16 ceros consecutivos
-	publicados para Venezuela entre 1996 y 2011 se tratan como faltantes por ser
-	incompatibles con el dominio económico del indicador, sin sustituirlos ni
-	imputarlos. Algunas economías con ECI disponible mediante API no cumplen los
-	criterios del Atlas para aparecer en perfiles y rankings públicos; esta
-	condición se documenta como limitación de calidad, pero no se utiliza para
-	mezclar fuentes ni definir otra muestra econométrica. Las demás variables
-	también presentan vacíos puntuales o años
-	estructuralmente no publicados. Estas ausencias no se imputan. La muestra
-	efectiva de cada una de las dos ecuaciones será la intersección de las
-	variables requeridas y se documentará junto con las estimaciones.
-	Aunque varios insumos llegan hasta 2022, las estimaciones cubrirán
-	1996--2021 porque los cuatro componentes de $RENTS$ terminan en 2021.
+	La selección mediante $DRES\geq20\%$ identifica una grilla fija de 55 países
+	y 26 años, equivalente a 1.430 observaciones país--año. La captura oficial
+	del $ECI$ mediante la API del Atlas cubre la totalidad de esa grilla, al
+	igual que $PEXP$, $FEXP$, $INNOV$, $GOVCONS$, $HHI$ y $DIVX$. Las demás variables
+	presentan coberturas individuales entre 83,7\% y 98,1\%; por tanto, todas
+	superan el 80\% de las observaciones potenciales.
+
+	La principal reducción aparece al intersectar simultáneamente las variables
+	del modelo: se dispone de 1.044 observaciones completas correspondientes a 49
+	países (73,0\% de la grilla). Este resultado no implica redefinir la muestra de economías, sino
+	utilizar en cada ecuación los país--años para los cuales están disponibles
+	todos sus regresores. Los vacíos estructurales de los WGI en 1997, 1999 y
+	2001 se conservan sin interpolación. La serie activa de $GOVCONS$ cubre las
+	1.430 observaciones mediante Naciones Unidas; WDI se conserva como referencia
+	de contraste y no se mezcla con ella. Los metadatos identifican explícitamente
+	los valores directos y los procedimientos derivados aplicados por la fuente.
+	$FIN$ utiliza íntegramente el crédito privado otorgado por bancos
+	(\texttt{FD.AST.PRVT.GD.ZS}); la serie amplia se conserva solo como contraste
+	y no se emplea para completar faltantes. $HUMCAP$ cubre 1.403 país--años
+	(98,11\%) con una serie íntegramente basada en el PNUD; el índice
+	\texttt{hc} de PWT se conserva únicamente como referencia de validación y no
+	se utiliza para rellenar sus 27 vacíos.
+
+	Algunas economías con $ECI$ disponible mediante API no cumplen los criterios
+	del Atlas para aparecer en perfiles y rankings públicos; esta condición se
+	documenta como limitación de calidad, pero no se utiliza para mezclar
+	fuentes ni definir otra muestra econométrica. Aunque varios insumos llegan
+	hasta 2022, las estimaciones cubrirán 1996--2021 porque los cuatro
+	componentes de $RENTS$ terminan en 2021. El número efectivo de observaciones
+	y países se documentará junto con cada estimación.
 
 
 	\section{Definición y construcción de variables}

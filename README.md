@@ -154,13 +154,13 @@ conditional associations rather than strict causal estimates.
 | Resource abundance | `OILPC`, `GASPC`, `COALPC` | Abundance channel | World Development Indicators |
 | Export specialization | `PEXP`, `FEXP` | Structural channel | Atlas of Economic Complexity |
 | Institutions | `INST`: Control of Corruption, Rule of Law, Government Effectiveness | Institutional channel | Worldwide Governance Indicators |
-| Human capital | `HUMCAP`: PWT human-capital index | Capability channel | Penn World Table 11.0 |
+| Human capital | `HUMCAP`: schooling-based human-capital index | Capability channel | UNDP Human Development Report 2025, own construction using PWT returns |
 | Innovation | `INNOV`: log of scientific and technical articles per million inhabitants | Capability channel | World Development Indicators |
 | Connectivity | `NET`: internet users as % of population | Capability channel | World Development Indicators |
 | External volatility | `VOL`: five-year rolling volatility of the fixed-weight IMF commodity net-export price index | Macroeconomic channel | IMF CTOT |
 | Real exchange rate | `RER`: `log(pl_gdpo)` | Macroeconomic channel | Penn World Table 11.0 |
-| Government consumption | `GOVCONS`: government final consumption expenditure as % of GDP | Fiscal control | World Development Indicators |
-| Financial depth | `FIN`: domestic credit to private sector as % of GDP | Financial control | World Development Indicators |
+| Government consumption | `GOVCONS`: government final consumption expenditure as % of GDP | Fiscal control | UN National Accounts Main Aggregates; WDI retained as reference |
+| Financial depth | `FIN`: domestic credit to private sector by banks as % of GDP | Financial control | World Development Indicators |
 | Development level | `log(GDPPC)`: GDP per capita, PPP, log | Control | World Development Indicators |
 
 ---
@@ -179,11 +179,16 @@ conditional associations rather than strict causal estimates.
   55-country grid is complete for 1996-2022.
 - `RER` raw inputs use only PWT 11.0 `pl_gdpo`, covering 52 of the 55 countries
   completely.
-- `HUMCAP` raw inputs use only the PWT 11.0 `hc` index, with complete
-  1996-2022 coverage for 47 countries.
-- `GOVCONS` raw inputs preserve government final consumption expenditure as a
-  percentage of GDP and cover 1,211 of 1,485 country-years in the main sample;
-  source-published zeros for Venezuela are flagged for the processed stage.
+- `HUMCAP` uses UNDP mean years of schooling for adults aged 25 and older and
+  applies the piecewise returns-to-education function used by PWT. It covers
+  1,403 country-years (98.11%); PWT 11.0 `hc` remains only as a comparison
+  series and is not mixed into the active indicator.
+- `GOVCONS` uses UN National Accounts Main Aggregates series 16, item 3. The
+  active panel covers all 1,430 country-years in 1996-2021; WDI remains
+  unchanged as a comparison source and is not mixed into the active series.
+- `FIN` uses the WDI bank-credit indicator `FD.AST.PRVT.GD.ZS`. It covers
+  1,328 country-years (92.87%); the broader `FS.AST.PRVT.GD.ZS` series remains
+  unchanged only as a comparison source and is not mixed into `FIN`.
 
 Detailed coverage and pending decisions are documented in
 [`data/DATA_INVENTORY.md`](data/DATA_INVENTORY.md).
@@ -228,7 +233,7 @@ data/
   raw/                       # Raw data or placeholders
     atlas/                   # Shared Atlas source data
       sitc_rev2_trade/       # Country-year-product exports for several variables
-    pwt/                     # Shared Penn World Table source for HUMCAP and RER
+    pwt/                     # Shared Penn World Table source for RER and HUMCAP contrast
     world_bank_wdi/          # Shared WDI source for several variables
     dres/                     # Inputs for DRES and sample filters
     eci/                     # Economic Complexity Index inputs
@@ -314,7 +319,8 @@ Advanced components:
 - Reorganized data and reproducibility architecture.
 - Validated DRES samples and processed ECI, HHI, and DIVX panels.
 - Shared Atlas, WDI, and PWT raw sources with documented coverage.
-- Validated single-source raw inputs for INNOV, RER, HUMCAP, and VOL.
+- Validated single-source raw inputs for INNOV, RER, HUMCAP, and VOL; HUMCAP is
+  derived reproducibly from the UNDP schooling series.
 - Placeholder structure for the results chapter.
 
 Components under development:

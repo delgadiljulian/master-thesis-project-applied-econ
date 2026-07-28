@@ -17,7 +17,7 @@
 	\section{Fuentes de datos e indicadores}
 	\label{sec:fuentes}
 
-	La \autoref{tab:fuentes_datos} resume los indicadores definidos para la construcción del panel empírico, sus fuentes internacionales y la cobertura potencial de los insumos conservados en \texttt{data/raw}. Cada indicador tiene una única definición activa; la muestra efectiva se determinará posteriormente a partir de la intersección de datos disponibles, sin imputar los faltantes.
+	La \autoref{tab:fuentes_datos} resume los indicadores definidos para la construcción del panel empírico, sus fuentes internacionales y la cobertura potencial de los insumos conservados en \texttt{data/raw}. Cada indicador tiene una única definición activa. El panel maestro contiene una grilla fija de 55 países y 1.430 observaciones país--año para 1996--2021; la muestra efectiva de cada ecuación corresponde a la intersección de sus variables disponibles, sin imputar faltantes.
 
 	\renewcommand{\arraystretch}{1.15}
 	\setlength{\tabcolsep}{3pt}
@@ -112,9 +112,9 @@
 
 			Capacidades productivas
 			& Capital humano
-			& Índice de capital humano \texttt{hc} (HUMCAP)
-			& Penn World Table 11.0
-			& 1950--2023 \\
+			& Índice derivado de los años promedio de escolaridad de adultos de 25 años o más mediante la función de retornos educativos de PWT (HUMCAP)
+			& PNUD, \textit{Human Development Report 2025}; construcción propia
+			& 1990--2023 \\
 
 			Capacidades productivas
 			& Innovación
@@ -148,18 +148,18 @@
 
 			Control fiscal
 			& Consumo gubernamental
-			& Consumo final del gobierno general (\% del PIB; \texttt{NE.CON.GOVT.ZS}) (GOVCONS)
-			& World Bank (WDI)
-			& 1980--2022 \\
+			& Consumo final del gobierno general (\% del PIB; serie 16, componente 3) (GOVCONS)
+			& UN National Accounts Main Aggregates
+			& 1970--2024 \\
 
 			Canal financiero
 			& Profundidad financiera
-			& Crédito doméstico al sector privado (\% PIB; FS.AST.PRVT.GD.ZS) (FIN)
+			& Crédito doméstico al sector privado otorgado por bancos (\% PIB; FD.AST.PRVT.GD.ZS) (FIN)
 			& World Bank (WDI)
-			& 1980--2022 \\
+			& 1980--2025 \\
 
 			\hline
-			\multicolumn{5}{p{14.5cm}}{\textit{Nota: Los períodos consignan la cobertura potencial de los insumos raw, no un panel balanceado. El período econométrico efectivo es 1996--2021 porque los cuatro componentes de $RENTS$ terminan en 2021. $DRES$ se utiliza únicamente para seleccionar los 55 países con el umbral de 20\%. $HHI$ se incluye solo en el modelo con $ECI$ y se excluye cuando $DIVX=1-HHI$ es el resultado complementario.}} \\
+			\multicolumn{5}{p{14.5cm}}{\textit{Nota: Los períodos consignan la cobertura potencial de los insumos raw. El panel maestro fija 55 países y 26 años para 1996--2021, pero conserva explícitamente los faltantes de cada indicador. $ECI$, $PEXP$, $FEXP$, $INNOV$, $GOVCONS$, $HHI$ y $DIVX$ cubren las 1.430 observaciones; las demás variables superan el 80\% de cobertura individual. WDI se conserva como referencia de contraste para $GOVCONS$, pero no se mezcla con la serie activa de Naciones Unidas. En $FIN$, la definición amplia \texttt{FS.AST.PRVT.GD.ZS} también se conserva solo como contraste y no se mezcla con la serie bancaria activa. $DRES$ se utiliza únicamente para seleccionar los países con el umbral de 20\%. $HHI$ se incluye solo en el modelo con $ECI$ y se excluye cuando $DIVX=1-HHI$ es el resultado complementario.}} \\
 		\end{longtable}
 	\end{footnotesize}
 
@@ -606,7 +606,7 @@
 	\end{table}
 
 
-	Las visualizaciones del espacio productivo pueden consultarse de forma interactiva en el \textit{Atlas of Economic Complexity}, desarrollado por el Harvard Growth Lab \parencite{HarvardGrowthLab2024}.
+	Las visualizaciones del espacio productivo pueden consultarse de forma interactiva en el \textit{Atlas of Economic Complexity}, desarrollado por el Harvard Growth Lab \parencite{HarvardGrowthLab2026}.
 
 	\section{Tablas descriptivas sobre dependencia de recursos naturales}
 	\label{sec:tablas}

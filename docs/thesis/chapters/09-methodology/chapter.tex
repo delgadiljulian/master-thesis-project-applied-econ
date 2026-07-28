@@ -24,20 +24,19 @@
 	dependientes de recursos. El diseño de investigación es
 	\emph{no experimental} y \emph{longitudinal} (panel), y se basa en el
 	uso de datos secundarios comparables internacionalmente para un conjunto
-	de países. El horizonte general de recopilación de datos cubre el período
-	1980--2022\footnote{
-		El horizonte general 1980--2022 permite capturar la etapa de mayor integración
-		financiera internacional y liberalización comercial posterior a los años
-		ochenta, así como múltiples ciclos de precios de commodities,
-		incluyendo el superciclo de los años 2000 y su fase descendente
-		posterior a 2014.}, sujeto a la disponibilidad de cada fuente. No obstante, dado
-	que la variable principal de complejidad económica se encuentra disponible
-	desde 1995 y los indicadores institucionales comparables
-	internacionalmente desde 1996, el período principal de estimación
-	econométrica se define como 1996--2021, dado que los cuatro componentes
-	requeridos para construir $RENTS$ se publican hasta 2021. El intervalo 1990--1995 se utiliza
-	exclusivamente como período base para clasificar la dependencia externa de
-	recursos naturales mediante el indicador $DRES$.
+	de países. La cobertura histórica de los insumos varía según la fuente:
+	Penn World Table ofrece series desde 1950; el índice CTOT del Fondo
+	Monetario Internacional, desde 1962; los \textit{World Development
+	Indicators}, desde 1980; la información comercial del
+	\textit{Atlas of Economic Complexity} y los años promedio de escolaridad
+	del PNUD, desde 1990; y los
+	\textit{Worldwide Governance Indicators}, desde 1996. El período común de
+	análisis econométrico se fija en 1996--2021: comienza con la disponibilidad
+	de los indicadores institucionales y termina en el último año para el cual
+	se publican conjuntamente los cuatro componentes requeridos para construir
+	$RENTS$. El intervalo 1990--1995 se utiliza exclusivamente como período base
+	para clasificar la dependencia externa de recursos naturales mediante el
+	indicador $DRES$.
 
 	En este marco, la estrategia metodológica combina análisis descriptivo y
 	dos estimaciones en datos de panel con efectos fijos. La especificación
@@ -88,9 +87,11 @@
 	economías extractivas. No obstante, el núcleo del análisis econométrico
 	recae sobre la muestra de países dependientes de recursos, seleccionada
 	según criterios de disponibilidad, comparabilidad internacional y
-	relevancia analítica. En consecuencia, la composición final de la muestra
-	puede variar ligeramente entre especificaciones según la cobertura de las
-	variables incluidas.
+	relevancia analítica. Esta selección fija una grilla maestra de 55 países y
+	26 años, equivalente a 1.430 observaciones país--año. La cantidad de
+	observaciones y países efectivamente utilizada puede variar entre
+	especificaciones por la intersección de las variables requeridas, pero no
+	se redefine la muestra de países ni se reemplazan sus integrantes.
 
 	\section{Criterios de selección de la muestra}
 	\label{sec:criterios-seleccion-muestra}
@@ -428,12 +429,15 @@ coyunturales asociadas a los ciclos de precios de commodities.
 
 Operativamente, se utiliza el campo \texttt{countryYear.eci} de la API
 GraphQL oficial del \textit{Atlas of Economic Complexity}
-\parencite{HarvardGrowthLab2024}. La versión vigente del Atlas representa la
+\parencite{HarvardGrowthLab2026}. La versión vigente del Atlas representa la
 intensidad de la especialización mediante
 $M_{cp}=RCA_{cp}/(1+RCA_{cp})$, en lugar de reducirla a una presencia binaria.
-Para mantener una definición homogénea, todas las observaciones se extraen en
-una misma captura de la API y no se combinan con la antigua tabla de rankings
-ni con indicadores de otros proveedores.
+Para mantener una definición homogénea, todas las observaciones se extraen de
+una única captura reproducible de la API para 1995--2022 y no se combinan con
+la antigua tabla de rankings ni con indicadores de otros proveedores. En el
+período 1996--2021, esta fuente cubre los 55 países y las 1.430 observaciones
+país--año de la grilla maestra, incluso cuando alguna economía no sea elegible
+para aparecer en los rankings públicos del Atlas.
 
 No obstante, dado que el ECI combina información sobre diversificación y
 sofisticación exportadora, el análisis incorpora como resultado
@@ -639,8 +643,8 @@ y disponibilidad de información para el período principal de estimación
 		Capital humano
 		& HUMCAP
 		& Explicativa de capacidades
-		& Índice de capital humano \texttt{hc}, construido a partir de años promedio de escolaridad y retornos a la educación; proxy de capacidades productivas acumuladas. No se interpreta como años de escolaridad.
-		& Penn World Table 11.0 \\
+		& Exponencial de una función por tramos de los años promedio de escolaridad de adultos de 25 años o más; aplica los retornos educativos utilizados por PWT y aproxima capacidades productivas acumuladas. No se interpreta como años de escolaridad.
+		& PNUD, \textit{Human Development Report 2025}; construcción propia \\
 		\hline
 
 		Innovación
@@ -675,20 +679,20 @@ y disponibilidad de información para el período principal de estimación
 		Consumo final del gobierno (\% del PIB)
 		& GOVCONS
 		& Control fiscal
-		& Gasto de consumo final del gobierno general como porcentaje del PIB (\texttt{NE.CON.GOVT.ZS}); controla por el tamaño relativo del consumo público y no se interpreta como una medida directa de capacidad ni de prociclicidad fiscal.
-		& World Development Indicators (Banco Mundial) \\
+		& Gasto de consumo final del gobierno general como porcentaje del PIB (serie 16, componente 3); controla por el tamaño relativo del consumo público y no se interpreta como una medida directa de capacidad ni de prociclicidad fiscal.
+		& \textit{National Accounts Main Aggregates} (Naciones Unidas) \\
 		\hline
 
 		Profundidad financiera
 		& FIN
 		& Explicativa financiera
-		& Crédito doméstico al sector privado como porcentaje del PIB (\texttt{FS.AST.PRVT.GD.ZS}); proxy de la profundidad del crédito privado, no de su acceso, eficiencia o calidad.
+		& Crédito doméstico al sector privado otorgado por bancos como porcentaje del PIB (\texttt{FD.AST.PRVT.GD.ZS}); proxy de la profundidad del crédito bancario privado, no de su acceso, eficiencia o calidad.
 		& World Development Indicators (Banco Mundial) \\
 		\hline
 
 	\end{longtable}
 
-	Las rentas extractivas se construirán únicamente cuando estén observados sus
+	Las rentas extractivas se construyen únicamente cuando están observados sus
 	cuatro componentes:
 	\[
 		RENTS_{it}
@@ -701,7 +705,21 @@ y disponibilidad de información para el período principal de estimación
 		+
 		MINERALRENT_{it}.
 	\]
-	Los valores faltantes no se sustituirán por cero. Los cuatro indicadores
+	El panel conserva además dos desagregaciones para distinguir mecanismos sin
+	incorporar petróleo y gas como regresores separados:
+	\[
+		RENTS^{OIL+GAS}_{it}
+		=
+		OILRENT_{it}+GASRENT_{it},
+		\qquad
+		RENTS^{MINING}_{it}
+		=
+		COALRENT_{it}+MINERALRENT_{it}.
+	\]
+	La especificación principal mantiene $RENTS_{it}$ como medida agregada; las
+	dos desagregaciones quedan disponibles para examinar separadamente
+	hidrocarburos y minería sin alterar el conjunto central de variables.
+	Los valores faltantes no se sustituyen por cero. Los cuatro indicadores
 	proceden de los \textit{World Development Indicators} y están expresados
 	como porcentaje del PIB: rentas petroleras
 	(\texttt{NY.GDP.PETR.RT.ZS}), gasíferas
@@ -709,7 +727,7 @@ y disponibilidad de información para el período principal de estimación
 	(\texttt{NY.GDP.COAL.RT.ZS}) y minerales
 	(\texttt{NY.GDP.MINR.RT.ZS}).
 
-	El índice institucional se calculará como el promedio simple de los tres
+	El índice institucional se calcula como el promedio simple de los tres
 	estimadores WGI, que se publican en una escala comparable:
 	\[
 		INST_{it}
@@ -723,11 +741,11 @@ y disponibilidad de información para el período principal de estimación
 		}{3},
 	\]
 	donde $CC$ representa control de la corrupción, $RL$ estado de derecho y
-	$GE$ efectividad gubernamental. El índice se construirá únicamente cuando
-	los tres componentes estén disponibles; no se interpolarán los vacíos
+	$GE$ efectividad gubernamental. El índice se construye únicamente cuando
+	los tres componentes están disponibles; no se interpolan los vacíos
 	estructurales de 1997, 1999 y 2001.
 
-	Las medidas de rentas por habitante se construirán de forma homogénea:
+	Las medidas de rentas por habitante se construyen de forma homogénea:
 	\[
 		KPC_{it}
 		=
@@ -741,11 +759,11 @@ y disponibilidad de información para el período principal de estimación
 	\]
 	donde $R^{K}_{it}$ es la renta del recurso correspondiente como porcentaje
 	del PIB, $Y^{real}_{it}$ es el PIB en dólares constantes y $POP_{it}$ es la
-	población total. No se imputarán componentes faltantes.
+	población total. No se imputan componentes faltantes.
 
-	La medida de volatilidad se construirá a partir del
+	La medida de volatilidad se construye a partir del
 	\textit{Commodity Net Export Price Index} del FMI
-	(\texttt{CEMPI\_CTOTNX\_TT}). Para cada país, primero se calculará la
+	(\texttt{CEMPI\_CTOTNX\_TT}). Para cada país, primero se calcula la
 	variación porcentual logarítmica anual del índice:
 	\[
 		g_{it}
@@ -756,7 +774,7 @@ y disponibilidad de información para el período principal de estimación
 			\log(CTOT_{i,t-1})
 		\right].
 	\]
-	A continuación, la volatilidad se definirá como la desviación estándar
+	A continuación, la volatilidad se define como la desviación estándar
 	móvil de las cinco variaciones anuales más recientes:
 	\[
 		VOL_{it}
@@ -767,18 +785,30 @@ y disponibilidad de información para el período principal de estimación
 			g_{it}
 		\right).
 	\]
-	La variable utilizará exclusivamente el índice con ponderaciones fijas
+	La variable utiliza exclusivamente el índice con ponderaciones fijas
 	(\texttt{H\_FW\_IX}), de modo que los cambios de $VOL_{it}$ reflejen
 	variaciones de los precios internacionales y no modificaciones
 	contemporáneas de la composición comercial, especialmente relevante porque
 	las variables dependientes también se construyen a partir de la estructura
 	exportadora.
 
-	La medida de capital humano será el índice \texttt{hc} de Penn
-	World Table 11.0. Este índice combina los años promedio de escolaridad con
-	una función de retornos a la educación y se utilizará en niveles. En
-	consecuencia, $HUMCAP_{it}$ representa un índice de capacidades acumuladas y
-	no los años de escolaridad observados directamente.
+	La medida de capital humano se construye con los años promedio de escolaridad
+	$s_{it}$ de la población de 25 años o más publicados por el PNUD
+	\parencite{UNDP2025}. Para mantener la interpretación del índice de capital
+	humano de PWT, se aplica su función de retornos educativos por tramos
+	\parencite{GGDCHumanCapital2016}:
+	\[
+		\phi(s_{it})=
+		\begin{cases}
+			0{,}134s_{it}, & s_{it}\leq4,\\
+			0{,}134(4)+0{,}101(s_{it}-4), & 4<s_{it}\leq8,\\
+			0{,}134(4)+0{,}101(4)+0{,}068(s_{it}-8), & s_{it}>8,
+		\end{cases}
+		\qquad
+		HUMCAP_{it}=\exp\!\left[\phi(s_{it})\right].
+	\]
+	Por tanto, $HUMCAP_{it}$ representa un índice de capacidades acumuladas y no
+	los años de escolaridad observados directamente.
 
 	La medida de innovación se construye como
 	\[
@@ -797,7 +827,7 @@ y disponibilidad de información para el período principal de estimación
 	medida aproxima las capacidades científico-tecnológicas y la producción de
 	conocimiento, más que la innovación comercial en sentido estricto.
 
-	El tipo de cambio real y el control de desarrollo se construirán,
+	El tipo de cambio real y el control de desarrollo se construyen,
 	respectivamente, como
 	\[
 		RER_{it}=\log(pl\_gdpo_{it})
@@ -812,38 +842,96 @@ y disponibilidad de información para el período principal de estimación
 	\section{Fuentes y técnicas de recolección de datos}
 	\label{sec:recoleccion-datos}
 
-	El estudio utilizará exclusivamente datos secundarios, entendidos como
-	información estadística previamente recopilada y sistematizada por
-	organismos internacionales, programas de investigación y bases de datos
-	especializadas. En particular, la evidencia empírica procederá de fuentes
-		comparables a escala internacional: los \textit{World Development
-		Indicators} y \textit{Worldwide Governance Indicators} del Banco
-		Mundial, el \textit{Atlas of Economic Complexity} del Harvard Growth
-		Lab, el Fondo Monetario Internacional y Penn World Table, según la
-		variable considerada y tal como se resume en
-	la \autoref{tab:variables}. La elección de estas fuentes responde a
-	criterios de comparabilidad internacional, cobertura temporal,
-	transparencia metodológica y disponibilidad para el horizonte general de recopilación 1980--2022 y, especialmente, para el período principal de estimación 1996--2021. El índice CTOT constituye una excepción histórica: su fuente ofrece observaciones desde 1962, aunque en esta tesis se utilizará solamente la información necesaria para construir $VOL$ durante el período principal.
+	El estudio utiliza exclusivamente datos secundarios recopilados y
+	sistematizados por fuentes comparables a escala internacional: los
+	\textit{World Development Indicators} y \textit{Worldwide Governance
+	Indicators} del Banco Mundial, el \textit{Atlas of Economic Complexity} del
+	Harvard Growth Lab, la base \textit{National Accounts Main Aggregates} de
+	Naciones Unidas \parencite{UnitedNationsStatisticsDivision2026}, el Fondo
+	Monetario Internacional, Penn World Table y la base de indicadores del
+	\textit{Human Development Report 2025} del PNUD \parencite{UNDP2025},
+	según la variable considerada y tal como se resume en la
+	\autoref{tab:variables}. La selección responde a criterios de comparabilidad,
+	cobertura temporal, transparencia metodológica y reproducibilidad.
 
-	La recolección de datos consistirá en la construcción de una base de panel
-	país--año mediante la descarga, integración y armonización de series
-	provenientes de dichas fuentes. Este proceso incluirá la estandarización
-	de identificadores de país y período, la homologación de unidades de
-		medida y la verificación de consistencia interna de cada fuente.
-		Asimismo, algunas variables serán construidas a partir de
-	transformaciones sobre datos originales, como el cálculo de indicadores
-	per cápita, logaritmos, interacciones, medidas de concentración y otras
-	operaciones derivadas requeridas por la especificación econométrica.
+	La preparación de los datos sigue una arquitectura de tres niveles. La capa
+	\texttt{data/raw} conserva las capturas y extracciones de las fuentes sin
+	aplicar las transformaciones econométricas. La capa
+	\texttt{data/processed} implementa, mediante un script específico, la única
+	definición activa de cada variable. Finalmente, el panel maestro integra
+	estas salidas mediante uniones uno a uno por código ISO3 y año sobre la
+	grilla fija de 55 países y 1996--2021. Esta separación permite rastrear cada
+	valor desde el panel analítico hasta su insumo original y evita mezclar
+	procesos de descarga, construcción e integración.
 
-	Desde el punto de vista técnico, la depuración de la base incluirá
-	controles de consistencia temporal y de rango, revisión de observaciones
-	duplicadas, documentación de valores atípicos y trazabilidad completa entre
-	las series originales y las transformaciones definidas. No se sustituirán
-	automáticamente los datos faltantes por ceros ni se incorporarán
-	transformaciones distintas de las establecidas en esta sección. Dado que la disponibilidad de información no es homogénea
-	entre países, variables y períodos, la base final tendrá la estructura de
-	un panel potencialmente desbalanceado, cuya composición podrá variar entre
-	especificaciones según la cobertura efectiva de cada indicador.
+	La validación comprueba la unicidad de las 1.430 llaves país--año, la
+	ausencia de duplicados, la equivalencia entre las salidas CSV y Stata, los
+	rangos admisibles y las identidades de las variables derivadas, entre ellas
+	$DIVX=1-HHI$ y $RENTS\times INST$. La grilla maestra es balanceada en sus
+	identificadores, pero conserva explícitamente la disponibilidad desigual de
+	las variables. La tesis no interpola observaciones ni completa vacíos
+	mezclando fuentes. En $GOVCONS$, la serie activa procede íntegramente de
+	Naciones Unidas y WDI se conserva como referencia de contraste. Los
+	metadatos país--año clasifican 1.106 valores como directos, 297 como
+	derivados por la fuente y 27 como mixtos por superposición de métodos; estos
+	procedimientos no son imputaciones realizadas por la tesis. Los 16 ceros de
+	Venezuela publicados por WDI entre 1996 y 2011 permanecen documentados en
+	raw, pero no forman parte de la variable activa. En $FIN$, la definición
+	activa corresponde íntegramente al crédito privado otorgado por bancos
+	(\texttt{FD.AST.PRVT.GD.ZS}); la definición amplia
+	(\texttt{FS.AST.PRVT.GD.ZS}) se conserva únicamente como contraste y no se
+	utiliza para rellenar vacíos. De forma análoga, $HUMCAP$ se construye
+	íntegramente con la serie de escolaridad del PNUD; el índice \texttt{hc} de
+	PWT se conserva solo como referencia de validación y no completa las 27
+	observaciones faltantes.
+
+	\subsection{Cobertura efectiva del panel maestro}
+	\label{subsec:cobertura-panel-maestro}
+
+	La cobertura individual es elevada: todas las variables del modelo superan
+	el 80\% de las 1.430 observaciones potenciales y siete de ellas tienen
+	cobertura completa. La \autoref{tab:cobertura-panel-maestro} presenta el
+	diagnóstico reproducible obtenido después de integrar las salidas
+	procesadas.
+
+	\begin{table}[htbp]
+		\centering
+		\caption{Cobertura de las variables en el panel maestro, 1996--2021}
+		\label{tab:cobertura-panel-maestro}
+		\begin{tabular}{lrr}
+			\toprule
+			Variable & Observaciones & Cobertura (\%) \\
+			\midrule
+			$ECI$, $PEXP$, $FEXP$, $INNOV$, $GOVCONS$, $HHI$, $DIVX$ & 1.430 & 100,0 \\
+			$VOL$, $HUMCAP$ & 1.403 & 98,1 \\
+			$OILPC$ & 1.397 & 97,7 \\
+			$COALPC$ & 1.384 & 96,8 \\
+			$NET$ & 1.379 & 96,4 \\
+			$LOG\_GDPPC$ & 1.378 & 96,4 \\
+			$GASPC$ & 1.365 & 95,5 \\
+			$RENTS$, $RER$ & 1.352 & 94,5 \\
+			$FIN$ & 1.328 & 92,9 \\
+			$INST$ & 1.257 & 87,9 \\
+			$RENTS\times INST$ & 1.197 & 83,7 \\
+			\bottomrule
+		\end{tabular}
+		\begin{minipage}{0.94\textwidth}
+			\footnotesize
+			\textit{Nota:} La cobertura se calcula sobre 55 países y 26 años.
+			Los WGI no publicaron observaciones en 1997, 1999 y 2001; estos vacíos
+			estructurales se conservan sin interpolación. Dentro de los 23 años
+			publicados por WGI, la interacción $RENTS\times INST$ alcanza una
+			cobertura de 94,6\%.
+		\end{minipage}
+	\end{table}
+
+	La coincidencia simultánea de todas las variables requeridas por las
+	especificaciones econométricas corresponde a 1.044 observaciones de 49 países
+	(73,0\% de la grilla maestra). Esta reducción no contradice la cobertura
+	individual superior al 80\%: resulta de intersectar faltantes que no siempre
+	coinciden en los mismos países y años. Por tanto, cada estimación reportará
+	su número efectivo de observaciones y países, sin imputar información ni
+	alterar la selección original de 55 economías.
 
 	\section{Especificación del modelo econométrico}
 	\label{sec:modelo-econometrico}
