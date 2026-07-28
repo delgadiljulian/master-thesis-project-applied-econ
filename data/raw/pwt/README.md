@@ -8,4 +8,4 @@ almacena una sola vez porque contiene:
 
 `pwt110_download_manifest.csv` registra la versión, el enlace oficial, el tamaño
 del archivo y la fecha de descarga. El archivo puede reproducirse ejecutando
-[`scripts/data/pwt/pwt11_data.R`](../../../scripts/data/pwt/pwt11_data.R).
+[`scripts/data/raw/pwt/pwt11_raw.R`](../../../scripts/data/raw/pwt/pwt11_raw.R).

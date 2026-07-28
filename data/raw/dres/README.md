@@ -41,20 +41,18 @@ administrativas especiales, entidades históricas disueltas y códigos sin un
 país identificable.
 
 Los antiguos criterios de población superior a un millón y exportaciones
-superiores a USD 1.000 millones se conservan como banderas de robustez, pero no
-excluyen países de las muestras principales.
+superiores a USD 1.000 millones se conservan como diagnósticos descriptivos,
+pero no excluyen países de la muestra.
 
 ## Muestras construidas
 
 El script
-[`scripts/data/dres/dres_sample_selection.R`](../../../scripts/data/dres/dres_sample_selection.R)
-genera tres muestras anidadas:
+[`scripts/data/processed/dres/dres_processed.R`](../../../scripts/data/processed/dres/dres_processed.R)
+genera una única muestra:
 
 | Umbral del promedio DRES 1990--1995 | Uso | Países |
 | --- | --- | ---: |
-| 20 % | Muestra de referencia | 55 |
-| 30 % | Sensibilidad intermedia | 49 |
-| 40 % | Sensibilidad estricta | 42 |
+| 20 % | Muestra del modelo | 55 |
 
 Las cifras se calculan directamente desde los archivos raw y no corresponden a
 estimaciones introducidas manualmente.
@@ -66,10 +64,9 @@ El procesamiento escribe en `data/processed/dres/`:
 - `dres_country_year_1990_1995.csv`: numerador, denominador, componentes y DRES
   por país-año;
 - `dres_country_profile_1990_1995.csv`: promedio nacional, cobertura, ámbito y
-  banderas de muestra y robustez;
+  bandera de muestra y diagnósticos descriptivos;
 - `dres_sitc_product_scope.csv`: catálogo exacto de productos incluidos;
-- `dres_sample_20.csv`, `dres_sample_30.csv` y `dres_sample_40.csv`: listas de
-  países para cada umbral;
+- `dres_sample_20.csv`: lista única de países del modelo;
 - `dres_selection_summary.csv`: conteos utilizados en el diagrama metodológico.
 
 No se identificaron correcciones negativas dentro de las exportaciones de

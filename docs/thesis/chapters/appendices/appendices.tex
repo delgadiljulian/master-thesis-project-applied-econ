@@ -14,10 +14,10 @@
 
 	Este capítulo reúne materiales complementarios de apoyo empírico, gráfico y descriptivo. Su propósito es documentar las fuentes del análisis, sintetizar visualmente los principales mecanismos teóricos y presentar información comparativa que respalda el argumento central de la tesis.
 
-	\section{Fuentes preliminares de datos e indicadores}
+	\section{Fuentes de datos e indicadores}
 	\label{sec:fuentes}
 
-	La \autoref{tab:fuentes_datos} resume los principales indicadores considerados para la construcción del panel empírico, sus fuentes internacionales de referencia y su cobertura temporal. La selección definitiva de variables se realizará en la etapa de implementación empírica, con base en criterios de disponibilidad, comparabilidad y consistencia teórica.
+	La \autoref{tab:fuentes_datos} resume los indicadores definidos para la construcción del panel empírico, sus fuentes internacionales y la cobertura potencial de los insumos conservados en \texttt{data/raw}. Cada indicador tiene una única definición activa; la muestra efectiva se determinará posteriormente a partir de la intersección de datos disponibles, sin imputar los faltantes.
 
 	\renewcommand{\arraystretch}{1.15}
 	\setlength{\tabcolsep}{3pt}
@@ -52,114 +52,114 @@
 
 			Rentas extractivas
 			& Intensidad macroeconómica de las rentas
-			& Rentas de recursos naturales (\% del PIB) (RENTS)
+			& Suma de rentas de petróleo, gas natural, carbón y minerales (\% del PIB) (RENTS)
 			& World Bank (WDI)
-			& 1970--2022 \\
+			& 1980--2021 \\
 
 			Transformación estructural externa
 			& Complejidad económica
 			& Índice de Complejidad Económica (ECI, HS92)
-			& Atlas of Economic Complexity
+			& Atlas of Economic Complexity (API GraphQL)
 			& 1995--2022 \\
 
 			Transformación estructural externa
 			& Diversificación exportadora
 			& Complemento del índice de concentración exportadora ($DIVX=1-HHI$)
-			& Elaboración propia con base en HHI
-			& 1980--2022 \\
+			& Atlas of Economic Complexity; elaboración propia
+			& 1990--2022 \\
 
 			Estructura exportadora
 			& Concentración exportadora
-			& Índice de Herfindahl--Hirschman (HHI)
-			& UN Comtrade; Atlas of Economic Complexity
-			& 1980--2022 \\
+			& HHI entre productos SITC Rev. 2 clasificados; excluye servicios y \texttt{XXXX}
+			& Atlas of Economic Complexity; elaboración propia
+			& 1990--2022 \\
 
 			Abundancia de recursos
-			& Dotación de petróleo
-			& Producción o reservas de petróleo per cápita (OILPC)
-			& World Bank; EIA; fuentes internacionales comparables
-			& 1980--2022 \\
+			& Renta petrolera por habitante
+			& Renta petrolera real por habitante (OILPC)
+			& World Bank (WDI); elaboración propia
+			& 1980--2021 \\
 
 			Abundancia de recursos
-			& Dotación de gas
-			& Producción o reservas de gas per cápita (GASPC)
-			& World Bank; EIA; fuentes internacionales comparables
-			& 1980--2022 \\
+			& Renta gasífera por habitante
+			& Renta de gas natural real por habitante (GASPC)
+			& World Bank (WDI); elaboración propia
+			& 1980--2021 \\
 
 			Abundancia de recursos
-			& Dotación de carbón
-			& Producción o reservas de carbón per cápita (COALPC)
-			& World Bank; EIA; fuentes internacionales comparables
-			& 1980--2022 \\
+			& Renta carbonífera por habitante
+			& Renta del carbón real por habitante (COALPC)
+			& World Bank (WDI); elaboración propia
+			& 1980--2021 \\
 
 			Estructura exportadora
-			& Especialización primaria
-			& Participación de exportaciones primarias en el total exportado (PEXP)
-			& UN Comtrade; World Bank; elaboración propia
-			& 1980--2022 \\
+			& Especialización primaria no energética
+			& Participación de las secciones SITC Rev. 2 0, 1, 2 y 4 y la división 68 en las exportaciones de mercancías (PEXP)
+			& Atlas of Economic Complexity; elaboración propia
+			& 1990--2022 \\
 
 			Estructura exportadora
 			& Especialización en combustibles
-			& Participación de exportaciones de combustibles en el total exportado (FEXP)
-			& UN Comtrade; World Bank; elaboración propia
-			& 1980--2022 \\
+			& Participación de la sección SITC Rev. 2 3 en las exportaciones de mercancías (FEXP)
+			& Atlas of Economic Complexity; elaboración propia
+			& 1990--2022 \\
 
 			Instituciones
 			& Calidad institucional
-			& Rule of Law; Control of Corruption (INST)
+			& Promedio de Control of Corruption, Rule of Law y Government Effectiveness (INST)
 			& Worldwide Governance Indicators (WGI)
 			& 1996--2022 \\
 
 			Capacidades productivas
 			& Capital humano
-			& Años promedio de escolaridad (HUMCAP)
-			& Barro--Lee; World Bank
-			& 1950--2020 \\
+			& Índice de capital humano \texttt{hc} (HUMCAP)
+			& Penn World Table 11.0
+			& 1950--2023 \\
 
 			Capacidades productivas
 			& Innovación
-			& Gasto en I+D (\% del PIB) o patentes (INNOV)
-			& UNESCO; WIPO
-			& 1996--2022 \\
-
-			Capacidades productivas
-			& Conectividad
-			& Acceso o uso de internet / infraestructura digital (NET)
-			& World Bank (WDI); ITU
-			& 1990--2022 \\
-
-			Macroeconomía
-			& Volatilidad externa
-			& Volatilidad de precios de commodities (VOL\_TOT)
-			& World Bank (Pink Sheet)
-			& 1960--2022 \\
-
-			Macroeconomía
-			& Tipo de cambio real
-			& Tipo de cambio real efectivo (RER)
-			& World Bank; BIS; IMF
-			& 1980--2022 \\
-
-			Control
-			& Nivel de desarrollo
-			& PIB per cápita (PPA, log) (GDPPC)
+			& $\log(1+\text{artículos científicos y técnicos por millón de habitantes})$ (INNOV)
 			& World Bank (WDI)
 			& 1980--2022 \\
 
-			Canal fiscal
-			& Política fiscal
-			& Balance fiscal / deuda (\% del PIB) (FISC)
-			& IMF; World Bank
+			Capacidades productivas
+			& Conectividad
+			& Personas que utilizan internet (\% de la población; \texttt{IT.NET.USER.ZS}) (NET)
+			& World Bank (WDI)
+			& 1980--2022 \\
+
+			Macroeconomía
+			& Volatilidad de los términos de intercambio de commodities
+			& Desviación estándar móvil de cinco años de la variación logarítmica anual de \texttt{CEMPI\_CTOTNX\_TT}, con ponderaciones fijas \texttt{H\_FW\_IX} (VOL)
+			& IMF Commodity Terms of Trade
+			& 1962--2022 \\
+
+			Macroeconomía
+			& Tipo de cambio real
+			& $\log(\texttt{pl\_gdpo})$; un aumento representa apreciación real (RER)
+			& Penn World Table 11.0
+			& 1950--2023 \\
+
+			Control
+			& Nivel de desarrollo
+			& $\log(PIB\text{ per cápita PPA constante})$ (\texttt{NY.GDP.PCAP.PP.KD}; LOG\_GDPPC)
+			& World Bank (WDI)
+			& 1980--2022 \\
+
+			Control fiscal
+			& Consumo gubernamental
+			& Consumo final del gobierno general (\% del PIB; \texttt{NE.CON.GOVT.ZS}) (GOVCONS)
+			& World Bank (WDI)
 			& 1980--2022 \\
 
 			Canal financiero
-			& Desarrollo financiero
-			& Crédito doméstico al sector privado (\% PIB) (FIN)
+			& Profundidad financiera
+			& Crédito doméstico al sector privado (\% PIB; FS.AST.PRVT.GD.ZS) (FIN)
 			& World Bank (WDI)
 			& 1980--2022 \\
 
 			\hline
-			\multicolumn{5}{p{14.5cm}}{\textit{Nota: El panel se construye con frecuencia anual. La dependencia externa de recursos ($DRES$) se utiliza como criterio de selección muestral, mientras que las rentas de recursos naturales ($RENTS$) se incorporan como variable explicativa. La variable $DIVX=1-HHI$ se construye como complemento del índice de concentración exportadora. Por esta razón, $HHI$ se incluye únicamente en las especificaciones donde $ECI$ es la variable dependiente y se excluye cuando $DIVX$ se utiliza como resultado complementario. La muestra final es un panel desbalanceado determinado por la disponibilidad de datos.}} \\
+			\multicolumn{5}{p{14.5cm}}{\textit{Nota: Los períodos consignan la cobertura potencial de los insumos raw, no un panel balanceado. El período econométrico efectivo es 1996--2021 porque los cuatro componentes de $RENTS$ terminan en 2021. $DRES$ se utiliza únicamente para seleccionar los 55 países con el umbral de 20\%. $HHI$ se incluye solo en el modelo con $ECI$ y se excluye cuando $DIVX=1-HHI$ es el resultado complementario.}} \\
 		\end{longtable}
 	\end{footnotesize}
 
@@ -211,7 +211,7 @@
 				% Laterales
 				\node[sidebox, left=of canales] (inst) {Instituciones\\[2pt]\textit{(INST)}};
 				\node[sidebox, right=of canales] (vol) {Volatilidad externa\\[2pt]\textit{(VOL)}};
-				\node[sidebox, right=of resultados] (fisc) {Restricción fiscal\\[2pt]\textit{(FISC)}};
+				\node[sidebox, right=of resultados] (govcons) {Consumo gubernamental\\[2pt]\textit{(GOVCONS)}};
 
 				% Flechas
 				\draw[arrow] (res) -- (canales);
@@ -219,7 +219,7 @@
 
 				\draw[arrow] (inst) -- node[above, font=\small] {modula} (canales);
 				\draw[arrow] (vol) -- node[above, font=\small] {condiciona} (canales);
-				\draw[arrow] (fisc) -- node[above, font=\small] {limita} (resultados);
+				\draw[arrow] (govcons) -- node[above, font=\small] {controla} (resultados);
 
 			\end{tikzpicture}%
 		}
@@ -230,7 +230,7 @@
 		\caption*{\footnotesize \textit{Fuente: Elaboración propia.}}
 	\end{figure}
 
-	Con el fin de evaluar resultados complementarios de transformación estructural externa, la tesis contrasta las estimaciones basadas en el \textit{Economic Complexity Index} (ECI) con especificaciones en las que la variable dependiente corresponde a la diversificación exportadora ($DIVX=1-HHI$). Esta medida no reemplaza al ECI, sino que permite observar si los mecanismos asociados a la sofisticación de la canasta exportadora también se relacionan con una menor concentración de dicha canasta. En estas especificaciones, $HHI$ se excluye del conjunto de regresores para evitar una relación mecánica entre la variable dependiente y sus componentes de construcción.
+	Con el fin de evaluar un resultado complementario de transformación estructural externa, la tesis contrasta el modelo basado en el \textit{Economic Complexity Index} (ECI) con una segunda especificación en la que la variable dependiente corresponde a la diversificación exportadora ($DIVX=1-HHI$). Esta medida no reemplaza al ECI, sino que permite observar si los mecanismos asociados a la sofisticación de la canasta exportadora también se relacionan con una menor concentración de dicha canasta. En el modelo con $DIVX$, $HHI$ se excluye del conjunto de regresores para evitar una relación mecánica entre la variable dependiente y sus componentes de construcción.
 
 	\begin{figure}[H]
 		\centering

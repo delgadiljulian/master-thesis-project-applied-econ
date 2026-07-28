@@ -15,9 +15,29 @@
 	\section{Fuentes de datos y muestra}
 	\label{sec:fuentes-datos-muestra}
 
-	Este capítulo no replica el detalle metodológico sobre criterios de selección muestral ni sobre la justificación de cada indicador. Su propósito es presentar una caracterización descriptiva del panel de datos finalmente consolidado antes de la estimación econométrica. En consecuencia, aquí solo se identifican de manera general las fuentes de información empleadas y la lógica de integración de la base, mientras que la discusión completa sobre selección de países, período de análisis y especificación del modelo se desarrolla en el capítulo metodológico.
+	Este capítulo no replica el detalle metodológico sobre criterios de selección muestral ni sobre la justificación de cada indicador. Su propósito es presentar una caracterización descriptiva del panel consolidado antes de la estimación econométrica. En consecuencia, aquí se identifican de manera general las fuentes de información empleadas, su cobertura y la lógica de integración de la base, mientras que la discusión completa sobre selección de países, período de análisis y especificación del modelo se desarrolla en el capítulo metodológico.
 
-	De manera sintética, la base combina información de comercio internacional, estructura productiva, desempeño macroeconómico y calidad institucional. El \textit{Economic Complexity Index} ($ECI$) proviene del \textit{Atlas of Economic Complexity} del Harvard Growth Lab, cuyas exportaciones SITC Revisión 2 también se utilizan para construir $DRES$ durante 1990--1995; las series macroeconómicas y sectoriales se obtienen principalmente de los \textit{World Development Indicators} del Banco Mundial; y los indicadores institucionales se apoyan en los \textit{Worldwide Governance Indicators}. De forma complementaria, algunas variables de capital humano, innovación y estructura exportadora se nutren de fuentes como Penn World Table, Barro--Lee, UNESCO, WIPO, UNCTAD, IMF y UN Comtrade. La muestra efectiva que se describe en este capítulo corresponde, por tanto, a la intersección final de estas fuentes una vez realizada la depuración y armonización del panel.
+	De manera sintética, la base combina información de comercio internacional, estructura productiva, desempeño macroeconómico y calidad institucional. El \textit{Economic Complexity Index} ($ECI$), $DRES$, $HHI$, $DIVX$, $PEXP$ y $FEXP$ se obtienen o construyen a partir del \textit{Atlas of Economic Complexity}; $RENTS$, $OILPC$, $GASPC$, $COALPC$, $INNOV$, $NET$, $LOG\_GDPPC$, $GOVCONS$ y $FIN$ utilizan insumos de los \textit{World Development Indicators}; $INST$ emplea tres estimadores de los \textit{Worldwide Governance Indicators}; $VOL$ utiliza el índice CTOT del Fondo Monetario Internacional con ponderaciones fijas; y $HUMCAP$ y $RER$ proceden exclusivamente de Penn World Table 11.0.
+
+	La selección mediante $DRES\geq20\%$ identifica 55 países, pero esta cifra
+	no equivale necesariamente al número final de países de cada estimación.
+	La captura oficial de $ECI$ mediante la API del Atlas cubre los 55 países y
+	los 1.430 país--años de 1996--2021. Los cuatro componentes conjuntos de
+	$RENTS$ tienen información para 53 países; $HUMCAP$ para 47; $RER$ para 52;
+	$VOL$ para 54; y
+	$GOVCONS$ para 48. En esta última variable, los 16 ceros consecutivos
+	publicados para Venezuela entre 1996 y 2011 se tratan como faltantes por ser
+	incompatibles con el dominio económico del indicador, sin sustituirlos ni
+	imputarlos. Algunas economías con ECI disponible mediante API no cumplen los
+	criterios del Atlas para aparecer en perfiles y rankings públicos; esta
+	condición se documenta como limitación de calidad, pero no se utiliza para
+	mezclar fuentes ni definir otra muestra econométrica. Las demás variables
+	también presentan vacíos puntuales o años
+	estructuralmente no publicados. Estas ausencias no se imputan. La muestra
+	efectiva de cada una de las dos ecuaciones será la intersección de las
+	variables requeridas y se documentará junto con las estimaciones.
+	Aunque varios insumos llegan hasta 2022, las estimaciones cubrirán
+	1996--2021 porque los cuatro componentes de $RENTS$ terminan en 2021.
 
 
 	\section{Definición y construcción de variables}
@@ -25,15 +45,15 @@
 
 	Dado que las definiciones operativas completas de las variables del modelo ya fueron establecidas en el capítulo metodológico, esta sección se limita a precisar cuáles indicadores se utilizan en la descripción del panel y en el análisis exploratorio previo a la econometría. En esta etapa se privilegian las variables que permiten caracterizar tres dimensiones centrales de la base: la especialización extractiva, el nivel de desarrollo económico y la transformación estructural.
 
-	Para la caracterización de la especialización extractiva se emplean indicadores de participación de las exportaciones de recursos naturales no renovables del subsuelo ---hidrocarburos, carbón, minerales, metales, piedras preciosas y oro no monetario--- en las exportaciones totales de mercancías, así como las rentas de recursos naturales como porcentaje del PIB. Para la transformación estructural externa se utiliza principalmente el Índice de Complejidad Económica ($ECI$), complementado cuando corresponde con indicadores de diversificación exportadora. Por su parte, el nivel de desarrollo se resume mediante el ingreso per cápita y, en algunos ejercicios descriptivos, mediante la clasificación de países por grupos de ingreso. Las transformaciones aplicadas en este capítulo son, sobre todo, participaciones porcentuales, escalas logarítmicas y agrupaciones de países, ya que el objetivo no es todavía estimar el modelo, sino describir la distribución de las variables y explorar patrones preliminares en los datos.
+	Para la caracterización de la especialización extractiva se emplean indicadores de participación de las exportaciones de recursos naturales no renovables del subsuelo ---hidrocarburos, carbón, minerales, metales, piedras preciosas y oro no monetario--- en las exportaciones totales de mercancías, así como la suma de las rentas de petróleo, gas natural, carbón y minerales como porcentaje del PIB. Para la transformación estructural externa se utiliza principalmente el Índice de Complejidad Económica ($ECI$), complementado con $DIVX=1-HHI$. Por su parte, el nivel de desarrollo se resume mediante el logaritmo del PIB per cápita en PPA constante y, en algunos ejercicios descriptivos, mediante la clasificación de países por grupos de ingreso. Las transformaciones aplicadas respetarán exclusivamente las definiciones operativas del capítulo metodológico.
 
-	En consecuencia, este capítulo no vuelve a desarrollar variable por variable la lógica del modelo econométrico, sino que utiliza el panel ya depurado para documentar regularidades empíricas básicas antes de pasar a las estimaciones. Las definiciones detalladas, los criterios exactos de construcción y la justificación de las variables de control se mantienen en el capítulo de metodología para evitar redundancias innecesarias.
+	En consecuencia, este capítulo no vuelve a desarrollar variable por variable la lógica del modelo econométrico. La capa \texttt{data/processed} reúne el panel depurado que se utilizará para documentar regularidades empíricas básicas antes de pasar a las estimaciones. Las definiciones detalladas, los criterios exactos de construcción y la justificación de las variables de control se mantienen en el capítulo de metodología para evitar redundancias innecesarias.
 
 
 	\section{Estadística descriptiva}
 	\label{sec:estadistica-descriptiva}
 
-	Esta sección ofrece una caracterización descriptiva de la base empírica utilizada en la investigación. El objetivo es identificar regularidades básicas en la distribución de las variables, en la composición de la muestra y en las asociaciones bivariadas más relevantes antes de proceder a la estimación econométrica. Para ello, se combinan gráficos de contextualización y ejercicios exploratorios que permiten examinar la heterogeneidad de las economías analizadas.
+	Esta sección ofrecerá una caracterización descriptiva de la base empírica una vez construida la capa \texttt{data/processed}. El objetivo será identificar regularidades básicas en la distribución de las variables, en la composición de la muestra y en las asociaciones bivariadas más relevantes antes de proceder a la estimación econométrica. Por ahora se conservan únicamente gráficos de contextualización basados en fuentes externas claramente identificadas.
 
 	\subsection{Hechos estilizados}
 	\label{subsec:hechos-estilizados}
@@ -93,44 +113,7 @@
 	\section{Análisis exploratorio de datos}
 	\label{sec:analisis-exploratorio}
 
-	A diferencia de los hechos estilizados anteriores, esta sección se centra en patrones observados en el panel de datos empleado en la investigación. El propósito no es todavía contrastar hipótesis mediante un modelo econométrico, sino identificar asociaciones preliminares, posibles no linealidades y rasgos distributivos relevantes de las variables centrales del análisis.
-
-	La \autoref{fig:eci-vs-resource-rents-trim} muestra la relación entre el Índice de Complejidad Económica (ECI) y las rentas de recursos naturales como porcentaje del PIB. El gráfico incluye tanto una recta de ajuste lineal por mínimos cuadrados ordinarios (OLS) como una curva de suavizamiento local (LOESS), con el fin de resumir la tendencia general de la nube de puntos. En términos descriptivos, se observa una asociación negativa entre ambas variables: las economías con mayores niveles de rentas provenientes de recursos tienden a registrar menores valores de ECI.
-
-
-	\begin{figure}[H]
-		\centering
-		\includegraphics[width=\textwidth]{\subfix{../../figures/eci_vs_resource_rents_trim}}
-
-		\caption[ECI y rentas de recursos naturales]{Relación entre el Índice de Complejidad Económica (ECI) y las rentas de recursos naturales como porcentaje del PIB.}
-
-		\label{fig:eci-vs-resource-rents-trim}
-		\caption*{\footnotesize \textit{Fuente: Elaboración propia con base en el panel de datos de la investigación.}}
-	\end{figure}
-
-	La \autoref{fig:eci-vs-rents-log-quad} presenta la misma relación utilizando una escala logarítmica en el eje de rentas, lo que facilita la visualización de la alta concentración de observaciones en niveles bajos de dependencia. Esta transformación permite apreciar con mayor claridad la forma de la relación en el tramo donde se ubica una parte importante de la muestra y explorar posibles desviaciones respecto del ajuste lineal. Además, las líneas punteadas dividen el plano en cuadrantes que facilitan la comparación entre economías con distintos niveles de complejidad productiva y dependencia de recursos.
-
-	\begin{figure}[H]
-		\centering
-		\includegraphics[width=\textwidth]{\subfix{../../figures/eci_vs_rents_log_quad}}
-
-		\caption[ECI y rentas de recursos (escala log)]{Relación entre el Índice de Complejidad Económica (ECI) y las rentas de recursos naturales como porcentaje del PIB en escala logarítmica.}
-
-		\label{fig:eci-vs-rents-log-quad}
-		\caption*{\footnotesize \textit{Fuente: Elaboración propia con base en el panel de datos de la investigación.}}
-	\end{figure}
-
-	La \autoref{fig:rents-density} muestra la distribución de las rentas de recursos naturales como porcentaje del PIB para el conjunto de países analizados. La densidad exhibe una marcada asimetría hacia la derecha: la mayor parte de las observaciones se concentra en niveles relativamente bajos de dependencia, mientras que un grupo más reducido de países presenta valores considerablemente más altos. La distancia entre la media y la mediana refuerza esta lectura y sugiere la presencia de observaciones extremas en la cola superior de la distribución.
-
-	\begin{figure}[H]
-		\centering
-		\includegraphics[width=\textwidth]{\subfix{../../figures/rents_density}}
-
-		\caption[Distribución de rentas de recursos naturales (\% del PIB)]{Distribución de las rentas de recursos naturales como porcentaje del PIB.}
-
-		\label{fig:rents-density}
-		\caption*{\footnotesize \textit{Fuente: Elaboración propia con base en el panel de datos de la investigación.}}
-	\end{figure}
+	El análisis exploratorio se incorporará a partir del panel ya construido y validado en \texttt{data/processed}. En particular, deberán regenerarse con la definición definitiva de $RENTS$ ---suma de las rentas de petróleo, gas natural, carbón y minerales--- y con la serie ECI completa obtenida mediante API todos los gráficos que relacionen rentas extractivas, complejidad y diversificación. Hasta entonces no se presentan asociaciones calculadas con el flujo anterior.
 
 	\thesisendchap{datos-variables}
 

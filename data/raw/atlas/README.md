@@ -7,4 +7,4 @@ construcciones de DRES, HHI, DIVX, PEXP y FEXP.
 Los archivos originales por país permanecen en `country_exports/`; catálogos,
 manifiestos y diagnósticos de cobertura permanecen junto a ellos. El descargador
 reproducible es
-[`scripts/data/atlas/atlas_sitc_trade_data.R`](../../../scripts/data/atlas/atlas_sitc_trade_data.R).
+[`scripts/data/raw/atlas/atlas_sitc_trade_raw.R`](../../../scripts/data/raw/atlas/atlas_sitc_trade_raw.R).

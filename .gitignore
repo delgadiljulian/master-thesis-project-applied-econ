@@ -84,10 +84,22 @@ data/raw/**/*
 !data/raw/README.md
 !data/raw/atlas/README.md
 !data/raw/dres/README.md
+!data/raw/eci/README.md
+!data/raw/fin/README.md
+!data/raw/gdppc/README.md
+!data/raw/govcons/README.md
+!data/raw/humcap/README.md
+!data/raw/inst/README.md
 !data/raw/innov/README.md
+!data/raw/net/README.md
+!data/raw/oilpc_gaspc_coalpc/README.md
+!data/raw/pexp_fexp/README.md
 !data/raw/pwt/README.md
+!data/raw/rents/README.md
 !data/raw/rer/README.md
 !data/raw/world_bank_wdi/README.md
+!data/raw/vol/README.md
+data/raw/_archive_unused_sources/**
 
 data/processed/*
 !data/processed/.gitkeep
@@ -96,6 +108,7 @@ data/processed/*
 data/processed/**/*
 !data/processed/**/
 !data/processed/**/.gitkeep
+!data/processed/**/README.md
 
 outputs/*
 !outputs/.gitkeep

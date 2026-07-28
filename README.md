@@ -62,7 +62,7 @@ The specific empirical question is:
 
 > How do productive, institutional, and macroeconomic factors interact to explain
 > differences in external structural transformation trajectories among economies
-> dependent on natural resources during the main estimation period 1996-2022,
+> dependent on natural resources during the main estimation period 1996-2021,
 > considering a broader data collection horizon for selected variables?
 
 ---
@@ -80,11 +80,9 @@ comparative framework:
   and `DIVX = 1 - HHI` as a complementary outcome.
 - It evaluates several channels jointly: institutional quality, resource
   abundance, export structure, macroeconomic conditions, productive capabilities,
-  fiscal constraints, and financial development.
-- It compares economies dependent on oil, gas, and mining in a panel setting,
-  using `theta = 20%` as the reference resource-dependence threshold and
-  `theta = 30%` and `theta = 40%` as stricter sensitivity checks. The resulting
-  nested samples contain 55, 49, and 42 countries, respectively.
+  government consumption, and financial depth.
+- It compares 55 economies dependent on oil, gas, and mining in a panel setting,
+  selected with the single resource-dependence rule `theta = 20%`.
 
 The thesis is therefore best understood as a comprehensive master's-level
 empirical contribution: it does not claim causal closure, but it provides
@@ -98,7 +96,7 @@ associated with higher or lower levels of external structural transformation.
 To comparatively analyze how productive, institutional, and macroeconomic
 mechanisms are associated with differences in external structural transformation
 and productive capability accumulation among resource-dependent economies during
-the main estimation period 1996-2022, using quantitative empirical evidence.
+  the main estimation period 1996-2021, using quantitative empirical evidence.
 
 ---
 
@@ -126,20 +124,18 @@ The study follows a **quantitative**, **explanatory**, **non-experimental**, and
 **longitudinal** research design.
 
 The unit of analysis is the **country-year**. The main estimation period is
-**1996-2022**, while some data sources cover a broader horizon depending on
-availability. The base period **1990-1995** is used to classify external resource
-dependence through `DRES`.
+**1996-2021**, because the four WDI rent components required for `RENTS` end in
+2021. Some raw sources cover a broader horizon through 2022 or 2023. The base
+period **1990-1995** is used to classify external resource dependence through
+`DRES`.
 
 The methodological strategy combines:
 
 - descriptive and exploratory analysis of the final panel;
-- panel data models with country and time effects;
+- a main panel model with `ECI`, country effects, and time effects;
 - interactions between extractive rents and institutional quality;
-- complementary estimations using `DIVX = 1 - HHI`;
-- sensitivity checks using the `DRES` thresholds `20%`, `30%`, and `40%`;
-- heterogeneity analysis by dominant resource type;
-- additional robustness checks, including alternative specifications when
-  justified by the data.
+- one complementary panel model using `DIVX = 1 - HHI`, with `HHI` as the only
+  excluded regressor.
 
 Given the observational nature of the design, results are interpreted as
 conditional associations rather than strict causal estimates.
@@ -152,37 +148,42 @@ conditional associations rather than strict causal estimates.
 | --- | --- | --- | --- |
 | External resource dependence | `DRES`: non-renewable subsoil-resource exports / merchandise exports | Sample selection criterion | Atlas of Economic Complexity, own construction |
 | Extractive rents | `RENTS`: oil, natural-gas, coal and mineral rents as % of GDP | Explanatory variable | World Development Indicators |
-| External structural transformation | `ECI`: Economic Complexity Index, HS92 | Main dependent variable | Atlas of Economic Complexity |
+| External structural transformation | `ECI`: Economic Complexity Index, HS92 | Main dependent variable | Atlas of Economic Complexity, official GraphQL API |
 | Export diversification | `DIVX = 1 - HHI` | Complementary dependent variable | Own construction based on HHI |
 | Export concentration | `HHI`: Herfindahl-Hirschman Index | Structural regressor in ECI models | UN Comtrade, Atlas of Economic Complexity |
-| Resource abundance | `OILPC`, `GASPC`, `COALPC` | Abundance channel | International energy and resource data |
-| Export specialization | `PEXP`, `FEXP` | Structural channel | UN Comtrade, World Bank |
-| Institutions | `INST`: Rule of Law, Control of Corruption | Institutional channel | Worldwide Governance Indicators |
+| Resource abundance | `OILPC`, `GASPC`, `COALPC` | Abundance channel | World Development Indicators |
+| Export specialization | `PEXP`, `FEXP` | Structural channel | Atlas of Economic Complexity |
+| Institutions | `INST`: Control of Corruption, Rule of Law, Government Effectiveness | Institutional channel | Worldwide Governance Indicators |
 | Human capital | `HUMCAP`: PWT human-capital index | Capability channel | Penn World Table 11.0 |
-| Innovation | `INNOV`: log of scientific and technical articles per million inhabitants | Capability channel | World Development Indicators / NSF |
-| Connectivity | `NET`: internet access/use or digital infrastructure | Capability channel | World Bank, ITU |
-| External volatility | `VOL`: commodity price volatility | Macroeconomic channel | World Bank Pink Sheet |
-| Real exchange rate | `RER`: `log(pl_gdpo)`; REER as robustness | Macroeconomic channel | Penn World Table, World Bank / IMF |
-| Fiscal channel | `FISC`: fiscal balance or public debt | Fiscal channel | IMF, World Bank |
-| Financial development | `FIN`: domestic credit to private sector | Financial channel | World Development Indicators |
+| Innovation | `INNOV`: log of scientific and technical articles per million inhabitants | Capability channel | World Development Indicators |
+| Connectivity | `NET`: internet users as % of population | Capability channel | World Development Indicators |
+| External volatility | `VOL`: five-year rolling volatility of the fixed-weight IMF commodity net-export price index | Macroeconomic channel | IMF CTOT |
+| Real exchange rate | `RER`: `log(pl_gdpo)` | Macroeconomic channel | Penn World Table 11.0 |
+| Government consumption | `GOVCONS`: government final consumption expenditure as % of GDP | Fiscal control | World Development Indicators |
+| Financial depth | `FIN`: domestic credit to private sector as % of GDP | Financial control | World Development Indicators |
 | Development level | `log(GDPPC)`: GDP per capita, PPP, log | Control | World Development Indicators |
 
 ---
 
 ## Current Data Status
 
-- `DRES` is constructed and validated for 1990-1995, producing nested samples
-  of 55, 49, and 42 countries at the 20%, 30%, and 40% thresholds.
-- `ECI`, `HHI`, and `DIVX` have reproducible processed country-year panels.
+- `DRES` is constructed and validated for 1990-1995. The single 20% rule
+  selects 55 countries for both econometric specifications.
+- `ECI`, `HHI`, and `DIVX` have reproducible processed country-year panels;
+  ECI covers all 55 countries and 1,430 country-years in 1996-2021.
 - The shared Atlas trade source is stored once and supplies `DRES`, `HHI`,
   `DIVX`, `PEXP`, and `FEXP`.
-- The shared WDI download contains 17 indicators needed for the remaining
+- The shared WDI download contains 11 indicators needed for the remaining
   variables. Forest rents and total natural-resource rents are excluded.
-- `INNOV` raw inputs use scientific and technical articles as the main measure;
-  the 55-country grid is complete for 1996-2022. Resident patents are retained
-  for robustness.
-- `RER` raw inputs use PWT 11.0 `pl_gdpo` as the main measure, covering 52 of
-  the 55 countries completely. WDI/IMF REER is retained for robustness.
+- `INNOV` raw inputs use scientific and technical articles and population; the
+  55-country grid is complete for 1996-2022.
+- `RER` raw inputs use only PWT 11.0 `pl_gdpo`, covering 52 of the 55 countries
+  completely.
+- `HUMCAP` raw inputs use only the PWT 11.0 `hc` index, with complete
+  1996-2022 coverage for 47 countries.
+- `GOVCONS` raw inputs preserve government final consumption expenditure as a
+  percentage of GDP and cover 1,211 of 1,485 country-years in the main sample;
+  source-published zeros for Venezuela are flagged for the processed stage.
 
 Detailed coverage and pending decisions are documented in
 [`data/DATA_INVENTORY.md`](data/DATA_INVENTORY.md).
@@ -242,8 +243,8 @@ data/
     innov/                   # Innovation inputs
     net/                     # Connectivity inputs
     gdppc/                   # GDP per capita inputs
-    fisc/                    # Fiscal channel inputs
-    fin/                     # Financial development inputs
+    govcons/                 # Government consumption inputs
+    fin/                     # Financial-depth inputs
   DATA_INVENTORY.md          # Variable checklist and source folders
   processed/                 # Processed data and harmonized outputs
     00_master_panel/         # Integrated country-year panels
@@ -260,8 +261,8 @@ data/
     innov/                   # Innovation outputs
     net/                     # Connectivity outputs
     gdppc/                   # GDP per capita outputs
-    fisc/                    # Fiscal channel outputs
-    fin/                     # Financial development outputs
+    govcons/                 # Government consumption outputs
+    fin/                     # Financial-depth outputs
 
 docs/
   drafts/                    # Draft materials
@@ -289,12 +290,12 @@ scripts/
     innov/                   # Innovation scripts
     net/                     # Connectivity scripts
     gdppc/                   # GDP per capita scripts
-    fisc/                    # Fiscal channel scripts
-    fin/                     # Financial development scripts
+    govcons/                 # Government consumption scripts
+    fin/                     # Financial-depth scripts
   panel/                     # Integrated country-year panel builders
   literature/                # Reproduction and extraction from prior studies
     anne2021/                # Anne (2021) commodity-specialization extraction
-  econometrics/              # Thesis models, diagnostics, and robustness checks
+  econometrics/              # Main ECI model and complementary DIVX model
   project_paths.R            # Shared R helper for project-relative paths
 ```
 
@@ -313,14 +314,14 @@ Advanced components:
 - Reorganized data and reproducibility architecture.
 - Validated DRES samples and processed ECI, HHI, and DIVX panels.
 - Shared Atlas, WDI, and PWT raw sources with documented coverage.
-- Raw inputs for INNOV and RER, including robustness alternatives.
+- Validated single-source raw inputs for INNOV, RER, HUMCAP, and VOL.
 - Placeholder structure for the results chapter.
 
 Components under development:
 
 - Final empirical panel construction.
 - Econometric estimation.
-- Robustness and sensitivity analysis.
+- Main ECI estimation and complementary DIVX estimation.
 - Results discussion.
 - Final conclusions.
 

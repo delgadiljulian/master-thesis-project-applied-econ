@@ -34,7 +34,7 @@ Nota de uso: esta lista refleja la seleccion final usada en el documento unico `
 
 ## Lectura para responder al director
 
-El estudio no debe presentarse como novedoso por usar un panel 1996--2022. Hay varios paneles cercanos, entre ellos `Zhang2023`, `Valentine2024`, `Ajide2022`, `Avom2022`, `Owjimehr2024`, `Ul-Durar2023` y los trabajos de `Olaniyi-Odhiambo`.
+El estudio no debe presentarse como novedoso por usar un panel 1996--2021. Hay varios paneles cercanos, entre ellos `Zhang2023`, `Valentine2024`, `Ajide2022`, `Avom2022`, `Owjimehr2024`, `Ul-Durar2023` y los trabajos de `Olaniyi-Odhiambo`.
 
 La defensa debe ir por una contribucion mas precisa:
 

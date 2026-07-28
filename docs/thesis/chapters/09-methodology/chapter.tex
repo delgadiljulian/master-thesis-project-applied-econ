@@ -34,51 +34,27 @@
 	que la variable principal de complejidad económica se encuentra disponible
 	desde 1995 y los indicadores institucionales comparables
 	internacionalmente desde 1996, el período principal de estimación
-	econométrica se define como 1996--2022. El intervalo 1990--1995 se utiliza
+	econométrica se define como 1996--2021, dado que los cuatro componentes
+	requeridos para construir $RENTS$ se publican hasta 2021. El intervalo 1990--1995 se utiliza
 	exclusivamente como período base para clasificar la dependencia externa de
 	recursos naturales mediante el indicador $DRES$.
 
-	Al mismo tiempo, la amplitud del horizonte temporal y la naturaleza
-	histórica del fenómeno estudiado hacen razonable esperar la presencia de
-	cambios estructurales y episodios de inestabilidad paramétrica. En
-	economías dependientes de recursos naturales, la relación entre rentas
-	extractivas, instituciones y transformación estructural puede verse
-	afectada por cambios persistentes en la demanda internacional, en los
-	precios de los commodities y en las condiciones macrofinancieras
-	globales. Dentro de este conjunto amplio de perturbaciones, la estrategia
-	empírica se concentra de manera deliberadamente parsimoniosa en dos hitos
-	globales particularmente relevantes para la tesis: el inicio del
-	superciclo de commodities asociado al ascenso de China a comienzos de los
-	años 2000 y la crisis financiera internacional de 2008--2009. Ambos
-	episodios modificaron la rentabilidad relativa del sector extractivo, la
-	dinámica de la demanda externa, los flujos de capital y los incentivos a
-	la diversificación productiva.
-
-	Esta posibilidad es consistente con el marco conceptual del estudio, que
-	entiende la transformación estructural como un proceso histórico no lineal
-	y dependiente de la trayectoria. Desde esta perspectiva, las economías no
-	evolucionan bajo un único patrón estable, sino que pueden desplazarse
-	entre configuraciones de mayor dependencia de recursos y trayectorias
-	posteriores de diversificación y transformación productiva. Por ello, la
-	estabilidad de parámetros no se asume como un supuesto fuerte, sino como
-	una cuestión empírica que debe tratarse con cautela dentro de la
-	estrategia metodológica.
-
-	En este marco, la estrategia metodológica combina análisis descriptivo,
-	estimaciones en datos de panel y ejercicios de robustez, con el fin
-	de examinar tanto regularidades empíricas generales como mecanismos
-	condicionales asociados al papel de las rentas extractivas y de la
-	calidad institucional. De este modo, el estudio se inscribe en una
-	perspectiva empírica comparativa orientada a explicar diferencias en las
-	trayectorias de transformación estructural entre países.
+	En este marco, la estrategia metodológica combina análisis descriptivo y
+	dos estimaciones en datos de panel con efectos fijos. La especificación
+	principal utiliza el índice de complejidad económica ($ECI$) como variable
+	dependiente, mientras que la especificación complementaria utiliza
+	$DIVX=1-HHI$. Ambas incorporan el mismo conjunto de canales teóricos y la
+	interacción entre rentas extractivas y calidad institucional; la única
+	diferencia entre ellas es la exclusión de $HHI$ cuando $DIVX$ constituye la
+	variable dependiente.
 
 	Dado el carácter observacional del diseño y la posible endogeneidad
 	entre algunas variables centrales, los resultados se interpretarán como
-	asociaciones condicionales robustas más que como estimaciones causales
-	estrictas. En particular, el uso de modelos con efectos fijos,
-	interacciones y pruebas de sensibilidad contribuye a reducir sesgos de
-	variable omitida y a evaluar la estabilidad de los resultados, aunque no elimina
-	por completo las limitaciones propias de este tipo de diseño.
+	asociaciones condicionales y no como estimaciones causales estrictas. Los
+	efectos fijos por país controlan la heterogeneidad inobservable constante
+	en el tiempo y los efectos temporales absorben shocks globales comunes,
+	aunque estas decisiones no eliminan por completo las limitaciones propias
+	de un diseño observacional.
 
 	La estrategia metodológica adoptada se deriva directamente de los
 	mecanismos productivos, institucionales y macroeconómicos discutidos en
@@ -92,7 +68,7 @@
 	comprende economías para las cuales existe información comparable sobre
 	dependencia extractiva, transformación estructural, condiciones
 	institucionales y variables macroeconómicas relevantes durante el período
-	principal de estimación 1996--2022. A partir de este universo, la base
+	principal de estimación 1996--2021. A partir de este universo, la base
 	empírica se organiza como un panel internacional, potencialmente
 	desbalanceado,\footnote{Un panel desbalanceado permite que no todos los países cuenten con observaciones para todos los años, siempre que la ausencia de datos sea tratada de forma consistente con la estrategia econométrica y no responda sistemáticamente al resultado que se busca explicar.} en función de la
 	disponibilidad y consistencia temporal de los datos.
@@ -139,8 +115,8 @@
 	del valor absoluto de sus exportaciones.
 
 	Los umbrales de un millón de habitantes y de mil millones de dólares de
-	exportaciones no se utilizan como exclusiones de la muestra principal. Ambas
-	variables se conservan como diagnósticos para ejercicios de robustez, pues su
+	exportaciones no se utilizan como exclusiones de la muestra. Ambas
+	variables se conservan únicamente como diagnósticos descriptivos, pues su
 	aplicación mecánica excluiría economías extractivas pequeñas o de bajos
 	ingresos y podría introducir un sesgo de selección asociado al tamaño del
 	país, en lugar de identificar su grado de dependencia externa de recursos.
@@ -203,15 +179,11 @@
 	representan una proporción significativa de las exportaciones
 	\parencite{IMF2012}. Este valor se adopta como referencia externa y no como
 	una réplica exacta de la clasificación del FMI, originalmente construida para
-	otro período y un universo específico de economías en desarrollo. Los umbrales
-	de $\theta=30\%$ y $\theta=40\%$ se
-	emplean como definiciones progresivamente más estrictas para evaluar la
-	sensibilidad de los resultados a la regla de selección muestral. Con los
-	datos del período base, estas reglas producen muestras anidadas de 55, 49 y
-	42 países, respectivamente.
+	otro período y un universo específico de economías en desarrollo. Con los
+	datos del período base, esta regla produce una muestra fija de 55 países.
 
-	La robustez de la clasificación se evalúa adicionalmente frente a decisiones
-	sobre el ámbito de productos y la agregación temporal. En primer lugar, se
+	Como validación de la construcción de $DRES$, se examinan decisiones sobre
+	el ámbito de productos y la agregación temporal. En primer lugar, se
 	construye una variante que excluye oro no monetario y piedras preciosas, con el
 	fin de reducir la posible influencia de reexportaciones, y una definición
 	restrictiva que conserva solamente productos extractivos ubicados aguas arriba.
@@ -223,8 +195,9 @@
 	además, 53
 	permanecen clasificados al retirar cualquiera de los seis años, mientras que
 	las variantes sin oro y piedras preciosas y estrictamente aguas arriba contienen
-	49 y 48 países, respectivamente. Estas definiciones se emplean como pruebas de
-	sensibilidad y no reemplazan la especificación principal.
+	49 y 48 países, respectivamente. Estos cálculos se utilizan exclusivamente
+	para verificar la clasificación y no definen muestras econométricas
+	adicionales: todas las estimaciones emplean el umbral fijo de 20\%.
 
 	Como validación concurrente, la construcción se compara con la suma de los
 	indicadores WDI de exportaciones de combustibles y de minerales y metales. En
@@ -301,19 +274,19 @@
 			{$DRES$ promedio 1990--1995 $\geq \theta$};
 
 			\node[draw, rectangle, minimum width=4.8cm, minimum height=0.8cm, align=center, below=of text3] (step3)
-			{$\theta=20\%$: 55; $\theta=30\%$: 49; $\theta=40\%$: 42};
+			{$\theta=20\%$: 55 países};
 
 			\node[below=of step3, align=center] (text4)
-			{Muestras anidadas de dependencia extractiva};
+			{Muestra fija de dependencia extractiva};
 
 			\node[draw, rectangle, minimum width=4.0cm, minimum height=0.8cm, align=center, below=of text4] (step4)
-			{20\% de referencia; 30\% y 40\% de sensibilidad};
+			{55 países seleccionados};
 
 			\node[below=of step4, align=center] (text5)
 			{Datos completos \\ para todas las variables};
 
 			\node[draw, rectangle, minimum width=3.2cm, minimum height=0.8cm, align=center, below=of text5] (final)
-			{Muestras finales \\ según $\theta$};
+			{Muestra efectiva \\ del panel};
 
 			% Flechas
 			\draw[arrow] (all) -- (text1);
@@ -342,7 +315,7 @@
 
 		\end{tikzpicture}
 
-		\caption[Selección de la muestra]{Procedimiento reproducible de selección de países utilizado para construir las muestras analíticas del estudio. La muestra de referencia aplica $\theta=20\%$ sobre la dependencia externa de recursos, medida mediante $DRES$, mientras que los umbrales de 30\% y 40\% se utilizan como definiciones progresivamente más estrictas. Los conteos corresponden a los resultados efectivos del procesamiento del período 1990--1995.}
+		\caption[Selección de la muestra]{Procedimiento reproducible de selección de países utilizado para construir la muestra analítica del estudio. La regla única aplica $\theta=20\%$ sobre la dependencia externa de recursos, medida mediante $DRES$. Los conteos corresponden a los resultados efectivos del procesamiento del período 1990--1995.}
 
 		\label{fig:sample_selection_pipeline}
 		\caption*{\footnotesize \textit{Fuente: Elaboración propia con base en el Atlas of Economic Complexity del Harvard Growth Lab.}}
@@ -432,7 +405,7 @@ dependencia de recursos y la importancia macroeconómica de la actividad
 extractiva no se tratan como conceptos equivalentes. La primera se
 aproxima mediante $DRES_{it}$ y se utiliza exclusivamente como criterio
 de selección muestral, mientras que la segunda se representa mediante
-$RENTS_{it}$, que captura el peso de las rentas de recursos naturales
+$RENTS_{it}$, que captura el peso de las rentas extractivas del subsuelo
 como porcentaje del PIB y constituye la variable principal de interés en
 las estimaciones econométricas. De este modo, se distingue entre la
 condición inicial de dependencia externa y la intensidad económica de las
@@ -453,6 +426,15 @@ sentido, el ECI permite captar de forma más estructural la evolución de
 las capacidades productivas, relativamente menos expuesta a fluctuaciones
 coyunturales asociadas a los ciclos de precios de commodities.
 
+Operativamente, se utiliza el campo \texttt{countryYear.eci} de la API
+GraphQL oficial del \textit{Atlas of Economic Complexity}
+\parencite{HarvardGrowthLab2024}. La versión vigente del Atlas representa la
+intensidad de la especialización mediante
+$M_{cp}=RCA_{cp}/(1+RCA_{cp})$, en lugar de reducirla a una presencia binaria.
+Para mantener una definición homogénea, todas las observaciones se extraen en
+una misma captura de la API y no se combinan con la antigua tabla de rankings
+ni con indicadores de otros proveedores.
+
 No obstante, dado que el ECI combina información sobre diversificación y
 sofisticación exportadora, el análisis incorpora como resultado
 complementario una medida más directa de diversificación de la canasta
@@ -467,15 +449,15 @@ que capturan distintas dimensiones de la inserción extractiva y de sus
 canales de transmisión. Entre ellas se incluyen proxies de abundancia
 extractiva en términos per cápita ($OILPC_{it}$, $GASPC_{it}$ y
 $COALPC_{it}$), indicadores de especialización exportadora como la
-participación de exportaciones primarias ($PEXP_{it}$) y de combustibles
+participación de exportaciones primarias no energéticas ($PEXP_{it}$) y de combustibles
 ($FEXP_{it}$), y una medida de concentración exportadora ($HHI_{it}$).
 Asimismo, la calidad institucional ($INST_{it}$) se incorpora como
 variable moderadora para evaluar si el efecto de las rentas extractivas
 sobre la transformación estructural depende del entorno institucional.
 Junto con ello, se añaden variables macroeconómicas, fiscales, financieras
 y de capacidades productivas, tales como el tipo de cambio real
-($RER_{it}$), la volatilidad ($VOL_{it}$), la prociclicidad fiscal
-($FISC_{it}$), el desarrollo financiero ($FIN_{it}$), el capital humano
+($RER_{it}$), la volatilidad ($VOL_{it}$), el consumo final del gobierno
+como porcentaje del PIB ($GOVCONS_{it}$), la profundidad financiera ($FIN_{it}$), el capital humano
 ($HUMCAP_{it}$), la innovación ($INNOV_{it}$), la conectividad digital
 ($NET_{it}$) y el logaritmo del PIB per cápita ($\log(GDPPC_{it})$),
 utilizado como proxy del nivel de desarrollo económico.
@@ -485,7 +467,7 @@ operacional y fuentes de las variables utilizadas en el análisis
 empírico. La selección definitiva de indicadores responde a criterios de
 consistencia conceptual, comparabilidad internacional, cobertura temporal
 y disponibilidad de información para el período principal de estimación
-1996--2022, sin perder de vista el horizonte general de recopilación
+1996--2021, sin perder de vista el horizonte general de recopilación
 1980--2022.
 	\renewcommand{\arraystretch}{1.2}
 	\setlength{\tabcolsep}{4pt}
@@ -534,7 +516,7 @@ y disponibilidad de información para el período principal de estimación
 		} \\[0.3em]
 
 		\multicolumn{5}{p{\textwidth}}{%
-			\textit{Nota: La transformación estructural se aproxima desde su dimensión externa mediante el Índice de Complejidad Económica (ECI) como variable dependiente principal y la diversificación exportadora ($DIVX=1-HHI$) como resultado complementario. Las variables podrán utilizarse en niveles o transformaciones logarítmicas según la especificación econométrica y la disponibilidad temporal de los datos. En particular, el nivel de desarrollo económico se aproxima mediante el logaritmo del PIB per cápita, $\log(GDPPC_{it})$.}
+			\textit{Nota: La transformación estructural se aproxima desde su dimensión externa mediante el Índice de Complejidad Económica (ECI) como variable dependiente principal y la diversificación exportadora ($DIVX=1-HHI$) como resultado complementario. Cada variable utiliza exclusivamente la definición y la transformación indicadas en esta tabla y en las ecuaciones siguientes.}
 		} \\
 
 		\endlastfoot
@@ -546,32 +528,32 @@ y disponibilidad de información para el período principal de estimación
 		Complejidad económica
 		& ECI
 		& Dependiente (externa)
-		& Índice de Complejidad Económica que captura el grado de sofisticación de la estructura productiva y exportadora de un país. Valores mayores indican mayores capacidades productivas y sofisticación exportadora.
-		& Atlas of Economic Complexity / Harvard Growth Lab \\
+		& Índice de Complejidad Económica que combina la diversidad de la canasta exportadora y la ubicuidad de sus productos. Se utiliza la serie homogénea \texttt{countryYear.eci} de la API oficial; valores mayores indican mayores capacidades productivas y sofisticación exportadora.
+		& Atlas of Economic Complexity / Harvard Growth Lab (API GraphQL) \\
 		\hline
 
 		Diversificación exportadora
 		& DIVX
 		& Dependiente complementaria
 		& Complemento del índice de concentración de Herfindahl--Hirschman, definido como $1-HHI$; valores mayores indican una canasta exportadora menos concentrada.
-		& UN Comtrade / Atlas of Economic Complexity / elaboración propia \\
+		& Atlas of Economic Complexity / elaboración propia \\
 		\hline
 
 		% -----------------------------------------------------
 		% CANAL INSTITUCIONAL
 		% -----------------------------------------------------
 
-		Rentas de recursos naturales (\% del PIB)
+		Rentas extractivas del subsuelo (\% del PIB)
 		& RENTS
 		& Explicativa principal
-		& Participación de las rentas de recursos naturales en el PIB; proxy de la intensidad macroeconómica de la actividad extractiva dentro de economías previamente clasificadas como dependientes de recursos.
-		& Banco Mundial \\
+		& Suma de las rentas de petróleo, gas natural, carbón y minerales como porcentaje del PIB. Excluye rentas forestales y otros recursos renovables.
+		& World Development Indicators (Banco Mundial) \\
 		\hline
 
 		Calidad institucional
 		& INST
 		& Explicativa moderadora
-		& Indicadores agregados de estado de derecho, control de la corrupción y efectividad gubernamental; proxy de capacidad institucional.
+		& Promedio simple de los estimadores WGI de control de la corrupción, estado de derecho y efectividad gubernamental, calculado únicamente cuando los tres están observados; proxy de capacidad institucional.
 		& Worldwide Governance Indicators \\
 		\hline
 
@@ -589,22 +571,22 @@ y disponibilidad de información para el período principal de estimación
 		Renta petrolera per cápita
 		& OILPC
 		& Explicativa de abundancia
-		& Renta petrolera por habitante; proxy de abundancia relativa de recursos petroleros y de la intensidad de ingresos extractivos en la economía.
-		& Banco Mundial / elaboración propia \\
+		& Valor real de la renta petrolera por habitante, obtenido al aplicar la renta petrolera como porcentaje del PIB al PIB real y dividir el resultado por la población.
+		& World Development Indicators / elaboración propia \\
 		\hline
 
 		Renta gasífera per cápita
 		& GASPC
 		& Explicativa de abundancia
-		& Renta de gas natural por habitante; indicador complementario de abundancia relativa de recursos gasíferos.
-		& Banco Mundial / elaboración propia \\
+		& Valor real de la renta de gas natural por habitante, obtenido al aplicar la renta gasífera como porcentaje del PIB al PIB real y dividir el resultado por la población.
+		& World Development Indicators / elaboración propia \\
 		\hline
 
 		Renta carbonífera per cápita
 		& COALPC
 		& Explicativa de abundancia
-		& Renta del carbón por habitante; proxy de abundancia relativa de recursos carboníferos y de especialización extractiva basada en carbón.
-		& Banco Mundial / elaboración propia \\
+		& Valor real de la renta del carbón por habitante, obtenido al aplicar la renta carbonífera como porcentaje del PIB al PIB real y dividir el resultado por la población.
+		& World Development Indicators / elaboración propia \\
 		\hline
 
 		% -----------------------------------------------------
@@ -614,40 +596,40 @@ y disponibilidad de información para el período principal de estimación
 		Concentración de la estructura exportadora
 		& HHI
 		& Explicativa estructural condicionada
-		& Índice de Herfindahl--Hirschman calculado como la suma de los cuadrados de las participaciones de cada producto en las exportaciones totales; valores mayores indican mayor concentración productiva y exportadora. Se excluye cuando $DIVX=1-HHI$ se utiliza como variable dependiente.
-		& UN Comtrade / Atlas of Economic Complexity \\
+		& Índice de Herfindahl--Hirschman calculado como la suma de los cuadrados de las participaciones de los productos SITC Rev. 2 de cuatro dígitos en las exportaciones de mercancías clasificadas. Se excluyen los servicios y el residuo \texttt{XXXX}. Se omite como regresor cuando $DIVX=1-HHI$ es la variable dependiente.
+		& Atlas of Economic Complexity / elaboración propia \\
 		\hline
 
-		Exportaciones primarias (\% de exportaciones totales)
+		Exportaciones primarias no energéticas (\% de exportaciones de mercancías)
 		& PEXP
 		& Explicativa estructural
-		& Participación de productos primarios en las exportaciones totales; proxy de especialización externa en bienes de bajo procesamiento.
-		& UNCTAD / Banco Mundial \\
+		& Participación de las secciones 0, 1, 2 y 4 y de la división 68 de la SITC Rev. 2 en las exportaciones de mercancías; proxy de especialización externa en productos primarios no energéticos. El denominador incluye el residuo no clasificable XXXX y excluye los servicios.
+		& Atlas of Economic Complexity / elaboración propia \\
 		\hline
 
-		Exportaciones de combustibles (\% de exportaciones totales)
+		Exportaciones de combustibles (\% de exportaciones de mercancías)
 		& FEXP
 		& Explicativa estructural
-		& Participación de combustibles en las exportaciones totales; indicador de especialización exportadora en recursos energéticos.
-		& Banco Mundial / UNCTAD \\
+		& Participación de la sección 3 de la SITC Rev. 2 en las exportaciones de mercancías; indicador de especialización exportadora en recursos energéticos. Comparte con PEXP el denominador, que incluye XXXX y excluye los servicios, pero sus numeradores no se superponen.
+		& Atlas of Economic Complexity / elaboración propia \\
 		\hline
 
 		% -----------------------------------------------------
 		% CANAL MACROECONÓMICO
 		% -----------------------------------------------------
 
-		Volatilidad de commodities / términos de intercambio
+		Volatilidad de los términos de intercambio de commodities
 		& VOL
 		& Explicativa macroeconómica
-		& Medida de volatilidad de precios internacionales de commodities o términos de intercambio mediante desvíos estándar móviles.
-		& Banco Mundial / IMF \\
+		& Desviación estándar móvil de cinco años de las variaciones logarítmicas anuales del índice de precios de exportaciones netas de commodities del FMI (\texttt{CEMPI\_CTOTNX\_TT}), utilizando exclusivamente ponderaciones fijas (\texttt{H\_FW\_IX}).
+		& Fondo Monetario Internacional (CTOT) \\
 		\hline
 
 		Tipo de cambio real
 		& RER
 		& Explicativa macroeconómica
-		& Índice de tipo de cambio real utilizado como proxy de competitividad externa y posibles efectos de enfermedad holandesa.
-		& Banco Mundial \\
+		& Logaritmo del nivel de precios del producto relativo a Estados Unidos (\texttt{pl\_gdpo}); un aumento representa una apreciación real.
+		& Penn World Table 11.0 \\
 		\hline
 
 		% -----------------------------------------------------
@@ -657,22 +639,22 @@ y disponibilidad de información para el período principal de estimación
 		Capital humano
 		& HUMCAP
 		& Explicativa de capacidades
-		& Índice de capital humano o años promedio de escolaridad; proxy de capacidades productivas acumuladas.
-		& Penn World Table / Barro--Lee / Banco Mundial \\
+		& Índice de capital humano \texttt{hc}, construido a partir de años promedio de escolaridad y retornos a la educación; proxy de capacidades productivas acumuladas. No se interpreta como años de escolaridad.
+		& Penn World Table 11.0 \\
 		\hline
 
 		Innovación
 		& INNOV
 		& Explicativa de capacidades
-		& Gasto en I+D como porcentaje del PIB o patentes per cápita; proxy de capacidades tecnológicas y escalamiento productivo.
-		& UNESCO / WIPO \\
+		& Logaritmo de uno más los artículos científicos y técnicos por millón de habitantes; proxy de capacidades científico-tecnológicas y producción de conocimiento.
+		& World Development Indicators (Banco Mundial) \\
 		\hline
 
 		Conectividad digital
 		& NET
 		& Explicativa de capacidades
-		& Usuarios de internet como porcentaje de la población o indicador equivalente de infraestructura digital; proxy de difusión tecnológica y acceso a información productiva.
-		& ITU / Banco Mundial \\
+		& Personas que utilizan internet como porcentaje de la población (\texttt{IT.NET.USER.ZS}); proxy de difusión tecnológica y acceso a información productiva.
+		& World Development Indicators (Banco Mundial) \\
 		\hline
 
 		% -----------------------------------------------------
@@ -682,29 +664,149 @@ y disponibilidad de información para el período principal de estimación
 		Logaritmo del PIB per cápita
 		& \begin{tabular}[c]{@{}c@{}}LOG\_\\GDPPC\end{tabular}
 		& Control
-		& Logaritmo del Producto Interno Bruto per cápita en términos de paridad de poder adquisitivo; se utiliza como proxy del nivel de desarrollo económico.
-		& Banco Mundial \\
+		& Logaritmo del Producto Interno Bruto per cápita en PPA y dólares internacionales constantes (\texttt{NY.GDP.PCAP.PP.KD}); se utiliza como proxy del nivel de desarrollo económico.
+		& World Development Indicators (Banco Mundial) \\
 		\hline
 
 		% -----------------------------------------------------
-		% CANAL FINANCIERO
+		% CONTROLES ECONÓMICOS Y FINANCIEROS
 		% -----------------------------------------------------
 
-		Capacidad fiscal / prociclicidad fiscal
-		& FISC
-		& Explicativa financiera
-		& Indicador de capacidad fiscal o prociclicidad del gasto público en economías dependientes de recursos; proxy de estabilidad macrofiscal y capacidad intertemporal.
-		& IMF / Banco Mundial \\
+		Consumo final del gobierno (\% del PIB)
+		& GOVCONS
+		& Control fiscal
+		& Gasto de consumo final del gobierno general como porcentaje del PIB (\texttt{NE.CON.GOVT.ZS}); controla por el tamaño relativo del consumo público y no se interpreta como una medida directa de capacidad ni de prociclicidad fiscal.
+		& World Development Indicators (Banco Mundial) \\
 		\hline
 
-		Desarrollo financiero
+		Profundidad financiera
 		& FIN
 		& Explicativa financiera
-		& Crédito doméstico al sector privado como porcentaje del PIB; proxy de profundidad financiera y acceso al financiamiento productivo.
-		& Banco Mundial \\
+		& Crédito doméstico al sector privado como porcentaje del PIB (\texttt{FS.AST.PRVT.GD.ZS}); proxy de la profundidad del crédito privado, no de su acceso, eficiencia o calidad.
+		& World Development Indicators (Banco Mundial) \\
 		\hline
 
 	\end{longtable}
+
+	Las rentas extractivas se construirán únicamente cuando estén observados sus
+	cuatro componentes:
+	\[
+		RENTS_{it}
+		=
+		OILRENT_{it}
+		+
+		GASRENT_{it}
+		+
+		COALRENT_{it}
+		+
+		MINERALRENT_{it}.
+	\]
+	Los valores faltantes no se sustituirán por cero. Los cuatro indicadores
+	proceden de los \textit{World Development Indicators} y están expresados
+	como porcentaje del PIB: rentas petroleras
+	(\texttt{NY.GDP.PETR.RT.ZS}), gasíferas
+	(\texttt{NY.GDP.NGAS.RT.ZS}), carboníferas
+	(\texttt{NY.GDP.COAL.RT.ZS}) y minerales
+	(\texttt{NY.GDP.MINR.RT.ZS}).
+
+	El índice institucional se calculará como el promedio simple de los tres
+	estimadores WGI, que se publican en una escala comparable:
+	\[
+		INST_{it}
+		=
+		\frac{
+			CC_{it}
+			+
+			RL_{it}
+			+
+			GE_{it}
+		}{3},
+	\]
+	donde $CC$ representa control de la corrupción, $RL$ estado de derecho y
+	$GE$ efectividad gubernamental. El índice se construirá únicamente cuando
+	los tres componentes estén disponibles; no se interpolarán los vacíos
+	estructurales de 1997, 1999 y 2001.
+
+	Las medidas de rentas por habitante se construirán de forma homogénea:
+	\[
+		KPC_{it}
+		=
+		\frac{
+			\left(R^{K}_{it}/100\right)Y^{real}_{it}
+		}{
+			POP_{it}
+		},
+		\qquad
+		K\in\{OIL,GAS,COAL\},
+	\]
+	donde $R^{K}_{it}$ es la renta del recurso correspondiente como porcentaje
+	del PIB, $Y^{real}_{it}$ es el PIB en dólares constantes y $POP_{it}$ es la
+	población total. No se imputarán componentes faltantes.
+
+	La medida de volatilidad se construirá a partir del
+	\textit{Commodity Net Export Price Index} del FMI
+	(\texttt{CEMPI\_CTOTNX\_TT}). Para cada país, primero se calculará la
+	variación porcentual logarítmica anual del índice:
+	\[
+		g_{it}
+		=
+		100\left[
+			\log(CTOT_{it})
+			-
+			\log(CTOT_{i,t-1})
+		\right].
+	\]
+	A continuación, la volatilidad se definirá como la desviación estándar
+	móvil de las cinco variaciones anuales más recientes:
+	\[
+		VOL_{it}
+		=
+		\operatorname{sd}\left(
+			g_{i,t-4},
+			\ldots,
+			g_{it}
+		\right).
+	\]
+	La variable utilizará exclusivamente el índice con ponderaciones fijas
+	(\texttt{H\_FW\_IX}), de modo que los cambios de $VOL_{it}$ reflejen
+	variaciones de los precios internacionales y no modificaciones
+	contemporáneas de la composición comercial, especialmente relevante porque
+	las variables dependientes también se construyen a partir de la estructura
+	exportadora.
+
+	La medida de capital humano será el índice \texttt{hc} de Penn
+	World Table 11.0. Este índice combina los años promedio de escolaridad con
+	una función de retornos a la educación y se utilizará en niveles. En
+	consecuencia, $HUMCAP_{it}$ representa un índice de capacidades acumuladas y
+	no los años de escolaridad observados directamente.
+
+	La medida de innovación se construye como
+	\[
+		INNOV_{it}
+		=
+		\log\left(
+			1
+			+
+			\frac{\text{artículos científicos y técnicos}_{it}}
+			{\text{población}_{it}}
+			\times 1.000.000
+		\right).
+	\]
+	El numerador corresponde al indicador de artículos científicos y técnicos
+	\texttt{IP.JRN.ARTC.SC} de los \textit{World Development Indicators}. Esta
+	medida aproxima las capacidades científico-tecnológicas y la producción de
+	conocimiento, más que la innovación comercial en sentido estricto.
+
+	El tipo de cambio real y el control de desarrollo se construirán,
+	respectivamente, como
+	\[
+		RER_{it}=\log(pl\_gdpo_{it})
+		\qquad\text{y}\qquad
+		LOG\_GDPPC_{it}=\log(GDPPC_{it}),
+	\]
+	donde \texttt{pl\_gdpo} proviene de Penn World Table 11.0 y $GDPPC$ es el
+	PIB per cápita en PPA y dólares internacionales constantes
+	(\texttt{NY.GDP.PCAP.PP.KD}) de los \textit{World Development Indicators}.
 
 
 	\section{Fuentes y técnicas de recolección de datos}
@@ -714,33 +816,31 @@ y disponibilidad de información para el período principal de estimación
 	información estadística previamente recopilada y sistematizada por
 	organismos internacionales, programas de investigación y bases de datos
 	especializadas. En particular, la evidencia empírica procederá de fuentes
-	comparables a escala internacional, entre ellas el Banco Mundial, el
-	Atlas of Economic Complexity / Harvard Growth Lab, Worldwide Governance
-	Indicators, UN Comtrade, UNCTAD, IMF, Penn World Table, Barro--Lee,
-	UNESCO, WIPO e ITU, según la variable considerada y tal como se resume en
+		comparables a escala internacional: los \textit{World Development
+		Indicators} y \textit{Worldwide Governance Indicators} del Banco
+		Mundial, el \textit{Atlas of Economic Complexity} del Harvard Growth
+		Lab, el Fondo Monetario Internacional y Penn World Table, según la
+		variable considerada y tal como se resume en
 	la \autoref{tab:variables}. La elección de estas fuentes responde a
 	criterios de comparabilidad internacional, cobertura temporal,
-	transparencia metodológica y disponibilidad para el horizonte general de recopilación 1980--2022 y, especialmente, para el período principal de estimación 1996--2022.
+	transparencia metodológica y disponibilidad para el horizonte general de recopilación 1980--2022 y, especialmente, para el período principal de estimación 1996--2021. El índice CTOT constituye una excepción histórica: su fuente ofrece observaciones desde 1962, aunque en esta tesis se utilizará solamente la información necesaria para construir $VOL$ durante el período principal.
 
 	La recolección de datos consistirá en la construcción de una base de panel
 	país--año mediante la descarga, integración y armonización de series
 	provenientes de dichas fuentes. Este proceso incluirá la estandarización
 	de identificadores de país y período, la homologación de unidades de
-	medida y la verificación de consistencia entre series conceptualmente
-	equivalentes. Asimismo, algunas variables serán construidas a partir de
+		medida y la verificación de consistencia interna de cada fuente.
+		Asimismo, algunas variables serán construidas a partir de
 	transformaciones sobre datos originales, como el cálculo de indicadores
 	per cápita, logaritmos, interacciones, medidas de concentración y otras
 	operaciones derivadas requeridas por la especificación econométrica.
 
 	Desde el punto de vista técnico, la depuración de la base incluirá
-	controles de consistencia temporal, detección exploratoria de quiebres
-	estructurales ---especialmente en series agregadas o casos
-	representativos--- y valores atípicos, revisión de observaciones
-	duplicadas y documentación de las transformaciones aplicadas. Cuando
-	corresponda, se utilizarán
-	deflactaciones, normalizaciones y rezagos, procurando mantener la
-	trazabilidad entre las series originales y las variables empleadas en las
-	estimaciones. Dado que la disponibilidad de información no es homogénea
+	controles de consistencia temporal y de rango, revisión de observaciones
+	duplicadas, documentación de valores atípicos y trazabilidad completa entre
+	las series originales y las transformaciones definidas. No se sustituirán
+	automáticamente los datos faltantes por ceros ni se incorporarán
+	transformaciones distintas de las establecidas en esta sección. Dado que la disponibilidad de información no es homogénea
 	entre países, variables y períodos, la base final tendrá la estructura de
 	un panel potencialmente desbalanceado, cuya composición podrá variar entre
 	especificaciones según la cobertura efectiva de cada indicador.
@@ -755,7 +855,7 @@ y disponibilidad de información para el período principal de estimación
 
 	A diferencia de enfoques que tratan la dependencia exportadora de recursos como resultado, en este modelo la variable principal de interés no es $DRES$, utilizada para seleccionar la muestra, sino la intensidad macroeconómica de las rentas extractivas ($RENTS$). En particular, su efecto se encuentra mediado por la calidad institucional ($INST$), lo que permite capturar mecanismos mediante los cuales el peso económico de los recursos puede traducirse en trayectorias divergentes de desarrollo.
 
-	En términos analíticos, el modelo se organiza en varios canales complementarios: (i) un canal institucional, capturado por $RENTS$, $INST$ y su interacción; (ii) un canal de abundancia, aproximado mediante $OILPC$, $GASPC$ y $COALPC$; (iii) un canal estructural, representado por la concentración exportadora ($HHI$) y por indicadores de especialización externa ($PEXP$ y $FEXP$); (iv) un canal macroeconómico, asociado a la volatilidad ($VOL$) y al tipo de cambio real ($RER$); y (v) un canal de capacidades productivas, reflejado por $HUMCAP$, $INNOV$ y $NET$. Adicionalmente, se incorporan controles económicos y financieros ($\log(GDPPC_{it})$, $FISC$, $FIN$), donde el logaritmo del PIB per cápita actúa como proxy del nivel de desarrollo económico.
+	En términos analíticos, el modelo se organiza en varios canales complementarios: (i) un canal institucional, capturado por $RENTS$, $INST$ y su interacción; (ii) un canal de abundancia, aproximado mediante $OILPC$, $GASPC$ y $COALPC$; (iii) un canal estructural, representado por la concentración exportadora ($HHI$) y por indicadores de especialización externa ($PEXP$ y $FEXP$); (iv) un canal macroeconómico, asociado a la volatilidad ($VOL$) y al tipo de cambio real ($RER$); y (v) un canal de capacidades productivas, reflejado por $HUMCAP$, $INNOV$ y $NET$. Adicionalmente, se incorporan controles económicos y financieros ($\log(GDPPC_{it})$, $GOVCONS$ y $FIN$), donde el logaritmo del PIB per cápita actúa como proxy del nivel de desarrollo económico y $GOVCONS$ controla por el tamaño relativo del consumo público.
 
 	La especificación econométrica de referencia se define como:
 
@@ -778,7 +878,7 @@ y disponibilidad de información para el período principal de estimación
 			+ \beta_{13} INNOV_{it}
 			+ \beta_{14} NET_{it} \\
 			&+ \beta_{15}\log(GDPPC_{it})
-			+ \beta_{16} FISC_{it}
+			+ \beta_{16} GOVCONS_{it}
 			+ \beta_{17} FIN_{it} \\
 			&+ \mu_i + \lambda_t + \varepsilon_{it}
 		\end{aligned}
@@ -786,61 +886,16 @@ y disponibilidad de información para el período principal de estimación
 
 	donde $ECI_{it}$ representa la complejidad económica del país $i$ en el período $t$, $\mu_i$ corresponde a efectos fijos por país, $\lambda_t$ a efectos temporales comunes y $\varepsilon_{it}$ al término de error. Esta especificación constituye el modelo principal de la tesis, dado que el ECI captura la sofisticación de la canasta exportadora y las capacidades productivas reveladas.
 
-	La especificación incorpora de manera explícita los canales de abundancia ($OILPC_{it}$, $GASPC_{it}$, $COALPC_{it}$), estructura exportadora ($HHI_{it}$, $PEXP_{it}$, $FEXP_{it}$), condiciones macroeconómicas ($VOL_{it}$, $RER_{it}$), capacidades productivas ($HUMCAP_{it}$, $INNOV_{it}$, $NET_{it}$) y controles económicos y financieros ($\log(GDPPC_{it})$, $FISC_{it}$, $FIN_{it}$). En esta especificación, $\log(GDPPC_{it})$ se interpreta explícitamente como proxy del nivel de desarrollo económico, y no como el PIB per cápita en niveles. Este conjunto de variables es consistente con el esquema conceptual presentado en la \autoref{fig:modelo-econometrico}.
+	La especificación incorpora de manera explícita los canales de abundancia ($OILPC_{it}$, $GASPC_{it}$, $COALPC_{it}$), estructura exportadora ($HHI_{it}$, $PEXP_{it}$, $FEXP_{it}$), condiciones macroeconómicas ($VOL_{it}$, $RER_{it}$), capacidades productivas ($HUMCAP_{it}$, $INNOV_{it}$, $NET_{it}$) y controles económicos y financieros ($\log(GDPPC_{it})$, $GOVCONS_{it}$, $FIN_{it}$). En esta especificación, $\log(GDPPC_{it})$ se interpreta explícitamente como proxy del nivel de desarrollo económico, y no como el PIB per cápita en niveles, mientras que $GOVCONS_{it}$ controla por el tamaño relativo del consumo público. Este conjunto de variables es consistente con el esquema conceptual presentado en la \autoref{fig:modelo-econometrico}.
 
-	No obstante, dado el horizonte general de recopilación 1980--2022 y el
-	período principal de estimación 1996--2022, no resulta plausible suponer
-	que la relación entre rentas extractivas y transformación estructural haya
-	permanecido estrictamente estable a lo largo de todo el período. La
-	ocurrencia de quiebres estructurales puede afectar la estabilidad de
-	parámetros y la magnitud de los coeficientes estimados. En términos
-	aplicados, esta investigación presta especial atención a dos episodios con
-	fuerte sentido económico para economías dependientes de recursos: (i) el
-	cambio de régimen asociado al superciclo de commodities y al ascenso de
-	China, que se aproxima de manera parsimoniosa mediante un corte temporal a
-	partir de 2003; y (ii) la crisis financiera internacional de 2008--2009,
-	considerada como un shock global de robustez. Ignorar estas
-	discontinuidades puede inducir sesgos de especificación, alterar las
-	propiedades de estacionariedad de las series y afectar, cuando
-	corresponda, la interpretación de pruebas de raíz unitaria o
-	cointegración en panel.
+	Desde el punto de vista teórico, se espera que una mayor concentración exportadora ($HHI$), así como condiciones macroeconómicas adversas ---particularmente la volatilidad de los términos de intercambio de commodities y la apreciación del tipo de cambio real---, afecten negativamente la complejidad económica. Por el contrario, mayores niveles de capital humano e innovación deberían favorecer la acumulación de capacidades productivas y la diversificación exportadora.
 
-	Sin embargo, el objetivo de esta investigación no es identificar de
-	manera exhaustiva fechas de quiebre para cada país ni estimar modelos de
-	cambio estructural como fin en sí mismo. Ello desplazaría el foco central
-	del trabajo, que consiste en explicar comparativamente la relación entre
-	rentas extractivas, capacidades productivas e indicadores de
-	transformación estructural. Por esta razón, la estrategia adoptada
-	privilegia una aproximación parsimoniosa y consistente con un panel
-	macroeconómico internacional: efectos fijos por país para capturar
-	heterogeneidad estructural persistente, efectos temporales para absorber
-	shocks globales comunes y, cuando la teoría y la evidencia descriptiva lo
-	justifiquen, un conjunto acotado de interacciones entre variables de
-	interés y dummies de período. En particular, se considerará la inclusión
-	de un indicador $Post2003_t$, que toma valor 1 a partir de 2003, para
-	aproximar el régimen asociado al auge de commodities. Dado que en
-	especificaciones con efectos temporales completos la dummy $Post2003_t$
-	queda absorbida por $\lambda_t$, el parámetro sustantivo de interés será
-	la interacción $RENTS_{it} \times Post2003_t$, que permite evaluar si el
-	efecto de las rentas extractivas sobre la transformación estructural se
-	modificó durante dicho régimen. De manera complementaria, podrá
-	considerarse una interacción análoga con $Post2008_t$ como ejercicio de
-	robustez frente a la crisis financiera internacional.
+	En relación con el canal institucional, el efecto de las rentas extractivas ($RENTS$) sobre la transformación estructural no es unívoco, sino que depende de la calidad institucional. En economías con instituciones débiles, una mayor intensidad de rentas extractivas puede reforzar patrones de especialización, mientras que en contextos institucionales sólidos puede facilitar procesos de transformación productiva.
 
-	Desde el punto de vista teórico, se espera que una mayor concentración exportadora ($HHI$), así como condiciones macroeconómicas adversas ---particularmente la volatilidad y la apreciación del tipo de cambio real---, afecten negativamente la complejidad económica. Por el contrario, mayores niveles de capital humano e innovación deberían favorecer la acumulación de capacidades productivas y la diversificación exportadora.
-
-	En relación con el canal institucional, el efecto de las rentas de recursos ($RENTS$) sobre la transformación estructural no es unívoco, sino que depende de la calidad institucional. En economías con instituciones débiles, una mayor intensidad de rentas extractivas puede reforzar patrones de especialización, mientras que en contextos institucionales sólidos puede facilitar procesos de transformación productiva.
-
-	Esta formulación es coherente con la idea de que las economías no
-	evolucionan de manera lineal ni bajo un único régimen productivo. En
-	particular, la interacción $RENTS_{it} \times INST_{it}$ permite modelar
-	que un mismo aumento de las rentas extractivas produzca efectos
-	diferenciados según el entorno institucional, mientras que la interacción
-	$RENTS_{it} \times Post2003_t$ aproxima de forma parsimoniosa un cambio de
-	régimen asociado al auge de commodities. De este modo, la presencia
-	potencial de cambios estructurales se integra de forma natural al enfoque
-	sustantivo de la tesis, en lugar de constituir un problema separado de su
-	pregunta central.
+	La interacción $RENTS_{it} \times INST_{it}$ permite modelar que un mismo
+	aumento de las rentas extractivas produzca efectos diferenciados según el
+	entorno institucional. Esta es la única interacción incluida en las dos
+	especificaciones del estudio.
 
 	Como resultado complementario, la tesis estima una segunda especificación en la que la variable dependiente es la diversificación exportadora, definida como $DIVX_{it}=1-HHI_{it}$. Esta especificación permite evaluar si los mecanismos asociados a la complejidad económica también se relacionan con una menor concentración de la canasta exportadora:
 
@@ -862,15 +917,19 @@ y disponibilidad de información para el período principal de estimación
 			+ \delta_{12} INNOV_{it}
 			+ \delta_{13} NET_{it} \\
 			&+ \delta_{14}\log(GDPPC_{it})
-			+ \delta_{15} FISC_{it}
+			+ \delta_{15} GOVCONS_{it}
 			+ \delta_{16} FIN_{it} \\
 			&+ \mu_i + \lambda_t + u_{it}
 		\end{aligned}
 	\end{equation}
 
-	En la \autoref{eq:modelo_divx}, $HHI_{it}$ se excluye del conjunto de regresores porque $DIVX_{it}$ se construye directamente como su complemento. De este modo, se evita introducir una relación mecánica entre la variable dependiente y una covariable explicativa. La interpretación de esta especificación es complementaria a la del modelo principal: mientras el ECI mide sofisticación y capacidades productivas reveladas, $DIVX$ captura la dispersión de la canasta exportadora.
+	En la \autoref{eq:modelo_divx}, $HHI_{it}$ se excluye del conjunto de regresores porque $DIVX_{it}$ se construye directamente como su complemento. Esta es la única exclusión respecto del canal estructural: $PEXP_{it}$ y $FEXP_{it}$ permanecen como regresores y capturan, respectivamente, la especialización primaria no energética y la especialización en combustibles. De este modo, se evita introducir una relación mecánica entre la variable dependiente y una covariable explicativa sin alterar los demás canales del modelo. La interpretación de esta especificación es complementaria a la del modelo principal: mientras el ECI mide sofisticación y capacidades productivas reveladas, $DIVX$ captura la dispersión de la canasta exportadora.
 
-	Finalmente, el análisis se complementa con ejercicios de robustez que consideran variaciones en los umbrales de selección muestral, especificaciones alternativas e interacciones temporales parsimoniosas ---en particular $RENTS_{it} \times Post2003_t$ y, de forma complementaria, $RENTS_{it} \times Post2008_t$--- para evaluar la sensibilidad de los resultados frente a posibles cambios de régimen.
+	Estas dos ecuaciones agotan la estrategia econométrica de la tesis. Cada
+	variable explicativa tiene una única definición operativa y una única fuente
+	activa. No se estiman proxies alternativas, submuestras por otros umbrales,
+	interacciones temporales ni modelos adicionales. La especificación con
+	$DIVX$ es el único modelo complementario al modelo principal con $ECI$.
 
 	%%%%%%%%
 
@@ -918,14 +977,14 @@ y disponibilidad de información para el período principal de estimación
 
 		\multicolumn{3}{p{\textwidth}}{
 			\footnotesize
-			\textit{Nota: Los signos esperados corresponden a las hipótesis teóricas planteadas para el modelo de transformación estructural externa. La variable dependiente principal es el Índice de Complejidad Económica (ECI), y la diversificación exportadora ($DIVX=1-HHI$) se utiliza como resultado complementario. Los efectos esperados podrán variar según la especificación econométrica y la métrica analizada.}
+			\textit{Nota: Los signos esperados corresponden a las hipótesis teóricas planteadas para el modelo de transformación estructural externa. La variable dependiente principal es el Índice de Complejidad Económica (ECI), y la diversificación exportadora ($DIVX=1-HHI$) se utiliza como resultado complementario. Los efectos esperados pueden diferir entre ambas variables dependientes.}
 		} \\
 
 		\endlastfoot
 
 		RENTS
 		& (-)
-		& Una mayor participación de rentas de recursos naturales en el PIB se asocia con menores niveles de transformación estructural debido a efectos de especialización extractiva, desplazamiento de sectores transables y dinámicas enclave. \\
+		& Una mayor participación de las rentas de petróleo, gas natural, carbón y minerales en el PIB se asocia con menores niveles de transformación estructural debido a efectos de especialización extractiva, desplazamiento de sectores transables y dinámicas de enclave. \\
 		\hline
 
 		INST
@@ -946,13 +1005,13 @@ y disponibilidad de información para el período principal de estimación
 
 		GASPC
 		& (-)
-		& Una mayor abundancia gasífera per cápita puede profundizar patrones de enclave y dependencia de rentas, limitando la diversificación productiva.
+		& Una mayor renta gasífera real por habitante puede profundizar patrones de enclave y dependencia de rentas, limitando la diversificación productiva.
 		\\
 		\hline
 
 		COALPC
 		& (-)
-		& Una mayor abundancia carbonífera per cápita tiende a asociarse con especialización en actividades extractivas de bajo encadenamiento local y menor transformación estructural.
+		& Una mayor renta carbonífera real por habitante tiende a asociarse con especialización en actividades extractivas de bajo encadenamiento local y menor transformación estructural.
 		\\
 		\hline
 
@@ -963,7 +1022,7 @@ y disponibilidad de información para el período principal de estimación
 
 		PEXP
 		& (-)
-		& Una mayor participación de exportaciones primarias en la canasta exportadora refleja especialización en bienes de bajo procesamiento y menores oportunidades de escalamiento productivo.
+		& Una mayor participación de exportaciones primarias no energéticas en la canasta exportadora refleja especialización en bienes de bajo procesamiento y menores oportunidades de escalamiento productivo.
 		\\
 		\hline
 
@@ -975,7 +1034,7 @@ y disponibilidad de información para el período principal de estimación
 
 		VOL
 		& (-)
-		& Una mayor volatilidad de precios de commodities y términos de intercambio reduce la inversión de largo plazo, incrementa la incertidumbre y dificulta la acumulación de capacidades productivas. \\
+		& Una mayor volatilidad de los términos de intercambio de commodities incrementa la incertidumbre sobre los ingresos externos, puede desalentar la inversión de largo plazo y dificulta la acumulación sostenida de capacidades productivas. \\
 		\hline
 
 		RER (apreciación)
@@ -1004,20 +1063,24 @@ y disponibilidad de información para el período principal de estimación
 		& Un mayor valor de $\log(GDPPC_{it})$, utilizado como proxy del nivel de desarrollo económico, suele asociarse con estructuras productivas más diversificadas, mayores capacidades tecnológicas y mayor complejidad económica. \\
 		\hline
 
-		FISC
-		& (-)
-		& Una mayor prociclicidad fiscal en economías dependientes de recursos naturales puede amplificar ciclos económicos y limitar la acumulación intertemporal de capacidades productivas. \\
+		GOVCONS
+		& ($\pm$)
+		& El consumo final del gobierno como porcentaje del PIB se incorpora como control. Su asociación con la transformación estructural es teóricamente ambigua, pues puede reflejar provisión de capacidades públicas o desplazamiento de actividad privada. \\
 		\hline
 
 		FIN
 		& (+)
-		& Un mayor desarrollo financiero facilita la intermediación financiera, el acceso al crédito y el financiamiento de actividades productivas e innovadoras. \\
+		& Una mayor profundidad del crédito privado puede facilitar el financiamiento de actividades productivas e innovadoras, aunque el indicador no identifica por sí solo la asignación ni la calidad de ese crédito. \\
 		\hline
 
 	\end{longtable}
 
 
-	Dado que la disponibilidad temporal de algunas variables puede variar entre países y fuentes, las estimaciones se realizarán sobre un panel potencialmente desbalanceado, lo cual es consistente con la práctica habitual en estudios comparativos internacionales y no compromete la consistencia de los estimadores bajo supuestos estándar. Se estimarán modelos de datos de panel que permitan controlar por heterogeneidad no observada a nivel país y efectos comunes en el tiempo, evaluando la pertinencia de especificaciones con efectos fijos o aleatorios según criterios econométricos estándar. En especificaciones alternativas se considerará la inclusión de términos rezagados cuando resulte conceptualmente pertinente, con el fin de capturar persistencia temporal en las trayectorias estructurales.
+	Dado que la disponibilidad temporal de algunas variables varía entre países
+	y fuentes, las estimaciones se realizarán sobre paneles desbalanceados. Las
+	dos ecuaciones se estimarán con efectos fijos por país y por año; no se
+	estimarán modelos con efectos aleatorios, términos rezagados ni
+	especificaciones adicionales.
 
 	\begin{figure}[htbp]
 		\centering
@@ -1087,9 +1150,9 @@ y disponibilidad de información para el período principal de estimación
 			% -------------------------------
 			% FINANCIERO
 			% -------------------------------
-			\node[channel, below=0.5cm of gdp] (c6) {Canal financiero};
-			\node[var, below=of c6] (fisc) {FISC};
-			\node[var, below=of fisc] (fin) {FIN};
+			\node[channel, below=0.5cm of gdp] (c6) {Controles fiscales y financieros};
+			\node[var, below=of c6] (govcons) {GOVCONS};
+			\node[var, below=of govcons] (fin) {FIN};
 
 			% -------------------------------
 			% VARIABLE DEPENDIENTE
@@ -1124,12 +1187,12 @@ y disponibilidad de información para el período principal de estimación
 
 			\draw[arrow] (gdp.east)  -- node[above] {$+$} (depvar.west);
 
-			\draw[arrow] (fisc.east) -- node[above] {$-$} (depvar.west);
+			\draw[arrow] (govcons.east) -- node[above] {$\pm$} (depvar.west);
 			\draw[arrow] (fin.east)  -- node[above] {$+$} (depvar.west);
 
 		\end{tikzpicture}
 
-		\caption[Modelo econométrico de transformación estructural externa]{Modelo econométrico de transformación estructural externa. Esquema conceptual organizado por canales teóricos, incorporando abundancia de recursos, dependencia estructural, capacidades productivas y diversificación exportadora como resultado complementario.\protect\\[0.3em]\textit{Nota:} $HHI$ se incluye únicamente en las especificaciones donde $ECI$ es la variable dependiente; en las estimaciones complementarias con $DIVX=1-HHI$, se excluye del conjunto de regresores.}
+		\caption[Modelo econométrico de transformación estructural externa]{Modelo econométrico de transformación estructural externa. Esquema conceptual organizado por canales teóricos, incorporando abundancia de recursos, dependencia estructural, capacidades productivas y diversificación exportadora como resultado complementario.\protect\\[0.3em]\textit{Nota:} $HHI$ se incluye en el modelo donde $ECI$ es la variable dependiente; en el modelo complementario con $DIVX=1-HHI$, se excluye del conjunto de regresores.}
 		\label{fig:modelo-econometrico}
 		\caption*{\footnotesize \textit{Fuente: Elaboración propia.}}
 	\end{figure}
@@ -1138,106 +1201,42 @@ y disponibilidad de información para el período principal de estimación
 	\section{Procedimientos de análisis econométrico}
 	\label{sec:analisis-econometrico}
 
-	El análisis empírico se estructura en cuatro etapas complementarias,
-	ordenadas desde una caracterización descriptiva inicial hasta la
-	estimación de referencia, los resultados complementarios y los ejercicios
-	de robustez. Esta secuencia permite combinar una lectura comparativa de
-	las trayectorias de transformación estructural externa con estimaciones
-	econométricas orientadas a evaluar asociaciones condicionales entre rentas
-	extractivas, instituciones y capacidades productivas.
-
-	Dado el horizonte de largo plazo y la naturaleza macroeconómica del panel,
-	esta secuencia incorpora de manera explícita la posibilidad de cambios
-	estructurales, estabilidad paramétrica imperfecta y transiciones entre
-	regímenes. En consecuencia, la estrategia metodológica busca compatibilizar
-	el análisis de trayectorias históricas con una especificación parsimoniosa
-	que permita controlar heterogeneidad persistente, shocks globales y
-	variaciones de régimen sin convertir la investigación en una estimación
-	exhaustiva de quiebres país por país. En términos operativos, esta
-	aproximación se concentra principalmente en el cambio de régimen asociado
-	al superciclo de commodities y, de manera secundaria, en la crisis
-	financiera internacional de 2008--2009.
+	El análisis empírico se estructura en tres etapas: una caracterización
+	descriptiva de la muestra fija, la estimación principal con $ECI$ y la
+	estimación complementaria con $DIVX$. Esta secuencia mantiene el análisis
+	centrado en las asociaciones condicionales entre rentas extractivas,
+	instituciones, capacidades productivas y transformación estructural.
 
 	\begin{enumerate}
 
 		\item \emph{Descripción y caracterización de trayectorias.} En una
-		primera etapa se elaborarán estadísticos descriptivos, comparaciones
-		entre grupos de países y análisis exploratorios de correlación, con el
+		primera etapa se elaborarán estadísticos descriptivos y análisis
+		exploratorios de correlación, con el
 		propósito de identificar patrones preliminares en la relación entre
-		dependencia de recursos naturales y transformación estructural. Estas
-		comparaciones se realizarán sobre la muestra definida a partir del
-		umbral $\theta$ aplicado al indicador de dependencia externa ($DRES$),
-		lo que permite distinguir economías con alta especialización extractiva
-		de aquellas utilizadas como referencia empírica y contextualizar la
-		heterogeneidad interna del universo analizado. Esta etapa también
-		permitirá identificar, a nivel descriptivo, posibles cambios de régimen
-		asociados principalmente al superciclo de commodities de comienzos de
-		los años 2000 y a la crisis financiera internacional de 2008--2009,
-		por su relevancia directa para economías dependientes de recursos.
+		dependencia de recursos naturales y transformación estructural. El
+		análisis se realizará sobre los 55 países definidos mediante
+		$DRES\geq20\%$ en 1990--1995 y describirá la cobertura efectiva de cada
+		variable sin imputar observaciones faltantes.
 
-		\item \emph{Estimación de referencia en datos de panel.} En una segunda
-		etapa se estimarán modelos para panel país--año como especificación de
-		referencia, utilizando Mínimos Cuadrados Ordinarios agrupados y modelos
-		con efectos fijos. Estas estimaciones incorporarán controles
-		macroeconómicos, institucionales, estructurales y financieros, con el
-		fin de aislar la relación entre las variables de interés y la
-		transformación estructural externa. La variable principal de interés será
-		$RENTS_{it}$, que captura el peso de las rentas de recursos naturales
-		como porcentaje del PIB. En particular, las especificaciones con efectos
-		fijos permitirán controlar por heterogeneidad no observable constante en
-		el tiempo a nivel de país y por shocks comunes entre períodos. De
-		manera complementaria, estas estimaciones incorporarán efectos
-		temporales y una interacción parsimoniosa entre $RENTS_{it}$ y
-		$Post2003_t$ para evaluar si el régimen del auge de commodities alteró
-		el efecto de las rentas extractivas sobre la transformación estructural externa.
-		Dado el uso de efectos temporales completos, la dummy $Post2003_t$ en sí
-		misma quedará absorbida por dichos efectos; por ello, el interés
-		económico recae en el cambio de pendiente asociado a la interacción. De
-		manera complementaria, podrá incorporarse una interacción con
-		$Post2008_t$ como ejercicio adicional de robustez. Asimismo, podrán
-		considerarse especificaciones con efectos aleatorios cuando resulten
-		útiles como contraste econométrico.
+		\item \emph{Modelo principal con ECI.} En la segunda etapa se estimará la
+		\autoref{eq:modelo_base} mediante un modelo de panel con efectos fijos por
+		país y por año. La especificación incorporará todos los canales
+		presentados en la \autoref{fig:modelo-econometrico}, incluida la
+		interacción $RENTS_{it}\times INST_{it}$. Los errores estándar se
+		calcularán de manera consistente con la estructura de dependencia del
+		panel.
 
-		\item \emph{Interacciones, persistencia y endogeneidad.} En una tercera
-		etapa se evaluarán extensiones de la especificación de referencia para
-		tratar posibles fuentes de heterogeneidad y persistencia temporal. En
-		particular, se incluirán términos de interacción ---especialmente entre
-		$RENTS_{it}$ y $INST_{it}$--- para examinar si la calidad institucional
-		modifica el efecto de las rentas extractivas. Cuando la evidencia
-		descriptiva o los diagnósticos econométricos lo justifiquen, podrán
-		estimarse especificaciones con rezagos de la variable dependiente o
-		estrategias de panel dinámico como ejercicios complementarios, evaluando
-		su validez mediante pruebas de autocorrelación y de instrumentos. Esta
-		etapa no sustituye la especificación principal, sino que permite valorar
-		la estabilidad de las relaciones estimadas frente a persistencia,
-		endogeneidad potencial e interacciones entre mecanismos.
-
-		\item \emph{Robustez y sensibilidad.} Finalmente, se realizarán
-		estimaciones alternativas y ejercicios de sensibilidad orientados a
-		evaluar la estabilidad de los resultados. Entre estos ejercicios se
-		considerarán análisis por submuestras, cambios en las proxies de
-		recursos naturales, variaciones en la inclusión de rezagos e
-		interacciones, ajustes en la definición de la muestra y revisiones en el
-		tratamiento de datos faltantes. De manera estrictamente complementaria,
-		y preferentemente en ejercicios exploratorios o en un eventual anexo
-		técnico, podrán emplearse pruebas de estabilidad estructural y cambio de
-		régimen ---como Bai--Perron, Quandt--Andrews, Zivot--Andrews o
-		Gregory--Hansen--- aplicadas principalmente a variables agregadas, casos
-		representativos o relaciones específicas. Estas pruebas no constituyen
-		el núcleo metodológico de la investigación ni determinan la
-		especificación principal, sino que funcionan como herramientas auxiliares
-		para valorar la robustez temporal de los resultados. El objetivo será
-		comprobar que los resultados principales no dependan de una única
-		especificación ni de una decisión metodológica puntual.
+		\item \emph{Modelo complementario con DIVX.} En la tercera etapa se
+		estimará la \autoref{eq:modelo_divx} con los mismos efectos fijos y el
+		mismo conjunto de variables. Se excluirá únicamente $HHI$, debido a que
+		$DIVX=1-HHI$; $PEXP$ y $FEXP$ permanecerán en el canal estructural.
 
 	\end{enumerate}
 
-	En conjunto, esta estrategia permite contrastar empíricamente las
-	hipótesis del trabajo y evaluar con mayor solidez la relación entre las
-	rentas de recursos naturales y la transformación estructural,
-	reconociendo al mismo tiempo las limitaciones propias de un diseño
-	observacional, comparativo y no experimental, así como la posibilidad de
-	que dichas relaciones varíen entre períodos y regímenes históricos.
+	En conjunto, esta estrategia permite contrastar las hipótesis del trabajo
+	sin ampliar innecesariamente el número de modelos. Los resultados se
+	interpretarán dentro de las limitaciones propias de un diseño
+	observacional, comparativo y no experimental.
 
 
 % =====================================
