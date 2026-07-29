@@ -113,6 +113,22 @@ data/processed/**/*
 outputs/*
 !outputs/.gitkeep
 
+# Econometric outputs retained for peer review (sections 00-05 only)
+!outputs/econometrics/
+outputs/econometrics/*
+!outputs/econometrics/stata-peer-1/
+outputs/econometrics/stata-peer-1/*
+!outputs/econometrics/stata-peer-1/0[0-5]_*/
+!outputs/econometrics/stata-peer-1/0[0-5]_*/**
+!outputs/econometrics/stata-peer-2/
+outputs/econometrics/stata-peer-2/*
+!outputs/econometrics/stata-peer-2/0[0-5]_*/
+!outputs/econometrics/stata-peer-2/0[0-5]_*/**
+
+# Keep reproducible summaries and figures, but not derived data or model states
+outputs/econometrics/**/*.dta
+outputs/econometrics/**/*.ster
+
 models/*
 logs/*
 cache/*

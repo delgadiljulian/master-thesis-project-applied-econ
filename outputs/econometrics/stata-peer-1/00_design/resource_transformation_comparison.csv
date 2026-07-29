@@ -1,0 +1,4 @@
+variable,observations,zeros,zero_percent,skewness_level,skewness_ln1p
+coalpc,1384,958,69.22,9.731,2.25
+gaspc,1365,376,27.55,4.714,.71200001
+oilpc,1397,311,22.26,3.383,-.003

@@ -1,0 +1,7 @@
+model,test,null_hypothesis,statistic,df1,df2,p_value,decision
+DIVX,Modified Wald,Equal error variance across countries,13046.622198,49,,0.000000,REJECT H0
+DIVX,Pesaran CD,Cross-sectional independence of residuals,-0.768869,,,0.441971,DO NOT REJECT H0
+DIVX,Wooldridge AR(1),No first-order serial correlation,64.049858,1,48,0.000000,REJECT H0
+ECI,Modified Wald,Equal error variance across countries,9046.049342,49,,0.000000,REJECT H0
+ECI,Pesaran CD,Cross-sectional independence of residuals,-0.435605,,,0.663123,DO NOT REJECT H0
+ECI,Wooldridge AR(1),No first-order serial correlation,24.203546,1,48,0.000011,REJECT H0

@@ -1,0 +1,17 @@
+order,term,variable_label,channel,coefficient,standard_error,t_statistic,p_value,ci_lower,ci_upper
+1,rents,Rentas extractivas del subsuelo (% PIB),Institucional,-0.003536,0.001296,-2.728598,0.008862,-0.006142,-0.000930
+2,inst,Calidad institucional (INST),Institucional,0.017472,0.028185,0.619901,0.538255,-0.039198,0.074142
+3,c.rents#c.inst,Interacción entre rentas y calidad institucional,Institucional,0.000948,0.001184,0.800429,0.427406,-0.001433,0.003329
+4,ln1p_oilpc,ln(1 + OILPC),Abundancia de recursos,0.007643,0.008984,0.850731,0.399143,-0.010421,0.025707
+5,ln1p_gaspc,ln(1 + GASPC),Abundancia de recursos,0.004935,0.006661,0.740911,0.462357,-0.008458,0.018329
+6,ln1p_coalpc,ln(1 + COALPC),Abundancia de recursos,-0.008548,0.007838,-1.090484,0.280944,-0.024308,0.007213
+7,pexp,Exportaciones primarias no energéticas,Estructura exportadora,0.001533,0.000627,2.446445,0.018141,0.000273,0.002793
+8,fexp,Exportaciones de combustibles,Estructura exportadora,-0.001063,0.000978,-1.085970,0.282916,-0.003030,0.000905
+9,vol,Volatilidad de términos de intercambio,Condiciones macroeconómicas,0.000848,0.000954,0.888985,0.378445,-0.001070,0.002767
+10,rer,Tipo de cambio real,Condiciones macroeconómicas,-0.039707,0.035912,-1.105692,0.274371,-0.111912,0.032498
+11,humcap,Capital humano,Capacidades productivas,0.106887,0.044314,2.412035,0.019736,0.017788,0.195986
+12,innov,Innovación,Capacidades productivas,0.011198,0.013647,0.820592,0.415935,-0.016240,0.038636
+13,net,Conectividad digital,Capacidades productivas,-0.000741,0.000353,-2.103028,0.040731,-0.001450,-0.000033
+14,log_gdppc,Logaritmo del PIB per cápita PPA,Controles económicos y financie,-0.145551,0.035052,-4.152410,0.000134,-0.216028,-0.075074
+15,govcons,Consumo final del gobierno (% PIB),Controles económicos y financie,0.003239,0.001763,1.837301,0.072360,-0.000306,0.006783
+16,fin,Profundidad financiera,Controles económicos y financie,0.000605,0.000367,1.647243,0.106040,-0.000133,0.001343

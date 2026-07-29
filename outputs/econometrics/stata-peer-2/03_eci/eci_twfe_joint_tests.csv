@@ -1,0 +1,9 @@
+order,test,null_hypothesis,f_statistic,df1,df2,p_value
+1,Canal institucional,"RENTS, INST y RENTS x INST son conjuntamente cero",2.002565,3,48,0.126149
+2,Canal de abundancia,"Petróleo, gas y carbón son conjuntamente cero",0.788135,3,48,0.506465
+3,Canal estructural,"HHI, PEXP y FEXP son conjuntamente cero",6.712917,3,48,0.000712
+4,Canal macroeconómico,VOL y RER son conjuntamente cero,1.581326,2,48,0.216230
+5,Capacidades productivas,"HUMCAP, INNOV y NET son conjuntamente cero",0.472334,3,48,0.702987
+6,Controles económicos y financieros,"log(GDPPC), GOVCONS y FIN son conjuntamente cero",0.258047,3,48,0.855226
+7,Efectos fijos por año,Todos los indicadores de año son conjuntamente cero,3.532931,22,48,0.000129
+8,Igualdad entre recursos,"Los coeficientes de petróleo, gas y carbón son iguales",0.265427,2,48,0.767997

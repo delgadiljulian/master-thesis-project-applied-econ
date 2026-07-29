@@ -1,0 +1,18 @@
+order,term,variable_label,channel,coefficient,standard_error,t_statistic,p_value,ci_lower,ci_upper
+1,rents,Rentas extractivas del subsuelo (% PIB),Institucional,-0.009795,0.004181,-2.342711,0.023337,-0.018202,-0.001388
+2,inst,Calidad institucional (INST),Institucional,0.266705,0.136729,1.950613,0.056955,-0.008207,0.541617
+3,c.rents#c.inst,Interacción entre rentas y calidad institucional,Institucional,-0.005199,0.003453,-1.505457,0.138759,-0.012142,0.001744
+4,ln1p_oilpc,ln(1 + OILPC),Abundancia de recursos,0.028347,0.037603,0.753855,0.454618,-0.047258,0.103953
+5,ln1p_gaspc,ln(1 + GASPC),Abundancia de recursos,0.039635,0.034300,1.155545,0.253587,-0.029329,0.108598
+6,ln1p_coalpc,ln(1 + COALPC),Abundancia de recursos,0.010906,0.026430,0.412619,0.681723,-0.042236,0.064047
+7,hhi,Concentración exportadora (HHI),Estructura exportadora,-0.535483,0.225234,-2.377449,0.021465,-0.988346,-0.082619
+8,pexp,Exportaciones primarias no energéticas,Estructura exportadora,-0.004199,0.001565,-2.683181,0.009975,-0.007346,-0.001053
+9,fexp,Exportaciones de combustibles,Estructura exportadora,-0.006800,0.001884,-3.608836,0.000732,-0.010589,-0.003012
+10,vol,Volatilidad de términos de intercambio,Condiciones macroeconómicas,-0.002903,0.002447,-1.186026,0.241450,-0.007823,0.002018
+11,rer,Tipo de cambio real,Condiciones macroeconómicas,-0.087319,0.098443,-0.887004,0.379500,-0.285251,0.110613
+12,humcap,Capital humano,Capacidades productivas,-0.053994,0.224399,-0.240617,0.810877,-0.505178,0.397190
+13,innov,Innovación,Capacidades productivas,-0.036118,0.048411,-0.746072,0.459263,-0.133454,0.061219
+14,net,Conectividad digital,Capacidades productivas,-0.001305,0.002080,-0.627730,0.533156,-0.005487,0.002876
+15,log_gdppc,Logaritmo del PIB per cápita PPA,Controles económicos y financie,-0.045886,0.221200,-0.207440,0.836544,-0.490638,0.398866
+16,govcons,Consumo final del gobierno (% PIB),Controles económicos y financie,-0.006048,0.008948,-0.675864,0.502371,-0.024039,0.011943
+17,fin,Profundidad financiera,Controles económicos y financie,-0.000998,0.002355,-0.423549,0.673786,-0.005733,0.003738

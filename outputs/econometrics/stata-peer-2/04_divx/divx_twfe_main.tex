@@ -1,0 +1,71 @@
+\begin{table}[htbp]\centering
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\caption{Modelo complementario DIVX con efectos fijos por país y año}
+\begin{tabular}{l*{1}{c}}
+\toprule
+                    &\multicolumn{1}{c}{(1)}\\
+                    &\multicolumn{1}{c}{Diversificación exportadora (DIVX = 1 - HHI)}\\
+\midrule
+Rentas extractivas del subsuelo (% PIB)&     -0.0035\sym{***}\\
+                    &    (0.0013)         \\
+\addlinespace
+Calidad institucional (INST)&      0.0175         \\
+                    &    (0.0282)         \\
+\addlinespace
+RENTS x INST        &      0.0009         \\
+                    &    (0.0012)         \\
+\addlinespace
+ln(1 + OILPC)       &      0.0076         \\
+                    &    (0.0090)         \\
+\addlinespace
+ln(1 + GASPC)       &      0.0049         \\
+                    &    (0.0067)         \\
+\addlinespace
+ln(1 + COALPC)      &     -0.0085         \\
+                    &    (0.0078)         \\
+\addlinespace
+Exportaciones primarias no energéticas&      0.0015\sym{**} \\
+                    &    (0.0006)         \\
+\addlinespace
+Exportaciones de combustibles&     -0.0011         \\
+                    &    (0.0010)         \\
+\addlinespace
+Volatilidad de términos de intercambio&      0.0008         \\
+                    &    (0.0010)         \\
+\addlinespace
+Tipo de cambio real &     -0.0397         \\
+                    &    (0.0359)         \\
+\addlinespace
+Capital humano      &      0.1069\sym{**} \\
+                    &    (0.0443)         \\
+\addlinespace
+Innovación          &      0.0112         \\
+                    &    (0.0136)         \\
+\addlinespace
+Conectividad digital&     -0.0007\sym{**} \\
+                    &    (0.0004)         \\
+\addlinespace
+Logaritmo del PIB per cápita PPA&     -0.1456\sym{***}\\
+                    &    (0.0351)         \\
+\addlinespace
+Consumo final del gobierno (% PIB)&      0.0032\sym{*}  \\
+                    &    (0.0018)         \\
+\addlinespace
+Profundidad financiera&      0.0006         \\
+                    &    (0.0004)         \\
+\midrule
+Observaciones       &        1044         \\
+Países              &          49         \\
+R2 within           &      0.3119         \\
+R2 between          &      0.3102         \\
+R2 overall          &      0.3012         \\
+\bottomrule
+\multicolumn{2}{l}{\footnotesize Standard errors in parentheses}\\
+\multicolumn{2}{l}{\footnotesize Efectos fijos por país: sí.}\\
+\multicolumn{2}{l}{\footnotesize Efectos fijos por año: sí.}\\
+\multicolumn{2}{l}{\footnotesize Errores estándar agrupados por país.}\\
+\multicolumn{2}{l}{\footnotesize HHI se excluye porque DIVX = 1 - HHI.}\\
+\multicolumn{2}{l}{\footnotesize Los indicadores de año no se muestran.}\\
+\multicolumn{2}{l}{\footnotesize \sym{*} \(p<0.10\), \sym{**} \(p<0.05\), \sym{***} \(p<0.01\)}\\
+\end{tabular}
+\end{table}

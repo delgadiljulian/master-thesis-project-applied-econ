@@ -1,0 +1,56 @@
+country_iso3_code,country,country_id,observations_eci,excluded_eci,observations_divx,excluded_divx
+AGO,Angola,AGO,21,5,21,5
+ALB,Albania,ALB,23,3,23,3
+ARE,United Arab Emirates,ARE,23,3,23,3
+ATG,Antigua and Barbuda,ATG,21,5,21,5
+AUS,Australia,AUS,20,6,20,6
+BDI,Burundi,BDI,23,3,23,3
+BHR,Bahrain,BHR,17,9,17,9
+BOL,Bolivia,BOL,23,3,23,3
+BRN,Brunei,BRN,21,5,21,5
+CAF,Central African Republic,CAF,21,5,21,5
+CHL,Chile,CHL,23,3,23,3
+CMR,Cameroon,CMR,20,6,20,6
+COD,Democratic Republic of the Congo,COD,18,8,18,8
+COG,Republic of the Congo,COG,21,5,21,5
+COL,Colombia,COL,23,3,23,3
+DZA,Algeria,DZA,23,3,23,3
+ECU,Ecuador,ECU,23,3,23,3
+EGY,Egypt,EGY,23,3,23,3
+GAB,Gabon,GAB,21,5,21,5
+GHA,Ghana,GHA,23,3,23,3
+GIN,Guinea,GIN,23,3,23,3
+GMB,The Gambia,GMB,21,5,21,5
+GUY,Guyana,GUY,23,3,23,3
+IDN,Indonesia,IDN,23,3,23,3
+IND,India,IND,23,3,23,3
+IRN,Iran,IRN,18,8,18,8
+IRQ,Iraq,IRQ,18,8,18,8
+ISR,Israel,ISR,23,3,23,3
+JAM,Jamaica,JAM,23,3,23,3
+JOR,Jordan,JOR,23,3,23,3
+KWT,Kuwait,KWT,22,4,22,4
+LBR,Liberia,LBR,21,5,21,5
+LBY,Libya,LBY,0,26,0,26
+MNG,Mongolia,MNG,21,5,21,5
+MRT,Mauritania,MRT,15,11,15,11
+NGA,Nigeria,NGA,23,3,23,3
+NOR,Norway,NOR,23,3,23,3
+NRU,Nauru,NRU,0,26,0,26
+OMN,Oman,OMN,21,5,21,5
+PER,Peru,PER,23,3,23,3
+PNG,Papua New Guinea,PNG,0,26,0,26
+QAT,Qatar,QAT,23,3,23,3
+RUS,Russian Federation,RUS,20,6,20,6
+SAU,Saudi Arabia,SAU,19,7,19,7
+SLE,Sierra Leone,SLE,0,26,0,26
+SUR,Suriname,SUR,16,10,16,10
+SYC,Seychelles,SYC,20,6,20,6
+SYR,Syria,SYR,13,13,13,13
+TGO,Togo,TGO,23,3,23,3
+TTO,Trinidad and Tobago,TTO,23,3,23,3
+VEN,Venezuela,VEN,0,26,0,26
+VNM,Vietnam,VNM,23,3,23,3
+YEM,Yemen,YEM,0,26,0,26
+ZAF,South Africa,ZAF,23,3,23,3
+ZMB,Zambia,ZMB,23,3,23,3

@@ -1,0 +1,5 @@
+model,term,repetitions,base_coefficient,min_coefficient,min_p_value,max_coefficient,max_p_value,sign_reversals,significant_5,significant_10
+DIVX,RENTS,49.000000,-0.003536,-0.004143,0.001494,-0.003009,0.024461,0,49,49
+DIVX,RENTS x INST,49.000000,0.000948,0.000290,0.257448,0.001374,0.784559,0,0,0
+ECI,RENTS,49.000000,-0.009795,-0.011810,0.006631,-0.006698,0.052355,0,46,49
+ECI,RENTS x INST,49.000000,-0.005199,-0.006570,0.066522,-0.002701,0.384059,0,0,4

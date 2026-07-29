@@ -1,0 +1,5 @@
+model,specification,observations,countries,rents_coefficient,rents_standard_error,rents_p_value,interaction_coefficient,interaction_standard_error,interaction_p_value
+DIVX,Excluye alertas,969,49,-0.004478,0.001005,0.000050,0.000362,0.000914,0.693558
+DIVX,Modelo base,1044,49,-0.003536,0.001296,0.008862,0.000948,0.001184,0.427406
+ECI,Excluye alertas,974,49,-0.005282,0.002585,0.046495,-0.003651,0.002475,0.146645
+ECI,Modelo base,1044,49,-0.009795,0.004181,0.023337,-0.005199,0.003453,0.138759

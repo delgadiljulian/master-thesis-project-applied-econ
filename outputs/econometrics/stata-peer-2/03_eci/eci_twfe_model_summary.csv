@@ -1,0 +1,2 @@
+model,dependent_variable,observations,countries,clusters,years,first_year,last_year,r2_within,r2_between,r2_overall,f_statistic,df_model,df_error,model_p_value,rmse,sigma_country,sigma_idiosyncratic,rho_country
+ECI_TWFE_MAIN,eci,1044,49,49,23,1996,2021,0.152323,0.158609,0.169012,14.634747,38,48,0.000000,0.263430,0.760430,0.269962,0.888073
