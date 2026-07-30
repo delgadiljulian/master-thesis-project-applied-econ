@@ -1,0 +1,18 @@
+order,term,variable_label,channel,coefficient,standard_error,t_statistic,p_value,ci_lower,ci_upper
+1,rents_oil_gas,rents_oil_gas,Institucional desagregado,-.0072542005719523,.0057355305,-1.2647828,.21205556,-.018786257,.0042778566
+2,rents_mining,rents_mining,Institucional desagregado,-.0135974258260262,.0039144447,-3.4736538,.0010980716,-.021467945,-.0057269069
+3,inst,Calidad institucional (INST),Institucional desagregado,.2678691730140966,.13793421,1.9420068,.058017146,-.0094661452,.54520452
+4,log_oilpc,log(1 + OILPC),Abundancia de recursos,.0257683551232152,.036987416,.696679,.48936403,-.048599832,.10013654
+5,log_gaspc,log(1 + GASPC),Abundancia de recursos,.0396976864306043,.03405828,1.1655811,.24954329,-.028781073,.10817645
+6,log_coalpc,log(1 + COALPC),Abundancia de recursos,.0202685832053854,.025073234,.80837536,.42286307,-.030144531,.070681699
+7,hhi,Concentración exportadora (HHI),Estructura exportadora,-.5746616898885819,.23361404,-2.4598765,.01755093,-1.0443742,-.10494919
+8,pexp,Exp. primarias no energéticas (% exp. merc.),Estructura exportadora,-.0042333279556088,.0016052319,-2.6372066,.011231004,-.0074608629,-.001005793
+9,fexp,Exp. combustibles (% exp. merc.),Estructura exportadora,-.0070011526464361,.0019621705,-3.5680656,.00082794135,-.01094636,-.0030559448
+10,vol,Volatilidad términos de intercambio (VOL),Condiciones macroeconómicas,-.0022107635290803,.0026284442,-.84109205,.40446708,-.0074956049,.0030740779
+11,rer,Tipo de cambio real (log pl_gdpo),Condiciones macroeconómicas,-.0826052499881517,.097568147,-.8466416,.40139636,-.27877915,.11356866
+12,humcap,Capital humano (Índice retornos),Capacidades productivas,-.0574792573490785,.2249334,-.255539,.79939872,-.50973821,.39477968
+13,innov,Innovación (log 1 + art. científ./millón hab),Capacidades productivas,-.0348768267660669,.049177185,-.70920748,.48162648,-.13375418,.064000525
+14,net,Conectividad digital (% pob. internet),Capacidades productivas,-.0014461904336295,.0020567039,-.70315927,.48535323,-.0055814707,.0026890901
+15,log_gdppc,Nivel de desarrollo (log PIB pc PPA),Controles económicos y financieros,-.0482211862742057,.22147359,-.21772884,.82856333,-.49352369,.39708129
+16,govcons,Consumo del gobierno (% PIB),Controles económicos y financieros,-.0055598591765945,.0091508478,-.60757858,.54633087,-.023958873,.012839153
+17,fin,Profundidad financiera (Crédito bancario % PIB),Controles económicos y financieros,-.0009791226426994,.0024123781,-.40587446,.68663853,-.0058295336,.0038712884

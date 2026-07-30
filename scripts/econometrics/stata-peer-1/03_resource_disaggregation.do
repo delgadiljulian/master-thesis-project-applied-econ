@@ -1,25 +1,25 @@
-* *********************************************
-* Universidad: Universidad de Buenos Aires
-* Facultad: Facultad de Ciencias Económicas
-* Escuela: Escuela de Negocios y Administración Pública
-* Programa: Maestría en Economía Aplicada
-*
-* Tipo de trabajo: Trabajo Final de Maestría (TFM)
-* Título: Rentas extractivas y transformación estructural externa en economías
-*        dependientes de recursos naturales no renovables del subsuelo (1996--2021)
-* Autor: Julián Alberto Delgadillo Marín
-* Director: Martín Grandes
-*
-* Archivo: 03_resource_disaggregation.do (Parte 3 de 3 - Secciones 9 a 14)
-* Ubicación: scripts/econometrics/stata-peer-1/
-* Contenido: Análisis econométrico desagregado (Hidrocarburos vs. Minería + Carbón)
-* Requisitos: Completar archivos 01 y 02 antes de ejecutar esta extensión
-* Fecha: Segundo Cuatrimestre 2026
-* *********************************************
+// *********************************************
+// Universidad: Universidad de Buenos Aires
+// Facultad: Facultad de Ciencias Económicas
+// Escuela: Escuela de Negocios y Administración Pública
+// Programa: Maestría en Economía Aplicada
+//
+// Tipo de trabajo: Trabajo Final de Maestría (TFM)
+// Título: Rentas extractivas y transformación estructural externa en economías
+//        dependientes de recursos naturales no renovables del subsuelo (1996--2021)
+// Autor: Julián Alberto Delgadillo Marín
+// Director: Martín Grandes
+//
+// Archivo: 03_resource_disaggregation.do (Parte 3 de 3 - Secciones 9 a 14)
+// Ubicación: scripts/econometrics/stata-peer-1/
+// Contenido: Análisis econométrico desagregado (Hidrocarburos vs. Minería + Carbón)
+// Requisitos: Completar archivos 01 y 02 antes de ejecutar esta extensión
+// Fecha: Segundo Cuatrimestre 2026
+// *********************************************
 
-* *********************************************
-* INICIALIZACIÓN DEL ARCHIVO 03
-* *********************************************
+// *********************************************
+// INICIALIZACIÓN DEL ARCHIVO 03
+// *********************************************
 
 * 0.1. Establecer la versión de Stata 17.0 y limpiar la memoria activa del sistema
 version 17.0
@@ -87,10 +87,8 @@ else {
 global PROJECT_ROOT "`c(pwd)'"
 global OUTPUT_ROOT               "$PROJECT_ROOT/outputs/econometrics/stata-peer-1"
 global OUTPUT_SAMPLE             "$OUTPUT_ROOT/01_sample"
-global OUTPUT_DIAGNOSTICS        "$OUTPUT_ROOT/02_diagnostics"
 global OUTPUT_ECI                "$OUTPUT_ROOT/03_eci"
 global OUTPUT_DIVX               "$OUTPUT_ROOT/04_divx"
-global OUTPUT_FINAL              "$OUTPUT_ROOT/06_final"
 global OUTPUT_DISAGG             "$OUTPUT_ROOT/07_resource_disaggregation"
 global OUTPUT_DISAGG_DESIGN      "$OUTPUT_DISAGG/00_design"
 global OUTPUT_DISAGG_DIAGNOSTICS "$OUTPUT_DISAGG/02_diagnostics"
@@ -376,7 +374,7 @@ preserve
 restore
 
 * 10.7. Notificar la finalización exitosa de los diagnósticos de componentes
-display as result "Sección 10 completada: Perfil de componentes, correlaciones focales, VIF e influencias exportados a $OUTPUT_DISAGG_DIAGNOSTICS."
+display as result "Sección 10 completada: Perfil de componentes, correlaciones focales, VIF e influencias exportados a $OUTPUT_DIAGNOSTICS."
 
 // *********************************************
 // 11. Modelos Desagregados con ECI
@@ -1125,7 +1123,7 @@ if _rc == 0 {
         save "`stability_bootstrap'", replace
     restore
     preserve
-        import delimited using "$OUTPUT_DISAGG_STABILITY/leave_one_country_out_summary.csv", clear
+        use "$OUTPUT_DISAGG_STABILITY/leave_one_country_out_summary.csv", clear
         keep model term min_coefficient max_coefficient sign_changes significant_5 significant_10
         save "`stability_loo'", replace
     restore
@@ -1156,16 +1154,16 @@ display as result "Sección 13 completada: Efectos marginales, sensibilidades e 
 
 * 14.1. Exportar tablas comparativas formateadas a LaTeX y Texto usando esttab
 cap which esttab
-if _rc == 0 {
-    * Cargar las estimaciones agregadas previas guardadas en archivos .ster
+if _rc {
+    // Cargar las estimaciones agregadas previas guardadas en archivos .ster
     capture estimates use "$OUTPUT_ECI/eci_twfe_main.ster"
     estimates store ECI_MAIN_SAVED
 
-    * Cargar el archivo de datos
+    // Cargar el archivo de datos
     capture estimates use "$OUTPUT_DIVX/divx_twfe_main.ster"
     estimates store DIVX_MAIN_SAVED
 
-    * Exportar la Tabla Comparativa Final a formato LaTeX (.tex) en la carpeta 06_final
+    // Exportar la Tabla Comparativa Final a formato LaTeX (.tex) en la carpeta 06_final
     esttab ECI_MAIN_SAVED ECI_TWFE_DISAGG DIVX_MAIN_SAVED DIVX_TWFE_DISAGG using "$OUTPUT_DISAGG_FINAL/table_eci_divx_disaggregated.tex", replace ///
         label b(3) se(3) star(* 0.10 ** 0.05 *** 0.01) ///
         title("Modelos Econométricos Desagregados: Hidrocarburos vs. Minería + Carbón") ///
@@ -1173,7 +1171,7 @@ if _rc == 0 {
         booktabs alignment(c) drop(*.year) ///
         stats(N N_g r2_o, labels("Observaciones" "Países" "R2 overall"))
 
-    * Exportar la misma Tabla Comparativa a formato Texto (.txt) para consulta directa
+    // Exportar la misma Tabla Comparativa a formato Texto (.txt) para consulta directa
     esttab ECI_MAIN_SAVED ECI_TWFE_DISAGG DIVX_MAIN_SAVED DIVX_TWFE_DISAGG using "$OUTPUT_DISAGG_FINAL/table_eci_divx_disaggregated.txt", replace ///
         label b(3) se(3) star(* 0.10 ** 0.05 *** 0.01) ///
         mtitles("ECI (Agregado)" "ECI (Desagregado)" "DIVX (Agregado)" "DIVX (Desagregado)") ///
@@ -1184,7 +1182,7 @@ if _rc == 0 {
 * 14.2. Informar en la consola de Stata la finalización exitosa del Script 03
 display as result "---------------------------------------------------------"
 display as result "Parte 3 (Secciones 9 a 14) completada con éxito total en stata-peer-1."
-display as result "Tablas LaTeX desagregadas guardadas en: $OUTPUT_DISAGG_FINAL"
+display as result "Tablas LaTeX desagregadas guardadas en: $OUTPUT_FINAL"
 display as result "---------------------------------------------------------"
 
 * 14.3. Cerrar el archivo de registro de ejecución de la Parte 3
