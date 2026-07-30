@@ -1,18 +1,26 @@
 """CAPA: RAW.
+VARIABLE: INNOV.
+ENTRADAS: panel WDI compartido y muestra DRES del 20 %.
+SALIDAS: data/raw/innov/.
 
-Prepara los unicos insumos raw seleccionados para INNOV.
+# Ejecutar la siguiente instrucción del bloque
+Prepara los únicos insumos raw seleccionados para INNOV.
 
-La futura variable usa articulos cientificos y tecnicos por millon de
-habitantes. En raw se conservan por separado el conteo de articulos y la
-poblacion, sin calcular tasas ni logaritmos.
+# Ejecutar la siguiente instrucción del bloque
+La variable utiliza artículos científicos y técnicos por millón de habitantes.
+En raw se conservan por separado el conteo de artículos y la población, sin
+calcular tasas ni logaritmos.
 """
 
+# Cargar librerías y módulos requeridos
 from pathlib import Path
 
+# Cargar librerías y módulos requeridos
 import numpy as np
 import pandas as pd
 
 
+# Ejecutar la siguiente instrucción del bloque
 PROJECT_PATH = Path(__file__).resolve().parents[4]
 WDI_SOURCE = (
     PROJECT_PATH
@@ -34,13 +42,16 @@ OUTPUT_PATH = (
 ANALYSIS_YEARS = list(range(1996, 2023))
 
 
+# Definir función principal o auxiliar
 def main() -> None:
     """Extrae los insumos WDI, valida cobertura y escribe las salidas raw."""
 
+    # Iterar sobre los elementos del conjunto
     for path in [WDI_SOURCE, DRES_SAMPLE]:
         if not path.is_file():
             raise FileNotFoundError(f"Falta el insumo requerido: {path}")
 
+    # Cargar el archivo de datos
     sample = pd.read_csv(DRES_SAMPLE, dtype={"country_iso3_code": "string"})
     sample["country_iso3_code"] = (
         sample["country_iso3_code"].str.strip().str.upper()
@@ -48,6 +59,7 @@ def main() -> None:
     if len(sample) != 55 or sample["country_iso3_code"].duplicated().any():
         raise ValueError("La muestra DRES no contiene 55 paises unicos.")
 
+    # Cargar el archivo de datos
     wdi = pd.read_csv(
         WDI_SOURCE,
         dtype={"country_iso3_code": "string"},
@@ -63,6 +75,7 @@ def main() -> None:
     if missing:
         raise ValueError("Faltan columnas WDI: " + ", ".join(missing))
 
+    # Ejecutar la siguiente instrucción del bloque
     innov_raw = wdi[required].rename(
         columns={
             "scientific_technical_journal_articles": "scientific_articles"
@@ -83,6 +96,7 @@ def main() -> None:
         ["country_iso3_code", "year"]
     ).reset_index(drop=True)
 
+    # Evaluar condición de control de flujo
     if innov_raw.duplicated(["country_iso3_code", "year"]).any():
         raise ValueError("INNOV contiene llaves pais-anio duplicadas.")
     if not innov_raw["country_iso3_code"].str.fullmatch(r"[A-Z]{3}").all():
@@ -102,6 +116,7 @@ def main() -> None:
     ):
         raise ValueError("La poblacion contiene valores invalidos.")
 
+    # Ejecutar la siguiente instrucción del bloque
     grid = pd.MultiIndex.from_product(
         [
             sample["country_iso3_code"].sort_values().tolist(),
@@ -131,6 +146,7 @@ def main() -> None:
     if len(grid) != 1485:
         raise ValueError("La cuadricula DRES de INNOV no tiene 1.485 celdas.")
 
+    # Ejecutar la siguiente instrucción del bloque
     grid["input_bundle_observed"] = (
         grid["scientific_articles"].notna()
         & grid["population_total"].notna()
@@ -155,6 +171,7 @@ def main() -> None:
             }
         )
 
+    # Ejecutar la siguiente instrucción del bloque
     country_coverage = pd.DataFrame(coverage_rows)
     observed_bundle = grid["input_bundle_observed"]
     coverage_summary = pd.DataFrame(
@@ -180,6 +197,7 @@ def main() -> None:
         ]
     )
 
+    # Ejecutar la siguiente instrucción del bloque
     OUTPUT_PATH.mkdir(parents=True, exist_ok=True)
     innov_raw.to_csv(
         OUTPUT_PATH / "innov_wdi_input_1980_2022.csv",
@@ -205,9 +223,11 @@ def main() -> None:
         encoding="utf-8",
     )
 
+    # Ejecutar la siguiente instrucción del bloque
     print("Raw de INNOV terminado.")
     print(coverage_summary.to_string(index=False))
 
 
+# Evaluar condición de control de flujo
 if __name__ == "__main__":
     main()

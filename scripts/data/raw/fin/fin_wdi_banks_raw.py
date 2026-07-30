@@ -3,14 +3,17 @@ VARIABLE: FIN
 ENTRADA: descarga oficial de World Development Indicators
 SALIDAS: data/raw/fin/world_bank_wdi/
 
+# Ejecutar la siguiente instrucción del bloque
 Descarga el crédito doméstico al sector privado otorgado por bancos como
 porcentaje del PIB (FD.AST.PRVT.GD.ZS). La captura conserva la cuadrícula de
 los 55 países DRES para 1980-2025, los metadatos del indicador, el ZIP oficial
 y un manifiesto con hashes SHA-256.
 """
 
+# Cargar librerías y módulos requeridos
 from __future__ import annotations
 
+# Cargar librerías y módulos requeridos
 import csv
 import hashlib
 import io
@@ -26,6 +29,7 @@ from pathlib import Path
 from typing import Any
 
 
+# Ejecutar la siguiente instrucción del bloque
 INDICATOR_CODE = "FD.AST.PRVT.GD.ZS"
 INDICATOR_NAME = "Domestic credit to private sector by banks (% of GDP)"
 DOWNLOAD_URL = (
@@ -41,21 +45,26 @@ MINIMUM_ANALYSIS_OBSERVATIONS = 1300
 MAX_ATTEMPTS = 3
 
 
+# Definir función principal o auxiliar
 def find_project_root() -> Path:
     """Localiza la raíz del repositorio desde la ubicación del script."""
 
+    # Ejecutar la siguiente instrucción del bloque
     candidate = Path(__file__).resolve().parents[4]
     if not (candidate / "scripts" / "project_paths.R").exists():
         raise RuntimeError("No se pudo identificar la raíz del repositorio.")
     return candidate
 
 
+# Definir función principal o auxiliar
 def sha256(path: Path) -> str:
     """Calcula el hash SHA-256 de un archivo."""
 
+    # Retornar el resultado de la función
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+# Definir función principal o auxiliar
 def atomic_write_csv(
     path: Path,
     fieldnames: list[str],
@@ -63,6 +72,7 @@ def atomic_write_csv(
 ) -> None:
     """Escribe un CSV completo y reemplaza el destino al finalizar."""
 
+    # Ejecutar la siguiente instrucción del bloque
     path.parent.mkdir(parents=True, exist_ok=True)
     descriptor, temporary_name = tempfile.mkstemp(
         prefix=f"{path.stem}_",
@@ -82,9 +92,11 @@ def atomic_write_csv(
         raise
 
 
+# Definir función principal o auxiliar
 def download_archive(destination: Path) -> None:
     """Descarga el ZIP oficial con reintentos y reemplazo atómico."""
 
+    # Ejecutar la siguiente instrucción del bloque
     destination.parent.mkdir(parents=True, exist_ok=True)
     descriptor, temporary_name = tempfile.mkstemp(
         prefix=f"{destination.stem}_",
@@ -103,6 +115,7 @@ def download_archive(destination: Path) -> None:
         },
     )
 
+    # Ejecutar la siguiente instrucción del bloque
     last_error: Exception | None = None
     try:
         for attempt in range(1, MAX_ATTEMPTS + 1):
@@ -134,12 +147,14 @@ def download_archive(destination: Path) -> None:
             os.unlink(temporary_name)
 
 
+# Definir función principal o auxiliar
 def find_zip_member(
     archive: zipfile.ZipFile,
     prefix: str,
 ) -> str:
     """Encuentra exactamente un archivo CSV por prefijo."""
 
+    # Ejecutar la siguiente instrucción del bloque
     matches = [
         name
         for name in archive.namelist()
@@ -154,9 +169,11 @@ def find_zip_member(
     return matches[0]
 
 
+# Definir función principal o auxiliar
 def read_sample(sample_file: Path) -> dict[str, str]:
     """Lee y valida la muestra fija DRES."""
 
+    # Ejecutar la siguiente instrucción del bloque
     with sample_file.open(newline="", encoding="utf-8-sig") as handle:
         rows = list(csv.DictReader(handle))
     sample = {
@@ -170,6 +187,7 @@ def read_sample(sample_file: Path) -> dict[str, str]:
     return sample
 
 
+# Definir función principal o auxiliar
 def read_wdi_rows(
     archive: zipfile.ZipFile,
     data_member: str,
@@ -177,12 +195,14 @@ def read_wdi_rows(
 ) -> list[dict[str, Any]]:
     """Convierte el archivo WDI ancho en una cuadrícula país-año."""
 
+    # Ejecutar la siguiente instrucción del bloque
     with archive.open(data_member) as binary_handle:
         text_handle = io.TextIOWrapper(binary_handle, encoding="utf-8-sig")
         for _ in range(4):
             next(text_handle)
         source_rows = list(csv.DictReader(text_handle))
 
+    # Ejecutar la siguiente instrucción del bloque
     rows_by_iso3 = {
         str(row["Country Code"]).strip().upper(): row
         for row in source_rows
@@ -194,6 +214,7 @@ def read_wdi_rows(
             "La descarga WDI no incluye: " + ", ".join(missing_countries)
         )
 
+    # Ejecutar la siguiente instrucción del bloque
     data_rows: list[dict[str, Any]] = []
     for iso3 in sorted(sample):
         source_row = rows_by_iso3[iso3]
@@ -223,6 +244,7 @@ def read_wdi_rows(
                 }
             )
 
+    # Ejecutar la siguiente instrucción del bloque
     keys = [
         (row["country_iso3_code"], row["year"])
         for row in data_rows
@@ -235,6 +257,7 @@ def read_wdi_rows(
             "La cuadrícula WDI histórica no conserva llaves únicas."
         )
 
+    # Ejecutar la siguiente instrucción del bloque
     analysis_rows = [
         row
         for row in data_rows
@@ -251,15 +274,18 @@ def read_wdi_rows(
             "La cobertura bancaria WDI cayó por debajo de 1.300 país-años."
         )
 
+    # Retornar el resultado de la función
     return data_rows
 
 
+# Definir función principal o auxiliar
 def read_metadata(
     archive: zipfile.ZipFile,
     metadata_member: str,
 ) -> list[dict[str, Any]]:
     """Conserva los metadatos oficiales del indicador."""
 
+    # Ejecutar la siguiente instrucción del bloque
     with archive.open(metadata_member) as binary_handle:
         text_handle = io.TextIOWrapper(binary_handle, encoding="utf-8-sig")
         rows = list(csv.DictReader(text_handle))
@@ -285,9 +311,11 @@ def read_metadata(
     ]
 
 
+# Definir función principal o auxiliar
 def main() -> None:
     """Descarga, normaliza y valida la nueva definición activa de FIN."""
 
+    # Ejecutar la siguiente instrucción del bloque
     project_root = find_project_root()
     sample_file = (
         project_root
@@ -303,9 +331,11 @@ def main() -> None:
     metadata_file = raw_path / "fin_banks_wdi_metadata.csv"
     manifest_file = raw_path / "download_manifest.csv"
 
+    # Ejecutar la siguiente instrucción del bloque
     sample = read_sample(sample_file)
     download_archive(zip_file)
 
+    # Ejecutar la siguiente instrucción del bloque
     with zipfile.ZipFile(zip_file) as archive:
         data_member = find_zip_member(
             archive,
@@ -322,6 +352,7 @@ def main() -> None:
             for entry in archive.infolist()
         ).isoformat()
 
+    # Ejecutar la siguiente instrucción del bloque
     data_fields = [
         "country_iso3_code",
         "country_dres",
@@ -340,6 +371,7 @@ def main() -> None:
     atomic_write_csv(data_file, data_fields, data_rows)
     atomic_write_csv(metadata_file, metadata_fields, metadata_rows)
 
+    # Ejecutar la siguiente instrucción del bloque
     analysis_rows = [
         row
         for row in data_rows
@@ -384,6 +416,7 @@ def main() -> None:
         manifest_rows,
     )
 
+    # Ejecutar la siguiente instrucción del bloque
     print(f"Datos raw WDI guardados en: {data_file}")
     print(f"Metadatos WDI guardados en: {metadata_file}")
     print(f"ZIP oficial guardado en: {zip_file}")
@@ -396,5 +429,6 @@ def main() -> None:
     )
 
 
+# Evaluar condición de control de flujo
 if __name__ == "__main__":
     main()

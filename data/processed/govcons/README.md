@@ -51,6 +51,5 @@ Venezuela procede de datos oficiales.
 - `govcons_year_coverage_1996_2021.csv`: cobertura y calidad por año;
 - `govcons_validation_summary.csv`: umbrales y resultados de validación.
 
-El punto de entrada estable es
+El procesamiento se implementa en un único punto de entrada:
 [`scripts/data/processed/govcons/govcons_processed.R`](../../../scripts/data/processed/govcons/govcons_processed.R).
-La implementación activa está en `govcons_un_ama_processed.R`.

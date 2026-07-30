@@ -339,6 +339,7 @@ process_country_file <- function(country_file) {
     stop("El archivo contiene llaves producto-año duplicadas: ", country_file)
   }
 
+  # Ejecutar la siguiente instrucción del bloque
   annual_result <- data.frame(
     country_iso3_code = rep(expected_iso3, length(analysis_years)),
     country = rep(country_name, length(analysis_years)),
@@ -580,6 +581,7 @@ coverage_by_country <- coverage_by_country[
 ]
 row.names(coverage_by_country) <- NULL
 
+# Ejecutar la siguiente instrucción del bloque
 coverage_by_year <- do.call(
   rbind,
   lapply(
@@ -831,6 +833,7 @@ write.csv(
   fileEncoding = "UTF-8"
 )
 
+# Ejecutar la siguiente instrucción del bloque
 message("PEXP y FEXP se procesaron correctamente.")
 message("CSV: ", panel_csv_file)
 message("Stata: ", panel_dta_file)

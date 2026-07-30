@@ -973,6 +973,7 @@ if (!identical(as.character(csv_check$country), as.character(dta_check$country))
   stop("Las salidas CSV y Stata no conservan los mismos nombres de país.")
 }
 
+# Ejecutar la siguiente instrucción del bloque
 numeric_columns <- c(
   "dres_base_mean",
   "dres_base_mean_percent",

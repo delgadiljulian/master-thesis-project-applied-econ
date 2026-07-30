@@ -15,116 +15,505 @@
 	\section{Fuentes de datos y muestra}
 	\label{sec:fuentes-datos-muestra}
 
-	Este capítulo no replica el detalle metodológico sobre criterios de selección muestral ni sobre la justificación de cada indicador. Su propósito es presentar una caracterización descriptiva del panel consolidado antes de la estimación econométrica. En consecuencia, aquí se identifican de manera general las fuentes de información empleadas, su cobertura y la lógica de integración de la base, mientras que la discusión completa sobre selección de países, período de análisis y especificación del modelo se desarrolla en el capítulo metodológico.
+	Este capítulo caracteriza el panel consolidado que sirve de base para la
+	estimación econométrica. El análisis se concentra en cuatro aspectos: la
+	composición de la muestra, la cobertura de las variables, sus distribuciones
+	y las principales regularidades descriptivas. Los criterios de selección de
+	países, las definiciones operativas y la especificación de los modelos se
+	desarrollan en el capítulo metodológico; aquí se presentan los resultados
+	efectivos de su aplicación.
 
-	De manera sintética, la base combina información de comercio internacional, estructura productiva, desempeño macroeconómico y calidad institucional. El \textit{Economic Complexity Index} ($ECI$), $DRES$, $HHI$, $DIVX$, $PEXP$ y $FEXP$ se obtienen o construyen a partir del \textit{Atlas of Economic Complexity}; $RENTS$, $OILPC$, $GASPC$, $COALPC$, $INNOV$, $NET$, $LOG\_GDPPC$ y $FIN$ utilizan insumos de los \textit{World Development Indicators}; $GOVCONS$ procede de \textit{National Accounts Main Aggregates} de Naciones Unidas; $INST$ emplea tres estimadores de los \textit{Worldwide Governance Indicators}; $VOL$ utiliza el índice CTOT del Fondo Monetario Internacional con ponderaciones fijas; $RER$ procede de Penn World Table 11.0; y $HUMCAP$ se construye con los años promedio de escolaridad de adultos publicados por el PNUD y la función de retornos educativos utilizada por PWT.
+	La base integra información de comercio internacional, estructura
+	productiva, desempeño macroeconómico y calidad institucional. El
+	\textit{Economic Complexity Index} ($ECI$), $DRES$, $HHI$, $DIVX$, $PEXP$ y
+	$FEXP$ se obtienen o construyen a partir del \textit{Atlas of Economic
+	Complexity}; $RENTS$, $OILPC$, $GASPC$, $COALPC$, $INNOV$, $NET$,
+	$LOG\_GDPPC$ y $FIN$ utilizan insumos de los \textit{World Development
+	Indicators}; $GOVCONS$ procede de \textit{National Accounts Main Aggregates}
+	de Naciones Unidas; $INST$ emplea tres estimadores de los \textit{Worldwide
+	Governance Indicators}; $VOL$ utiliza el índice CTOT del Fondo Monetario
+	Internacional con ponderaciones fijas; $RER$ procede de Penn World Table
+	11.0; y $HUMCAP$ se construye con los años promedio de escolaridad de adultos
+	publicados por el PNUD y la función de retornos educativos utilizada por
+	PWT.
+
+	La integración sigue una secuencia reproducible de datos originales, series
+	procesadas y panel maestro. Las fuentes se armonizan mediante códigos ISO3 y
+	año, se verifican las llaves país--año y se conservan por separado las series
+	activas y las referencias utilizadas para contrastarlas. Todas las tablas y
+	figuras de este capítulo se generan a partir de la versión validada del panel
+	maestro, sin combinar fuentes de manera selectiva para completar celdas.
 
 	La selección mediante $DRES\geq20\%$ identifica una grilla fija de 55 países
-	y 26 años, equivalente a 1.430 observaciones país--año. La captura oficial
-	del $ECI$ mediante la API del Atlas cubre la totalidad de esa grilla, al
-	igual que $PEXP$, $FEXP$, $INNOV$, $GOVCONS$, $HHI$ y $DIVX$. Las demás variables
-	presentan coberturas individuales entre 83,7\% y 98,1\%; por tanto, todas
-	superan el 80\% de las observaciones potenciales.
+	y 26 años, equivalente a 1.430 observaciones país--año. Esta selección no se
+	modifica por la disponibilidad posterior de los regresores: la grilla
+	conserva todas las llaves y cada estimación utiliza la intersección de
+	información correspondiente a su ecuación.
 
-	La principal reducción aparece al intersectar simultáneamente las variables
-	del modelo: se dispone de 1.044 observaciones completas correspondientes a 49
-	países (73,0\% de la grilla). Este resultado no implica redefinir la muestra de economías, sino
-	utilizar en cada ecuación los país--años para los cuales están disponibles
-	todos sus regresores. Los vacíos estructurales de los WGI en 1997, 1999 y
-	2001 se conservan sin interpolación. La serie activa de $GOVCONS$ cubre las
-	1.430 observaciones mediante Naciones Unidas; WDI se conserva como referencia
-	de contraste y no se mezcla con ella. Los metadatos identifican explícitamente
-	los valores directos y los procedimientos derivados aplicados por la fuente.
-	$FIN$ utiliza íntegramente el crédito privado otorgado por bancos
-	(\texttt{FD.AST.PRVT.GD.ZS}); la serie amplia se conserva solo como contraste
-	y no se emplea para completar faltantes. $HUMCAP$ cubre 1.403 país--años
-	(98,11\%) con una serie íntegramente basada en el PNUD; el índice
-	\texttt{hc} de PWT se conserva únicamente como referencia de validación y no
-	se utiliza para rellenar sus 27 vacíos.
+	La \autoref{fig:dres-distribution-cap10} muestra que el umbral funciona como
+	un límite inferior y no concentra la muestra alrededor del 20\%. El promedio
+	de $DRES$ se extiende desde 21,41\% hasta 98,97\%, con una media de 61,05\% y
+	una mediana de 56,20\%. El intervalo de 80\% a 90\% reúne 14 países, pero los
+	55 casos se distribuyen a lo largo de todo el rango. La muestra fija incluye,
+	por tanto, economías con grados muy distintos de dependencia exportadora de
+	recursos extractivos.
+
+	\begin{figure}[!htbp]
+		\centering
+		\includegraphics[width=\linewidth]{\subfix{../../figures/chapter10_dres_distribution}}
+		\caption[Distribución de DRES]{Distribución del promedio de DRES durante
+		1990--1995 para los 55 países de la muestra. La línea discontinua indica
+		el umbral de selección del 20\%.}
+		\label{fig:dres-distribution-cap10}
+		\caption*{\footnotesize \textit{Fuente: Elaboración propia a partir del panel maestro.}}
+	\end{figure}
+
+	La principal reducción de observaciones aparece al exigir simultáneamente
+	todas las variables de las ecuaciones. La muestra conjunta contiene 1.044
+	país--años correspondientes a 49 países, equivalentes al 73,01\% de la
+	grilla. Como $ECI$, $DIVX$ y $HHI$ tienen cobertura completa, las dos
+	especificaciones comparten las mismas llaves país--año. La
+	\autoref{tab:composicion-muestra-cap10} distingue esta intersección de la
+	disponibilidad individual de las variables dependientes.
+
+	\begin{table}[htbp]
+		\centering
+		\caption{Composición de la muestra, 1996--2021}
+		\label{tab:composicion-muestra-cap10}
+		\begin{minipage}{0.94\textwidth}
+			\small
+			\begin{tabularx}{\linewidth}{@{}Xrrrr@{}}
+				\toprule
+				Muestra
+				& Observaciones
+				& Países
+				& Años representados
+				& Cobertura (\%) \\
+				\midrule
+				Grilla maestra
+				& 1.430 & 55 & 26 & 100,00 \\
+				Disponibilidad individual de $ECI$ y $DIVX$
+				& 1.430 & 55 & 26 & 100,00 \\
+				Muestra econométrica completa
+				& 1.044 & 49 & 23 & 73,01 \\
+				\bottomrule
+			\end{tabularx}
+			\par\medskip
+			\footnotesize
+			\textit{Nota:} La muestra econométrica completa exige la
+			disponibilidad simultánea de la variable dependiente y de todos los
+			regresores. Las ecuaciones con $ECI$ y $DIVX$ contienen las mismas
+			1.044 llaves país--año.
+			\thesissource{Elaboración propia a partir del panel maestro.}
+		\end{minipage}
+	\end{table}
+
+	Las 1.044 observaciones no conforman un panel balanceado de 49 países por 23
+	años. Los años 1997, 1999 y 2001 desaparecen por completo de la intersección
+	debido a la ausencia estructural de los indicadores WGI, y otros faltantes
+	reducen la participación de determinados países en años adicionales. Esta
+	distinción resulta central: la selección inicial mantiene 55 economías,
+	mientras que la disponibilidad efectiva se determina en cada ecuación.
 
 	Algunas economías con $ECI$ disponible mediante API no cumplen los criterios
 	del Atlas para aparecer en perfiles y rankings públicos; esta condición se
 	documenta como limitación de calidad, pero no se utiliza para mezclar
 	fuentes ni definir otra muestra econométrica. Aunque varios insumos llegan
-	hasta 2022, las estimaciones cubrirán 1996--2021 porque los cuatro
-	componentes de $RENTS$ terminan en 2021. El número efectivo de observaciones
-	y países se documentará junto con cada estimación.
+	hasta 2022, el panel se cierra en 2021 porque la disponibilidad conjunta de
+	los cuatro componentes de $RENTS$ termina ese año. El período común de
+	1996--2021 preserva así una definición temporal uniforme para las dos
+	especificaciones.
 
 
-	\section{Definición y construcción de variables}
-	\label{sec:definicion-construccion-variables}
+	\section{Resumen de variables y cobertura}
+	\label{sec:resumen-variables-cobertura}
 
-	Dado que las definiciones operativas completas de las variables del modelo ya fueron establecidas en el capítulo metodológico, esta sección se limita a precisar cuáles indicadores se utilizan en la descripción del panel y en el análisis exploratorio previo a la econometría. En esta etapa se privilegian las variables que permiten caracterizar tres dimensiones centrales de la base: la especialización extractiva, el nivel de desarrollo económico y la transformación estructural.
+	Las variables se organizan en tres dimensiones descriptivas. La
+	especialización extractiva se observa mediante la participación de los
+	recursos naturales no renovables del subsuelo en las exportaciones de
+	mercancías y mediante las rentas de petróleo, gas natural, carbón y minerales
+	como proporción del PIB. La transformación estructural externa se aproxima
+	con el Índice de Complejidad Económica ($ECI$) y con la diversificación
+	exportadora, definida como $DIVX=1-HHI$. El nivel de desarrollo económico se
+	resume mediante el logaritmo del PIB per cápita en paridad de poder
+	adquisitivo constante.
 
-	Para la caracterización de la especialización extractiva se emplean indicadores de participación de las exportaciones de recursos naturales no renovables del subsuelo ---hidrocarburos, carbón, minerales, metales, piedras preciosas y oro no monetario--- en las exportaciones totales de mercancías, así como la suma de las rentas de petróleo, gas natural, carbón y minerales como porcentaje del PIB. Para la transformación estructural externa se utiliza principalmente el Índice de Complejidad Económica ($ECI$), complementado con $DIVX=1-HHI$. Por su parte, el nivel de desarrollo se resume mediante el logaritmo del PIB per cápita en PPA constante y, en algunos ejercicios descriptivos, mediante la clasificación de países por grupos de ingreso. Las transformaciones aplicadas respetarán exclusivamente las definiciones operativas del capítulo metodológico.
+	Los demás indicadores representan los canales institucional, de abundancia,
+	estructural, macroeconómico, de capacidades productivas y financiero
+	definidos en el capítulo metodológico. Esta organización evita repetir la
+	justificación de cada regresor y mantiene una correspondencia directa entre
+	el \autoref{tab:variables}, el panel maestro y las dos ecuaciones
+	econométricas.
 
-	En consecuencia, este capítulo no vuelve a desarrollar variable por variable la lógica del modelo econométrico. La capa \texttt{data/processed} reúne el panel depurado que se utilizará para documentar regularidades empíricas básicas antes de pasar a las estimaciones. Las definiciones detalladas, los criterios exactos de construcción y la justificación de las variables de control se mantienen en el capítulo de metodología para evitar redundancias innecesarias.
+	La \autoref{tab:cobertura-individual-cap10} presenta la disponibilidad de
+	cada variable utilizada en las dos ecuaciones. La cobertura individual no
+	debe interpretarse como el tamaño de la muestra econométrica, pues esta
+	última depende de la coincidencia de todas las variables requeridas.
+
+	\begin{table}[htbp]
+		\centering
+		\caption{Cobertura individual de las variables del modelo, 1996--2021}
+		\label{tab:cobertura-individual-cap10}
+		\footnotesize
+		\renewcommand{\arraystretch}{0.92}
+		\setlength{\tabcolsep}{5pt}
+		\begin{tabular}{lrrr}
+			\toprule
+			Variable
+			& Disponibles
+			& Faltantes
+			& Cobertura (\%) \\
+			\midrule
+			$ECI$                  & 1.430 & 0   & 100,00 \\
+			$DIVX$                 & 1.430 & 0   & 100,00 \\
+			$RENTS$                & 1.352 & 78  & 94,55 \\
+			$INST$                 & 1.257 & 173 & 87,90 \\
+			$RENTS\times INST$     & 1.197 & 233 & 83,71 \\
+			$OILPC$                & 1.397 & 33  & 97,69 \\
+			$GASPC$                & 1.365 & 65  & 95,45 \\
+			$COALPC$               & 1.384 & 46  & 96,78 \\
+			$HHI$                  & 1.430 & 0   & 100,00 \\
+			$PEXP$                 & 1.430 & 0   & 100,00 \\
+			$FEXP$                 & 1.430 & 0   & 100,00 \\
+			$VOL$                  & 1.403 & 27  & 98,11 \\
+			$RER$                  & 1.352 & 78  & 94,55 \\
+			$HUMCAP$               & 1.403 & 27  & 98,11 \\
+			$INNOV$                & 1.430 & 0   & 100,00 \\
+			$NET$                  & 1.379 & 51  & 96,43 \\
+			$LOG\_GDPPC$           & 1.378 & 52  & 96,36 \\
+			$GOVCONS$              & 1.430 & 0   & 100,00 \\
+			$FIN$                  & 1.328 & 102 & 92,87 \\
+			\bottomrule
+		\end{tabular}
+		\begin{minipage}{0.94\textwidth}
+			\footnotesize
+			\textit{Nota:} Cobertura calculada sobre 1.430 observaciones
+			potenciales. $DRES$ se omite porque corresponde al promedio
+			1990--1995 utilizado para seleccionar los países y no a una variable
+			país--año. La interacción se observa cuando coinciden $RENTS$ e
+			$INST$.
+			\thesissource{Elaboración propia a partir del panel maestro.}
+		\end{minipage}
+	\end{table}
+
+	La disponibilidad individual es elevada. Dieciséis de las 19 variables
+	enumeradas alcanzan al menos el 94,55\% de la grilla; entre ellas, $ECI$,
+	$DIVX$, $HHI$, $PEXP$, $FEXP$, $INNOV$ y $GOVCONS$ tienen cobertura
+	completa. $FIN$ dispone de 1.328 observaciones (92,87\%) y $HUMCAP$ de 1.403
+	(98,11\%), después de adoptar para cada indicador una única serie activa y
+	conservar las alternativas solo como referencia de contraste.
+
+	La menor cobertura corresponde a $INST$ y a su interacción con $RENTS$.
+	$INST$ alcanza 1.257 observaciones (87,90\%); al exigir además la
+	disponibilidad de los cuatro componentes de las rentas, $RENTS\times INST$
+	se reduce a 1.197 (83,71\%). Esta última cifra no representa una fuente
+	adicional de faltantes, sino la intersección de las dos variables que forman
+	el término de interacción. De este modo, una cobertura individual superior
+	al 80\% en todas las variables coexiste con una muestra conjunta menor.
 
 
-	\section{Estadística descriptiva}
+	\section{Estadística descriptiva del panel}
 	\label{sec:estadistica-descriptiva}
 
-	Esta sección ofrecerá una caracterización descriptiva de la base empírica una vez construida la capa \texttt{data/processed}. El objetivo será identificar regularidades básicas en la distribución de las variables, en la composición de la muestra y en las asociaciones bivariadas más relevantes antes de proceder a la estimación econométrica. Por ahora se conservan únicamente gráficos de contextualización basados en fuentes externas claramente identificadas.
+	La \autoref{tab:descriptivos-muestra-econometrica} resume las variables en
+	las 1.044 observaciones que integran la muestra conjunta de las dos
+	ecuaciones. Utilizar una única muestra permite que las diferencias entre
+	distribuciones no respondan a cambios en la composición de países o años.
+	Los estadísticos se generan de forma reproducible a partir del panel maestro,
+	sin imputar, recortar ni modificar los valores fuente.
 
-	\subsection{Hechos estilizados}
-	\label{subsec:hechos-estilizados}
-
-	Antes de examinar el panel consolidado de esta investigación, resulta útil presentar algunos hechos estilizados que sirven como punto de referencia para interpretar la heterogeneidad de las economías dependientes de recursos naturales no renovables del subsuelo. Los gráficos presentados en las Figuras \ref{fig:extractive-specialization}, \ref{fig:commodities-income}, \ref{fig:energy-income-boxplot} y \ref{fig:mining-income-boxplot} se construyen a partir de los datos reportados en las tablas de \textcite[27--30]{Anne2021}. Para estos gráficos, la participación extractiva se calcula como la suma de las exportaciones mineras y energéticas; por tanto, no incluye productos agrícolas ni otros recursos renovables. Su función en esta sección es contextual: permiten situar el problema empírico general antes de pasar al análisis exploratorio del panel utilizado en la tesis.
-
-	Un primer hecho estilizado surge al analizar conjuntamente la participación de las exportaciones mineras y energéticas en la canasta exportadora de los países considerados. El diagrama de dispersión de la \autoref{fig:extractive-specialization} muestra que las observaciones no se distribuyen de manera homogénea en el plano, sino que tienden a agruparse en tres configuraciones. En una de ellas predominan las economías con alta participación de exportaciones energéticas y baja participación de exportaciones mineras; en otra se ubican las economías con especialización minera marcada y escasa presencia de recursos energéticos; y entre ambos extremos aparece un grupo de economías mixtas con participaciones moderadas en ambos tipos de recursos. En conjunto, el gráfico sugiere que la dependencia extractiva suele adoptar perfiles relativamente especializados, mientras que los casos de alta dependencia simultánea en minería y energía son menos frecuentes.
-
-	\begin{figure}[H]
+	\begin{table}[htbp]
 		\centering
-		\includegraphics[width=\textwidth]{\subfix{../../figures/extractive_specialization_scatter}}
+		\caption{Estadísticos descriptivos de la muestra econométrica}
+		\label{tab:descriptivos-muestra-econometrica}
+		\small
+		\renewcommand{\arraystretch}{0.88}
+		\setlength{\tabcolsep}{6pt}
+		\begin{tabular}{lrrrrrr}
+			\toprule
+			Variable
+			& Obs.
+			& Media
+			& Desv. est.
+			& Mediana
+			& Mínimo
+			& Máximo \\
+			\midrule
+			$ECI$                  & 1.044 & $-0,410$ & 0,863 & $-0,350$ & $-2,901$   & 1,283 \\
+			$DIVX$                 & 1.044 & 0,749    & 0,215 & 0,817    & 0,016      & 0,988 \\
+			$RENTS$                & 1.044 & 12,414   & 13,730 & 6,831   & 0,000      & 65,313 \\
+			$INST$                 & 1.044 & $-0,270$ & 0,811 & $-0,392$ & $-1,936$   & 2,090 \\
+			$RENTS\times INST$     & 1.044 & $-3,952$ & 15,129 & $-0,761$ & $-106,694$ & 34,274 \\
+			$OILPC$                & 1.044 & 1.683,809 & 3.915,111 & 69,653 & 0,000 & 25.015,668 \\
+			$GASPC$                & 1.044 & 270,118  & 791,690 & 3,687   & 0,000      & 7.865,992 \\
+			$COALPC$               & 1.044 & 21,710   & 101,077 & 0,000   & 0,000      & 1.582,798 \\
+			$HHI$                  & 1.044 & 0,251    & 0,215 & 0,183    & 0,012      & 0,984 \\
+			$PEXP$                 & 1.044 & 30,429   & 25,567 & 23,648  & 0,135      & 97,656 \\
+			$FEXP$                 & 1.044 & 34,610   & 32,316 & 24,812  & 0,000      & 99,325 \\
+			$VOL$                  & 1.044 & 12,210   & 7,512 & 10,214   & 0,783      & 42,588 \\
+			$RER$                  & 1.044 & $-0,946$ & 0,394 & $-0,954$ & $-2,231$   & 0,279 \\
+			$HUMCAP$               & 1.044 & 2,449    & 0,570 & 2,500    & 1,205      & 3,730 \\
+			$INNOV$                & 1.044 & 3,645    & 1,838 & 3,570    & 0,128      & 7,845 \\
+			$NET$                  & 1.044 & 29,546   & 29,285 & 19,919  & 0,000      & 100,000 \\
+			$LOG\_GDPPC$           & 1.044 & 9,401    & 1,187 & 9,373    & 6,835      & 11,912 \\
+			$GOVCONS$              & 1.044 & 14,832   & 5,589 & 14,003   & 0,911      & 47,192 \\
+			$FIN$                  & 1.044 & 35,709   & 27,923 & 28,984  & 0,449      & 142,104 \\
+			\bottomrule
+		\end{tabular}
+		\begin{minipage}{0.94\textwidth}
+			\par\smallskip
+			\footnotesize
+			\textit{Nota:} Los estadísticos se calculan sobre las mismas 1.044
+			llaves país--año. $HHI$ se incluye únicamente en la ecuación con
+			$ECI$; en la ecuación complementaria se utiliza $DIVX=1-HHI$ como
+			variable dependiente. Las unidades y transformaciones se definen en
+			el \autoref{tab:variables}.
+			\thesissource{Elaboración propia a partir del panel maestro.}
+		\end{minipage}
+	\end{table}
 
-		\caption[Exportaciones mineras y energéticas]{Relación entre la participación de las exportaciones mineras y energéticas en la canasta exportadora de los países considerados. Las líneas punteadas indican umbrales del 20\% que permiten distinguir distintos patrones de especialización extractiva.}
+	La muestra presenta una heterogeneidad considerable en sus dos resultados de
+	transformación estructural. El $ECI$ varía entre $-2,901$ y 1,283, con una
+	media de $-0,410$, mientras que $DIVX$ se sitúa entre 0,016 y 0,988, con una
+	media de 0,749. La amplitud de ambos intervalos confirma que la selección por
+	dependencia extractiva no conduce a un grupo homogéneo en complejidad o
+	diversificación exportadora.
 
-		\label{fig:extractive-specialization}
-		\caption*{\footnotesize \textit{Fuente: Elaboración propia con base en datos reportados en \textcite{Anne2021}.}}
+	Las rentas extractivas alcanzan una media de 12,41\% del PIB y una mediana de
+	6,83\%. La diferencia entre ambas medidas revela una distribución sesgada
+	hacia la derecha. La asimetría es todavía más marcada en los indicadores de
+	abundancia: la media de $OILPC$ es 1.683,81 dólares constantes por habitante,
+	frente a una mediana de 69,65; en $GASPC$, los valores respectivos son 270,12
+	y 3,69; y en $COALPC$, 21,71 y cero. Estos contrastes reflejan la presencia de
+	pocos productores de gran escala y de numerosos país--años con producción
+	nula o reducida.
+
+	Otros controles también muestran dispersiones relevantes. La conectividad
+	digital presenta una media de 29,55\% de la población y un rango que llega al
+	100\%, mientras que la profundidad financiera oscila entre 0,45\% y
+	142,10\% del PIB. En el caso institucional, la media negativa de $INST$
+	($-0,270$) y su rango entre $-1,936$ y 2,090 indican que la muestra incluye
+	contextos de gobernanza muy diferentes. Los valores extremos se conservan
+	porque forman parte de las series publicadas y no se aplican recortes antes
+	de la estimación.
+
+	La variación no se limita a las diferencias entre países. En la muestra
+	econométrica, la desviación estándar de los promedios nacionales es 0,829
+	para $ECI$ y 0,202 para $DIVX$, mientras que la desviación estándar de las
+	observaciones respecto de su promedio nacional es 0,281 y 0,085,
+	respectivamente. La heterogeneidad entre países domina en ambos indicadores,
+	pero existe variación temporal dentro de cada economía, que constituye la
+	fuente de identificación de las especificaciones con efectos fijos. Estas
+	estadísticas siguen siendo descriptivas y no establecen relaciones causales.
+
+	\section{Heterogeneidad de la muestra}
+	\label{sec:heterogeneidad-muestra-datos}
+
+	Las figuras construidas con el panel final permiten examinar dos dimensiones
+	de la heterogeneidad: la composición de las rentas extractivas entre países y
+	la evolución de la distribución anual de $ECI$ y $DIVX$. Las
+	visualizaciones elaboradas previamente con los datos reportados por
+	\textcite{Anne2021} se conservan como material complementario en el
+	\autoref{sec:figuras-anne2021}.
+
+	La \autoref{fig:extractive-profile-cap10} utiliza los promedios nacionales de
+	los 53 países con información para los dos componentes. En 27 casos
+	predominan las rentas de petróleo y gas, en 16 predominan las rentas de
+	carbón y minerales y 10 presentan un perfil mixto. La transformación de los
+	ejes amplía la zona próxima a cero y permite distinguir países con rentas
+	reducidas sin modificar las unidades indicadas. La clasificación depende de
+	la composición y no del nivel absoluto: una economía puede presentar
+	predominio de un componente aun cuando sus rentas totales sean bajas.
+
+	\begin{figure}[!htbp]
+		\centering
+		\includegraphics[width=\linewidth]{\subfix{../../figures/chapter10_extractive_profile_country}}
+		\caption[Perfil extractivo de la muestra]{Perfil extractivo de los países
+		de la muestra, 1996--2021. Los límites discontinuos distinguen el
+		predominio de un componente cuando representa al menos el 75\% de las
+		rentas consideradas. Ambos ejes utilizan una transformación de raíz
+		cuadrada y conservan las etiquetas en porcentajes del PIB.}
+		\label{fig:extractive-profile-cap10}
+		\caption*{\footnotesize \textit{Fuente: Elaboración propia a partir del panel maestro.}}
 	\end{figure}
 
-	Un segundo hecho estilizado aparece al relacionar la dependencia exportadora de recursos extractivos con el nivel de ingreso de los países. La \autoref{fig:commodities-income} sugiere que la especialización en exportaciones mineras y energéticas no disminuye de manera monotónica a medida que aumenta el ingreso per cápita. Aunque las economías de bajos ingresos exhiben una elevada dispersión, los grupos de ingreso medio alto y alto también presentan niveles considerables de dependencia exportadora. En particular, la mediana de la participación extractiva se mantiene relativamente elevada en estos grupos, lo que indica que la especialización en recursos naturales no renovables del subsuelo puede coexistir con niveles altos de ingreso.
+	Antigua y Barbuda, Gambia y Seychelles se ubican en el origen porque ambos
+	promedios son cero; su posición no debe interpretarse como una combinación
+	efectiva de actividades extractivas. Los casos etiquetados ilustran la
+	diversidad de perfiles. Irak, Arabia
+	Saudita y Angola se sitúan en el área de predominio de petróleo y gas;
+	Mongolia, Mauritania y Chile aparecen en el área de carbón y minerales; y
+	Papúa Nueva Guinea y Surinam combinan ambos componentes sin que ninguno
+	alcance el umbral del 75\%. Esta tipología es exclusivamente descriptiva y no
+	reemplaza la medida agregada $RENTS$ utilizada en las ecuaciones.
 
-	\begin{figure}[H]
+	Las \autoref{fig:eci-annual-evolution-cap10} y \autoref{fig:divx-annual-evolution-cap10} presentan la mediana anual y el intervalo intercuartílico de $ECI$ y $DIVX$, respectivamente, para los 55 países. Esta comparación permite observar el movimiento de la posición central y la persistencia de diferencias dentro de la muestra.
+
+	\begin{figure}[!htbp]
 		\centering
-		\includegraphics[width=\textwidth]{\subfix{../../figures/p_commodities_income_boxplot}}
-
-		\caption[Dependencia exportadora extractiva por nivel de ingreso]{Distribución de la participación de las exportaciones mineras y energéticas en el total de exportaciones según grupo de ingreso: bajos ingresos (LIC), ingresos medios bajos (LMIC), ingresos medios altos (UMIC) y altos ingresos (HIC).}
-
-		\label{fig:commodities-income}
-		\caption*{\footnotesize \textit{Fuente: Elaboración propia con base en datos reportados en \textcite{Anne2021}.}}
+		\includegraphics[width=\linewidth]{\subfix{../../figures/chapter10_eci_annual_evolution}}
+		\caption[Evolución anual de ECI]{Evolución anual del Índice de Complejidad Económica (ECI), 1996--2021. La línea representa la mediana de los 55 países y la banda, el intervalo intercuartílico.}
+		\label{fig:eci-annual-evolution-cap10}
+		\caption*{\footnotesize \textit{Fuente: Elaboración propia a partir del panel maestro.}}
 	\end{figure}
 
-	Un tercer hecho estilizado se observa al comparar la intensidad de la dependencia exportadora entre distintos tipos de recursos extractivos. Las Figuras \ref{fig:energy-income-boxplot} y \ref{fig:mining-income-boxplot} muestran que las economías especializadas en petróleo, gas y minería alcanzan patrones diferenciados de concentración exportadora. Mientras las exportaciones energéticas pueden representar una fracción dominante de la canasta exportadora, la participación de las exportaciones mineras tiende a ser menor y más dispersa entre grupos de ingreso. Este contraste sugiere que no todas las economías extractivas enfrentan el mismo tipo de restricción estructural: la especialización basada en petróleo, gas y minería puede asociarse con patrones distintos de concentración y transformación estructural.
-
-	\begin{figure}[H]
+	\begin{figure}[!htbp]
 		\centering
-
-		\begin{subfigure}{0.49\textwidth}
-			\centering
-			\includegraphics[width=\textwidth]{\subfix{../../figures/p_energy_income_boxplot}}
-			\caption{Dependencia de exportaciones energéticas por grupo de ingreso.}
-			\label{fig:energy-income-boxplot}
-		\end{subfigure}
-		\hfill
-		\begin{subfigure}{0.49\textwidth}
-			\centering
-			\includegraphics[width=\textwidth]{\subfix{../../figures/p_mining_income_boxplot}}
-			\caption{Dependencia de exportaciones mineras por grupo de ingreso.}
-			\label{fig:mining-income-boxplot}
-		\end{subfigure}
-
-		\caption[Dependencia exportadora por tipo de recurso]{Comparación de la participación de las exportaciones de recursos energéticos y mineros en el total de exportaciones de los países considerados.}
-
-		\label{fig:energy-mining-income-comparison}
-		\caption*{\footnotesize \textit{Fuente: Elaboración propia con base en datos reportados en \textcite{Anne2021}.}}
-
+		\includegraphics[width=\linewidth]{\subfix{../../figures/chapter10_divx_annual_evolution}}
+		\caption[Evolución anual de DIVX]{Evolución anual de la Diversificación Exportadora (DIVX), 1996--2021. La línea representa la mediana de los 55 países y la banda, el intervalo intercuartílico.}
+		\label{fig:divx-annual-evolution-cap10}
+		\caption*{\footnotesize \textit{Fuente: Elaboración propia a partir del panel maestro.}}
 	\end{figure}
 
-	\section{Análisis exploratorio de datos}
-	\label{sec:analisis-exploratorio}
+	La evolución anual no muestra una trayectoria común para los dos
+	indicadores. La mediana del $ECI$ pasa de $-0,322$ en 1996 a $-0,403$ en
+	2021 y fluctúa dentro de un intervalo relativamente acotado: alcanza su valor
+	más alto en 2005 ($-0,228$) y el más bajo en 2018 ($-0,508$). El intervalo
+	intercuartílico permanece amplio durante todo el período, lo que refleja
+	diferencias persistentes en complejidad entre los países.
 
-	El análisis exploratorio se incorporará a partir del panel ya construido y validado en \texttt{data/processed}. En particular, deberán regenerarse con la definición definitiva de $RENTS$ ---suma de las rentas de petróleo, gas natural, carbón y minerales--- y con la serie ECI completa obtenida mediante API todos los gráficos que relacionen rentas extractivas, complejidad y diversificación. Hasta entonces no se presentan asociaciones calculadas con el flujo anterior.
+	La mediana de $DIVX$, en cambio, aumenta de 0,751 en 1996 a 0,824 en 2021 y
+	alcanza 0,829 en 2016. El cuartil inferior sube de 0,556 a 0,698, mientras que
+	el superior se mantiene próximo a 0,90. El desplazamiento se concentra así en
+	la mitad inferior de la distribución. Estas trayectorias resumen cambios en
+	la distribución transversal de la muestra; no identifican por sí mismas qué
+	países explican cada movimiento ni el efecto de las rentas extractivas.
+
+	\section{Relaciones exploratorias}
+	\label{sec:relaciones-exploratorias}
+
+	La relación entre rentas y transformación estructural se examina mediante
+	promedios por país para 1996--2021. Esta agregación ofrece una comparación
+	entre economías y evita que los países con más observaciones reciban mayor
+	peso visual, pero elimina la variación anual dentro de cada caso. Las
+	\autoref{fig:rents-eci-country-means-cap10} y \autoref{fig:rents-divx-country-means-cap10} incluyen los 53 países con al
+	menos una observación de $RENTS$ y representan la tendencia lineal
+	descriptiva con su intervalo de confianza del 95\% frente a los promedios de $ECI$ y $DIVX$, respectivamente. Los promedios se calculan
+	sobre los años disponibles para cada país, por lo que no todos descansan en
+	el mismo número de observaciones.
+
+	\begin{figure}[!htbp]
+		\centering
+		\includegraphics[width=\linewidth]{\subfix{../../figures/chapter10_rents_eci_country_means}}
+		\caption[Rentas extractivas y ECI por país]{Relación entre el promedio de las rentas extractivas (\% del PIB) y el promedio del ECI por país, 1996--2021. La línea corresponde a la tendencia lineal y la banda a su intervalo de confianza del 95\%.}
+		\label{fig:rents-eci-country-means-cap10}
+		\caption*{\footnotesize \textit{Fuente: Elaboración propia a partir del panel maestro.}}
+	\end{figure}
+
+	\begin{figure}[!htbp]
+		\centering
+		\includegraphics[width=\linewidth]{\subfix{../../figures/chapter10_rents_divx_country_means}}
+		\caption[Rentas extractivas y DIVX por país]{Relación entre el promedio de las rentas extractivas (\% del PIB) y el promedio de DIVX por país, 1996--2021. La línea corresponde a la tendencia lineal y la banda a su intervalo de confianza del 95\%.}
+		\label{fig:rents-divx-country-means-cap10}
+		\caption*{\footnotesize \textit{Fuente: Elaboración propia a partir del panel maestro.}}
+	\end{figure}
+
+	La asociación con el $ECI$ es negativa, pero débil: la correlación entre los
+	promedios nacionales es $-0,121$ y la recta estimada explica apenas el
+	1,5\% de su variación transversal. Países con rentas medias elevadas ocupan
+	posiciones muy distintas en complejidad; por ejemplo, Arabia Saudita presenta
+	un $ECI$ medio positivo, mientras que Libia e Irak registran valores
+	negativos. La banda de confianza se amplía en el extremo superior de $RENTS$,
+	donde existen menos observaciones comparables.
+
+	La relación con $DIVX$ es más marcada. La correlación de los promedios es
+	$-0,727$ y la tendencia lineal resume alrededor del 52,9\% de la variación
+	transversal. Irak, Angola y Libia combinan rentas relativamente altas con
+	menor diversificación, mientras que India, Sudáfrica e Indonesia se sitúan
+	entre las economías más diversificadas y presentan rentas medias menores. La
+	diferencia entre ambas figuras indica que las rentas guardan una relación
+	descriptiva más estrecha con la concentración de la canasta exportadora que
+	con el contenido de capacidades sintetizado por el $ECI$.
+
+	Complementariamente, la \autoref{fig:eci-log-rents-quadrants-cap10} examina la relación entre el $ECI$ medio y el logaritmo de las rentas extractivas medias dividida por cuadrantes. La transformación logarítmica de $RENTS$ atenúa la compresión en el extremo inferior de rentas y permite agrupar los países en cuatro cuadrantes según el umbral $ECI=0$ y la mediana muestral de $RENTS$. Los ajustes no lineal (LOESS) y lineal (OLS) confirman la marcada heterogeneidad entre cuadrantes: se distinguen economías de rentas elevadas con complejidad positiva (como Noruega o Arabia Saudita), rentas altas con reducida complejidad (como Irak, Angola o Libia), y países con niveles moderados o bajos de rentas distribuidos en ambos lados de la mediana de complejidad.
+
+	\begin{figure}[!htbp]
+		\centering
+		\includegraphics[width=\linewidth]{\subfix{../../figures/chapter10_eci_log_rents_quadrants}}
+		\caption[ECI y rentas extractivas en escala logarítmica por cuadrantes]{Relación entre el promedio del ECI y las rentas extractivas medias en escala logarítmica por cuadrantes, 1996--2021. Los cuadrantes se definen por $ECI=0$ y la mediana muestral de $RENTS$. Se incluyen el ajuste lineal OLS y la curva no lineal LOESS.}
+		\label{fig:eci-log-rents-quadrants-cap10}
+		\caption*{\footnotesize \textit{Fuente: Elaboración propia a partir del panel maestro.}}
+	\end{figure}
+
+	Estas asociaciones no incorporan efectos fijos, controles, rezagos ni la
+	interacción institucional. Tampoco distinguen si los promedios reflejan
+	diferencias persistentes entre países o cambios ocurridos dentro de ellos.
+	Por consiguiente, las pendientes y correlaciones no se interpretan como
+	efectos causales; su función es delimitar los patrones que se contrastan en
+	las especificaciones econométricas.
+
+	\section{Calidad, faltantes y limitaciones de los datos}
+	\label{sec:calidad-faltantes-limitaciones}
+
+	El principal patrón estructural de faltantes procede de los
+	\textit{Worldwide Governance Indicators}: la fuente no publicó los tres
+	insumos de $INST$ en 1997, 1999 y 2001. En consecuencia, tanto $INST$ como la
+	interacción $RENTS\times INST$ están ausentes para los 55 países en esos
+	años. Estas ausencias representan 165 de los 173 faltantes de $INST$; los
+	ocho restantes se concentran en Nauru. La interacción acumula además los
+	vacíos de $RENTS$, de modo que su número de faltantes asciende a 233. Los
+	demás patrones son heterogéneos entre variables, países y períodos.
+
+	La intersección completa no contiene observaciones para Libia, Nauru, Papúa
+	Nueva Guinea, Sierra Leona, Venezuela y Yemen. Estos países permanecen en la
+	grilla fija y conservan su información disponible para diagnósticos por
+	variable, pero no aportan llaves a las dos ecuaciones completas debido a la
+	ausencia de una o más variables requeridas. Esta diferencia entre selección
+	muestral y disponibilidad econométrica evita redefinir \textit{ex post} el
+	universo de economías. No obstante, el análisis de casos completos puede
+	representar con menor intensidad a países con sistemas estadísticos más
+	débiles o con interrupciones prolongadas; esta composición se considera al
+	interpretar los resultados.
+
+	La construcción del panel no sustituye faltantes por cero, no interpola los
+	años ausentes y no combina selectivamente fuentes para completar celdas. Los
+	ceros publicados se conservan cuando constituyen valores válidos, mientras
+	que las referencias de contraste de $GOVCONS$, $FIN$ y $HUMCAP$ se mantienen
+	separadas de las series activas. En $GOVCONS$, los metadatos distinguen los
+	valores reportados directamente de los cálculos derivados por Naciones
+	Unidas; estos últimos pertenecen al procedimiento de la fuente y no a una
+	imputación realizada por la tesis. Los valores extremos también se conservan:
+	pueden reflejar diferencias económicas reales de escala y especialización,
+	aunque ejercen una influencia potencialmente elevada sobre estadísticas
+	como la media y la tendencia lineal.
+
+	Las variables tampoco capturan todas las dimensiones de los conceptos
+	estudiados. $DRES$ mide dependencia de las exportaciones de mercancías durante
+	el período base y no dotación geológica ni producción destinada al mercado
+	interno. $RENTS$, expresada como porcentaje del PIB, combina cambios en
+	volúmenes, precios y en el denominador macroeconómico. $ECI$ y $DIVX$
+	describen la dimensión externa de la transformación estructural a partir de
+	la canasta exportadora, pero no miden directamente productividad, empleo o
+	encadenamientos domésticos. Estas restricciones acotan el alcance de las
+	conclusiones y desaconsejan trasladarlas a dimensiones no observadas por los
+	indicadores.
+
+	\section{Síntesis y transición hacia la econometría}
+	\label{sec:sintesis-transicion-econometria}
+
+	El panel maestro reúne 1.430 observaciones potenciales de 55 países durante
+	1996--2021. Todas las variables superan el 90\% de cobertura individual, pero
+	la intersección completa contiene 1.044 país--años de 49 economías. Esta
+	diferencia obedece principalmente a los años estructuralmente ausentes de WGI
+	y a faltantes específicos de algunos países, no a una modificación de la
+	regla de selección basada en $DRES$.
+
+	La evidencia descriptiva muestra tres rasgos centrales. Primero, la muestra
+	comprende intensidades y perfiles extractivos muy diferentes. Segundo, la
+	variación entre países es mayor que la variación interna en $ECI$ y $DIVX$,
+	aunque esta última es suficiente para observar cambios a lo largo del
+	período. Tercero, los promedios nacionales de $RENTS$ presentan una asociación
+	transversal débil con $ECI$ y más intensa con $DIVX$. Ninguno de estos
+	resultados separa el efecto de las rentas de las características persistentes
+	de cada economía o de los choques temporales comunes.
+
+	El capítulo econométrico parte de esta base y examina las relaciones dentro
+	de cada país mediante efectos fijos nacionales y temporales, junto con los
+	canales institucional, de abundancia, estructural, macroeconómico, de
+	capacidades productivas y financiero definidos en la metodología. La
+	distinción entre la evidencia descriptiva de este capítulo y las
+	estimaciones posteriores evita atribuir contenido causal a correlaciones
+	bivariadas.
 
 	\thesisendchap{datos-variables}
 

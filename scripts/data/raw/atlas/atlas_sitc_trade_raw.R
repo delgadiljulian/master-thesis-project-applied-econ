@@ -1,5 +1,6 @@
 # CAPA: RAW
 # FUENTE: Atlas of Economic Complexity
+# ENTRADAS: API oficial del Atlas, clasificación SITC Rev. 2
 # SALIDAS: data/raw/atlas/
 # Descargar exportaciones por país, año y producto para varias variables de la tesis.
 #

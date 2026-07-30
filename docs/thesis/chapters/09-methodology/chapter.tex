@@ -181,7 +181,9 @@
 	\parencite{IMF2012}. Este valor se adopta como referencia externa y no como
 	una réplica exacta de la clasificación del FMI, originalmente construida para
 	otro período y un universo específico de economías en desarrollo. Con los
-	datos del período base, esta regla produce una muestra fija de 55 países.
+	datos del período base, esta regla produce una muestra fija de 55 países. La
+	composición nominal de la muestra y el valor promedio de $DRES$ de cada país
+	se presentan en la \autoref{tab:muestra_dres20}.
 
 	Como validación de la construcción de $DRES$, se examinan decisiones sobre
 	el ámbito de productos y la agregación temporal. En primer lugar, se
@@ -515,8 +517,8 @@ y disponibilidad de información para el período principal de estimación
 
 		\hline
 
-		\multicolumn{5}{p{\textwidth}}{%
-			\textit{Fuente: Elaboración propia con base en fuentes internacionales comparables.}
+		\multicolumn{5}{c}{%
+			\footnotesize\textit{Fuente: Elaboración propia con base en fuentes internacionales comparables.}
 		} \\[0.3em]
 
 		\multicolumn{5}{p{\textwidth}}{%
@@ -885,53 +887,17 @@ y disponibilidad de información para el período principal de estimación
 	PWT se conserva solo como referencia de validación y no completa las 27
 	observaciones faltantes.
 
-	\subsection{Cobertura efectiva del panel maestro}
+	\subsection{Disponibilidad y muestra efectiva}
 	\label{subsec:cobertura-panel-maestro}
 
-	La cobertura individual es elevada: todas las variables del modelo superan
-	el 80\% de las 1.430 observaciones potenciales y siete de ellas tienen
-	cobertura completa. La \autoref{tab:cobertura-panel-maestro} presenta el
-	diagnóstico reproducible obtenido después de integrar las salidas
-	procesadas.
-
-	\begin{table}[htbp]
-		\centering
-		\caption{Cobertura de las variables en el panel maestro, 1996--2021}
-		\label{tab:cobertura-panel-maestro}
-		\begin{tabular}{lrr}
-			\toprule
-			Variable & Observaciones & Cobertura (\%) \\
-			\midrule
-			$ECI$, $PEXP$, $FEXP$, $INNOV$, $GOVCONS$, $HHI$, $DIVX$ & 1.430 & 100,0 \\
-			$VOL$, $HUMCAP$ & 1.403 & 98,1 \\
-			$OILPC$ & 1.397 & 97,7 \\
-			$COALPC$ & 1.384 & 96,8 \\
-			$NET$ & 1.379 & 96,4 \\
-			$LOG\_GDPPC$ & 1.378 & 96,4 \\
-			$GASPC$ & 1.365 & 95,5 \\
-			$RENTS$, $RER$ & 1.352 & 94,5 \\
-			$FIN$ & 1.328 & 92,9 \\
-			$INST$ & 1.257 & 87,9 \\
-			$RENTS\times INST$ & 1.197 & 83,7 \\
-			\bottomrule
-		\end{tabular}
-		\begin{minipage}{0.94\textwidth}
-			\footnotesize
-			\textit{Nota:} La cobertura se calcula sobre 55 países y 26 años.
-			Los WGI no publicaron observaciones en 1997, 1999 y 2001; estos vacíos
-			estructurales se conservan sin interpolación. Dentro de los 23 años
-			publicados por WGI, la interacción $RENTS\times INST$ alcanza una
-			cobertura de 94,6\%.
-		\end{minipage}
-	\end{table}
-
-	La coincidencia simultánea de todas las variables requeridas por las
-	especificaciones econométricas corresponde a 1.044 observaciones de 49 países
-	(73,0\% de la grilla maestra). Esta reducción no contradice la cobertura
-	individual superior al 80\%: resulta de intersectar faltantes que no siempre
-	coinciden en los mismos países y años. Por tanto, cada estimación reportará
-	su número efectivo de observaciones y países, sin imputar información ni
-	alterar la selección original de 55 economías.
+	La grilla maestra conserva las 1.430 llaves país--año aun cuando alguna
+	variable no esté disponible. La muestra efectiva de cada ecuación se define
+	por la intersección de su variable dependiente y los regresores requeridos,
+	sin imputar información ni alterar la selección original de 55 economías.
+	La cobertura individual, la composición de la muestra conjunta y los
+	estadísticos descriptivos se presentan exclusivamente en el
+	\autoref{chap:datos-variables}, para no duplicar resultados empíricos dentro
+	del capítulo metodológico.
 
 	\section{Especificación del modelo econométrico}
 	\label{sec:modelo-econometrico}

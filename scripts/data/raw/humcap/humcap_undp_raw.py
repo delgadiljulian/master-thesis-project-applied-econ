@@ -3,13 +3,16 @@ VARIABLE: HUMCAP
 ENTRADA: Human Development Report 2025, UNDP
 SALIDAS: data/raw/humcap/undp_hdr/
 
+# Ejecutar la siguiente instrucción del bloque
 Descarga la serie oficial de años medios de escolaridad del PNUD, conserva los
 archivos fuente y prepara una cuadrícula larga para los 55 países DRES. Esta
 capa no calcula el índice de capital humano ni completa valores faltantes.
 """
 
+# Cargar librerías y módulos requeridos
 from __future__ import annotations
 
+# Cargar librerías y módulos requeridos
 import csv
 import hashlib
 import io
@@ -22,9 +25,11 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+# Cargar librerías y módulos requeridos
 import pandas as pd
 
 
+# Ejecutar la siguiente instrucción del bloque
 DATA_URL = (
     "https://hdr.undp.org/sites/default/files/2025_HDR/"
     "HDR25_Composite_indices_complete_time_series.csv"
@@ -45,24 +50,30 @@ MINIMUM_ANALYSIS_OBSERVATIONS = 1390
 MAX_ATTEMPTS = 3
 
 
+# Definir función principal o auxiliar
 def find_project_root() -> Path:
     """Localiza la raíz del repositorio desde la ubicación del script."""
 
+    # Ejecutar la siguiente instrucción del bloque
     candidate = Path(__file__).resolve().parents[4]
     if not (candidate / "scripts" / "project_paths.R").exists():
         raise RuntimeError("No se pudo identificar la raíz del repositorio.")
     return candidate
 
 
+# Definir función principal o auxiliar
 def sha256(path: Path) -> str:
     """Calcula el hash SHA-256 de un archivo."""
 
+    # Retornar el resultado de la función
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+# Definir función principal o auxiliar
 def atomic_write_bytes(path: Path, content: bytes) -> None:
     """Escribe bytes completos y reemplaza el destino al finalizar."""
 
+    # Ejecutar la siguiente instrucción del bloque
     path.parent.mkdir(parents=True, exist_ok=True)
     descriptor, temporary_name = tempfile.mkstemp(
         prefix=f"{path.stem}_",
@@ -79,6 +90,7 @@ def atomic_write_bytes(path: Path, content: bytes) -> None:
         raise
 
 
+# Definir función principal o auxiliar
 def atomic_write_csv(
     path: Path,
     fieldnames: list[str],
@@ -86,6 +98,7 @@ def atomic_write_csv(
 ) -> None:
     """Escribe un CSV completo y reemplaza el destino al finalizar."""
 
+    # Ejecutar la siguiente instrucción del bloque
     path.parent.mkdir(parents=True, exist_ok=True)
     descriptor, temporary_name = tempfile.mkstemp(
         prefix=f"{path.stem}_",
@@ -110,9 +123,11 @@ def atomic_write_csv(
         raise
 
 
+# Definir función principal o auxiliar
 def download(url: str) -> bytes:
     """Descarga una fuente oficial con reintentos acotados."""
 
+    # Ejecutar la siguiente instrucción del bloque
     request = urllib.request.Request(
         url,
         headers={"User-Agent": "master-thesis-data-pipeline/1.0"},
@@ -134,9 +149,11 @@ def download(url: str) -> bytes:
     raise RuntimeError(f"No se pudo descargar {url}: {last_error}")
 
 
+# Definir función principal o auxiliar
 def read_sample(path: Path) -> dict[str, str]:
     """Lee y valida la muestra fija DRES."""
 
+    # Ejecutar la siguiente instrucción del bloque
     with path.open("r", newline="", encoding="utf-8-sig") as handle:
         reader = csv.DictReader(handle)
         required = {"country_iso3_code", "country"}
@@ -147,6 +164,7 @@ def read_sample(path: Path) -> dict[str, str]:
             for row in reader
         }
 
+    # Evaluar condición de control de flujo
     if (
         len(sample) != EXPECTED_SAMPLE_COUNTRIES
         or any(len(code) != 3 or not code.isalpha() for code in sample)
@@ -156,12 +174,14 @@ def read_sample(path: Path) -> dict[str, str]:
     return sample
 
 
+# Definir función principal o auxiliar
 def parse_source(
     content: bytes,
     sample: dict[str, str],
 ) -> tuple[list[dict[str, Any]], dict[str, str]]:
     """Extrae MYS para la muestra sin transformar ni imputar."""
 
+    # Ejecutar la siguiente instrucción del bloque
     text = content.decode("latin-1")
     reader = csv.DictReader(io.StringIO(text))
     expected_columns = {
@@ -176,6 +196,7 @@ def parse_source(
             + ", ".join(sorted(missing_columns))
         )
 
+    # Ejecutar la siguiente instrucción del bloque
     source_rows: dict[str, dict[str, str]] = {}
     for row in reader:
         code = row["iso3"].strip().upper()
@@ -184,6 +205,7 @@ def parse_source(
                 raise RuntimeError(f"El PNUD repite el país {code}.")
             source_rows[code] = row
 
+    # Ejecutar la siguiente instrucción del bloque
     missing_countries = sorted(set(sample).difference(source_rows))
     if missing_countries:
         raise RuntimeError(
@@ -191,6 +213,7 @@ def parse_source(
             + ", ".join(missing_countries)
         )
 
+    # Ejecutar la siguiente instrucción del bloque
     rows: list[dict[str, Any]] = []
     source_names: dict[str, str] = {}
     for code in sorted(sample):
@@ -220,9 +243,11 @@ def parse_source(
     return rows, source_names
 
 
+# Definir función principal o auxiliar
 def validate_analysis(rows: list[dict[str, Any]]) -> int:
     """Valida cobertura, llaves y dominio en 1996-2021."""
 
+    # Ejecutar la siguiente instrucción del bloque
     analysis_rows = [
         row
         for row in rows
@@ -234,6 +259,7 @@ def validate_analysis(rows: list[dict[str, Any]]) -> int:
     if len(analysis_rows) != expected:
         raise RuntimeError("La captura no conserva las 1.430 llaves esperadas.")
 
+    # Ejecutar la siguiente instrucción del bloque
     keys = {
         (row["country_iso3_code"], int(row["year"]))
         for row in analysis_rows
@@ -241,6 +267,7 @@ def validate_analysis(rows: list[dict[str, Any]]) -> int:
     if len(keys) != expected:
         raise RuntimeError("La captura contiene llaves país-año duplicadas.")
 
+    # Ejecutar la siguiente instrucción del bloque
     available = sum(
         row["mean_years_schooling_undp"] != "" for row in analysis_rows
     )
@@ -249,6 +276,7 @@ def validate_analysis(rows: list[dict[str, Any]]) -> int:
             "La captura PNUD no alcanza la cobertura mínima requerida."
         )
 
+    # Ejecutar la siguiente instrucción del bloque
     countries_with_data = {
         row["country_iso3_code"]
         for row in analysis_rows
@@ -259,12 +287,14 @@ def validate_analysis(rows: list[dict[str, Any]]) -> int:
     return available
 
 
+# Definir función principal o auxiliar
 def build_pwt_reference(
     source: Path,
     sample: dict[str, str],
 ) -> list[dict[str, Any]]:
     """Extrae una referencia pequeña desde la base PWT compartida."""
 
+    # Cargar el archivo de datos
     pwt = pd.read_stata(
         source,
         columns=["countrycode", "country", "year", "hc"],
@@ -282,6 +312,7 @@ def build_pwt_reference(
     if selected.duplicated(["countrycode", "year"]).any():
         raise RuntimeError("La referencia PWT contiene llaves duplicadas.")
 
+    # Ejecutar la siguiente instrucción del bloque
     indexed = selected.set_index(["countrycode", "year"])["hc"]
     rows: list[dict[str, Any]] = []
     for code in sorted(sample):
@@ -303,9 +334,11 @@ def build_pwt_reference(
     return rows
 
 
+# Definir función principal o auxiliar
 def main() -> None:
     """Descarga, transforma a formato largo y documenta la captura."""
 
+    # Ejecutar la siguiente instrucción del bloque
     project = find_project_root()
     sample_file = (
         project / "data" / "processed" / "dres" / "dres_sample_20.csv"
@@ -324,6 +357,7 @@ def main() -> None:
     pwt_reference_file = output / "humcap_pwt11_reference_1996_2021.csv"
     manifest_file = output / "download_manifest.csv"
 
+    # Ejecutar la siguiente instrucción del bloque
     sample = read_sample(sample_file)
     if not pwt_shared_source.is_file():
         raise FileNotFoundError(
@@ -335,6 +369,7 @@ def main() -> None:
     available = validate_analysis(rows)
     pwt_reference_rows = build_pwt_reference(pwt_shared_source, sample)
 
+    # Ejecutar la siguiente instrucción del bloque
     atomic_write_bytes(data_source_file, data_content)
     atomic_write_bytes(metadata_source_file, metadata_content)
     atomic_write_csv(
@@ -442,6 +477,7 @@ def main() -> None:
         ],
     )
 
+    # Ejecutar la siguiente instrucción del bloque
     print(f"Datos raw PNUD guardados en: {long_file}")
     print(f"Archivos fuente guardados en: {source_output}")
     print(
@@ -451,5 +487,6 @@ def main() -> None:
     )
 
 
+# Evaluar condición de control de flujo
 if __name__ == "__main__":
     main()

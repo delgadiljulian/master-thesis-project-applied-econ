@@ -327,6 +327,7 @@ str(df_final)
 # Mostrar estadisticas descriptivas de todas las columnas.
 summary(df_final)
 
+# Ejecutar la siguiente instrucción del bloque
 df_final %>%
   filter(is.na(mining) | is.na(energy) | is.na(commodities))
 
@@ -336,22 +337,28 @@ df_final %>%
 
 # Path para guardar los gráficos
 
+# Ejecutar la siguiente instrucción del bloque
 fig_path <- file.path(project_path, "outputs", "figures", "original")
 dir.create(fig_path, recursive = TRUE, showWarnings = FALSE)
 
 # 1. Distribución de dependencia extractiva: Histograma de commodities
 
+# Ejecutar la siguiente instrucción del bloque
 df_histogram <- df_final %>%
   filter(!is.na(commodities))
 
+# Evaluar condición de control de flujo
 if (nrow(df_histogram) == 0) {
   stop("No hay valores numericos validos de commodities para graficar el histograma.")
 }
 
+# Ejecutar la siguiente instrucción del bloque
 mean_commodities <- mean(df_histogram$commodities, na.rm = TRUE)
 
+# Generar visualización gráfica
 p_histogram <- ggplot(df_histogram, aes(x = commodities)) +
 
+  # Ejecutar la siguiente instrucción del bloque
   geom_histogram(
     bins = 20,
     fill = "#4c72b0",
@@ -359,24 +366,29 @@ p_histogram <- ggplot(df_histogram, aes(x = commodities)) +
     alpha = 0.9
   ) +
 
+  # Ejecutar la siguiente instrucción del bloque
   geom_vline(
     aes(xintercept = mean_commodities, linetype = "Mean dependence"),
     color = "#d95f02",
     linewidth = 1
   ) +
 
+  # Ejecutar la siguiente instrucción del bloque
   scale_linetype_manual(
     name = "",
     values = c("Mean dependence" = "dashed")
   ) +
 
+  # Ejecutar la siguiente instrucción del bloque
   labs(
     x = "Share of exports from extractive commodities (%)",
     y = "Number of countries"
   ) +
 
+  # Ejecutar la siguiente instrucción del bloque
   theme_classic() +
 
+  # Ejecutar la siguiente instrucción del bloque
   theme(
     axis.text = element_text(size = 11),
     axis.title = element_text(size = 12),
@@ -385,10 +397,12 @@ p_histogram <- ggplot(df_histogram, aes(x = commodities)) +
 
 # Mostrar gráfico
 
+# Ejecutar la siguiente instrucción del bloque
 p_histogram
 
 # Guardar gráfico
 
+# Ejecutar la siguiente instrucción del bloque
 ggsave(
   filename = "extractive_dependence_histogram.pdf",
   plot = p_histogram,
@@ -399,13 +413,17 @@ ggsave(
 
 # 2. Minería vs energía
 
+# Generar visualización gráfica
 p_scatter_specialization <- ggplot(df_final, aes(x = mining, y = energy, color = factor(resource_type))) +
 
+  # Ejecutar la siguiente instrucción del bloque
   geom_point(size = 3, alpha = 0.85) +
 
+  # Ejecutar la siguiente instrucción del bloque
   geom_vline(xintercept = 20, linetype = "dashed", color = "gray50") +
   geom_hline(yintercept = 20, linetype = "dashed", color = "gray50") +
 
+  # Ejecutar la siguiente instrucción del bloque
   annotate("text",
            x = 20, y = max(df_final$energy) + 2,
            label = "mining < 20%",
@@ -413,6 +431,7 @@ p_scatter_specialization <- ggplot(df_final, aes(x = mining, y = energy, color =
            size = 4,
            color = "gray40") +
 
+  # Ejecutar la siguiente instrucción del bloque
   annotate("text",
            x = max(df_final$mining) + 2, y = 20,
            label = "energy < 20%",
@@ -420,6 +439,7 @@ p_scatter_specialization <- ggplot(df_final, aes(x = mining, y = energy, color =
            size = 4,
            color = "gray40") +
 
+  # Ejecutar la siguiente instrucción del bloque
   scale_color_manual(
     name = "Type of extractive specialization",
     values = c("1" = "#d95f02", "2" = "#1b9e77", "3" = "#7570b3"),
@@ -430,15 +450,19 @@ p_scatter_specialization <- ggplot(df_final, aes(x = mining, y = energy, color =
     )
   ) +
 
+  # Ejecutar la siguiente instrucción del bloque
   labs(
     x = "% of exports from mining",
     y = "% of exports from energy"
   ) +
 
+  # Ejecutar la siguiente instrucción del bloque
   theme_classic() +
 
+  # Ejecutar la siguiente instrucción del bloque
   guides(color = guide_legend(nrow = 2)) +
 
+  # Ejecutar la siguiente instrucción del bloque
   theme(
     legend.position = "top",
     legend.direction = "horizontal",
@@ -448,10 +472,12 @@ p_scatter_specialization <- ggplot(df_final, aes(x = mining, y = energy, color =
 
 # Mostrar gráfico
 
+# Ejecutar la siguiente instrucción del bloque
 p_scatter_specialization
 
 # Guardar gráfico
 
+# Ejecutar la siguiente instrucción del bloque
 ggsave(
   filename = "extractive_specialization_scatter.pdf",
   plot = p_scatter_specialization,
@@ -462,13 +488,16 @@ ggsave(
 
 # 4. Dependencia por tipo de recurso
 
+# Generar visualización gráfica
 ggplot(df_final,
        aes(x = factor(resource_type),
            y = commodities,
            fill = factor(resource_type))) +
 
+  # Generar visualización gráfica
   geom_boxplot(alpha = 0.85, width = 0.6) +
 
+  # Ejecutar la siguiente instrucción del bloque
   geom_jitter(
     width = 0.15,
     alpha = 0.7,
@@ -476,6 +505,7 @@ ggplot(df_final,
     size = 1.8
   ) +
 
+  # Ejecutar la siguiente instrucción del bloque
   scale_fill_manual(
     name = "Type of extractive specialization",
     values = c("#d95f02", "#1b9e77", "#7570b3"),
@@ -486,6 +516,7 @@ ggplot(df_final,
     )
   ) +
 
+  # Ejecutar la siguiente instrucción del bloque
   scale_x_discrete(
     labels = c(
       "Energy exporters",
@@ -494,11 +525,13 @@ ggplot(df_final,
     )
   ) +
 
+  # Ejecutar la siguiente instrucción del bloque
   labs(
     x = "",
     y = "% of exports from extractive commodities"
   ) +
 
+  # Ejecutar la siguiente instrucción del bloque
   theme_classic() +
   theme(
     legend.position = "none",
@@ -507,10 +540,12 @@ ggplot(df_final,
 
 # 5. Tipos de economías extractivas
 
+# Generar visualización gráfica
 ggplot(df_final,
        aes(x = factor(resource_type),
            fill = factor(resource_type))) +
 
+  # Ejecutar la siguiente instrucción del bloque
   geom_bar(
     width = 0.6,
     alpha = 0.9,
@@ -518,6 +553,7 @@ ggplot(df_final,
     linewidth = 0.4
   ) +
 
+  # Ejecutar la siguiente instrucción del bloque
   scale_fill_manual(
     values = c("#d95f02", "#1b9e77", "#7570b3"),
     labels = c(
@@ -527,6 +563,7 @@ ggplot(df_final,
     )
   ) +
 
+  # Ejecutar la siguiente instrucción del bloque
   scale_x_discrete(
     labels = c(
       "Energy exporters",
@@ -535,13 +572,16 @@ ggplot(df_final,
     )
   ) +
 
+  # Ejecutar la siguiente instrucción del bloque
   labs(
     x = "",
     y = "Number of countries"
   ) +
 
+  # Ejecutar la siguiente instrucción del bloque
   theme_classic() +
 
+  # Ejecutar la siguiente instrucción del bloque
   theme(
     legend.position = "none",
     axis.text.x = element_text(size = 11),
@@ -551,21 +591,28 @@ ggplot(df_final,
 
 # 6. Dependencia vs ingreso
 
+# Generar visualización gráfica
 p_commodities_income_boxplot <- ggplot(df_final, aes(x = income_group, y = commodities, fill = income_group)) +
 
+  # Generar visualización gráfica
   geom_boxplot(alpha = 0.9, width = 0.6, outlier.color = "black") +
 
+  # Ejecutar la siguiente instrucción del bloque
   geom_jitter(width = 0.15, alpha = 0.5, color = "black") +
 
+  # Ejecutar la siguiente instrucción del bloque
   scale_fill_brewer(palette = "Blues") +
 
+  # Ejecutar la siguiente instrucción del bloque
   labs(
     x = "Income group (from low to high income)",
     y = "Share of exports from extractive commodities (%)"
   ) +
 
+  # Ejecutar la siguiente instrucción del bloque
   theme_classic() +
 
+  # Ejecutar la siguiente instrucción del bloque
   theme(
     plot.title = element_text(size = 14),
     axis.title = element_text(size = 12),
@@ -575,10 +622,12 @@ p_commodities_income_boxplot <- ggplot(df_final, aes(x = income_group, y = commo
 
 # Mostrar gráfico
 
+# Generar visualización gráfica
 p_commodities_income_boxplot
 
 # Guardar gráfico
 
+# Ejecutar la siguiente instrucción del bloque
 ggsave(
   filename = "p_commodities_income_boxplot.pdf",
   plot = p_commodities_income_boxplot,
@@ -589,21 +638,28 @@ ggsave(
 
 # 7. Dependencia energética vs ingreso
 
+# Generar visualización gráfica
 p_energy_income_boxplot <- ggplot(df_final, aes(x = income_group, y = energy, fill = income_group)) +
 
+  # Generar visualización gráfica
   geom_boxplot(alpha = 0.9, width = 0.6, outlier.color = "black") +
 
+  # Ejecutar la siguiente instrucción del bloque
   geom_jitter(width = 0.15, alpha = 0.5, color = "gray40") +
 
+  # Ejecutar la siguiente instrucción del bloque
   scale_fill_brewer(palette = "Oranges") +
 
+  # Ejecutar la siguiente instrucción del bloque
   labs(
     x = "Income group (from low to high income)",
     y = "Share of exports from energy (%)"
   ) +
 
+  # Ejecutar la siguiente instrucción del bloque
   theme_classic() +
 
+  # Ejecutar la siguiente instrucción del bloque
   theme(
     plot.title = element_text(size = 14),
     axis.title = element_text(size = 12),
@@ -613,10 +669,12 @@ p_energy_income_boxplot <- ggplot(df_final, aes(x = income_group, y = energy, fi
 
 # Mostrar gráfico
 
+# Generar visualización gráfica
 p_energy_income_boxplot
 
 # Guardar gráfico
 
+# Ejecutar la siguiente instrucción del bloque
 ggsave(
   filename = "p_energy_income_boxplot.pdf",
   plot = p_energy_income_boxplot,
@@ -627,21 +685,28 @@ ggsave(
 
 # 8. Dependencia minera vs ingreso
 
+# Generar visualización gráfica
 p_mining_income_boxplot <- ggplot(df_final, aes(x = income_group, y = mining, fill = income_group)) +
 
+  # Generar visualización gráfica
   geom_boxplot(alpha = 0.9, width = 0.6, outlier.color = "black") +
 
+  # Ejecutar la siguiente instrucción del bloque
   geom_jitter(width = 0.15, alpha = 0.5, color = "gray40") +
 
+  # Ejecutar la siguiente instrucción del bloque
   scale_fill_brewer(palette = "Greens") +
 
+  # Ejecutar la siguiente instrucción del bloque
   labs(
     x = "Income group (from low to high income)",
     y = "Share of exports from mining (%)"
   ) +
 
+  # Ejecutar la siguiente instrucción del bloque
   theme_classic() +
 
+  # Ejecutar la siguiente instrucción del bloque
   theme(
     plot.title = element_text(size = 14),
     axis.title = element_text(size = 12),
@@ -651,10 +716,12 @@ p_mining_income_boxplot <- ggplot(df_final, aes(x = income_group, y = mining, fi
 
 # Mostrar gráfico
 
+# Generar visualización gráfica
 p_mining_income_boxplot
 
 # Guardar gráfico
 
+# Ejecutar la siguiente instrucción del bloque
 ggsave(
   filename = "p_mining_income_boxplot.pdf",
   plot = p_mining_income_boxplot,
@@ -669,6 +736,7 @@ ggsave(
 
 # 3. Triángulo de especialización (mining–energy–rest of exports).
 
+# Ejecutar la siguiente instrucción del bloque
 p_specialization_triangle <- ggtern(
   data = df_final,
   aes(
@@ -679,8 +747,10 @@ p_specialization_triangle <- ggtern(
   )
 ) +
 
+  # Ejecutar la siguiente instrucción del bloque
   geom_point(size = 3, alpha = 0.9) +
 
+  # Ejecutar la siguiente instrucción del bloque
   scale_color_manual(
     name = "Type of extractive specialization",
     values = c("1" = "#d95f02", "2" = "#1b9e77", "3" = "#7570b3"),
@@ -691,16 +761,20 @@ p_specialization_triangle <- ggtern(
     )
   ) +
 
+  # Ejecutar la siguiente instrucción del bloque
   labs(
     x = "Other exports (%)",
     y = "Mining exports (%)",
     z = "Energy exports (%)"
   ) +
 
+  # Ejecutar la siguiente instrucción del bloque
   theme_bw()
 
+# Ejecutar la siguiente instrucción del bloque
 p_specialization_triangle
 
+# Ejecutar la siguiente instrucción del bloque
 ggsave(
   filename = "extractive_specialization_triangle.pdf",
   plot = p_specialization_triangle,

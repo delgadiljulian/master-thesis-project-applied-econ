@@ -42,7 +42,7 @@ foreach pkg in ftools reghdfe estout xtscc xttest3 xtcsd {
     }
 }
 
-* Installing xtserial if missing
+* Comprobar e instalar paquete de autocorrelación serial xtserial si falta
 capture which xtserial
 if _rc {
     capture net install st0039, from("https://www.stata-journal.com/software/sj3-2")
@@ -51,9 +51,10 @@ if _rc {
 * Localizar dinámicamente la raíz del proyecto con fallback absoluto infalible
 local rel_path "data/processed/00_master_panel/master_panel_country_year.dta"
 
+* Validar la integridad de los datos
 capture confirm file "`rel_path'"
 if !_rc {
-    * Stata ya se encuentra en la raíz del proyecto
+    // Stata ya se encuentra en la raíz del proyecto
 }
 else {
     capture confirm file "../../../`rel_path'"
@@ -71,7 +72,7 @@ else {
                 quietly cd ".."
             }
             else {
-                * Ruta absoluta predeterminada del repositorio
+                // Ruta absoluta predeterminada del repositorio
                 local abs_path "C:/Users/julla/GitHub/master-thesis-project-applied-econ/`rel_path'"
                 capture confirm file "`abs_path'"
                 if !_rc {
@@ -86,6 +87,7 @@ else {
     }
 }
 
+* Definir variables globales para las rutas del repositorio
 global PROJECT_ROOT "`c(pwd)'"
 global DATA_MASTER   "$PROJECT_ROOT/data/processed/00_master_panel"
 global PANEL_FILE    "$DATA_MASTER/master_panel_country_year.dta"
@@ -186,31 +188,39 @@ assert abs(divx - (1 - hhi)) <= 1e-6 if !missing(divx, hhi)
 tempname transform_post
 tempfile transformation_report
 
+* Definir estructura del postfile de transformaciones logarítmicas
 postfile `transform_post' str12 variable long observations long zeros double zero_percent double skewness_level skewness_ln1p using "`transformation_report'", replace
 
+* Iterar sobre las variables per cápita para aplicar transformaciones log(1+x)
 foreach var in oilpc gaspc coalpc {
     quietly count if !missing(`var')
     local n_nonmissing = r(N)
 
+    // Evaluar condición de control de flujo
     quietly count if `var' == 0
     local n_zeros = r(N)
     local zero_percent = 100 * `n_zeros' / `n_nonmissing'
 
+    // Ejecutar la siguiente instrucción del bloque
     quietly summarize `var', detail
     local skewness_level = r(skewness)
 
+    // Ejecutar la siguiente instrucción del bloque
     capture drop log_`var'
     gen double log_`var' = log(1 + `var') if !missing(`var')
     local var_upper = upper("`var'")
     label var log_`var' "log(1 + `var_upper')"
 
+    // Ejecutar la siguiente instrucción del bloque
     quietly summarize log_`var', detail
     local skewness_ln1p = r(skewness)
 
+    // Ejecutar la siguiente instrucción del bloque
     post `transform_post' ("`var'") (`n_nonmissing') (`n_zeros') (`zero_percent') (`skewness_level') (`skewness_ln1p')
 }
 postclose `transform_post'
 
+* Exportar la tabla comparativa de transformaciones logarítmicas a CSV
 preserve
     use "`transformation_report'", clear
     replace zero_percent = round(zero_percent, 0.01)
@@ -243,7 +253,7 @@ egen n_missing_divx = rowmiss($MODEL_DIVX)
 gen byte sample_divx = (n_missing_divx == 0)
 label var sample_divx "Flag muestra modelo DIVX (sin HHI)"
 
-* Generar informe de cobertura por país
+* Generar e exportar informe de cobertura de muestra por país a CSV
 preserve
     collapse (sum) obs_eci=sample_eci obs_divx=sample_divx, by(country_iso3_code country country_id)
     gen int exc_eci = 26 - obs_eci
@@ -264,18 +274,21 @@ save "$OUTPUT_SAMPLE/master_panel_sample.dta", replace
 use "$OUTPUT_SAMPLE/master_panel_sample.dta", clear
 xtset country_id year
 
+* Definir vector global de variables para diagnóstico
 global DIAGNOSTIC_VARS eci divx rents inst rents_x_inst log_oilpc log_gaspc log_coalpc hhi pexp fexp vol rer humcap innov net log_gdppc govcons fin
 
 * 4.2. Generar y exportar estadísticas descriptivas (Panel Completo vs Muestra Estimación)
 tempname descriptive_post
 tempfile descriptive_report
 
+* Definir estructura del postfile de estadísticas descriptivas
 postfile `descriptive_post' ///
     str16 analysis_sample str24 variable ///
     long observations long zeros double zero_percent ///
     double mean sd min p25 median p75 max ///
     using "`descriptive_report'", replace
 
+* Iterar sobre muestras y variables para calcular descriptivos
 foreach analysis_sample in PANEL_COMPLETE ESTIMATION {
     foreach var of global DIAGNOSTIC_VARS {
         local restriction "!missing(`var')"
@@ -283,13 +296,16 @@ foreach analysis_sample in PANEL_COMPLETE ESTIMATION {
             local restriction "sample_eci == 1 & !missing(`var')"
         }
 
+        // Evaluar condición de control de flujo
         quietly count if `restriction'
         local n_available = r(N)
 
+        // Evaluar condición de control de flujo
         quietly count if `restriction' & `var' == 0
         local n_zeros = r(N)
         local zero_share = 100 * `n_zeros' / `n_available'
 
+        // Evaluar condición de control de flujo
         quietly summarize `var' if `restriction', detail
         post `descriptive_post' ///
             ("`analysis_sample'") ("`var'") ///
@@ -300,6 +316,7 @@ foreach analysis_sample in PANEL_COMPLETE ESTIMATION {
 }
 postclose `descriptive_post'
 
+* Exportar el reporte de estadísticas descriptivas a CSV
 preserve
     use "`descriptive_report'", clear
     replace zero_percent = round(zero_percent, 0.01)
@@ -314,12 +331,14 @@ restore
 tempname variation_post
 tempfile variation_report
 
+* Definir estructura del postfile de descomposición de varianza panel
 postfile `variation_post' ///
     str24 variable long observations int countries ///
     double average_periods mean ///
     double sd_overall sd_between sd_within within_sd_ratio ///
     using "`variation_report'", replace
 
+* Iterar sobre variables para descomponer varianzas con xtsum
 foreach var of global DIAGNOSTIC_VARS {
     quietly xtsum `var' if sample_eci == 1
     local within_ratio = r(sd_w) / r(sd)
@@ -329,6 +348,7 @@ foreach var of global DIAGNOSTIC_VARS {
 }
 postclose `variation_post'
 
+* Exportar reporte de descomposición de varianza a CSV
 preserve
     use "`variation_report'", clear
     format average_periods mean sd_overall sd_between sd_within within_sd_ratio %12.4f
@@ -337,10 +357,11 @@ preserve
     list, noobs abbreviate(24)
 restore
 
-* 4.4. Matriz de Correlaciones para ECI y DIVX
+* 4.4. Matriz de Correlaciones para la especificación ECI
 quietly correlate $MODEL_ECI if sample_eci == 1
 matrix correlation_eci = r(C)
 
+* Convertir la matriz de correlaciones de ECI a dataset y exportarla a CSV
 preserve
     clear
     svmat double correlation_eci, names(col)
@@ -354,9 +375,11 @@ preserve
     export delimited using "$OUTPUT_DIAGNOSTICS/correlation_matrix_eci.csv", replace
 restore
 
+* Calcular matriz de correlaciones para la especificación DIVX
 quietly correlate $MODEL_DIVX if sample_divx == 1
 matrix correlation_divx = r(C)
 
+* Convertir la matriz de correlaciones de DIVX a dataset y exportarla a CSV
 preserve
     clear
     svmat double correlation_divx, names(col)
@@ -374,18 +397,22 @@ restore
 tempname vif_post
 tempfile vif_report
 
+* Definir estructura del postfile VIF
 postfile `vif_post' ///
     str8 model str24 variable double vif str12 assessment ///
     using "`vif_report'", replace
 
+* Definir lista de regresores para el modelo ECI
 local regressors_eci "$MODEL_COMMON hhi"
 
+* Obtener residuos Within para los regresores de ECI
 foreach var of local regressors_eci {
     capture drop within_`var'
     quietly regress `var' i.country_id i.year if sample_eci == 1
     predict double within_`var' if e(sample), residuals
 }
 
+* Estimar regresiones auxiliares de VIF Within para ECI
 foreach target of local regressors_eci {
     local remaining : list regressors_eci - target
     local within_remaining ""
@@ -400,8 +427,10 @@ foreach target of local regressors_eci {
     post `vif_post' ("ECI") ("`target'") (`vif_value') ("`vif_assessment'")
 }
 
+* Definir lista de regresores para el modelo DIVX
 local regressors_divx "$MODEL_COMMON"
 
+* Estimar regresiones auxiliares de VIF Within para DIVX
 foreach target of local regressors_divx {
     local remaining : list regressors_divx - target
     local within_remaining ""
@@ -417,6 +446,7 @@ foreach target of local regressors_divx {
 }
 postclose `vif_post'
 
+* Exportar tabla resumen VIF por modelo a CSV
 preserve
     use "`vif_report'", clear
     gsort model -vif
@@ -425,6 +455,7 @@ preserve
     list, sepby(model) noobs abbreviate(24)
 restore
 
+* Limpiar variables temporales de residuos Within creadas en memoria
 foreach var of local regressors_eci {
     capture drop within_`var'
 }
@@ -433,19 +464,23 @@ foreach var of local regressors_eci {
 tempname tests_post
 tempfile tests_report
 
+* Definir estructura del postfile de pruebas de errores de panel
 postfile `tests_post' str8 model str32 test str80 null_hypothesis double statistic df1 df2 p_value str20 decision using "`tests_report'", replace
 
+* Ejecutar diagnósticos estadísticos de errores por modelo
 foreach model in ECI DIVX {
     local dependent "eci"
     local regressors "$MODEL_COMMON hhi"
     local sample_flag "sample_eci"
 
+    // Evaluar condición de control de flujo
     if "`model'" == "DIVX" {
         local dependent "divx"
         local regressors "$MODEL_COMMON"
         local sample_flag "sample_divx"
     }
 
+    // Evaluar condición de control de flujo
     quietly xtreg `dependent' `regressors' i.year if `sample_flag' == 1, fe
     cap xttest3
     if _rc == 0 {
@@ -457,6 +492,7 @@ foreach model in ECI DIVX {
         post `tests_post' ("`model'") ("Modified Wald") ("Equal error variance across countries") (`hetero_stat') (`hetero_df') (.) (`hetero_p') ("`hetero_decision'")
     }
 
+    // Evaluar condición de control de flujo
     cap xtserial `dependent' `regressors' if `sample_flag' == 1
     if _rc == 0 {
         local serial_stat = r(F)
@@ -468,6 +504,7 @@ foreach model in ECI DIVX {
         post `tests_post' ("`model'") ("Wooldridge AR(1)") ("No first-order serial correlation") (`serial_stat') (`serial_df1') (`serial_df2') (`serial_p') ("`serial_decision'")
     }
 
+    // Evaluar condición de control de flujo
     quietly xtreg `dependent' `regressors' i.year if `sample_flag' == 1, fe
     cap xtcsd, pesaran abs
     if _rc == 0 {
@@ -480,6 +517,7 @@ foreach model in ECI DIVX {
 }
 postclose `tests_post'
 
+* Exportar resultados de las pruebas de errores a CSV
 preserve
     use "`tests_report'", clear
     format statistic p_value %12.6f
@@ -491,6 +529,7 @@ restore
 * 4.7. Identificación de Observaciones Influyentes (Leverage, Cook's Distance y Residuos Estandarizados)
 tempfile influence_eci influence_divx
 
+* Calcular métricas de influencia y apalancamiento para el modelo ECI
 preserve
     quietly regress eci $MODEL_COMMON hhi i.country_id i.year if sample_eci == 1
     local influence_n = e(N)
@@ -498,25 +537,31 @@ preserve
     local leverage_threshold = 2 * `influence_k' / `influence_n'
     local cooks_threshold = 4 / `influence_n'
 
+    * Evaluar condición de control de flujo
     predict double leverage if e(sample), hat
     predict double cooks_distance if e(sample), cooksd
     predict double standardized_residual if e(sample), rstandard
 
+    * Evaluar condición de control de flujo
     generate byte flag_leverage = leverage > `leverage_threshold' if e(sample)
     generate byte flag_cooks = cooks_distance > `cooks_threshold' if e(sample)
     generate byte flag_residual = abs(standardized_residual) > 3 if e(sample)
 
+    * Evaluar condición de control de flujo
     keep if e(sample) & (flag_leverage == 1 | flag_cooks == 1 | flag_residual == 1)
 
+    * Ejecutar la siguiente instrucción del bloque
     generate str8 model = "ECI"
     generate double dependent_value = eci
     generate double leverage_cutoff = `leverage_threshold'
     generate double cooks_cutoff = `cooks_threshold'
 
+    * Ejecutar la siguiente instrucción del bloque
     keep model country_iso3_code country country_id year dependent_value leverage leverage_cutoff cooks_distance cooks_cutoff standardized_residual flag_leverage flag_cooks flag_residual
     save "`influence_eci'", replace
 restore
 
+* Calcular métricas de influencia y apalancamiento para el modelo DIVX
 preserve
     quietly regress divx $MODEL_COMMON i.country_id i.year if sample_divx == 1
     local influence_n = e(N)
@@ -524,25 +569,31 @@ preserve
     local leverage_threshold = 2 * `influence_k' / `influence_n'
     local cooks_threshold = 4 / `influence_n'
 
+    * Evaluar condición de control de flujo
     predict double leverage if e(sample), hat
     predict double cooks_distance if e(sample), cooksd
     predict double standardized_residual if e(sample), rstandard
 
+    * Evaluar condición de control de flujo
     generate byte flag_leverage = leverage > `leverage_threshold' if e(sample)
     generate byte flag_cooks = cooks_distance > `cooks_threshold' if e(sample)
     generate byte flag_residual = abs(standardized_residual) > 3 if e(sample)
 
+    * Evaluar condición de control de flujo
     keep if e(sample) & (flag_leverage == 1 | flag_cooks == 1 | flag_residual == 1)
 
+    * Ejecutar la siguiente instrucción del bloque
     generate str8 model = "DIVX"
     generate double dependent_value = divx
     generate double leverage_cutoff = `leverage_threshold'
     generate double cooks_cutoff = `cooks_threshold'
 
+    * Ejecutar la siguiente instrucción del bloque
     keep model country_iso3_code country country_id year dependent_value leverage leverage_cutoff cooks_distance cooks_cutoff standardized_residual flag_leverage flag_cooks flag_residual
     save "`influence_divx'", replace
 restore
 
+* Consolidar y exportar alertas de observaciones influyentes a CSV
 preserve
     use "`influence_eci'", clear
     append using "`influence_divx'"

@@ -6,6 +6,7 @@
 # Construye la única serie ECI utilizada por la tesis a partir del campo
 # countryYear.eci de la API oficial del Atlas of Economic Complexity.
 
+# Ejecutar la siguiente instrucción del bloque
 helper_path <- c(
   if (requireNamespace("rstudioapi", quietly = TRUE) && rstudioapi::isAvailable()) {
     file.path(dirname(dirname(dirname(dirname(rstudioapi::getActiveDocumentContext()$path)))), "project_paths.R")
@@ -22,6 +23,7 @@ if (is.na(helper_path)) {
 source(helper_path)
 project_path <- find_project_path()
 
+# Ejecutar la siguiente instrucción del bloque
 start_year <- 1996L
 end_year <- 2021L
 analysis_years <- start_year:end_year
@@ -29,6 +31,7 @@ expected_country_count <- 55L
 expected_year_count <- length(analysis_years)
 expected_row_count <- expected_country_count * expected_year_count
 
+# Ejecutar la siguiente instrucción del bloque
 raw_eci_file <- file.path(
   project_path,
   "data",
@@ -52,6 +55,7 @@ processed_path <- file.path(
   "atlas"
 )
 
+# Ejecutar la siguiente instrucción del bloque
 required_files <- c(raw_eci_file, sample_file)
 missing_files <- required_files[!file.exists(required_files)]
 if (length(missing_files) > 0L) {
@@ -61,6 +65,7 @@ if (!requireNamespace("foreign", quietly = TRUE)) {
   stop("Falta el paquete de R 'foreign', requerido para crear la salida .dta.")
 }
 
+# Ejecutar la siguiente instrucción del bloque
 dir.create(processed_path, recursive = TRUE, showWarnings = FALSE)
 panel_csv_file <- file.path(processed_path, "eci_data.csv")
 panel_dta_file <- file.path(processed_path, "eci_data.dta")
@@ -79,6 +84,7 @@ official_output_files <- c(
   validation_file
 )
 
+# Iterar sobre los elementos del conjunto
 for (output_file in official_output_files[file.exists(official_output_files)]) {
   output_connection <- try(file(output_file, open = "ab"), silent = TRUE)
   if (inherits(output_connection, "try-error")) {
@@ -87,6 +93,7 @@ for (output_file in official_output_files[file.exists(official_output_files)]) {
   close(output_connection)
 }
 
+# Cargar el archivo de datos
 dres_sample <- read.csv(
   sample_file,
   colClasses = "character",
@@ -127,6 +134,7 @@ if (nrow(dres_sample) != expected_country_count) {
 dres_sample <- dres_sample[order(dres_sample$country_iso3_code), ]
 row.names(dres_sample) <- NULL
 
+# Cargar el archivo de datos
 raw_eci <- read.csv(
   raw_eci_file,
   stringsAsFactors = FALSE,
@@ -165,6 +173,7 @@ if (any(is.infinite(raw_eci$eci), na.rm = TRUE)) {
   stop("La captura ECI contiene valores infinitos.")
 }
 
+# Ejecutar la siguiente instrucción del bloque
 raw_eci <- raw_eci[
   raw_eci$country_iso3_code %in% dres_sample$country_iso3_code &
     raw_eci$year %in% analysis_years,
@@ -174,6 +183,7 @@ raw_eci <- raw_eci[
 ]
 row.names(raw_eci) <- NULL
 
+# Ejecutar la siguiente instrucción del bloque
 sample_without_api <- setdiff(
   dres_sample$country_iso3_code,
   unique(raw_eci$country_iso3_code)
@@ -185,6 +195,7 @@ if (length(sample_without_api) > 0L) {
   )
 }
 
+# Ejecutar la siguiente instrucción del bloque
 panel_grid <- merge(
   dres_sample,
   data.frame(year = analysis_years),
@@ -204,6 +215,7 @@ eci_panel <- eci_panel[
 ]
 row.names(eci_panel) <- NULL
 
+# Evaluar condición de control de flujo
 if (nrow(eci_panel) != expected_row_count) {
   stop(
     "El panel ECI debería contener ",
@@ -228,6 +240,7 @@ if (any(is.infinite(eci_panel$eci))) {
   stop("El panel ECI contiene valores infinitos.")
 }
 
+# Ejecutar la siguiente instrucción del bloque
 coverage_by_country <- do.call(
   rbind,
   lapply(
@@ -257,6 +270,7 @@ coverage_by_country <- coverage_by_country[
 ]
 row.names(coverage_by_country) <- NULL
 
+# Ejecutar la siguiente instrucción del bloque
 validation_summary <- data.frame(
   metric = c(
     "start_year",
@@ -296,6 +310,7 @@ validation_summary <- data.frame(
   stringsAsFactors = FALSE
 )
 
+# Guardar o exportar los resultados
 write.csv(
   eci_panel,
   panel_csv_file,
@@ -324,6 +339,7 @@ write.csv(
   fileEncoding = "UTF-8"
 )
 
+# Cargar el archivo de datos
 csv_check <- read.csv(
   panel_csv_file,
   stringsAsFactors = FALSE,
@@ -360,6 +376,7 @@ if (
   stop("Las salidas CSV y Stata de ECI difieren numéricamente.")
 }
 
+# Ejecutar la siguiente instrucción del bloque
 message("Panel ECI CSV guardado en: ", panel_csv_file)
 message("Panel ECI Stata guardado en: ", panel_dta_file)
 message(

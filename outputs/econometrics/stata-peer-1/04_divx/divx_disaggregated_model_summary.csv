@@ -1,0 +1,2 @@
+model,dependent,obs,countries,clusters,r2_within,r2_between,r2_overall,f_stat,p_val,rmse,sigma_u,sigma_e,rho
+DIVX_TWFE_DISAGG,divx,1044,49,49,.3269696001926266,.33846337,.3248581,33.389771,3.8868494e-24,.070916839,.17500991,.072677195,.85291255

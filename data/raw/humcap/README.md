@@ -42,8 +42,6 @@ del PNUD.
 
 El script activo es
 [`scripts/data/raw/humcap/humcap_undp_raw.py`](../../../scripts/data/raw/humcap/humcap_undp_raw.py).
-El nombre histórico `humcap_pwt_raw.py` se conserva como envoltorio de
-compatibilidad y ejecuta la misma descarga activa.
 
 La construcción definitiva y sus diagnósticos están documentados en
 [`data/processed/humcap/`](../../processed/humcap/).

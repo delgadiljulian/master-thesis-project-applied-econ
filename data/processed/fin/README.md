@@ -55,7 +55,5 @@ ambas series y sus diferencias país-año.
 - `fin_validation_summary.csv`: controles de identidad, dominio, llaves,
   valores superiores a 100 %, cobertura y equivalencia CSV–Stata.
 
-El procesamiento se implementa en
-[`fin_wdi_banks_processed.R`](../../../scripts/data/processed/fin/fin_wdi_banks_processed.R).
-[`fin_processed.R`](../../../scripts/data/processed/fin/fin_processed.R) es el
-envoltorio estable.
+El procesamiento se implementa en un único punto de entrada:
+[`fin_processed.R`](../../../scripts/data/processed/fin/fin_processed.R).

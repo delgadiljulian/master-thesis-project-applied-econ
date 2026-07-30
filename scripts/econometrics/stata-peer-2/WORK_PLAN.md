@@ -3,11 +3,14 @@
 ## 1. Objetivo
 
 Implementar de forma reproducible en **Stata 17 MP** las dos ecuaciones
-econométricas definidas en el capítulo metodológico de la tesis:
+econométricas definidas en el capítulo metodológico de la tesis y su extensión
+por tipo de renta:
 
 1. **Modelo principal:** `ECI` como variable dependiente.
 2. **Modelo complementario:** `DIVX = 1 - HHI` como variable dependiente,
    excluyendo `HHI` de los regresores.
+3. **Extensión desagregada:** distinguir `RENTS_OIL_GAS` —petróleo y gas— de
+   `RENTS_MINING` —carbón, minerales y metales— en ambos modelos.
 
 Las estimaciones se interpretarán como asociaciones condicionales dentro de un
 diseño observacional. No se presentarán como efectos causales.
@@ -20,7 +23,9 @@ diseño observacional. No se presentarán como efectos causales.
 - No modificar datos `raw`, datos procesados ni el constructor del panel.
 - No imputar ni interpolar observaciones faltantes.
 - No crear proxies, interacciones, submuestras o modelos no previstos.
-- Mantener únicamente la interacción `RENTS × INST`.
+- Mantener `RENTS × INST` como única interacción de la etapa agregada.
+- No incorporar las interacciones de los componentes desagregados hasta cerrar
+  expresamente el Control G.
 - Estimar efectos fijos por país y por año.
 - Excluir `HHI` únicamente del modelo `DIVX`.
 - Desarrollar y validar el análisis sección por sección.
@@ -28,22 +33,27 @@ diseño observacional. No se presentarán como efectos causales.
 
 ## 3. Ubicación de la implementación
 
-Esta candidatura utiliza dos archivos de análisis consecutivos:
+Esta candidatura utiliza tres archivos de análisis consecutivos:
 
 ```text
 scripts/econometrics/stata-peer-2/
   01_data_preparation_diagnostics.do
   02_econometric_models.do
+  03_resource_disaggregation.do
   WORK_PLAN.md
 ```
 
 El archivo `01_data_preparation_diagnostics.do` contiene las secciones 1 a 4:
 configuración, validación del panel, preparación de muestras y diagnósticos. El
 archivo `02_econometric_models.do` contiene las secciones 5 a 8: modelos ECI y
-DIVX, estabilidad, efectos marginales y exportación final.
+DIVX, estabilidad, efectos marginales y exportación final. El archivo
+`03_resource_disaggregation.do` continúa con las secciones 9 a 14 y estará
+dedicado exclusivamente a distinguir las rentas de hidrocarburos de las rentas
+de carbón, minerales y metales.
 
 La división evita que un único `.do` se vuelva difícil de revisar. No altera la
-secuencia metodológica ni duplica estimaciones.
+secuencia metodológica. El archivo 03 conservará los modelos agregados como
+referencia y no los sustituirá.
 
 ## 4. Reproducibilidad y dependencias
 
@@ -53,6 +63,7 @@ respetando este orden:
 ```stata
 do "C:/Users/usuario/GitHub/master-thesis-project-applied-econ/scripts/econometrics/stata-peer-2/01_data_preparation_diagnostics.do"
 do "C:/Users/usuario/GitHub/master-thesis-project-applied-econ/scripts/econometrics/stata-peer-2/02_econometric_models.do"
+do "C:/Users/usuario/GitHub/master-thesis-project-applied-econ/scripts/econometrics/stata-peer-2/03_resource_disaggregation.do"
 ```
 
 Para ejecutarlos desde PowerShell se utilizará el ejecutor incluido:
@@ -62,13 +73,17 @@ Para ejecutarlos desde PowerShell se utilizará el ejecutor incluido:
 ```
 
 Este ejecutor guarda el registro automático del modo batch únicamente en
-`outputs/econometrics/stata-peer-2/logs/batch/`. Los logs analíticos creados por
-los `.do` permanecen en `outputs/econometrics/stata-peer-2/logs/`; por tanto,
-ninguna ejecución desde terminal debe crear archivos `.log` en la raíz ni en la
-carpeta de los scripts.
+`outputs/econometrics/stata-peer-2/logs/batch/`. Los logs analíticos de los
+archivos 01 y 02 permanecen en `outputs/econometrics/stata-peer-2/logs/`; el
+del archivo 03 se guarda dentro de
+`07_resource_disaggregation/logs/`. Ninguna ejecución desde terminal debe
+crear archivos `.log` en la raíz ni en la carpeta de los scripts.
 
 El ejecutor fue validado con las etapas 01 y 02 el 29 de julio de 2026. Ambas
 terminaron correctamente y sus registros batch quedaron en la ruta prevista.
+La etapa 03 ya forma parte del ejecutor porque contiene una inicialización y
+las secciones 9 a 11 operativas. Se validó de forma aislada mediante
+`-Stage 03`; `-Stage all` respeta el orden 01, 02 y 03.
 
 Cada archivo localiza la raíz del proyecto en este orden:
 
@@ -101,6 +116,10 @@ Dependencias externas del archivo 02:
 - `ftools`;
 - `reghdfe`;
 - `estout`, mediante el comando `esttab`.
+
+La inicialización y las secciones 9 y 10 del archivo 03 utilizan únicamente
+comandos oficiales de Stata. La sección 11 reutiliza `reghdfe` y `esttab`,
+instalados y verificados por el archivo 02; no instala paquetes adicionales.
 
 No se añadirá otro paquete hasta que una sección implementada lo requiera de
 forma efectiva.
@@ -438,6 +457,378 @@ sin errores desde sesiones limpias y desde la carpeta anidada de los scripts.
 El archivo 02 creó las 18 salidas finales previstas —17 inventariadas más el
 propio manifiesto— y validó 33 filas de coeficientes y 16 pruebas conjuntas.
 
+### Sección 9. Diseño de la desagregación de RENTS
+
+**Objetivo**
+
+Definir antes de estimar cómo se distinguirán las rentas de hidrocarburos de
+las rentas de carbón, minerales y metales.
+
+**Decisiones cerradas en el Control G**
+
+- Los dos componentes entrarán conjuntamente dentro de la misma ecuación:
+  `RENTS_OIL_GAS` y `RENTS_MINING`.
+- Ambos componentes reemplazarán a `RENTS` únicamente en la extensión. Los
+  modelos agregados `ECI_TWFE_MAIN` y `DIVX_TWFE_MAIN` continúan siendo los
+  modelos centrales del TFM.
+- Se incluirán simultáneamente `RENTS_OIL_GAS × INST` y
+  `RENTS_MINING × INST`. Esta decisión descompone la interacción agregada y no
+  autoriza otras interacciones.
+- No se estimarán modelos separados con un solo componente, porque omitirían la
+  otra fuente de rentas extractivas y no permitirían probar directamente la
+  restricción sectorial del modelo agregado.
+- `ln1p_oilpc`, `ln1p_gaspc` y `ln1p_coalpc` permanecen en la especificación
+  principal: miden abundancia real por habitante, mientras los componentes de
+  `RENTS` miden intensidad como porcentaje del PIB.
+- Se predefine una única sensibilidad que excluye conjuntamente los tres
+  controles per cápita. No se excluirán por separado ni según los resultados.
+- Las muestras desagregadas deben coincidir exactamente con las muestras
+  agregadas de casos completos.
+- Se predefinen pruebas de significancia conjunta por componente, igualdad de
+  coeficientes directos, igualdad de interacciones e igualdad conjunta de ambos
+  pares. Los efectos marginales se evaluarán en P10, P25, P50, P75 y P90 de
+  `INST`.
+- La inferencia conservará efectos fijos por país y año y errores estándar
+  agrupados por país. Los resultados se interpretarán como asociaciones
+  condicionadas, no como efectos causales sectoriales.
+
+**Implementación**
+
+- La inicialización localiza la raíz, comprueba la base del archivo 01 y los
+  resúmenes agregados ECI y DIVX del archivo 02.
+- Las salidas de esta etapa se escriben exclusivamente en
+  `07_resource_disaggregation/00_design/` y su log en
+  `07_resource_disaggregation/logs/`.
+- `control_g_design.csv` conserva las decisiones metodológicas.
+- `section9_validation.csv` conserva la identidad contable y la comparación de
+  muestras.
+- La sección 9 utiliza únicamente comandos oficiales de Stata y no instala
+  paquetes.
+
+**Estado:** implementada y validada mediante una ejecución independiente de
+Stata el 29 de julio de 2026. La identidad contable se comprobó en 1.352
+observaciones, con una discrepancia máxima de
+`9,384680533 × 10^-14` puntos porcentuales y cero incompatibilidades en el
+patrón de faltantes. Las muestras ECI y DIVX desagregadas conservaron,
+cada una, 1.044 observaciones y 49 países, con cero diferencias frente a sus
+muestras agregadas. No se estimaron coeficientes.
+
+### Sección 10. Preparación y diagnósticos de los componentes
+
+**Objetivo**
+
+Comprobar que los componentes pueden utilizarse en una especificación de panel
+sin alterar la base ni ocultar problemas de cobertura o colinealidad.
+
+**Tareas**
+
+- Cargar la base analítica como insumo de solo lectura.
+- Verificar dominios, valores faltantes e identidad contable.
+- Documentar observaciones, países, años, ceros y valores extremos.
+- Calcular variación *overall*, *between* y *within*.
+- Examinar correlaciones y colinealidad con las interacciones y los controles
+  per cápita relacionados.
+- Registrar observaciones potencialmente influyentes sin eliminarlas
+  automáticamente.
+
+**Outputs**
+
+- `component_profile.csv`: cobertura, ceros y distribución de ambos
+  componentes.
+- `component_panel_variation.csv`: variación *overall*, *between* y *within*
+  de los componentes y sus interacciones.
+- `focal_correlation_matrix.csv`: correlaciones con `INST` y los controles per
+  cápita.
+- `within_vif_by_model.csv`: VIF residualizado por país y año para ECI y DIVX,
+  incluidas las interacciones.
+- `influence_summary.csv`: umbrales y conteos de alertas por modelo.
+- `influential_observations.csv`: detalle país-año para las sensibilidades
+  posteriores.
+
+**Resultados del diagnóstico**
+
+- `rents_oil_gas` tiene 95,45 % de cobertura en la grilla y
+  `rents_mining`, 96,78 %; ambas conservan 1.044 observaciones en la muestra
+  analítica.
+- Los dos componentes y sus interacciones presentan variación *within*
+  positiva. La razón *within/overall* es 0,334 para hidrocarburos y 0,626 para
+  minería.
+- Las correlaciones en niveles alcanzan 0,783 entre `rents_oil_gas` y
+  `ln1p_oilpc`, y 0,788 entre `ln1p_oilpc` y `ln1p_gaspc`. Sin embargo, el VIF
+  *within* máximo es 2,040 en ECI y 1,966 en DIVX, por debajo del umbral de
+  revisión de 5.
+- Se alertaron 75 observaciones ECI y 78 DIVX mediante apalancamiento, distancia
+  de Cook o residuo estandarizado. Estas alertas no modifican la muestra
+  principal y alimentarán las sensibilidades de la sección 13.
+
+**Estado:** implementada y validada mediante Stata el 29 de julio de 2026.
+Los seis archivos fueron creados, no se detectó colinealidad *within* alta y no
+se eliminaron países ni observaciones.
+
+### Sección 11. Modelos desagregados con ECI
+
+**Objetivo**
+
+Estimar la asociación condicionada de cada tipo de renta con la complejidad
+económica y compararla con `ECI_TWFE_MAIN`.
+
+**Tareas**
+
+- Construir y documentar la muestra ECI comparable.
+- Estimar efectos fijos por país y año con errores agrupados por país.
+- Probar la significancia individual y conjunta de ambos componentes.
+- Contrastar la igualdad de los coeficientes de hidrocarburos y minería.
+- Evaluar las interacciones institucionales aprobadas.
+- Comparar signos, magnitudes, incertidumbre, cobertura y ajuste con el modelo
+  agregado.
+
+**Outputs**
+
+- `eci_disaggregated_coefficients.csv`: 19 términos, incluidas las dos
+  interacciones institucionales.
+- `eci_disaggregated_model_summary.csv`: cobertura, ajuste e inferencia.
+- `eci_disaggregated_tests.csv`: siete pruebas predefinidas.
+- `eci_xtreg_reghdfe_verification.csv`: equivalencia término por término.
+- `eci_aggregate_disaggregated_model_comparison.csv`: comparación homogénea de
+  muestra y ajuste.
+- `eci_aggregate_disaggregated_focal_comparison.csv`: comparación de los
+  términos de rentas.
+- `eci_aggregate_disaggregated_table.tex`: tabla provisional de revisión.
+- Dos archivos `.ster` conservan las estimaciones `xtreg` y `reghdfe`.
+
+**Resultados**
+
+- La muestra permanece en 1.044 observaciones, 49 países y 23 años efectivos.
+- El coeficiente directo de hidrocarburos es `-0,007254` (`p = 0,212`); su
+  efecto conjunto con la interacción no es estadísticamente detectable
+  (`p = 0,291`).
+- El coeficiente directo de minería es `-0,013597` (`p = 0,0011`); su efecto
+  conjunto con la interacción es estadísticamente detectable (`p = 0,0024`).
+- Las dos interacciones no son conjuntamente significativas (`p = 0,340`).
+- No se rechaza la igualdad de coeficientes directos (`p = 0,325`), la igualdad
+  de interacciones (`p = 0,522`) ni la restricción conjunta implícita en el
+  modelo agregado (`p = 0,332`).
+- Los cuatro términos desagregados son conjuntamente significativos
+  (`p = 0,0057`).
+- El R² *within* pasa de 0,1523 en el modelo agregado a 0,1566 en el
+  desagregado, mientras el RMSE cambia de 0,26343 a 0,26302.
+- `xtreg` y `reghdfe` reproducen exactamente los 19 coeficientes. Los
+  coeficientes comunes con el peer independiente difieren en menos de
+  `4,3 × 10^-11`.
+
+**Lectura:** la minería presenta una asociación negativa más precisa, pero las
+pruebas formales no demuestran que su coeficiente o su interacción difieran de
+los correspondientes a hidrocarburos. La evidencia es complementaria y no
+justifica reemplazar `ECI_TWFE_MAIN`.
+
+**Estado:** implementada, validada y aprobada en el Control H el 29 de julio de
+2026. No se excluyeron observaciones y no se emplea lenguaje causal.
+
+### Sección 12. Modelos desagregados con DIVX
+
+**Objetivo**
+
+Repetir la desagregación para diversificación exportadora manteniendo la
+comparabilidad con `DIVX_TWFE_MAIN`.
+
+**Tareas**
+
+- Construir y documentar la muestra DIVX comparable.
+- Excluir HHI porque `DIVX = 1 - HHI`.
+- Estimar efectos fijos por país y año con errores agrupados por país.
+- Repetir las pruebas individuales, conjuntas, de igualdad y de interacción.
+- Comparar resultados con el modelo DIVX agregado.
+- Distinguir diversificación horizontal de transformación productiva profunda.
+
+**Outputs**
+
+- `divx_disaggregated_coefficients.csv`: 18 términos, incluidas las dos
+  interacciones institucionales y sin HHI.
+- `divx_disaggregated_model_summary.csv`: cobertura, ajuste e inferencia.
+- `divx_disaggregated_tests.csv`: siete pruebas predefinidas.
+- `divx_xtreg_reghdfe_verification.csv`: equivalencia término por término.
+- `divx_aggregate_disaggregated_model_comparison.csv`: comparación homogénea de
+  muestra y ajuste.
+- `divx_aggregate_disaggregated_focal_comparison.csv`: comparación de los
+  términos de rentas.
+- `divx_aggregate_disaggregated_table.tex`: tabla provisional de revisión.
+- Dos archivos `.ster` conservan las estimaciones `xtreg` y `reghdfe`.
+
+**Resultados**
+
+- La muestra permanece en 1.044 observaciones, 49 países y 23 años efectivos.
+- El coeficiente directo de hidrocarburos es `-0,004849` (`p = 0,0010`) y su
+  efecto conjunto con la interacción es estadísticamente detectable
+  (`p = 0,00018`).
+- El coeficiente directo de minería es `-0,001413` (`p = 0,459`) y su efecto
+  conjunto con la interacción no es estadísticamente detectable
+  (`p = 0,749`).
+- Las dos interacciones no son conjuntamente significativas (`p = 0,599`).
+- No se rechaza por separado la igualdad de coeficientes directos (`p = 0,108`)
+  ni la igualdad de interacciones (`p = 0,419`), pero sí se rechaza la
+  restricción conjunta del modelo agregado (`p = 0,0184`).
+- Los cuatro términos desagregados son conjuntamente significativos
+  (`p = 0,0013`).
+- El R² *within* pasa de 0,3119 en el modelo agregado a 0,3270 en el
+  desagregado, mientras el RMSE cambia de 0,07164 a 0,07092.
+- `xtreg` y `reghdfe` reproducen exactamente los 18 coeficientes. Los
+  coeficientes comunes con el peer independiente difieren en menos de
+  `4,9 × 10^-11`.
+
+**Lectura:** las rentas de petróleo y gas presentan una asociación negativa más
+precisa con la diversificación horizontal. Minería no muestra la misma
+precisión y las interacciones institucionales no son detectables. La
+desagregación rechaza conjuntamente la estructura agregada, por lo que aporta
+información complementaria relevante, pero no sustituye la interpretación más
+amplia de transformación productiva del modelo ECI.
+
+**Estado:** implementada, validada y aprobada en el Control I el 29 de julio de
+2026. HHI fue excluido por identidad, no se modificó la muestra y no se emplea
+lenguaje causal.
+
+### Sección 13. Estabilidad y efectos marginales por componente
+
+**Objetivo**
+
+Determinar si las diferencias entre hidrocarburos y minería se mantienen bajo
+las mismas exigencias de estabilidad aplicadas a los modelos agregados.
+
+**Tareas**
+
+- Calcular efectos marginales de cada componente para valores sustantivos de
+  `INST`.
+- Reestimar excluyendo observaciones previamente alertadas.
+- Ejecutar exclusiones de un país por vez.
+- Aplicar *wild cluster bootstrap* cuando corresponda.
+- Implementar únicamente sensibilidades predefinidas.
+- Clasificar la evidencia como central, complementaria o no concluyente.
+
+**Outputs**
+
+- `component_marginal_effects_by_inst.csv`: 20 efectos marginales para los
+  percentiles 10, 25, 50, 75 y 90 de `INST`.
+- Ocho figuras, cuatro en PDF y cuatro en PNG, para hidrocarburos y minería en
+  los modelos ECI y DIVX.
+- `influential_observation_sensitivity.csv`: 16 comparaciones antes y después
+  de excluir las observaciones alertadas.
+- `leave_one_country_out_detail.csv`: 392 reestimaciones, correspondientes a
+  49 países, dos modelos y cuatro términos focales.
+- `leave_one_country_out_summary.csv`: ocho resúmenes de estabilidad.
+- `wild_cluster_bootstrap.csv`: ocho pruebas con 9.999 réplicas y pesos
+  Rademacher.
+- `no_per_capita_controls_sensitivity.csv`: 16 comparaciones sobre la misma
+  muestra, sin los controles de recursos per cápita.
+- `stability_classification.csv`: clasificación predefinida de los ocho
+  términos focales.
+
+**Resultados**
+
+- La asociación marginal de minería con ECI es negativa y estadísticamente
+  detectable en los cinco percentiles de `INST`; varía entre `-0,010961` en
+  P10 y `-0,015544` en P90.
+- La asociación marginal de hidrocarburos con DIVX es negativa y detectable
+  entre P10 y P75; en P90 es `-0,003742` (`p = 0,091`).
+- Los efectos marginales de hidrocarburos sobre ECI y de minería sobre DIVX no
+  son estadísticamente detectables en ninguno de los cinco percentiles.
+- La exclusión de 75 alertas en ECI y 78 en DIVX preserva el signo de siete de
+  los ocho términos. La interacción minería–instituciones del modelo ECI
+  cambia de signo y algunos términos inicialmente imprecisos se vuelven
+  detectables, por lo que esas variaciones se reportan como sensibilidad y no
+  como resultados centrales.
+- Las exclusiones de un país por vez preservan siempre el signo y la
+  significancia al 5 % de minería en ECI y de hidrocarburos en DIVX. Los otros
+  términos presentan menor estabilidad inferencial.
+- El *wild cluster bootstrap* confirma minería en ECI (`p = 0,0235`) e
+  hidrocarburos en DIVX (`p = 0,0029`); los otros seis términos no son
+  detectables.
+- La sensibilidad sin controles de recursos per cápita mantiene los signos y
+  las conclusiones principales.
+- La regla predefinida clasifica como evidencia complementaria únicamente
+  minería en ECI e hidrocarburos en DIVX. Los seis términos restantes quedan
+  como evidencia no concluyente.
+- Los 20 efectos marginales coinciden con el peer independiente hasta el
+  redondeo de exportación. Los cuatro resúmenes directos de exclusión de un
+  país coinciden en signos, conteos y coeficientes, con diferencias inferiores
+  a `3 × 10^-10`. Las pequeñas diferencias del bootstrap corresponden a
+  semillas Monte Carlo distintas y no alteran ninguna conclusión.
+
+**Lectura:** la evidencia de estabilidad refuerza de manera complementaria dos
+patrones: minería en el modelo ECI e hidrocarburos en el modelo DIVX. No
+respalda una interpretación central o causal de los demás componentes ni de
+las interacciones institucionales.
+
+**Estado:** implementada y validada el 29 de julio de 2026. Se ejecutaron
+únicamente sensibilidades predefinidas, las cuatro figuras fueron revisadas
+visualmente y el cierre permanece sujeto al Control J de la sección 14.
+
+### Sección 14. Exportación y cierre de la desagregación
+
+**Objetivo**
+
+Crear un paquete reproducible y separado de las salidas agregadas.
+
+**Tareas**
+
+- Exportar coeficientes, incertidumbre, cobertura y pruebas conjuntas.
+- Crear tablas comparables entre RENTS agregado, hidrocarburos y minería.
+- Exportar figuras de efectos marginales en PDF y PNG.
+- Crear un índice y un manifiesto de resultados.
+- Ejecutar el archivo 03 desde una sesión limpia.
+- Confirmar que no se sobrescribieron outputs de las secciones 1 a 8.
+- Contrastar resultados entre pares antes de incorporarlos al TFM.
+
+**Outputs**
+
+- `final_focal_coefficients.csv`: doce coeficientes directos e interacciones
+  comparables entre RENTS agregado, hidrocarburos y minería.
+- `final_model_comparison.csv`: cobertura y ajuste de los cuatro modelos.
+- `final_joint_tests.csv`: catorce pruebas conjuntas de ECI y DIVX
+  desagregados.
+- `final_component_marginal_effects.csv`: veinte efectos marginales por
+  percentil de `INST`.
+- `final_stability_classification.csv`: clasificación de los ocho términos
+  focales.
+- `table_eci_divx_aggregate_disaggregated.tex` y
+  `table_eci_divx_aggregate_disaggregated.txt`: tabla comparativa focal.
+- `table_eci_divx_full_models.tex` y `table_eci_divx_full_models.txt`: tabla
+  suplementaria con todos los controles, incorporada después del contraste con
+  Antigravity.
+- `results_manifest.csv`: configuración, cobertura y verificaciones de la
+  ejecución.
+- `results_index.csv`: inventario dinámico de los 53 archivos producidos por
+  las secciones 9 a 14.
+
+**Resultados**
+
+- El paquete final contiene once archivos en `05_exports/` y conserva las ocho
+  figuras de efectos marginales en `04_stability/`.
+- El índice registra 2 archivos de diseño, 6 de diagnóstico, 9 de ECI, 9 de
+  DIVX, 15 de estabilidad, 11 exportaciones finales y el log de ejecución.
+- Los doce coeficientes focales, sus errores estándar y sus valores p preservan
+  los resultados validados en las secciones 11 y 12.
+- La tabla final reproduce las mismas conclusiones y valores redondeados que la
+  tabla de Antigravity. En los términos desagregados comunes, las diferencias
+  de coeficientes permanecen por debajo de `3,1 × 10^-11`; las diferencias de
+  los coeficientes agregados responden únicamente a la exportación a seis
+  decimales y son inferiores a `4,7 × 10^-7`.
+- La tabla completa de Antigravity se incorporó como salida suplementaria. Se
+  conservaron sus notas sobre efectos fijos, agrupación por país, exclusión de
+  HHI y carácter complementario de la extensión, y se eliminaron de la salida
+  los niveles base y términos omitidos.
+- El índice excluye su versión previa durante cada reconstrucción y añade una
+  sola entrada propia, por lo que puede regenerarse sin duplicados.
+- El archivo 03 se ejecutó desde una sesión limpia en Stata 17 y escribió el
+  marcador de cierre de las secciones 9 a 14.
+- El ejecutor comparó las huellas SHA-256 antes y después de la etapa 03 y
+  confirmó que ningún output de las secciones 1 a 8 fue modificado.
+
+**Lectura:** el paquete final separa completamente la extensión desagregada de
+los resultados agregados, conserva la trazabilidad de cada salida y deja listas
+las tablas necesarias para decidir su incorporación al TFM.
+
+**Estado:** implementada, validada y aprobada en el Control J el 29 de julio de
+2026. El archivo 03 quedó terminado.
+
 ## 6. Estructura exclusiva de salidas
 
 Todas las salidas de esta implementación se escribirán únicamente bajo:
@@ -452,7 +843,21 @@ outputs/econometrics/stata-peer-2/
   05_stability/
   06_final/
   logs/
+  07_resource_disaggregation/
+    00_design/
+    01_diagnostics/
+    02_eci/
+    03_divx/
+    04_stability/
+    05_exports/
+    logs/
 ```
+
+La estructura interna de `07_resource_disaggregation/` se utiliza completa con
+las secciones 9 a 14: `00_design/`, `01_diagnostics/`, `02_eci/`, `03_divx/`,
+`04_stability/`, `05_exports/` y `logs/`.
+La extensión no escribirá dentro de `03_eci/`, `04_divx/`, `05_stability/` ni
+`06_final/`, porque esas carpetas pertenecen a los modelos agregados.
 
 Ninguna sección escribirá directamente en:
 
@@ -470,8 +875,10 @@ los resultados finales.
    `ln(1+COALPC)`; pendiente de ratificación en el Control B.
 2. **Cerrada y aprobada:** usar errores estándar agrupados por país como
    inferencia principal.
-3. Valores de `INST` para presentar los efectos marginales.
-4. Prueba de igualdad entre los coeficientes de los tres recursos.
+3. **Cerrada y ejecutada:** presentar los efectos marginales en P10, P25, P50,
+   P75 y P90 de `INST`.
+4. **Cerrada y ejecutada:** probar la igualdad entre hidrocarburos y minería,
+   tanto para los efectos directos como para las interacciones.
 5. **Cerrada técnicamente:** revisar apalancamiento mayor que `2k/N`, distancia
    de Cook mayor que `4/N` o residuo estandarizado mayor que 3 en valor
    absoluto, sin exclusiones automáticas.
@@ -493,6 +900,22 @@ coeficientes principales.
    02 se ejecutaron en orden desde sesiones limpias, localizaron la raíz desde
    la carpeta anidada y regeneraron sin errores las muestras, diagnósticos,
    modelos, sensibilidades y salidas finales.
+7. **Control G — diseño de la desagregación:** aprobado antes de observar
+   coeficientes. Se fijaron la estructura conjunta, las dos interacciones con
+   `INST`, el tratamiento de los controles per cápita, las muestras comparables
+   y las pruebas predefinidas.
+8. **Control H — ECI desagregado:** aprobado el 29 de julio de 2026. La
+   estimación conserva la muestra, supera la verificación `xtreg`–`reghdfe`,
+   coincide con el peer independiente y no rechaza la restricción conjunta del
+   modelo agregado.
+9. **Control I — DIVX desagregado:** aprobado el 29 de julio de 2026. La
+   estimación conserva la muestra, excluye HHI por identidad, supera la
+   verificación `xtreg`–`reghdfe`, coincide con el peer independiente y rechaza
+   la restricción conjunta del modelo agregado.
+10. **Control J — cierre de la extensión:** aprobado el 29 de julio de 2026.
+    Las sensibilidades y figuras fueron validadas, el paquete final contiene
+    manifiesto e índice, la ejecución limpia preservó por SHA-256 los outputs
+    de las secciones 1 a 8 y el contraste peer-to-peer mantuvo las conclusiones.
 
 No se avanzará automáticamente de un control al siguiente sin revisar el
 resultado de la etapa anterior.

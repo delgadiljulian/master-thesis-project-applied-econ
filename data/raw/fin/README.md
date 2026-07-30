@@ -33,8 +33,6 @@ sirve como referencia de contraste para validar la sustitución.
 
 La descarga reproducible se implementa en
 [`fin_wdi_banks_raw.py`](../../../scripts/data/raw/fin/fin_wdi_banks_raw.py).
-[`fin_wdi_raw.R`](../../../scripts/data/raw/fin/fin_wdi_raw.R) es un envoltorio
-estable para ejecutar ese proceso desde R.
 
 La construcción definitiva y sus diagnósticos están documentados en
 [`data/processed/fin/`](../../processed/fin/).

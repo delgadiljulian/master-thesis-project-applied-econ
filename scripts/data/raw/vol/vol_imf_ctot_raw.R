@@ -434,6 +434,7 @@ write.csv(
   fileEncoding = "UTF-8"
 )
 
+# Ejecutar la siguiente instrucción del bloque
 message("Raw de VOL-CTOT terminado.")
 message("Archivo CSV: ", csv_file)
 print(coverage_summary)

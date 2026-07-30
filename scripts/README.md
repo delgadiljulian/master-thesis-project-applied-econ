@@ -30,6 +30,7 @@ scripts/
       hhi_divx/
   panel/                      # Integración del panel maestro país-año
   analysis/                   # Figuras descriptivas y análisis exploratorio
+    chapter10/                # Único flujo reproducible del capítulo de datos
     eci/
   literature/                 # Reproducción y extracción de estudios previos
     anne2021/
@@ -70,9 +71,21 @@ No deben existir constructores de variables directamente dentro de
    procesados de ECI, HHI y DIVX.
 4. `data/raw/world_bank_wdi/wdi_thesis_inputs_raw.R` descarga los insumos WDI
    compartidos.
-5. `data/raw/pwt/pwt11_raw.R` descarga la fuente compartida PWT 11.0.
-6. Los demás scripts bajo `data/raw/` preparan insumos y diagnósticos sin
-   aplicar las transformaciones reservadas para `data/processed/`.
+5. `data/raw/pwt/pwt11_raw.R` descarga PWT 11.0, que permanece como fuente
+   activa de RER y como referencia de contraste para HUMCAP.
+6. `data/raw/govcons/govcons_un_ama_raw.py`,
+   `data/raw/fin/fin_wdi_banks_raw.py` y
+   `data/raw/humcap/humcap_undp_raw.py` descargan las fuentes activas de
+   GOVCONS, FIN y HUMCAP.
+7. Los scripts canónicos `govcons_processed.R`, `fin_processed.R` y
+   `humcap_processed.R`, ubicados en sus respectivas carpetas bajo
+   `data/processed/`, construyen las variables finales sin envoltorios
+   intermedios.
+8. `panel/build_master_panel.R` integra las salidas validadas en el panel
+   maestro.
+
+Los demás scripts bajo `data/raw/` preparan insumos y diagnósticos sin aplicar
+las transformaciones reservadas para `data/processed/`.
 
 Los scripts pueden ejecutarse sin depender de un directorio de trabajo fijo.
 Los archivos R utilizan `project_paths.R`; los archivos Python localizan la raíz

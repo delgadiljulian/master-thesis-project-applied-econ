@@ -404,7 +404,7 @@ local eci_term_order = 0
 foreach term of local eci_terms {
     local ++eci_term_order
 
-    * Recuperar el nombre descriptivo de cada variable.
+    // Recuperar el nombre descriptivo de cada variable.
     if "`term'" == "c.rents#c.inst" {
         local term_label "Interacción entre rentas y calidad institucional"
     }
@@ -415,11 +415,11 @@ foreach term of local eci_terms {
         }
     }
 
-    * Asignar cada coeficiente al canal teórico definido en la metodología.
+    // Asignar cada coeficiente al canal teórico definido en la metodología.
     local channel "Controles económicos y financieros"
 
-    * Reemplazar la categoría predeterminada cuando el término pertenece a uno
-    * de los canales sustantivos de la especificación.
+    // Reemplazar la categoría predeterminada cuando el término pertenece a uno
+    // de los canales sustantivos de la especificación.
     if inlist("`term'", "rents", "inst", "c.rents#c.inst") {
         local channel "Institucional"
     }
@@ -437,7 +437,7 @@ foreach term of local eci_terms {
         local channel "Capacidades productivas"
     }
 
-    * Calcular manualmente las medidas de inferencia para conservarlas en CSV.
+    // Calcular manualmente las medidas de inferencia para conservarlas en CSV.
     local coefficient    = _b[`term']
     local standard_error = _se[`term']
     local t_statistic    = `coefficient' / `standard_error'
@@ -447,12 +447,12 @@ foreach term of local eci_terms {
     local ci_upper = ///
         `coefficient' + `eci_critical_t' * `standard_error'
 
-    * Guardar coeficiente y error estándar para compararlos luego con reghdfe.
+    // Guardar coeficiente y error estándar para compararlos luego con reghdfe.
     scalar eci_xtreg_b_`eci_term_order'  = `coefficient'
     scalar eci_xtreg_se_`eci_term_order' = `standard_error'
 
-    * Añadir al archivo temporal todos los resultados calculados para el término
-    * que se encuentra activo en esta iteración.
+    // Añadir al archivo temporal todos los resultados calculados para el término
+    // que se encuentra activo en esta iteración.
     post `eci_coefficients_post' ///
         (`eci_term_order') ///
         ("`term'") ///
@@ -692,30 +692,30 @@ local eci_term_order = 0
 foreach term of local eci_terms {
     local ++eci_term_order
 
-    * Comparar coeficientes y registrar también cualquier diferencia entre los
-    * errores estándar producidos por los dos comandos.
+    // Comparar coeficientes y registrar también cualquier diferencia entre los
+    // errores estándar producidos por los dos comandos.
     local xtreg_coefficient  = scalar(eci_xtreg_b_`eci_term_order')
     local reghdfe_coefficient = _b[`term']
     local coefficient_difference = abs( ///
         `xtreg_coefficient' - `reghdfe_coefficient')
 
-    * Recuperar y comparar también los errores estándar agrupados por país.
+    // Recuperar y comparar también los errores estándar agrupados por país.
     local xtreg_standard_error = ///
         scalar(eci_xtreg_se_`eci_term_order')
     local reghdfe_standard_error = _se[`term']
     local se_difference = abs( ///
         `xtreg_standard_error' - `reghdfe_standard_error')
 
-    * Crear una bandera que indique si el coeficiente cumple la tolerancia.
+    // Crear una bandera que indique si el coeficiente cumple la tolerancia.
     local coefficient_match = ///
         `coefficient_difference' < `coefficient_tolerance'
 
-    * Conservar la mayor diferencia observada para la validación final.
+    // Conservar la mayor diferencia observada para la validación final.
     if `coefficient_difference' > `max_coefficient_difference' {
         local max_coefficient_difference = `coefficient_difference'
     }
 
-    * Escribir en el reporte las dos estimaciones y sus diferencias absolutas.
+    // Escribir en el reporte las dos estimaciones y sus diferencias absolutas.
     post `eci_verification_post' ///
         (`eci_term_order') ///
         ("`term'") ///
@@ -971,7 +971,7 @@ local divx_term_order = 0
 foreach term of local divx_terms {
     local ++divx_term_order
 
-    * Recuperar una etiqueta legible para cada término.
+    // Recuperar una etiqueta legible para cada término.
     if "`term'" == "c.rents#c.inst" {
         local term_label "Interacción entre rentas y calidad institucional"
     }
@@ -982,11 +982,11 @@ foreach term of local divx_terms {
         }
     }
 
-    * Asignar inicialmente el término al grupo general de controles.
+    // Asignar inicialmente el término al grupo general de controles.
     local channel "Controles económicos y financieros"
 
-    * Reemplazar la categoría predeterminada cuando el término pertenece a uno
-    * de los canales sustantivos del modelo.
+    // Reemplazar la categoría predeterminada cuando el término pertenece a uno
+    // de los canales sustantivos del modelo.
     if inlist("`term'", "rents", "inst", "c.rents#c.inst") {
         local channel "Institucional"
     }
@@ -1004,23 +1004,23 @@ foreach term of local divx_terms {
         local channel "Capacidades productivas"
     }
 
-    * Calcular coeficiente, error estándar, estadístico t y valor p.
+    // Calcular coeficiente, error estándar, estadístico t y valor p.
     local coefficient    = _b[`term']
     local standard_error = _se[`term']
     local t_statistic    = `coefficient' / `standard_error'
     local p_value = 2 * ttail(`divx_df_error', abs(`t_statistic'))
 
-    * Construir los límites inferior y superior del intervalo de confianza.
+    // Construir los límites inferior y superior del intervalo de confianza.
     local ci_lower = ///
         `coefficient' - `divx_critical_t' * `standard_error'
     local ci_upper = ///
         `coefficient' + `divx_critical_t' * `standard_error'
 
-    * Conservar los resultados de xtreg para compararlos después con reghdfe.
+    // Conservar los resultados de xtreg para compararlos después con reghdfe.
     scalar divx_xtreg_b_`divx_term_order'  = `coefficient'
     scalar divx_xtreg_se_`divx_term_order' = `standard_error'
 
-    * Añadir al archivo temporal los resultados calculados para este término.
+    // Añadir al archivo temporal los resultados calculados para este término.
     post `divx_coefficients_post' ///
         (`divx_term_order') ///
         ("`term'") ///
@@ -1274,34 +1274,34 @@ local divx_term_order = 0
 foreach term of local divx_terms {
     local ++divx_term_order
 
-    * Recuperar los coeficientes de xtreg y reghdfe.
+    // Recuperar los coeficientes de xtreg y reghdfe.
     local xtreg_coefficient = ///
         scalar(divx_xtreg_b_`divx_term_order')
     local reghdfe_coefficient = _b[`term']
 
-    * Calcular la diferencia absoluta entre los dos coeficientes.
+    // Calcular la diferencia absoluta entre los dos coeficientes.
     local coefficient_difference = abs( ///
         `xtreg_coefficient' - `reghdfe_coefficient')
 
-    * Recuperar los errores estándar agrupados producidos por ambos comandos.
+    // Recuperar los errores estándar agrupados producidos por ambos comandos.
     local xtreg_standard_error = ///
         scalar(divx_xtreg_se_`divx_term_order')
     local reghdfe_standard_error = _se[`term']
 
-    * Calcular la diferencia absoluta entre los dos errores estándar.
+    // Calcular la diferencia absoluta entre los dos errores estándar.
     local se_difference = abs( ///
         `xtreg_standard_error' - `reghdfe_standard_error')
 
-    * Crear una bandera que indique si el coeficiente cumple la tolerancia.
+    // Crear una bandera que indique si el coeficiente cumple la tolerancia.
     local coefficient_match = ///
         `coefficient_difference' < `divx_coefficient_tolerance'
 
-    * Conservar la mayor diferencia observada para la validación final.
+    // Conservar la mayor diferencia observada para la validación final.
     if `coefficient_difference' > `divx_max_coefficient_difference' {
         local divx_max_coefficient_difference = `coefficient_difference'
     }
 
-    * Escribir en el reporte las dos estimaciones y sus diferencias absolutas.
+    // Escribir en el reporte las dos estimaciones y sus diferencias absolutas.
     post `divx_verification_post' ///
         (`divx_term_order') ///
         ("`term'") ///
@@ -1556,15 +1556,15 @@ forvalues column = 1/5 {
     local lower  = el(eci_margins_table, 5, `column')
     local upper  = el(eci_margins_table, 6, `column')
 
-    * Clasificar la precisión estadística sin convertirla en una conclusión
-    * causal ni alterar el umbral principal del estudio.
+    // Clasificar la precisión estadística sin convertirla en una conclusión
+    // causal ni alterar el umbral principal del estudio.
     local significance "No"
     if `pvalue' < 0.10 local significance "10%"
     if `pvalue' < 0.05 local significance "5%"
     if `pvalue' < 0.01 local significance "1%"
 
-    * Guardar el efecto marginal ECI y todas las cantidades necesarias para
-    * reproducir su interpretación.
+    // Guardar el efecto marginal ECI y todas las cantidades necesarias para
+    // reproducir su interpretación.
     post `margins_post' ///
         ("ECI") ///
         ("`percentile'") ///
@@ -1643,14 +1643,14 @@ forvalues column = 1/5 {
     local lower  = el(divx_margins_table, 5, `column')
     local upper  = el(divx_margins_table, 6, `column')
 
-    * Aplicar la misma clasificación descriptiva de significancia empleada
-    * para ECI.
+    // Aplicar la misma clasificación descriptiva de significancia empleada
+    // para ECI.
     local significance "No"
     if `pvalue' < 0.10 local significance "10%"
     if `pvalue' < 0.05 local significance "5%"
     if `pvalue' < 0.01 local significance "1%"
 
-    * Guardar el efecto marginal DIVX y su incertidumbre.
+    // Guardar el efecto marginal DIVX y su incertidumbre.
     post `margins_post' ///
         ("DIVX") ///
         ("`percentile'") ///
@@ -2093,21 +2093,21 @@ postfile `leave_one_out_post' ///
 * interacción institucional.
 foreach excluded_id of local leave_one_out_country_ids {
 
-    * Recuperar el código ISO3 del país omitido para que el reporte sea legible.
+    // Recuperar el código ISO3 del país omitido para que el reporte sea legible.
     quietly levelsof country_iso3_code ///
         if sample_eci == 1 & country_id == `excluded_id', ///
         local(excluded_iso3) clean
 
-    * Reestimar ECI manteniendo todos los demás países, años y regresores.
+    // Reestimar ECI manteniendo todos los demás países, años y regresores.
     quietly xtreg eci $ECI_REGRESSORS i.year ///
         if sample_eci == 1 & country_id != `excluded_id', ///
         fe $INFERENCE_MAIN
 
-    * Calcular el valor p convencional del coeficiente RENTS.
+    // Calcular el valor p convencional del coeficiente RENTS.
     local loo_rents_p = ///
         2 * ttail(e(df_r), abs(_b[rents] / _se[rents]))
 
-    * Guardar el resultado RENTS de esta exclusión.
+    // Guardar el resultado RENTS de esta exclusión.
     post `leave_one_out_post' ///
         ("ECI") (`excluded_id') ("`excluded_iso3'") ///
         ("RENTS") ///
@@ -2115,12 +2115,12 @@ foreach excluded_id of local leave_one_out_country_ids {
         (_b[rents]) (_se[rents]) (`loo_rents_p') ///
         (e(N)) (e(N_g))
 
-    * Calcular el valor p de la interacción RENTS x INST.
+    // Calcular el valor p de la interacción RENTS x INST.
     local loo_interaction_p = ///
         2 * ttail(e(df_r), ///
             abs(_b[c.rents#c.inst] / _se[c.rents#c.inst]))
 
-    * Guardar el resultado de la interacción para la misma exclusión.
+    // Guardar el resultado de la interacción para la misma exclusión.
     post `leave_one_out_post' ///
         ("ECI") (`excluded_id') ("`excluded_iso3'") ///
         ("RENTS x INST") ///
@@ -2134,21 +2134,21 @@ foreach excluded_id of local leave_one_out_country_ids {
 * términos para una comparación simétrica.
 foreach excluded_id of local leave_one_out_country_ids {
 
-    * Recuperar el código ISO3 del país omitido.
+    // Recuperar el código ISO3 del país omitido.
     quietly levelsof country_iso3_code ///
         if sample_divx == 1 & country_id == `excluded_id', ///
         local(excluded_iso3) clean
 
-    * Reestimar DIVX manteniendo la especificación complementaria completa.
+    // Reestimar DIVX manteniendo la especificación complementaria completa.
     quietly xtreg divx $DIVX_REGRESSORS i.year ///
         if sample_divx == 1 & country_id != `excluded_id', ///
         fe $INFERENCE_MAIN
 
-    * Calcular el valor p de RENTS en esta reestimación.
+    // Calcular el valor p de RENTS en esta reestimación.
     local loo_rents_p = ///
         2 * ttail(e(df_r), abs(_b[rents] / _se[rents]))
 
-    * Guardar el resultado RENTS del modelo DIVX.
+    // Guardar el resultado RENTS del modelo DIVX.
     post `leave_one_out_post' ///
         ("DIVX") (`excluded_id') ("`excluded_iso3'") ///
         ("RENTS") ///
@@ -2156,12 +2156,12 @@ foreach excluded_id of local leave_one_out_country_ids {
         (_b[rents]) (_se[rents]) (`loo_rents_p') ///
         (e(N)) (e(N_g))
 
-    * Calcular el valor p de la interacción en esta reestimación.
+    // Calcular el valor p de la interacción en esta reestimación.
     local loo_interaction_p = ///
         2 * ttail(e(df_r), ///
             abs(_b[c.rents#c.inst] / _se[c.rents#c.inst]))
 
-    * Guardar el resultado de la interacción DIVX.
+    // Guardar el resultado de la interacción DIVX.
     post `leave_one_out_post' ///
         ("DIVX") (`excluded_id') ("`excluded_iso3'") ///
         ("RENTS x INST") ///
@@ -2254,6 +2254,7 @@ if missing(r(p)) {
     exit 498
 }
 
+* Guardar intervalo de confianza bootstrap de RENTS en ECI
 matrix eci_rents_bootstrap_ci = r(CI)
 post `wild_bootstrap_post' ///
     ("ECI") ("RENTS") ///
@@ -2276,6 +2277,7 @@ if missing(r(p)) {
     exit 498
 }
 
+* Guardar intervalo de confianza bootstrap de RENTS x INST en ECI
 matrix eci_interaction_bootstrap_ci = r(CI)
 post `wild_bootstrap_post' ///
     ("ECI") ("RENTS x INST") ///
@@ -2307,6 +2309,7 @@ if missing(r(p)) {
     exit 498
 }
 
+* Guardar intervalo de confianza bootstrap de RENTS en DIVX
 matrix divx_rents_bootstrap_ci = r(CI)
 post `wild_bootstrap_post' ///
     ("DIVX") ("RENTS") ///
@@ -2329,6 +2332,7 @@ if missing(r(p)) {
     exit 498
 }
 
+* Guardar intervalo de confianza bootstrap de RENTS x INST en DIVX
 matrix divx_interaction_bootstrap_ci = r(CI)
 post `wild_bootstrap_post' ///
     ("DIVX") ("RENTS x INST") ///

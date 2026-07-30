@@ -1,17 +1,25 @@
 """CAPA: RAW.
+VARIABLE: RER.
+ENTRADAS: PWT 11.0 y muestra DRES del 20 %.
+SALIDAS: data/raw/rer/pwt/.
 
-Prepara el unico insumo raw seleccionado para RER.
+# Ejecutar la siguiente instrucción del bloque
+Prepara el único insumo raw seleccionado para RER.
 
-Fuente: nivel de precios de la produccion ``pl_gdpo`` de PWT 11.0.
-El logaritmo que define RER se aplicara posteriormente en data/processed.
+# Ejecutar la siguiente instrucción del bloque
+Fuente: nivel de precios de la producción ``pl_gdpo`` de PWT 11.0.
+El logaritmo que define RER se aplica posteriormente en data/processed.
 """
 
+# Cargar librerías y módulos requeridos
 from pathlib import Path
 
+# Cargar librerías y módulos requeridos
 import numpy as np
 import pandas as pd
 
 
+# Ejecutar la siguiente instrucción del bloque
 PROJECT_PATH = Path(__file__).resolve().parents[4]
 PWT_SOURCE = PROJECT_PATH / "data" / "raw" / "pwt" / "pwt110.dta"
 DRES_SAMPLE = (
@@ -25,13 +33,16 @@ OUTPUT_PATH = PROJECT_PATH / "data" / "raw" / "rer" / "pwt"
 ANALYSIS_YEARS = list(range(1996, 2023))
 
 
+# Definir función principal o auxiliar
 def main() -> None:
     """Extrae pl_gdpo, valida la fuente y guarda diagnosticos raw."""
 
+    # Iterar sobre los elementos del conjunto
     for path in [PWT_SOURCE, DRES_SAMPLE]:
         if not path.is_file():
             raise FileNotFoundError(f"Falta el insumo requerido: {path}")
 
+    # Cargar el archivo de datos
     sample = pd.read_csv(DRES_SAMPLE, dtype={"country_iso3_code": "string"})
     sample["country_iso3_code"] = (
         sample["country_iso3_code"].str.strip().str.upper()
@@ -39,12 +50,14 @@ def main() -> None:
     if len(sample) != 55 or sample["country_iso3_code"].duplicated().any():
         raise ValueError("La muestra DRES no contiene 55 paises unicos.")
 
+    # Cargar el archivo de datos
     pwt_source = pd.read_stata(PWT_SOURCE, convert_categoricals=False)
     required = ["countrycode", "country", "year", "pl_gdpo"]
     missing = sorted(set(required) - set(pwt_source.columns))
     if missing:
         raise ValueError("Faltan columnas PWT: " + ", ".join(missing))
 
+    # Ejecutar la siguiente instrucción del bloque
     rer_raw = pwt_source[required].rename(
         columns={
             "countrycode": "country_iso3_code",
@@ -66,6 +79,7 @@ def main() -> None:
         ["country_iso3_code", "year"]
     ).reset_index(drop=True)
 
+    # Evaluar condición de control de flujo
     if rer_raw.duplicated(["country_iso3_code", "year"]).any():
         raise ValueError("PWT contiene llaves pais-anio duplicadas para RER.")
     if not rer_raw["country_iso3_code"].str.fullmatch(r"[A-Z]{3}").all():
@@ -79,6 +93,7 @@ def main() -> None:
     ):
         raise ValueError("pl_gdpo contiene valores no positivos o no finitos.")
 
+    # Ejecutar la siguiente instrucción del bloque
     grid = pd.MultiIndex.from_product(
         [
             sample["country_iso3_code"].sort_values().tolist(),
@@ -103,6 +118,7 @@ def main() -> None:
     if len(grid) != 1485:
         raise ValueError("La cuadricula DRES de RER no tiene 1.485 celdas.")
 
+    # Ejecutar la siguiente instrucción del bloque
     coverage_rows: list[dict[str, object]] = []
     for country_code, country_data in grid.groupby(
         "country_iso3_code", sort=True
@@ -139,6 +155,7 @@ def main() -> None:
             }
         )
 
+    # Ejecutar la siguiente instrucción del bloque
     country_coverage = pd.DataFrame(coverage_rows)
     observed_grid = grid["output_price_level_pwt"].notna()
     observed_values = grid.loc[observed_grid, "output_price_level_pwt"]
@@ -177,6 +194,7 @@ def main() -> None:
         ]
     )
 
+    # Ejecutar la siguiente instrucción del bloque
     OUTPUT_PATH.mkdir(parents=True, exist_ok=True)
     rer_raw.to_csv(
         OUTPUT_PATH / "rer_pwt11_input_1950_2023.csv",
@@ -202,9 +220,11 @@ def main() -> None:
         encoding="utf-8",
     )
 
+    # Ejecutar la siguiente instrucción del bloque
     print("Raw de RER terminado.")
     print(coverage_summary.to_string(index=False))
 
 
+# Evaluar condición de control de flujo
 if __name__ == "__main__":
     main()

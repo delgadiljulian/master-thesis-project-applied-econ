@@ -3,14 +3,17 @@ VARIABLE: GOVCONS
 ENTRADAS: API oficial de Cuentas Nacionales de Naciones Unidas
 SALIDAS: data/raw/govcons/un_ama/
 
+# Ejecutar la siguiente instrucción del bloque
 Descarga el consumo final del gobierno general como porcentaje del PIB para
 los 55 países de la muestra DRES. La capa raw conserva tanto los valores de la
 serie 16, componente 3, como los metadatos país-específicos que documentan si
 cada tramo proviene de datos oficiales o de procedimientos derivados.
 """
 
+# Cargar librerías y módulos requeridos
 from __future__ import annotations
 
+# Cargar librerías y módulos requeridos
 import csv
 import hashlib
 import json
@@ -24,6 +27,7 @@ from pathlib import Path
 from typing import Any
 
 
+# Ejecutar la siguiente instrucción del bloque
 API_BASE_URL = "https://unstats.un.org/unsd/amaapi/api"
 SERIES_CODE = 16
 ITEM_ID = 3
@@ -95,18 +99,22 @@ M49_BY_ISO3 = {
 }
 
 
+# Definir función principal o auxiliar
 def find_project_root() -> Path:
     """Localiza la raíz del repositorio desde la ubicación del script."""
 
+    # Ejecutar la siguiente instrucción del bloque
     candidate = Path(__file__).resolve().parents[4]
     if not (candidate / "scripts" / "project_paths.R").exists():
         raise RuntimeError("No se pudo identificar la raíz del repositorio.")
     return candidate
 
 
+# Definir función principal o auxiliar
 def api_request(path: str, payload: dict[str, Any] | None = None) -> Any:
     """Consulta la API con reintentos y devuelve el JSON validado."""
 
+    # Ejecutar la siguiente instrucción del bloque
     url = f"{API_BASE_URL}/{path.lstrip('/')}"
     encoded_payload = (
         json.dumps(payload, separators=(",", ":")).encode("utf-8")
@@ -127,6 +135,7 @@ def api_request(path: str, payload: dict[str, Any] | None = None) -> Any:
         method="POST" if payload is not None else "GET",
     )
 
+    # Ejecutar la siguiente instrucción del bloque
     last_error: Exception | None = None
     for attempt in range(1, MAX_ATTEMPTS + 1):
         try:
@@ -142,12 +151,14 @@ def api_request(path: str, payload: dict[str, Any] | None = None) -> Any:
             if attempt < MAX_ATTEMPTS:
                 time.sleep(2**attempt)
 
+    # Detener la ejecución si no se cumple la condición
     raise RuntimeError(
         f"No fue posible consultar {url} después de "
         f"{MAX_ATTEMPTS} intentos."
     ) from last_error
 
 
+# Definir función principal o auxiliar
 def atomic_write_csv(
     path: Path,
     fieldnames: list[str],
@@ -155,6 +166,7 @@ def atomic_write_csv(
 ) -> None:
     """Escribe un CSV completo y reemplaza el destino solo al finalizar."""
 
+    # Ejecutar la siguiente instrucción del bloque
     path.parent.mkdir(parents=True, exist_ok=True)
     descriptor, temporary_name = tempfile.mkstemp(
         prefix=f"{path.stem}_",
@@ -174,15 +186,19 @@ def atomic_write_csv(
         raise
 
 
+# Definir función principal o auxiliar
 def sha256(path: Path) -> str:
     """Calcula el hash SHA-256 de una captura guardada."""
 
+    # Retornar el resultado de la función
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+# Definir función principal o auxiliar
 def main() -> None:
     """Descarga y valida la serie y sus metadatos para la muestra DRES."""
 
+    # Ejecutar la siguiente instrucción del bloque
     project_root = find_project_root()
     sample_file = (
         project_root
@@ -196,9 +212,11 @@ def main() -> None:
     metadata_file = raw_path / "govcons_un_ama_metadata.csv"
     manifest_file = raw_path / "download_manifest.csv"
 
+    # Ejecutar la siguiente instrucción del bloque
     with sample_file.open(newline="", encoding="utf-8-sig") as handle:
         sample_rows = list(csv.DictReader(handle))
 
+    # Ejecutar la siguiente instrucción del bloque
     sample = {
         row["country_iso3_code"].strip().upper(): row["country"].strip()
         for row in sample_rows
@@ -206,6 +224,7 @@ def main() -> None:
     if len(sample) != 55:
         raise RuntimeError("La muestra DRES no contiene 55 países únicos.")
 
+    # Ejecutar la siguiente instrucción del bloque
     missing_m49 = sorted(set(sample) - set(M49_BY_ISO3))
     extra_m49 = sorted(set(M49_BY_ISO3) - set(sample))
     if missing_m49 or extra_m49:
@@ -214,6 +233,7 @@ def main() -> None:
             f"Faltantes: {missing_m49}; adicionales: {extra_m49}."
         )
 
+    # Ejecutar la siguiente instrucción del bloque
     country_catalog = api_request("Country")
     country_by_m49 = {
         int(row["countryCode"]): str(row["countryName"]).strip()
@@ -231,6 +251,7 @@ def main() -> None:
             + ", ".join(missing_un_countries)
         )
 
+    # Ejecutar la siguiente instrucción del bloque
     series_info = api_request(f"Series/{SERIES_CODE}")
     expected_series_name = "GDP by Expenditure, Percentage Distribution (Shares)"
     if (
@@ -239,6 +260,7 @@ def main() -> None:
     ):
         raise RuntimeError("La definición de la serie 16 cambió en la API.")
 
+    # Ejecutar la siguiente instrucción del bloque
     years = list(range(START_YEAR, END_YEAR + 1))
     data_response = api_request(
         f"Data/basic/{SERIES_CODE}",
@@ -253,6 +275,7 @@ def main() -> None:
         m49: iso3 for iso3, m49 in M49_BY_ISO3.items()
     }
 
+    # Ejecutar la siguiente instrucción del bloque
     data_rows: list[dict[str, Any]] = []
     for observation in data_response:
         if int(observation.get("itemId", -1)) != ITEM_ID:
@@ -285,6 +308,7 @@ def main() -> None:
             }
         )
 
+    # Ejecutar la siguiente instrucción del bloque
     data_rows.sort(
         key=lambda row: (row["country_iso3_code"], row["year"])
     )
@@ -294,6 +318,7 @@ def main() -> None:
     if len(data_keys) != len(set(data_keys)):
         raise RuntimeError("La captura ONU contiene llaves país-año duplicadas.")
 
+    # Ejecutar la siguiente instrucción del bloque
     analysis_keys = {
         key
         for key in data_keys
@@ -311,6 +336,7 @@ def main() -> None:
             f"Primeras llaves faltantes: {missing_keys[:10]}"
         )
 
+    # Ejecutar la siguiente instrucción del bloque
     metadata_rows: list[dict[str, Any]] = []
     for iso3 in sorted(sample):
         m49 = M49_BY_ISO3[iso3]
@@ -349,6 +375,7 @@ def main() -> None:
                 }
             )
 
+    # Ejecutar la siguiente instrucción del bloque
     metadata_rows.sort(
         key=lambda row: (
             row["country_iso3_code"],
@@ -358,6 +385,7 @@ def main() -> None:
         )
     )
 
+    # Ejecutar la siguiente instrucción del bloque
     data_fields = [
         "country_iso3_code",
         "country_m49",
@@ -385,6 +413,7 @@ def main() -> None:
     atomic_write_csv(data_file, data_fields, data_rows)
     atomic_write_csv(metadata_file, metadata_fields, metadata_rows)
 
+    # Ejecutar la siguiente instrucción del bloque
     last_updated = api_request("Data/lastupdated")
     retrieved_at = datetime.now(timezone.utc).replace(microsecond=0).isoformat()
     manifest_rows = [
@@ -413,6 +442,7 @@ def main() -> None:
     manifest_fields = list(manifest_rows[0])
     atomic_write_csv(manifest_file, manifest_fields, manifest_rows)
 
+    # Ejecutar la siguiente instrucción del bloque
     print(f"Datos raw ONU guardados en: {data_file}")
     print(f"Metadatos ONU guardados en: {metadata_file}")
     print(f"Manifiesto guardado en: {manifest_file}")
@@ -423,5 +453,6 @@ def main() -> None:
     )
 
 
+# Evaluar condición de control de flujo
 if __name__ == "__main__":
     main()

@@ -360,6 +360,7 @@ coverage_by_country <- coverage_by_country[
 ]
 row.names(coverage_by_country) <- NULL
 
+# Ejecutar la siguiente instrucción del bloque
 coverage_by_year <- do.call(
   rbind,
   lapply(split(innov_work, innov_work$year), function(year_data) {

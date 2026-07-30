@@ -218,6 +218,7 @@ which xtcsd
 // 2. Carga y Validación del Panel Maestro
 // *****************************************************************************
 
+* Mostrar mensaje de inicio de la sección 2 en la consola de Stata
 display as text "2. Carga y validación del panel maestro"
 display as text "Directorio de trabajo: `c(pwd)'"
 
@@ -448,6 +449,7 @@ assert abs(rents_x_inst - rents*inst) <= 1e-10 ///
 
 // 2.6. Presentar el resumen de la validación
 
+* Reportar en la consola los resultados consolidados de la validación del panel
 display as result "Validación del panel completada sin errores."
 display as result "Observaciones: `n_observations'"
 display as result "Países:       `n_countries'"
@@ -482,33 +484,33 @@ postfile `transform_post' ///
 
 * Aplicar ln(1+x) para conservar los ceros y reducir la asimetría
 foreach var in oilpc gaspc coalpc {
-    * Contar las observaciones disponibles de la variable original
+    // Contar las observaciones disponibles de la variable original
     quietly count if !missing(`var')
     local n_nonmissing = r(N)
 
-    * Contar los ceros y calcular su participación entre los valores observados
+    // Contar los ceros y calcular su participación entre los valores observados
     quietly count if `var' == 0
     local n_zeros = r(N)
     local zero_percent = 100 * `n_zeros' / `n_nonmissing'
 
-    * Calcular la asimetría de la variable expresada en niveles
+    // Calcular la asimetría de la variable expresada en niveles
     quietly summarize `var', detail
     local skewness_level = r(skewness)
 
-    * Crear la transformación logarítmica sin eliminar observaciones iguales a cero
+    // Crear la transformación logarítmica sin eliminar observaciones iguales a cero
     generate double ln1p_`var' = ln(1 + `var') if !missing(`var')
     local var_upper = upper("`var'")
     label variable ln1p_`var' "ln(1 + `var_upper')"
 
-    * Calcular la asimetría después de aplicar la transformación ln(1+x)
+    // Calcular la asimetría después de aplicar la transformación ln(1+x)
     quietly summarize ln1p_`var', detail
     local skewness_ln1p = r(skewness)
 
-    * Confirmar que la transformación no altere el patrón de valores faltantes
+    // Confirmar que la transformación no altere el patrón de valores faltantes
     assert missing(ln1p_`var') == missing(`var')
     assert ln1p_`var' == 0 if `var' == 0
 
-    * Añadir al reporte una fila con los resultados de esta variable
+    // Añadir al reporte una fila con los resultados de esta variable
     post `transform_post' ///
         ("`var'") (`n_nonmissing') (`n_zeros') ///
         (`zero_percent') (`skewness_level') (`skewness_ln1p')
@@ -650,30 +652,30 @@ postfile `missingness_post' ///
 
 * Recorrer todas las variables requeridas por el modelo principal con ECI
 foreach var of global MODEL_ECI {
-    * Contar cuántas observaciones tienen información para esta variable
+    // Contar cuántas observaciones tienen información para esta variable
     quietly count if !missing(`var')
     local available = r(N)
 
-    * Calcular cuántas observaciones faltan y el porcentaje de cobertura
+    // Calcular cuántas observaciones faltan y el porcentaje de cobertura
     local missing = $SAMPLE_N_GRID - `available'
     local coverage = 100 * `available' / $SAMPLE_N_GRID
 
-    * Guardar los resultados de la variable en el reporte temporal
+    // Guardar los resultados de la variable en el reporte temporal
     post `missingness_post' ///
         ("ECI") ("`var'") (`available') (`missing') (`coverage')
 }
 
 * Repetir el mismo cálculo para el modelo complementario con DIVX
 foreach var of global MODEL_DIVX {
-    * Contar cuántas observaciones tienen información para esta variable
+    // Contar cuántas observaciones tienen información para esta variable
     quietly count if !missing(`var')
     local available = r(N)
 
-    * Calcular cuántas observaciones faltan y el porcentaje de cobertura
+    // Calcular cuántas observaciones faltan y el porcentaje de cobertura
     local missing = $SAMPLE_N_GRID - `available'
     local coverage = 100 * `available' / $SAMPLE_N_GRID
 
-    * Guardar los resultados de la variable en el reporte temporal
+    // Guardar los resultados de la variable en el reporte temporal
     post `missingness_post' ///
         ("DIVX") ("`var'") (`available') (`missing') (`coverage')
 }
@@ -886,24 +888,24 @@ postfile `descriptive_post' ///
 
 * Comparar el panel completo con la muestra efectiva de estimación
 foreach analysis_sample in PANEL_COMPLETE ESTIMATION {
-    * Recorrer todas las variables utilizadas en las dos ecuaciones
+    // Recorrer todas las variables utilizadas en las dos ecuaciones
     foreach var of global DIAGNOSTIC_VARS {
-        * Definir la restricción correspondiente a cada muestra
+        // Definir la restricción correspondiente a cada muestra
         local restriction "!missing(`var')"
         if "`analysis_sample'" == "ESTIMATION" {
             local restriction "sample_eci == 1 & !missing(`var')"
         }
 
-        * Contar las observaciones disponibles de la variable
+        // Contar las observaciones disponibles de la variable
         quietly count if `restriction'
         local n_available = r(N)
 
-        * Contar los valores iguales a cero dentro de la muestra correspondiente
+        // Contar los valores iguales a cero dentro de la muestra correspondiente
         quietly count if `restriction' & `var' == 0
         local n_zeros = r(N)
         local zero_share = 100 * `n_zeros' / `n_available'
 
-        * Calcular media, dispersión, percentiles y valores extremos
+        // Calcular media, dispersión, percentiles y valores extremos
         quietly summarize `var' if `restriction', detail
         local var_mean   = r(mean)
         local var_sd     = r(sd)
@@ -913,7 +915,7 @@ foreach analysis_sample in PANEL_COMPLETE ESTIMATION {
         local var_p75    = r(p75)
         local var_max    = r(max)
 
-        * Guardar una fila del reporte para esta variable y muestra
+        // Guardar una fila del reporte para esta variable y muestra
         post `descriptive_post' ///
             ("`analysis_sample'") ("`var'") ///
             (`n_available') (`n_zeros') (`zero_share') ///
@@ -965,16 +967,16 @@ postfile `variation_post' ///
 
 * Calcular la descomposición de variación en la muestra efectiva
 foreach var of global DIAGNOSTIC_VARS {
-    * Ejecutar xtsum individualmente para recuperar sus resultados almacenados
+    // Ejecutar xtsum individualmente para recuperar sus resultados almacenados
     quietly xtsum `var' if sample_eci == 1
 
-    * Calcular la proporción de la desviación overall asociada a variación within
+    // Calcular la proporción de la desviación overall asociada a variación within
     local within_ratio = r(sd_w) / r(sd)
 
-    * Identificar si la variable tiene variación temporal aprovechable
+    // Identificar si la variable tiene variación temporal aprovechable
     local within_available = r(sd_w) > 1e-10
 
-    * Guardar los resultados de esta variable
+    // Guardar los resultados de esta variable
     post `variation_post' ///
         ("`var'") (r(N)) (r(n)) (r(Tbar)) (r(mean)) ///
         (r(sd)) (r(sd_b)) (r(sd_w)) (`within_ratio') ///
@@ -1080,38 +1082,38 @@ local regressors_eci "$MODEL_COMMON hhi"
 
 * Residualizar cada regresor respecto de los efectos fijos de país y año
 foreach var of local regressors_eci {
-    * Eliminar la variable auxiliar si esta subsección se ejecuta nuevamente
+    // Eliminar la variable auxiliar si esta subsección se ejecuta nuevamente
     capture drop within_`var'
 
-    * Separar la variación que no es explicada por las dummies de país y año
+    // Separar la variación que no es explicada por las dummies de país y año
     quietly regress `var' i.country_id i.year if sample_eci == 1
     predict double within_`var' if e(sample), residuals
 }
 
 * Calcular cada VIF utilizando únicamente la variación residualizada
 foreach target of local regressors_eci {
-    * Retirar temporalmente la variable objetivo del lado derecho
+    // Retirar temporalmente la variable objetivo del lado derecho
     local remaining : list regressors_eci - target
 
-    * Construir la lista residualizada de las demás covariables
+    // Construir la lista residualizada de las demás covariables
     local within_remaining ""
     foreach var of local remaining {
         local within_remaining "`within_remaining' within_`var'"
     }
 
-    * Regresar la variación within objetivo sobre las demás variaciones within
+    // Regresar la variación within objetivo sobre las demás variaciones within
     quietly regress within_`target' `within_remaining' ///
         if sample_eci == 1
 
-    * Obtener el VIF como 1 dividido por 1 menos el R cuadrado auxiliar
+    // Obtener el VIF como 1 dividido por 1 menos el R cuadrado auxiliar
     local vif_value = 1 / (1 - e(r2))
 
-    * Clasificar el valor sin eliminar automáticamente ninguna variable
+    // Clasificar el valor sin eliminar automáticamente ninguna variable
     local vif_assessment "LOW"
     if `vif_value' >= 5  local vif_assessment "REVIEW"
     if `vif_value' >= 10 local vif_assessment "HIGH"
 
-    * Guardar el resultado del regresor en el reporte
+    // Guardar el resultado del regresor en el reporte
     post `vif_post' ///
         ("ECI") ("`target'") (`vif_value') ("`vif_assessment'")
 }
@@ -1121,28 +1123,28 @@ local regressors_divx "$MODEL_COMMON"
 
 * Repetir el cálculo de VIF con el conjunto de regresores que excluye HHI
 foreach target of local regressors_divx {
-    * Retirar temporalmente la variable objetivo del lado derecho
+    // Retirar temporalmente la variable objetivo del lado derecho
     local remaining : list regressors_divx - target
 
-    * Construir la lista residualizada de las demás covariables
+    // Construir la lista residualizada de las demás covariables
     local within_remaining ""
     foreach var of local remaining {
         local within_remaining "`within_remaining' within_`var'"
     }
 
-    * Regresar la variación within objetivo sobre las demás variaciones within
+    // Regresar la variación within objetivo sobre las demás variaciones within
     quietly regress within_`target' `within_remaining' ///
         if sample_divx == 1
 
-    * Obtener el VIF de la regresión auxiliar
+    // Obtener el VIF de la regresión auxiliar
     local vif_value = 1 / (1 - e(r2))
 
-    * Clasificar el valor únicamente como señal de revisión
+    // Clasificar el valor únicamente como señal de revisión
     local vif_assessment "LOW"
     if `vif_value' >= 5  local vif_assessment "REVIEW"
     if `vif_value' >= 10 local vif_assessment "HIGH"
 
-    * Guardar el resultado del regresor en el reporte
+    // Guardar el resultado del regresor en el reporte
     post `vif_post' ///
         ("DIVX") ("`target'") (`vif_value') ("`vif_assessment'")
 }
@@ -1187,23 +1189,23 @@ postfile `tests_post' ///
 
 * Ejecutar las tres pruebas para los modelos ECI y DIVX
 foreach model in ECI DIVX {
-    * Definir la dependiente, los regresores y la bandera de cada modelo
+    // Definir la dependiente, los regresores y la bandera de cada modelo
     local dependent "eci"
     local regressors "$MODEL_COMMON hhi"
     local sample_flag "sample_eci"
 
-    * Sustituir la configuración predeterminada cuando se evalúa DIVX.
+    // Sustituir la configuración predeterminada cuando se evalúa DIVX.
     if "`model'" == "DIVX" {
         local dependent "divx"
         local regressors "$MODEL_COMMON"
         local sample_flag "sample_divx"
     }
 
-    * Estimar silenciosamente el modelo auxiliar con efectos fijos de país y año
+    // Estimar silenciosamente el modelo auxiliar con efectos fijos de país y año
     quietly xtreg `dependent' `regressors' i.year ///
         if `sample_flag' == 1, fe
 
-    * Probar heterocedasticidad entre países mediante Wald modificado
+    // Probar heterocedasticidad entre países mediante Wald modificado
     noisily xttest3
     local hetero_stat = r(wald)
     local hetero_df   = r(df)
@@ -1211,14 +1213,14 @@ foreach model in ECI DIVX {
     local hetero_decision "DO NOT REJECT H0"
     if `hetero_p' < 0.05 local hetero_decision "REJECT H0"
 
-    * Guardar el resultado de heterocedasticidad
+    // Guardar el resultado de heterocedasticidad
     post `tests_post' ///
         ("`model'") ("Modified Wald") ///
         ("Equal error variance across countries") ///
         (`hetero_stat') (`hetero_df') (.) (`hetero_p') ///
         ("`hetero_decision'")
 
-    * Probar autocorrelación de primer orden mediante Wooldridge
+    // Probar autocorrelación de primer orden mediante Wooldridge
     noisily xtserial `dependent' `regressors' if `sample_flag' == 1
     local serial_stat = r(F)
     local serial_df1  = r(df)
@@ -1227,38 +1229,38 @@ foreach model in ECI DIVX {
     local serial_decision "DO NOT REJECT H0"
     if `serial_p' < 0.05 local serial_decision "REJECT H0"
 
-    * Guardar el resultado de autocorrelación
+    // Guardar el resultado de autocorrelación
     post `tests_post' ///
         ("`model'") ("Wooldridge AR(1)") ///
         ("No first-order serial correlation") ///
         (`serial_stat') (`serial_df1') (`serial_df2') (`serial_p') ///
         ("`serial_decision'")
 
-    * Reestimar el modelo auxiliar antes de la prueba postestimación de Pesaran
+    // Reestimar el modelo auxiliar antes de la prueba postestimación de Pesaran
     quietly xtreg `dependent' `regressors' i.year ///
         if `sample_flag' == 1, fe
 
-    * Probar independencia transversal de los residuos
+    // Probar independencia transversal de los residuos
     noisily xtcsd, pesaran abs
     local cd_stat = r(pesaran)
     local cd_p = 2 * normal(-abs(`cd_stat'))
     local cd_decision "DO NOT REJECT H0"
     if `cd_p' < 0.05 local cd_decision "REJECT H0"
 
-    * Guardar el resultado de dependencia transversal
+    // Guardar el resultado de dependencia transversal
     post `tests_post' ///
         ("`model'") ("Pesaran CD") ///
         ("Cross-sectional independence of residuals") ///
         (`cd_stat') (.) (.) (`cd_p') ("`cd_decision'")
 
-    * Conservar los valores p para definir la inferencia de los modelos
+    // Conservar los valores p para definir la inferencia de los modelos
     if "`model'" == "ECI" {
         global P_HET_ECI    `hetero_p'
         global P_SERIAL_ECI `serial_p'
         global P_CD_ECI     `cd_p'
     }
 
-    * Guardar por separado los valores p obtenidos para el modelo DIVX.
+    // Guardar por separado los valores p obtenidos para el modelo DIVX.
     if "`model'" == "DIVX" {
         global P_HET_DIVX    `hetero_p'
         global P_SERIAL_DIVX `serial_p'

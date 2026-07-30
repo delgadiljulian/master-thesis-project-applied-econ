@@ -17,158 +17,243 @@
 	\section{Fuentes de datos e indicadores}
 	\label{sec:fuentes}
 
-	La \autoref{tab:fuentes_datos} resume los indicadores definidos para la construcción del panel empírico, sus fuentes internacionales y la cobertura potencial de los insumos conservados en \texttt{data/raw}. Cada indicador tiene una única definición activa. El panel maestro contiene una grilla fija de 55 países y 1.430 observaciones país--año para 1996--2021; la muestra efectiva de cada ecuación corresponde a la intersección de sus variables disponibles, sin imputar faltantes.
+	La \autoref{tab:fuentes_datos} documenta la definición activa de cada variable, la fuente efectivamente incorporada al panel, el indicador de origen y las transformaciones aplicadas. Los períodos corresponden a los años con información disponible en los insumos conservados en \texttt{data/raw}; la última columna informa la cobertura observada en la grilla maestra de 55 países y 1.430 observaciones país--año para 1996--2021. Las fuentes mantenidas únicamente para contrastar definiciones se identifican en la nota y no se combinan con las series activas.
 
-	\renewcommand{\arraystretch}{1.15}
+	\renewcommand{\arraystretch}{1.10}
 	\setlength{\tabcolsep}{3pt}
 
 	\begin{footnotesize}
 		\begin{longtable}{
-				L{2.35cm}
-				L{2.5cm}
+				L{2.65cm}
 				L{3.8cm}
-				L{3.25cm}
-				L{1.6cm}
+				L{4.0cm}
+				L{1.35cm}
+				>{\RaggedLeft\arraybackslash}p{1.5cm}
 			}
 
-			\caption[Fuentes de datos para el panel empírico]{Fuentes de datos utilizadas para la construcción del panel empírico.}
+			\caption[Fuentes e indicadores del panel empírico]{Fuentes, indicadores y transformaciones utilizados en el panel empírico.}
 
 			\label{tab:fuentes_datos} \\
 			\hline
-			\textbf{Dimensión} & \textbf{Variable conceptual} & \textbf{Indicador utilizado} & \textbf{Fuente internacional} & \textbf{Período} \\
+			\textbf{Variable} & \textbf{Definición activa} & \textbf{Fuente efectiva e indicador de origen} & \textbf{Período} & \textbf{Cobertura} \\
 			\hline
 			\endfirsthead
 
 			\hline
-			\textbf{Dimensión} & \textbf{Variable conceptual} & \textbf{Indicador utilizado} & \textbf{Fuente internacional} & \textbf{Período} \\
+			\textbf{Variable} & \textbf{Definición activa} & \textbf{Fuente efectiva e indicador de origen} & \textbf{Período} & \textbf{Cobertura} \\
 			\hline
 			\endhead
 
-			Dependencia extractiva
-			& Dependencia externa de recursos
-			& Exportaciones de recursos naturales no renovables del subsuelo / exportaciones totales de mercancías (DRES)
-			& Atlas of Economic Complexity (SITC Rev. 2); elaboración propia
-			& 1990--1995 \\
+			$DRES$
+			& Participación de las exportaciones de recursos no renovables del subsuelo en las exportaciones de mercancías. Incluye SITC Rev.\ 2: sección 3, divisiones 27, 28 y 68, partidas 6672--6673 y 9710; excluye los códigos no extractivos 2711, 2786, 2820, 2881, 2882, 3510, 6671 y 6674. El denominador incluye \texttt{XXXX} y excluye servicios.
+			& Harvard Growth Lab, \textit{Atlas of Economic Complexity}, comercio bilateral SITC Rev.\ 2 a cuatro dígitos; construcción propia.
+			& 1990--2022; base 1990--1995
+			& 55 países \\
 
-			Rentas extractivas
-			& Intensidad macroeconómica de las rentas
-			& Suma de rentas de petróleo, gas natural, carbón y minerales (\% del PIB) (RENTS)
-			& World Bank (WDI)
-			& 1980--2021 \\
+			$ECI$
+			& Índice de Complejidad Económica calculado por el Atlas bajo la clasificación HS92.
+			& Harvard Growth Lab, \textit{Atlas of Economic Complexity}, API GraphQL, campo \texttt{countryYear.eci}.
+			& 1995--2022
+			& 1.430 (100,00\,\%) \\
 
-			Transformación estructural externa
-			& Complejidad económica
-			& Índice de Complejidad Económica (ECI, HS92)
-			& Atlas of Economic Complexity (API GraphQL)
-			& 1995--2022 \\
+			$HHI$
+			& Suma de los cuadrados de las participaciones de productos SITC Rev.\ 2 a cuatro dígitos; excluye servicios y el residual \texttt{XXXX}.
+			& Harvard Growth Lab, \textit{Atlas of Economic Complexity}; cálculo propio a partir del comercio por producto.
+			& 1990--2022
+			& 1.430 (100,00\,\%) \\
 
-			Transformación estructural externa
-			& Diversificación exportadora
-			& Complemento del índice de concentración exportadora ($DIVX=1-HHI$)
-			& Atlas of Economic Complexity; elaboración propia
-			& 1990--2022 \\
+			$DIVX$
+			& Diversificación exportadora, definida como $1-HHI$.
+			& Harvard Growth Lab, \textit{Atlas of Economic Complexity}; cálculo propio a partir de $HHI$.
+			& 1990--2022
+			& 1.430 (100,00\,\%) \\
 
-			Estructura exportadora
-			& Concentración exportadora
-			& HHI entre productos SITC Rev. 2 clasificados; excluye servicios y \texttt{XXXX}
-			& Atlas of Economic Complexity; elaboración propia
-			& 1990--2022 \\
+			$RENTS$
+			& Suma de las rentas de petróleo, gas natural, carbón y minerales como porcentaje del PIB, únicamente cuando están observados los cuatro componentes.
+			& Banco Mundial, WDI: \texttt{NY.GDP.PETR.RT.ZS}, \texttt{NY.GDP.NGAS.RT.ZS}, \texttt{NY.GDP.COAL.RT.ZS} y \texttt{NY.GDP.MINR.RT.ZS}.
+			& 1980--2021
+			& 1.352 (94,55\,\%) \\
 
-			Abundancia de recursos
-			& Renta petrolera por habitante
-			& Renta petrolera real por habitante (OILPC)
-			& World Bank (WDI); elaboración propia
-			& 1980--2021 \\
+			$RENTS^{OIL+GAS}$
+			& Suma de las rentas de petróleo y gas natural como porcentaje del PIB cuando ambos componentes están observados.
+			& Banco Mundial, WDI: \texttt{NY.GDP.PETR.RT.ZS} y \texttt{NY.GDP.NGAS.RT.ZS}; cálculo propio.
+			& 1980--2021
+			& 1.365 (95,45\,\%) \\
 
-			Abundancia de recursos
-			& Renta gasífera por habitante
-			& Renta de gas natural real por habitante (GASPC)
-			& World Bank (WDI); elaboración propia
-			& 1980--2021 \\
+			$RENTS^{MINING}$
+			& Suma de las rentas de carbón y minerales como porcentaje del PIB cuando ambos componentes están observados.
+			& Banco Mundial, WDI: \texttt{NY.GDP.COAL.RT.ZS} y \texttt{NY.GDP.MINR.RT.ZS}; cálculo propio.
+			& 1980--2021
+			& 1.384 (96,78\,\%) \\
 
-			Abundancia de recursos
-			& Renta carbonífera por habitante
-			& Renta del carbón real por habitante (COALPC)
-			& World Bank (WDI); elaboración propia
-			& 1980--2021 \\
+			$INST$
+			& Promedio simple de Control de la Corrupción, Estado de Derecho y Efectividad Gubernamental, solo cuando los tres componentes están observados.
+			& Banco Mundial, WGI: \texttt{GOV\_WGI\_CC.EST}, \texttt{GOV\_WGI\_RL.EST} y \texttt{GOV\_WGI\_GE.EST}.
+			& 1996--2024
+			& 1.257 (87,90\,\%) \\
 
-			Estructura exportadora
-			& Especialización primaria no energética
-			& Participación de las secciones SITC Rev. 2 0, 1, 2 y 4 y la división 68 en las exportaciones de mercancías (PEXP)
-			& Atlas of Economic Complexity; elaboración propia
-			& 1990--2022 \\
+			$RENTS\times INST$
+			& Producto directo de $RENTS$ e $INST$ cuando ambas variables están observadas.
+			& Elaboración propia a partir de las dos series activas en el panel maestro.
+			& 1996--2021
+			& 1.197 (83,71\,\%) \\
 
-			Estructura exportadora
-			& Especialización en combustibles
-			& Participación de la sección SITC Rev. 2 3 en las exportaciones de mercancías (FEXP)
-			& Atlas of Economic Complexity; elaboración propia
-			& 1990--2022 \\
+			$OILPC$
+			& Renta petrolera real por habitante: renta petrolera sobre PIB multiplicada por el PIB real y dividida por la población.
+			& Banco Mundial, WDI: \texttt{NY.GDP.PETR.RT.ZS}, \texttt{NY.GDP.MKTP.KD} y \texttt{SP.POP.TOTL}; cálculo propio.
+			& 1980--2021
+			& 1.397 (97,69\,\%) \\
 
-			Instituciones
-			& Calidad institucional
-			& Promedio de Control of Corruption, Rule of Law y Government Effectiveness (INST)
-			& Worldwide Governance Indicators (WGI)
-			& 1996--2022 \\
+			$GASPC$
+			& Renta de gas natural real por habitante, construida de forma análoga a $OILPC$.
+			& Banco Mundial, WDI: \texttt{NY.GDP.NGAS.RT.ZS}, \texttt{NY.GDP.MKTP.KD} y \texttt{SP.POP.TOTL}; cálculo propio.
+			& 1980--2021
+			& 1.365 (95,45\,\%) \\
 
-			Capacidades productivas
-			& Capital humano
-			& Índice derivado de los años promedio de escolaridad de adultos de 25 años o más mediante la función de retornos educativos de PWT (HUMCAP)
-			& PNUD, \textit{Human Development Report 2025}; construcción propia
-			& 1990--2023 \\
+			$COALPC$
+			& Renta del carbón real por habitante, construida de forma análoga a $OILPC$.
+			& Banco Mundial, WDI: \texttt{NY.GDP.COAL.RT.ZS}, \texttt{NY.GDP.MKTP.KD} y \texttt{SP.POP.TOTL}; cálculo propio.
+			& 1980--2021
+			& 1.384 (96,78\,\%) \\
 
-			Capacidades productivas
-			& Innovación
-			& $\log(1+\text{artículos científicos y técnicos por millón de habitantes})$ (INNOV)
-			& World Bank (WDI)
-			& 1980--2022 \\
+			$PEXP$
+			& Participación de las secciones SITC Rev.\ 2 0, 1, 2 y 4 y de la división 68 en las exportaciones de mercancías.
+			& Harvard Growth Lab, \textit{Atlas of Economic Complexity}, comercio SITC Rev.\ 2 a cuatro dígitos; cálculo propio.
+			& 1990--2022
+			& 1.430 (100,00\,\%) \\
 
-			Capacidades productivas
-			& Conectividad
-			& Personas que utilizan internet (\% de la población; \texttt{IT.NET.USER.ZS}) (NET)
-			& World Bank (WDI)
-			& 1980--2022 \\
+			$FEXP$
+			& Participación de la sección SITC Rev.\ 2 3 en las exportaciones de mercancías.
+			& Harvard Growth Lab, \textit{Atlas of Economic Complexity}, comercio SITC Rev.\ 2 a cuatro dígitos; cálculo propio.
+			& 1990--2022
+			& 1.430 (100,00\,\%) \\
 
-			Macroeconomía
-			& Volatilidad de los términos de intercambio de commodities
-			& Desviación estándar móvil de cinco años de la variación logarítmica anual de \texttt{CEMPI\_CTOTNX\_TT}, con ponderaciones fijas \texttt{H\_FW\_IX} (VOL)
-			& IMF Commodity Terms of Trade
-			& 1962--2022 \\
+			$VOL$
+			& Desviación estándar muestral móvil de cinco años de $100\Delta\log(CEMPI)$; cada valor requiere seis niveles anuales consecutivos.
+			& FMI, \textit{Commodity Terms of Trade}: \texttt{CEMPI\_CTOTNX\_TT}, ponderaciones fijas \texttt{H\_FW\_IX}, frecuencia anual.
+			& 1962--2022
+			& 1.403 (98,11\,\%) \\
 
-			Macroeconomía
-			& Tipo de cambio real
-			& $\log(\texttt{pl\_gdpo})$; un aumento representa apreciación real (RER)
-			& Penn World Table 11.0
-			& 1950--2023 \\
+			$RER$
+			& Logaritmo natural del nivel de precios del PIB de producción; un aumento representa una apreciación real.
+			& Penn World Table 11.0, variable \texttt{pl\_gdpo}.
+			& 1950--2023
+			& 1.352 (94,55\,\%) \\
 
-			Control
-			& Nivel de desarrollo
-			& $\log(PIB\text{ per cápita PPA constante})$ (\texttt{NY.GDP.PCAP.PP.KD}; LOG\_GDPPC)
-			& World Bank (WDI)
-			& 1980--2022 \\
+			$HUMCAP$
+			& Exponencial de la función por tramos de retornos educativos de PWT aplicada a los años promedio de escolaridad de la población de 25 años o más.
+			& PNUD, \textit{Human Development Report 2025}, \texttt{UNDP\_HDR\_MYS}; transformación propia.
+			& 1990--2023
+			& 1.403 (98,11\,\%) \\
 
-			Control fiscal
-			& Consumo gubernamental
-			& Consumo final del gobierno general (\% del PIB; serie 16, componente 3) (GOVCONS)
-			& UN National Accounts Main Aggregates
-			& 1970--2024 \\
+			$INNOV$
+			& Logaritmo natural de uno más el número de artículos científicos y técnicos por millón de habitantes.
+			& Banco Mundial, WDI: \texttt{IP.JRN.ARTC.SC} y \texttt{SP.POP.TOTL}; cálculo propio.
+			& 1996--2022
+			& 1.430 (100,00\,\%) \\
 
-			Canal financiero
-			& Profundidad financiera
-			& Crédito doméstico al sector privado otorgado por bancos (\% PIB; FD.AST.PRVT.GD.ZS) (FIN)
-			& World Bank (WDI)
-			& 1980--2025 \\
+			$NET$
+			& Personas que utilizan internet como porcentaje de la población.
+			& Banco Mundial, WDI: \texttt{IT.NET.USER.ZS}.
+			& 1990--2022
+			& 1.379 (96,43\,\%) \\
+
+			$LOG\_GDPPC$
+			& Logaritmo natural del PIB per cápita a PPA en precios constantes.
+			& Banco Mundial, WDI: \texttt{NY.GDP.PCAP.PP.KD}.
+			& 1990--2022
+			& 1.378 (96,36\,\%) \\
+
+			$GOVCONS$
+			& Gasto de consumo final del gobierno general como porcentaje del PIB.
+			& División de Estadística de las Naciones Unidas, \textit{National Accounts Main Aggregates}, serie 16, componente 3.
+			& 1970--2024
+			& 1.430 (100,00\,\%) \\
+
+			$FIN$
+			& Crédito doméstico al sector privado otorgado por bancos como porcentaje del PIB; proxy de profundidad del crédito bancario.
+			& Banco Mundial, WDI: \texttt{FD.AST.PRVT.GD.ZS}.
+			& 1980--2025
+			& 1.328 (92,87\,\%) \\
 
 			\hline
-			\multicolumn{5}{p{14.5cm}}{\textit{Nota: Los períodos consignan la cobertura potencial de los insumos raw. El panel maestro fija 55 países y 26 años para 1996--2021, pero conserva explícitamente los faltantes de cada indicador. $ECI$, $PEXP$, $FEXP$, $INNOV$, $GOVCONS$, $HHI$ y $DIVX$ cubren las 1.430 observaciones; las demás variables superan el 80\% de cobertura individual. WDI se conserva como referencia de contraste para $GOVCONS$, pero no se mezcla con la serie activa de Naciones Unidas. En $FIN$, la definición amplia \texttt{FS.AST.PRVT.GD.ZS} también se conserva solo como contraste y no se mezcla con la serie bancaria activa. $DRES$ se utiliza únicamente para seleccionar los países con el umbral de 20\%. $HHI$ se incluye solo en el modelo con $ECI$ y se excluye cuando $DIVX=1-HHI$ es el resultado complementario.}} \\
+			\multicolumn{5}{p{14.45cm}}{\textit{Nota: La cobertura se expresa como observaciones disponibles y porcentaje de la grilla maestra 1996--2021, salvo $DRES$, que se calcula como promedio 1990--1995 y se utiliza exclusivamente para seleccionar los 55 países mediante el umbral del 20\,\%. No se imputan faltantes ni se rellenan vacíos mediante fuentes alternativas. La descarga WDI asociada a $DRES$ se conserva únicamente para validación agregada y no interviene en su cálculo. Para $GOVCONS$, WDI \texttt{NE.CON.GOVT.ZS} se conserva solo como contraste frente a la serie activa de Naciones Unidas. Para $FIN$, WDI \texttt{FS.AST.PRVT.GD.ZS} se conserva solo como contraste frente a la serie bancaria activa. Para $HUMCAP$, \texttt{hc} de PWT 11.0 se conserva solo como contraste frente al índice activo construido con escolaridad del PNUD. $HHI$ se utiliza en las ecuaciones con $ECI$ y se excluye cuando $DIVX=1-HHI$ es la variable dependiente.}} \\
 		\end{longtable}
 	\end{footnotesize}
+	\thesissource{Elaboración propia a partir de los archivos, metadatos y scripts reproducibles del proyecto.}
+
+	\section{Países seleccionados mediante DRES}
+	\label{sec:muestra-dres}
+
+	La \autoref{tab:muestra_dres20} identifica las 55 economías que integran la
+	grilla maestra. La selección exige que el promedio simple de $DRES$ durante
+	1990--1995 sea igual o superior al 20\,\%; por tanto, la pertenencia a la
+	muestra se determina antes del período econométrico 1996--2021.
+
+	\renewcommand{\arraystretch}{1.05}
+	\setlength{\tabcolsep}{5pt}
+
+	\begin{footnotesize}
+		\begin{longtable}{
+				L{5.1cm}
+				>{\RaggedLeft\arraybackslash}p{1.3cm}
+				L{5.1cm}
+				>{\RaggedLeft\arraybackslash}p{1.3cm}
+			}
+
+			\caption[Países seleccionados mediante DRES]{Países seleccionados mediante el umbral de $DRES\geq 20\%$.}
+			\label{tab:muestra_dres20} \\
+			\hline
+			\textbf{País (\isocode{ISO3})} & \textbf{DRES medio} & \textbf{País (\isocode{ISO3})} & \textbf{DRES medio} \\
+			\hline
+			\endfirsthead
+
+			\hline
+			\textbf{País (\isocode{ISO3})} & \textbf{DRES medio} & \textbf{País (\isocode{ISO3})} & \textbf{DRES medio} \\
+			\hline
+			\endhead
+
+			Angola (\isocode{AGO}) & 98,97\,\% & Albania (\isocode{ALB}) & 21,41\,\% \\
+			Emiratos Árabes Unidos (\isocode{ARE}) & 85,44\,\% & Antigua y Barbuda (\isocode{ATG}) & 29,09\,\% \\
+			Australia (\isocode{AUS}) & 46,44\,\% & Burundi (\isocode{BDI}) & 32,85\,\% \\
+			Baréin (\isocode{BHR}) & 71,82\,\% & Bolivia (\isocode{BOL}) & 56,92\,\% \\
+			Brunéi (\isocode{BRN}) & 86,42\,\% & República Centroafricana (\isocode{CAF}) & 61,56\,\% \\
+			Chile (\isocode{CHL}) & 48,37\,\% & Camerún (\isocode{CMR}) & 47,60\,\% \\
+			República Democrática del Congo (\isocode{COD}) & 81,42\,\% & República del Congo (\isocode{COG}) & 84,66\,\% \\
+			Colombia (\isocode{COL}) & 30,99\,\% & Argelia (\isocode{DZA}) & 82,02\,\% \\
+			Ecuador (\isocode{ECU}) & 38,21\,\% & Egipto (\isocode{EGY}) & 38,34\,\% \\
+			Gabón (\isocode{GAB}) & 84,60\,\% & Ghana (\isocode{GHA}) & 43,98\,\% \\
+			Guinea (\isocode{GIN}) & 88,57\,\% & Gambia (\isocode{GMB}) & 55,64\,\% \\
+			Guyana (\isocode{GUY}) & 43,59\,\% & Indonesia (\isocode{IDN}) & 37,21\,\% \\
+			India (\isocode{IND}) & 21,51\,\% & Irán (\isocode{IRN}) & 88,31\,\% \\
+			Irak (\isocode{IRQ}) & 97,58\,\% & Israel (\isocode{ISR}) & 33,23\,\% \\
+			Jamaica (\isocode{JAM}) & 44,88\,\% & Jordania (\isocode{JOR}) & 25,40\,\% \\
+			Kuwait (\isocode{KWT}) & 89,22\,\% & Liberia (\isocode{LBR}) & 49,88\,\% \\
+			Libia (\isocode{LBY}) & 92,80\,\% & Mongolia (\isocode{MNG}) & 33,79\,\% \\
+			Mauritania (\isocode{MRT}) & 52,55\,\% & Nigeria (\isocode{NGA}) & 93,61\,\% \\
+			Noruega (\isocode{NOR}) & 56,08\,\% & Nauru (\isocode{NRU}) & 88,39\,\% \\
+			Omán (\isocode{OMN}) & 82,80\,\% & Perú (\isocode{PER}) & 51,55\,\% \\
+			Papúa Nueva Guinea (\isocode{PNG}) & 63,63\,\% & Catar (\isocode{QAT}) & 82,28\,\% \\
+			Rusia (\isocode{RUS}) & 54,91\,\% & Arabia Saudita (\isocode{SAU}) & 87,39\,\% \\
+			Sierra Leona (\isocode{SLE}) & 76,97\,\% & Surinam (\isocode{SUR}) & 75,03\,\% \\
+			Seychelles (\isocode{SYC}) & 22,82\,\% & Siria (\isocode{SYR}) & 59,00\,\% \\
+			Togo (\isocode{TGO}) & 43,63\,\% & Trinidad y Tobago (\isocode{TTO}) & 56,20\,\% \\
+			Venezuela (\isocode{VEN}) & 82,95\,\% & Vietnam (\isocode{VNM}) & 28,76\,\% \\
+			Yemen (\isocode{YEM}) & 93,52\,\% & Sudáfrica (\isocode{ZAF}) & 41,72\,\% \\
+			Zambia (\isocode{ZMB}) & 91,12\,\% & & \\
+
+			\hline
+			\multicolumn{4}{p{14.1cm}}{\textit{Nota: Los países se ordenan por código \isocode{ISO3} de izquierda a derecha y de arriba abajo. \isocode{COD} y \isocode{COG} representan dos países distintos: República Democrática del Congo y República del Congo, respectivamente. $DRES$ medio corresponde al promedio simple de las seis observaciones anuales de 1990--1995. Todos los países satisfacen $DRES\geq 20\%$ y cuentan con información comercial completa durante el período base.}} \\
+		\end{longtable}
+	\end{footnotesize}
+	\thesissource{Elaboración propia a partir de \texttt{data/processed/dres/dres\_sample\_20.csv}.}
 
 	\section{Figuras conceptuales y esquemas analíticos}
 	\label{sec:figuras}
 
 	Esta sección reúne figuras conceptuales y esquemas analíticos que complementan la exposición teórica y metodológica del trabajo. Los diagramas permiten sintetizar los principales mecanismos de transición estructural y las relaciones entre las variables centrales del estudio, facilitando la lectura del enfoque general de la tesis.
 
-	\begin{figure}[H]
+	\begin{figure}[htbp]
 		\centering
 		\resizebox{\linewidth}{!}{%
 			\begin{tikzpicture}[
@@ -232,7 +317,7 @@
 
 	Con el fin de evaluar un resultado complementario de transformación estructural externa, la tesis contrasta el modelo basado en el \textit{Economic Complexity Index} (ECI) con una segunda especificación en la que la variable dependiente corresponde a la diversificación exportadora ($DIVX=1-HHI$). Esta medida no reemplaza al ECI, sino que permite observar si los mecanismos asociados a la sofisticación de la canasta exportadora también se relacionan con una menor concentración de dicha canasta. En el modelo con $DIVX$, $HHI$ se excluye del conjunto de regresores para evitar una relación mecánica entre la variable dependiente y sus componentes de construcción.
 
-	\begin{figure}[H]
+	\begin{figure}[htbp]
 		\centering
 		\begin{tikzpicture}[
 			font=\normalsize,
@@ -266,7 +351,7 @@
 		\caption*{\footnotesize \textit{Fuente: Elaboración propia con base en la literatura sobre enfermedad holandesa y ciclos de commodities.}}
 	\end{figure}
 
-	\begin{figure}[H]
+	\begin{figure}[htbp]
 		\centering
 		\begin{tikzpicture}[
 			font=\normalsize,
@@ -305,7 +390,7 @@
 	que consideraban los recursos naturales como una ventaja para el desarrollo, hasta enfoques contemporáneos que analizan los mecanismos institucionales,
 	macroeconómicos y estructurales que pueden convertir dicha abundancia en un factor limitante del crecimiento económico. La \autoref{fig:resource_curse_timeline} sintetiza esta evolución conceptual.
 
-	\begin{figure}[H]
+	\begin{figure}[htbp]
 		\centering
 		\resizebox{\textwidth}{!}{
 			\begin{tikzpicture}[
@@ -379,7 +464,7 @@
 		\footnotesize
 		\textit{Nota:} La figura resume el desarrollo histórico del debate sobre recursos naturales y crecimiento económico, desde las primeras interpretaciones clásicas hasta la evidencia empírica moderna sobre dependencia de recursos y desempeño económico.
 
-		\textit{Fuente: Elaboración propia con base en \textcite{Anne2021}.}
+		\thesissource{Elaboración propia con base en \textcite{Anne2021}.}
 
 	\end{figure}
 
@@ -387,7 +472,7 @@
 	\vspace{1cm}
 
 
-	\begin{figure}[H]
+	\begin{figure}[htbp]
 		\centering
 		\begin{tikzpicture}[
 			node distance=0.95cm,
@@ -449,10 +534,73 @@
 	\section{Gráficos complementarios}
 	\label{sec:plots}
 
+	\subsection{Perfiles extractivos e ingreso en Anne (2021)}
+	\label{sec:figuras-anne2021}
+
+	Como referencia contextual, esta sección presenta algunos hechos estilizados
+	sobre la heterogeneidad de las economías dependientes de recursos naturales no
+	renovables del subsuelo. Los gráficos se construyen a partir de los datos
+	reportados en las tablas de \textcite[27--30]{Anne2021}. La participación
+	extractiva corresponde a la suma de las exportaciones mineras y energéticas;
+	por tanto, no incluye productos agrícolas ni otros recursos renovables.
+
+	Un primer hecho estilizado surge al analizar conjuntamente la participación de
+	las exportaciones mineras y energéticas. El diagrama de dispersión de la
+	\autoref{fig:extractive-specialization} distingue economías con predominio
+	energético, especialización minera y perfiles extractivos mixtos.
+
+	\begin{figure}[htbp]
+		\centering
+		\includegraphics[width=\textwidth]{\subfix{../../figures/extractive_specialization_scatter}}
+		\caption[Exportaciones mineras y energéticas]{Relación entre la participación de las exportaciones mineras y energéticas en la canasta exportadora de los países considerados. Las líneas punteadas indican umbrales del 20\% que permiten distinguir distintos patrones de especialización extractiva.}
+		\label{fig:extractive-specialization}
+		\caption*{\footnotesize \textit{Fuente: Elaboración propia con base en datos reportados en \textcite{Anne2021}.}}
+	\end{figure}
+
+	La \autoref{fig:commodities-income} muestra que la dependencia exportadora
+	extractiva no disminuye de manera monotónica con el ingreso per cápita. Los
+	grupos de ingreso medio alto y alto también contienen economías con una
+	participación extractiva considerable.
+
+	\begin{figure}[htbp]
+		\centering
+		\includegraphics[width=\textwidth]{\subfix{../../figures/p_commodities_income_boxplot}}
+		\caption[Dependencia exportadora extractiva por nivel de ingreso]{Distribución de la participación de las exportaciones mineras y energéticas en el total de exportaciones según grupo de ingreso: bajos ingresos (LIC), ingresos medios bajos (LMIC), ingresos medios altos (UMIC) y altos ingresos (HIC).}
+		\label{fig:commodities-income}
+		\caption*{\footnotesize \textit{Fuente: Elaboración propia con base en datos reportados en \textcite{Anne2021}.}}
+	\end{figure}
+
+	Finalmente, la comparación por tipo de recurso muestra que la especialización
+	energética puede representar una fracción dominante de la canasta exportadora,
+	mientras que la participación minera tiende a ser menor y más dispersa entre
+	grupos de ingreso.
+
+	\begin{figure}[htbp]
+		\centering
+		\begin{subfigure}{0.49\textwidth}
+			\centering
+			\includegraphics[width=\textwidth]{\subfix{../../figures/p_energy_income_boxplot}}
+			\caption{Dependencia de exportaciones energéticas por grupo de ingreso.}
+			\label{fig:energy-income-boxplot}
+		\end{subfigure}
+		\hfill
+		\begin{subfigure}{0.49\textwidth}
+			\centering
+			\includegraphics[width=\textwidth]{\subfix{../../figures/p_mining_income_boxplot}}
+			\caption{Dependencia de exportaciones mineras por grupo de ingreso.}
+			\label{fig:mining-income-boxplot}
+		\end{subfigure}
+		\caption[Dependencia exportadora por tipo de recurso]{Comparación de la participación de las exportaciones de recursos energéticos y mineros en el total de exportaciones de los países considerados.}
+		\label{fig:energy-mining-income-comparison}
+		\caption*{\footnotesize \textit{Fuente: Elaboración propia con base en datos reportados en \textcite{Anne2021}.}}
+	\end{figure}
+
+	\subsection{Complejidad económica, recursos naturales e ingreso}
+
 	La \autoref{fig:eci_income_resources} muestra la relación entre el índice de complejidad económica (ECI) y el ingreso per cápita para 128 países. Los países se distinguen según su dependencia de recursos naturales: en rojo, aquellos cuyas exportaciones de recursos naturales superan el 10\% del PIB; en azul, aquellos con menor dependencia. En las economías con baja presencia de recursos naturales, el ECI explica aproximadamente el 75\% de la variación del ingreso per cápita, lo que sugiere una asociación estrecha entre complejidad productiva y nivel de desarrollo. En contraste, algunas economías intensivas en recursos exhiben niveles de ingreso superiores a los que su complejidad productiva sugeriría, reflejando el efecto de las rentas derivadas de la explotación de petróleo, gas y minería. Aun así, incluso dentro de este grupo la complejidad económica mantiene una correlación positiva con el ingreso.
 
 
-	\begin{figure}[H]
+	\begin{figure}[htbp]
 		\centering
 		\includegraphics[width=0.9\textwidth]{\subfix{../../figures/2_hausmann_2014.png}}
 
@@ -464,7 +612,7 @@
 
 	La Figura~\ref{fig:anexo_nr_eci} muestra la relación entre la abundancia de recursos naturales y la complejidad económica. Se observa una asociación negativa en promedio, aunque con alta dispersión y diferencias entre países desarrollados y en desarrollo.
 
-	\begin{figure}[H]
+	\begin{figure}[htbp]
 		\centering
 		\includegraphics[width=0.85\textwidth]{\subfix{../../figures/1_avom_2022.png}}
 		\caption{
@@ -476,7 +624,7 @@
 
 	La Figura~\ref{fig:anexo_nr_eci_finance} ilustra la relación entre dependencia de recursos, complejidad económica y niveles de desarrollo financiero, mostrando diferencias sistemáticas según el grado de desarrollo financiero.
 
-	\begin{figure}[H]
+	\begin{figure}[htbp]
 		\centering
 		\includegraphics[width=0.85\textwidth]{\subfix{../../figures/1_valentine_2024.png}}
 		\caption{
@@ -503,7 +651,7 @@
 
 	La \autoref{fig:resource-rents-world-map} muestra la distribución global de las rentas de recursos naturales como porcentaje del PIB.
 
-	\begin{figure}[H]
+	\begin{figure}[htbp]
 		\centering
 		\includegraphics[width=\textwidth]{\subfix{../../figures/resource_rents_world_map}}
 
@@ -515,7 +663,7 @@
 
 	La \autoref{fig:eci-world-map} presenta la distribución global del Índice de Complejidad Económica (ECI), un indicador que captura el grado de sofisticación productiva de las economías a partir de la diversidad y ubicuidad de los bienes que exportan. En general, valores más altos del ECI se asocian con estructuras productivas más diversificadas y mayores capacidades tecnológicas, mientras que valores bajos reflejan economías más concentradas en productos primarios o de menor intensidad tecnológica; en este contexto, el mapa ofrece un marco descriptivo para observar las diferencias en capacidades productivas entre países y su posible relación con la dependencia de recursos naturales.
 
-	\begin{figure}[H]
+	\begin{figure}[htbp]
 		\centering
 		\includegraphics[width=\textwidth]{\subfix{../../figures/eci_world_map}}
 
@@ -527,7 +675,7 @@
 
 	La \autoref{fig:eci-world-map-quartiles} muestra la distribución global del Índice de Complejidad Económica (ECI) clasificada por cuartiles. Esta representación permite comparar de manera relativa el nivel de sofisticación productiva entre economías, agrupando a los países según su posición en la distribución mundial del indicador. En particular, el primer cuartil (Q1) corresponde a economías con menor complejidad económica, mientras que el cuarto cuartil (Q4) agrupa a las economías con estructuras productivas más diversificadas y tecnológicamente avanzadas.
 
-	\begin{figure}[H]
+	\begin{figure}[htbp]
 		\centering
 		\includegraphics[width=\textwidth]{\subfix{../../figures/eci_world_map_quartiles}}
 
@@ -540,7 +688,7 @@
 
 	Una representación especialmente ilustrativa de la estructura productiva mundial es el denominado \textit{Product Space}, desarrollado por \textcite{Hausmann2014}. Esta red vincula productos según su proximidad productiva, definida a partir de la probabilidad de que dos bienes sean exportados conjuntamente por los mismos países. La visualización resultante revela una topología altamente estructurada en la que los bienes primarios y los \textit{commodities} tienden a ubicarse en la periferia, mientras que las manufacturas complejas —como maquinaria, productos químicos y electrónica— ocupan el núcleo densamente interconectado. En este marco, el desarrollo económico puede entenderse como un proceso de acumulación gradual de capacidades productivas que permite a los países desplazarse desde actividades periféricas hacia sectores más centrales y complejos.
 
-	\begin{figure}[H]
+	\begin{figure}[htbp]
 		\centering
 		\includegraphics[width=0.95\textwidth]{\subfix{../../figures/3_hausmann_2014.png}}
 
@@ -554,7 +702,7 @@
 
 	Como complemento visual al marco analítico de la tesis, la \autoref{fig:product_space_communities} muestra cómo distintos grupos de productos se ubican en posiciones heterogéneas en términos de complejidad económica y conectividad productiva. En particular, los sectores asociados a manufacturas y bienes industriales tienden a concentrarse en regiones más densamente conectadas del espacio productivo, mientras que muchas actividades primarias y extractivas aparecen en posiciones más periféricas. Esta configuración sugiere que las economías especializadas en recursos naturales pueden enfrentar mayores restricciones estructurales para diversificar hacia actividades de mayor complejidad.
 
-	\begin{figure}[H]
+	\begin{figure}[htbp]
 		\centering
 		\includegraphics[width=0.9\textwidth]{\subfix{../../figures/4_hausmann_2014.png}}
 
@@ -566,7 +714,7 @@
 
 	Como se observa en la Tabla \ref{tab:product_communities_selected}, las comunidades asociadas a industrias extractivas presentan valores sustancialmente menores del \textit{Product Complexity Index} (PCI) en comparación con sectores manufactureros intensivos en conocimiento. Este contraste refleja diferencias estructurales en las capacidades productivas requeridas por cada tipo de actividad y resulta consistente con la literatura sobre complejidad económica y diversificación productiva \parencite{Hausmann2014}.
 
-	\begin{table}[H]
+	\begin{table}[htbp]
 		\centering
 		\small
 		\caption[Comunidades de productos y complejidad (PCI)]{
@@ -599,7 +747,7 @@
 
 			\begin{tablenotes}
 				\footnotesize
-				\item \textit{Fuente: Elaboración propia a partir de datos reportados en} \textcite{Hausmann2014}, \textit{The Atlas of Economic Complexity}.
+				\item[] \centering\textit{Fuente: Elaboración propia a partir de datos reportados en \textcite{Hausmann2014}, The Atlas of Economic Complexity.}
 			\end{tablenotes}
 
 		\end{threeparttable}
@@ -613,7 +761,7 @@
 
 	Las economías dependientes de recursos naturales no constituyen un grupo homogéneo. Difieren tanto en su nivel de desarrollo económico como en el tipo de sector extractivo dominante. En particular, algunos países presentan una fuerte especialización en petróleo, gas y minería, con distintas combinaciones entre recursos energéticos, minerales y estructuras extractivas mixtas. La Tabla \ref{tab:extractive_typology} presenta una tipología estilizada e ilustrativa que clasifica algunas economías según el tipo de sector extractivo predominante y su nivel de ingreso, siguiendo la clasificación del Banco Mundial como referencia descriptiva.
 
-	\begin{table}[H]
+	\begin{table}[htbp]
 		\centering
 		\small
 		\caption[Tipología de economías extractivas]{Tipología de economías dependientes de recursos naturales según tipo de sector extractivo y nivel de ingreso.}

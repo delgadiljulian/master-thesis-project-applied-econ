@@ -1,5 +1,7 @@
 # CAPA: RAW
 # VARIABLE: DRES
+# ENTRADAS: archivos oficiales WDI de exportaciones de combustibles,
+#           minerales y metales
 # SALIDAS: data/raw/dres/
 # Descargar insumos WDI para validar la construcción de DRES.
 #

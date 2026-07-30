@@ -44,7 +44,5 @@ cautela. El error absoluto medio equivale a 0,77 años de escolaridad.
 - `humcap_validation_summary.csv`: controles de cobertura, concordancia,
   identidad, dominio, llaves y equivalencia entre CSV y Stata.
 
-El script activo es
-[`scripts/data/processed/humcap/humcap_undp_processed.R`](../../../scripts/data/processed/humcap/humcap_undp_processed.R).
-El nombre histórico `humcap_processed.R` se conserva como envoltorio de
-compatibilidad y ejecuta la misma construcción.
+El procesamiento se implementa en un único punto de entrada:
+[`scripts/data/processed/humcap/humcap_processed.R`](../../../scripts/data/processed/humcap/humcap_processed.R).

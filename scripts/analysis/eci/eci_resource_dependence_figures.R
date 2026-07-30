@@ -57,12 +57,14 @@ dir.create(fig_path, recursive = TRUE, showWarnings = FALSE)
 # 1. Cargar mapa base del mundo
 # ============================================
 
+# Retornar el resultado de la función
 world <- ne_countries(scale = "medium", returnclass = "sf")
 
 # ============================================
 # 2. Definir países dependientes de recursos
 # ============================================
 
+# Ejecutar la siguiente instrucción del bloque
 energy_countries <- c(
   "SAU","QAT","ARE","KWT",
   "NOR","VEN","NGA","RUS",
@@ -70,6 +72,7 @@ energy_countries <- c(
   "USA","CAN"
 )
 
+# Ejecutar la siguiente instrucción del bloque
 mining_countries <- c(
   "CHL","AUS","BWA","PER",
   "ZMB","MNG","ZAF","NAM","COD",
@@ -80,6 +83,7 @@ mining_countries <- c(
 # 3. Clasificar países (usar iso_a3_eh)
 # ============================================
 
+# Ejecutar la siguiente instrucción del bloque
 world_map <- world %>%
   mutate(resource_type = case_when(
     iso_a3_eh %in% energy_countries ~ "Energy exporters",
@@ -91,19 +95,24 @@ world_map <- world %>%
 # 4. Crear mapa
 # ============================================
 
+# Generar visualización gráfica
 map <- ggplot(world_map) +
   geom_sf(aes(fill = resource_type), color = "gray55", size = 0.12) +
 
+  # Ejecutar la siguiente instrucción del bloque
   scale_fill_manual(values = c(
     "Energy exporters" = "#b24a3a",
     "Mining exporters" = "#5b76a8",
     "Other countries" = "gray92"
   )) +
 
+  # Ejecutar la siguiente instrucción del bloque
   coord_sf(expand = FALSE) +
 
+  # Ejecutar la siguiente instrucción del bloque
   theme_minimal() +
 
+  # Ejecutar la siguiente instrucción del bloque
   theme(
     axis.text = element_blank(),
     axis.title = element_blank(),
@@ -111,12 +120,14 @@ map <- ggplot(world_map) +
     legend.position = "bottom"
   )
 
+# Ejecutar la siguiente instrucción del bloque
 map
 
 # ============================================
 # 5. Exportar mapa
 # ============================================
 
+# Ejecutar la siguiente instrucción del bloque
 ggsave(
   "resource_dependent_map.pdf",
   plot = map,
@@ -135,6 +146,7 @@ ggsave(
 # Natural resource rents (% of GDP)
 # ============================================
 
+# Ejecutar la siguiente instrucción del bloque
 resource_data <- WDI(
   indicator = "NY.GDP.TOTL.RT.ZS",
   start = 2021,
@@ -150,6 +162,7 @@ resource_data <- resource_data %>%
 # 8. Cargar mapa mundial
 # ============================================
 
+# Retornar el resultado de la función
 world <- ne_countries(scale = "medium", returnclass = "sf")
 
 # Unir mapa con datos
@@ -160,6 +173,7 @@ world_rents <- world %>%
 # 9. Crear categorías de dependencia
 # ============================================
 
+# Ejecutar la siguiente instrucción del bloque
 world_rents <- world_rents %>%
   mutate(resource_dependence = case_when(
     rents < 5 ~ "Low (<5%)",
@@ -173,10 +187,12 @@ world_rents <- world_rents %>%
 # 10. Crear mapa
 # ============================================
 
+# Generar visualización gráfica
 map_rents <- ggplot(world_rents) +
   geom_sf(aes(fill = resource_dependence),
           color = "gray60", size = 0.1) +
 
+  # Ejecutar la siguiente instrucción del bloque
   scale_fill_manual(
     values = c(
       "Low (<5%)" = "#f1eef6",
@@ -187,14 +203,18 @@ map_rents <- ggplot(world_rents) +
     na.value = "gray90"
   ) +
 
+  # Ejecutar la siguiente instrucción del bloque
   labs(
     fill = "Resource rents\n(% of GDP)"
   ) +
 
+  # Ejecutar la siguiente instrucción del bloque
   coord_sf(expand = FALSE) +
 
+  # Ejecutar la siguiente instrucción del bloque
   theme_void() +
 
+  # Ejecutar la siguiente instrucción del bloque
   theme(
     legend.position = "bottom",
     legend.direction = "horizontal",
@@ -203,12 +223,14 @@ map_rents <- ggplot(world_rents) +
     plot.margin = margin(5,5,5,5)
   )
 
+# Ejecutar la siguiente instrucción del bloque
 map_rents
 
 # ============================================
 # 11. Exportar mapa
 # ============================================
 
+# Ejecutar la siguiente instrucción del bloque
 ggsave(
   "resource_rents_world_map.pdf",
   plot = map_rents,
@@ -226,6 +248,7 @@ ggsave(
 # 12. Cargar dataset de complejidad económica
 # ============================================
 
+# Cargar el archivo de datos
 eci_data <- read_csv(
   file.path(
     project_path,
@@ -237,8 +260,10 @@ eci_data <- read_csv(
   )
 )
 
+# Ejecutar la siguiente instrucción del bloque
 names(world)
 
+# Ejecutar la siguiente instrucción del bloque
 world %>%
   filter(name == "Norway") %>%
   select(name, iso_a3, iso_a3_eh, wb_a3)
@@ -247,6 +272,7 @@ world %>%
 # 13. Filtrar año de análisis
 # ============================================
 
+# Ejecutar la siguiente instrucción del bloque
 eci_latest <- eci_data %>%
   filter(year == 2021) %>%
   mutate(iso3 = country_iso3_code)
@@ -255,12 +281,14 @@ eci_latest <- eci_data %>%
 # 14.1. Unir datos de ECI con el mapa mundial
 # ============================================
 
+# Ejecutar la siguiente instrucción del bloque
 world_eci <- world %>%
   left_join(
     eci_latest,
     by = c("iso_a3_eh" = "iso3")
   )
 
+# Ejecutar la siguiente instrucción del bloque
 world_eci %>%
   filter(iso_a3_eh %in% c("FRA","NOR")) %>%
   select(name, iso_a3_eh, eci)
@@ -270,43 +298,52 @@ world_eci %>%
 # ============================================
 
 
+# Ejecutar la siguiente instrucción del bloque
 world_eci <- world_eci %>%
 
+  # Ejecutar la siguiente instrucción del bloque
   mutate(
 
+    # Ejecutar la siguiente instrucción del bloque
     eci_quartile = ntile(eci, 4),
 
+    # Ejecutar la siguiente instrucción del bloque
     eci_quartile = case_when(
       eci_quartile == 1 ~ "Q1 (Low complexity)",
       eci_quartile == 2 ~ "Q2 (Lower-middle complexity)",
       eci_quartile == 3 ~ "Q3 (Upper-middle complexity)",
       eci_quartile == 4 ~ "Q4 (High complexity)"
     )
-
   )
 
 # ============================================
 # 15. Construir mapa ECI
 # ============================================
 
+# Generar visualización gráfica
 eci_map <- ggplot(world_eci) +
 
+  # Ejecutar la siguiente instrucción del bloque
   geom_sf(
     aes(fill = eci),
     color = "gray50",
     size = 0.12
   ) +
 
+  # Ejecutar la siguiente instrucción del bloque
   scale_fill_viridis_c(
     option = "C",
     na.value = "gray90",
     name = "Economic\nComplexity\nIndex"
   ) +
 
+  # Ejecutar la siguiente instrucción del bloque
   coord_sf(expand = FALSE) +
 
+  # Ejecutar la siguiente instrucción del bloque
   theme_minimal() +
 
+  # Ejecutar la siguiente instrucción del bloque
   theme(
     axis.text = element_blank(),
     axis.title = element_blank(),
@@ -320,12 +357,14 @@ eci_map <- ggplot(world_eci) +
 # 16. Mostrar mapa
 # ============================================
 
+# Ejecutar la siguiente instrucción del bloque
 eci_map
 
 # ============================================
 # 17. Exportar mapa para LaTeX
 # ============================================
 
+# Ejecutar la siguiente instrucción del bloque
 ggsave(
   "eci_world_map.pdf",
   plot = eci_map,
@@ -338,16 +377,20 @@ ggsave(
 # 18. Mapa ECI por cuartiles
 # ============================================
 
+# Generar visualización gráfica
 eci_map_quartiles <- ggplot(world_eci) +
 
+  # Ejecutar la siguiente instrucción del bloque
   geom_sf(
     aes(fill = eci_quartile),
     color = "gray50",
     size = 0.12
   ) +
 
+  # Ejecutar la siguiente instrucción del bloque
   scale_fill_manual(
 
+    # Ejecutar la siguiente instrucción del bloque
     values = c(
       "Q1 (Low complexity)" = "#440154",
       "Q2 (Lower-middle complexity)" = "#31688e",
@@ -355,14 +398,19 @@ eci_map_quartiles <- ggplot(world_eci) +
       "Q4 (High complexity)" = "#fde725"
     ),
 
+    # Ejecutar la siguiente instrucción del bloque
     na.value = "gray90"
 
+  # Ejecutar la siguiente instrucción del bloque
   ) +
 
+  # Ejecutar la siguiente instrucción del bloque
   coord_sf(expand = FALSE) +
 
+  # Ejecutar la siguiente instrucción del bloque
   theme_minimal() +
 
+  # Ejecutar la siguiente instrucción del bloque
   theme(
     axis.text = element_blank(),
     axis.title = element_blank(),
@@ -376,8 +424,10 @@ eci_map_quartiles <- ggplot(world_eci) +
 # 19. Mostrar mapa
 # ============================================
 
+# Ejecutar la siguiente instrucción del bloque
 eci_map_quartiles
 
+# Ejecutar la siguiente instrucción del bloque
 eci_latest %>%
   filter(country_iso3_code %in% c("BRA","ARG","CHL","URY","COL","PER")) %>%
   select(country_iso3_code, eci)
@@ -386,6 +436,7 @@ eci_latest %>%
 # 17. Exportar mapa para LaTeX
 # ============================================
 
+# Ejecutar la siguiente instrucción del bloque
 ggsave(
   "eci_world_map_quartiles.pdf",
   plot = eci_map_quartiles,
@@ -403,6 +454,7 @@ ggsave(
 # 1. Preparar dataset ECI
 # ============================================
 
+# Ejecutar la siguiente instrucción del bloque
 eci_latest <- eci_data %>%
   filter(year == 2021) %>%
   select(
@@ -415,6 +467,7 @@ eci_latest <- eci_data %>%
 # 2. Preparar dataset de resource rents
 # ============================================
 
+# Ejecutar la siguiente instrucción del bloque
 resource_rents <- resource_data %>%
   select(
     iso3 = iso3c,
@@ -427,6 +480,7 @@ resource_rents <- resource_data %>%
 # 3. Unir datasets
 # ============================================
 
+# Ejecutar la siguiente instrucción del bloque
 eci_rents <- eci_latest %>%
   inner_join(resource_rents, by = "iso3")
 
@@ -435,8 +489,10 @@ eci_rents <- eci_latest %>%
 # 4. Calcular regresión para mostrar R²
 # ============================================
 
+# Ejecutar la siguiente instrucción del bloque
 model <- lm(eci ~ rents, data = eci_rents)
 
+# Ejecutar la siguiente instrucción del bloque
 r2 <- summary(model)$r.squared
 
 
@@ -445,6 +501,7 @@ r2 <- summary(model)$r.squared
 # 5. Identificar outliers para etiquetar
 # ============================================
 
+# Ejecutar la siguiente instrucción del bloque
 label_countries <- eci_rents %>%
   filter(
     rents > 35 | eci > 1.5 | eci < -1.8
@@ -456,15 +513,18 @@ label_countries <- eci_rents %>%
 # 6. Scatter plot mejorado
 # ============================================
 
+# Generar visualización gráfica
 eci_vs_rents_1 <- ggplot(eci_rents,
                        aes(x = rents, y = eci)) +
 
+  # Ejecutar la siguiente instrucción del bloque
   geom_point(
     color = "#2b8cbe",
     size = 2.4,
     alpha = 0.65
   ) +
 
+  # Ejecutar la siguiente instrucción del bloque
   geom_smooth(
     method = "lm",
     color = "#d7301f",
@@ -472,6 +532,7 @@ eci_vs_rents_1 <- ggplot(eci_rents,
     se = TRUE
   ) +
 
+  # Ejecutar la siguiente instrucción del bloque
   geom_text(
     data = label_countries,
     aes(label = iso3),
@@ -479,6 +540,7 @@ eci_vs_rents_1 <- ggplot(eci_rents,
     vjust = -0.7
   ) +
 
+  # Ejecutar la siguiente instrucción del bloque
   annotate(
     "text",
     x = 45,
@@ -487,6 +549,7 @@ eci_vs_rents_1 <- ggplot(eci_rents,
     size = 4
   ) +
 
+  # Ejecutar la siguiente instrucción del bloque
   labs(
     title = "Economic Complexity and Natural Resource Dependence",
     subtitle = "Economic Complexity Index vs Natural Resource Rents (% of GDP)",
@@ -494,10 +557,13 @@ eci_vs_rents_1 <- ggplot(eci_rents,
     y = "Economic Complexity Index (ECI)"
   ) +
 
+  # Ejecutar la siguiente instrucción del bloque
   coord_cartesian(xlim = c(0,60)) +
 
+  # Ejecutar la siguiente instrucción del bloque
   theme_minimal() +
 
+  # Ejecutar la siguiente instrucción del bloque
   theme(
     plot.title = element_text(size = 14, face = "bold"),
     plot.subtitle = element_text(size = 11),
@@ -511,6 +577,7 @@ eci_vs_rents_1 <- ggplot(eci_rents,
 # 7. Mostrar gráfico
 # ============================================
 
+# Ejecutar la siguiente instrucción del bloque
 eci_vs_rents_1
 
 ################################################################################
@@ -522,6 +589,7 @@ eci_vs_rents_1
 # 1. Preparar datos
 # ============================================
 
+# Ejecutar la siguiente instrucción del bloque
 eci_latest <- eci_data %>%
   filter(year == 2021) %>%
   select(
@@ -529,6 +597,7 @@ eci_latest <- eci_data %>%
     eci
   )
 
+# Ejecutar la siguiente instrucción del bloque
 resource_rents <- resource_data %>%
   select(
     iso3 = iso3c,
@@ -536,6 +605,7 @@ resource_rents <- resource_data %>%
     country
   )
 
+# Ejecutar la siguiente instrucción del bloque
 eci_rents <- eci_latest %>%
   inner_join(resource_rents, by = "iso3")
 
@@ -544,6 +614,7 @@ eci_rents <- eci_latest %>%
 # 2. Regresión OLS
 # ============================================
 
+# Ejecutar la siguiente instrucción del bloque
 model <- lm(eci ~ rents, data = eci_rents)
 r2 <- summary(model)$r.squared
 
@@ -552,6 +623,7 @@ r2 <- summary(model)$r.squared
 # 3. Etiquetar solo extremos reales
 # ============================================
 
+# Ejecutar la siguiente instrucción del bloque
 label_countries <- eci_rents %>%
   filter(
     rents > 40 |
@@ -564,11 +636,13 @@ label_countries <- eci_rents %>%
 # 4. Gráfico refinado
 # ============================================
 
+# Generar visualización gráfica
 eci_vs_rents_2 <- ggplot(
   eci_rents,
   aes(x = rents, y = eci)
 ) +
 
+  # Ejecutar la siguiente instrucción del bloque
   geom_point(
     color = "#3b8bc2",
     size = 2.2,
@@ -593,6 +667,7 @@ eci_vs_rents_2 <- ggplot(
     alpha = 0.15
   ) +
 
+  # Ejecutar la siguiente instrucción del bloque
   geom_text(
     data = label_countries,
     aes(label = iso3),
@@ -600,6 +675,7 @@ eci_vs_rents_2 <- ggplot(
     vjust = -0.6
   ) +
 
+  # Ejecutar la siguiente instrucción del bloque
   annotate(
     "text",
     x = 48,
@@ -608,6 +684,7 @@ eci_vs_rents_2 <- ggplot(
     size = 4
   ) +
 
+  # Ejecutar la siguiente instrucción del bloque
   labs(
     title = "Economic Complexity and Natural Resource Dependence",
     subtitle = "LOESS (blue) and OLS (red dashed)",
@@ -615,10 +692,13 @@ eci_vs_rents_2 <- ggplot(
     y = "Economic Complexity Index (ECI)"
   ) +
 
+  # Ejecutar la siguiente instrucción del bloque
   coord_cartesian(xlim = c(0,60)) +
 
+  # Ejecutar la siguiente instrucción del bloque
   theme_minimal() +
 
+  # Ejecutar la siguiente instrucción del bloque
   theme(
     plot.title = element_text(size = 14, face = "bold"),
     plot.subtitle = element_text(size = 11),
@@ -628,6 +708,7 @@ eci_vs_rents_2 <- ggplot(
   )
 
 
+# Ejecutar la siguiente instrucción del bloque
 eci_vs_rents_2
 
 ################################################################################
@@ -647,14 +728,17 @@ highlight_countries <- c(
   "HTI","NPL","MDG"
 )
 
+# Ejecutar la siguiente instrucción del bloque
 label_countries <- eci_rents_clean %>%
   filter(iso3 %in% highlight_countries)
 
+# Generar visualización gráfica
 eci_vs_rents_trim <- ggplot(
   eci_rents_clean,
   aes(x = rents, y = eci)
 ) +
 
+  # Ejecutar la siguiente instrucción del bloque
   geom_point(
     color = "#3b8bc2",
     size = 2.2,
@@ -679,6 +763,7 @@ eci_vs_rents_trim <- ggplot(
     alpha = 0.15
   ) +
 
+  # Ejecutar la siguiente instrucción del bloque
   geom_text_repel(
     data = label_countries,
     aes(label = iso3),
@@ -686,6 +771,7 @@ eci_vs_rents_trim <- ggplot(
     max.overlaps = 20
   ) +
 
+  # Ejecutar la siguiente instrucción del bloque
   annotate(
     "text",
     x = 35,
@@ -694,27 +780,33 @@ eci_vs_rents_trim <- ggplot(
     size = 4
   ) +
 
+  # Ejecutar la siguiente instrucción del bloque
   labs(
     x = "Natural resource rents (% of GDP)",
     y = "Economic Complexity Index (ECI)",
     caption = "Blue line: LOESS smoothing | Red dashed line: OLS linear fit"
   ) +
 
+  # Ejecutar la siguiente instrucción del bloque
   coord_cartesian(xlim = c(0,40)) +
 
+  # Ejecutar la siguiente instrucción del bloque
   theme_minimal() +
 
+  # Ejecutar la siguiente instrucción del bloque
   theme(
     axis.title = element_text(size = 11),
     panel.grid.minor = element_blank()
   )
 
+# Ejecutar la siguiente instrucción del bloque
 eci_vs_rents_trim
 
 # ============================================
 # Exportar Figura
 # ============================================
 
+# Ejecutar la siguiente instrucción del bloque
 ggsave(
   "eci_vs_resource_rents_trim.pdf",
   plot = eci_vs_rents_trim,
@@ -732,6 +824,7 @@ ggsave(
 # 1. Preparar datos
 # ============================================
 
+# Ejecutar la siguiente instrucción del bloque
 eci_latest <- eci_data %>%
   filter(year == 2021) %>%
   select(
@@ -739,6 +832,7 @@ eci_latest <- eci_data %>%
     eci
   )
 
+# Ejecutar la siguiente instrucción del bloque
 resource_rents <- resource_data %>%
   select(
     iso3 = iso3c,
@@ -746,6 +840,7 @@ resource_rents <- resource_data %>%
     country
   )
 
+# Ejecutar la siguiente instrucción del bloque
 eci_rents <- eci_latest %>%
   inner_join(resource_rents, by = "iso3")
 
@@ -754,6 +849,7 @@ eci_rents <- eci_latest %>%
 # 2. Crear variable log
 # ============================================
 
+# Ejecutar la siguiente instrucción del bloque
 eci_rents <- eci_rents %>%
   mutate(
     log_rents = log(rents + 0.1)
@@ -764,6 +860,7 @@ eci_rents <- eci_rents %>%
 # 3. Regresión OLS
 # ============================================
 
+# Ejecutar la siguiente instrucción del bloque
 model <- lm(eci ~ log_rents, data = eci_rents)
 r2 <- summary(model)$r.squared
 
@@ -772,6 +869,7 @@ r2 <- summary(model)$r.squared
 # 4. Etiquetar extremos
 # ============================================
 
+# Ejecutar la siguiente instrucción del bloque
 label_countries <- eci_rents %>%
   filter(
     rents > 40 |
@@ -784,17 +882,20 @@ label_countries <- eci_rents %>%
 # 5. Scatter plot
 # ============================================
 
+# Generar visualización gráfica
 eci_vs_rents_log <- ggplot(
   eci_rents,
   aes(x = log_rents, y = eci)
 ) +
 
+  # Ejecutar la siguiente instrucción del bloque
   geom_point(
     color = "#3b8bc2",
     size = 2.2,
     alpha = 0.6
   ) +
 
+  # Ejecutar la siguiente instrucción del bloque
   geom_smooth(
     method = "loess",
     color = "#08306b",
@@ -802,6 +903,7 @@ eci_vs_rents_log <- ggplot(
     se = FALSE
   ) +
 
+  # Ejecutar la siguiente instrucción del bloque
   geom_smooth(
     method = "lm",
     color = "#cb181d",
@@ -811,6 +913,7 @@ eci_vs_rents_log <- ggplot(
     alpha = 0.15
   ) +
 
+  # Ejecutar la siguiente instrucción del bloque
   geom_text(
     data = label_countries,
     aes(label = iso3),
@@ -818,6 +921,7 @@ eci_vs_rents_log <- ggplot(
     vjust = -0.6
   ) +
 
+  # Ejecutar la siguiente instrucción del bloque
   annotate(
     "text",
     x = 3,
@@ -826,6 +930,7 @@ eci_vs_rents_log <- ggplot(
     size = 4
   ) +
 
+  # Ejecutar la siguiente instrucción del bloque
   labs(
     title = "Economic Complexity and Natural Resource Dependence",
     subtitle = "Log scale for resource rents",
@@ -833,8 +938,10 @@ eci_vs_rents_log <- ggplot(
     y = "Economic Complexity Index (ECI)"
   ) +
 
+  # Ejecutar la siguiente instrucción del bloque
   theme_minimal() +
 
+  # Ejecutar la siguiente instrucción del bloque
   theme(
     plot.title = element_text(size = 14, face = "bold"),
     plot.subtitle = element_text(size = 11),
@@ -842,6 +949,7 @@ eci_vs_rents_log <- ggplot(
     panel.grid.minor = element_blank()
   )
 
+# Ejecutar la siguiente instrucción del bloque
 eci_vs_rents_log
 
 
@@ -853,6 +961,7 @@ eci_vs_rents_log
 # 1. Preparar datos ECI
 # ============================================
 
+# Ejecutar la siguiente instrucción del bloque
 eci_latest <- eci_data %>%
   filter(year == 2021) %>%
   select(
@@ -865,6 +974,7 @@ eci_latest <- eci_data %>%
 # 2. Preparar datos de resource rents
 # ============================================
 
+# Ejecutar la siguiente instrucción del bloque
 resource_rents <- resource_data %>%
   select(
     iso3 = iso3c,
@@ -877,6 +987,7 @@ resource_rents <- resource_data %>%
 # 3. Unir datasets
 # ============================================
 
+# Ejecutar la siguiente instrucción del bloque
 eci_rents <- eci_latest %>%
   inner_join(resource_rents, by = "iso3")
 
@@ -885,6 +996,7 @@ eci_rents <- eci_latest %>%
 # 4. Crear log(resource rents)
 # ============================================
 
+# Ejecutar la siguiente instrucción del bloque
 eci_rents <- eci_rents %>%
   mutate(
     log_rents = log(rents + 0.1)
@@ -895,6 +1007,7 @@ eci_rents <- eci_rents %>%
 # 5. Crear regiones del mundo
 # ============================================
 
+# Ejecutar la siguiente instrucción del bloque
 eci_rents <- eci_rents %>%
   mutate(
     region = countrycode(
@@ -909,8 +1022,10 @@ eci_rents <- eci_rents %>%
 # 6. Regresión OLS
 # ============================================
 
+# Ejecutar la siguiente instrucción del bloque
 model <- lm(eci ~ log_rents, data = eci_rents)
 
+# Ejecutar la siguiente instrucción del bloque
 r2 <- summary(model)$r.squared
 
 
@@ -918,6 +1033,7 @@ r2 <- summary(model)$r.squared
 # 7. Etiquetar países extremos
 # ============================================
 
+# Ejecutar la siguiente instrucción del bloque
 label_countries <- eci_rents %>%
   filter(
     rents > 40 |
@@ -930,8 +1046,10 @@ label_countries <- eci_rents %>%
 # 8. Scatter plot final
 # ============================================
 
+# Ejecutar la siguiente instrucción del bloque
 scale_color_brewer(palette = "Set2")
 
+# Generar visualización gráfica
 eci_vs_rents_clean <- ggplot(
   eci_rents,
   aes(
@@ -940,6 +1058,7 @@ eci_vs_rents_clean <- ggplot(
   )
 ) +
 
+  # Ejecutar la siguiente instrucción del bloque
   geom_point(
     color = "grey55",
     size = 2.3,
@@ -964,6 +1083,7 @@ eci_vs_rents_clean <- ggplot(
     alpha = 0.12
   ) +
 
+  # Ejecutar la siguiente instrucción del bloque
   geom_text(
     data = label_countries,
     aes(label = iso3),
@@ -971,6 +1091,7 @@ eci_vs_rents_clean <- ggplot(
     vjust = -0.7
   ) +
 
+  # Ejecutar la siguiente instrucción del bloque
   annotate(
     "text",
     x = 3,
@@ -979,6 +1100,7 @@ eci_vs_rents_clean <- ggplot(
     size = 4
   ) +
 
+  # Ejecutar la siguiente instrucción del bloque
   labs(
     title = "Economic Complexity and Natural Resource Dependence",
     subtitle = "Log scale for resource rents",
@@ -986,8 +1108,10 @@ eci_vs_rents_clean <- ggplot(
     y = "Economic Complexity Index (ECI)"
   ) +
 
+  # Ejecutar la siguiente instrucción del bloque
   theme_minimal() +
 
+  # Ejecutar la siguiente instrucción del bloque
   theme(
     plot.title = element_text(size = 14, face = "bold"),
     plot.subtitle = element_text(size = 11),
@@ -996,6 +1120,7 @@ eci_vs_rents_clean <- ggplot(
   )
 
 
+# Ejecutar la siguiente instrucción del bloque
 eci_vs_rents_clean
 
 
@@ -1007,6 +1132,7 @@ eci_vs_rents_clean
 # 1. Preparar datos
 # ============================================
 
+# Ejecutar la siguiente instrucción del bloque
 eci_latest <- eci_data %>%
   filter(year == 2021) %>%
   select(
@@ -1014,6 +1140,7 @@ eci_latest <- eci_data %>%
     eci
   )
 
+# Ejecutar la siguiente instrucción del bloque
 resource_rents <- resource_data %>%
   select(
     iso3 = iso3c,
@@ -1021,6 +1148,7 @@ resource_rents <- resource_data %>%
     country
   )
 
+# Ejecutar la siguiente instrucción del bloque
 eci_rents <- eci_latest %>%
   inner_join(resource_rents, by = "iso3")
 
@@ -1029,6 +1157,7 @@ eci_rents <- eci_latest %>%
 # 2. Crear variable log
 # ============================================
 
+# Ejecutar la siguiente instrucción del bloque
 eci_rents <- eci_rents %>%
   mutate(
     log_rents = log(rents + 0.1)
@@ -1039,6 +1168,7 @@ eci_rents <- eci_rents %>%
 # 3. Regresión OLS
 # ============================================
 
+# Ejecutar la siguiente instrucción del bloque
 model <- lm(eci ~ log_rents, data = eci_rents)
 r2 <- summary(model)$r.squared
 
@@ -1047,6 +1177,7 @@ r2 <- summary(model)$r.squared
 # 4. Etiquetar extremos
 # ============================================
 
+# Ejecutar la siguiente instrucción del bloque
 label_countries <- eci_rents %>%
   filter(
     rents > 40 |
@@ -1058,6 +1189,7 @@ label_countries <- eci_rents %>%
 # 4b. Etiquetas adicionales para cuadrantes
 # ============================================
 
+# Ejecutar la siguiente instrucción del bloque
 quadrant_labels <- eci_rents %>%
   filter(
     iso3 %in% c(
@@ -1083,17 +1215,20 @@ quadrant_labels <- eci_rents %>%
 # 5. Punto de corte para cuadrantes
 # ============================================
 
+# Ejecutar la siguiente instrucción del bloque
 median_log_rents <- quantile(eci_rents$log_rents, 0.6)
 
 # ============================================
 # 6. Scatter plot final
 # ============================================
 
+# Generar visualización gráfica
 eci_vs_rents_log_quad <- ggplot(
   eci_rents,
   aes(x = log_rents, y = eci)
 ) +
 
+  # Ejecutar la siguiente instrucción del bloque
   geom_point(
     color = "#3b8bc2",
     size = 2.2,
@@ -1125,6 +1260,7 @@ eci_vs_rents_log_quad <- ggplot(
     linewidth = 1
   ) +
 
+  # Ejecutar la siguiente instrucción del bloque
   geom_hline(
     yintercept = 0,
     linetype = "dashed",
@@ -1140,6 +1276,7 @@ eci_vs_rents_log_quad <- ggplot(
     vjust = -0.6
   ) +
 
+  # Ejecutar la siguiente instrucción del bloque
   geom_text(
     data = quadrant_labels,
     aes(label = iso3),
@@ -1166,6 +1303,7 @@ eci_vs_rents_log_quad <- ggplot(
     size = 3.6
   ) +
 
+  # Ejecutar la siguiente instrucción del bloque
   annotate(
     "text",
     x = median_log_rents + 1.5,
@@ -1174,6 +1312,7 @@ eci_vs_rents_log_quad <- ggplot(
     size = 3.6
   ) +
 
+  # Ejecutar la siguiente instrucción del bloque
   annotate(
     "text",
     x = median_log_rents - 1.3,
@@ -1182,6 +1321,7 @@ eci_vs_rents_log_quad <- ggplot(
     size = 3.6
   ) +
 
+  # Ejecutar la siguiente instrucción del bloque
   annotate(
     "text",
     x = median_log_rents + 1.5,
@@ -1190,6 +1330,7 @@ eci_vs_rents_log_quad <- ggplot(
     size = 3.6
   ) +
 
+  # Ejecutar la siguiente instrucción del bloque
   scale_color_manual(
     name = "",
     values = c(
@@ -1198,6 +1339,7 @@ eci_vs_rents_log_quad <- ggplot(
     )
   ) +
 
+  # Ejecutar la siguiente instrucción del bloque
   scale_linetype_manual(
     name = "",
     values = c(
@@ -1206,25 +1348,30 @@ eci_vs_rents_log_quad <- ggplot(
     )
   ) +
 
+  # Ejecutar la siguiente instrucción del bloque
   labs(
     x = "log(Resource rents + 0.1)",
     y = "Economic Complexity Index (ECI)"
   ) +
 
+  # Ejecutar la siguiente instrucción del bloque
   theme_minimal() +
 
+  # Ejecutar la siguiente instrucción del bloque
   theme(
     legend.position = "top",
     axis.title = element_text(size = 11),
     panel.grid.minor = element_blank()
   )
 
+# Ejecutar la siguiente instrucción del bloque
 eci_vs_rents_log_quad
 
 # ============================================
 # Exportar Figura
 # ============================================
 
+# Ejecutar la siguiente instrucción del bloque
 ggsave(
   "eci_vs_rents_log_quad.pdf",
   plot = eci_vs_rents_log_quad,
@@ -1237,14 +1384,17 @@ ggsave(
 # FIGURE: Distribution of Natural Resource Rents
 #########################################################################
 
+# Ejecutar la siguiente instrucción del bloque
 mean_rents <- mean(eci_rents$rents, na.rm = TRUE)
 median_rents <- median(eci_rents$rents, na.rm = TRUE)
 
+# Generar visualización gráfica
 rents_density <- ggplot(
   eci_rents,
   aes(x = rents)
 ) +
 
+  # Ejecutar la siguiente instrucción del bloque
   geom_density(
     fill = "#6baed6",
     alpha = 0.5,
@@ -1252,16 +1402,19 @@ rents_density <- ggplot(
     linewidth = 1
   ) +
 
+  # Ejecutar la siguiente instrucción del bloque
   geom_vline(
     aes(xintercept = mean_rents, color = "Mean", linetype = "Mean"),
     linewidth = 1
   ) +
 
+  # Ejecutar la siguiente instrucción del bloque
   geom_vline(
     aes(xintercept = median_rents, color = "Median", linetype = "Median"),
     linewidth = 1
   ) +
 
+  # Ejecutar la siguiente instrucción del bloque
   scale_color_manual(
     name = "",
     values = c(
@@ -1270,6 +1423,7 @@ rents_density <- ggplot(
     )
   ) +
 
+  # Ejecutar la siguiente instrucción del bloque
   scale_linetype_manual(
     name = "",
     values = c(
@@ -1278,23 +1432,28 @@ rents_density <- ggplot(
     )
   ) +
 
+  # Ejecutar la siguiente instrucción del bloque
   labs(
     x = "Natural resource rents (% of GDP)",
     y = "Density"
   ) +
 
+  # Ejecutar la siguiente instrucción del bloque
   theme_minimal() +
 
+  # Ejecutar la siguiente instrucción del bloque
   theme(
     legend.position = "top"
   )
 
+# Ejecutar la siguiente instrucción del bloque
 rents_density
 
 # ============================================
 # Exportar Figura
 # ============================================
 
+# Ejecutar la siguiente instrucción del bloque
 ggsave(
   "rents_density.pdf",
   plot = rents_density,

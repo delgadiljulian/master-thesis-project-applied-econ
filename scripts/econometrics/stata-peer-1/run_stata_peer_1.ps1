@@ -1,11 +1,13 @@
 [CmdletBinding()]
 param(
-    [ValidateSet("01", "02", "all")]
+    [ValidateSet("01", "02", "03", "all")]
     [string]$Stage = "all",
 
+    # Ejecutar la siguiente instrucción del bloque
     [string]$StataExecutable = "C:\Program Files\Stata17\StataMP-64.exe"
 )
 
+# Ejecutar la siguiente instrucción del bloque
 $ErrorActionPreference = "Stop"
 
 # Localizar la raíz a partir de la carpeta donde está guardado este ejecutor.
@@ -33,6 +35,11 @@ $availableStages = @{
         DoFile = "02_models_and_exports.do"
         InternalLog = "02_models_and_exports.log"
         CompletionMarker = "Parte 2 (Secciones 5 a 8) completada con éxito en stata-peer-1."
+    }
+    "03" = [pscustomobject]@{
+        DoFile = "03_resource_disaggregation.do"
+        InternalLog = "03_resource_disaggregation.log"
+        CompletionMarker = "Parte 3 (Secciones 9 a 14) completada con éxito total en stata-peer-1."
     }
 }
 
@@ -80,6 +87,7 @@ function Invoke-StataStage {
     $deadline = $startedAt.AddMinutes(30)
     $completed = $false
 
+    # Iterar sobre los elementos del conjunto
     while ((Get-Date) -lt $deadline) {
         Start-Sleep -Seconds 1
         $stataProcess.Refresh()
@@ -118,12 +126,13 @@ function Invoke-StataStage {
         )
     }
 
+    # Ejecutar la siguiente instrucción del bloque
     Write-Host "Etapa $StageNumber completada correctamente en stata-peer-1."
 }
 
 # Construir el orden de ejecución solicitado por el usuario.
 if ($Stage -eq "all") {
-    $stagesToRun = @("01", "02")
+    $stagesToRun = @("01", "02", "03")
 }
 else {
     $stagesToRun = @($Stage)
@@ -134,4 +143,5 @@ foreach ($stageNumber in $stagesToRun) {
     Invoke-StataStage -StageNumber $stageNumber
 }
 
+# Ejecutar la siguiente instrucción del bloque
 Write-Host "Logs batch de stata-peer-1 guardados en: $batchLogs"

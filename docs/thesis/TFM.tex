@@ -8,10 +8,11 @@
 
 % Idioma, motor y tipografía
 \usepackage{fontspec}
-\usepackage[spanish]{babel}
+\usepackage[spanish,es-tabla]{babel}
 \setmainfont{Times New Roman}
 \newfontfamily\cambriafont{Cambria}
 \newfontfamily\timesfont{Times New Roman}
+\newcommand{\isocode}[1]{{\normalfont\upshape #1}}
 
 % Texto
 \usepackage{setspace}
@@ -24,6 +25,11 @@
 	\justifying
 	\setlength{\parindent}{0pt}
 	\setlength{\parskip}{0.8em}
+}
+
+\newcommand{\thesissource}[1]{%
+	\par\smallskip
+	{\centering\footnotesize\itshape Fuente: #1\par}%
 }
 
 % Bibliografía
@@ -62,6 +68,12 @@ hyperref=true
 \usepackage{float}
 \usepackage{subcaption}
 
+% Ajuste de parámetros de flotantes para permitir imágenes a ancho de texto sin páginas en blanco aisladas
+\renewcommand{\topfraction}{0.9}
+\renewcommand{\bottomfraction}{0.9}
+\renewcommand{\textfraction}{0.08}
+\renewcommand{\floatpagefraction}{0.85}
+
 % Diseño
 \usepackage{geometry}
 \usepackage{xcolor}
@@ -88,6 +100,8 @@ hyperref=true
 }
 
 \usepackage{cleveref}
+\crefname{table}{tabla}{tablas}
+\Crefname{table}{Tabla}{Tablas}
 
 
 % Utilidades

@@ -3,13 +3,16 @@ VARIABLE: ECI
 ENTRADAS: API GraphQL oficial del Atlas of Economic Complexity
 SALIDAS: data/raw/eci/atlas/
 
+# Ejecutar la siguiente instrucción del bloque
 Descarga una captura reproducible de la serie countryYear.eci publicada por el
 Harvard Growth Lab. La capa raw conserva los valores entregados por la API sin
 imputación, interpolación, redondeo ni transformación.
 """
 
+# Cargar librerías y módulos requeridos
 from __future__ import annotations
 
+# Cargar librerías y módulos requeridos
 import csv
 import hashlib
 import json
@@ -24,6 +27,7 @@ from pathlib import Path
 from typing import Any
 
 
+# Ejecutar la siguiente instrucción del bloque
 API_URL = "https://atlas.hks.harvard.edu/api/graphql"
 START_YEAR = 1995
 END_YEAR = 2022
@@ -31,18 +35,22 @@ BATCH_SIZE = 40
 MAX_ATTEMPTS = 3
 
 
+# Definir función principal o auxiliar
 def find_project_root() -> Path:
     """Localiza la raíz del repositorio desde la ubicación de este script."""
 
+    # Ejecutar la siguiente instrucción del bloque
     candidate = Path(__file__).resolve().parents[4]
     if not (candidate / "scripts" / "project_paths.R").exists():
         raise RuntimeError("No se pudo identificar la raíz del repositorio.")
     return candidate
 
 
+# Definir función principal o auxiliar
 def graphql_request(query: str) -> dict[str, Any]:
     """Ejecuta una consulta GraphQL y valida la respuesta antes de usarla."""
 
+    # Ejecutar la siguiente instrucción del bloque
     payload = json.dumps({"query": query}).encode("utf-8")
     request = urllib.request.Request(
         API_URL,
@@ -54,6 +62,7 @@ def graphql_request(query: str) -> dict[str, Any]:
         method="POST",
     )
 
+    # Ejecutar la siguiente instrucción del bloque
     last_error: Exception | None = None
     for attempt in range(1, MAX_ATTEMPTS + 1):
         try:
@@ -72,11 +81,13 @@ def graphql_request(query: str) -> dict[str, Any]:
             if attempt < MAX_ATTEMPTS:
                 time.sleep(2**attempt)
 
+    # Detener la ejecución si no se cumple la condición
     raise RuntimeError(
         f"No fue posible consultar la API después de {MAX_ATTEMPTS} intentos."
     ) from last_error
 
 
+# Definir función principal o auxiliar
 def atomic_write_csv(
     path: Path,
     fieldnames: list[str],
@@ -84,6 +95,7 @@ def atomic_write_csv(
 ) -> None:
     """Escribe un CSV completo y solo reemplaza el destino al finalizar."""
 
+    # Ejecutar la siguiente instrucción del bloque
     path.parent.mkdir(parents=True, exist_ok=True)
     descriptor, temporary_name = tempfile.mkstemp(
         prefix=f"{path.stem}_",
@@ -103,14 +115,17 @@ def atomic_write_csv(
         raise
 
 
+# Definir función principal o auxiliar
 def main() -> None:
     """Descarga el catálogo de países y sus observaciones anuales de ECI."""
 
+    # Ejecutar la siguiente instrucción del bloque
     project_root = find_project_root()
     raw_path = project_root / "data" / "raw" / "eci" / "atlas"
     data_file = raw_path / "atlas_eci_country_year_1995_2022.csv"
     metadata_file = raw_path / "atlas_eci_api_metadata.csv"
 
+    # Ejecutar la siguiente instrucción del bloque
     location_query = """
     {
       locationCountry {
@@ -122,6 +137,7 @@ def main() -> None:
     """
     locations_raw = graphql_request(location_query)["locationCountry"]
 
+    # Ejecutar la siguiente instrucción del bloque
     locations: list[dict[str, Any]] = []
     for location in locations_raw:
         iso3 = str(location.get("iso3Code", "")).strip().upper()
@@ -138,11 +154,13 @@ def main() -> None:
             }
         )
 
+    # Ejecutar la siguiente instrucción del bloque
     locations.sort(key=lambda row: row["country_iso3_code"])
     iso3_codes = [row["country_iso3_code"] for row in locations]
     if len(iso3_codes) != len(set(iso3_codes)):
         raise RuntimeError("El catálogo Atlas contiene códigos ISO3 duplicados.")
 
+    # Ejecutar la siguiente instrucción del bloque
     rows: list[dict[str, Any]] = []
     for batch_start in range(0, len(locations), BATCH_SIZE):
         batch = locations[batch_start : batch_start + BATCH_SIZE]
@@ -160,9 +178,11 @@ def main() -> None:
                 )
             )
 
+        # Ejecutar la siguiente instrucción del bloque
         batch_query = "{ " + " ".join(query_fields) + " }"
         batch_data = graphql_request(batch_query)
 
+        # Iterar sobre los elementos del conjunto
         for alias, location in alias_to_location.items():
             observations = batch_data.get(alias) or []
             for observation in observations:
@@ -178,6 +198,7 @@ def main() -> None:
                         }
                     )
 
+    # Ejecutar la siguiente instrucción del bloque
     rows.sort(key=lambda row: (row["country_iso3_code"], row["year"]))
     keys = [
         (row["country_iso3_code"], row["year"])
@@ -188,6 +209,7 @@ def main() -> None:
     if any(not (START_YEAR <= row["year"] <= END_YEAR) for row in rows):
         raise RuntimeError("La descarga contiene años fuera del intervalo solicitado.")
 
+    # Ejecutar la siguiente instrucción del bloque
     fieldnames = [
         "atlas_country_id",
         "country_iso3_code",
@@ -197,6 +219,7 @@ def main() -> None:
     ]
     atomic_write_csv(data_file, fieldnames, rows)
 
+    # Ejecutar la siguiente instrucción del bloque
     digest = hashlib.sha256(data_file.read_bytes()).hexdigest()
     retrieved_at = datetime.now(timezone.utc).replace(microsecond=0).isoformat()
     nonmissing_count = sum(row["eci"] is not None for row in rows)
@@ -229,6 +252,7 @@ def main() -> None:
         metadata_rows,
     )
 
+    # Ejecutar la siguiente instrucción del bloque
     print(f"Datos ECI raw guardados en: {data_file}")
     print(f"Metadatos de descarga guardados en: {metadata_file}")
     print(
@@ -237,5 +261,6 @@ def main() -> None:
     )
 
 
+# Evaluar condición de control de flujo
 if __name__ == "__main__":
     main()

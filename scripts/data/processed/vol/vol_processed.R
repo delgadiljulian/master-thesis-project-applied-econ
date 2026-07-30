@@ -378,6 +378,7 @@ coverage_by_country <- coverage_by_country[
 ]
 row.names(coverage_by_country) <- NULL
 
+# Ejecutar la siguiente instrucción del bloque
 coverage_by_year <- do.call(
   rbind,
   lapply(split(vol_diagnostics, vol_diagnostics$year), function(x) {
@@ -536,6 +537,7 @@ write.csv(
   fileEncoding = "UTF-8"
 )
 
+# Ejecutar la siguiente instrucción del bloque
 message("VOL procesada correctamente.")
 message("CSV: ", panel_csv_file)
 message("Stata: ", panel_dta_file)
