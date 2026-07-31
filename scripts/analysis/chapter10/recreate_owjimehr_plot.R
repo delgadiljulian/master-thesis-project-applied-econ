@@ -3,8 +3,25 @@ library(ggplot2)
 library(dplyr)
 library(ggrepel)
 
+# Helper para localizar la raíz del proyecto desde cualquier directorio
+active_path <- ""
+if (requireNamespace("rstudioapi", quietly = TRUE) && rstudioapi::isAvailable()) {
+  active_path <- tryCatch(rstudioapi::getActiveDocumentContext()$path, error = function(e) "")
+}
+candidates <- c(
+  if (nzchar(active_path)) file.path(dirname(dirname(dirname(active_path))), "project_paths.R"),
+  file.path("scripts", "project_paths.R"),
+  file.path("..", "..", "project_paths.R"),
+  "project_paths.R"
+)
+helper_path <- candidates[file.exists(candidates)][1]
+if (!is.na(helper_path)) source(helper_path)
+
+root <- if (exists("find_project_path")) find_project_path() else "."
+panel_path <- file.path(root, "data", "processed", "00_master_panel", "master_panel_country_year.csv")
+
 # Load master panel data
-panel <- read.csv("data/processed/00_master_panel/master_panel_country_year.csv")
+panel <- read.csv(panel_path)
 
 # Selected countries (matching Owjimehr (2024) as closely as possible from our panel)
 sel_countries <- c("NOR", "ARE", "SAU", "VEN", "IRN", "QAT", "OMN", "KWT", "GAB", "LBY", "AGO", "COG")
@@ -25,7 +42,6 @@ colors <- c(
   "OMN" = "#e377c2", # Pink
   "KWT" = "#7f7f7f", # Grey
   "GAB" = "#bcbd22", # Olive
-  "ARE" = "#17becf", # Cyan
   "LBY" = "#aec7e8", # Light blue
   "AGO" = "#ffbb78", # Light orange
   "COG" = "#98df8a"  # Light green
@@ -38,7 +54,6 @@ label_data <- df_plot %>%
 p <- ggplot(df_plot, aes(x = year, y = eci, group = country_iso3_code)) +
   geom_line(aes(color = country_iso3_code), linewidth = 0.8, alpha = 0.85) +
   geom_point(aes(color = country_iso3_code), size = 1.5, alpha = 0.85) +
-  # Add country labels at the end of each line
   geom_text_repel(
     data = label_data,
     aes(label = country_iso3_code, color = country_iso3_code),
@@ -50,19 +65,19 @@ p <- ggplot(df_plot, aes(x = year, y = eci, group = country_iso3_code)) +
     segment.size = 0.3,
     box.padding = 0.1,
     point.padding = 0.2,
-    xlim = c(2021, 2024.5)             # Expand right limit to fit labels
+    xlim = c(2021, 2024.5)
   ) +
   scale_x_continuous(
     name = "Año",
     breaks = seq(1996, 2021, 4),
-    limits = c(1996, 2025)             # Extra space on the right for labels
+    limits = c(1996, 2025)
   ) +
   scale_y_continuous(
     name = "Índice de Complejidad Económica (ECI)"
   ) +
   scale_color_manual(
     values = colors,
-    guide = "none"                     # Suppress standard legend since we have direct labels
+    guide = "none"
   ) +
   theme_classic(base_family = "sans") +
   theme(
@@ -75,8 +90,8 @@ p <- ggplot(df_plot, aes(x = year, y = eci, group = country_iso3_code)) +
     plot.margin = margin(t = 15, r = 25, b = 15, l = 15)
   )
 
-output_orig <- "outputs/figures/original/chapter10_recreated_owjimehr.pdf"
-output_thesis <- "docs/thesis/figures/chapter10_recreated_owjimehr.pdf"
+output_orig <- file.path(root, "outputs", "figures", "original", "chapter10_recreated_owjimehr.pdf")
+output_thesis <- file.path(root, "docs", "thesis", "figures", "chapter10_recreated_owjimehr.pdf")
 
 ggsave(output_orig, plot = p, width = 7.5, height = 5.2, device = cairo_pdf)
 ggsave(output_thesis, plot = p, width = 7.5, height = 5.2, device = cairo_pdf)

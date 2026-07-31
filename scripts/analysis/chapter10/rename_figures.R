@@ -1,4 +1,21 @@
 # Script to rename figure files from chapter10_* to graph-oriented names
+
+# Helper para localizar la raíz del proyecto desde cualquier directorio
+active_path <- ""
+if (requireNamespace("rstudioapi", quietly = TRUE) && rstudioapi::isAvailable()) {
+  active_path <- tryCatch(rstudioapi::getActiveDocumentContext()$path, error = function(e) "")
+}
+candidates <- c(
+  if (nzchar(active_path)) file.path(dirname(dirname(dirname(active_path))), "project_paths.R"),
+  file.path("scripts", "project_paths.R"),
+  file.path("..", "..", "project_paths.R"),
+  "project_paths.R"
+)
+helper_path <- candidates[file.exists(candidates)][1]
+if (!is.na(helper_path)) source(helper_path)
+
+root <- if (exists("find_project_path")) find_project_path() else "."
+
 mapping <- c(
   "chapter10_divx_annual_evolution.pdf" = "divx_annual_evolution.pdf",
   "chapter10_dres_distribution.pdf" = "dres_distribution.pdf",
@@ -13,7 +30,10 @@ mapping <- c(
   "chapter10_rents_eci_country_means.pdf" = "rents_eci_country_means.pdf"
 )
 
-dirs <- c("outputs/figures/original", "docs/thesis/figures")
+dirs <- c(
+  file.path(root, "outputs", "figures", "original"),
+  file.path(root, "docs", "thesis", "figures")
+)
 
 for (d in dirs) {
   for (old_name in names(mapping)) {
