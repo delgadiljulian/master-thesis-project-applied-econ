@@ -8,7 +8,7 @@
 %  DATOS Y CONSTRUCCIÓN DE VARIABLES
 % =====================================================
 
-	\chapter{Datos y construcción de variables}
+	\chapter{Datos, variables y análisis descriptivo}
 	\label{chap:datos-variables}
 	\thesisstartchap{datos-variables}
 
@@ -60,7 +60,7 @@
 
 	\begin{figure}[!htbp]
 		\centering
-		\includegraphics[width=\linewidth]{\subfix{../../figures/chapter10_dres_distribution}}
+		\includegraphics[width=\linewidth]{\subfix{../../figures/dres_distribution}}
 		\caption[Distribución de DRES]{Distribución del promedio de DRES durante
 		1990--1995 para los 55 países de la muestra. La línea discontinua indica
 		el umbral de selección del 20\%.}
@@ -327,7 +327,7 @@
 
 	\begin{figure}[!htbp]
 		\centering
-		\includegraphics[width=\linewidth]{\subfix{../../figures/chapter10_extractive_profile_country}}
+		\includegraphics[width=\linewidth]{\subfix{../../figures/extractive_profile_country}}
 		\caption[Perfil extractivo de la muestra]{Perfil extractivo de los países
 		de la muestra, 1996--2021. Los límites discontinuos distinguen el
 		predominio de un componente cuando representa al menos el 75\% de las
@@ -347,22 +347,85 @@
 	alcance el umbral del 75\%. Esta tipología es exclusivamente descriptiva y no
 	reemplaza la medida agregada $RENTS$ utilizada en las ecuaciones.
 
+	La distribución completa de los 55 países de la muestra según esta clasificación del perfil extractivo cruzada con sus niveles de desarrollo económico (siguiendo los grupos de ingresos del Banco Mundial) se detalla en la \autoref{tab:extractive_typology}.
+
+	\begin{table}[htbp]
+		\centering
+		\small
+		\caption[Tipología de economías extractivas]{Tipología de economías dependientes de recursos naturales según tipo de sector extractivo y nivel de ingreso.}
+		\label{tab:extractive_typology}
+
+		\begin{threeparttable}
+				\begin{tabularx}{\linewidth}{L{3.5cm}*{4}{>{\RaggedRight\arraybackslash}X}}
+					\toprule
+					Tipo de economía extractiva & LIC & LMIC & UMIC & HIC \\
+					& (Low Income) & (Lower Middle) & (Upper Middle) & (High Income) \\
+					\midrule
+
+					Economías energéticas \\
+					(Petróleo y gas $\geq 75\%$)
+					& SYR, YEM
+					& AGO, CMR, COG, DZA, EGY, IRN, NGA, VNM
+					& ALB, COL, ECU, GAB, IRQ, LBY, VEN
+					& ARE, BHR, BRN, KWT, NOR, OMN, QAT, RUS, SAU, TTO \\
+
+					\addlinespace
+
+					Economías mineras \\
+					(Minería y carbón $\geq 75\%$)
+					& BDI, CAF, LBR, TGO
+					& GIN, MRT, ZMB
+					& JAM, JOR, MNG, PER, ZAF
+					& AUS, CHL, GUY \\
+
+					\addlinespace
+
+					Economías extractivas mixtas \\
+					(Perfil mixto: $25\% - 75\%$)
+					& COD, SLE
+					& BOL, GHA, GMB, IND, PNG
+					& IDN, SUR
+					& ATG, ISR, NRU, SYC \\
+
+					\bottomrule
+				\end{tabularx}
+
+			\begin{tablenotes}[para,flushleft]
+				\footnotesize
+				\item \textit{Nota: LIC = Low Income Countries; LMIC = Lower Middle Income Countries; UMIC = Upper Middle Income Countries; HIC = High Income Countries. Los países se representan mediante sus códigos ISO3 oficiales (ver Tabla A.2). La clasificación por nivel de ingresos sigue la tipología del Banco Mundial, mientras que el perfil extractivo se define según la participación promedio observada en el panel empírico (1996--2021) de la investigación.}
+			\end{tablenotes}
+		\end{threeparttable}
+	\end{table}
+
+	Para complementar esta caracterización descriptiva, la \autoref{fig:rents_eci_scatterplot} presenta el diagrama de dispersión entre las rentas de recursos naturales promedio y el ECI promedio para los 55 países de la muestra, contrastando el patrón de comportamiento entre economías desarrolladas (HIC) y en desarrollo (LIC, LMIC, UMIC). Se observa una relación negativa en promedio, representada por la línea de valores ajustados (Fitted values), consistente con las hipótesis de la maldición de los recursos naturales discutidas en el \autoref{chap:marco-teorico}.
+
+	\begin{figure}[htbp]
+		\centering
+		\includegraphics[width=0.85\textwidth]{\subfix{../../figures/recreated_hausmann_eci_rents}}
+		\caption[Rentas de recursos naturales y complejidad económica]{Rentas de recursos naturales y complejidad económica (ECI) en la muestra del panel (réplica de \textcite{Hausmann2014}).}
+		\label{fig:rents_eci_scatterplot}
+		\caption*{\footnotesize \textit{Fuente: Elaboración propia a partir del panel maestro de la investigación, siguiendo la metodología de \textcite{Hausmann2014}.}}
+	\end{figure}
+
 	Las \autoref{fig:eci-annual-evolution-cap10} y \autoref{fig:divx-annual-evolution-cap10} presentan la mediana anual y el intervalo intercuartílico de $ECI$ y $DIVX$, respectivamente, para los 55 países. Esta comparación permite observar el movimiento de la posición central y la persistencia de diferencias dentro de la muestra.
 
 	\begin{figure}[!htbp]
 		\centering
-		\includegraphics[width=\linewidth]{\subfix{../../figures/chapter10_eci_annual_evolution}}
-		\caption[Evolución anual de ECI]{Evolución anual del Índice de Complejidad Económica (ECI), 1996--2021. La línea representa la mediana de los 55 países y la banda, el intervalo intercuartílico.}
-		\label{fig:eci-annual-evolution-cap10}
-		\caption*{\footnotesize \textit{Fuente: Elaboración propia a partir del panel maestro.}}
-	\end{figure}
-
-	\begin{figure}[!htbp]
-		\centering
-		\includegraphics[width=\linewidth]{\subfix{../../figures/chapter10_divx_annual_evolution}}
-		\caption[Evolución anual de DIVX]{Evolución anual de la Diversificación Exportadora (DIVX), 1996--2021. La línea representa la mediana de los 55 países y la banda, el intervalo intercuartílico.}
-		\label{fig:divx-annual-evolution-cap10}
-		\caption*{\footnotesize \textit{Fuente: Elaboración propia a partir del panel maestro.}}
+		\begin{subfigure}{0.49\linewidth}
+			\centering
+			\includegraphics[width=\linewidth]{\subfix{../../figures/eci_annual_evolution}}
+			\caption[Evolución temporal promedio del ECI]{Evolución temporal del valor medio muestral del Índice de Complejidad Económica (ECI), 1996--2021.}
+			\label{fig:eci-annual-evolution-cap10}
+			\caption*{\footnotesize \textit{Fuente: Elaboración propia a partir del panel maestro.}}
+		\end{subfigure}
+		\hfill
+		\begin{subfigure}{0.49\linewidth}
+			\centering
+			\includegraphics[width=\linewidth]{\subfix{../../figures/divx_annual_evolution}}
+			\caption[Evolución anual de DIVX]{Evolución anual de la Diversificación Exportadora (DIVX), 1996--2021. La línea representa la mediana de los 55 países y la banda, el intervalo intercuartílico.}
+			\label{fig:divx-annual-evolution-cap10}
+			\caption*{\footnotesize \textit{Fuente: Elaboración propia a partir del panel maestro.}}
+		\end{subfigure}
 	\end{figure}
 
 	La evolución anual no muestra una trayectoria común para los dos
@@ -386,7 +449,7 @@
 	promedios por país para 1996--2021. Esta agregación ofrece una comparación
 	entre economías y evita que los países con más observaciones reciban mayor
 	peso visual, pero elimina la variación anual dentro de cada caso. Las
-	\autoref{fig:rents-eci-country-means-cap10} y \autoref{fig:rents-divx-country-means-cap10} incluyen los 53 países con al
+	\autoref{fig:rents-eci-means-cap10} y \autoref{fig:rents-divx-means-cap10} incluyen los 53 países con al
 	menos una observación de $RENTS$ y representan la tendencia lineal
 	descriptiva con su intervalo de confianza del 95\% frente a los promedios de $ECI$ y $DIVX$, respectivamente. Los promedios se calculan
 	sobre los años disponibles para cada país, por lo que no todos descansan en
@@ -394,18 +457,21 @@
 
 	\begin{figure}[!htbp]
 		\centering
-		\includegraphics[width=\linewidth]{\subfix{../../figures/chapter10_rents_eci_country_means}}
-		\caption[Rentas extractivas y ECI por país]{Relación entre el promedio de las rentas extractivas (\% del PIB) y el promedio del ECI por país, 1996--2021. La línea corresponde a la tendencia lineal y la banda a su intervalo de confianza del 95\%.}
-		\label{fig:rents-eci-country-means-cap10}
-		\caption*{\footnotesize \textit{Fuente: Elaboración propia a partir del panel maestro.}}
-	\end{figure}
-
-	\begin{figure}[!htbp]
-		\centering
-		\includegraphics[width=\linewidth]{\subfix{../../figures/chapter10_rents_divx_country_means}}
-		\caption[Rentas extractivas y DIVX por país]{Relación entre el promedio de las rentas extractivas (\% del PIB) y el promedio de DIVX por país, 1996--2021. La línea corresponde a la tendencia lineal y la banda a su intervalo de confianza del 95\%.}
-		\label{fig:rents-divx-country-means-cap10}
-		\caption*{\footnotesize \textit{Fuente: Elaboración propia a partir del panel maestro.}}
+		\begin{subfigure}{0.49\linewidth}
+			\centering
+			\includegraphics[width=\linewidth]{\subfix{../../figures/rents_eci_country_means}}
+			\caption[RENTS vs. ECI promedio]{Rentas extractivas medias vs. ECI medio por país.}
+			\label{fig:rents-eci-means-cap10}
+			\caption*{\footnotesize \textit{Fuente: Elaboración propia a partir del panel maestro.}}
+		\end{subfigure}
+		\hfill
+		\begin{subfigure}{0.49\linewidth}
+			\centering
+			\includegraphics[width=\linewidth]{\subfix{../../figures/rents_divx_country_means}}
+			\caption[Rentas extractivas y DIVX por país]{Relación entre el promedio de las rentas extractivas (\% del PIB) y el promedio de DIVX por país, 1996--2021. La línea corresponde a la tendencia lineal y la banda a su intervalo de confianza del 95\%.}
+			\label{fig:rents-divx-means-cap10}
+			\caption*{\footnotesize \textit{Fuente: Elaboración propia a partir del panel maestro.}}
+		\end{subfigure}
 	\end{figure}
 
 	La asociación con el $ECI$ es negativa, pero débil: la correlación entre los
@@ -429,10 +495,24 @@
 
 	\begin{figure}[!htbp]
 		\centering
-		\includegraphics[width=\linewidth]{\subfix{../../figures/chapter10_eci_log_rents_quadrants}}
-		\caption[ECI y rentas extractivas en escala logarítmica por cuadrantes]{Relación entre el promedio del ECI y las rentas extractivas medias en escala logarítmica por cuadrantes, 1996--2021. Los cuadrantes se definen por $ECI=0$ y la mediana muestral de $RENTS$. Se incluyen el ajuste lineal OLS y la curva no lineal LOESS.}
+		\includegraphics[width=\linewidth]{\subfix{../../figures/eci_log_rents_quadrants}}
+		\caption[ECI y rentas extractivas en escala logarítmica por cuadrantes]{Relación entre el promedio del ECI y las rentas extractivas medias en escala logarítmica por cuadrantes, 1996--2021. Los cuadrantes se definen por $ECI=0$ y la mediana muestral de $RENTS$.}
 		\label{fig:eci-log-rents-quadrants-cap10}
 		\caption*{\footnotesize \textit{Fuente: Elaboración propia a partir del panel maestro.}}
+	\end{figure}
+
+	Como contraste empírico de los debates sobre dotaciones físicas y crecimiento de largo plazo, la \autoref{fig:recreated_brunnschweiler_cap10} presenta la réplica metodológica del análisis de \textcite{Brunnschweiler2006} utilizando los datos reales del panel maestro (1996--2021). En esta literatura, la distinción entre abundancia y dependencia resulta crucial: mientras la corriente clásica de la maldición de los recursos señala un efecto perjudicial de la dependencia extractiva, \textcite{Brunnschweiler2006} cuestiona esta hipótesis argumentando que la abundancia física de activos en el subsuelo (en dólares per cápita) exhibe una asociación directa y positiva con el crecimiento del PIB. En su estimación global de corte transversal, la recta de ajuste presenta una pendiente positiva, lo que sustentó la conclusión optimista de que la abundancia de recursos naturales opera como un factor favorable y no como un obstáculo para el desempeño de largo plazo.
+
+	Sin embargo, el resultado de Brunnschweiler presenta un sesgo de composición muestral al incluir de forma conjunta a economías altamente industrializadas y de rápido crecimiento que carecen de recursos naturales (como Corea del Sur, Japón, Singapur o Suiza) junto con países primario-exportadores. Al incorporar estas economías sin recursos en el plano de dispersión, la línea de ajuste lineal se desplaza hacia arriba artificialmente, simulando una asociación positiva global. Al restringir el análisis empírico al grupo homogéneo de países que efectivamente experimentan dependencia de recursos ($DRES \geq 20\%$), el patrón se invierte por completo. La réplica de este gráfico con los datos del panel muestra una relación ligeramente negativa y estadísticamente no significativa entre la dotación del subsuelo per cápita y el crecimiento promedio del PIB.
+
+	Esta inversión del resultado es analíticamente relevante por tres razones principales. En primer lugar, desmitifica el optimismo de la literatura de abundancia al evidenciar que su conclusión no constituye una ley general, sino un artefacto de la inclusión de economías de ingresos altos no dependientes. En segundo lugar, justifica metodológicamente la focalización de esta investigación en la muestra fija de economías dependientes ($DRES$), donde la abundancia del subsuelo no compensa los sesgos estructurales de la especialización. Por último, este hecho estilizado anticipa los resultados econométricos del \autoref{chap:resultados}, donde los indicadores de abundancia física per cápita ($OILPC$, $GASPC$ y $COALPC$) no resultan significativos bajo efectos fijos bidireccionales, confirmando descriptivamente que la mera dotación geográfica in situ no actúa como motor de desarrollo económico una vez que un país se ha especializado en la extracción primaria.
+
+	\begin{figure}[htbp]
+		\centering
+		\includegraphics[width=0.85\textwidth]{\subfix{../../figures/recreated_brunnschweiler}}
+		\caption[Riqueza del subsuelo y crecimiento económico (réplica de Brunnschweiler)]{Relación entre la riqueza del subsuelo per cápita y el crecimiento promedio anual del PIB per cápita en la muestra del panel (réplica de \textcite{Brunnschweiler2006}).}
+		\label{fig:recreated_brunnschweiler_cap10}
+		\caption*{\footnotesize \textit{Fuente: Elaboración propia a partir del panel maestro de la investigación, siguiendo la metodología de \textcite{Brunnschweiler2006}.}}
 	\end{figure}
 
 	Estas asociaciones no incorporan efectos fijos, controles, rezagos ni la

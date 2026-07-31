@@ -1,4 +1,4 @@
-﻿% !TEX program = xelatex
+% !TEX program = xelatex
 % !TEX root = ../../TFM.tex
 \documentclass[../../TFM.tex]{subfiles}
 
@@ -17,7 +17,85 @@ El presente marco teórico no adopta de entrada una única corriente explicativa
 	\subsection{Maldición de los recursos naturales}
 	\label{subsec:maldicion-recursos}
 	
-	La idea de que la abundancia de recursos naturales pueda convertirse en una desventaja para el desempeño económico, más que en una fuente de prosperidad, resulta en principio contraintuitiva. Los fundamentos macroeconómicos de este argumento se vinculan con el modelo de \textit{enfermedad holandesa} desarrollado por \textcite{Corden1982}, que formaliza los efectos de un auge en el sector transable sobre la estructura productiva. Estas intuiciones fueron posteriormente sistematizadas por \textcite{Auty1993} bajo la denominada tesis de la \textit{maldición de los recursos naturales}\footnote{El término maldición de los recursos naturales se utiliza aquí como una etiqueta analítica para describir regularidades empíricas condicionadas, y no como una relación determinista entre recursos naturales y bajo desempeño económico.}, según la cual la abundancia de rentas extractivas puede generar distorsiones estructurales, debilitar los encadenamientos productivos y deteriorar la calidad institucional. La hipótesis fue posteriormente popularizada y sometida a contraste empírico en los estudios de crecimiento comparado de \citeauthor{Sachs1995} (\citeyear{Sachs1995,Sachs1997,Sachs2001}), dando lugar a una extensa literatura teórica y empírica sobre los canales macroeconómicos, institucionales y políticos asociados a la dependencia de recursos naturales.
+	La idea de que la abundancia de recursos naturales pueda convertirse en una desventaja para el desempeño económico, más que en una fuente de prosperidad, resulta en principio contraintuitiva. Los fundamentos macroeconómicos de este argumento se vinculan con el modelo de \textit{enfermedad holandesa} desarrollado por \textcite{Corden1982}, que formaliza los efectos de un auge en el sector transable sobre la estructura productiva. Estas intuiciones fueron posteriormente sistematizadas por \textcite{Auty1993} bajo la denominada tesis de la \textit{maldición de los recursos naturales}\footnote{El término maldición de los recursos naturales se utiliza aquí como una etiqueta analítica para describir regularidades empíricas condicionadas, y no como una relación determinista entre recursos naturales y bajo desempeño económico.}, según la cual la abundancia de rentas extractivas puede generar distorsiones estructurales, debilitar los encadenamientos productivos y deteriorar la calidad institucional. La hipótesis fue posteriormente popularizada y sometida a contraste empírico en los estudios de crecimiento comparado de \citeauthor{Sachs1995} (\citeyear{Sachs1995,Sachs1997,Sachs2001}), dando lugar a una extensa literatura teórica y empírica sobre los canales macroeconómicos, institucionales y políticos asociados a la dependencia de recursos naturales. La \autoref{fig:resource_curse_timeline} sintetiza esta evolución conceptual de la literatura.
+
+	\begin{figure}[htbp]
+		\centering
+		\resizebox{\textwidth}{!}{
+			\begin{tikzpicture}[
+				box/.style={
+					rectangle,
+					rounded corners,
+					draw=black,
+					thick,
+					text width=3.5cm,
+					minimum height=2.6cm,
+					text centered,
+					align=center,
+					fill=gray!10,
+					font=\small
+				}
+				]
+
+				% Timeline
+				\draw[thick] (-1,-2) -- (24,-2);
+
+				% Top boxes
+				\node[box] at (0,0)
+				{Los recursos naturales\\ tienen un papel positivo\\ en el desarrollo económico};
+
+				\node[box] at (4.8,0)
+				{Surgimiento de la teoría\\ de la enfermedad holandesa};
+
+				\node[box] at (9.6,0)
+				{Formulación de la tesis\\ de la maldición de los\\ recursos (estudios de caso)};
+
+				\node[box] at (14.4,0)
+				{Se acuña el término\\ ``maldición de los\\ recursos''};
+
+				\node[box] at (19.2,0)
+				{Evidencia empírica que\\ confirma los efectos\\ adversos de la dependencia\\ de recursos};
+
+				\node[box] at (24,0)
+				{Relación entre dependencia\\ de recursos y\\ crecimiento económico};
+
+				% Vertical connectors
+				\draw (0,-0.8) -- (0,-2);
+				\draw (4.8,-0.8) -- (4.8,-2);
+				\draw (9.6,-0.8) -- (9.6,-2);
+				\draw (14.4,-0.8) -- (14.4,-2);
+				\draw (19.2,-0.8) -- (19.2,-2);
+				\draw (24,-0.8) -- (24,-2);
+
+				% Years
+				\node at (0,-2.7) {Antes de 1980};
+				\node at (4.8,-2.7) {1982};
+				\node at (9.6,-2.7) {1988};
+				\node at (14.4,-2.7) {1993};
+				\node at (19.2,-2.7) {1995};
+				\node at (24,-2.7) {2001};
+
+				% Authors (below years)
+				\node at (0,-3.4) {\small Adam Smith (1776)};
+				\node at (4.8,-3.4) {\small Corden \& Neary};
+				\node at (9.6,-3.4) {\small Gelb};
+				\node at (14.4,-3.4) {\small Auty};
+				\node at (19.2,-3.4) {\small Sachs \& Warner};
+				\node at (24,-3.4) {\small Gylfason};
+
+			\end{tikzpicture}
+		}
+		\caption[Evolución de la literatura sobre la maldición de los recursos]{Evolución conceptual de la literatura sobre la maldición de los recursos naturales.}
+		\label{fig:resource_curse_timeline}
+		\begin{minipage}{\linewidth}
+			\vspace{1ex}
+			\footnotesize
+			\textit{Nota:} La figura resume el desarrollo histórico del debate sobre recursos naturales y crecimiento económico, desde las primeras interpretaciones clásicas hasta la evidencia empírica moderna sobre dependencia de recursos y desempeño económico.
+			\vspace{1ex}
+			
+			\thesissource{Elaboración propia con base en \textcite{Badeeb2017}, adaptado de \textcite{Anne2021}.}
+		\end{minipage}
+	\end{figure}
 	
 	\textcite{Brunnschweiler2006} reevalúa la hipótesis de la maldición de los recursos naturales cuestionando tanto las medidas tradicionales de abundancia basadas en exportaciones primarias como la escasa consideración explícita de la calidad institucional en los análisis de crecimiento. Utilizando medidas alternativas de abundancia de recursos basadas en capital natural per cápita y estimaciones OLS y 2SLS para el período 1970–2000, se encuentra que los recursos naturales —en particular los minerales— presentan una asociación directa y positiva con el crecimiento del PIB real, incluso al controlar por calidad institucional. Tampoco se halla evidencia de que la abundancia de recursos deteriore las instituciones, lo que debilita la hipótesis de un efecto indirecto de la maldición de los recursos naturales a través del rentismo y sugiere que, en promedio, los recursos naturales han operado más como un factor favorable que como un obstáculo para el desempeño económico.
 	

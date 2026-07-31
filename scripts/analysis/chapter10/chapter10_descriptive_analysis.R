@@ -1495,22 +1495,15 @@ draw_figure_02 <- function() {
   }
 
   # Ejecutar la siguiente instrucción del bloque
-  labelled_countries <- c(
-    "IRQ", "SAU", "AGO",
-    "MNG", "MRT", "CHL",
-    "PNG", "SUR",
-    "IDN", "BOL", "COL"
-  )
-  label_rows <- match(
-    labelled_countries,
-    extractive_profile$country_iso3_code
-  )
-  label_rows <- label_rows[!is.na(label_rows)]
+  # Etiquetar todos los casos no nulos siguiendo la convención de Hausmann
+  not_at_origin <- !(mining == 0 & energy == 0)
+  label_rows <- which(not_at_origin)
   label_positions <- ifelse(
-    x[label_rows] > stats::median(x),
+    x[label_rows] >= stats::quantile(x[not_at_origin], 0.85),
     2,
     4
   )
+  # Ajustar casos particulares para evitar solapamiento visual
   label_positions[
     extractive_profile$country_iso3_code[label_rows] == "IDN"
   ] <- 4
@@ -1520,14 +1513,16 @@ draw_figure_02 <- function() {
   label_positions[
     extractive_profile$country_iso3_code[label_rows] == "COL"
   ] <- 2
+
   graphics::text(
     x[label_rows],
     y[label_rows],
     labels = extractive_profile$country_iso3_code[label_rows],
     pos = label_positions,
-    offset = 0.42,
-    cex = 0.61,
-    col = figure_colours["charcoal"]
+    offset = 0.30,
+    cex = 0.52,
+    col = figure_colours["charcoal"],
+    xpd = NA
   )
 
   # Ejecutar la siguiente instrucción del bloque
@@ -1777,53 +1772,17 @@ draw_country_relationship_figure <- function(y, y_label, labels) {
     lwd = 0.7
   )
 
-  # Seleccionar casos a lo largo de todo el eje X, además de los extremos de Y.
-  # Esto evita que todas las etiquetas queden concentradas en las colas.
-  x_breaks <- seq(min(x), max(x), length.out = 6)
-  x_bin <- findInterval(x, x_breaks, all.inside = TRUE)
-  x_midpoints <- head(x_breaks, -1L) + diff(x_breaks) / 2
-  representative_rows <- vapply(
-    seq_along(x_midpoints),
-    function(bin_index) {
-      rows <- which(x_bin == bin_index)
-      if (length(rows) == 0L) {
-        return(NA_integer_)
-      }
-      rows[which.min(abs(x[rows] - x_midpoints[bin_index]))]
-    },
-    integer(1)
-  )
-  representative_rows <- representative_rows[!is.na(representative_rows)]
-
-  # Ejecutar la siguiente instrucción del bloque
-  label_rows <- unique(
-    c(
-      representative_rows,
-      order(x, decreasing = TRUE)[1:2],
-      order(y, decreasing = TRUE)[1:2],
-      order(y, decreasing = FALSE)[1:2]
-    )
-  )
-  label_positions <- ifelse(
-    x[label_rows] >= stats::quantile(x, 0.80),
-    2,
-    4
-  )
-  highest_y_rows <- order(y, decreasing = TRUE)[1:2]
-  highest_y_matches <- match(highest_y_rows, label_rows)
-  label_positions[highest_y_matches[1]] <- ifelse(
-    x[highest_y_rows[1]] <= stats::quantile(x, 0.10),
-    4,
-    2
-  )
-  label_positions[highest_y_matches[2]] <- 4
+  # Etiquetar todos los casos (ISO3 de los 53 países) siguiendo la convención de Hausmann
+  label_rows <- seq_along(x)
+  label_positions <- ifelse(x[label_rows] >= stats::quantile(x, 0.85), 2, 4)
+  
   graphics::text(
     x[label_rows],
     y[label_rows],
     labels = labels[label_rows],
     pos = label_positions,
-    offset = 0.35,
-    cex = 0.61,
+    offset = 0.30,
+    cex = 0.52,
     col = figure_colours["charcoal"],
     xpd = NA
   )
@@ -1970,40 +1929,15 @@ draw_figure_07 <- function() {
     lwd = 0.65
   )
 
-  # Etiquetar casos informativos distribuidos a lo largo de ambos ejes.
-  label_spec <- data.frame(
-    code = c(
-      "ISR", "ALB", "IND", "ZAF", "AUS", "COD", "CHL",
-      "NOR", "NGA", "RUS", "PNG", "MNG", "VEN", "DZA",
-      "QAT", "COG", "SAU", "LBY", "KWT", "IRQ"
-    ),
-    dx = c(
-      -0.05, 0.05, 0.00, -0.05, 0.05, -0.05, -0.05,
-      -0.05, -0.05, 0.05, 0.05, 0.05, 0.05, 0.05,
-      -0.05, -0.05, -0.05, -0.05, -0.05, -0.05
-    ),
-    dy = c(
-      0.06, -0.05, 0.06, 0.05, -0.05, -0.05, 0.06,
-      0.08, -0.05, 0.07, -0.05, 0.05, 0.06, -0.04,
-      0.07, 0.03, 0.07, -0.04, 0.07, -0.05
-    ),
-    hjust = c(
-      1, 0, 0.5, 1, 0, 1, 1, 1, 1, 0,
-      0, 0, 0, 0, 1, 1, 1, 1, 1, 1
-    ),
-    vjust = c(
-      0, 1, 0, 0, 1, 1, 0, 0, 1, 0,
-      1, 0, 0, 1, 0, 0, 0, 1, 0, 1
-    ),
-    stringsAsFactors = FALSE
-  )
-  label_rows <- match(label_spec$code, codes)
+  # Etiquetar todos los casos (ISO3 de los 53 países) siguiendo la convención de Hausmann
+  label_positions <- ifelse(x >= stats::quantile(x, 0.85), 2, 4)
   graphics::text(
-    x[label_rows] + label_spec$dx,
-    y[label_rows] + label_spec$dy,
-    labels = label_spec$code,
-    adj = cbind(label_spec$hjust, label_spec$vjust),
-    cex = 0.61,
+    x,
+    y,
+    labels = codes,
+    pos = label_positions,
+    offset = 0.30,
+    cex = 0.52,
     col = "black",
     xpd = NA
   )

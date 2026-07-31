@@ -35,12 +35,12 @@
 
 			\label{tab:fuentes_datos} \\
 			\hline
-			\textbf{Variable} & \textbf{Definición activa} & \textbf{Fuente efectiva e indicador de origen} & \textbf{Período} & \textbf{Cobertura} \\
+			Variable & Definición activa & Fuente efectiva e indicador de origen & Período & Cobertura \\
 			\hline
 			\endfirsthead
 
 			\hline
-			\textbf{Variable} & \textbf{Definición activa} & \textbf{Fuente efectiva e indicador de origen} & \textbf{Período} & \textbf{Cobertura} \\
+			Variable & Definición activa & Fuente efectiva e indicador de origen & Período & Cobertura \\
 			\hline
 			\endhead
 
@@ -204,12 +204,12 @@
 			\caption[Países seleccionados mediante DRES]{Países seleccionados mediante el umbral de $DRES\geq 20\%$.}
 			\label{tab:muestra_dres20} \\
 			\hline
-			\textbf{País (\isocode{ISO3})} & \textbf{DRES medio} & \textbf{País (\isocode{ISO3})} & \textbf{DRES medio} \\
+			País (\isocode{ISO3}) & DRES medio & País (\isocode{ISO3}) & DRES medio \\
 			\hline
 			\endfirsthead
 
 			\hline
-			\textbf{País (\isocode{ISO3})} & \textbf{DRES medio} & \textbf{País (\isocode{ISO3})} & \textbf{DRES medio} \\
+			País (\isocode{ISO3}) & DRES medio & País (\isocode{ISO3}) & DRES medio \\
 			\hline
 			\endhead
 
@@ -351,123 +351,6 @@
 		\caption*{\footnotesize \textit{Fuente: Elaboración propia con base en la literatura sobre enfermedad holandesa y ciclos de commodities.}}
 	\end{figure}
 
-	\begin{figure}[htbp]
-		\centering
-		\begin{tikzpicture}[
-			font=\normalsize,
-			box/.style={
-				draw,
-				rounded corners=3pt,
-				align=center,
-				minimum width=0.72\textwidth,
-				minimum height=10mm,
-				inner ysep=6pt
-			},
-			arr/.style={-{Stealth[length=3mm]}, thick},
-			node distance=7mm
-			]
-
-			\node[box] (s1) {Fuentes internacionales};
-			\node[box, below=of s1] (s2) {Construcci\'on de base panel};
-			\node[box, below=of s2] (s3) {Limpieza y armonizaci\'on};
-			\node[box, below=of s3] (s4) {Modelo econom\'etrico};
-			\node[box, below=of s4] (s5) {Resultados};
-
-			\draw[arr] (s1) -- (s2);
-			\draw[arr] (s2) -- (s3);
-			\draw[arr] (s3) -- (s4);
-			\draw[arr] (s4) -- (s5);
-
-		\end{tikzpicture}
-
-		\caption[Construcción del panel de datos]{Diagrama metodológico del proceso de construcción del panel de datos utilizado en el análisis empírico.}
-
-		\label{fig:diagrama_panel}
-		\caption*{\footnotesize \textit{Fuente: Elaboración propia.}}
-	\end{figure}
-
-	La evolución del debate sobre la denominada “maldición de los recursos” puede entenderse como una transición desde interpretaciones clásicas
-	que consideraban los recursos naturales como una ventaja para el desarrollo, hasta enfoques contemporáneos que analizan los mecanismos institucionales,
-	macroeconómicos y estructurales que pueden convertir dicha abundancia en un factor limitante del crecimiento económico. La \autoref{fig:resource_curse_timeline} sintetiza esta evolución conceptual.
-
-	\begin{figure}[htbp]
-		\centering
-		\resizebox{\textwidth}{!}{
-			\begin{tikzpicture}[
-				box/.style={
-					rectangle,
-					rounded corners,
-					draw=black,
-					thick,
-					text width=3.5cm,
-					minimum height=2.6cm,
-					text centered,
-					align=center,
-					fill=gray!10,
-					font=\small
-				}
-				]
-
-				% Timeline
-				\draw[thick] (-1,-2) -- (24,-2);
-
-				% Top boxes
-				\node[box] at (0,0)
-				{Los recursos naturales\\ tienen un papel positivo\\ en el desarrollo económico};
-
-				\node[box] at (4.8,0)
-				{Surgimiento de la teoría\\ de la enfermedad holandesa};
-
-				\node[box] at (9.6,0)
-				{Formulación de la tesis\\ de la maldición de los\\ recursos (estudios de caso)};
-
-				\node[box] at (14.4,0)
-				{Se acuña el término\\ ``maldición de los\\ recursos''};
-
-				\node[box] at (19.2,0)
-				{Evidencia empírica que\\ confirma los efectos\\ adversos de la dependencia\\ de recursos};
-
-				\node[box] at (24,0)
-				{Relación entre dependencia\\ de recursos y\\ crecimiento económico};
-
-				% Vertical connectors
-				\draw (0,-0.8) -- (0,-2);
-				\draw (4.8,-0.8) -- (4.8,-2);
-				\draw (9.6,-0.8) -- (9.6,-2);
-				\draw (14.4,-0.8) -- (14.4,-2);
-				\draw (19.2,-0.8) -- (19.2,-2);
-				\draw (24,-0.8) -- (24,-2);
-
-				% Years
-				\node at (0,-2.7) {Antes de 1980};
-				\node at (4.8,-2.7) {1982};
-				\node at (9.6,-2.7) {1988};
-				\node at (14.4,-2.7) {1993};
-				\node at (19.2,-2.7) {1995};
-				\node at (24,-2.7) {2001};
-
-				% Authors (below years)
-				\node at (0,-3.4) {\small Adam Smith (1776)};
-				\node at (4.8,-3.4) {\small Corden \& Neary};
-				\node at (9.6,-3.4) {\small Gelb};
-				\node at (14.4,-3.4) {\small Auty};
-				\node at (19.2,-3.4) {\small Sachs \& Warner};
-				\node at (24,-3.4) {\small Gylfason};
-
-			\end{tikzpicture}
-		}
-
-		\caption[Evolución de la literatura sobre la maldición de los recursos]{Evolución conceptual de la literatura sobre la maldición de los recursos naturales.}
-
-		\label{fig:resource_curse_timeline}
-
-		\footnotesize
-		\textit{Nota:} La figura resume el desarrollo histórico del debate sobre recursos naturales y crecimiento económico, desde las primeras interpretaciones clásicas hasta la evidencia empírica moderna sobre dependencia de recursos y desempeño económico.
-
-		\thesissource{Elaboración propia con base en \textcite{Anne2021}.}
-
-	\end{figure}
-
 
 	\vspace{1cm}
 
@@ -507,29 +390,7 @@
 		\caption*{\footnotesize \textit{Fuente: Elaboración propia con base en \textcite{Hidalgo2009} y \textcite{Hausmann2014}.}}
 	\end{figure}
 
-	Como se ilustra en la Figura \ref{fig:ul-durar-2023}, la relación entre la complejidad económica y las rentas de recursos puede adoptar una forma de U invertida. En etapas tempranas del desarrollo, caracterizadas por bajos niveles de complejidad, un aumento en la sofisticación productiva puede estar asociado con una expansión de las rentas derivadas de recursos naturales, reflejando una mejor organización productiva y aprovechamiento de dichos recursos. Sin embargo, a partir de cierto umbral de complejidad, se observa un proceso de sustitución en el cual las economías tienden a diversificarse hacia actividades más sofisticadas, reduciendo gradualmente la dependencia relativa de las rentas de recursos. Este patrón es consistente con los hallazgos de \textcite{Ul-Durar2023}, quienes documentan una relación no lineal entre complejidad económica y dependencia de recursos.
 
-	\begin{figure}[htbp]
-		\centering
-		\includegraphics[width=0.8\textwidth]{\subfix{../../figures/1_ul-durar_2023.png}}
-		\caption[Relación ECI y rentas de recursos (U invertida)]{
-			Relación en forma de U invertida entre complejidad económica y rentas de recursos.
-		}
-		\label{fig:ul-durar-2023}
-		\caption*{\footnotesize \textit{Fuente: Tomado de \textcite{Ul-Durar2023}.}}
-	\end{figure}
-
-	Por otra parte, la literatura también ha identificado una relación en forma de U, asociada al concepto de \textit{load capacity curve} (LCC), en la cual los incrementos iniciales en la complejidad económica reducen la dependencia de recursos a través de procesos de diversificación, pero en etapas avanzadas generan un efecto de escala que incrementa nuevamente la demanda por recursos naturales.
-
-	\begin{figure}[htbp]
-		\centering
-		\includegraphics[width=0.8\textwidth]{\subfix{../../figures/2_ul-durar_2023.png}}
-		\caption[Relación ECI y rentas de recursos (forma de U)]{
-			Relación en forma de U entre complejidad económica y rentas de recursos: diversificación y efecto escala (\textit{load capacity curve}).
-		}
-		\label{fig:ul-durar-u-shape}
-		\caption*{\footnotesize \textit{Fuente: Tomado de \textcite{Ul-Durar2023}.}}
-	\end{figure}
 
 	\section{Gráficos complementarios}
 	\label{sec:plots}
@@ -543,19 +404,6 @@
 	reportados en las tablas de \textcite[27--30]{Anne2021}. La participación
 	extractiva corresponde a la suma de las exportaciones mineras y energéticas;
 	por tanto, no incluye productos agrícolas ni otros recursos renovables.
-
-	Un primer hecho estilizado surge al analizar conjuntamente la participación de
-	las exportaciones mineras y energéticas. El diagrama de dispersión de la
-	\autoref{fig:extractive-specialization} distingue economías con predominio
-	energético, especialización minera y perfiles extractivos mixtos.
-
-	\begin{figure}[htbp]
-		\centering
-		\includegraphics[width=\textwidth]{\subfix{../../figures/extractive_specialization_scatter}}
-		\caption[Exportaciones mineras y energéticas]{Relación entre la participación de las exportaciones mineras y energéticas en la canasta exportadora de los países considerados. Las líneas punteadas indican umbrales del 20\% que permiten distinguir distintos patrones de especialización extractiva.}
-		\label{fig:extractive-specialization}
-		\caption*{\footnotesize \textit{Fuente: Elaboración propia con base en datos reportados en \textcite{Anne2021}.}}
-	\end{figure}
 
 	La \autoref{fig:commodities-income} muestra que la dependencia exportadora
 	extractiva no disminuye de manera monotónica con el ingreso per cápita. Los
@@ -591,47 +439,16 @@
 			\label{fig:mining-income-boxplot}
 		\end{subfigure}
 		\caption[Dependencia exportadora por tipo de recurso]{Comparación de la participación de las exportaciones de recursos energéticos y mineros en el total de exportaciones de los países considerados.}
-		\label{fig:energy-mining-income-comparison}
-		\caption*{\footnotesize \textit{Fuente: Elaboración propia con base en datos reportados en \textcite{Anne2021}.}}
 	\end{figure}
 
-	\subsection{Complejidad económica, recursos naturales e ingreso}
-
-	La \autoref{fig:eci_income_resources} muestra la relación entre el índice de complejidad económica (ECI) y el ingreso per cápita para 128 países. Los países se distinguen según su dependencia de recursos naturales: en rojo, aquellos cuyas exportaciones de recursos naturales superan el 10\% del PIB; en azul, aquellos con menor dependencia. En las economías con baja presencia de recursos naturales, el ECI explica aproximadamente el 75\% de la variación del ingreso per cápita, lo que sugiere una asociación estrecha entre complejidad productiva y nivel de desarrollo. En contraste, algunas economías intensivas en recursos exhiben niveles de ingreso superiores a los que su complejidad productiva sugeriría, reflejando el efecto de las rentas derivadas de la explotación de petróleo, gas y minería. Aun así, incluso dentro de este grupo la complejidad económica mantiene una correlación positiva con el ingreso.
-
+	Como análisis complementario de la heterogeneidad de las economías extractivas, la \autoref{fig:recreated_owjimehr} presenta la evolución temporal del Índice de Complejidad Económica (ECI) para una selección de los principales países exportadores de recursos de la muestra (1996--2021) (réplica metodológica adaptada de \textcite{Owjimehr2024}). A diferencia del gráfico original de rankings, en este caso se presenta la trayectoria del puntaje de ECI continuo, lo que permite apreciar las brechas absolutas de capacidades productivas de manera más intuitiva. Se observa una notable persistencia en los extremos: Noruega mantiene de forma constante los mayores niveles de complejidad, mientras que economías como Angola y el Congo permanecen en niveles sumamente bajos durante todo el período.
 
 	\begin{figure}[htbp]
 		\centering
-		\includegraphics[width=0.9\textwidth]{\subfix{../../figures/2_hausmann_2014.png}}
-
-		\caption[ECI e ingreso per cápita]{Relación entre el Índice de Complejidad Económica (ECI) y el ingreso per cápita para 128 países. Los colores distinguen economías dependientes de recursos naturales y economías con menor dependencia.}
-
-		\label{fig:eci_income_resources}
-		\caption*{\footnotesize \textit{Fuente: Tomado de \textcite{Hausmann2014}.}}
-	\end{figure}
-
-	La Figura~\ref{fig:anexo_nr_eci} muestra la relación entre la abundancia de recursos naturales y la complejidad económica. Se observa una asociación negativa en promedio, aunque con alta dispersión y diferencias entre países desarrollados y en desarrollo.
-
-	\begin{figure}[htbp]
-		\centering
-		\includegraphics[width=0.85\textwidth]{\subfix{../../figures/1_avom_2022.png}}
-		\caption{
-			Abundancia de recursos naturales y complejidad económica (ECI) en países desarrollados y en desarrollo.
-		}
-		\label{fig:anexo_nr_eci}
-		\caption*{\footnotesize \textit{Fuente: Tomado de Hausmann et al. (2014).}}
-	\end{figure}
-
-	La Figura~\ref{fig:anexo_nr_eci_finance} ilustra la relación entre dependencia de recursos, complejidad económica y niveles de desarrollo financiero, mostrando diferencias sistemáticas según el grado de desarrollo financiero.
-
-	\begin{figure}[htbp]
-		\centering
-		\includegraphics[width=0.85\textwidth]{\subfix{../../figures/1_valentine_2024.png}}
-		\caption{
-			Recursos naturales, complejidad económica (ECI) y desarrollo financiero en países en desarrollo.
-		}
-		\label{fig:anexo_nr_eci_finance}
-		\caption*{\footnotesize \textit{Fuente: Tomado de Valentine et al. (2024).}}
+		\includegraphics[width=0.85\textwidth]{\subfix{../../figures/recreated_owjimehr}}
+		\caption[Evolución del ECI en países exportadores de recursos]{Evolución del Índice de Complejidad Económica (ECI) en una selección de los principales países exportadores de recursos, 1996--2021 (adaptado de \textcite{Owjimehr2024}).}
+		\label{fig:recreated_owjimehr}
+		\caption*{\footnotesize \textit{Fuente: Elaboración propia a partir del panel maestro de la investigación, adaptando el análisis de \textcite{Owjimehr2024}.}}
 	\end{figure}
 
 	\section{Mapas}
@@ -726,7 +543,7 @@
 			\begin{adjustbox}{max width=\textwidth}
 			\begin{tabular}{L{2.8cm}L{2.2cm}L{2.6cm}L{2.2cm}L{2.8cm}}
 				\toprule
-				\textbf{Comunidad} & \textbf{PCI promedio} & \textbf{Número de productos} & \textbf{Comercio mundial} & \textbf{Participación mundial} \\
+				Comunidad & PCI promedio & Número de productos & Comercio mundial & Participación mundial \\
 				\midrule
 				\multicolumn{5}{l}{\textit{Industrias extractivas}} \\
 
@@ -756,58 +573,7 @@
 
 	Las visualizaciones del espacio productivo pueden consultarse de forma interactiva en el \textit{Atlas of Economic Complexity}, desarrollado por el Harvard Growth Lab \parencite{HarvardGrowthLab2026}.
 
-	\section{Tablas descriptivas sobre dependencia de recursos naturales}
-	\label{sec:tablas}
 
-	Las economías dependientes de recursos naturales no constituyen un grupo homogéneo. Difieren tanto en su nivel de desarrollo económico como en el tipo de sector extractivo dominante. En particular, algunos países presentan una fuerte especialización en petróleo, gas y minería, con distintas combinaciones entre recursos energéticos, minerales y estructuras extractivas mixtas. La Tabla \ref{tab:extractive_typology} presenta una tipología estilizada e ilustrativa que clasifica algunas economías según el tipo de sector extractivo predominante y su nivel de ingreso, siguiendo la clasificación del Banco Mundial como referencia descriptiva.
-
-	\begin{table}[htbp]
-		\centering
-		\small
-		\caption[Tipología de economías extractivas]{Tipología de economías dependientes de recursos naturales según tipo de sector extractivo y nivel de ingreso.}
-		\label{tab:extractive_typology}
-
-		\begin{threeparttable}
-				\begin{tabular}{L{3.6cm}L{2.0cm}L{2.3cm}L{2.7cm}L{2.2cm}}
-					\toprule
-					\textbf{Tipo de economía extractiva} & \textbf{LIC} & \textbf{LMIC} & \textbf{UMIC} & \textbf{HIC} \\
-					& (Low Income) & (Lower Middle) & (Upper Middle) & (High Income) \\
-					\midrule
-
-					\textbf{Economías energéticas} \\
-					(Energía $\gg$ minería)
-					& Chad, Sudan
-					& Nigeria
-					& Azerbaijan
-					& Norway \\
-
-					\addlinespace
-
-					\textbf{Economías mineras} \\
-					(Minería $\gg$ energía)
-					& DR Congo
-					& Guinea, Zambia
-					& Mongolia, Peru, Kazakhstan
-					& Chile, Australia \\
-
-					\addlinespace
-
-					\textbf{Economías extractivas mixtas} \\
-					(Minería + energía)
-					&
-					& Mauritania
-					& Indonesia, Colombia
-					& Russia, Canada \\
-
-					\bottomrule
-				\end{tabular}
-
-			\begin{tablenotes}[para,flushleft]
-				\footnotesize
-				\item \textit{Nota: LIC = Low Income Countries; LMIC = Lower Middle Income Countries; UMIC = Upper Middle Income Countries; HIC = High Income Countries. La clasificación por ingreso sigue la tipología del Banco Mundial utilizada como referencia descriptiva. La tabla es ilustrativa y podrá ajustarse una vez consolidada la muestra final del panel.}
-			\end{tablenotes}
-		\end{threeparttable}
-	\end{table}
 
 	\thesisendchap{anexos}
 

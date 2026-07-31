@@ -1,3 +1,0 @@
-model,total_obs,params,leverage_cutoff,cooks_cutoff,flagged_total,flagged_leverage,flagged_cooks,flagged_residual,max_cooks,max_abs_rstudent
-ECI,1044,90,.1724137931034483,.0038314175,75,6,72,18,.0558834377158039,6.24125
-DIVX,1044,89,.1704980842911877,.0038314175,78,6,75,22,.0663491320960498,6.6980853
