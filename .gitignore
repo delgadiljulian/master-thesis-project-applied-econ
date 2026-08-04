@@ -122,12 +122,24 @@ outputs/econometrics/stata-peer-1/*
 !outputs/econometrics/stata-peer-1/0[0-5]_*/**
 !outputs/econometrics/stata-peer-2/
 outputs/econometrics/stata-peer-2/*
-!outputs/econometrics/stata-peer-2/0[0-5]_*/
-!outputs/econometrics/stata-peer-2/0[0-5]_*/**
+!outputs/econometrics/stata-peer-2/01_twfe_main/
+outputs/econometrics/stata-peer-2/01_twfe_main/*
+!outputs/econometrics/stata-peer-2/01_twfe_main/0[0-9]_*/
+!outputs/econometrics/stata-peer-2/01_twfe_main/0[0-9]_*/**
+!outputs/econometrics/stata-peer-2/01_twfe_main/1[0-2]_*/
+!outputs/econometrics/stata-peer-2/01_twfe_main/1[0-2]_*/**
+!outputs/econometrics/stata-peer-2/02_temporal_fe/
+outputs/econometrics/stata-peer-2/02_temporal_fe/*
+!outputs/econometrics/stata-peer-2/02_temporal_fe/0[0-9]_*/
+!outputs/econometrics/stata-peer-2/02_temporal_fe/0[0-9]_*/**
+!outputs/econometrics/stata-peer-2/03_within_between/
+outputs/econometrics/stata-peer-2/03_within_between/*
+!outputs/econometrics/stata-peer-2/03_within_between/.gitkeep
 
 # Keep reproducible summaries and figures, but not derived data or model states
 outputs/econometrics/**/*.dta
 outputs/econometrics/**/*.ster
+outputs/econometrics/**/*.log
 
 models/*
 logs/*

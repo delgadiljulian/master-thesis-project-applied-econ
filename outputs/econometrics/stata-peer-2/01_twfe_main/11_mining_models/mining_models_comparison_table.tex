@@ -1,0 +1,64 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{4}{c}}
+\toprule
+                    &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}&\multicolumn{1}{c}{(4)}\\
+                    &\multicolumn{1}{c}{M1 ECI}&\multicolumn{1}{c}{M1 DIVX}&\multicolumn{1}{c}{M2 ECI}&\multicolumn{1}{c}{M2 DIVX}\\
+\midrule
+RENTS\_MINING        &     -0.0127\sym{***}&     -0.0003         &     -0.0116\sym{**} &     -0.0013         \\
+                    &    (0.0035)         &    (0.0018)         &    (0.0047)         &    (0.0015)         \\
+\addlinespace
+INST                &      0.1992         &      0.0478\sym{*}  &      0.2715\sym{**} &      0.0446\sym{*}  \\
+                    &    (0.1324)         &    (0.0275)         &    (0.1250)         &    (0.0253)         \\
+\addlinespace
+RENTS\_MINING x INST &     -0.0022         &     -0.0009         &     -0.0009         &     -0.0013         \\
+                    &    (0.0041)         &    (0.0024)         &    (0.0039)         &    (0.0016)         \\
+\addlinespace
+log(1 + OILPC)      &      0.0161         &     -0.0021         &                     &                     \\
+                    &    (0.0349)         &    (0.0088)         &                     &                     \\
+\addlinespace
+log(1 + GASPC)      &      0.0363         &      0.0090         &                     &                     \\
+                    &    (0.0358)         &    (0.0075)         &                     &                     \\
+\addlinespace
+log(1 + COALPC)     &      0.0029         &     -0.0072         &                     &                     \\
+                    &    (0.0261)         &    (0.0069)         &                     &                     \\
+\addlinespace
+HHI                 &     -0.5741\sym{**} &                     &                     &                     \\
+                    &    (0.2338)         &                     &                     &                     \\
+\addlinespace
+PEXP                &     -0.0042\sym{**} &      0.0016\sym{**} &                     &                     \\
+                    &    (0.0017)         &    (0.0006)         &                     &                     \\
+\addlinespace
+FEXP                &     -0.0069\sym{***}&     -0.0014         &                     &                     \\
+                    &    (0.0023)         &    (0.0011)         &                     &                     \\
+\addlinespace
+VOL                 &                     &                     &     -0.0010         &      0.0020\sym{*}  \\
+                    &                     &                     &    (0.0027)         &    (0.0010)         \\
+\addlinespace
+RER                 &                     &                     &     -0.0870         &     -0.0544         \\
+                    &                     &                     &    (0.1018)         &    (0.0415)         \\
+\addlinespace
+HUMCAP              &                     &                     &      0.1513         &      0.1468\sym{***}\\
+                    &                     &                     &    (0.2435)         &    (0.0484)         \\
+\addlinespace
+INNOV               &                     &                     &     -0.0129         &      0.0162         \\
+                    &                     &                     &    (0.0502)         &    (0.0159)         \\
+\addlinespace
+NET                 &                     &                     &     -0.0013         &     -0.0008\sym{*}  \\
+                    &                     &                     &    (0.0023)         &    (0.0004)         \\
+\addlinespace
+log(GDPPC)          &     -0.0941         &     -0.1482\sym{***}&     -0.2279         &     -0.1918\sym{***}\\
+                    &    (0.2095)         &    (0.0369)         &    (0.2104)         &    (0.0369)         \\
+\addlinespace
+GOVCONS             &                     &                     &     -0.0031         &      0.0022         \\
+                    &                     &                     &    (0.0103)         &    (0.0017)         \\
+\addlinespace
+FIN                 &                     &                     &      0.0007         &      0.0009\sym{**} \\
+                    &                     &                     &    (0.0026)         &    (0.0004)         \\
+\midrule
+Observaciones       &        1044         &        1044         &        1044         &        1044         \\
+Países              &          49         &          49         &          49         &          49         \\
+R-cuadrado within   &       0.142         &       0.225         &       0.068         &       0.208         \\
+\bottomrule
+\end{tabular}
+}

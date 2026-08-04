@@ -1,0 +1,12 @@
+order,stage,artifact_type,relative_path,expected_rows,role,status
+1,diagnostics,csv,02_diagnostics/lag_correlation_and_vif.csv,18,Diagnóstico ex ante de T3 y T3X,validated
+2,coefficients,csv,03_eci/eci_temporal_coefficients.csv,26,Coeficientes temporales de ECI,validated
+3,coefficients,csv,04_divx/divx_temporal_coefficients.csv,26,Coeficientes temporales de DIVX,validated
+4,inference,csv,05_cumulative/cumulative_effect_tests.csv,8,Sumas y pruebas conjuntas de T3,validated
+5,inference,csv,05_cumulative/temporal_wild_cluster_bootstrap.csv,10,"Bootstrap focal de T1, T2 y suma T3",validated
+6,final,csv,09_final/temporal_model_coefficients.csv,52,Tabla combinada de coeficientes,validated
+7,handoff,csv,09_final/02_models_handoff.csv,8,Índice de traspaso al archivo 03,validated
+8,handoff,ster,03_eci/eci_t1_own.ster,,Estimación ECI T1 para archivo 03,validated
+9,handoff,ster,03_eci/eci_t2_own.ster,,Estimación ECI T2 para archivo 03,validated
+10,handoff,ster,04_divx/divx_t1_own.ster,,Estimación DIVX T1 para archivo 03,validated
+11,handoff,ster,04_divx/divx_t2_own.ster,,Estimación DIVX T2 para archivo 03,validated

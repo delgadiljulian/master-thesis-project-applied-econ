@@ -1,0 +1,33 @@
+------------------------------------------------------------------------------------
+                              (1)             (2)             (3)             (4)
+                     ECI agregado    ECI desagr~o    DIVX agreg~o    DIVX desag~o
+------------------------------------------------------------------------------------
+Rentas extractivas~       -0.0098**                       -0.0035***
+                         (0.0042)                        (0.0013)
+
+Rentas de hidrocar~)                      -0.0073                         -0.0048***
+                                         (0.0057)                        (0.0014)
+
+Rentas mineras (% ~)                      -0.0136***                      -0.0014
+                                         (0.0039)                        (0.0019)
+
+Rentas extractivas~       -0.0052                          0.0009
+                         (0.0035)                        (0.0012)
+
+Rentas de hidrocar~                       -0.0057                          0.0012
+                                         (0.0039)                        (0.0013)
+
+Rentas mineras (% ~d                      -0.0021                         -0.0009
+                                         (0.0043)                        (0.0023)
+------------------------------------------------------------------------------------
+Observaciones                1044            1044            1044            1044
+Países                         49              49              49              49
+R2 within                  0.1523          0.1566          0.3119          0.3270
+RMSE                       0.2634          0.2630          0.0716          0.0709
+------------------------------------------------------------------------------------
+Standard errors in parentheses
+Efectos fijos por país y año.
+Errores estándar agrupados por país.
+HHI se excluye del modelo DIVX porque DIVX = 1 - HHI.
+La extensión no reemplaza los modelos agregados.
+* p<0.10, ** p<0.05, *** p<0.01

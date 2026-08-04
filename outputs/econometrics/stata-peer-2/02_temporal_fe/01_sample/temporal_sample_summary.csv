@@ -1,0 +1,17 @@
+order,outcome,model,sample_variable,observations,observations_lost_vs_panel,observations_lost_vs_t0,countries,excluded_countries,calendar_years,first_year,last_year,average_periods_per_country,minimum_periods_per_country,maximum_periods_per_country,excluded_country_codes
+9,divx,t0,sample_t0_divx,1197,233,0,53,2,23,1996,2021,22.585,16,23,NRU SLE
+10,divx,t1,sample_t1_divx,1148,282,49,53,2,22,1997,2021,21.660,16,22,NRU SLE
+11,divx,t2,sample_t2_divx,933,497,264,53,2,18,2004,2021,17.604,11,18,NRU SLE
+12,divx,t3,sample_t3_divx,1140,290,57,53,2,22,1998,2021,21.509,15,22,NRU SLE
+13,divx,t3_expanded,sample_t3_expanded_divx,933,497,264,53,2,18,2004,2021,17.604,11,18,NRU SLE
+14,divx,t4,sample_t4_divx,1142,288,55,53,2,22,1996,2020,21.547,15,22,NRU SLE
+15,divx,t5,sample_t5_divx,987,443,210,53,2,19,2003,2021,18.623,12,19,NRU SLE
+16,divx,common_t0_t3,sample_common_t0_t3_divx,933,497,264,53,2,18,2004,2021,17.604,11,18,NRU SLE
+1,eci,t0,sample_t0_eci,1197,233,0,53,2,23,1996,2021,22.585,16,23,NRU SLE
+2,eci,t1,sample_t1_eci,1148,282,49,53,2,22,1997,2021,21.660,16,22,NRU SLE
+3,eci,t2,sample_t2_eci,933,497,264,53,2,18,2004,2021,17.604,11,18,NRU SLE
+4,eci,t3,sample_t3_eci,1140,290,57,53,2,22,1998,2021,21.509,15,22,NRU SLE
+5,eci,t3_expanded,sample_t3_expanded_eci,933,497,264,53,2,18,2004,2021,17.604,11,18,NRU SLE
+6,eci,t4,sample_t4_eci,1142,288,55,53,2,22,1996,2020,21.547,15,22,NRU SLE
+7,eci,t5,sample_t5_eci,987,443,210,53,2,19,2003,2021,18.623,12,19,NRU SLE
+8,eci,common_t0_t3,sample_common_t0_t3_eci,933,497,264,53,2,18,2004,2021,17.604,11,18,NRU SLE

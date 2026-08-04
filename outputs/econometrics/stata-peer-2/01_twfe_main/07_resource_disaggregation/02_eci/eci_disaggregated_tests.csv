@@ -1,0 +1,8 @@
+order,test,null_hypothesis,f_statistic,df1,df2,p_value
+1,Hidrocarburos: efecto conjunto,RENTS_OIL_GAS y su interacción son conjuntamente cero,1.266350816920762,2,48,.29110473
+2,Minería: efecto conjunto,RENTS_MINING y su interacción son conjuntamente cero,6.856237170637017,2,48,.0024034698
+3,Interacciones conjuntas,Las dos interacciones institucionales son conjuntamente cero,1.102644831449939,2,48,.34025323
+4,Igualdad de coeficientes directos,Los coeficientes directos de ambos componentes son iguales,.9903124834526343,1,48,.3246564
+5,Igualdad de interacciones,Las interacciones institucionales de ambos componentes son iguales,.4157520834124684,1,48,.52213418
+6,Restricción del modelo agregado,Coeficientes directos e interacciones son iguales entre componentes,1.128913104947294,2,48,.33181873
+7,Términos desagregados conjuntos,Los cuatro términos desagregados son conjuntamente cero,4.161466965348803,4,48,.0056614242

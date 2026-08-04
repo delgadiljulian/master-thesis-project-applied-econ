@@ -1,0 +1,18 @@
+order,family,file,purpose
+1,Modelos principales,table_eci_divx_twfe.tex,Tabla LaTeX conjunta ECI-DIVX con errores agrupados por país.
+2,Modelos principales,table_eci_divx_twfe.txt,Versión de texto plano de la tabla econométrica principal.
+3,Resultados numéricos,final_model_coefficients.csv,"Coeficientes, errores, valores p e intervalos de ambos modelos."
+4,Resultados numéricos,final_model_summaries.csv,"Cobertura, ajuste y componentes de varianza de ECI y DIVX."
+5,Resultados numéricos,final_joint_tests.csv,"Pruebas conjuntas por canal, efectos temporales e igualdad de recursos."
+6,Interpretación,evidence_classification.csv,"Clasificación no causal de evidencia central, complementaria y no concluyente."
+7,Estabilidad,final_rents_marginal_effects_by_inst.csv,Efectos marginales de RENTS en percentiles institucionales.
+8,Estabilidad,final_influential_observation_sensitivity.csv,Sensibilidad a observaciones potencialmente influyentes.
+9,Estabilidad,final_leave_one_country_out_summary.csv,Resumen de exclusiones individuales de los 49 países.
+10,Estabilidad,final_wild_cluster_bootstrap.csv,Contraste bootstrap de RENTS y RENTS x INST.
+11,Estabilidad,final_resource_coefficient_equality.csv,"Prueba de igualdad entre petróleo, gas y carbón."
+12,Estabilidad,final_per_capita_transformation_sensitivity.csv,Comparación de ln(1+x) con controles per cápita en niveles.
+13,Tablas de sensibilidad,table_per_capita_transformation_sensitivity.tex,Tabla LaTeX de sensibilidad a la transformación per cápita.
+14,Tablas de sensibilidad,table_per_capita_transformation_sensitivity.txt,Versión de texto de la sensibilidad a la transformación per cápita.
+15,Figuras,figure_rents_marginal_effects_eci_divx.pdf,Figura comparada ECI-DIVX en formato apto para LaTeX.
+16,Figuras,figure_rents_marginal_effects_eci_divx.png,Figura comparada para inspección visual.
+17,Documentación,RESULTS_INDEX.md,"Índice, alcance y reglas de interpretación del paquete final."

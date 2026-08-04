@@ -38,14 +38,16 @@
 	para clasificar la dependencia externa de recursos naturales mediante el
 	indicador $DRES$.
 
-	En este marco, la estrategia metodológica combina análisis descriptivo y
-	dos estimaciones en datos de panel con efectos fijos. La especificación
+	En este marco, la estrategia empírica principal combina análisis descriptivo y
+	dos estimaciones en datos de panel con efectos fijos bidireccionales. La especificación
 	principal utiliza el índice de complejidad económica ($ECI$) como variable
 	dependiente, mientras que la especificación complementaria utiliza
 	$DIVX=1-HHI$. Ambas incorporan el mismo conjunto de canales teóricos y la
 	interacción entre rentas extractivas y calidad institucional; la única
 	diferencia entre ellas es la exclusión de $HHI$ cuando $DIVX$ constituye la
-	variable dependiente.
+	variable dependiente. Estas dos ecuaciones definen los resultados sustantivos
+	del estudio, mientras que la desagregación por tipo de recurso y las pruebas de
+	estabilidad se utilizan para evaluar la robustez de la evidencia principal.
 
 	Dado el carácter observacional del diseño y la posible endogeneidad
 	entre algunas variables centrales, los resultados se interpretarán como
@@ -976,11 +978,15 @@ y disponibilidad de información para el período principal de estimación
 
 	En la \autoref{eq:modelo_divx}, $HHI_{it}$ se excluye del conjunto de regresores porque $DIVX_{it}$ se construye directamente como su complemento. Esta es la única exclusión respecto del canal estructural: $PEXP_{it}$ y $FEXP_{it}$ permanecen como regresores y capturan, respectivamente, la especialización primaria no energética y la especialización en combustibles. De este modo, se evita introducir una relación mecánica entre la variable dependiente y una covariable explicativa sin alterar los demás canales del modelo. La interpretación de esta especificación es complementaria a la del modelo principal: mientras el ECI mide sofisticación y capacidades productivas reveladas, $DIVX$ captura la dispersión de la canasta exportadora.
 
-	Estas dos ecuaciones agotan la estrategia econométrica de la tesis. Cada
-	variable explicativa tiene una única definición operativa y una única fuente
-	activa. No se estiman proxies alternativas, submuestras por otros umbrales,
-	interacciones temporales ni modelos adicionales. La especificación con
-	$DIVX$ es el único modelo complementario al modelo principal con $ECI$.
+	Estas dos ecuaciones delimitan los resultados sustantivos de la tesis, pero no
+	agotan las herramientas de validación econométrica. Cada variable explicativa
+	conserva una definición operativa y una fuente activa; la única desagregación
+	predefinida separa las rentas de hidrocarburos de las rentas de minería y
+	carbón. La especificación con $DIVX$ es el resultado complementario al modelo
+	principal con $ECI$, y las estimaciones desagregadas, los cambios de
+	transformación y las pruebas de estabilidad se interpretan como análisis de
+	robustez, no como nuevos resultados dependientes seleccionados después de
+	observar los datos.
 
 	%%%%%%%%
 
@@ -1129,9 +1135,117 @@ y disponibilidad de información para el período principal de estimación
 
 	Dado que la disponibilidad temporal de algunas variables varía entre países
 	y fuentes, las estimaciones se realizarán sobre paneles desbalanceados. Las
-	dos ecuaciones se estimarán con efectos fijos por país y por año; no se
-	estimarán modelos con efectos aleatorios, términos rezagados ni
-	especificaciones adicionales.
+	dos ecuaciones principales se estimarán con efectos fijos por país y por año;
+	no se utilizarán modelos con efectos aleatorios como referencia sustantiva.
+
+	\subsection{Métodos considerados y no adoptados}
+	\label{subsec:metodos-no-adoptados}
+
+	La selección de estimadores se realizó a partir de la pregunta de
+	investigación, la estructura del panel y los supuestos de identificación, no
+	mediante una comparación retrospectiva de significancia estadística. Además
+	del modelo de efectos fijos bidireccionales, se evaluaron alternativas
+	dinámicas, instrumentales y de inferencia para paneles macroeconómicos. Las
+	razones para no incorporarlas como evidencia principal se exponen a
+	continuación.
+
+	\subsubsection{Panel dinámico mediante GMM}
+
+	Los estimadores \textit{Difference GMM} y \textit{System GMM} resultan
+	especialmente útiles para paneles dinámicos cortos y anchos, en los que la
+	variable dependiente rezagada forma parte de la ecuación y se dispone de una
+	dimensión transversal amplia frente a una dimensión temporal reducida. Sin
+	embargo, su validez depende de la clasificación previa de los regresores como
+	estrictamente exógenos, predeterminados o endógenos, de las condiciones de
+	momento y de una matriz de instrumentos parsimoniosa. La proliferación de
+	instrumentos puede sobreajustar las variables endógenas y debilitar la
+	capacidad informativa de las pruebas de Hansen
+	\parencite{Roodman2009TooManyInstruments}.
+
+	Estas condiciones no se cumplen de manera satisfactoria en el diseño de la
+	tesis. La muestra completa vigente reúne 49 países y, en promedio, 21,3
+	períodos por país; por tanto, no corresponde al caso típico de $N$ grande y
+	$T$ pequeño. La pregunta sustantiva tampoco requiere introducir una variable
+	dependiente rezagada como regresor principal. En los ejercicios preliminares,
+	las especificaciones agregadas generaron entre 97 y 103 instrumentos para
+	49--53 países. Los valores $p$ de Hansen se aproximaron a uno, entre 0,9998 y
+	1,0000, mientras las salidas advirtieron que el número de instrumentos era
+	elevado. En este contexto, el no rechazo de la prueba no constituye evidencia
+	convincente de validez, pues la propia proliferación reduce su capacidad para
+	detectar instrumentos problemáticos.
+
+	Asimismo, el ejercicio dependía de supuestos fuertes sobre la exogeneidad de
+	$RENTS$, $INST$, su interacción y diversos controles. Restringir la ventana
+	de rezagos y colapsar la matriz podría reducir el número de instrumentos,
+	pero no resolvería por sí mismo la ausencia de una justificación sustantiva
+	para cada condición de momento. Por estas razones, GMM no se reporta como
+	robustez ni como mecanismo automático para corregir endogeneidad.
+
+	\subsubsection{Variables instrumentales y 2SLS}
+
+	Una estrategia IV/2SLS permitiría una interpretación causal únicamente si
+	los instrumentos fueran relevantes para las variables endógenas y, además,
+	afectaran $ECI$ o $DIVX$ exclusivamente a través de dichas variables. La
+	fortaleza de la primera etapa no sustituye esta restricción de exclusión ni
+	los demás supuestos de identificación
+	\parencite{AngristImbensRubin1996,AndrewsStockSun2019}.
+
+	El ejercicio preliminar utilizó como instrumentos excluidos rezagos internos
+	de $RENTS$, $INST$, $VOL$ y sus interacciones. Aunque los estadísticos
+	Kleibergen--Paap de primera etapa se situaron entre 61,8 y 205,1, esos
+	resultados solo muestran correlación con los regresores instrumentados. Los
+	rezagos pueden seguir relacionados con shocks persistentes de precios,
+	cambios institucionales, decisiones de política y determinantes omitidos de
+	la estructura exportadora. Su precedencia temporal no garantiza que sean
+	exógenos al error contemporáneo.
+
+	También se consideró conceptualmente un instrumento basado en precios
+	internacionales de productos básicos interactuados con exposiciones
+	históricas anteriores a 1996. La base actual no contiene las ponderaciones
+	por producto ni los shocks internacionales \textit{leave-one-out} necesarios
+	para construirlo. Más importante aún, los precios internacionales pueden
+	afectar directamente la composición y el valor de las exportaciones, el tipo
+	de cambio real y la inversión. Dado que esas rutas alcanzan directamente
+	$ECI$ y $DIVX$, la restricción de exclusión no resulta defendible con la
+	información disponible. La interacción $RENTS\times INST$ exigiría además
+	instrumentar simultáneamente el término constitutivo endógeno y la
+	interacción. En consecuencia, los resultados IV preliminares se excluyen del
+	TFM, incluso cuando sus primeras etapas parezcan fuertes.
+
+	\subsubsection{Otras alternativas}
+
+	Los efectos aleatorios simples no se adoptan porque requieren ausencia de
+	correlación entre la heterogeneidad permanente del país y los regresores, un
+	supuesto poco plausible en economías seleccionadas por su dependencia
+	extractiva. Como complemento descriptivo se prioriza, en cambio, una
+	descomposición \textit{within--between} de efectos aleatorios correlacionados
+	basada en Mundlak, que separa los cambios dentro de cada país de las
+	diferencias persistentes entre países \parencite{Mundlak1978}.
+
+	Los errores estándar de Driscoll--Kraay se reservan como sensibilidad y no
+	como inferencia principal. Aunque permiten formas generales de dependencia
+	temporal y transversal cuando la dimensión temporal es suficientemente
+	informativa \parencite{DriscollKraay1998}, la prueba CD de Pesaran aplicada a
+	los residuos TWFE no detectó dependencia transversal remanente. Por ello, la
+	inferencia principal conserva errores agrupados por país y
+	\textit{Wild Cluster Bootstrap}. Los estimadores de efectos comunes
+	correlacionados (CCE) y los errores estándar corregidos para panel (PCSE) solo
+	se reconsiderarían si diagnósticos posteriores mostraran dependencia
+	transversal sustantiva. Finalmente, no se emplean modelos autorregresivos de
+	rezagos distribuidos (ARDL) de panel, porque la tesis no formula una relación
+	de cointegración de largo plazo, ni diseños de diferencias en diferencias o
+	estudios de evento, porque no existe una intervención discreta con fechas de
+	adopción comparables.
+
+	\subsubsection{Consecuencia para la estrategia empírica}
+
+	La evidencia central se mantiene en asociaciones condicionales estimadas
+	mediante efectos fijos bidireccionales. Como extensiones se priorizan
+	especificaciones de efectos fijos con rezagos cortos de las variables focales
+	y la descomposición \textit{within--between} de Mundlak. Estas extensiones
+	solo se incorporarán al TFM después de verificar sus muestras, diagnósticos y
+	estabilidad. Ninguna de ellas se interpretará como identificación causal ni
+	se utilizará para realizar una votación de resultados entre estimadores.
 
 	\begin{figure}[htbp]
 		\centering
@@ -1252,11 +1366,13 @@ y disponibilidad de información para el período principal de estimación
 	\section{Procedimientos de análisis econométrico}
 	\label{sec:analisis-econometrico}
 
-	El análisis empírico se estructura en tres etapas: una caracterización
-	descriptiva de la muestra fija, la estimación principal con $ECI$ y la
-	estimación complementaria con $DIVX$. Esta secuencia mantiene el análisis
-	centrado en las asociaciones condicionales entre rentas extractivas,
-	instituciones, capacidades productivas y transformación estructural.
+	El análisis empírico se estructura en cinco etapas: una caracterización
+	descriptiva de la muestra fija, la estimación principal con $ECI$, la
+	estimación complementaria con $DIVX$, la evaluación de heterogeneidad por tipo
+	de recurso y las pruebas de estabilidad econométrica. Esta secuencia mantiene
+	el análisis centrado en las asociaciones condicionales entre rentas
+	extractivas, instituciones, capacidades productivas y transformación
+	estructural.
 
 	\begin{enumerate}
 
@@ -1282,12 +1398,27 @@ y disponibilidad de información para el período principal de estimación
 		mismo conjunto de variables. Se excluirá únicamente $HHI$, debido a que
 		$DIVX=1-HHI$; $PEXP$ y $FEXP$ permanecerán en el canal estructural.
 
+		\item \emph{Heterogeneidad por tipo de recurso.} En la cuarta etapa se
+		reestimarán las dos ecuaciones sustituyendo $RENTS$ por sus componentes
+		predefinidos de hidrocarburos y de minería y carbón. Esta desagregación
+		permitirá comparar patrones sectoriales sin modificar la selección de la
+		muestra ni atribuir carácter causal a las diferencias estimadas.
+
+		\item \emph{Estabilidad e inferencia.} En la quinta etapa se evaluará la
+		sensibilidad de los resultados a las transformaciones de las variables de
+		abundancia, a las observaciones influyentes y a la exclusión sucesiva de
+		cada país. La inferencia agrupada se contrastará mediante \textit{Wild
+		Cluster Bootstrap}, y los términos de interacción se interpretarán a
+		partir de efectos marginales e intervalos de confianza.
+
 	\end{enumerate}
 
-	En conjunto, esta estrategia permite contrastar las hipótesis del trabajo
-	sin ampliar innecesariamente el número de modelos. Los resultados se
-	interpretarán dentro de las limitaciones propias de un diseño
-	observacional, comparativo y no experimental.
+	En conjunto, esta estrategia permite contrastar las hipótesis del trabajo y
+	distinguir los resultados principales de sus ejercicios de robustez. Ninguna
+	de estas pruebas elimina por sí sola la posible endogeneidad de las variables
+	centrales; por ello, los resultados se interpretarán dentro de las
+	limitaciones propias de un diseño observacional, comparativo y no
+	experimental.
 
 
 % =====================================

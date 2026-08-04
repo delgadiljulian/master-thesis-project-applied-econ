@@ -1,0 +1,22 @@
+model,model_order,channel,included,interpretation
+M1,1,Abundancia,1,Canal temático
+M1,1,Capacidades productivas,0,Fuera de M1
+M1,1,Estructura exportadora,1,Canal temático
+M1,1,Fiscal y financiero,0,Fuera de M1
+M1,1,Institucional,1,Núcleo compartido
+M1,1,Macroeconomía,0,Fuera de M1
+M1,1,Nivel de desarrollo,1,Control compartido
+M2,2,Abundancia,0,Fuera de M2
+M2,2,Capacidades productivas,1,Canal temático
+M2,2,Estructura exportadora,0,Fuera de M2
+M2,2,Fiscal y financiero,1,Canal temático
+M2,2,Institucional,1,Núcleo compartido
+M2,2,Macroeconomía,1,Canal temático
+M2,2,Nivel de desarrollo,1,Control compartido
+M3,3,Abundancia,1,TWFE completo
+M3,3,Capacidades productivas,1,TWFE completo
+M3,3,Estructura exportadora,1,TWFE completo
+M3,3,Fiscal y financiero,1,TWFE completo
+M3,3,Institucional,1,TWFE completo
+M3,3,Macroeconomía,1,TWFE completo
+M3,3,Nivel de desarrollo,1,TWFE completo

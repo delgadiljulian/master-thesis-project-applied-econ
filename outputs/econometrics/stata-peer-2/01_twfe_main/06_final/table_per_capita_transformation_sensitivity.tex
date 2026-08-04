@@ -1,0 +1,44 @@
+\begin{table}[htbp]\centering
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\caption{Sensibilidad a la transformación de las rentas per cápita}
+\begin{tabular}{l*{4}{c}}
+\toprule
+                    &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}&\multicolumn{1}{c}{(4)}\\
+                    &\multicolumn{1}{c}{ECI: ln(1+x)}&\multicolumn{1}{c}{ECI: niveles pc}&\multicolumn{1}{c}{DIVX: ln(1+x)}&\multicolumn{1}{c}{DIVX: niveles pc}\\
+\midrule
+RENTS agregado      &     -0.0098\sym{**} &     -0.0067\sym{*}  &     -0.0035\sym{***}&     -0.0041\sym{**} \\
+                    &    (0.0042)         &    (0.0036)         &    (0.0013)         &    (0.0017)         \\
+\addlinespace
+RENTS x INST        &     -0.0052         &     -0.0028         &      0.0009         &      0.0004         \\
+                    &    (0.0035)         &    (0.0038)         &    (0.0012)         &    (0.0014)         \\
+\addlinespace
+log(1 + OILPC)      &      0.0283         &                     &      0.0076         &                     \\
+                    &    (0.0376)         &                     &    (0.0090)         &                     \\
+\addlinespace
+log(1 + GASPC)      &      0.0396         &                     &      0.0049         &                     \\
+                    &    (0.0343)         &                     &    (0.0067)         &                     \\
+\addlinespace
+log(1 + COALPC)     &      0.0109         &                     &     -0.0085         &                     \\
+                    &    (0.0264)         &                     &    (0.0078)         &                     \\
+\addlinespace
+OILPC en niveles    &                     &     -0.0000         &                     &      0.0000         \\
+                    &                     &    (0.0000)         &                     &    (0.0000)         \\
+\addlinespace
+GASPC en niveles    &                     &     -0.0001\sym{***}&                     &      0.0000         \\
+                    &                     &    (0.0000)         &                     &    (0.0000)         \\
+\addlinespace
+COALPC en niveles   &                     &     -0.0002         &                     &      0.0000         \\
+                    &                     &    (0.0002)         &                     &    (0.0000)         \\
+\midrule
+Observaciones       &        1044         &        1044         &        1044         &        1044         \\
+Países              &          49         &          49         &          49         &          49         \\
+R-cuadrado within   &       0.152         &       0.161         &       0.312         &       0.310         \\
+\bottomrule
+\multicolumn{5}{l}{\footnotesize Standard errors in parentheses}\\
+\multicolumn{5}{l}{\footnotesize La alternativa cambia únicamente OILPC, GASPC y COALPC.}\\
+\multicolumn{5}{l}{\footnotesize RENTS permanece agregado y con la misma definición en las cuatro columnas.}\\
+\multicolumn{5}{l}{\footnotesize La especificación ln(1+x) es la principal; los niveles son una sensibilidad.}\\
+\multicolumn{5}{l}{\footnotesize Errores estándar agrupados por país. Resultados asociativos.}\\
+\multicolumn{5}{l}{\footnotesize \sym{*} \(p<0.10\), \sym{**} \(p<0.05\), \sym{***} \(p<0.01\)}\\
+\end{tabular}
+\end{table}

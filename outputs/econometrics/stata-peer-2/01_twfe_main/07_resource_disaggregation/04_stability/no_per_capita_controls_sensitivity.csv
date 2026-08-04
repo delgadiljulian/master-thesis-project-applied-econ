@@ -1,0 +1,17 @@
+model,specification,term,observations,countries,coefficient,standard_error,p_value
+DIVX,Base,c.rents_mining#c.inst,1044,,-0.0008969833,0.0022619106,0.6934495568
+DIVX,Sin controles per cápita,c.rents_mining#c.inst,1044,49,-0.0009778116,0.0022160637,0.6610218883
+DIVX,Base,c.rents_oil_gas#c.inst,1044,,0.0012093830,0.0013012802,0.3573429585
+DIVX,Sin controles per cápita,c.rents_oil_gas#c.inst,1044,49,0.0012924391,0.0012601304,0.3102028966
+DIVX,Base,rents_mining,1044,,-0.0014128564,0.0018924191,0.4589539170
+DIVX,Sin controles per cápita,rents_mining,1044,49,-0.0016776721,0.0018028793,0.3567422330
+DIVX,Base,rents_oil_gas,1044,,-0.0048488001,0.0013854586,0.0010159025
+DIVX,Sin controles per cápita,rents_oil_gas,1044,49,-0.0044676317,0.0013007923,0.0012330066
+ECI,Base,c.rents_mining#c.inst,1044,,-0.0021268325,0.0042867670,0.6220606565
+ECI,Sin controles per cápita,c.rents_mining#c.inst,1044,49,-0.0017776905,0.0037614920,0.6386386752
+ECI,Base,c.rents_oil_gas#c.inst,1044,,-0.0056538782,0.0039092535,0.1545971334
+ECI,Sin controles per cápita,c.rents_oil_gas#c.inst,1044,49,-0.0048222058,0.0039676535,0.2301655561
+ECI,Base,rents_mining,1044,,-0.0135974260,0.0039144447,0.0010980716
+ECI,Sin controles per cápita,rents_mining,1044,49,-0.0124162054,0.0037698343,0.0018624584
+ECI,Base,rents_oil_gas,1044,,-0.0072542005,0.0057355305,0.2120555639
+ECI,Sin controles per cápita,rents_oil_gas,1044,49,-0.0060071792,0.0057705441,0.3030873239

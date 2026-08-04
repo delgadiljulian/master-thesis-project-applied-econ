@@ -1,0 +1,2 @@
+model,dependent_variable,observations,countries,clusters,years,first_year,last_year,r2_within,r2_between,r2_overall,f_statistic,df_model,df_error,model_p_value,rmse,sigma_country,sigma_idiosyncratic,rho_country
+DIVX_TWFE_DISAGG,divx,1044,49,49,23,1996,2021,.3269696001926266,.33846337,.3248581,33.389771,39,48,3.8868494e-24,.070916839,.17500991,.072677195,.85291255

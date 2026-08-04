@@ -1,0 +1,23 @@
+model,outcome,order,channel,null_hypothesis,f_statistic,df1,df2,p_value
+M1_OG,DIVX,1,Institucional,"RENTS_OIL_GAS, INST e interacción son cero",8.011699,3,48,0.000198
+M1_OG,DIVX,2,Abundancia,"OILPC, GASPC y COALPC son conjuntamente cero",2.046991,3,48,0.119773
+M1_OG,DIVX,3,Estructura exportadora,PEXP y FEXP son conjuntamente cero,4.021597,2,48,0.024280
+M1_OG,DIVX,4,Nivel de desarrollo,log_GDPPC es igual a cero,13.459112,1,48,0.000610
+M1_OG,DIVX,5,Efectos de año,Todos los indicadores de año son cero,5.416415,22,48,0.000001
+M1_OG,ECI,1,Institucional,"RENTS_OIL_GAS, INST e interacción son cero",0.874346,3,48,0.460983
+M1_OG,ECI,2,Abundancia,"OILPC, GASPC y COALPC son conjuntamente cero",0.530696,3,48,0.663391
+M1_OG,ECI,3,Estructura exportadora,"HHI, PEXP y FEXP son conjuntamente cero",5.105829,3,48,0.003796
+M1_OG,ECI,4,Nivel de desarrollo,log_GDPPC es igual a cero,0.155352,1,48,0.695218
+M1_OG,ECI,5,Efectos de año,Todos los indicadores de año son cero,3.406876,22,48,0.000194
+M2_OG,DIVX,1,Institucional,"RENTS_OIL_GAS, INST e interacción son cero",8.462492,3,48,0.000129
+M2_OG,DIVX,2,Macroeconomía,VOL y RER son conjuntamente cero,1.159532,2,48,0.322262
+M2_OG,DIVX,3,Capacidades productivas,"HUMCAP, INNOV y NET son conjuntamente cero",4.366860,3,48,0.008483
+M2_OG,DIVX,4,Nivel de desarrollo,log_GDPPC es igual a cero,23.049888,1,48,0.000016
+M2_OG,DIVX,5,Fiscal y financiero,GOVCONS y FIN son conjuntamente cero,3.092952,2,48,0.054515
+M2_OG,DIVX,6,Efectos de año,Todos los indicadores de año son cero,2.891394,22,48,0.001066
+M2_OG,ECI,1,Institucional,"RENTS_OIL_GAS, INST e interacción son cero",2.387663,3,48,0.080502
+M2_OG,ECI,2,Macroeconomía,VOL y RER son conjuntamente cero,1.800352,2,48,0.176220
+M2_OG,ECI,3,Capacidades productivas,"HUMCAP, INNOV y NET son conjuntamente cero",0.155652,3,48,0.925540
+M2_OG,ECI,4,Nivel de desarrollo,log_GDPPC es igual a cero,0.792227,1,48,0.377867
+M2_OG,ECI,5,Fiscal y financiero,GOVCONS y FIN son conjuntamente cero,0.206256,2,48,0.814342
+M2_OG,ECI,6,Efectos de año,Todos los indicadores de año son cero,2.342137,22,48,0.006983

@@ -1,0 +1,3 @@
+model,outcome,role,question,hhi_rule,sample_rule,interpretation
+M1,DIVX,Complementario,¿Permanece la asociación de RENTS al distinguir abundancia física y estructura exportadora?,Excluir HHI: DIVX=1-HHI,Muestra común congelada,Asociación condicional
+M1,ECI,Principal,¿Permanece la asociación de RENTS al distinguir abundancia física y estructura exportadora?,Incluir HHI,Muestra común congelada,Asociación condicional

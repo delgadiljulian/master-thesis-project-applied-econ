@@ -1,0 +1,17 @@
+model,specification,term,observations,countries,coefficient,standard_error,p_value
+DIVX,Base,c.rents_mining#c.inst,1044,49,-0.0008969833,0.0022619106,0.6934495568
+DIVX,Excluye alertas,c.rents_mining#c.inst,966,49,-0.0026229117,0.0011348417,0.0251575913
+DIVX,Base,c.rents_oil_gas#c.inst,1044,49,0.0012093830,0.0013012802,0.3573429585
+DIVX,Excluye alertas,c.rents_oil_gas#c.inst,966,49,0.0012588290,0.0010766165,0.2480784655
+DIVX,Base,rents_mining,1044,49,-0.0014128564,0.0018924191,0.4589539170
+DIVX,Excluye alertas,rents_mining,966,49,-0.0024764256,0.0010067730,0.0175557286
+DIVX,Base,rents_oil_gas,1044,49,-0.0048488001,0.0013854586,0.0010159025
+DIVX,Excluye alertas,rents_oil_gas,966,49,-0.0049782442,0.0012047210,0.0001430678
+ECI,Base,c.rents_mining#c.inst,1044,49,-0.0021268325,0.0042867670,0.6220606565
+ECI,Excluye alertas,c.rents_mining#c.inst,969,49,0.0006888304,0.0035176177,0.8455753922
+ECI,Base,c.rents_oil_gas#c.inst,1044,49,-0.0056538782,0.0039092535,0.1545971334
+ECI,Excluye alertas,c.rents_oil_gas#c.inst,969,49,-0.0052877101,0.0025481631,0.0433596894
+ECI,Base,rents_mining,1044,49,-0.0135974260,0.0039144447,0.0010980716
+ECI,Excluye alertas,rents_mining,969,49,-0.0091068242,0.0026962578,0.0014581125
+ECI,Base,rents_oil_gas,1044,49,-0.0072542005,0.0057355305,0.2120555639
+ECI,Excluye alertas,rents_oil_gas,969,49,-0.0017217700,0.0033609462,0.6107991934

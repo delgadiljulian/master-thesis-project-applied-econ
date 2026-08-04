@@ -1,0 +1,19 @@
+order,diagnostic,specification,variable,comparison,value,threshold,assessment,observations,countries
+1,correlation,T3 básico,t3_rents_l0,t3_rents_l1,.93228444,.9,Alerta alta,1140,53
+2,correlation,T3 básico,t3_rents_l0,t3_rents_l2,.88461336,.9,Aceptable,1140,53
+3,correlation,T3 básico,t3_rents_l1,t3_rents_l2,.95313431,.9,Alerta alta,1140,53
+4,vif,T3 básico,t3_rents_l0,Otros términos y FE,13.831991,10,Supera umbral,1140,53
+5,vif,T3 básico,t3_rents_l1,Otros términos y FE,27.746756,10,Supera umbral,1140,53
+6,vif,T3 básico,t3_rents_l2,Otros términos y FE,19.668788,10,Supera umbral,1140,53
+7,vif,T3 básico,t3_inst_l0,Otros términos y FE,26.235358,10,Supera umbral,1140,53
+8,decision,T3 básico,max_vif,Regla ex ante,27.746756,10,Solo suma y prueba conjunta,1140,53
+9,vif,T3X ampliado,t3_rents_l0,Otros términos y FE,28.461086,10,Supera umbral,933,53
+10,vif,T3X ampliado,t3_rents_l1,Otros términos y FE,54.320551,10,Supera umbral,933,53
+11,vif,T3X ampliado,t3_rents_l2,Otros términos y FE,36.576726,10,Supera umbral,933,53
+12,vif,T3X ampliado,t3_inst_l0,Otros términos y FE,123.14266,10,Supera umbral,933,53
+13,vif,T3X ampliado,t3_inst_l1,Otros términos y FE,209.98966,10,Supera umbral,933,53
+14,vif,T3X ampliado,t3_inst_l2,Otros términos y FE,118.69664,10,Supera umbral,933,53
+15,vif,T3X ampliado,t3_rents_x_inst_l0,Otros términos y FE,27.303177,10,Supera umbral,933,53
+16,vif,T3X ampliado,t3_rents_x_inst_l1,Otros términos y FE,53.967093,10,Supera umbral,933,53
+17,vif,T3X ampliado,t3_rents_x_inst_l2,Otros términos y FE,43.016568,10,Supera umbral,933,53
+18,decision,T3X ampliado,max_vif,Regla ex ante,209.98966,10,No habilitada,933,53

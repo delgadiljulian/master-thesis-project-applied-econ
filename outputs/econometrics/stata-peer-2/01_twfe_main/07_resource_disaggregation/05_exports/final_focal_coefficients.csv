@@ -1,0 +1,13 @@
+model,specification,term,variable_label,channel,coefficient,standard_error,t_statistic,p_value,ci_lower,ci_upper
+ECI,Agregado,rents,Rentas extractivas del subsuelo (% PIB),Institucional,-0.0097950000,0.0041810000,-2.3427110000,0.0233370000,-0.0182020000,-0.0013880000
+ECI,Agregado,c.rents#c.inst,Interacción entre rentas y calidad institucional,Institucional,-0.0051990000,0.0034530000,-1.5054570000,0.1387590000,-0.0121420000,0.0017440000
+ECI,Desagregado,rents_oil_gas,Rentas de hidrocarburos (% PIB),Institucional desagregado,-0.0072542006,0.0057355305,-1.2647828000,0.2120555600,-0.0187862570,0.0042778566
+ECI,Desagregado,rents_mining,Rentas mineras (% PIB),Institucional desagregado,-0.0135974258,0.0039144447,-3.4736538000,0.0010980716,-0.0214679450,-0.0057269069
+ECI,Desagregado,c.rents_oil_gas#c.inst,RENTS_OIL_GAS x INST,Institucional desagregado,-0.0056538780,0.0039092535,-1.4462807000,0.1545971300,-0.0135139590,0.0022062028
+ECI,Desagregado,c.rents_mining#c.inst,RENTS_MINING x INST,Institucional desagregado,-0.0021268324,0.0042867670,-0.4961390200,0.6220606600,-0.0107459550,0.0064922902
+DIVX,Agregado,rents,Rentas extractivas del subsuelo (% PIB),Institucional,-0.0035360000,0.0012960000,-2.7285980000,0.0088620000,-0.0061420000,-0.0009300000
+DIVX,Agregado,c.rents#c.inst,Interacción entre rentas y calidad institucional,Institucional,0.0009480000,0.0011840000,0.8004290000,0.4274060000,-0.0014330000,0.0033290000
+DIVX,Desagregado,rents_oil_gas,Rentas de hidrocarburos (% PIB),Institucional desagregado,-0.0048488000,0.0013854586,-3.4997797000,0.0010159025,-0.0076344511,-0.0020631487
+DIVX,Desagregado,rents_mining,Rentas mineras (% PIB),Institucional desagregado,-0.0014128564,0.0018924191,-0.7465875100,0.4589539200,-0.0052178199,0.0023921072
+DIVX,Desagregado,c.rents_oil_gas#c.inst,RENTS_OIL_GAS x INST,Institucional desagregado,0.0012093831,0.0013012802,0.9293794600,0.3573429600,-0.0014070162,0.0038257823
+DIVX,Desagregado,c.rents_mining#c.inst,RENTS_MINING x INST,Institucional desagregado,-0.0008969833,0.0022619106,-0.3965600100,0.6934495600,-0.0054448592,0.0036508928

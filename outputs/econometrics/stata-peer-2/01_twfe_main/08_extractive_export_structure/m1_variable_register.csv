@@ -1,0 +1,11 @@
+order,channel,variable,eci_included,divx_included
+1,Institucional,RENTS,Sí,Sí
+2,Institucional,INST,Sí,Sí
+3,Institucional,RENTS x INST,Sí,Sí
+4,Abundancia,ln1p_OILPC,Sí,Sí
+5,Abundancia,ln1p_GASPC,Sí,Sí
+6,Abundancia,ln1p_COALPC,Sí,Sí
+7,Estructura,HHI,Sí,No
+8,Estructura,PEXP,Sí,Sí
+9,Estructura,FEXP,Sí,Sí
+10,Desarrollo,log_GDPPC,Sí,Sí

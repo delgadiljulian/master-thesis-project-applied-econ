@@ -1,0 +1,39 @@
+\begin{table}[htbp]\centering
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\caption{RENTS agregado y desagregado: modelos de efectos fijos}
+\begin{tabular}{l*{4}{c}}
+\toprule
+                    &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}&\multicolumn{1}{c}{(4)}\\
+                    &\multicolumn{1}{c}{ECI agregado}&\multicolumn{1}{c}{ECI desagregado}&\multicolumn{1}{c}{DIVX agregado}&\multicolumn{1}{c}{DIVX desagregado}\\
+\midrule
+Rentas extractivas del subsuelo (% PIB)&     -0.0098\sym{**} &                     &     -0.0035\sym{***}&                     \\
+                    &    (0.0042)         &                     &    (0.0013)         &                     \\
+\addlinespace
+Rentas de hidrocarburos (% PIB)&                     &     -0.0073         &                     &     -0.0048\sym{***}\\
+                    &                     &    (0.0057)         &                     &    (0.0014)         \\
+\addlinespace
+Rentas mineras (% PIB)&                     &     -0.0136\sym{***}&                     &     -0.0014         \\
+                    &                     &    (0.0039)         &                     &    (0.0019)         \\
+\addlinespace
+Rentas extractivas del subsuelo (% PIB) $\times$ Calidad institucional (INST)&     -0.0052         &                     &      0.0009         &                     \\
+                    &    (0.0035)         &                     &    (0.0012)         &                     \\
+\addlinespace
+Rentas de hidrocarburos (% PIB) $\times$ Calidad institucional (INST)&                     &     -0.0057         &                     &      0.0012         \\
+                    &                     &    (0.0039)         &                     &    (0.0013)         \\
+\addlinespace
+Rentas mineras (% PIB) $\times$ Calidad institucional (INST)&                     &     -0.0021         &                     &     -0.0009         \\
+                    &                     &    (0.0043)         &                     &    (0.0023)         \\
+\midrule
+Observaciones       &        1044         &        1044         &        1044         &        1044         \\
+Países              &          49         &          49         &          49         &          49         \\
+R2 within           &      0.1523         &      0.1566         &      0.3119         &      0.3270         \\
+RMSE                &      0.2634         &      0.2630         &      0.0716         &      0.0709         \\
+\bottomrule
+\multicolumn{5}{l}{\footnotesize Standard errors in parentheses}\\
+\multicolumn{5}{l}{\footnotesize Efectos fijos por país y año.}\\
+\multicolumn{5}{l}{\footnotesize Errores estándar agrupados por país.}\\
+\multicolumn{5}{l}{\footnotesize HHI se excluye del modelo DIVX porque DIVX = 1 - HHI.}\\
+\multicolumn{5}{l}{\footnotesize La extensión no reemplaza los modelos agregados.}\\
+\multicolumn{5}{l}{\footnotesize \sym{*} \(p<0.10\), \sym{**} \(p<0.05\), \sym{***} \(p<0.01\)}\\
+\end{tabular}
+\end{table}

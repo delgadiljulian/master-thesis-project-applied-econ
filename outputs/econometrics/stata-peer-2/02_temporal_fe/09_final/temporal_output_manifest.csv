@@ -1,0 +1,7 @@
+order,relative_path,artifact,expected_rows,status
+1,00_design/temporal_specification_register.csv,Registro de especificaciones T0--T5,7,Validado
+2,01_sample/temporal_sample_summary.csv,Resumen de muestras,16,Validado
+3,01_sample/temporal_sample_loss_summary.csv,Causas de pérdida,12,Validado
+4,01_sample/temporal_sample_by_country.csv,Cobertura por país,880,Validado
+5,01_sample/temporal_sample_by_year.csv,Cobertura por año,416,Validado
+6,01_sample/temporal_panel.dta,Panel temporal derivado,1430,Validado

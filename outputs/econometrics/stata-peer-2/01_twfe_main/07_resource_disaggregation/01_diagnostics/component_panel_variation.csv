@@ -1,0 +1,5 @@
+variable,role,observations,countries,average_periods,mean,sd_overall,sd_between,sd_within,within_sd_ratio,has_within_variation
+rents_mining,component,1044,49,21.30612244897959,2.1245651,4.5262537,3.715595,2.8314025,.62555099,1
+rents_oil_gas,component,1044,49,21.30612244897959,10.288943,14.24631,13.734912,4.7557974,.3338266,1
+rents_mining_x_inst,interaction,1044,49,21.30612244897959,-.65285999,3.7366681,3.0438077,2.3590455,.63132322,1
+rents_oil_gas_x_inst,interaction,1044,49,21.30612244897959,-3.2987645,14.676143,14.33977,5.0697088,.34543875,1

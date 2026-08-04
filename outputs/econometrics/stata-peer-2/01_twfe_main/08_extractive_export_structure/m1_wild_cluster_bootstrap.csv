@@ -1,0 +1,5 @@
+model,outcome,term,coefficient,conventional_p,bootstrap_p,ci_lower,ci_upper,repetitions,weight_type
+M1,DIVX,RENTS,-0.004492,0.001761,0.003000,-0.007692,-0.001460,9999,rademacher
+M1,DIVX,RENTS x INST,0.000148,0.896557,0.900790,-0.002389,0.002968,9999,rademacher
+M1,ECI,RENTS,-0.007237,0.068417,0.096610,-0.016889,0.001449,9999,rademacher
+M1,ECI,RENTS x INST,-0.003190,0.387749,0.522052,-0.011833,0.004544,9999,rademacher

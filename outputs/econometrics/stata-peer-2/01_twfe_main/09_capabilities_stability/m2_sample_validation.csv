@@ -1,0 +1,3 @@
+model,outcome,observations,countries,effective_years,first_year,last_year,same_country_year_keys,complete_m2_variables
+M2,ECI,1044,49,23,1996,2021,1,1
+M2,DIVX,1044,49,23,1996,2021,1,1

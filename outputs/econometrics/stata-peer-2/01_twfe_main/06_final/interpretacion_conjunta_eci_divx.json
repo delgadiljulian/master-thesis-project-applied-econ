@@ -1,0 +1,54 @@
+{
+  "metadata": {
+    "title": "Interpretación Econométrica Conjunta: ECI y DIVX (stata-peer-2)",
+    "thesis_project": "Master Thesis in Applied Economics",
+    "author": "Antigravity (Peer-1 Agent)",
+    "execution_date": "2026-07-29",
+    "sample_n": 1044,
+    "countries_g": 49,
+    "years_t": "1996-2021"
+  },
+  "central_empirical_conclusion": {
+    "statement": "La dependencia extractiva se relaciona con una estructura exportadora menos compleja y menos diversificada; pero aumentar la diversificación no implica necesariamente avanzar hacia actividades de mayor complejidad.",
+    "key_findings": [
+      {
+        "variable": "RENTS",
+        "eci_beta": -0.009795,
+        "eci_p": 0.0233,
+        "divx_beta": -0.003536,
+        "divx_p": 0.0089,
+        "interpretation": "Asociación negativa y estadísticamente significativa en ambos modelos en RENTS agregadas."
+      },
+      {
+        "variable": "PEXP",
+        "eci_beta": -0.004199,
+        "eci_p": 0.00997,
+        "divx_beta": 0.001533,
+        "divx_p": 0.01814,
+        "interpretation": "Paradoja de PEXP: La diversificación primaria horizontal reduce la concentración pero erosiona la complejidad tecnológica."
+      }
+    ]
+  },
+  "marginal_effects_by_inst_percentile": {
+    "divx": [
+      {"percentile": "P10", "inst_val": -1.23937, "marginal_effect": -0.004711, "se": 0.001209, "p_val": 0.0001, "sig": "1%"},
+      {"percentile": "P25", "inst_val": -0.87847, "marginal_effect": -0.004369, "se": 0.001040, "p_val": 0.0000, "sig": "1%"},
+      {"percentile": "P50", "inst_val": -0.39161, "marginal_effect": -0.003907, "se": 0.001070, "p_val": 0.0003, "sig": "1%"},
+      {"percentile": "P75", "inst_val": 0.14134, "marginal_effect": -0.003402, "se": 0.001406, "p_val": 0.0156, "sig": "5%"},
+      {"percentile": "P90", "inst_val": 0.91545, "marginal_effect": -0.002668, "se": 0.002146, "p_val": 0.2137, "sig": "No"}
+    ],
+    "eci": [
+      {"percentile": "P10", "inst_val": -1.23937, "marginal_effect": -0.003352, "se": 0.004422, "p_val": 0.4484, "sig": "No"},
+      {"percentile": "P25", "inst_val": -0.87847, "marginal_effect": -0.005229, "se": 0.003895, "p_val": 0.1794, "sig": "No"},
+      {"percentile": "P50", "inst_val": -0.39161, "marginal_effect": -0.007760, "se": 0.003765, "p_val": 0.0393, "sig": "5%"},
+      {"percentile": "P75", "inst_val": 0.14134, "marginal_effect": -0.010530, "se": 0.004424, "p_val": 0.0173, "sig": "5%"},
+      {"percentile": "P90", "inst_val": 0.91545, "marginal_effect": -0.014555, "se": 0.006283, "p_val": 0.0205, "sig": "5%"}
+    ]
+  },
+  "robustness_summary": {
+    "leave_one_country_out_sign_changes": 0,
+    "divx_rents_sig_5_count": "49 / 49 (100%)",
+    "eci_rents_sig_5_count": "46 / 49 (93.9%)",
+    "wild_cluster_bootstrap": "Confirmado a 9,999 repeticiones con boottest."
+  }
+}

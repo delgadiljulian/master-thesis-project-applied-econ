@@ -1,0 +1,3 @@
+model_label,model,dependent_variable,observations,countries,clusters,years,first_year,last_year,r2_within,r2_between,r2_overall,f_statistic,df_model,df_error,model_p_value,rmse,sigma_country,sigma_idiosyncratic,rho_country
+DIVX,DIVX_TWFE_MAIN,divx,1044,49,49,23,1996,2021,.311896,.310178,.301153,24.76256,37,48,0,.071635,.176289,.07341,.852222
+ECI,ECI_TWFE_MAIN,eci,1044,49,49,23,1996,2021,.152323,.158609,.169012,14.634747,38,48,0,.26343,.76043,.269962,.888073

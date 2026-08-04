@@ -1,0 +1,12 @@
+order,channel,variable,eci_included,divx_included
+1,Institucional,RENTS,Sí,Sí
+2,Institucional,INST,Sí,Sí
+3,Institucional,RENTS x INST,Sí,Sí
+4,Macroeconomía,VOL,Sí,Sí
+5,Macroeconomía,RER,Sí,Sí
+6,Capacidades,HUMCAP,Sí,Sí
+7,Capacidades,INNOV,Sí,Sí
+8,Capacidades,NET,Sí,Sí
+9,Desarrollo,log_GDPPC,Sí,Sí
+10,Fiscal,GOVCONS,Sí,Sí
+11,Financiero,FIN,Sí,Sí

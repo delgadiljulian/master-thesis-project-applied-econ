@@ -1,0 +1,13 @@
+model,outcome,order,channel,null_hypothesis,f_statistic,df1,df2,p_value
+M2,DIVX,1,Institucional,"RENTS, INST e interacción son conjuntamente cero",8.095275,3,48,0.000182
+M2,DIVX,2,Macroeconomía,VOL y RER son conjuntamente cero,1.730982,2,48,0.187982
+M2,DIVX,3,Capacidades productivas,"HUMCAP, INNOV y NET son conjuntamente cero",5.097923,3,48,0.003829
+M2,DIVX,4,Nivel de desarrollo,log_GDPPC es igual a cero,24.685869,1,48,0.000009
+M2,DIVX,5,Fiscal y financiero,GOVCONS y FIN son conjuntamente cero,3.231208,2,48,0.048246
+M2,DIVX,6,Efectos de año,Todos los indicadores de año son conjuntamente cero,4.276882,22,48,0.000013
+M2,ECI,1,Institucional,"RENTS, INST e interacción son conjuntamente cero",3.533096,3,48,0.021548
+M2,ECI,2,Macroeconomía,VOL y RER son conjuntamente cero,1.063157,2,48,0.353355
+M2,ECI,3,Capacidades productivas,"HUMCAP, INNOV y NET son conjuntamente cero",0.194445,3,48,0.899675
+M2,ECI,4,Nivel de desarrollo,log_GDPPC es igual a cero,0.600635,1,48,0.442137
+M2,ECI,5,Fiscal y financiero,GOVCONS y FIN son conjuntamente cero,0.198909,2,48,0.820297
+M2,ECI,6,Efectos de año,Todos los indicadores de año son conjuntamente cero,2.580567,22,48,0.003071

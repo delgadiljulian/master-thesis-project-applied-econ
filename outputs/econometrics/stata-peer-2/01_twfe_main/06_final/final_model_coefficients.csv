@@ -1,0 +1,34 @@
+model,order,term,variable_label,channel,coefficient,standard_error,t_statistic,p_value,ci_lower,ci_upper
+DIVX,1,rents,Rentas extractivas del subsuelo (% PIB),Institucional,-.003536,.001296,-2.728598,.008862,-.006142,-.00093
+DIVX,2,inst,Calidad institucional (INST),Institucional,.017472,.028185,.619901,.538255,-.039198,.074142
+DIVX,3,c.rents#c.inst,Interacción entre rentas y calidad institucional,Institucional,.000948,.001184,.800429,.427406,-.001433,.003329
+DIVX,4,ln1p_oilpc,ln(1 + OILPC),Abundancia de recursos,.007643,.008984,.850731,.399143,-.010421,.025707
+DIVX,5,ln1p_gaspc,ln(1 + GASPC),Abundancia de recursos,.004935,.006661,.740911,.462357,-.008458,.018329
+DIVX,6,ln1p_coalpc,ln(1 + COALPC),Abundancia de recursos,-.008548,.007838,-1.090484,.280944,-.024308,.007213
+DIVX,7,pexp,Exportaciones primarias no energéticas,Estructura exportadora,.001533,.000627,2.446445,.018141,.000273,.002793
+DIVX,8,fexp,Exportaciones de combustibles,Estructura exportadora,-.001063,.000978,-1.08597,.282916,-.00303,.000905
+DIVX,9,vol,Volatilidad de términos de intercambio,Condiciones macroeconómicas,.000848,.000954,.888985,.378445,-.00107,.002767
+DIVX,10,rer,Tipo de cambio real,Condiciones macroeconómicas,-.039707,.035912,-1.105692,.274371,-.111912,.032498
+DIVX,11,humcap,Capital humano,Capacidades productivas,.106887,.044314,2.412035,.019736,.017788,.195986
+DIVX,12,innov,Innovación,Capacidades productivas,.011198,.013647,.820592,.415935,-.01624,.038636
+DIVX,13,net,Conectividad digital,Capacidades productivas,-.000741,.000353,-2.103028,.040731,-.00145,-.000033
+DIVX,14,log_gdppc,Logaritmo del PIB per cápita PPA,Controles económicos y financie,-.145551,.035052,-4.15241,.000134,-.216028,-.075074
+DIVX,15,govcons,Consumo final del gobierno (% PIB),Controles económicos y financie,.003239,.001763,1.837301,.07236,-.000306,.006783
+DIVX,16,fin,Profundidad financiera,Controles económicos y financie,.000605,.000367,1.647243,.10604,-.000133,.001343
+ECI,1,rents,Rentas extractivas del subsuelo (% PIB),Institucional,-.009795,.004181,-2.342711,.023337,-.018202,-.001388
+ECI,2,inst,Calidad institucional (INST),Institucional,.266705,.136729,1.950613,.056955,-.008207,.541617
+ECI,3,c.rents#c.inst,Interacción entre rentas y calidad institucional,Institucional,-.005199,.003453,-1.505457,.138759,-.012142,.001744
+ECI,4,ln1p_oilpc,ln(1 + OILPC),Abundancia de recursos,.028347,.037603,.753855,.454618,-.047258,.103953
+ECI,5,ln1p_gaspc,ln(1 + GASPC),Abundancia de recursos,.039635,.0343,1.155545,.253587,-.029329,.108598
+ECI,6,ln1p_coalpc,ln(1 + COALPC),Abundancia de recursos,.010906,.02643,.412619,.681723,-.042236,.064047
+ECI,7,hhi,Concentración exportadora (HHI),Estructura exportadora,-.535483,.225234,-2.377449,.021465,-.988346,-.082619
+ECI,8,pexp,Exportaciones primarias no energéticas,Estructura exportadora,-.004199,.001565,-2.683181,.009975,-.007346,-.001053
+ECI,9,fexp,Exportaciones de combustibles,Estructura exportadora,-.0068,.001884,-3.608836,.000732,-.010589,-.003012
+ECI,10,vol,Volatilidad de términos de intercambio,Condiciones macroeconómicas,-.002903,.002447,-1.186026,.24145,-.007823,.002018
+ECI,11,rer,Tipo de cambio real,Condiciones macroeconómicas,-.087319,.098443,-.887004,.3795,-.285251,.110613
+ECI,12,humcap,Capital humano,Capacidades productivas,-.053994,.224399,-.240617,.810877,-.505178,.39719
+ECI,13,innov,Innovación,Capacidades productivas,-.036118,.048411,-.746072,.459263,-.133454,.061219
+ECI,14,net,Conectividad digital,Capacidades productivas,-.001305,.00208,-.62773,.533156,-.005487,.002876
+ECI,15,log_gdppc,Logaritmo del PIB per cápita PPA,Controles económicos y financie,-.045886,.2212,-.20744,.836544,-.490638,.398866
+ECI,16,govcons,Consumo final del gobierno (% PIB),Controles económicos y financie,-.006048,.008948,-.675864,.502371,-.024039,.011943
+ECI,17,fin,Profundidad financiera,Controles económicos y financie,-.000998,.002355,-.423549,.673786,-.005733,.003738

@@ -1,0 +1,67 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{3}{c}}
+\toprule
+                    &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}\\
+                    &\multicolumn{1}{c}{M1 Estructura}&\multicolumn{1}{c}{M2 Capacidades}&\multicolumn{1}{c}{M3 Completo}\\
+\midrule
+RENTS               &     -0.0072\sym{*}  &     -0.0131\sym{***}&     -0.0098\sym{**} \\
+                    &    (0.0039)         &    (0.0042)         &    (0.0042)         \\
+\addlinespace
+INST                &      0.2195         &      0.2953\sym{**} &      0.2667\sym{*}  \\
+                    &    (0.1401)         &    (0.1334)         &    (0.1367)         \\
+\addlinespace
+RENTS x INST        &     -0.0032         &     -0.0046         &     -0.0052         \\
+                    &    (0.0037)         &    (0.0038)         &    (0.0035)         \\
+\addlinespace
+log(1 + OILPC)      &      0.0242         &                     &      0.0283         \\
+                    &    (0.0351)         &                     &    (0.0376)         \\
+\addlinespace
+log(1 + GASPC)      &      0.0381         &                     &      0.0396         \\
+                    &    (0.0360)         &                     &    (0.0343)         \\
+\addlinespace
+log(1 + COALPC)     &     -0.0119         &                     &      0.0109         \\
+                    &    (0.0291)         &                     &    (0.0264)         \\
+\addlinespace
+HHI                 &     -0.5031\sym{*}  &                     &     -0.5355\sym{**} \\
+                    &    (0.2660)         &                     &    (0.2252)         \\
+\addlinespace
+PEXP                &     -0.0040\sym{**} &                     &     -0.0042\sym{***}\\
+                    &    (0.0017)         &                     &    (0.0016)         \\
+\addlinespace
+FEXP                &     -0.0065\sym{***}&                     &     -0.0068\sym{***}\\
+                    &    (0.0023)         &                     &    (0.0019)         \\
+\addlinespace
+VOL                 &                     &     -0.0022         &     -0.0029         \\
+                    &                     &    (0.0025)         &    (0.0024)         \\
+\addlinespace
+RER                 &                     &     -0.0848         &     -0.0873         \\
+                    &                     &    (0.1039)         &    (0.0984)         \\
+\addlinespace
+HUMCAP              &                     &      0.0996         &     -0.0540         \\
+                    &                     &    (0.2445)         &    (0.2244)         \\
+\addlinespace
+INNOV               &                     &     -0.0212         &     -0.0361         \\
+                    &                     &    (0.0478)         &    (0.0484)         \\
+\addlinespace
+NET                 &                     &     -0.0016         &     -0.0013         \\
+                    &                     &    (0.0022)         &    (0.0021)         \\
+\addlinespace
+log(GDPPC)          &     -0.0783         &     -0.1532         &     -0.0459         \\
+                    &    (0.2040)         &    (0.1977)         &    (0.2212)         \\
+\addlinespace
+GOVCONS             &                     &     -0.0063         &     -0.0060         \\
+                    &                     &    (0.0104)         &    (0.0089)         \\
+\addlinespace
+FIN                 &                     &     -0.0002         &     -0.0010         \\
+                    &                     &    (0.0026)         &    (0.0024)         \\
+\midrule
+Observaciones       &        1044         &        1044         &        1044         \\
+Países              &          49         &          49         &          49         \\
+R-cuadrado within   &       0.138         &       0.085         &       0.152         \\
+\bottomrule
+\multicolumn{4}{l}{\footnotesize Efectos fijos por país y año.}\\
+\multicolumn{4}{l}{\footnotesize Errores estándar agrupados por país entre paréntesis.}\\
+\multicolumn{4}{l}{\footnotesize Resultados asociativos; no constituyen efectos causales.}\\
+\end{tabular}
+}

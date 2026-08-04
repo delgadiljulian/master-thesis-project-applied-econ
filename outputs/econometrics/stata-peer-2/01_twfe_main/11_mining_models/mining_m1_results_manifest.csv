@@ -1,0 +1,16 @@
+order,family,file,purpose
+1,Diseño,mining_design_register.csv,Pregunta y función de M1_MIN y M2_MIN.
+2,Muestra,mining_sample_validation.csv,Validación de 1.044 observaciones y 49 países.
+3,Diseño,mining_specification_register.csv,Regresores previstos y regla de HHI.
+4,Estimación,mining_m1_eci.ster,Estimación M1_MIN para ECI.
+5,Estimación,mining_m1_divx.ster,Estimación M1_MIN para DIVX.
+6,Resultados,mining_m1_coefficients.csv,Coeficientes e incertidumbre de M1_MIN.
+7,Resultados,mining_m1_model_summary.csv,Cobertura y ajuste within de M1_MIN.
+8,Inferencia,mining_m1_joint_tests.csv,Pruebas conjuntas por canal.
+9,Interpretación,mining_m1_marginal_effects.csv,Efectos marginales según percentiles de INST.
+10,Inferencia,mining_m1_wild_cluster_bootstrap.csv,Bootstrap de RENTS_MINING y su interacción.
+11,Verificación,mining_m1_xtreg_reghdfe_verification.csv,Equivalencia numérica entre xtreg y reghdfe.
+12,Tabla,mining_m1_results_table.tex,Tabla LaTeX del Modelo 1 minero.
+13,Tabla,mining_m1_results_table.txt,Tabla de texto del Modelo 1 minero.
+14,Figura,mining_m1_marginal_effects.png,Figura comparada para revisión visual.
+15,Documentación,mining_m1_results_manifest.csv,Inventario parcial hasta la sección 16M.

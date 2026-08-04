@@ -1,0 +1,19 @@
+order,term,variable_label,channel,coefficient,standard_error,t_statistic,p_value,ci_lower,ci_upper
+1,rents_oil_gas,Rentas de hidrocarburos (% PIB),Institucional desagregado,-.0048487999837241,.0013854586,-3.4997797,.0010159025,-.0076344511,-.0020631487
+2,rents_mining,Rentas mineras (% PIB),Institucional desagregado,-.0014128563697215,.0018924191,-.74658751,.45895392,-.0052178199,.0023921072
+3,inst,Calidad institucional (INST),Institucional desagregado,.0163219843559727,.027968707,.5835802,.56223512,-.039912868,.072556838
+4,c.rents_oil_gas#c.inst,RENTS_OIL_GAS x INST,Institucional desagregado,.0012093830587751,.0013012802,.92937946,.35734296,-.0014070162,.0038257823
+5,c.rents_mining#c.inst,RENTS_MINING x INST,Institucional desagregado,-.0008969832927308,.0022619106,-.39656001,.69344956,-.0054448592,.0036508928
+6,ln1p_oilpc,ln(1 + OILPC),Abundancia de recursos,.0088743388908937,.0084942365,1.0447483,.30137238,-.0082044685,.025953146
+7,ln1p_gaspc,ln(1 + GASPC),Abundancia de recursos,.0047902634662268,.0065495837,.7313844,.46810007,-.0083785579,.017959084
+8,ln1p_coalpc,ln(1 + COALPC),Abundancia de recursos,-.0135526847881415,.0072832434,-1.8608036,.068903245,-.028196627,.0010912571
+9,pexp,Exportaciones primarias no energéticas,Estructura exportadora,.0015165414871231,.00063887087,2.3737841,.02165602,.00023200546,.0028010774
+10,fexp,Exportaciones de combustibles,Estructura exportadora,-.000928296852307,.00097116287,-.95586115,.34393194,-.0028809507,.0010243569
+11,vol,Volatilidad de términos de intercambio,Condiciones macroeconómicas,.0004515226271107,.0009574616,.47158301,.63936108,-.001473583,.0023766283
+12,rer,Tipo de cambio real,Condiciones macroeconómicas,-.0414011416594044,.035411824,-1.1691333,.24812324,-.11260138,.029799104
+13,humcap,Capital humano,Capacidades productivas,.1065592237513667,.042415868,2.512249,.015411726,.021276403,.19184205
+14,innov,Innovación,Capacidades productivas,.0102262984510551,.013702212,.74632466,.45911118,-.017323846,.037776444
+15,net,Conectividad digital,Capacidades productivas,-.0006446115553347,.00036277698,-1.7768811,.081925064,-.0013740235,.000084800442
+16,log_gdppc,Logaritmo del PIB per cápita PPA,Controles económicos y financieros,-.1410728664429199,.035880663,-3.9317241,.00027037304,-.21321577,-.068929963
+17,govcons,Consumo final del gobierno (% PIB),Controles económicos y financieros,.0029054701633957,.0017347144,1.6748983,.10045824,-.00058240682,.0063933474
+18,fin,Profundidad financiera,Controles económicos y financieros,.000584373904385,.00035227058,1.658878,.10366161,-.00012391356,.0012926614

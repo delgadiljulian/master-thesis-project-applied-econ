@@ -1,0 +1,5 @@
+model,specification,observations,countries,rents_coefficient,rents_standard_error,rents_p_value,interaction_coefficient,interaction_standard_error,interaction_p_value,oil_term,oil_coefficient,oil_p_value,gas_term,gas_coefficient,gas_p_value,coal_term,coal_coefficient,coal_p_value
+DIVX,Niveles per capita,1044,49,-0.004143,0.001676,0.017073,0.000402,0.001444,0.782095,oilpc,0.000004,0.374858,gaspc,0.000001,0.937809,coalpc,0.000009,0.848497
+DIVX,"ln(1+x), principal",1044,49,-0.003536,0.001296,0.008862,0.000948,0.001184,0.427406,ln1p_oilpc,0.007643,0.399143,ln1p_gaspc,0.004935,0.462357,ln1p_coalpc,-0.008548,0.280944
+ECI,Niveles per capita,1044,49,-0.006661,0.003571,0.068264,-0.002786,0.003793,0.466126,oilpc,-0.000007,0.741690,gaspc,-0.000129,0.000399,coalpc,-0.000193,0.244373
+ECI,"ln(1+x), principal",1044,49,-0.009795,0.004181,0.023337,-0.005199,0.003453,0.138759,ln1p_oilpc,0.028347,0.454618,ln1p_gaspc,0.039635,0.253587,ln1p_coalpc,0.010906,0.681723

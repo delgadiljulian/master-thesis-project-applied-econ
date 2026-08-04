@@ -1,0 +1,5 @@
+model,outcome,role,question,rent_measure,sample_rule,interpretation
+M1_OG,DIVX,Complementario,¿Cómo se asocian las rentas de petróleo y gas con DIVX?,"Petróleo más gas, % PIB",Muestra común congelada,Asociación condicional
+M1_OG,ECI,Principal,¿Cómo se asocian las rentas de petróleo y gas con ECI?,"Petróleo más gas, % PIB",Muestra común congelada,Asociación condicional
+M2_OG,DIVX,Complementario,¿Cómo se asocian las rentas de petróleo y gas con DIVX?,"Petróleo más gas, % PIB",Muestra común congelada,Asociación condicional
+M2_OG,ECI,Principal,¿Cómo se asocian las rentas de petróleo y gas con ECI?,"Petróleo más gas, % PIB",Muestra común congelada,Asociación condicional

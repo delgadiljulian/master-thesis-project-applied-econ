@@ -1,0 +1,11 @@
+model,outcome,order,channel,null_hypothesis,f_statistic,df1,df2,p_value
+M1_MIN,DIVX,1,Institucional,"RENTS_MINING, INST e interacción son cero",1.023526,3,48,0.390556
+M1_MIN,DIVX,2,Abundancia,"OILPC, GASPC y COALPC son conjuntamente cero",0.852484,3,48,0.472178
+M1_MIN,DIVX,3,Estructura exportadora,PEXP y FEXP son conjuntamente cero,4.408152,2,48,0.017476
+M1_MIN,DIVX,4,Nivel de desarrollo,log_GDPPC es igual a cero,16.121812,1,48,0.000208
+M1_MIN,DIVX,5,Efectos de año,Todos los indicadores de año son cero,4.946279,22,48,0.000002
+M1_MIN,ECI,1,Institucional,"RENTS_MINING, INST e interacción son cero",5.130015,3,48,0.003699
+M1_MIN,ECI,2,Abundancia,"OILPC, GASPC y COALPC son conjuntamente cero",0.459004,3,48,0.712201
+M1_MIN,ECI,3,Estructura exportadora,"HHI, PEXP y FEXP son conjuntamente cero",6.401425,3,48,0.000977
+M1_MIN,ECI,4,Nivel de desarrollo,log_GDPPC es igual a cero,0.201920,1,48,0.655198
+M1_MIN,ECI,5,Efectos de año,Todos los indicadores de año son cero,3.072317,22,48,0.000581

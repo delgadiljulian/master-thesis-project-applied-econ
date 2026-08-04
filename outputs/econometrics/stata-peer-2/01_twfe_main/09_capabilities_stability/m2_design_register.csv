@@ -1,0 +1,3 @@
+model,outcome,role,question,sample_rule,interpretation
+M2,ECI,Principal,"¿Qué condiciones institucionales, macroeconómicas, productivas, fiscales y financieras acompañan trayectorias más favorables?",Muestra común congelada,Asociación condicional
+M2,DIVX,Complementario,"¿Qué condiciones institucionales, macroeconómicas, productivas, fiscales y financieras acompañan trayectorias más favorables?",Muestra común congelada,Asociación condicional

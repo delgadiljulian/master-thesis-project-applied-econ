@@ -1,0 +1,65 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{3}{c}}
+\toprule
+                    &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}\\
+                    &\multicolumn{1}{c}{M1 Estructura}&\multicolumn{1}{c}{M2 Capacidades}&\multicolumn{1}{c}{M3 Completo}\\
+\midrule
+RENTS               &     -0.0045\sym{***}&     -0.0043\sym{***}&     -0.0035\sym{***}\\
+                    &    (0.0014)         &    (0.0012)         &    (0.0013)         \\
+\addlinespace
+INST                &      0.0355         &      0.0264         &      0.0175         \\
+                    &    (0.0310)         &    (0.0288)         &    (0.0282)         \\
+\addlinespace
+RENTS x INST        &      0.0001         &      0.0007         &      0.0009         \\
+                    &    (0.0011)         &    (0.0012)         &    (0.0012)         \\
+\addlinespace
+log(1 + OILPC)      &      0.0083         &                     &      0.0076         \\
+                    &    (0.0087)         &                     &    (0.0090)         \\
+\addlinespace
+log(1 + GASPC)      &      0.0056         &                     &      0.0049         \\
+                    &    (0.0070)         &                     &    (0.0067)         \\
+\addlinespace
+log(1 + COALPC)     &     -0.0056         &                     &     -0.0085         \\
+                    &    (0.0079)         &                     &    (0.0078)         \\
+\addlinespace
+PEXP                &      0.0016\sym{**} &                     &      0.0015\sym{**} \\
+                    &    (0.0006)         &                     &    (0.0006)         \\
+\addlinespace
+FEXP                &     -0.0011         &                     &     -0.0011         \\
+                    &    (0.0011)         &                     &    (0.0010)         \\
+\addlinespace
+VOL                 &                     &      0.0013         &      0.0008         \\
+                    &                     &    (0.0010)         &    (0.0010)         \\
+\addlinespace
+RER                 &                     &     -0.0449         &     -0.0397         \\
+                    &                     &    (0.0399)         &    (0.0359)         \\
+\addlinespace
+HUMCAP              &                     &      0.1314\sym{***}&      0.1069\sym{**} \\
+                    &                     &    (0.0434)         &    (0.0443)         \\
+\addlinespace
+INNOV               &                     &      0.0106         &      0.0112         \\
+                    &                     &    (0.0150)         &    (0.0136)         \\
+\addlinespace
+NET                 &                     &     -0.0009\sym{**} &     -0.0007\sym{**} \\
+                    &                     &    (0.0004)         &    (0.0004)         \\
+\addlinespace
+log(GDPPC)          &     -0.1390\sym{***}&     -0.1679\sym{***}&     -0.1456\sym{***}\\
+                    &    (0.0360)         &    (0.0338)         &    (0.0351)         \\
+\addlinespace
+GOVCONS             &                     &      0.0023         &      0.0032\sym{*}  \\
+                    &                     &    (0.0017)         &    (0.0018)         \\
+\addlinespace
+FIN                 &                     &      0.0007\sym{*}  &      0.0006         \\
+                    &                     &    (0.0004)         &    (0.0004)         \\
+\midrule
+Observaciones       &        1044         &        1044         &        1044         \\
+Países              &          49         &          49         &          49         \\
+R-cuadrado within   &       0.274         &       0.266         &       0.312         \\
+\bottomrule
+\multicolumn{4}{l}{\footnotesize HHI excluido porque DIVX = 1 - HHI.}\\
+\multicolumn{4}{l}{\footnotesize Efectos fijos por país y año.}\\
+\multicolumn{4}{l}{\footnotesize Errores estándar agrupados por país entre paréntesis.}\\
+\multicolumn{4}{l}{\footnotesize Resultados asociativos; no constituyen efectos causales.}\\
+\end{tabular}
+}

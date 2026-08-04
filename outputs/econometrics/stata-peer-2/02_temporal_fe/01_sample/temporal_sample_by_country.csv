@@ -1,0 +1,881 @@
+order,outcome,model,sample_variable,country_id,country_iso3_code,country,sample_observations,first_year,last_year,calendar_span,internal_gaps,excluded
+826,divx,common_t0_t3,sample_common_t0_t3_divx,1,AGO,Angola,18,2004,2021,18,0,0
+827,divx,common_t0_t3,sample_common_t0_t3_divx,2,ALB,Albania,18,2004,2021,18,0,0
+828,divx,common_t0_t3,sample_common_t0_t3_divx,3,ARE,United Arab Emirates,18,2004,2021,18,0,0
+829,divx,common_t0_t3,sample_common_t0_t3_divx,4,ATG,Antigua and Barbuda,18,2004,2021,18,0,0
+830,divx,common_t0_t3,sample_common_t0_t3_divx,5,AUS,Australia,18,2004,2021,18,0,0
+831,divx,common_t0_t3,sample_common_t0_t3_divx,6,BDI,Burundi,18,2004,2021,18,0,0
+832,divx,common_t0_t3,sample_common_t0_t3_divx,7,BHR,Bahrain,18,2004,2021,18,0,0
+833,divx,common_t0_t3,sample_common_t0_t3_divx,8,BOL,Bolivia,18,2004,2021,18,0,0
+834,divx,common_t0_t3,sample_common_t0_t3_divx,9,BRN,Brunei,18,2004,2021,18,0,0
+835,divx,common_t0_t3,sample_common_t0_t3_divx,10,CAF,Central African Republic,18,2004,2021,18,0,0
+836,divx,common_t0_t3,sample_common_t0_t3_divx,11,CHL,Chile,18,2004,2021,18,0,0
+837,divx,common_t0_t3,sample_common_t0_t3_divx,12,CMR,Cameroon,18,2004,2021,18,0,0
+838,divx,common_t0_t3,sample_common_t0_t3_divx,13,COD,Democratic Republic of the Congo,14,2004,2021,18,4,0
+839,divx,common_t0_t3,sample_common_t0_t3_divx,14,COG,Republic of the Congo,15,2007,2021,15,0,0
+840,divx,common_t0_t3,sample_common_t0_t3_divx,15,COL,Colombia,18,2004,2021,18,0,0
+841,divx,common_t0_t3,sample_common_t0_t3_divx,16,DZA,Algeria,18,2004,2021,18,0,0
+842,divx,common_t0_t3,sample_common_t0_t3_divx,17,ECU,Ecuador,18,2004,2021,18,0,0
+843,divx,common_t0_t3,sample_common_t0_t3_divx,18,EGY,Egypt,18,2004,2021,18,0,0
+844,divx,common_t0_t3,sample_common_t0_t3_divx,19,GAB,Gabon,18,2004,2021,18,0,0
+845,divx,common_t0_t3,sample_common_t0_t3_divx,20,GHA,Ghana,18,2004,2021,18,0,0
+846,divx,common_t0_t3,sample_common_t0_t3_divx,21,GIN,Guinea,18,2004,2021,18,0,0
+847,divx,common_t0_t3,sample_common_t0_t3_divx,22,GMB,The Gambia,18,2004,2021,18,0,0
+848,divx,common_t0_t3,sample_common_t0_t3_divx,23,GUY,Guyana,18,2004,2021,18,0,0
+849,divx,common_t0_t3,sample_common_t0_t3_divx,24,IDN,Indonesia,18,2004,2021,18,0,0
+850,divx,common_t0_t3,sample_common_t0_t3_divx,25,IND,India,18,2004,2021,18,0,0
+851,divx,common_t0_t3,sample_common_t0_t3_divx,26,IRN,Iran,18,2004,2021,18,0,0
+852,divx,common_t0_t3,sample_common_t0_t3_divx,27,IRQ,Iraq,18,2004,2021,18,0,0
+853,divx,common_t0_t3,sample_common_t0_t3_divx,28,ISR,Israel,18,2004,2021,18,0,0
+854,divx,common_t0_t3,sample_common_t0_t3_divx,29,JAM,Jamaica,18,2004,2021,18,0,0
+855,divx,common_t0_t3,sample_common_t0_t3_divx,30,JOR,Jordan,18,2004,2021,18,0,0
+856,divx,common_t0_t3,sample_common_t0_t3_divx,31,KWT,Kuwait,17,2004,2020,17,0,0
+857,divx,common_t0_t3,sample_common_t0_t3_divx,32,LBR,Liberia,18,2004,2021,18,0,0
+858,divx,common_t0_t3,sample_common_t0_t3_divx,33,LBY,Libya,18,2004,2021,18,0,0
+859,divx,common_t0_t3,sample_common_t0_t3_divx,34,MNG,Mongolia,18,2004,2021,18,0,0
+860,divx,common_t0_t3,sample_common_t0_t3_divx,35,MRT,Mauritania,18,2004,2021,18,0,0
+861,divx,common_t0_t3,sample_common_t0_t3_divx,36,NGA,Nigeria,18,2004,2021,18,0,0
+862,divx,common_t0_t3,sample_common_t0_t3_divx,37,NOR,Norway,18,2004,2021,18,0,0
+863,divx,common_t0_t3,sample_common_t0_t3_divx,38,NRU,Nauru,0,,,0,0,1
+864,divx,common_t0_t3,sample_common_t0_t3_divx,39,OMN,Oman,18,2004,2021,18,0,0
+865,divx,common_t0_t3,sample_common_t0_t3_divx,40,PER,Peru,18,2004,2021,18,0,0
+866,divx,common_t0_t3,sample_common_t0_t3_divx,41,PNG,Papua New Guinea,18,2004,2021,18,0,0
+867,divx,common_t0_t3,sample_common_t0_t3_divx,42,QAT,Qatar,18,2004,2021,18,0,0
+868,divx,common_t0_t3,sample_common_t0_t3_divx,43,RUS,Russian Federation,18,2004,2021,18,0,0
+869,divx,common_t0_t3,sample_common_t0_t3_divx,44,SAU,Saudi Arabia,18,2004,2021,18,0,0
+870,divx,common_t0_t3,sample_common_t0_t3_divx,45,SLE,Sierra Leone,0,,,0,0,1
+871,divx,common_t0_t3,sample_common_t0_t3_divx,46,SUR,Suriname,18,2004,2021,18,0,0
+872,divx,common_t0_t3,sample_common_t0_t3_divx,47,SYC,Seychelles,18,2004,2021,18,0,0
+873,divx,common_t0_t3,sample_common_t0_t3_divx,48,SYR,Syria,17,2004,2020,17,0,0
+874,divx,common_t0_t3,sample_common_t0_t3_divx,49,TGO,Togo,18,2004,2021,18,0,0
+875,divx,common_t0_t3,sample_common_t0_t3_divx,50,TTO,Trinidad and Tobago,18,2004,2021,18,0,0
+876,divx,common_t0_t3,sample_common_t0_t3_divx,51,VEN,Venezuela,11,2004,2014,11,0,0
+877,divx,common_t0_t3,sample_common_t0_t3_divx,52,VNM,Vietnam,18,2004,2021,18,0,0
+878,divx,common_t0_t3,sample_common_t0_t3_divx,53,YEM,Yemen,13,2004,2016,13,0,0
+879,divx,common_t0_t3,sample_common_t0_t3_divx,54,ZAF,South Africa,18,2004,2021,18,0,0
+880,divx,common_t0_t3,sample_common_t0_t3_divx,55,ZMB,Zambia,18,2004,2021,18,0,0
+441,divx,t0,sample_t0_divx,1,AGO,Angola,23,1996,2021,26,3,0
+442,divx,t0,sample_t0_divx,2,ALB,Albania,23,1996,2021,26,3,0
+443,divx,t0,sample_t0_divx,3,ARE,United Arab Emirates,23,1996,2021,26,3,0
+444,divx,t0,sample_t0_divx,4,ATG,Antigua and Barbuda,23,1996,2021,26,3,0
+445,divx,t0,sample_t0_divx,5,AUS,Australia,23,1996,2021,26,3,0
+446,divx,t0,sample_t0_divx,6,BDI,Burundi,23,1996,2021,26,3,0
+447,divx,t0,sample_t0_divx,7,BHR,Bahrain,23,1996,2021,26,3,0
+448,divx,t0,sample_t0_divx,8,BOL,Bolivia,23,1996,2021,26,3,0
+449,divx,t0,sample_t0_divx,9,BRN,Brunei,23,1996,2021,26,3,0
+450,divx,t0,sample_t0_divx,10,CAF,Central African Republic,23,1996,2021,26,3,0
+451,divx,t0,sample_t0_divx,11,CHL,Chile,23,1996,2021,26,3,0
+452,divx,t0,sample_t0_divx,12,CMR,Cameroon,23,1996,2021,26,3,0
+453,divx,t0,sample_t0_divx,13,COD,Democratic Republic of the Congo,21,1996,2021,26,5,0
+454,divx,t0,sample_t0_divx,14,COG,Republic of the Congo,21,1996,2021,26,5,0
+455,divx,t0,sample_t0_divx,15,COL,Colombia,23,1996,2021,26,3,0
+456,divx,t0,sample_t0_divx,16,DZA,Algeria,23,1996,2021,26,3,0
+457,divx,t0,sample_t0_divx,17,ECU,Ecuador,23,1996,2021,26,3,0
+458,divx,t0,sample_t0_divx,18,EGY,Egypt,23,1996,2021,26,3,0
+459,divx,t0,sample_t0_divx,19,GAB,Gabon,23,1996,2021,26,3,0
+460,divx,t0,sample_t0_divx,20,GHA,Ghana,23,1996,2021,26,3,0
+461,divx,t0,sample_t0_divx,21,GIN,Guinea,23,1996,2021,26,3,0
+462,divx,t0,sample_t0_divx,22,GMB,The Gambia,23,1996,2021,26,3,0
+463,divx,t0,sample_t0_divx,23,GUY,Guyana,23,1996,2021,26,3,0
+464,divx,t0,sample_t0_divx,24,IDN,Indonesia,23,1996,2021,26,3,0
+465,divx,t0,sample_t0_divx,25,IND,India,23,1996,2021,26,3,0
+466,divx,t0,sample_t0_divx,26,IRN,Iran,23,1996,2021,26,3,0
+467,divx,t0,sample_t0_divx,27,IRQ,Iraq,23,1996,2021,26,3,0
+468,divx,t0,sample_t0_divx,28,ISR,Israel,23,1996,2021,26,3,0
+469,divx,t0,sample_t0_divx,29,JAM,Jamaica,23,1996,2021,26,3,0
+470,divx,t0,sample_t0_divx,30,JOR,Jordan,23,1996,2021,26,3,0
+471,divx,t0,sample_t0_divx,31,KWT,Kuwait,22,1996,2020,25,3,0
+472,divx,t0,sample_t0_divx,32,LBR,Liberia,21,2000,2021,22,1,0
+473,divx,t0,sample_t0_divx,33,LBY,Libya,23,1996,2021,26,3,0
+474,divx,t0,sample_t0_divx,34,MNG,Mongolia,23,1996,2021,26,3,0
+475,divx,t0,sample_t0_divx,35,MRT,Mauritania,23,1996,2021,26,3,0
+476,divx,t0,sample_t0_divx,36,NGA,Nigeria,23,1996,2021,26,3,0
+477,divx,t0,sample_t0_divx,37,NOR,Norway,23,1996,2021,26,3,0
+478,divx,t0,sample_t0_divx,38,NRU,Nauru,0,,,0,0,1
+479,divx,t0,sample_t0_divx,39,OMN,Oman,23,1996,2021,26,3,0
+480,divx,t0,sample_t0_divx,40,PER,Peru,23,1996,2021,26,3,0
+481,divx,t0,sample_t0_divx,41,PNG,Papua New Guinea,23,1996,2021,26,3,0
+482,divx,t0,sample_t0_divx,42,QAT,Qatar,23,1996,2021,26,3,0
+483,divx,t0,sample_t0_divx,43,RUS,Russian Federation,23,1996,2021,26,3,0
+484,divx,t0,sample_t0_divx,44,SAU,Saudi Arabia,23,1996,2021,26,3,0
+485,divx,t0,sample_t0_divx,45,SLE,Sierra Leone,0,,,0,0,1
+486,divx,t0,sample_t0_divx,46,SUR,Suriname,21,2000,2021,22,1,0
+487,divx,t0,sample_t0_divx,47,SYC,Seychelles,23,1996,2021,26,3,0
+488,divx,t0,sample_t0_divx,48,SYR,Syria,22,1996,2020,25,3,0
+489,divx,t0,sample_t0_divx,49,TGO,Togo,23,1996,2021,26,3,0
+490,divx,t0,sample_t0_divx,50,TTO,Trinidad and Tobago,23,1996,2021,26,3,0
+491,divx,t0,sample_t0_divx,51,VEN,Venezuela,16,1996,2014,19,3,0
+492,divx,t0,sample_t0_divx,52,VNM,Vietnam,23,1996,2021,26,3,0
+493,divx,t0,sample_t0_divx,53,YEM,Yemen,18,1996,2016,21,3,0
+494,divx,t0,sample_t0_divx,54,ZAF,South Africa,23,1996,2021,26,3,0
+495,divx,t0,sample_t0_divx,55,ZMB,Zambia,23,1996,2021,26,3,0
+496,divx,t1,sample_t1_divx,1,AGO,Angola,22,1997,2021,25,3,0
+497,divx,t1,sample_t1_divx,2,ALB,Albania,22,1997,2021,25,3,0
+498,divx,t1,sample_t1_divx,3,ARE,United Arab Emirates,22,1997,2021,25,3,0
+499,divx,t1,sample_t1_divx,4,ATG,Antigua and Barbuda,22,1997,2021,25,3,0
+500,divx,t1,sample_t1_divx,5,AUS,Australia,22,1997,2021,25,3,0
+501,divx,t1,sample_t1_divx,6,BDI,Burundi,22,1997,2021,25,3,0
+502,divx,t1,sample_t1_divx,7,BHR,Bahrain,22,1997,2021,25,3,0
+503,divx,t1,sample_t1_divx,8,BOL,Bolivia,22,1997,2021,25,3,0
+504,divx,t1,sample_t1_divx,9,BRN,Brunei,22,1997,2021,25,3,0
+505,divx,t1,sample_t1_divx,10,CAF,Central African Republic,22,1997,2021,25,3,0
+506,divx,t1,sample_t1_divx,11,CHL,Chile,22,1997,2021,25,3,0
+507,divx,t1,sample_t1_divx,12,CMR,Cameroon,22,1997,2021,25,3,0
+508,divx,t1,sample_t1_divx,13,COD,Democratic Republic of the Congo,20,1997,2021,25,5,0
+509,divx,t1,sample_t1_divx,14,COG,Republic of the Congo,20,1997,2021,25,5,0
+510,divx,t1,sample_t1_divx,15,COL,Colombia,22,1997,2021,25,3,0
+511,divx,t1,sample_t1_divx,16,DZA,Algeria,22,1997,2021,25,3,0
+512,divx,t1,sample_t1_divx,17,ECU,Ecuador,22,1997,2021,25,3,0
+513,divx,t1,sample_t1_divx,18,EGY,Egypt,22,1997,2021,25,3,0
+514,divx,t1,sample_t1_divx,19,GAB,Gabon,22,1997,2021,25,3,0
+515,divx,t1,sample_t1_divx,20,GHA,Ghana,22,1997,2021,25,3,0
+516,divx,t1,sample_t1_divx,21,GIN,Guinea,22,1997,2021,25,3,0
+517,divx,t1,sample_t1_divx,22,GMB,The Gambia,22,1997,2021,25,3,0
+518,divx,t1,sample_t1_divx,23,GUY,Guyana,22,1997,2021,25,3,0
+519,divx,t1,sample_t1_divx,24,IDN,Indonesia,22,1997,2021,25,3,0
+520,divx,t1,sample_t1_divx,25,IND,India,22,1997,2021,25,3,0
+521,divx,t1,sample_t1_divx,26,IRN,Iran,22,1997,2021,25,3,0
+522,divx,t1,sample_t1_divx,27,IRQ,Iraq,22,1997,2021,25,3,0
+523,divx,t1,sample_t1_divx,28,ISR,Israel,22,1997,2021,25,3,0
+524,divx,t1,sample_t1_divx,29,JAM,Jamaica,22,1997,2021,25,3,0
+525,divx,t1,sample_t1_divx,30,JOR,Jordan,22,1997,2021,25,3,0
+526,divx,t1,sample_t1_divx,31,KWT,Kuwait,22,1997,2021,25,3,0
+527,divx,t1,sample_t1_divx,32,LBR,Liberia,20,2001,2021,21,1,0
+528,divx,t1,sample_t1_divx,33,LBY,Libya,22,1997,2021,25,3,0
+529,divx,t1,sample_t1_divx,34,MNG,Mongolia,22,1997,2021,25,3,0
+530,divx,t1,sample_t1_divx,35,MRT,Mauritania,22,1997,2021,25,3,0
+531,divx,t1,sample_t1_divx,36,NGA,Nigeria,22,1997,2021,25,3,0
+532,divx,t1,sample_t1_divx,37,NOR,Norway,22,1997,2021,25,3,0
+533,divx,t1,sample_t1_divx,38,NRU,Nauru,0,,,0,0,1
+534,divx,t1,sample_t1_divx,39,OMN,Oman,22,1997,2021,25,3,0
+535,divx,t1,sample_t1_divx,40,PER,Peru,22,1997,2021,25,3,0
+536,divx,t1,sample_t1_divx,41,PNG,Papua New Guinea,22,1997,2021,25,3,0
+537,divx,t1,sample_t1_divx,42,QAT,Qatar,22,1997,2021,25,3,0
+538,divx,t1,sample_t1_divx,43,RUS,Russian Federation,22,1997,2021,25,3,0
+539,divx,t1,sample_t1_divx,44,SAU,Saudi Arabia,22,1997,2021,25,3,0
+540,divx,t1,sample_t1_divx,45,SLE,Sierra Leone,0,,,0,0,1
+541,divx,t1,sample_t1_divx,46,SUR,Suriname,20,2001,2021,21,1,0
+542,divx,t1,sample_t1_divx,47,SYC,Seychelles,22,1997,2021,25,3,0
+543,divx,t1,sample_t1_divx,48,SYR,Syria,22,1997,2021,25,3,0
+544,divx,t1,sample_t1_divx,49,TGO,Togo,22,1997,2021,25,3,0
+545,divx,t1,sample_t1_divx,50,TTO,Trinidad and Tobago,22,1997,2021,25,3,0
+546,divx,t1,sample_t1_divx,51,VEN,Venezuela,16,1997,2015,19,3,0
+547,divx,t1,sample_t1_divx,52,VNM,Vietnam,22,1997,2021,25,3,0
+548,divx,t1,sample_t1_divx,53,YEM,Yemen,18,1997,2017,21,3,0
+549,divx,t1,sample_t1_divx,54,ZAF,South Africa,22,1997,2021,25,3,0
+550,divx,t1,sample_t1_divx,55,ZMB,Zambia,22,1997,2021,25,3,0
+551,divx,t2,sample_t2_divx,1,AGO,Angola,18,2004,2021,18,0,0
+552,divx,t2,sample_t2_divx,2,ALB,Albania,18,2004,2021,18,0,0
+553,divx,t2,sample_t2_divx,3,ARE,United Arab Emirates,18,2004,2021,18,0,0
+554,divx,t2,sample_t2_divx,4,ATG,Antigua and Barbuda,18,2004,2021,18,0,0
+555,divx,t2,sample_t2_divx,5,AUS,Australia,18,2004,2021,18,0,0
+556,divx,t2,sample_t2_divx,6,BDI,Burundi,18,2004,2021,18,0,0
+557,divx,t2,sample_t2_divx,7,BHR,Bahrain,18,2004,2021,18,0,0
+558,divx,t2,sample_t2_divx,8,BOL,Bolivia,18,2004,2021,18,0,0
+559,divx,t2,sample_t2_divx,9,BRN,Brunei,18,2004,2021,18,0,0
+560,divx,t2,sample_t2_divx,10,CAF,Central African Republic,18,2004,2021,18,0,0
+561,divx,t2,sample_t2_divx,11,CHL,Chile,18,2004,2021,18,0,0
+562,divx,t2,sample_t2_divx,12,CMR,Cameroon,18,2004,2021,18,0,0
+563,divx,t2,sample_t2_divx,13,COD,Democratic Republic of the Congo,14,2004,2021,18,4,0
+564,divx,t2,sample_t2_divx,14,COG,Republic of the Congo,15,2007,2021,15,0,0
+565,divx,t2,sample_t2_divx,15,COL,Colombia,18,2004,2021,18,0,0
+566,divx,t2,sample_t2_divx,16,DZA,Algeria,18,2004,2021,18,0,0
+567,divx,t2,sample_t2_divx,17,ECU,Ecuador,18,2004,2021,18,0,0
+568,divx,t2,sample_t2_divx,18,EGY,Egypt,18,2004,2021,18,0,0
+569,divx,t2,sample_t2_divx,19,GAB,Gabon,18,2004,2021,18,0,0
+570,divx,t2,sample_t2_divx,20,GHA,Ghana,18,2004,2021,18,0,0
+571,divx,t2,sample_t2_divx,21,GIN,Guinea,18,2004,2021,18,0,0
+572,divx,t2,sample_t2_divx,22,GMB,The Gambia,18,2004,2021,18,0,0
+573,divx,t2,sample_t2_divx,23,GUY,Guyana,18,2004,2021,18,0,0
+574,divx,t2,sample_t2_divx,24,IDN,Indonesia,18,2004,2021,18,0,0
+575,divx,t2,sample_t2_divx,25,IND,India,18,2004,2021,18,0,0
+576,divx,t2,sample_t2_divx,26,IRN,Iran,18,2004,2021,18,0,0
+577,divx,t2,sample_t2_divx,27,IRQ,Iraq,18,2004,2021,18,0,0
+578,divx,t2,sample_t2_divx,28,ISR,Israel,18,2004,2021,18,0,0
+579,divx,t2,sample_t2_divx,29,JAM,Jamaica,18,2004,2021,18,0,0
+580,divx,t2,sample_t2_divx,30,JOR,Jordan,18,2004,2021,18,0,0
+581,divx,t2,sample_t2_divx,31,KWT,Kuwait,17,2004,2020,17,0,0
+582,divx,t2,sample_t2_divx,32,LBR,Liberia,18,2004,2021,18,0,0
+583,divx,t2,sample_t2_divx,33,LBY,Libya,18,2004,2021,18,0,0
+584,divx,t2,sample_t2_divx,34,MNG,Mongolia,18,2004,2021,18,0,0
+585,divx,t2,sample_t2_divx,35,MRT,Mauritania,18,2004,2021,18,0,0
+586,divx,t2,sample_t2_divx,36,NGA,Nigeria,18,2004,2021,18,0,0
+587,divx,t2,sample_t2_divx,37,NOR,Norway,18,2004,2021,18,0,0
+588,divx,t2,sample_t2_divx,38,NRU,Nauru,0,,,0,0,1
+589,divx,t2,sample_t2_divx,39,OMN,Oman,18,2004,2021,18,0,0
+590,divx,t2,sample_t2_divx,40,PER,Peru,18,2004,2021,18,0,0
+591,divx,t2,sample_t2_divx,41,PNG,Papua New Guinea,18,2004,2021,18,0,0
+592,divx,t2,sample_t2_divx,42,QAT,Qatar,18,2004,2021,18,0,0
+593,divx,t2,sample_t2_divx,43,RUS,Russian Federation,18,2004,2021,18,0,0
+594,divx,t2,sample_t2_divx,44,SAU,Saudi Arabia,18,2004,2021,18,0,0
+595,divx,t2,sample_t2_divx,45,SLE,Sierra Leone,0,,,0,0,1
+596,divx,t2,sample_t2_divx,46,SUR,Suriname,18,2004,2021,18,0,0
+597,divx,t2,sample_t2_divx,47,SYC,Seychelles,18,2004,2021,18,0,0
+598,divx,t2,sample_t2_divx,48,SYR,Syria,17,2004,2020,17,0,0
+599,divx,t2,sample_t2_divx,49,TGO,Togo,18,2004,2021,18,0,0
+600,divx,t2,sample_t2_divx,50,TTO,Trinidad and Tobago,18,2004,2021,18,0,0
+601,divx,t2,sample_t2_divx,51,VEN,Venezuela,11,2004,2014,11,0,0
+602,divx,t2,sample_t2_divx,52,VNM,Vietnam,18,2004,2021,18,0,0
+603,divx,t2,sample_t2_divx,53,YEM,Yemen,13,2004,2016,13,0,0
+604,divx,t2,sample_t2_divx,54,ZAF,South Africa,18,2004,2021,18,0,0
+605,divx,t2,sample_t2_divx,55,ZMB,Zambia,18,2004,2021,18,0,0
+606,divx,t3,sample_t3_divx,1,AGO,Angola,22,1998,2021,24,2,0
+607,divx,t3,sample_t3_divx,2,ALB,Albania,22,1998,2021,24,2,0
+608,divx,t3,sample_t3_divx,3,ARE,United Arab Emirates,22,1998,2021,24,2,0
+609,divx,t3,sample_t3_divx,4,ATG,Antigua and Barbuda,22,1998,2021,24,2,0
+610,divx,t3,sample_t3_divx,5,AUS,Australia,22,1998,2021,24,2,0
+611,divx,t3,sample_t3_divx,6,BDI,Burundi,22,1998,2021,24,2,0
+612,divx,t3,sample_t3_divx,7,BHR,Bahrain,22,1998,2021,24,2,0
+613,divx,t3,sample_t3_divx,8,BOL,Bolivia,22,1998,2021,24,2,0
+614,divx,t3,sample_t3_divx,9,BRN,Brunei,22,1998,2021,24,2,0
+615,divx,t3,sample_t3_divx,10,CAF,Central African Republic,22,1998,2021,24,2,0
+616,divx,t3,sample_t3_divx,11,CHL,Chile,22,1998,2021,24,2,0
+617,divx,t3,sample_t3_divx,12,CMR,Cameroon,22,1998,2021,24,2,0
+618,divx,t3,sample_t3_divx,13,COD,Democratic Republic of the Congo,18,1998,2021,24,6,0
+619,divx,t3,sample_t3_divx,14,COG,Republic of the Congo,18,1998,2021,24,6,0
+620,divx,t3,sample_t3_divx,15,COL,Colombia,22,1998,2021,24,2,0
+621,divx,t3,sample_t3_divx,16,DZA,Algeria,22,1998,2021,24,2,0
+622,divx,t3,sample_t3_divx,17,ECU,Ecuador,22,1998,2021,24,2,0
+623,divx,t3,sample_t3_divx,18,EGY,Egypt,22,1998,2021,24,2,0
+624,divx,t3,sample_t3_divx,19,GAB,Gabon,22,1998,2021,24,2,0
+625,divx,t3,sample_t3_divx,20,GHA,Ghana,22,1998,2021,24,2,0
+626,divx,t3,sample_t3_divx,21,GIN,Guinea,22,1998,2021,24,2,0
+627,divx,t3,sample_t3_divx,22,GMB,The Gambia,22,1998,2021,24,2,0
+628,divx,t3,sample_t3_divx,23,GUY,Guyana,22,1998,2021,24,2,0
+629,divx,t3,sample_t3_divx,24,IDN,Indonesia,22,1998,2021,24,2,0
+630,divx,t3,sample_t3_divx,25,IND,India,22,1998,2021,24,2,0
+631,divx,t3,sample_t3_divx,26,IRN,Iran,22,1998,2021,24,2,0
+632,divx,t3,sample_t3_divx,27,IRQ,Iraq,22,1998,2021,24,2,0
+633,divx,t3,sample_t3_divx,28,ISR,Israel,22,1998,2021,24,2,0
+634,divx,t3,sample_t3_divx,29,JAM,Jamaica,22,1998,2021,24,2,0
+635,divx,t3,sample_t3_divx,30,JOR,Jordan,22,1998,2021,24,2,0
+636,divx,t3,sample_t3_divx,31,KWT,Kuwait,21,1998,2020,23,2,0
+637,divx,t3,sample_t3_divx,32,LBR,Liberia,20,2002,2021,20,0,0
+638,divx,t3,sample_t3_divx,33,LBY,Libya,22,1998,2021,24,2,0
+639,divx,t3,sample_t3_divx,34,MNG,Mongolia,22,1998,2021,24,2,0
+640,divx,t3,sample_t3_divx,35,MRT,Mauritania,22,1998,2021,24,2,0
+641,divx,t3,sample_t3_divx,36,NGA,Nigeria,22,1998,2021,24,2,0
+642,divx,t3,sample_t3_divx,37,NOR,Norway,22,1998,2021,24,2,0
+643,divx,t3,sample_t3_divx,38,NRU,Nauru,0,,,0,0,1
+644,divx,t3,sample_t3_divx,39,OMN,Oman,22,1998,2021,24,2,0
+645,divx,t3,sample_t3_divx,40,PER,Peru,22,1998,2021,24,2,0
+646,divx,t3,sample_t3_divx,41,PNG,Papua New Guinea,22,1998,2021,24,2,0
+647,divx,t3,sample_t3_divx,42,QAT,Qatar,22,1998,2021,24,2,0
+648,divx,t3,sample_t3_divx,43,RUS,Russian Federation,22,1998,2021,24,2,0
+649,divx,t3,sample_t3_divx,44,SAU,Saudi Arabia,22,1998,2021,24,2,0
+650,divx,t3,sample_t3_divx,45,SLE,Sierra Leone,0,,,0,0,1
+651,divx,t3,sample_t3_divx,46,SUR,Suriname,20,2002,2021,20,0,0
+652,divx,t3,sample_t3_divx,47,SYC,Seychelles,22,1998,2021,24,2,0
+653,divx,t3,sample_t3_divx,48,SYR,Syria,21,1998,2020,23,2,0
+654,divx,t3,sample_t3_divx,49,TGO,Togo,22,1998,2021,24,2,0
+655,divx,t3,sample_t3_divx,50,TTO,Trinidad and Tobago,22,1998,2021,24,2,0
+656,divx,t3,sample_t3_divx,51,VEN,Venezuela,15,1998,2014,17,2,0
+657,divx,t3,sample_t3_divx,52,VNM,Vietnam,22,1998,2021,24,2,0
+658,divx,t3,sample_t3_divx,53,YEM,Yemen,17,1998,2016,19,2,0
+659,divx,t3,sample_t3_divx,54,ZAF,South Africa,22,1998,2021,24,2,0
+660,divx,t3,sample_t3_divx,55,ZMB,Zambia,22,1998,2021,24,2,0
+661,divx,t3_expanded,sample_t3_expanded_divx,1,AGO,Angola,18,2004,2021,18,0,0
+662,divx,t3_expanded,sample_t3_expanded_divx,2,ALB,Albania,18,2004,2021,18,0,0
+663,divx,t3_expanded,sample_t3_expanded_divx,3,ARE,United Arab Emirates,18,2004,2021,18,0,0
+664,divx,t3_expanded,sample_t3_expanded_divx,4,ATG,Antigua and Barbuda,18,2004,2021,18,0,0
+665,divx,t3_expanded,sample_t3_expanded_divx,5,AUS,Australia,18,2004,2021,18,0,0
+666,divx,t3_expanded,sample_t3_expanded_divx,6,BDI,Burundi,18,2004,2021,18,0,0
+667,divx,t3_expanded,sample_t3_expanded_divx,7,BHR,Bahrain,18,2004,2021,18,0,0
+668,divx,t3_expanded,sample_t3_expanded_divx,8,BOL,Bolivia,18,2004,2021,18,0,0
+669,divx,t3_expanded,sample_t3_expanded_divx,9,BRN,Brunei,18,2004,2021,18,0,0
+670,divx,t3_expanded,sample_t3_expanded_divx,10,CAF,Central African Republic,18,2004,2021,18,0,0
+671,divx,t3_expanded,sample_t3_expanded_divx,11,CHL,Chile,18,2004,2021,18,0,0
+672,divx,t3_expanded,sample_t3_expanded_divx,12,CMR,Cameroon,18,2004,2021,18,0,0
+673,divx,t3_expanded,sample_t3_expanded_divx,13,COD,Democratic Republic of the Congo,14,2004,2021,18,4,0
+674,divx,t3_expanded,sample_t3_expanded_divx,14,COG,Republic of the Congo,15,2007,2021,15,0,0
+675,divx,t3_expanded,sample_t3_expanded_divx,15,COL,Colombia,18,2004,2021,18,0,0
+676,divx,t3_expanded,sample_t3_expanded_divx,16,DZA,Algeria,18,2004,2021,18,0,0
+677,divx,t3_expanded,sample_t3_expanded_divx,17,ECU,Ecuador,18,2004,2021,18,0,0
+678,divx,t3_expanded,sample_t3_expanded_divx,18,EGY,Egypt,18,2004,2021,18,0,0
+679,divx,t3_expanded,sample_t3_expanded_divx,19,GAB,Gabon,18,2004,2021,18,0,0
+680,divx,t3_expanded,sample_t3_expanded_divx,20,GHA,Ghana,18,2004,2021,18,0,0
+681,divx,t3_expanded,sample_t3_expanded_divx,21,GIN,Guinea,18,2004,2021,18,0,0
+682,divx,t3_expanded,sample_t3_expanded_divx,22,GMB,The Gambia,18,2004,2021,18,0,0
+683,divx,t3_expanded,sample_t3_expanded_divx,23,GUY,Guyana,18,2004,2021,18,0,0
+684,divx,t3_expanded,sample_t3_expanded_divx,24,IDN,Indonesia,18,2004,2021,18,0,0
+685,divx,t3_expanded,sample_t3_expanded_divx,25,IND,India,18,2004,2021,18,0,0
+686,divx,t3_expanded,sample_t3_expanded_divx,26,IRN,Iran,18,2004,2021,18,0,0
+687,divx,t3_expanded,sample_t3_expanded_divx,27,IRQ,Iraq,18,2004,2021,18,0,0
+688,divx,t3_expanded,sample_t3_expanded_divx,28,ISR,Israel,18,2004,2021,18,0,0
+689,divx,t3_expanded,sample_t3_expanded_divx,29,JAM,Jamaica,18,2004,2021,18,0,0
+690,divx,t3_expanded,sample_t3_expanded_divx,30,JOR,Jordan,18,2004,2021,18,0,0
+691,divx,t3_expanded,sample_t3_expanded_divx,31,KWT,Kuwait,17,2004,2020,17,0,0
+692,divx,t3_expanded,sample_t3_expanded_divx,32,LBR,Liberia,18,2004,2021,18,0,0
+693,divx,t3_expanded,sample_t3_expanded_divx,33,LBY,Libya,18,2004,2021,18,0,0
+694,divx,t3_expanded,sample_t3_expanded_divx,34,MNG,Mongolia,18,2004,2021,18,0,0
+695,divx,t3_expanded,sample_t3_expanded_divx,35,MRT,Mauritania,18,2004,2021,18,0,0
+696,divx,t3_expanded,sample_t3_expanded_divx,36,NGA,Nigeria,18,2004,2021,18,0,0
+697,divx,t3_expanded,sample_t3_expanded_divx,37,NOR,Norway,18,2004,2021,18,0,0
+698,divx,t3_expanded,sample_t3_expanded_divx,38,NRU,Nauru,0,,,0,0,1
+699,divx,t3_expanded,sample_t3_expanded_divx,39,OMN,Oman,18,2004,2021,18,0,0
+700,divx,t3_expanded,sample_t3_expanded_divx,40,PER,Peru,18,2004,2021,18,0,0
+701,divx,t3_expanded,sample_t3_expanded_divx,41,PNG,Papua New Guinea,18,2004,2021,18,0,0
+702,divx,t3_expanded,sample_t3_expanded_divx,42,QAT,Qatar,18,2004,2021,18,0,0
+703,divx,t3_expanded,sample_t3_expanded_divx,43,RUS,Russian Federation,18,2004,2021,18,0,0
+704,divx,t3_expanded,sample_t3_expanded_divx,44,SAU,Saudi Arabia,18,2004,2021,18,0,0
+705,divx,t3_expanded,sample_t3_expanded_divx,45,SLE,Sierra Leone,0,,,0,0,1
+706,divx,t3_expanded,sample_t3_expanded_divx,46,SUR,Suriname,18,2004,2021,18,0,0
+707,divx,t3_expanded,sample_t3_expanded_divx,47,SYC,Seychelles,18,2004,2021,18,0,0
+708,divx,t3_expanded,sample_t3_expanded_divx,48,SYR,Syria,17,2004,2020,17,0,0
+709,divx,t3_expanded,sample_t3_expanded_divx,49,TGO,Togo,18,2004,2021,18,0,0
+710,divx,t3_expanded,sample_t3_expanded_divx,50,TTO,Trinidad and Tobago,18,2004,2021,18,0,0
+711,divx,t3_expanded,sample_t3_expanded_divx,51,VEN,Venezuela,11,2004,2014,11,0,0
+712,divx,t3_expanded,sample_t3_expanded_divx,52,VNM,Vietnam,18,2004,2021,18,0,0
+713,divx,t3_expanded,sample_t3_expanded_divx,53,YEM,Yemen,13,2004,2016,13,0,0
+714,divx,t3_expanded,sample_t3_expanded_divx,54,ZAF,South Africa,18,2004,2021,18,0,0
+715,divx,t3_expanded,sample_t3_expanded_divx,55,ZMB,Zambia,18,2004,2021,18,0,0
+716,divx,t4,sample_t4_divx,1,AGO,Angola,22,1996,2020,25,3,0
+717,divx,t4,sample_t4_divx,2,ALB,Albania,22,1996,2020,25,3,0
+718,divx,t4,sample_t4_divx,3,ARE,United Arab Emirates,22,1996,2020,25,3,0
+719,divx,t4,sample_t4_divx,4,ATG,Antigua and Barbuda,22,1996,2020,25,3,0
+720,divx,t4,sample_t4_divx,5,AUS,Australia,22,1996,2020,25,3,0
+721,divx,t4,sample_t4_divx,6,BDI,Burundi,22,1996,2020,25,3,0
+722,divx,t4,sample_t4_divx,7,BHR,Bahrain,22,1996,2020,25,3,0
+723,divx,t4,sample_t4_divx,8,BOL,Bolivia,22,1996,2020,25,3,0
+724,divx,t4,sample_t4_divx,9,BRN,Brunei,22,1996,2020,25,3,0
+725,divx,t4,sample_t4_divx,10,CAF,Central African Republic,22,1996,2020,25,3,0
+726,divx,t4,sample_t4_divx,11,CHL,Chile,22,1996,2020,25,3,0
+727,divx,t4,sample_t4_divx,12,CMR,Cameroon,22,1996,2020,25,3,0
+728,divx,t4,sample_t4_divx,13,COD,Democratic Republic of the Congo,19,1996,2020,25,6,0
+729,divx,t4,sample_t4_divx,14,COG,Republic of the Congo,19,1996,2020,25,6,0
+730,divx,t4,sample_t4_divx,15,COL,Colombia,22,1996,2020,25,3,0
+731,divx,t4,sample_t4_divx,16,DZA,Algeria,22,1996,2020,25,3,0
+732,divx,t4,sample_t4_divx,17,ECU,Ecuador,22,1996,2020,25,3,0
+733,divx,t4,sample_t4_divx,18,EGY,Egypt,22,1996,2020,25,3,0
+734,divx,t4,sample_t4_divx,19,GAB,Gabon,22,1996,2020,25,3,0
+735,divx,t4,sample_t4_divx,20,GHA,Ghana,22,1996,2020,25,3,0
+736,divx,t4,sample_t4_divx,21,GIN,Guinea,22,1996,2020,25,3,0
+737,divx,t4,sample_t4_divx,22,GMB,The Gambia,22,1996,2020,25,3,0
+738,divx,t4,sample_t4_divx,23,GUY,Guyana,22,1996,2020,25,3,0
+739,divx,t4,sample_t4_divx,24,IDN,Indonesia,22,1996,2020,25,3,0
+740,divx,t4,sample_t4_divx,25,IND,India,22,1996,2020,25,3,0
+741,divx,t4,sample_t4_divx,26,IRN,Iran,22,1996,2020,25,3,0
+742,divx,t4,sample_t4_divx,27,IRQ,Iraq,22,1996,2020,25,3,0
+743,divx,t4,sample_t4_divx,28,ISR,Israel,22,1996,2020,25,3,0
+744,divx,t4,sample_t4_divx,29,JAM,Jamaica,22,1996,2020,25,3,0
+745,divx,t4,sample_t4_divx,30,JOR,Jordan,22,1996,2020,25,3,0
+746,divx,t4,sample_t4_divx,31,KWT,Kuwait,21,1996,2019,24,3,0
+747,divx,t4,sample_t4_divx,32,LBR,Liberia,20,2000,2020,21,1,0
+748,divx,t4,sample_t4_divx,33,LBY,Libya,22,1996,2020,25,3,0
+749,divx,t4,sample_t4_divx,34,MNG,Mongolia,22,1996,2020,25,3,0
+750,divx,t4,sample_t4_divx,35,MRT,Mauritania,22,1996,2020,25,3,0
+751,divx,t4,sample_t4_divx,36,NGA,Nigeria,22,1996,2020,25,3,0
+752,divx,t4,sample_t4_divx,37,NOR,Norway,22,1996,2020,25,3,0
+753,divx,t4,sample_t4_divx,38,NRU,Nauru,0,,,0,0,1
+754,divx,t4,sample_t4_divx,39,OMN,Oman,22,1996,2020,25,3,0
+755,divx,t4,sample_t4_divx,40,PER,Peru,22,1996,2020,25,3,0
+756,divx,t4,sample_t4_divx,41,PNG,Papua New Guinea,22,1996,2020,25,3,0
+757,divx,t4,sample_t4_divx,42,QAT,Qatar,22,1996,2020,25,3,0
+758,divx,t4,sample_t4_divx,43,RUS,Russian Federation,22,1996,2020,25,3,0
+759,divx,t4,sample_t4_divx,44,SAU,Saudi Arabia,22,1996,2020,25,3,0
+760,divx,t4,sample_t4_divx,45,SLE,Sierra Leone,0,,,0,0,1
+761,divx,t4,sample_t4_divx,46,SUR,Suriname,20,2000,2020,21,1,0
+762,divx,t4,sample_t4_divx,47,SYC,Seychelles,22,1996,2020,25,3,0
+763,divx,t4,sample_t4_divx,48,SYR,Syria,21,1996,2019,24,3,0
+764,divx,t4,sample_t4_divx,49,TGO,Togo,22,1996,2020,25,3,0
+765,divx,t4,sample_t4_divx,50,TTO,Trinidad and Tobago,22,1996,2020,25,3,0
+766,divx,t4,sample_t4_divx,51,VEN,Venezuela,15,1996,2013,18,3,0
+767,divx,t4,sample_t4_divx,52,VNM,Vietnam,22,1996,2020,25,3,0
+768,divx,t4,sample_t4_divx,53,YEM,Yemen,17,1996,2015,20,3,0
+769,divx,t4,sample_t4_divx,54,ZAF,South Africa,22,1996,2020,25,3,0
+770,divx,t4,sample_t4_divx,55,ZMB,Zambia,22,1996,2020,25,3,0
+771,divx,t5,sample_t5_divx,1,AGO,Angola,19,2003,2021,19,0,0
+772,divx,t5,sample_t5_divx,2,ALB,Albania,19,2003,2021,19,0,0
+773,divx,t5,sample_t5_divx,3,ARE,United Arab Emirates,19,2003,2021,19,0,0
+774,divx,t5,sample_t5_divx,4,ATG,Antigua and Barbuda,19,2003,2021,19,0,0
+775,divx,t5,sample_t5_divx,5,AUS,Australia,19,2003,2021,19,0,0
+776,divx,t5,sample_t5_divx,6,BDI,Burundi,19,2003,2021,19,0,0
+777,divx,t5,sample_t5_divx,7,BHR,Bahrain,19,2003,2021,19,0,0
+778,divx,t5,sample_t5_divx,8,BOL,Bolivia,19,2003,2021,19,0,0
+779,divx,t5,sample_t5_divx,9,BRN,Brunei,19,2003,2021,19,0,0
+780,divx,t5,sample_t5_divx,10,CAF,Central African Republic,19,2003,2021,19,0,0
+781,divx,t5,sample_t5_divx,11,CHL,Chile,19,2003,2021,19,0,0
+782,divx,t5,sample_t5_divx,12,CMR,Cameroon,19,2003,2021,19,0,0
+783,divx,t5,sample_t5_divx,13,COD,Democratic Republic of the Congo,16,2003,2021,19,3,0
+784,divx,t5,sample_t5_divx,14,COG,Republic of the Congo,16,2006,2021,16,0,0
+785,divx,t5,sample_t5_divx,15,COL,Colombia,19,2003,2021,19,0,0
+786,divx,t5,sample_t5_divx,16,DZA,Algeria,19,2003,2021,19,0,0
+787,divx,t5,sample_t5_divx,17,ECU,Ecuador,19,2003,2021,19,0,0
+788,divx,t5,sample_t5_divx,18,EGY,Egypt,19,2003,2021,19,0,0
+789,divx,t5,sample_t5_divx,19,GAB,Gabon,19,2003,2021,19,0,0
+790,divx,t5,sample_t5_divx,20,GHA,Ghana,19,2003,2021,19,0,0
+791,divx,t5,sample_t5_divx,21,GIN,Guinea,19,2003,2021,19,0,0
+792,divx,t5,sample_t5_divx,22,GMB,The Gambia,19,2003,2021,19,0,0
+793,divx,t5,sample_t5_divx,23,GUY,Guyana,19,2003,2021,19,0,0
+794,divx,t5,sample_t5_divx,24,IDN,Indonesia,19,2003,2021,19,0,0
+795,divx,t5,sample_t5_divx,25,IND,India,19,2003,2021,19,0,0
+796,divx,t5,sample_t5_divx,26,IRN,Iran,19,2003,2021,19,0,0
+797,divx,t5,sample_t5_divx,27,IRQ,Iraq,19,2003,2021,19,0,0
+798,divx,t5,sample_t5_divx,28,ISR,Israel,19,2003,2021,19,0,0
+799,divx,t5,sample_t5_divx,29,JAM,Jamaica,19,2003,2021,19,0,0
+800,divx,t5,sample_t5_divx,30,JOR,Jordan,19,2003,2021,19,0,0
+801,divx,t5,sample_t5_divx,31,KWT,Kuwait,18,2003,2020,18,0,0
+802,divx,t5,sample_t5_divx,32,LBR,Liberia,19,2003,2021,19,0,0
+803,divx,t5,sample_t5_divx,33,LBY,Libya,19,2003,2021,19,0,0
+804,divx,t5,sample_t5_divx,34,MNG,Mongolia,19,2003,2021,19,0,0
+805,divx,t5,sample_t5_divx,35,MRT,Mauritania,19,2003,2021,19,0,0
+806,divx,t5,sample_t5_divx,36,NGA,Nigeria,19,2003,2021,19,0,0
+807,divx,t5,sample_t5_divx,37,NOR,Norway,19,2003,2021,19,0,0
+808,divx,t5,sample_t5_divx,38,NRU,Nauru,0,,,0,0,1
+809,divx,t5,sample_t5_divx,39,OMN,Oman,19,2003,2021,19,0,0
+810,divx,t5,sample_t5_divx,40,PER,Peru,19,2003,2021,19,0,0
+811,divx,t5,sample_t5_divx,41,PNG,Papua New Guinea,19,2003,2021,19,0,0
+812,divx,t5,sample_t5_divx,42,QAT,Qatar,19,2003,2021,19,0,0
+813,divx,t5,sample_t5_divx,43,RUS,Russian Federation,19,2003,2021,19,0,0
+814,divx,t5,sample_t5_divx,44,SAU,Saudi Arabia,19,2003,2021,19,0,0
+815,divx,t5,sample_t5_divx,45,SLE,Sierra Leone,0,,,0,0,1
+816,divx,t5,sample_t5_divx,46,SUR,Suriname,19,2003,2021,19,0,0
+817,divx,t5,sample_t5_divx,47,SYC,Seychelles,19,2003,2021,19,0,0
+818,divx,t5,sample_t5_divx,48,SYR,Syria,18,2003,2020,18,0,0
+819,divx,t5,sample_t5_divx,49,TGO,Togo,19,2003,2021,19,0,0
+820,divx,t5,sample_t5_divx,50,TTO,Trinidad and Tobago,19,2003,2021,19,0,0
+821,divx,t5,sample_t5_divx,51,VEN,Venezuela,12,2003,2014,12,0,0
+822,divx,t5,sample_t5_divx,52,VNM,Vietnam,19,2003,2021,19,0,0
+823,divx,t5,sample_t5_divx,53,YEM,Yemen,14,2003,2016,14,0,0
+824,divx,t5,sample_t5_divx,54,ZAF,South Africa,19,2003,2021,19,0,0
+825,divx,t5,sample_t5_divx,55,ZMB,Zambia,19,2003,2021,19,0,0
+386,eci,common_t0_t3,sample_common_t0_t3_eci,1,AGO,Angola,18,2004,2021,18,0,0
+387,eci,common_t0_t3,sample_common_t0_t3_eci,2,ALB,Albania,18,2004,2021,18,0,0
+388,eci,common_t0_t3,sample_common_t0_t3_eci,3,ARE,United Arab Emirates,18,2004,2021,18,0,0
+389,eci,common_t0_t3,sample_common_t0_t3_eci,4,ATG,Antigua and Barbuda,18,2004,2021,18,0,0
+390,eci,common_t0_t3,sample_common_t0_t3_eci,5,AUS,Australia,18,2004,2021,18,0,0
+391,eci,common_t0_t3,sample_common_t0_t3_eci,6,BDI,Burundi,18,2004,2021,18,0,0
+392,eci,common_t0_t3,sample_common_t0_t3_eci,7,BHR,Bahrain,18,2004,2021,18,0,0
+393,eci,common_t0_t3,sample_common_t0_t3_eci,8,BOL,Bolivia,18,2004,2021,18,0,0
+394,eci,common_t0_t3,sample_common_t0_t3_eci,9,BRN,Brunei,18,2004,2021,18,0,0
+395,eci,common_t0_t3,sample_common_t0_t3_eci,10,CAF,Central African Republic,18,2004,2021,18,0,0
+396,eci,common_t0_t3,sample_common_t0_t3_eci,11,CHL,Chile,18,2004,2021,18,0,0
+397,eci,common_t0_t3,sample_common_t0_t3_eci,12,CMR,Cameroon,18,2004,2021,18,0,0
+398,eci,common_t0_t3,sample_common_t0_t3_eci,13,COD,Democratic Republic of the Congo,14,2004,2021,18,4,0
+399,eci,common_t0_t3,sample_common_t0_t3_eci,14,COG,Republic of the Congo,15,2007,2021,15,0,0
+400,eci,common_t0_t3,sample_common_t0_t3_eci,15,COL,Colombia,18,2004,2021,18,0,0
+401,eci,common_t0_t3,sample_common_t0_t3_eci,16,DZA,Algeria,18,2004,2021,18,0,0
+402,eci,common_t0_t3,sample_common_t0_t3_eci,17,ECU,Ecuador,18,2004,2021,18,0,0
+403,eci,common_t0_t3,sample_common_t0_t3_eci,18,EGY,Egypt,18,2004,2021,18,0,0
+404,eci,common_t0_t3,sample_common_t0_t3_eci,19,GAB,Gabon,18,2004,2021,18,0,0
+405,eci,common_t0_t3,sample_common_t0_t3_eci,20,GHA,Ghana,18,2004,2021,18,0,0
+406,eci,common_t0_t3,sample_common_t0_t3_eci,21,GIN,Guinea,18,2004,2021,18,0,0
+407,eci,common_t0_t3,sample_common_t0_t3_eci,22,GMB,The Gambia,18,2004,2021,18,0,0
+408,eci,common_t0_t3,sample_common_t0_t3_eci,23,GUY,Guyana,18,2004,2021,18,0,0
+409,eci,common_t0_t3,sample_common_t0_t3_eci,24,IDN,Indonesia,18,2004,2021,18,0,0
+410,eci,common_t0_t3,sample_common_t0_t3_eci,25,IND,India,18,2004,2021,18,0,0
+411,eci,common_t0_t3,sample_common_t0_t3_eci,26,IRN,Iran,18,2004,2021,18,0,0
+412,eci,common_t0_t3,sample_common_t0_t3_eci,27,IRQ,Iraq,18,2004,2021,18,0,0
+413,eci,common_t0_t3,sample_common_t0_t3_eci,28,ISR,Israel,18,2004,2021,18,0,0
+414,eci,common_t0_t3,sample_common_t0_t3_eci,29,JAM,Jamaica,18,2004,2021,18,0,0
+415,eci,common_t0_t3,sample_common_t0_t3_eci,30,JOR,Jordan,18,2004,2021,18,0,0
+416,eci,common_t0_t3,sample_common_t0_t3_eci,31,KWT,Kuwait,17,2004,2020,17,0,0
+417,eci,common_t0_t3,sample_common_t0_t3_eci,32,LBR,Liberia,18,2004,2021,18,0,0
+418,eci,common_t0_t3,sample_common_t0_t3_eci,33,LBY,Libya,18,2004,2021,18,0,0
+419,eci,common_t0_t3,sample_common_t0_t3_eci,34,MNG,Mongolia,18,2004,2021,18,0,0
+420,eci,common_t0_t3,sample_common_t0_t3_eci,35,MRT,Mauritania,18,2004,2021,18,0,0
+421,eci,common_t0_t3,sample_common_t0_t3_eci,36,NGA,Nigeria,18,2004,2021,18,0,0
+422,eci,common_t0_t3,sample_common_t0_t3_eci,37,NOR,Norway,18,2004,2021,18,0,0
+423,eci,common_t0_t3,sample_common_t0_t3_eci,38,NRU,Nauru,0,,,0,0,1
+424,eci,common_t0_t3,sample_common_t0_t3_eci,39,OMN,Oman,18,2004,2021,18,0,0
+425,eci,common_t0_t3,sample_common_t0_t3_eci,40,PER,Peru,18,2004,2021,18,0,0
+426,eci,common_t0_t3,sample_common_t0_t3_eci,41,PNG,Papua New Guinea,18,2004,2021,18,0,0
+427,eci,common_t0_t3,sample_common_t0_t3_eci,42,QAT,Qatar,18,2004,2021,18,0,0
+428,eci,common_t0_t3,sample_common_t0_t3_eci,43,RUS,Russian Federation,18,2004,2021,18,0,0
+429,eci,common_t0_t3,sample_common_t0_t3_eci,44,SAU,Saudi Arabia,18,2004,2021,18,0,0
+430,eci,common_t0_t3,sample_common_t0_t3_eci,45,SLE,Sierra Leone,0,,,0,0,1
+431,eci,common_t0_t3,sample_common_t0_t3_eci,46,SUR,Suriname,18,2004,2021,18,0,0
+432,eci,common_t0_t3,sample_common_t0_t3_eci,47,SYC,Seychelles,18,2004,2021,18,0,0
+433,eci,common_t0_t3,sample_common_t0_t3_eci,48,SYR,Syria,17,2004,2020,17,0,0
+434,eci,common_t0_t3,sample_common_t0_t3_eci,49,TGO,Togo,18,2004,2021,18,0,0
+435,eci,common_t0_t3,sample_common_t0_t3_eci,50,TTO,Trinidad and Tobago,18,2004,2021,18,0,0
+436,eci,common_t0_t3,sample_common_t0_t3_eci,51,VEN,Venezuela,11,2004,2014,11,0,0
+437,eci,common_t0_t3,sample_common_t0_t3_eci,52,VNM,Vietnam,18,2004,2021,18,0,0
+438,eci,common_t0_t3,sample_common_t0_t3_eci,53,YEM,Yemen,13,2004,2016,13,0,0
+439,eci,common_t0_t3,sample_common_t0_t3_eci,54,ZAF,South Africa,18,2004,2021,18,0,0
+440,eci,common_t0_t3,sample_common_t0_t3_eci,55,ZMB,Zambia,18,2004,2021,18,0,0
+1,eci,t0,sample_t0_eci,1,AGO,Angola,23,1996,2021,26,3,0
+2,eci,t0,sample_t0_eci,2,ALB,Albania,23,1996,2021,26,3,0
+3,eci,t0,sample_t0_eci,3,ARE,United Arab Emirates,23,1996,2021,26,3,0
+4,eci,t0,sample_t0_eci,4,ATG,Antigua and Barbuda,23,1996,2021,26,3,0
+5,eci,t0,sample_t0_eci,5,AUS,Australia,23,1996,2021,26,3,0
+6,eci,t0,sample_t0_eci,6,BDI,Burundi,23,1996,2021,26,3,0
+7,eci,t0,sample_t0_eci,7,BHR,Bahrain,23,1996,2021,26,3,0
+8,eci,t0,sample_t0_eci,8,BOL,Bolivia,23,1996,2021,26,3,0
+9,eci,t0,sample_t0_eci,9,BRN,Brunei,23,1996,2021,26,3,0
+10,eci,t0,sample_t0_eci,10,CAF,Central African Republic,23,1996,2021,26,3,0
+11,eci,t0,sample_t0_eci,11,CHL,Chile,23,1996,2021,26,3,0
+12,eci,t0,sample_t0_eci,12,CMR,Cameroon,23,1996,2021,26,3,0
+13,eci,t0,sample_t0_eci,13,COD,Democratic Republic of the Congo,21,1996,2021,26,5,0
+14,eci,t0,sample_t0_eci,14,COG,Republic of the Congo,21,1996,2021,26,5,0
+15,eci,t0,sample_t0_eci,15,COL,Colombia,23,1996,2021,26,3,0
+16,eci,t0,sample_t0_eci,16,DZA,Algeria,23,1996,2021,26,3,0
+17,eci,t0,sample_t0_eci,17,ECU,Ecuador,23,1996,2021,26,3,0
+18,eci,t0,sample_t0_eci,18,EGY,Egypt,23,1996,2021,26,3,0
+19,eci,t0,sample_t0_eci,19,GAB,Gabon,23,1996,2021,26,3,0
+20,eci,t0,sample_t0_eci,20,GHA,Ghana,23,1996,2021,26,3,0
+21,eci,t0,sample_t0_eci,21,GIN,Guinea,23,1996,2021,26,3,0
+22,eci,t0,sample_t0_eci,22,GMB,The Gambia,23,1996,2021,26,3,0
+23,eci,t0,sample_t0_eci,23,GUY,Guyana,23,1996,2021,26,3,0
+24,eci,t0,sample_t0_eci,24,IDN,Indonesia,23,1996,2021,26,3,0
+25,eci,t0,sample_t0_eci,25,IND,India,23,1996,2021,26,3,0
+26,eci,t0,sample_t0_eci,26,IRN,Iran,23,1996,2021,26,3,0
+27,eci,t0,sample_t0_eci,27,IRQ,Iraq,23,1996,2021,26,3,0
+28,eci,t0,sample_t0_eci,28,ISR,Israel,23,1996,2021,26,3,0
+29,eci,t0,sample_t0_eci,29,JAM,Jamaica,23,1996,2021,26,3,0
+30,eci,t0,sample_t0_eci,30,JOR,Jordan,23,1996,2021,26,3,0
+31,eci,t0,sample_t0_eci,31,KWT,Kuwait,22,1996,2020,25,3,0
+32,eci,t0,sample_t0_eci,32,LBR,Liberia,21,2000,2021,22,1,0
+33,eci,t0,sample_t0_eci,33,LBY,Libya,23,1996,2021,26,3,0
+34,eci,t0,sample_t0_eci,34,MNG,Mongolia,23,1996,2021,26,3,0
+35,eci,t0,sample_t0_eci,35,MRT,Mauritania,23,1996,2021,26,3,0
+36,eci,t0,sample_t0_eci,36,NGA,Nigeria,23,1996,2021,26,3,0
+37,eci,t0,sample_t0_eci,37,NOR,Norway,23,1996,2021,26,3,0
+38,eci,t0,sample_t0_eci,38,NRU,Nauru,0,,,0,0,1
+39,eci,t0,sample_t0_eci,39,OMN,Oman,23,1996,2021,26,3,0
+40,eci,t0,sample_t0_eci,40,PER,Peru,23,1996,2021,26,3,0
+41,eci,t0,sample_t0_eci,41,PNG,Papua New Guinea,23,1996,2021,26,3,0
+42,eci,t0,sample_t0_eci,42,QAT,Qatar,23,1996,2021,26,3,0
+43,eci,t0,sample_t0_eci,43,RUS,Russian Federation,23,1996,2021,26,3,0
+44,eci,t0,sample_t0_eci,44,SAU,Saudi Arabia,23,1996,2021,26,3,0
+45,eci,t0,sample_t0_eci,45,SLE,Sierra Leone,0,,,0,0,1
+46,eci,t0,sample_t0_eci,46,SUR,Suriname,21,2000,2021,22,1,0
+47,eci,t0,sample_t0_eci,47,SYC,Seychelles,23,1996,2021,26,3,0
+48,eci,t0,sample_t0_eci,48,SYR,Syria,22,1996,2020,25,3,0
+49,eci,t0,sample_t0_eci,49,TGO,Togo,23,1996,2021,26,3,0
+50,eci,t0,sample_t0_eci,50,TTO,Trinidad and Tobago,23,1996,2021,26,3,0
+51,eci,t0,sample_t0_eci,51,VEN,Venezuela,16,1996,2014,19,3,0
+52,eci,t0,sample_t0_eci,52,VNM,Vietnam,23,1996,2021,26,3,0
+53,eci,t0,sample_t0_eci,53,YEM,Yemen,18,1996,2016,21,3,0
+54,eci,t0,sample_t0_eci,54,ZAF,South Africa,23,1996,2021,26,3,0
+55,eci,t0,sample_t0_eci,55,ZMB,Zambia,23,1996,2021,26,3,0
+56,eci,t1,sample_t1_eci,1,AGO,Angola,22,1997,2021,25,3,0
+57,eci,t1,sample_t1_eci,2,ALB,Albania,22,1997,2021,25,3,0
+58,eci,t1,sample_t1_eci,3,ARE,United Arab Emirates,22,1997,2021,25,3,0
+59,eci,t1,sample_t1_eci,4,ATG,Antigua and Barbuda,22,1997,2021,25,3,0
+60,eci,t1,sample_t1_eci,5,AUS,Australia,22,1997,2021,25,3,0
+61,eci,t1,sample_t1_eci,6,BDI,Burundi,22,1997,2021,25,3,0
+62,eci,t1,sample_t1_eci,7,BHR,Bahrain,22,1997,2021,25,3,0
+63,eci,t1,sample_t1_eci,8,BOL,Bolivia,22,1997,2021,25,3,0
+64,eci,t1,sample_t1_eci,9,BRN,Brunei,22,1997,2021,25,3,0
+65,eci,t1,sample_t1_eci,10,CAF,Central African Republic,22,1997,2021,25,3,0
+66,eci,t1,sample_t1_eci,11,CHL,Chile,22,1997,2021,25,3,0
+67,eci,t1,sample_t1_eci,12,CMR,Cameroon,22,1997,2021,25,3,0
+68,eci,t1,sample_t1_eci,13,COD,Democratic Republic of the Congo,20,1997,2021,25,5,0
+69,eci,t1,sample_t1_eci,14,COG,Republic of the Congo,20,1997,2021,25,5,0
+70,eci,t1,sample_t1_eci,15,COL,Colombia,22,1997,2021,25,3,0
+71,eci,t1,sample_t1_eci,16,DZA,Algeria,22,1997,2021,25,3,0
+72,eci,t1,sample_t1_eci,17,ECU,Ecuador,22,1997,2021,25,3,0
+73,eci,t1,sample_t1_eci,18,EGY,Egypt,22,1997,2021,25,3,0
+74,eci,t1,sample_t1_eci,19,GAB,Gabon,22,1997,2021,25,3,0
+75,eci,t1,sample_t1_eci,20,GHA,Ghana,22,1997,2021,25,3,0
+76,eci,t1,sample_t1_eci,21,GIN,Guinea,22,1997,2021,25,3,0
+77,eci,t1,sample_t1_eci,22,GMB,The Gambia,22,1997,2021,25,3,0
+78,eci,t1,sample_t1_eci,23,GUY,Guyana,22,1997,2021,25,3,0
+79,eci,t1,sample_t1_eci,24,IDN,Indonesia,22,1997,2021,25,3,0
+80,eci,t1,sample_t1_eci,25,IND,India,22,1997,2021,25,3,0
+81,eci,t1,sample_t1_eci,26,IRN,Iran,22,1997,2021,25,3,0
+82,eci,t1,sample_t1_eci,27,IRQ,Iraq,22,1997,2021,25,3,0
+83,eci,t1,sample_t1_eci,28,ISR,Israel,22,1997,2021,25,3,0
+84,eci,t1,sample_t1_eci,29,JAM,Jamaica,22,1997,2021,25,3,0
+85,eci,t1,sample_t1_eci,30,JOR,Jordan,22,1997,2021,25,3,0
+86,eci,t1,sample_t1_eci,31,KWT,Kuwait,22,1997,2021,25,3,0
+87,eci,t1,sample_t1_eci,32,LBR,Liberia,20,2001,2021,21,1,0
+88,eci,t1,sample_t1_eci,33,LBY,Libya,22,1997,2021,25,3,0
+89,eci,t1,sample_t1_eci,34,MNG,Mongolia,22,1997,2021,25,3,0
+90,eci,t1,sample_t1_eci,35,MRT,Mauritania,22,1997,2021,25,3,0
+91,eci,t1,sample_t1_eci,36,NGA,Nigeria,22,1997,2021,25,3,0
+92,eci,t1,sample_t1_eci,37,NOR,Norway,22,1997,2021,25,3,0
+93,eci,t1,sample_t1_eci,38,NRU,Nauru,0,,,0,0,1
+94,eci,t1,sample_t1_eci,39,OMN,Oman,22,1997,2021,25,3,0
+95,eci,t1,sample_t1_eci,40,PER,Peru,22,1997,2021,25,3,0
+96,eci,t1,sample_t1_eci,41,PNG,Papua New Guinea,22,1997,2021,25,3,0
+97,eci,t1,sample_t1_eci,42,QAT,Qatar,22,1997,2021,25,3,0
+98,eci,t1,sample_t1_eci,43,RUS,Russian Federation,22,1997,2021,25,3,0
+99,eci,t1,sample_t1_eci,44,SAU,Saudi Arabia,22,1997,2021,25,3,0
+100,eci,t1,sample_t1_eci,45,SLE,Sierra Leone,0,,,0,0,1
+101,eci,t1,sample_t1_eci,46,SUR,Suriname,20,2001,2021,21,1,0
+102,eci,t1,sample_t1_eci,47,SYC,Seychelles,22,1997,2021,25,3,0
+103,eci,t1,sample_t1_eci,48,SYR,Syria,22,1997,2021,25,3,0
+104,eci,t1,sample_t1_eci,49,TGO,Togo,22,1997,2021,25,3,0
+105,eci,t1,sample_t1_eci,50,TTO,Trinidad and Tobago,22,1997,2021,25,3,0
+106,eci,t1,sample_t1_eci,51,VEN,Venezuela,16,1997,2015,19,3,0
+107,eci,t1,sample_t1_eci,52,VNM,Vietnam,22,1997,2021,25,3,0
+108,eci,t1,sample_t1_eci,53,YEM,Yemen,18,1997,2017,21,3,0
+109,eci,t1,sample_t1_eci,54,ZAF,South Africa,22,1997,2021,25,3,0
+110,eci,t1,sample_t1_eci,55,ZMB,Zambia,22,1997,2021,25,3,0
+111,eci,t2,sample_t2_eci,1,AGO,Angola,18,2004,2021,18,0,0
+112,eci,t2,sample_t2_eci,2,ALB,Albania,18,2004,2021,18,0,0
+113,eci,t2,sample_t2_eci,3,ARE,United Arab Emirates,18,2004,2021,18,0,0
+114,eci,t2,sample_t2_eci,4,ATG,Antigua and Barbuda,18,2004,2021,18,0,0
+115,eci,t2,sample_t2_eci,5,AUS,Australia,18,2004,2021,18,0,0
+116,eci,t2,sample_t2_eci,6,BDI,Burundi,18,2004,2021,18,0,0
+117,eci,t2,sample_t2_eci,7,BHR,Bahrain,18,2004,2021,18,0,0
+118,eci,t2,sample_t2_eci,8,BOL,Bolivia,18,2004,2021,18,0,0
+119,eci,t2,sample_t2_eci,9,BRN,Brunei,18,2004,2021,18,0,0
+120,eci,t2,sample_t2_eci,10,CAF,Central African Republic,18,2004,2021,18,0,0
+121,eci,t2,sample_t2_eci,11,CHL,Chile,18,2004,2021,18,0,0
+122,eci,t2,sample_t2_eci,12,CMR,Cameroon,18,2004,2021,18,0,0
+123,eci,t2,sample_t2_eci,13,COD,Democratic Republic of the Congo,14,2004,2021,18,4,0
+124,eci,t2,sample_t2_eci,14,COG,Republic of the Congo,15,2007,2021,15,0,0
+125,eci,t2,sample_t2_eci,15,COL,Colombia,18,2004,2021,18,0,0
+126,eci,t2,sample_t2_eci,16,DZA,Algeria,18,2004,2021,18,0,0
+127,eci,t2,sample_t2_eci,17,ECU,Ecuador,18,2004,2021,18,0,0
+128,eci,t2,sample_t2_eci,18,EGY,Egypt,18,2004,2021,18,0,0
+129,eci,t2,sample_t2_eci,19,GAB,Gabon,18,2004,2021,18,0,0
+130,eci,t2,sample_t2_eci,20,GHA,Ghana,18,2004,2021,18,0,0
+131,eci,t2,sample_t2_eci,21,GIN,Guinea,18,2004,2021,18,0,0
+132,eci,t2,sample_t2_eci,22,GMB,The Gambia,18,2004,2021,18,0,0
+133,eci,t2,sample_t2_eci,23,GUY,Guyana,18,2004,2021,18,0,0
+134,eci,t2,sample_t2_eci,24,IDN,Indonesia,18,2004,2021,18,0,0
+135,eci,t2,sample_t2_eci,25,IND,India,18,2004,2021,18,0,0
+136,eci,t2,sample_t2_eci,26,IRN,Iran,18,2004,2021,18,0,0
+137,eci,t2,sample_t2_eci,27,IRQ,Iraq,18,2004,2021,18,0,0
+138,eci,t2,sample_t2_eci,28,ISR,Israel,18,2004,2021,18,0,0
+139,eci,t2,sample_t2_eci,29,JAM,Jamaica,18,2004,2021,18,0,0
+140,eci,t2,sample_t2_eci,30,JOR,Jordan,18,2004,2021,18,0,0
+141,eci,t2,sample_t2_eci,31,KWT,Kuwait,17,2004,2020,17,0,0
+142,eci,t2,sample_t2_eci,32,LBR,Liberia,18,2004,2021,18,0,0
+143,eci,t2,sample_t2_eci,33,LBY,Libya,18,2004,2021,18,0,0
+144,eci,t2,sample_t2_eci,34,MNG,Mongolia,18,2004,2021,18,0,0
+145,eci,t2,sample_t2_eci,35,MRT,Mauritania,18,2004,2021,18,0,0
+146,eci,t2,sample_t2_eci,36,NGA,Nigeria,18,2004,2021,18,0,0
+147,eci,t2,sample_t2_eci,37,NOR,Norway,18,2004,2021,18,0,0
+148,eci,t2,sample_t2_eci,38,NRU,Nauru,0,,,0,0,1
+149,eci,t2,sample_t2_eci,39,OMN,Oman,18,2004,2021,18,0,0
+150,eci,t2,sample_t2_eci,40,PER,Peru,18,2004,2021,18,0,0
+151,eci,t2,sample_t2_eci,41,PNG,Papua New Guinea,18,2004,2021,18,0,0
+152,eci,t2,sample_t2_eci,42,QAT,Qatar,18,2004,2021,18,0,0
+153,eci,t2,sample_t2_eci,43,RUS,Russian Federation,18,2004,2021,18,0,0
+154,eci,t2,sample_t2_eci,44,SAU,Saudi Arabia,18,2004,2021,18,0,0
+155,eci,t2,sample_t2_eci,45,SLE,Sierra Leone,0,,,0,0,1
+156,eci,t2,sample_t2_eci,46,SUR,Suriname,18,2004,2021,18,0,0
+157,eci,t2,sample_t2_eci,47,SYC,Seychelles,18,2004,2021,18,0,0
+158,eci,t2,sample_t2_eci,48,SYR,Syria,17,2004,2020,17,0,0
+159,eci,t2,sample_t2_eci,49,TGO,Togo,18,2004,2021,18,0,0
+160,eci,t2,sample_t2_eci,50,TTO,Trinidad and Tobago,18,2004,2021,18,0,0
+161,eci,t2,sample_t2_eci,51,VEN,Venezuela,11,2004,2014,11,0,0
+162,eci,t2,sample_t2_eci,52,VNM,Vietnam,18,2004,2021,18,0,0
+163,eci,t2,sample_t2_eci,53,YEM,Yemen,13,2004,2016,13,0,0
+164,eci,t2,sample_t2_eci,54,ZAF,South Africa,18,2004,2021,18,0,0
+165,eci,t2,sample_t2_eci,55,ZMB,Zambia,18,2004,2021,18,0,0
+166,eci,t3,sample_t3_eci,1,AGO,Angola,22,1998,2021,24,2,0
+167,eci,t3,sample_t3_eci,2,ALB,Albania,22,1998,2021,24,2,0
+168,eci,t3,sample_t3_eci,3,ARE,United Arab Emirates,22,1998,2021,24,2,0
+169,eci,t3,sample_t3_eci,4,ATG,Antigua and Barbuda,22,1998,2021,24,2,0
+170,eci,t3,sample_t3_eci,5,AUS,Australia,22,1998,2021,24,2,0
+171,eci,t3,sample_t3_eci,6,BDI,Burundi,22,1998,2021,24,2,0
+172,eci,t3,sample_t3_eci,7,BHR,Bahrain,22,1998,2021,24,2,0
+173,eci,t3,sample_t3_eci,8,BOL,Bolivia,22,1998,2021,24,2,0
+174,eci,t3,sample_t3_eci,9,BRN,Brunei,22,1998,2021,24,2,0
+175,eci,t3,sample_t3_eci,10,CAF,Central African Republic,22,1998,2021,24,2,0
+176,eci,t3,sample_t3_eci,11,CHL,Chile,22,1998,2021,24,2,0
+177,eci,t3,sample_t3_eci,12,CMR,Cameroon,22,1998,2021,24,2,0
+178,eci,t3,sample_t3_eci,13,COD,Democratic Republic of the Congo,18,1998,2021,24,6,0
+179,eci,t3,sample_t3_eci,14,COG,Republic of the Congo,18,1998,2021,24,6,0
+180,eci,t3,sample_t3_eci,15,COL,Colombia,22,1998,2021,24,2,0
+181,eci,t3,sample_t3_eci,16,DZA,Algeria,22,1998,2021,24,2,0
+182,eci,t3,sample_t3_eci,17,ECU,Ecuador,22,1998,2021,24,2,0
+183,eci,t3,sample_t3_eci,18,EGY,Egypt,22,1998,2021,24,2,0
+184,eci,t3,sample_t3_eci,19,GAB,Gabon,22,1998,2021,24,2,0
+185,eci,t3,sample_t3_eci,20,GHA,Ghana,22,1998,2021,24,2,0
+186,eci,t3,sample_t3_eci,21,GIN,Guinea,22,1998,2021,24,2,0
+187,eci,t3,sample_t3_eci,22,GMB,The Gambia,22,1998,2021,24,2,0
+188,eci,t3,sample_t3_eci,23,GUY,Guyana,22,1998,2021,24,2,0
+189,eci,t3,sample_t3_eci,24,IDN,Indonesia,22,1998,2021,24,2,0
+190,eci,t3,sample_t3_eci,25,IND,India,22,1998,2021,24,2,0
+191,eci,t3,sample_t3_eci,26,IRN,Iran,22,1998,2021,24,2,0
+192,eci,t3,sample_t3_eci,27,IRQ,Iraq,22,1998,2021,24,2,0
+193,eci,t3,sample_t3_eci,28,ISR,Israel,22,1998,2021,24,2,0
+194,eci,t3,sample_t3_eci,29,JAM,Jamaica,22,1998,2021,24,2,0
+195,eci,t3,sample_t3_eci,30,JOR,Jordan,22,1998,2021,24,2,0
+196,eci,t3,sample_t3_eci,31,KWT,Kuwait,21,1998,2020,23,2,0
+197,eci,t3,sample_t3_eci,32,LBR,Liberia,20,2002,2021,20,0,0
+198,eci,t3,sample_t3_eci,33,LBY,Libya,22,1998,2021,24,2,0
+199,eci,t3,sample_t3_eci,34,MNG,Mongolia,22,1998,2021,24,2,0
+200,eci,t3,sample_t3_eci,35,MRT,Mauritania,22,1998,2021,24,2,0
+201,eci,t3,sample_t3_eci,36,NGA,Nigeria,22,1998,2021,24,2,0
+202,eci,t3,sample_t3_eci,37,NOR,Norway,22,1998,2021,24,2,0
+203,eci,t3,sample_t3_eci,38,NRU,Nauru,0,,,0,0,1
+204,eci,t3,sample_t3_eci,39,OMN,Oman,22,1998,2021,24,2,0
+205,eci,t3,sample_t3_eci,40,PER,Peru,22,1998,2021,24,2,0
+206,eci,t3,sample_t3_eci,41,PNG,Papua New Guinea,22,1998,2021,24,2,0
+207,eci,t3,sample_t3_eci,42,QAT,Qatar,22,1998,2021,24,2,0
+208,eci,t3,sample_t3_eci,43,RUS,Russian Federation,22,1998,2021,24,2,0
+209,eci,t3,sample_t3_eci,44,SAU,Saudi Arabia,22,1998,2021,24,2,0
+210,eci,t3,sample_t3_eci,45,SLE,Sierra Leone,0,,,0,0,1
+211,eci,t3,sample_t3_eci,46,SUR,Suriname,20,2002,2021,20,0,0
+212,eci,t3,sample_t3_eci,47,SYC,Seychelles,22,1998,2021,24,2,0
+213,eci,t3,sample_t3_eci,48,SYR,Syria,21,1998,2020,23,2,0
+214,eci,t3,sample_t3_eci,49,TGO,Togo,22,1998,2021,24,2,0
+215,eci,t3,sample_t3_eci,50,TTO,Trinidad and Tobago,22,1998,2021,24,2,0
+216,eci,t3,sample_t3_eci,51,VEN,Venezuela,15,1998,2014,17,2,0
+217,eci,t3,sample_t3_eci,52,VNM,Vietnam,22,1998,2021,24,2,0
+218,eci,t3,sample_t3_eci,53,YEM,Yemen,17,1998,2016,19,2,0
+219,eci,t3,sample_t3_eci,54,ZAF,South Africa,22,1998,2021,24,2,0
+220,eci,t3,sample_t3_eci,55,ZMB,Zambia,22,1998,2021,24,2,0
+221,eci,t3_expanded,sample_t3_expanded_eci,1,AGO,Angola,18,2004,2021,18,0,0
+222,eci,t3_expanded,sample_t3_expanded_eci,2,ALB,Albania,18,2004,2021,18,0,0
+223,eci,t3_expanded,sample_t3_expanded_eci,3,ARE,United Arab Emirates,18,2004,2021,18,0,0
+224,eci,t3_expanded,sample_t3_expanded_eci,4,ATG,Antigua and Barbuda,18,2004,2021,18,0,0
+225,eci,t3_expanded,sample_t3_expanded_eci,5,AUS,Australia,18,2004,2021,18,0,0
+226,eci,t3_expanded,sample_t3_expanded_eci,6,BDI,Burundi,18,2004,2021,18,0,0
+227,eci,t3_expanded,sample_t3_expanded_eci,7,BHR,Bahrain,18,2004,2021,18,0,0
+228,eci,t3_expanded,sample_t3_expanded_eci,8,BOL,Bolivia,18,2004,2021,18,0,0
+229,eci,t3_expanded,sample_t3_expanded_eci,9,BRN,Brunei,18,2004,2021,18,0,0
+230,eci,t3_expanded,sample_t3_expanded_eci,10,CAF,Central African Republic,18,2004,2021,18,0,0
+231,eci,t3_expanded,sample_t3_expanded_eci,11,CHL,Chile,18,2004,2021,18,0,0
+232,eci,t3_expanded,sample_t3_expanded_eci,12,CMR,Cameroon,18,2004,2021,18,0,0
+233,eci,t3_expanded,sample_t3_expanded_eci,13,COD,Democratic Republic of the Congo,14,2004,2021,18,4,0
+234,eci,t3_expanded,sample_t3_expanded_eci,14,COG,Republic of the Congo,15,2007,2021,15,0,0
+235,eci,t3_expanded,sample_t3_expanded_eci,15,COL,Colombia,18,2004,2021,18,0,0
+236,eci,t3_expanded,sample_t3_expanded_eci,16,DZA,Algeria,18,2004,2021,18,0,0
+237,eci,t3_expanded,sample_t3_expanded_eci,17,ECU,Ecuador,18,2004,2021,18,0,0
+238,eci,t3_expanded,sample_t3_expanded_eci,18,EGY,Egypt,18,2004,2021,18,0,0
+239,eci,t3_expanded,sample_t3_expanded_eci,19,GAB,Gabon,18,2004,2021,18,0,0
+240,eci,t3_expanded,sample_t3_expanded_eci,20,GHA,Ghana,18,2004,2021,18,0,0
+241,eci,t3_expanded,sample_t3_expanded_eci,21,GIN,Guinea,18,2004,2021,18,0,0
+242,eci,t3_expanded,sample_t3_expanded_eci,22,GMB,The Gambia,18,2004,2021,18,0,0
+243,eci,t3_expanded,sample_t3_expanded_eci,23,GUY,Guyana,18,2004,2021,18,0,0
+244,eci,t3_expanded,sample_t3_expanded_eci,24,IDN,Indonesia,18,2004,2021,18,0,0
+245,eci,t3_expanded,sample_t3_expanded_eci,25,IND,India,18,2004,2021,18,0,0
+246,eci,t3_expanded,sample_t3_expanded_eci,26,IRN,Iran,18,2004,2021,18,0,0
+247,eci,t3_expanded,sample_t3_expanded_eci,27,IRQ,Iraq,18,2004,2021,18,0,0
+248,eci,t3_expanded,sample_t3_expanded_eci,28,ISR,Israel,18,2004,2021,18,0,0
+249,eci,t3_expanded,sample_t3_expanded_eci,29,JAM,Jamaica,18,2004,2021,18,0,0
+250,eci,t3_expanded,sample_t3_expanded_eci,30,JOR,Jordan,18,2004,2021,18,0,0
+251,eci,t3_expanded,sample_t3_expanded_eci,31,KWT,Kuwait,17,2004,2020,17,0,0
+252,eci,t3_expanded,sample_t3_expanded_eci,32,LBR,Liberia,18,2004,2021,18,0,0
+253,eci,t3_expanded,sample_t3_expanded_eci,33,LBY,Libya,18,2004,2021,18,0,0
+254,eci,t3_expanded,sample_t3_expanded_eci,34,MNG,Mongolia,18,2004,2021,18,0,0
+255,eci,t3_expanded,sample_t3_expanded_eci,35,MRT,Mauritania,18,2004,2021,18,0,0
+256,eci,t3_expanded,sample_t3_expanded_eci,36,NGA,Nigeria,18,2004,2021,18,0,0
+257,eci,t3_expanded,sample_t3_expanded_eci,37,NOR,Norway,18,2004,2021,18,0,0
+258,eci,t3_expanded,sample_t3_expanded_eci,38,NRU,Nauru,0,,,0,0,1
+259,eci,t3_expanded,sample_t3_expanded_eci,39,OMN,Oman,18,2004,2021,18,0,0
+260,eci,t3_expanded,sample_t3_expanded_eci,40,PER,Peru,18,2004,2021,18,0,0
+261,eci,t3_expanded,sample_t3_expanded_eci,41,PNG,Papua New Guinea,18,2004,2021,18,0,0
+262,eci,t3_expanded,sample_t3_expanded_eci,42,QAT,Qatar,18,2004,2021,18,0,0
+263,eci,t3_expanded,sample_t3_expanded_eci,43,RUS,Russian Federation,18,2004,2021,18,0,0
+264,eci,t3_expanded,sample_t3_expanded_eci,44,SAU,Saudi Arabia,18,2004,2021,18,0,0
+265,eci,t3_expanded,sample_t3_expanded_eci,45,SLE,Sierra Leone,0,,,0,0,1
+266,eci,t3_expanded,sample_t3_expanded_eci,46,SUR,Suriname,18,2004,2021,18,0,0
+267,eci,t3_expanded,sample_t3_expanded_eci,47,SYC,Seychelles,18,2004,2021,18,0,0
+268,eci,t3_expanded,sample_t3_expanded_eci,48,SYR,Syria,17,2004,2020,17,0,0
+269,eci,t3_expanded,sample_t3_expanded_eci,49,TGO,Togo,18,2004,2021,18,0,0
+270,eci,t3_expanded,sample_t3_expanded_eci,50,TTO,Trinidad and Tobago,18,2004,2021,18,0,0
+271,eci,t3_expanded,sample_t3_expanded_eci,51,VEN,Venezuela,11,2004,2014,11,0,0
+272,eci,t3_expanded,sample_t3_expanded_eci,52,VNM,Vietnam,18,2004,2021,18,0,0
+273,eci,t3_expanded,sample_t3_expanded_eci,53,YEM,Yemen,13,2004,2016,13,0,0
+274,eci,t3_expanded,sample_t3_expanded_eci,54,ZAF,South Africa,18,2004,2021,18,0,0
+275,eci,t3_expanded,sample_t3_expanded_eci,55,ZMB,Zambia,18,2004,2021,18,0,0
+276,eci,t4,sample_t4_eci,1,AGO,Angola,22,1996,2020,25,3,0
+277,eci,t4,sample_t4_eci,2,ALB,Albania,22,1996,2020,25,3,0
+278,eci,t4,sample_t4_eci,3,ARE,United Arab Emirates,22,1996,2020,25,3,0
+279,eci,t4,sample_t4_eci,4,ATG,Antigua and Barbuda,22,1996,2020,25,3,0
+280,eci,t4,sample_t4_eci,5,AUS,Australia,22,1996,2020,25,3,0
+281,eci,t4,sample_t4_eci,6,BDI,Burundi,22,1996,2020,25,3,0
+282,eci,t4,sample_t4_eci,7,BHR,Bahrain,22,1996,2020,25,3,0
+283,eci,t4,sample_t4_eci,8,BOL,Bolivia,22,1996,2020,25,3,0
+284,eci,t4,sample_t4_eci,9,BRN,Brunei,22,1996,2020,25,3,0
+285,eci,t4,sample_t4_eci,10,CAF,Central African Republic,22,1996,2020,25,3,0
+286,eci,t4,sample_t4_eci,11,CHL,Chile,22,1996,2020,25,3,0
+287,eci,t4,sample_t4_eci,12,CMR,Cameroon,22,1996,2020,25,3,0
+288,eci,t4,sample_t4_eci,13,COD,Democratic Republic of the Congo,19,1996,2020,25,6,0
+289,eci,t4,sample_t4_eci,14,COG,Republic of the Congo,19,1996,2020,25,6,0
+290,eci,t4,sample_t4_eci,15,COL,Colombia,22,1996,2020,25,3,0
+291,eci,t4,sample_t4_eci,16,DZA,Algeria,22,1996,2020,25,3,0
+292,eci,t4,sample_t4_eci,17,ECU,Ecuador,22,1996,2020,25,3,0
+293,eci,t4,sample_t4_eci,18,EGY,Egypt,22,1996,2020,25,3,0
+294,eci,t4,sample_t4_eci,19,GAB,Gabon,22,1996,2020,25,3,0
+295,eci,t4,sample_t4_eci,20,GHA,Ghana,22,1996,2020,25,3,0
+296,eci,t4,sample_t4_eci,21,GIN,Guinea,22,1996,2020,25,3,0
+297,eci,t4,sample_t4_eci,22,GMB,The Gambia,22,1996,2020,25,3,0
+298,eci,t4,sample_t4_eci,23,GUY,Guyana,22,1996,2020,25,3,0
+299,eci,t4,sample_t4_eci,24,IDN,Indonesia,22,1996,2020,25,3,0
+300,eci,t4,sample_t4_eci,25,IND,India,22,1996,2020,25,3,0
+301,eci,t4,sample_t4_eci,26,IRN,Iran,22,1996,2020,25,3,0
+302,eci,t4,sample_t4_eci,27,IRQ,Iraq,22,1996,2020,25,3,0
+303,eci,t4,sample_t4_eci,28,ISR,Israel,22,1996,2020,25,3,0
+304,eci,t4,sample_t4_eci,29,JAM,Jamaica,22,1996,2020,25,3,0
+305,eci,t4,sample_t4_eci,30,JOR,Jordan,22,1996,2020,25,3,0
+306,eci,t4,sample_t4_eci,31,KWT,Kuwait,21,1996,2019,24,3,0
+307,eci,t4,sample_t4_eci,32,LBR,Liberia,20,2000,2020,21,1,0
+308,eci,t4,sample_t4_eci,33,LBY,Libya,22,1996,2020,25,3,0
+309,eci,t4,sample_t4_eci,34,MNG,Mongolia,22,1996,2020,25,3,0
+310,eci,t4,sample_t4_eci,35,MRT,Mauritania,22,1996,2020,25,3,0
+311,eci,t4,sample_t4_eci,36,NGA,Nigeria,22,1996,2020,25,3,0
+312,eci,t4,sample_t4_eci,37,NOR,Norway,22,1996,2020,25,3,0
+313,eci,t4,sample_t4_eci,38,NRU,Nauru,0,,,0,0,1
+314,eci,t4,sample_t4_eci,39,OMN,Oman,22,1996,2020,25,3,0
+315,eci,t4,sample_t4_eci,40,PER,Peru,22,1996,2020,25,3,0
+316,eci,t4,sample_t4_eci,41,PNG,Papua New Guinea,22,1996,2020,25,3,0
+317,eci,t4,sample_t4_eci,42,QAT,Qatar,22,1996,2020,25,3,0
+318,eci,t4,sample_t4_eci,43,RUS,Russian Federation,22,1996,2020,25,3,0
+319,eci,t4,sample_t4_eci,44,SAU,Saudi Arabia,22,1996,2020,25,3,0
+320,eci,t4,sample_t4_eci,45,SLE,Sierra Leone,0,,,0,0,1
+321,eci,t4,sample_t4_eci,46,SUR,Suriname,20,2000,2020,21,1,0
+322,eci,t4,sample_t4_eci,47,SYC,Seychelles,22,1996,2020,25,3,0
+323,eci,t4,sample_t4_eci,48,SYR,Syria,21,1996,2019,24,3,0
+324,eci,t4,sample_t4_eci,49,TGO,Togo,22,1996,2020,25,3,0
+325,eci,t4,sample_t4_eci,50,TTO,Trinidad and Tobago,22,1996,2020,25,3,0
+326,eci,t4,sample_t4_eci,51,VEN,Venezuela,15,1996,2013,18,3,0
+327,eci,t4,sample_t4_eci,52,VNM,Vietnam,22,1996,2020,25,3,0
+328,eci,t4,sample_t4_eci,53,YEM,Yemen,17,1996,2015,20,3,0
+329,eci,t4,sample_t4_eci,54,ZAF,South Africa,22,1996,2020,25,3,0
+330,eci,t4,sample_t4_eci,55,ZMB,Zambia,22,1996,2020,25,3,0
+331,eci,t5,sample_t5_eci,1,AGO,Angola,19,2003,2021,19,0,0
+332,eci,t5,sample_t5_eci,2,ALB,Albania,19,2003,2021,19,0,0
+333,eci,t5,sample_t5_eci,3,ARE,United Arab Emirates,19,2003,2021,19,0,0
+334,eci,t5,sample_t5_eci,4,ATG,Antigua and Barbuda,19,2003,2021,19,0,0
+335,eci,t5,sample_t5_eci,5,AUS,Australia,19,2003,2021,19,0,0
+336,eci,t5,sample_t5_eci,6,BDI,Burundi,19,2003,2021,19,0,0
+337,eci,t5,sample_t5_eci,7,BHR,Bahrain,19,2003,2021,19,0,0
+338,eci,t5,sample_t5_eci,8,BOL,Bolivia,19,2003,2021,19,0,0
+339,eci,t5,sample_t5_eci,9,BRN,Brunei,19,2003,2021,19,0,0
+340,eci,t5,sample_t5_eci,10,CAF,Central African Republic,19,2003,2021,19,0,0
+341,eci,t5,sample_t5_eci,11,CHL,Chile,19,2003,2021,19,0,0
+342,eci,t5,sample_t5_eci,12,CMR,Cameroon,19,2003,2021,19,0,0
+343,eci,t5,sample_t5_eci,13,COD,Democratic Republic of the Congo,16,2003,2021,19,3,0
+344,eci,t5,sample_t5_eci,14,COG,Republic of the Congo,16,2006,2021,16,0,0
+345,eci,t5,sample_t5_eci,15,COL,Colombia,19,2003,2021,19,0,0
+346,eci,t5,sample_t5_eci,16,DZA,Algeria,19,2003,2021,19,0,0
+347,eci,t5,sample_t5_eci,17,ECU,Ecuador,19,2003,2021,19,0,0
+348,eci,t5,sample_t5_eci,18,EGY,Egypt,19,2003,2021,19,0,0
+349,eci,t5,sample_t5_eci,19,GAB,Gabon,19,2003,2021,19,0,0
+350,eci,t5,sample_t5_eci,20,GHA,Ghana,19,2003,2021,19,0,0
+351,eci,t5,sample_t5_eci,21,GIN,Guinea,19,2003,2021,19,0,0
+352,eci,t5,sample_t5_eci,22,GMB,The Gambia,19,2003,2021,19,0,0
+353,eci,t5,sample_t5_eci,23,GUY,Guyana,19,2003,2021,19,0,0
+354,eci,t5,sample_t5_eci,24,IDN,Indonesia,19,2003,2021,19,0,0
+355,eci,t5,sample_t5_eci,25,IND,India,19,2003,2021,19,0,0
+356,eci,t5,sample_t5_eci,26,IRN,Iran,19,2003,2021,19,0,0
+357,eci,t5,sample_t5_eci,27,IRQ,Iraq,19,2003,2021,19,0,0
+358,eci,t5,sample_t5_eci,28,ISR,Israel,19,2003,2021,19,0,0
+359,eci,t5,sample_t5_eci,29,JAM,Jamaica,19,2003,2021,19,0,0
+360,eci,t5,sample_t5_eci,30,JOR,Jordan,19,2003,2021,19,0,0
+361,eci,t5,sample_t5_eci,31,KWT,Kuwait,18,2003,2020,18,0,0
+362,eci,t5,sample_t5_eci,32,LBR,Liberia,19,2003,2021,19,0,0
+363,eci,t5,sample_t5_eci,33,LBY,Libya,19,2003,2021,19,0,0
+364,eci,t5,sample_t5_eci,34,MNG,Mongolia,19,2003,2021,19,0,0
+365,eci,t5,sample_t5_eci,35,MRT,Mauritania,19,2003,2021,19,0,0
+366,eci,t5,sample_t5_eci,36,NGA,Nigeria,19,2003,2021,19,0,0
+367,eci,t5,sample_t5_eci,37,NOR,Norway,19,2003,2021,19,0,0
+368,eci,t5,sample_t5_eci,38,NRU,Nauru,0,,,0,0,1
+369,eci,t5,sample_t5_eci,39,OMN,Oman,19,2003,2021,19,0,0
+370,eci,t5,sample_t5_eci,40,PER,Peru,19,2003,2021,19,0,0
+371,eci,t5,sample_t5_eci,41,PNG,Papua New Guinea,19,2003,2021,19,0,0
+372,eci,t5,sample_t5_eci,42,QAT,Qatar,19,2003,2021,19,0,0
+373,eci,t5,sample_t5_eci,43,RUS,Russian Federation,19,2003,2021,19,0,0
+374,eci,t5,sample_t5_eci,44,SAU,Saudi Arabia,19,2003,2021,19,0,0
+375,eci,t5,sample_t5_eci,45,SLE,Sierra Leone,0,,,0,0,1
+376,eci,t5,sample_t5_eci,46,SUR,Suriname,19,2003,2021,19,0,0
+377,eci,t5,sample_t5_eci,47,SYC,Seychelles,19,2003,2021,19,0,0
+378,eci,t5,sample_t5_eci,48,SYR,Syria,18,2003,2020,18,0,0
+379,eci,t5,sample_t5_eci,49,TGO,Togo,19,2003,2021,19,0,0
+380,eci,t5,sample_t5_eci,50,TTO,Trinidad and Tobago,19,2003,2021,19,0,0
+381,eci,t5,sample_t5_eci,51,VEN,Venezuela,12,2003,2014,12,0,0
+382,eci,t5,sample_t5_eci,52,VNM,Vietnam,19,2003,2021,19,0,0
+383,eci,t5,sample_t5_eci,53,YEM,Yemen,14,2003,2016,14,0,0
+384,eci,t5,sample_t5_eci,54,ZAF,South Africa,19,2003,2021,19,0,0
+385,eci,t5,sample_t5_eci,55,ZMB,Zambia,19,2003,2021,19,0,0

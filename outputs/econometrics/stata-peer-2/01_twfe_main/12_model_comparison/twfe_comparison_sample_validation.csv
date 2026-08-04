@@ -1,0 +1,7 @@
+model,outcome,model_order,observations,countries,clusters,effective_years,first_year,last_year,same_country_year_keys
+M1,DIVX,1,1044,49,49,23,1996,2021,1
+M2,DIVX,2,1044,49,49,23,1996,2021,1
+M3,DIVX,3,1044,49,49,23,1996,2021,1
+M1,ECI,1,1044,49,49,23,1996,2021,1
+M2,ECI,2,1044,49,49,23,1996,2021,1
+M3,ECI,3,1044,49,49,23,1996,2021,1

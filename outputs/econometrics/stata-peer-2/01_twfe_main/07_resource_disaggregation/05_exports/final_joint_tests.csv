@@ -1,0 +1,15 @@
+model,order,test,null_hypothesis,f_statistic,df1,df2,p_value
+ECI,1,Hidrocarburos: efecto conjunto,RENTS_OIL_GAS y su interacción son conjuntamente cero,1.2663508169,2,48,0.2911047300
+ECI,2,Minería: efecto conjunto,RENTS_MINING y su interacción son conjuntamente cero,6.8562371706,2,48,0.0024034698
+ECI,3,Interacciones conjuntas,Las dos interacciones institucionales son conjuntamente cero,1.1026448314,2,48,0.3402532300
+ECI,4,Igualdad de coeficientes directos,Los coeficientes directos de ambos componentes son iguales,0.9903124835,1,48,0.3246564000
+ECI,5,Igualdad de interacciones,Las interacciones institucionales de ambos componentes son iguales,0.4157520834,1,48,0.5221341800
+ECI,6,Restricción del modelo agregado,Coeficientes directos e interacciones son iguales entre componentes,1.1289131049,2,48,0.3318187300
+ECI,7,Términos desagregados conjuntos,Los cuatro términos desagregados son conjuntamente cero,4.1614669653,4,48,0.0056614242
+DIVX,1,Hidrocarburos: efecto conjunto,RENTS_OIL_GAS y su interacción son conjuntamente cero,10.3643027429,2,48,0.0001813380
+DIVX,2,Minería: efecto conjunto,RENTS_MINING y su interacción son conjuntamente cero,0.2911198069,2,48,0.7487363800
+DIVX,3,Interacciones conjuntas,Las dos interacciones institucionales son conjuntamente cero,0.5187352045,2,48,0.5985718400
+DIVX,4,Igualdad de coeficientes directos,Los coeficientes directos de ambos componentes son iguales,2.6868650136,1,48,0.1077175700
+DIVX,5,Igualdad de interacciones,Las interacciones institucionales de ambos componentes son iguales,0.6639923994,1,48,0.4191787200
+DIVX,6,Restricción del modelo agregado,Coeficientes directos e interacciones son iguales entre componentes,4.3475899078,2,48,0.0183942630
+DIVX,7,Términos desagregados conjuntos,Los cuatro términos desagregados son conjuntamente cero,5.2814370097,4,48,0.0013162077

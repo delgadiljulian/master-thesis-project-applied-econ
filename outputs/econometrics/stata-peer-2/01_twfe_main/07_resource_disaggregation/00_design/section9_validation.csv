@@ -1,0 +1,12 @@
+check,unit,value,status
+identity_complete_observations,observations,1352,PASS
+identity_max_absolute_gap,percentage_points,9.38468053269e-14,PASS
+identity_missingness_mismatches,observations,0,PASS
+eci_aggregate_observations,observations,1044,REFERENCE
+eci_disaggregated_observations,observations,1044,PASS
+eci_disaggregated_countries,countries,49,PASS
+eci_sample_mismatches,observations,0,PASS
+divx_aggregate_observations,observations,1044,REFERENCE
+divx_disaggregated_observations,observations,1044,PASS
+divx_disaggregated_countries,countries,49,PASS
+divx_sample_mismatches,observations,0,PASS

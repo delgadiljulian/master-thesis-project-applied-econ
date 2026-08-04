@@ -1,0 +1,21 @@
+order,family,file,purpose
+1,Diseño,og_design_register.csv,Pregunta y función de las cuatro ecuaciones.
+2,Muestra,og_sample_validation.csv,Validación de 1.044 observaciones y 49 países.
+3,Diseño,og_specification_register.csv,Regresores y regla de HHI por ecuación.
+4,Estimación,og_m1_eci.ster,Estimación M1_OG para ECI.
+5,Estimación,og_m1_divx.ster,Estimación M1_OG para DIVX.
+6,Estimación,og_m2_eci.ster,Estimación M2_OG para ECI.
+7,Estimación,og_m2_divx.ster,Estimación M2_OG para DIVX.
+8,Resultados,og_coefficients.csv,Coeficientes e incertidumbre de las cuatro ecuaciones.
+9,Resultados,og_model_summary.csv,Cobertura y ajuste within de M1_OG y M2_OG.
+10,Inferencia,og_joint_tests.csv,Pruebas conjuntas por canal.
+11,Comparación,og_aggregate_comparison.csv,Comparación focal con RENTS total en la misma muestra.
+12,Interpretación,og_marginal_effects.csv,Efectos marginales según percentiles de INST.
+13,Inferencia,og_wild_cluster_bootstrap.csv,Bootstrap para RENTS_OIL_GAS y su interacción.
+14,Verificación,og_xtreg_reghdfe_verification.csv,Equivalencia numérica entre xtreg y reghdfe.
+15,Tabla,og_m1_results_table.tex,Tabla LaTeX del Modelo 1.
+16,Tabla,og_m1_results_table.txt,Tabla de texto del Modelo 1.
+17,Tabla,og_m2_results_table.tex,Tabla LaTeX del Modelo 2.
+18,Tabla,og_m2_results_table.txt,Tabla de texto del Modelo 2.
+19,Figura,og_marginal_effects.png,Figura comparada para revisión visual.
+20,Documentación,og_results_manifest.csv,Inventario reproducible de productos.

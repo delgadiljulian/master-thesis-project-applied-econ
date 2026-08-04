@@ -1,0 +1,46 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{2}{c}}
+\toprule
+                    &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}\\
+                    &\multicolumn{1}{c}{ECI}&\multicolumn{1}{c}{DIVX}\\
+\midrule
+RENTS\_OIL\_GAS       &     -0.0112\sym{**} &     -0.0053\sym{***}\\
+                    &    (0.0050)         &    (0.0013)         \\
+\addlinespace
+INST                &      0.2980\sym{**} &      0.0224         \\
+                    &    (0.1374)         &    (0.0290)         \\
+\addlinespace
+RENTS\_OIL\_GAS x INST&     -0.0047         &      0.0012         \\
+                    &    (0.0044)         &    (0.0013)         \\
+\addlinespace
+VOL                 &     -0.0030         &      0.0007         \\
+                    &    (0.0025)         &    (0.0010)         \\
+\addlinespace
+RER                 &     -0.1049         &     -0.0512         \\
+                    &    (0.1038)         &    (0.0403)         \\
+\addlinespace
+HUMCAP              &      0.1106         &      0.1293\sym{***}\\
+                    &    (0.2488)         &    (0.0416)         \\
+\addlinespace
+INNOV               &     -0.0182         &      0.0089         \\
+                    &    (0.0480)         &    (0.0153)         \\
+\addlinespace
+NET                 &     -0.0013         &     -0.0008\sym{*}  \\
+                    &    (0.0021)         &    (0.0004)         \\
+\addlinespace
+log(GDPPC)          &     -0.1758         &     -0.1658\sym{***}\\
+                    &    (0.1975)         &    (0.0345)         \\
+\addlinespace
+GOVCONS             &     -0.0065         &      0.0021         \\
+                    &    (0.0105)         &    (0.0016)         \\
+\addlinespace
+FIN                 &     -0.0002         &      0.0007\sym{*}  \\
+                    &    (0.0027)         &    (0.0004)         \\
+\midrule
+Observaciones       &        1044         &        1044         \\
+Países              &          49         &          49         \\
+R-cuadrado within   &       0.073         &       0.280         \\
+\bottomrule
+\end{tabular}
+}

@@ -1,0 +1,9 @@
+order,outcome,sample_type,model,test_type,null_hypothesis,estimate,standard_error,t_statistic,f_statistic,df1,df2,p_value,ci_lower,ci_upper,observations,countries,interpretation
+1,ECI,own,ECI_T3_OWN,sum,b(L0) + b(L1) + b(L2) = 0,-.009071828817748,.0039919042,-2.2725568,,1,52,.027215023,-.01708217,-.001061487,1140,53,Interpretar suma; no rezagos individuales
+2,ECI,own,ECI_T3_OWN,joint,b(L0) = b(L1) = b(L2) = 0,,,,2.5771804,3,52,.063601658,,,1140,53,Prueba conjunta; no rezagos individuales
+3,ECI,common,ECI_T3_COMMON,sum,b(L0) + b(L1) + b(L2) = 0,-.0025033057523373,.0047919299,-.52240032,,1,52,.60361022,-.012119017,.0071124053,933,53,Interpretar suma; no rezagos individuales
+4,ECI,common,ECI_T3_COMMON,joint,b(L0) = b(L1) = b(L2) = 0,,,,1.311698,3,52,.28049955,,,933,53,Prueba conjunta; no rezagos individuales
+5,DIVX,own,DIVX_T3_OWN,sum,b(L0) + b(L1) + b(L2) = 0,-.0060083118271911,.001528744,-3.9302278,,1,52,.00025185556,-.0090759611,-.0029406627,1140,53,Interpretar suma; no rezagos individuales
+6,DIVX,own,DIVX_T3_OWN,joint,b(L0) = b(L1) = b(L2) = 0,,,,16.41923,3,52,1.2384177e-07,,,1140,53,Prueba conjunta; no rezagos individuales
+7,DIVX,common,DIVX_T3_COMMON,sum,b(L0) + b(L1) + b(L2) = 0,-.0059481411282754,.0015243408,-3.9021072,,1,52,.00027554078,-.0090069547,-.0028893275,933,53,Interpretar suma; no rezagos individuales
+8,DIVX,common,DIVX_T3_COMMON,joint,b(L0) = b(L1) = b(L2) = 0,,,,11.701855,3,52,5.6905155e-06,,,933,53,Prueba conjunta; no rezagos individuales

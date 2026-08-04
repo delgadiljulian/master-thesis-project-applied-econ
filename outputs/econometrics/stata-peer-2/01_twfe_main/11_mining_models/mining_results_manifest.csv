@@ -1,0 +1,40 @@
+order,family,file,purpose
+1,Diseño,mining_design_register.csv,Pregunta y función de las cuatro ecuaciones.
+2,Muestra,mining_sample_validation.csv,Validación de 1.044 observaciones y 49 países.
+3,Diseño,mining_specification_register.csv,Regresores y regla de HHI por ecuación.
+4,Estimación,mining_m1_eci.ster,Estimación M1_MIN para ECI.
+5,Estimación,mining_m1_divx.ster,Estimación M1_MIN para DIVX.
+6,Estimación,mining_m2_eci.ster,Estimación M2_MIN para ECI.
+7,Estimación,mining_m2_divx.ster,Estimación M2_MIN para DIVX.
+8,Resultados,mining_m1_coefficients.csv,Coeficientes e incertidumbre de M1_MIN.
+9,Resultados,mining_m2_coefficients.csv,Coeficientes e incertidumbre de M2_MIN.
+10,Resultados,mining_coefficients.csv,Coeficientes de las cuatro ecuaciones.
+11,Resultados,mining_m1_model_summary.csv,Cobertura y ajuste within de M1_MIN.
+12,Resultados,mining_m2_model_summary.csv,Cobertura y ajuste within de M2_MIN.
+13,Resultados,mining_model_summary.csv,Resumen de las cuatro ecuaciones.
+14,Inferencia,mining_m1_joint_tests.csv,Pruebas conjuntas de M1_MIN.
+15,Inferencia,mining_m2_joint_tests.csv,Pruebas conjuntas de M2_MIN.
+16,Inferencia,mining_joint_tests.csv,Pruebas conjuntas de M1_MIN y M2_MIN.
+17,Comparación,mining_model_comparison.csv,Comparación focal entre M1_MIN y M2_MIN.
+18,Comparación,mining_aggregate_comparison.csv,Contraste con RENTS total en la misma muestra.
+19,Comparación,mining_oil_gas_comparison.csv,Contraste descriptivo con RENTS_OIL_GAS.
+20,Interpretación,mining_m1_marginal_effects.csv,Efectos marginales de M1_MIN.
+21,Interpretación,mining_m2_marginal_effects.csv,Efectos marginales de M2_MIN.
+22,Interpretación,mining_marginal_effects.csv,Efectos marginales de las cuatro ecuaciones.
+23,Inferencia,mining_m1_wild_cluster_bootstrap.csv,Bootstrap de M1_MIN.
+24,Inferencia,mining_m2_wild_cluster_bootstrap.csv,Bootstrap de M2_MIN.
+25,Inferencia,mining_wild_cluster_bootstrap.csv,Bootstrap de M1_MIN y M2_MIN.
+26,Verificación,mining_m1_xtreg_reghdfe_verification.csv,Equivalencia xtreg-reghdfe de M1_MIN.
+27,Verificación,mining_m2_xtreg_reghdfe_verification.csv,Equivalencia xtreg-reghdfe de M2_MIN.
+28,Verificación,mining_xtreg_reghdfe_verification.csv,Equivalencia de las cuatro ecuaciones.
+29,Tabla,mining_m1_results_table.tex,Tabla LaTeX del Modelo 1 minero.
+30,Tabla,mining_m1_results_table.txt,Tabla de texto del Modelo 1 minero.
+31,Tabla,mining_m2_results_table.tex,Tabla LaTeX del Modelo 2 minero.
+32,Tabla,mining_m2_results_table.txt,Tabla de texto del Modelo 2 minero.
+33,Tabla,mining_models_comparison_table.tex,Tabla LaTeX comparativa de M1_MIN y M2_MIN.
+34,Tabla,mining_models_comparison_table.txt,Tabla de texto comparativa de M1_MIN y M2_MIN.
+35,Figura,mining_m1_marginal_effects.png,Figura de efectos marginales de M1_MIN.
+36,Figura,mining_m2_marginal_effects.png,Figura de efectos marginales de M2_MIN.
+37,Figura,mining_marginal_effects.png,Figura comparativa de M1_MIN y M2_MIN.
+38,Documentación,mining_m1_results_manifest.csv,Inventario parcial hasta la sección 16M.
+39,Documentación,mining_results_manifest.csv,Inventario reproducible de las secciones 15M a 18M.

@@ -1,0 +1,54 @@
+section,filename,relative_path,format,data_rows,content
+00_design,control_g_design.csv,00_design/control_g_design.csv,csv,8,Diseño y validaciones previas
+00_design,section9_validation.csv,00_design/section9_validation.csv,csv,11,Diseño y validaciones previas
+01_diagnostics,component_panel_variation.csv,01_diagnostics/component_panel_variation.csv,csv,4,Diagnósticos de componentes
+01_diagnostics,component_profile.csv,01_diagnostics/component_profile.csv,csv,2,Diagnósticos de componentes
+01_diagnostics,focal_correlation_matrix.csv,01_diagnostics/focal_correlation_matrix.csv,csv,8,Diagnósticos de componentes
+01_diagnostics,influence_summary.csv,01_diagnostics/influence_summary.csv,csv,2,Diagnósticos de componentes
+01_diagnostics,influential_observations.csv,01_diagnostics/influential_observations.csv,csv,153,Diagnósticos de componentes
+01_diagnostics,within_vif_by_model.csv,01_diagnostics/within_vif_by_model.csv,csv,37,Diagnósticos de componentes
+02_eci,eci_aggregate_disaggregated_focal_comparison.csv,02_eci/eci_aggregate_disaggregated_focal_comparison.csv,csv,6,Modelo ECI desagregado
+02_eci,eci_aggregate_disaggregated_model_comparison.csv,02_eci/eci_aggregate_disaggregated_model_comparison.csv,csv,2,Modelo ECI desagregado
+02_eci,eci_aggregate_disaggregated_table.tex,02_eci/eci_aggregate_disaggregated_table.tex,tex,,Modelo ECI desagregado
+02_eci,eci_disaggregated_coefficients.csv,02_eci/eci_disaggregated_coefficients.csv,csv,19,Modelo ECI desagregado
+02_eci,eci_disaggregated_model_summary.csv,02_eci/eci_disaggregated_model_summary.csv,csv,1,Modelo ECI desagregado
+02_eci,eci_disaggregated_tests.csv,02_eci/eci_disaggregated_tests.csv,csv,7,Modelo ECI desagregado
+02_eci,eci_reghdfe_disaggregated_check.ster,02_eci/eci_reghdfe_disaggregated_check.ster,ster,,Modelo ECI desagregado
+02_eci,eci_twfe_disaggregated.ster,02_eci/eci_twfe_disaggregated.ster,ster,,Modelo ECI desagregado
+02_eci,eci_xtreg_reghdfe_verification.csv,02_eci/eci_xtreg_reghdfe_verification.csv,csv,19,Modelo ECI desagregado
+03_divx,divx_aggregate_disaggregated_focal_comparison.csv,03_divx/divx_aggregate_disaggregated_focal_comparison.csv,csv,6,Modelo DIVX desagregado
+03_divx,divx_aggregate_disaggregated_model_comparison.csv,03_divx/divx_aggregate_disaggregated_model_comparison.csv,csv,2,Modelo DIVX desagregado
+03_divx,divx_aggregate_disaggregated_table.tex,03_divx/divx_aggregate_disaggregated_table.tex,tex,,Modelo DIVX desagregado
+03_divx,divx_disaggregated_coefficients.csv,03_divx/divx_disaggregated_coefficients.csv,csv,18,Modelo DIVX desagregado
+03_divx,divx_disaggregated_model_summary.csv,03_divx/divx_disaggregated_model_summary.csv,csv,1,Modelo DIVX desagregado
+03_divx,divx_disaggregated_tests.csv,03_divx/divx_disaggregated_tests.csv,csv,7,Modelo DIVX desagregado
+03_divx,divx_reghdfe_disaggregated_check.ster,03_divx/divx_reghdfe_disaggregated_check.ster,ster,,Modelo DIVX desagregado
+03_divx,divx_twfe_disaggregated.ster,03_divx/divx_twfe_disaggregated.ster,ster,,Modelo DIVX desagregado
+03_divx,divx_xtreg_reghdfe_verification.csv,03_divx/divx_xtreg_reghdfe_verification.csv,csv,18,Modelo DIVX desagregado
+04_stability,component_marginal_effects_by_inst.csv,04_stability/component_marginal_effects_by_inst.csv,csv,20,Estabilidad y efectos marginales
+04_stability,divx_mining_marginal_effect.pdf,04_stability/divx_mining_marginal_effect.pdf,pdf,,Estabilidad y efectos marginales
+04_stability,divx_mining_marginal_effect.png,04_stability/divx_mining_marginal_effect.png,png,,Estabilidad y efectos marginales
+04_stability,divx_oil_gas_marginal_effect.pdf,04_stability/divx_oil_gas_marginal_effect.pdf,pdf,,Estabilidad y efectos marginales
+04_stability,divx_oil_gas_marginal_effect.png,04_stability/divx_oil_gas_marginal_effect.png,png,,Estabilidad y efectos marginales
+04_stability,eci_mining_marginal_effect.pdf,04_stability/eci_mining_marginal_effect.pdf,pdf,,Estabilidad y efectos marginales
+04_stability,eci_mining_marginal_effect.png,04_stability/eci_mining_marginal_effect.png,png,,Estabilidad y efectos marginales
+04_stability,eci_oil_gas_marginal_effect.pdf,04_stability/eci_oil_gas_marginal_effect.pdf,pdf,,Estabilidad y efectos marginales
+04_stability,eci_oil_gas_marginal_effect.png,04_stability/eci_oil_gas_marginal_effect.png,png,,Estabilidad y efectos marginales
+04_stability,influential_observation_sensitivity.csv,04_stability/influential_observation_sensitivity.csv,csv,16,Estabilidad y efectos marginales
+04_stability,leave_one_country_out_detail.csv,04_stability/leave_one_country_out_detail.csv,csv,392,Estabilidad y efectos marginales
+04_stability,leave_one_country_out_summary.csv,04_stability/leave_one_country_out_summary.csv,csv,8,Estabilidad y efectos marginales
+04_stability,no_per_capita_controls_sensitivity.csv,04_stability/no_per_capita_controls_sensitivity.csv,csv,16,Estabilidad y efectos marginales
+04_stability,stability_classification.csv,04_stability/stability_classification.csv,csv,8,Estabilidad y efectos marginales
+04_stability,wild_cluster_bootstrap.csv,04_stability/wild_cluster_bootstrap.csv,csv,8,Estabilidad y efectos marginales
+05_exports,final_component_marginal_effects.csv,05_exports/final_component_marginal_effects.csv,csv,20,Paquete final consolidado
+05_exports,final_focal_coefficients.csv,05_exports/final_focal_coefficients.csv,csv,12,Paquete final consolidado
+05_exports,final_joint_tests.csv,05_exports/final_joint_tests.csv,csv,14,Paquete final consolidado
+05_exports,final_model_comparison.csv,05_exports/final_model_comparison.csv,csv,4,Paquete final consolidado
+05_exports,final_stability_classification.csv,05_exports/final_stability_classification.csv,csv,8,Paquete final consolidado
+05_exports,results_index.csv,05_exports/results_index.csv,csv,53,Paquete final consolidado
+05_exports,results_manifest.csv,05_exports/results_manifest.csv,csv,1,Paquete final consolidado
+05_exports,table_eci_divx_aggregate_disaggregated.tex,05_exports/table_eci_divx_aggregate_disaggregated.tex,tex,,Paquete final consolidado
+05_exports,table_eci_divx_aggregate_disaggregated.txt,05_exports/table_eci_divx_aggregate_disaggregated.txt,txt,,Paquete final consolidado
+05_exports,table_eci_divx_full_models.tex,05_exports/table_eci_divx_full_models.tex,tex,,Paquete final consolidado
+05_exports,table_eci_divx_full_models.txt,05_exports/table_eci_divx_full_models.txt,txt,,Paquete final consolidado
+logs,03_resource_disaggregation.log,logs/03_resource_disaggregation.log,log,,Registro de ejecución

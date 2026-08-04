@@ -1,0 +1,17 @@
+model,order,test,null_hypothesis,f_statistic,df1,df2,p_value
+DIVX,1,Canal institucional,"RENTS, INST y RENTS x INST son conjuntamente cero",7.196987,3,48,.000438
+DIVX,2,Canal de abundancia,"Petróleo, gas y carbón son conjuntamente cero",.778553,3,48,.511742
+DIVX,3,Canal estructural,PEXP y FEXP son conjuntamente cero; HHI está excluido,4.322053,2,48,.018796
+DIVX,4,Canal macroeconómico,VOL y RER son conjuntamente cero,1.018737,2,48,.368723
+DIVX,5,Capacidades productivas,"HUMCAP, INNOV y NET son conjuntamente cero",4.178948,3,48,.010442
+DIVX,6,Controles económicos y financieros,"log(GDPPC), GOVCONS y FIN son conjuntamente cero",7.282665,3,48,.000403
+DIVX,7,Efectos fijos por año,Todos los indicadores de año son conjuntamente cero,3.86416,22,48,.000045
+DIVX,8,Igualdad entre recursos,"Los coeficientes de petróleo, gas y carbón son iguales",1.125348,2,48,.332951
+ECI,1,Canal institucional,"RENTS, INST y RENTS x INST son conjuntamente cero",2.002565,3,48,.126149
+ECI,2,Canal de abundancia,"Petróleo, gas y carbón son conjuntamente cero",.788135,3,48,.506465
+ECI,3,Canal estructural,"HHI, PEXP y FEXP son conjuntamente cero",6.712917,3,48,.000712
+ECI,4,Canal macroeconómico,VOL y RER son conjuntamente cero,1.581326,2,48,.21623
+ECI,5,Capacidades productivas,"HUMCAP, INNOV y NET son conjuntamente cero",.472334,3,48,.702987
+ECI,6,Controles económicos y financieros,"log(GDPPC), GOVCONS y FIN son conjuntamente cero",.258047,3,48,.855226
+ECI,7,Efectos fijos por año,Todos los indicadores de año son conjuntamente cero,3.532931,22,48,.000129
+ECI,8,Igualdad entre recursos,"Los coeficientes de petróleo, gas y carbón son iguales",.265427,2,48,.767997

@@ -1,0 +1,71 @@
+\begin{table}[htbp]\centering
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\caption{Rentas extractivas, complejidad y diversificación exportadora}
+\begin{tabular}{l*{2}{c}}
+\toprule
+                    &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}\\
+                    &\multicolumn{1}{c}{ECI}&\multicolumn{1}{c}{DIVX}\\
+\midrule
+RENTS               &     -0.0098\sym{**} &     -0.0035\sym{***}\\
+                    &    (0.0042)         &    (0.0013)         \\
+\addlinespace
+INST                &      0.2667\sym{*}  &      0.0175         \\
+                    &    (0.1367)         &    (0.0282)         \\
+\addlinespace
+RENTS x INST        &     -0.0052         &      0.0009         \\
+                    &    (0.0035)         &    (0.0012)         \\
+\addlinespace
+log(1 + OILPC)      &      0.0283         &      0.0076         \\
+                    &    (0.0376)         &    (0.0090)         \\
+\addlinespace
+log(1 + GASPC)      &      0.0396         &      0.0049         \\
+                    &    (0.0343)         &    (0.0067)         \\
+\addlinespace
+log(1 + COALPC)     &      0.0109         &     -0.0085         \\
+                    &    (0.0264)         &    (0.0078)         \\
+\addlinespace
+HHI                 &     -0.5355\sym{**} &                     \\
+                    &    (0.2252)         &                     \\
+\addlinespace
+PEXP                &     -0.0042\sym{***}&      0.0015\sym{**} \\
+                    &    (0.0016)         &    (0.0006)         \\
+\addlinespace
+FEXP                &     -0.0068\sym{***}&     -0.0011         \\
+                    &    (0.0019)         &    (0.0010)         \\
+\addlinespace
+VOL                 &     -0.0029         &      0.0008         \\
+                    &    (0.0024)         &    (0.0010)         \\
+\addlinespace
+RER                 &     -0.0873         &     -0.0397         \\
+                    &    (0.0984)         &    (0.0359)         \\
+\addlinespace
+HUMCAP              &     -0.0540         &      0.1069\sym{**} \\
+                    &    (0.2244)         &    (0.0443)         \\
+\addlinespace
+INNOV               &     -0.0361         &      0.0112         \\
+                    &    (0.0484)         &    (0.0136)         \\
+\addlinespace
+NET                 &     -0.0013         &     -0.0007\sym{**} \\
+                    &    (0.0021)         &    (0.0004)         \\
+\addlinespace
+log(GDPPC)          &     -0.0459         &     -0.1456\sym{***}\\
+                    &    (0.2212)         &    (0.0351)         \\
+\addlinespace
+GOVCONS             &     -0.0060         &      0.0032\sym{*}  \\
+                    &    (0.0089)         &    (0.0018)         \\
+\addlinespace
+FIN                 &     -0.0010         &      0.0006         \\
+                    &    (0.0024)         &    (0.0004)         \\
+\midrule
+Observaciones       &        1044         &        1044         \\
+Países              &          49         &          49         \\
+R-cuadrado within   &       0.152         &       0.312         \\
+\bottomrule
+\multicolumn{3}{l}{\footnotesize Standard errors in parentheses}\\
+\multicolumn{3}{l}{\footnotesize Errores estándar agrupados por país entre paréntesis.}\\
+\multicolumn{3}{l}{\footnotesize Todos los modelos incluyen efectos fijos por país y año.}\\
+\multicolumn{3}{l}{\footnotesize Los coeficientes representan asociaciones condicionadas, no efectos causales.}\\
+\multicolumn{3}{l}{\footnotesize HHI se excluye de DIVX porque DIVX = 1 - HHI.}\\
+\multicolumn{3}{l}{\footnotesize \sym{*} \(p<0.10\), \sym{**} \(p<0.05\), \sym{***} \(p<0.01\)}\\
+\end{tabular}
+\end{table}

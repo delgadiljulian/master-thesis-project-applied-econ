@@ -1,0 +1,2 @@
+package_id,script,stata_version,execution_date,execution_time,source_data,eci_observations,divx_observations,countries,first_year,last_year,focal_rows,joint_test_rows,marginal_effect_rows,stability_rows,figure_files,final_export_files,indexed_files,bootstrap_replications,output_scope,control_status
+resource_disaggregation_9_14,03_resource_disaggregation.do,17, 3 Aug 2026,10:58:18,01_sample/master_panel_estimation_sample.dta,1044,1044,49,1996,2021,12,14,20,8,8,11,53,9999,07_resource_disaggregation,Control J validado

@@ -1,0 +1,41 @@
+outcome,order,channel,null_hypothesis,f_statistic,df1,df2,p_value,model
+DIVX,1,Institucional,"RENTS, INST e interacción son conjuntamente cero",6.845259,3,48,0.000623,M1
+DIVX,2,Abundancia,"Petróleo, gas y carbón son conjuntamente cero",0.776919,3,48,0.512646,M1
+DIVX,3,Estructura exportadora,PEXP y FEXP son conjuntamente cero; HHI está excluido,4.141946,2,48,0.021906,M1
+DIVX,4,Nivel de desarrollo,log_GDPPC es igual a cero,14.948830,1,48,0.000332,M1
+DIVX,5,Efectos de año,Todos los indicadores de año son conjuntamente cero,5.047575,22,48,0.000001,M1
+DIVX,6,Igualdad entre recursos,"Petróleo, gas y carbón tienen el mismo coeficiente",0.892078,2,48,0.416488,M1
+DIVX,1,Institucional,"RENTS, INST e interacción son conjuntamente cero",8.095275,3,48,0.000182,M2
+DIVX,2,Macroeconomía,VOL y RER son conjuntamente cero,1.730982,2,48,0.187982,M2
+DIVX,3,Capacidades productivas,"HUMCAP, INNOV y NET son conjuntamente cero",5.097923,3,48,0.003829,M2
+DIVX,4,Nivel de desarrollo,log_GDPPC es igual a cero,24.685869,1,48,0.000009,M2
+DIVX,5,Fiscal y financiero,GOVCONS y FIN son conjuntamente cero,3.231208,2,48,0.048246,M2
+DIVX,6,Efectos de año,Todos los indicadores de año son conjuntamente cero,4.276882,22,48,0.000013,M2
+DIVX,1,Canal institucional,"RENTS, INST y RENTS x INST son conjuntamente cero",7.196987,3,48,0.000438,M3
+DIVX,2,Canal de abundancia,"Petróleo, gas y carbón son conjuntamente cero",0.778553,3,48,0.511742,M3
+DIVX,3,Canal estructural,PEXP y FEXP son conjuntamente cero; HHI está excluido,4.322053,2,48,0.018796,M3
+DIVX,4,Canal macroeconómico,VOL y RER son conjuntamente cero,1.018737,2,48,0.368723,M3
+DIVX,5,Capacidades productivas,"HUMCAP, INNOV y NET son conjuntamente cero",4.178948,3,48,0.010442,M3
+DIVX,6,Controles económicos y financieros,"log(GDPPC), GOVCONS y FIN son conjuntamente cero",7.282665,3,48,0.000403,M3
+DIVX,7,Efectos fijos por año,Todos los indicadores de año son conjuntamente cero,3.864160,22,48,0.000045,M3
+DIVX,8,Igualdad entre recursos,"Los coeficientes de petróleo, gas y carbón son iguales",1.125348,2,48,0.332951,M3
+ECI,1,Institucional,"RENTS, INST e interacción son conjuntamente cero",1.229939,3,48,0.309106,M1
+ECI,2,Abundancia,"Petróleo, gas y carbón son conjuntamente cero",0.628249,3,48,0.600312,M1
+ECI,3,Estructura exportadora,"HHI, PEXP y FEXP son conjuntamente cero",5.105594,3,48,0.003797,M1
+ECI,4,Nivel de desarrollo,log_GDPPC es igual a cero,0.147470,1,48,0.702661,M1
+ECI,5,Efectos de año,Todos los indicadores de año son conjuntamente cero,3.696792,22,48,0.000077,M1
+ECI,6,Igualdad entre recursos,"Petróleo, gas y carbón tienen el mismo coeficiente",0.675873,2,48,0.513487,M1
+ECI,1,Institucional,"RENTS, INST e interacción son conjuntamente cero",3.533096,3,48,0.021548,M2
+ECI,2,Macroeconomía,VOL y RER son conjuntamente cero,1.063157,2,48,0.353355,M2
+ECI,3,Capacidades productivas,"HUMCAP, INNOV y NET son conjuntamente cero",0.194445,3,48,0.899675,M2
+ECI,4,Nivel de desarrollo,log_GDPPC es igual a cero,0.600635,1,48,0.442137,M2
+ECI,5,Fiscal y financiero,GOVCONS y FIN son conjuntamente cero,0.198909,2,48,0.820297,M2
+ECI,6,Efectos de año,Todos los indicadores de año son conjuntamente cero,2.580567,22,48,0.003071,M2
+ECI,1,Canal institucional,"RENTS, INST y RENTS x INST son conjuntamente cero",2.002565,3,48,0.126149,M3
+ECI,2,Canal de abundancia,"Petróleo, gas y carbón son conjuntamente cero",0.788135,3,48,0.506465,M3
+ECI,3,Canal estructural,"HHI, PEXP y FEXP son conjuntamente cero",6.712917,3,48,0.000712,M3
+ECI,4,Canal macroeconómico,VOL y RER son conjuntamente cero,1.581326,2,48,0.216230,M3
+ECI,5,Capacidades productivas,"HUMCAP, INNOV y NET son conjuntamente cero",0.472334,3,48,0.702987,M3
+ECI,6,Controles económicos y financieros,"log(GDPPC), GOVCONS y FIN son conjuntamente cero",0.258047,3,48,0.855226,M3
+ECI,7,Efectos fijos por año,Todos los indicadores de año son conjuntamente cero,3.532931,22,48,0.000129,M3
+ECI,8,Igualdad entre recursos,"Los coeficientes de petróleo, gas y carbón son iguales",0.265427,2,48,0.767997,M3

@@ -1,0 +1,16 @@
+order,family,file,purpose
+1,Diseño,m1_design_register.csv,"Pregunta, resultados y regla de exclusión de HHI."
+2,Diseño,m1_variable_register.csv,Variables y canales incluidos en ECI y DIVX.
+3,Muestra,m1_sample_validation.csv,Validación de 1.044 observaciones y 49 países.
+4,Estimación,m1_eci.ster,Estimación principal M1 para ECI.
+5,Estimación,m1_divx.ster,Estimación complementaria M1 para DIVX.
+6,Resultados,m1_coefficients.csv,"Coeficientes, errores e intervalos de las dos ecuaciones."
+7,Resultados,m1_model_summary.csv,Cobertura y ajuste within de ECI y DIVX.
+8,Inferencia,m1_joint_tests.csv,Pruebas conjuntas por canal y restricciones.
+9,Inferencia,m1_wild_cluster_bootstrap.csv,Bootstrap para RENTS y RENTS x INST.
+10,Interpretación,m1_marginal_effects.csv,Asociación marginal de RENTS según percentiles de INST.
+11,Verificación,m1_xtreg_reghdfe_verification.csv,Equivalencia numérica entre xtreg y reghdfe.
+12,Tabla,m1_results_table.tex,Tabla LaTeX compacta del Modelo 1.
+13,Figura,m1_marginal_effects.pdf,Figura comparada apta para LaTeX.
+14,Figura,m1_marginal_effects.png,Figura comparada para inspección visual.
+15,Documentación,m1_results_manifest.csv,Inventario reproducible de productos de M1.

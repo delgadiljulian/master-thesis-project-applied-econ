@@ -1,0 +1,7 @@
+model,model_order,outcome,model_name,role,question,hhi_rule
+M1,1,DIVX,Estructura extractiva,Temático,"Distinguir rentas, abundancia y estructura exportadora",Excluir HHI: DIVX=1-HHI
+M2,2,DIVX,Capacidades y estabilidad,Temático,"Evaluar estabilidad, capacidades y condiciones fiscales",No aplica
+M3,3,DIVX,TWFE completo,Contraste,Reunir simultáneamente todos los canales de M1 y M2,Excluir HHI: DIVX=1-HHI
+M1,1,ECI,Estructura extractiva,Temático,"Distinguir rentas, abundancia y estructura exportadora",Incluir HHI
+M2,2,ECI,Capacidades y estabilidad,Temático,"Evaluar estabilidad, capacidades y condiciones fiscales",No aplica
+M3,3,ECI,TWFE completo,Contraste,Reunir simultáneamente todos los canales de M1 y M2,Incluir HHI

@@ -1,0 +1,16 @@
+order,family,file,purpose
+1,Diseño,twfe_model_design_register.csv,"Función comparativa de M1, M2 y M3."
+2,Muestra,twfe_comparison_sample_validation.csv,Igualdad de muestra en las seis ecuaciones.
+3,Ajuste,twfe_model_fit_comparison.csv,"R-cuadrado within y ajuste de M1, M2 y M3."
+4,Diseño,twfe_channel_inclusion.csv,Matriz de inclusión de canales por modelo.
+5,Resultados,twfe_focal_coefficients.csv,"RENTS, INST e interacción con inferencia."
+6,Estabilidad,twfe_focal_stability.csv,"Cambios focales entre M1, M2 y M3."
+7,Inferencia,twfe_joint_tests_comparison.csv,Pruebas conjuntas por canal.
+8,Inferencia,twfe_wild_cluster_bootstrap.csv,Bootstrap de RENTS e interacción.
+9,Interpretación,twfe_marginal_effects_comparison.csv,Efectos marginales de RENTS según INST.
+10,Tabla,table_twfe_models_eci.tex,Tabla LaTeX M1-M3 para ECI.
+11,Tabla,table_twfe_models_eci.txt,Tabla de texto M1-M3 para ECI.
+12,Tabla,table_twfe_models_divx.tex,Tabla LaTeX M1-M3 para DIVX.
+13,Tabla,table_twfe_models_divx.txt,Tabla de texto M1-M3 para DIVX.
+14,Figura,twfe_focal_coefficients.png,Figura comparativa con intervalos del 95 %.
+15,Documentación,twfe_comparison_manifest.csv,Inventario reproducible de productos.

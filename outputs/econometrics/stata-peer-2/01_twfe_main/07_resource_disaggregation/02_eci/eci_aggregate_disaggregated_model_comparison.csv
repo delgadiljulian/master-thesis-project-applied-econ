@@ -1,0 +1,3 @@
+model,rent_structure,observations,countries,clusters,r2_within,r2_between,r2_overall,f_statistic,model_p_value,rmse,df_model
+ECI_TWFE_MAIN,aggregate,1044,49,49,.1523230523222082,.1586093,.16901204,14.634747,2.8832406e-16,.26342997,38
+ECI_TWFE_DISAGG,disaggregated,1044,49,49,.1566256637442698,.20631136,.21073659,22.90237,1.4376239e-20,.26302266,40

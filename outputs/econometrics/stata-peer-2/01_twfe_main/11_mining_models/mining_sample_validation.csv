@@ -1,0 +1,5 @@
+model,outcome,observations,countries,effective_years,first_year,last_year,mining_within_sd,complete_union
+M1_MIN,DIVX,1044,49,23,1996,2021,2.8314026,1
+M1_MIN,ECI,1044,49,23,1996,2021,2.8314026,1
+M2_MIN,DIVX,1044,49,23,1996,2021,2.8314026,1
+M2_MIN,ECI,1044,49,23,1996,2021,2.8314026,1

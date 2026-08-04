@@ -1,0 +1,9 @@
+decision,selection,rationale
+analytical_role,complementary_extension,Los modelos agregados ECI_TWFE_MAIN y DIVX_TWFE_MAIN siguen siendo centrales.
+model_structure,joint_components,Ambos componentes entran juntos para evitar omitir la otra fuente de rentas y permitir pruebas de igualdad.
+institutional_interactions,both_simultaneous,Cada componente interactúa con INST dentro de la misma ecuación como descomposición de la interacción agregada.
+per_capita_controls_main,retain_all,Los controles per cápita representan abundancia real y preservan la comparabilidad con el modelo agregado.
+per_capita_sensitivity,exclude_all_together,"La única sensibilidad predefinida retira conjuntamente OILPC, GASPC y COALPC transformados."
+samples,same_complete_cases,Las muestras desagregadas deben coincidir exactamente con las muestras agregadas aprobadas.
+inference,twfe_cluster_country,Se mantienen efectos fijos por país y año y errores estándar agrupados por país.
+interpretation,conditional_associations,Las diferencias entre componentes se interpretarán como asociaciones condicionadas y no como efectos causales.

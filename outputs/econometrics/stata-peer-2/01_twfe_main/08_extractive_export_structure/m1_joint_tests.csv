@@ -1,0 +1,13 @@
+model,outcome,order,channel,null_hypothesis,f_statistic,df1,df2,p_value
+M1,DIVX,1,Institucional,"RENTS, INST e interacción son conjuntamente cero",6.845259,3,48,0.000623
+M1,DIVX,2,Abundancia,"Petróleo, gas y carbón son conjuntamente cero",0.776919,3,48,0.512646
+M1,DIVX,3,Estructura exportadora,PEXP y FEXP son conjuntamente cero; HHI está excluido,4.141946,2,48,0.021906
+M1,DIVX,4,Nivel de desarrollo,log_GDPPC es igual a cero,14.948830,1,48,0.000332
+M1,DIVX,5,Efectos de año,Todos los indicadores de año son conjuntamente cero,5.047575,22,48,0.000001
+M1,DIVX,6,Igualdad entre recursos,"Petróleo, gas y carbón tienen el mismo coeficiente",0.892078,2,48,0.416488
+M1,ECI,1,Institucional,"RENTS, INST e interacción son conjuntamente cero",1.229939,3,48,0.309106
+M1,ECI,2,Abundancia,"Petróleo, gas y carbón son conjuntamente cero",0.628249,3,48,0.600312
+M1,ECI,3,Estructura exportadora,"HHI, PEXP y FEXP son conjuntamente cero",5.105594,3,48,0.003797
+M1,ECI,4,Nivel de desarrollo,log_GDPPC es igual a cero,0.147470,1,48,0.702661
+M1,ECI,5,Efectos de año,Todos los indicadores de año son conjuntamente cero,3.696792,22,48,0.000077
+M1,ECI,6,Igualdad entre recursos,"Petróleo, gas y carbón tienen el mismo coeficiente",0.675873,2,48,0.513487

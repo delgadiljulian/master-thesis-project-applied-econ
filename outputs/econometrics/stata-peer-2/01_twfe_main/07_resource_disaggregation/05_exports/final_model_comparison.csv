@@ -1,0 +1,5 @@
+outcome,specification,model,dependent_variable,observations,countries,clusters,years,first_year,last_year,r2_within,r2_between,r2_overall,f_statistic,df_model,df_error,model_p_value,rmse,sigma_country,sigma_idiosyncratic,rho_country
+ECI,Agregado,ECI_TWFE_MAIN,eci,1044,49,49,23,1996,2021,.152323,.158609,.169012,14.634747,38,48,0,.26343,.76043,.269962,.888073
+ECI,Desagregado,ECI_TWFE_DISAGG,eci,1044,49,49,23,1996,2021,.15662566,.20631136,.21073659,22.90237,40,48,1.4e-20,.26302266,.74280912,.2695584,.88363457
+DIVX,Agregado,DIVX_TWFE_MAIN,divx,1044,49,49,23,1996,2021,.311896,.310178,.301153,24.76256,37,48,0,.071635,.176289,.07341,.852222
+DIVX,Desagregado,DIVX_TWFE_DISAGG,divx,1044,49,49,23,1996,2021,.3269696,.33846337,.3248581,33.389771,39,48,3.9e-24,.07091684,.17500991,.07267719,.85291255

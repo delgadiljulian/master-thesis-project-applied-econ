@@ -1,0 +1,34 @@
+order,source_file,stage,artifact_type,relative_path,expected_records,actual_records,record_unit,tfm_role,inclusion_role,status,validation_date,validation_time
+1,01,design,csv,00_design/temporal_specification_register.csv,7,7,rows,Registro ex ante de T0--T5 y T3X,Metodología,validated, 3 Aug 2026,15:17:47
+2,01,sample,dta,01_sample/temporal_panel.dta,1430,1430,data rows,Panel temporal derivado y reproducible,Reproducibilidad,validated, 3 Aug 2026,15:17:47
+3,01,sample,csv,01_sample/temporal_sample_summary.csv,16,16,rows,Resumen de muestras por resultado y diseño,Metodología,validated, 3 Aug 2026,15:17:47
+4,01,sample,csv,01_sample/temporal_sample_loss_summary.csv,12,12,rows,Descomposición de pérdidas por temporalidad,Apéndice,validated, 3 Aug 2026,15:17:47
+5,01,sample,csv,01_sample/temporal_sample_by_country.csv,880,880,rows,Cobertura temporal por país,Apéndice,validated, 3 Aug 2026,15:17:47
+6,01,sample,csv,01_sample/temporal_sample_by_year.csv,416,416,rows,Cobertura temporal por año,Apéndice,validated, 3 Aug 2026,15:17:47
+7,01,audit,csv,09_final/temporal_output_manifest.csv,6,6,rows,Manifiesto de datos y muestras,Auditoría,validated, 3 Aug 2026,15:17:47
+8,02,diagnostics,csv,02_diagnostics/lag_correlation_and_vif.csv,18,18,rows,Diagnóstico ex ante de T3 y T3X,Diagnóstico,validated, 3 Aug 2026,15:17:47
+9,02,coefficients,csv,03_eci/eci_temporal_coefficients.csv,26,26,rows,Coeficientes temporales de ECI,Resultados,validated, 3 Aug 2026,15:17:47
+10,02,models,ster,03_eci/eci_t1_own.ster,1148,1148,model observations,Estimación reproducible ECI T1,Reproducibilidad,validated, 3 Aug 2026,15:17:47
+11,02,models,ster,03_eci/eci_t2_own.ster,933,933,model observations,Estimación reproducible ECI T2,Reproducibilidad,validated, 3 Aug 2026,15:17:47
+12,02,coefficients,csv,04_divx/divx_temporal_coefficients.csv,26,26,rows,Coeficientes temporales de DIVX,Resultados,validated, 3 Aug 2026,15:17:47
+13,02,models,ster,04_divx/divx_t1_own.ster,1148,1148,model observations,Estimación reproducible DIVX T1,Reproducibilidad,validated, 3 Aug 2026,15:17:47
+14,02,models,ster,04_divx/divx_t2_own.ster,933,933,model observations,Estimación reproducible DIVX T2,Reproducibilidad,validated, 3 Aug 2026,15:17:47
+15,02,inference,csv,05_cumulative/cumulative_effect_tests.csv,8,8,rows,Sumas y pruebas conjuntas de T3,Apéndice,validated, 3 Aug 2026,15:17:47
+16,02,inference,csv,05_cumulative/temporal_wild_cluster_bootstrap.csv,10,10,rows,"Inferencia bootstrap de T1, T2 y suma T3",Resultados,validated, 3 Aug 2026,15:17:47
+17,02,final,csv,09_final/temporal_model_coefficients.csv,52,52,rows,Tabla combinada de coeficientes T0--T3,Resultados,validated, 3 Aug 2026,15:17:47
+18,02,handoff,csv,09_final/02_models_handoff.csv,8,8,rows,Traspaso reproducible al archivo 03,Auditoría,validated, 3 Aug 2026,15:17:47
+19,02,audit,csv,09_final/02_results_manifest.csv,11,11,rows,Manifiesto de modelos e inferencia,Auditoría,validated, 3 Aug 2026,15:17:47
+20,03,placebo,csv,06_placebo/lead_placebo_tests.csv,14,14,rows,Adelanto placebo T4,Diagnóstico,validated, 3 Aug 2026,15:17:47
+21,03,placebo,ster,06_placebo/eci_t4_placebo.ster,1142,1142,model observations,Estimación reproducible ECI T4,Reproducibilidad,validated, 3 Aug 2026,15:17:47
+22,03,placebo,ster,06_placebo/divx_t4_placebo.ster,1142,1142,model observations,Estimación reproducible DIVX T4,Reproducibilidad,validated, 3 Aug 2026,15:17:47
+23,03,changes,csv,07_changes/first_difference_results.csv,6,6,rows,Primeras diferencias T5,Sensibilidad,validated, 3 Aug 2026,15:17:47
+24,03,changes,ster,07_changes/eci_t5_first_difference.ster,987,987,model observations,Estimación reproducible ECI T5,Reproducibilidad,validated, 3 Aug 2026,15:17:47
+25,03,changes,ster,07_changes/divx_t5_first_difference.ster,987,987,model observations,Estimación reproducible DIVX T5,Reproducibilidad,validated, 3 Aug 2026,15:17:47
+26,03,stability,csv,08_stability/temporal_leave_one_out.csv,424,424,rows,Detalle leave-one-country-out de T1 y T2,Sensibilidad,validated, 3 Aug 2026,15:17:47
+27,03,stability,csv,08_stability/temporal_leave_one_out_summary.csv,8,8,rows,Resumen leave-one-country-out,Sensibilidad,validated, 3 Aug 2026,15:17:47
+28,03,stability,csv,08_stability/country_trend_sensitivity.csv,8,8,rows,Tendencias lineales específicas por país,Sensibilidad,validated, 3 Aug 2026,15:17:47
+29,03,stability,ster,08_stability/eci_t1_country_trends.ster,1148,1148,model observations,Estimación ECI T1 con tendencias,Reproducibilidad,validated, 3 Aug 2026,15:17:47
+30,03,stability,ster,08_stability/eci_t2_country_trends.ster,933,933,model observations,Estimación ECI T2 con tendencias,Reproducibilidad,validated, 3 Aug 2026,15:17:47
+31,03,stability,ster,08_stability/divx_t1_country_trends.ster,1148,1148,model observations,Estimación DIVX T1 con tendencias,Reproducibilidad,validated, 3 Aug 2026,15:17:47
+32,03,stability,ster,08_stability/divx_t2_country_trends.ster,933,933,model observations,Estimación DIVX T2 con tendencias,Reproducibilidad,validated, 3 Aug 2026,15:17:47
+33,03,decision,csv,09_final/temporal_acceptance_decision.csv,7,7,rows,Jerarquía metodológica TEMP-A--TEMP-F,Metodología,validated, 3 Aug 2026,15:17:47

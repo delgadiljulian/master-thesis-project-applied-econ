@@ -1,0 +1,13 @@
+order,outcome,model,grid_observations,boundary_loss,focal_missing_loss,outcome_missing_loss,total_excluded,retained_observations
+7,divx,t0,1430,0,233,0,233,1197
+8,divx,t1,1430,55,227,0,282,1148
+9,divx,t2,1430,110,387,0,497,933
+10,divx,t3,1430,110,180,0,290,1140
+11,divx,t4,1430,55,233,0,288,1142
+12,divx,t5,1430,55,388,0,443,987
+1,eci,t0,1430,0,233,0,233,1197
+2,eci,t1,1430,55,227,0,282,1148
+3,eci,t2,1430,110,387,0,497,933
+4,eci,t3,1430,110,180,0,290,1140
+5,eci,t4,1430,55,233,0,288,1142
+6,eci,t5,1430,55,388,0,443,987
