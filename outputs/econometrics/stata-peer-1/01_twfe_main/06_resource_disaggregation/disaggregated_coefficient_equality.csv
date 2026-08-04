@@ -1,0 +1,7 @@
+outcome,test_hypothesis,f_stat,p_val,decision
+ECI,Igualdad coeficientes directos (oil_gas = min,.9903124839246155,.3246563988864293,No rechazar H0
+ECI,Igualdad interacciones (oil_gas_x_inst = mini,.4157520833996823,.5221342143698953,No rechazar H0
+ECI,Significancia conjunta bloque desagregado,4.16146696519282,.0056614243260875,Rechazar H0
+DIVX,Igualdad coeficientes directos (oil_gas = min,2.686865013538184,.1077175669625608,No rechazar H0
+DIVX,Igualdad interacciones (oil_gas_x_inst = mini,.6639923992915001,.4191787350087504,No rechazar H0
+DIVX,Significancia conjunta bloque desagregado,5.281437009916276,.0013162076614174,Rechazar H0

@@ -1,0 +1,3 @@
+model,null_hypothesis,f_stat,df1,df2,p_val,decision
+ECI,"Coeficientes de petróleo, gas y carbón son iguales",.2654267024318385,2,48,.76799679,No rechazar H0
+DIVX,"Coeficientes de petróleo, gas y carbón son iguales",1.125347810347982,2,48,.33295062,No rechazar H0

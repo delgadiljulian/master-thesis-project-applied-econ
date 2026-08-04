@@ -1,0 +1,8 @@
+order,test,null_hypothesis,f_stat,df1,df2,p_val
+1,Canal institucional,"RENTS, INST y RENTSxINST son conjuntamente cero",2.002565146621809,3,48,.12614933
+2,Canal de abundancia,"Petróleo, gas y carbón son conjuntamente cero",.7881346478685217,3,48,.50646502
+3,Canal estructural,"HHI, PEXP y FEXP son conjuntamente cero",6.712917122326915,3,48,.00071173796
+4,Canal macroeconómico,VOL y RER son conjuntamente cero,1.581325893135018,2,48,.21623032
+5,Capacidades productivas,"HUMCAP, INNOV y NET son conjuntamente cero",.4723342973418148,3,48,.70298719
+6,Controles económicos,"log(GDPPC), GOVCONS y FIN son conjuntamente cero",.2580474477202695,3,48,.85522562
+7,Igualdad entre recursos,"Coeficientes de petróleo, gas y carbón son iguales",.2654267024117574,2,48,.76799679

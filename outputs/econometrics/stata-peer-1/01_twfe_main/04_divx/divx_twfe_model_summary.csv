@@ -1,0 +1,2 @@
+model,dependent,obs,countries,clusters,years,r2_within,r2_between,r2_overall,f_stat,df_m,df_r,p_val,rmse,sigma_u,sigma_e,rho
+DIVX_TWFE_MAIN,divx,1044,,49,23,.2713179752027086,,,12.410571,16,48,,.073409729,,,

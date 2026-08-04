@@ -25,20 +25,28 @@
 
 // A.1. Limpiar la sesión y fijar el entorno reproducible
 
-* Este archivo puede ejecutarse en una sesión nueva después del archivo 01.
-* La numeración econométrica continúa directamente en la sección 5.
+* Este archivo puede ejecutarse en una sesión nueva después del archivo 01. La numeración econométrica continúa directamente en la sección 5.
 version 17.0
+* Limpiar la memoria de Stata borrando todas las variables cargadas.
 clear all
+* Limpiar la consola de comandos de Stata.
 cls
+* Eliminar todas las variables temporales y globales de la memoria.
 macro drop _all
+* Cerrar cualquier registro de texto (log) abierto previamente.
 capture log close _all
 
 * Fijar precisión, presentación y semillas para obtener resultados repetibles.
 set more off
+* Evitar que Stata abrevie nombres de variables automáticamente.
 set varabbrev off
+* Usar precisión doble para evitar errores de redondeo numérico.
 set type double
+* Ajustar el ancho de consola a 255 caracteres para ver tablas completas.
 set linesize 255
+* Definir la semilla pseudoaleatoria para hacer 100% reproducibles las simulaciones.
 set seed 20260729
+* Definir la semilla de ordenamiento para garantizar la reproducibilidad de datos.
 set sortseed 20260729
 
 
@@ -59,6 +67,7 @@ global PROJECT_ROOT ""
 local project_candidate "`project_current'"
 forvalues search_level = 0/8 {
     if "$PROJECT_ROOT" == "" {
+        * Verificar la existencia de un archivo antes de intentar cargarlo.
         capture confirm file "`project_candidate'/`project_marker'"
         if !_rc {
             quietly cd "`project_candidate'"
@@ -70,6 +79,7 @@ forvalues search_level = 0/8 {
 
 * Probar la ubicación habitual de Windows si la búsqueda anterior falló.
 if "$PROJECT_ROOT" == "" {
+    * Verificar la existencia de un archivo antes de intentar cargarlo.
     capture confirm file "`project_windows'/`project_marker'"
     if !_rc {
         global PROJECT_ROOT "`project_windows'"
@@ -78,6 +88,7 @@ if "$PROJECT_ROOT" == "" {
 
 * Probar finalmente la ruta manual cuando haya sido diligenciada.
 if "$PROJECT_ROOT" == "" & "`project_manual'" != "" {
+    * Verificar la existencia de un archivo antes de intentar cargarlo.
     capture confirm file "`project_manual'/`project_marker'"
     if !_rc {
         global PROJECT_ROOT "`project_manual'"
@@ -221,18 +232,27 @@ post `design_post' ///
     ("Excluir HHI: DIVX=1-HHI") ("Muestra común congelada") ///
     ("Asociación condicional")
 
+* Cerrar y guardar la tabla de resultados temporales en disco.
 postclose `design_post'
 
 * Validar el registro antes de exportarlo como decisión metodológica de M1.
 preserve
     use "`design_register'", clear
+    * Control de calidad automático que detiene el script si no se cumple la condición.
     assert _N == 2
+    * Comprobar que la combinación de identificadores de país y año sea única.
     isid model outcome
+    * Control de calidad automático que detiene el script si no se cumple la condición.
     assert model == "M1"
+    * Control de calidad automático que detiene el script si no se cumple la condición.
     assert inlist(outcome, "ECI", "DIVX")
+    * Control de calidad automático que detiene el script si no se cumple la condición.
     assert sample_rule == "Muestra común congelada"
+    * Control de calidad automático que detiene el script si no se cumple la condición.
     assert interpretation == "Asociación condicional"
+    * Control de calidad automático que detiene el script si no se cumple la condición.
     assert hhi_rule == "Incluir HHI" if outcome == "ECI"
+    * Control de calidad automático que detiene el script si no se cumple la condición.
     assert hhi_rule == "Excluir HHI: DIVX=1-HHI" if outcome == "DIVX"
     sort outcome
     export delimited using ///
@@ -269,6 +289,7 @@ foreach variable in ///
 
 * Revalidar las identidades que podrían afectar las dos ecuaciones de M1.
 assert abs(divx - (1 - hhi)) < 1e-10 if !missing(divx, hhi)
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert abs(rents_x_inst - rents * inst) < 1e-10 ///
     if !missing(rents_x_inst, rents, inst)
 
@@ -277,10 +298,13 @@ xtset country_id year
 
 * Las banderas provienen del modelo completo y congelan la comparación M1-M3.
 assert inlist(sample_eci, 0, 1)
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert inlist(sample_divx, 0, 1)
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert sample_eci == sample_divx
 generate byte sample_m1_common = sample_eci == 1 & sample_divx == 1
 label variable sample_m1_common "Muestra común congelada de M1, M2 y M3"
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert sample_m1_common == sample_eci
 
 * Comprobar que los regresores de M1 están completos dentro de esta muestra.
@@ -292,7 +316,9 @@ egen int m1_missing_divx = rowmiss( ///
     divx rents inst rents_x_inst ///
     ln1p_oilpc ln1p_gaspc ln1p_coalpc ///
     pexp fexp log_gdppc)
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert m1_missing_eci == 0 if sample_m1_common == 1
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert m1_missing_divx == 0 if sample_m1_common == 1
 
 * Contar observaciones, países, años efectivos y extremos temporales.
@@ -309,45 +335,64 @@ local m1_last_year = r(max)
 
 * Aplicar los conteos aprobados sin ampliar la muestra de los modelos reducidos.
 assert `m1_n' == 1044
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert `m1_countries' == 49
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert `m1_year_count' == 23
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert `m1_first_year' == 1996
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert `m1_last_year' == 2021
 
 * Confirmar los tres vacíos estructurales de WGI sin imputarlos ni rellenarlos.
 foreach structural_wgi_gap in 1997 1999 2001 {
+    * Contar silenciosamente cuántas observaciones cumplen una condición determinada.
     quietly count if year == `structural_wgi_gap' & sample_m1_common == 1
+    * Control de calidad automático que detiene el script si no se cumple la condición.
     assert r(N) == 0
 }
 
 * Construir un resumen verificable para ECI y DIVX sobre las mismas llaves.
 tempname sample_post
 tempfile sample_validation
+* Crear un archivo temporal para ir registrando resultados calculados.
 postfile `sample_post' ///
     str8 model str8 outcome long observations int countries ///
     int effective_years int first_year int last_year ///
     byte same_country_year_keys byte complete_m1_variables ///
     using "`sample_validation'", replace
 
+* Escribir una fila de resultados dentro del archivo temporal.
 post `sample_post' ///
     ("M1") ("ECI") (`m1_n') (`m1_countries') (`m1_year_count') ///
     (`m1_first_year') (`m1_last_year') (1) (1)
+* Escribir una fila de resultados dentro del archivo temporal.
 post `sample_post' ///
     ("M1") ("DIVX") (`m1_n') (`m1_countries') (`m1_year_count') ///
     (`m1_first_year') (`m1_last_year') (1) (1)
+* Cerrar y guardar la tabla de resultados temporales en disco.
 postclose `sample_post'
 
 * Reabrir el resumen y comprobar su contenido antes de exportarlo.
 preserve
     use "`sample_validation'", clear
+    * Control de calidad automático que detiene el script si no se cumple la condición.
     assert _N == 2
+    * Comprobar que la combinación de identificadores de país y año sea única.
     isid model outcome
+    * Control de calidad automático que detiene el script si no se cumple la condición.
     assert observations == 1044
+    * Control de calidad automático que detiene el script si no se cumple la condición.
     assert countries == 49
+    * Control de calidad automático que detiene el script si no se cumple la condición.
     assert effective_years == 23
+    * Control de calidad automático que detiene el script si no se cumple la condición.
     assert first_year == 1996
+    * Control de calidad automático que detiene el script si no se cumple la condición.
     assert last_year == 2021
+    * Control de calidad automático que detiene el script si no se cumple la condición.
     assert same_country_year_keys == 1
+    * Control de calidad automático que detiene el script si no se cumple la condición.
     assert complete_m1_variables == 1
     sort outcome
     export delimited using ///
@@ -389,7 +434,9 @@ global M1_ABUNDANCE ///
 
 * Estas variables separarán abundancia física de rentas captadas.
 foreach variable of global M1_ABUNDANCE {
+    * Control de calidad automático que detiene el script si no se cumple la condición.
     assert `variable' >= 0 if sample_m1_common == 1
+    * Control de calidad automático que detiene el script si no se cumple la condición.
     assert !missing(`variable') if sample_m1_common == 1
 }
 
@@ -456,31 +503,47 @@ global M1_INFERENCE "vce(cluster country_id)"
 
 * Confirmar que HHI aparezca únicamente en la ecuación ECI.
 assert strpos(" $M1_ECI_REGRESSORS ", " hhi ") > 0
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert strpos(" $M1_DIVX_REGRESSORS ", " hhi ") == 0
 
 * Registrar cada bloque para que la especificación sea auditable.
 tempname variable_post
 tempfile variable_register
+* Crear un archivo temporal para ir registrando resultados calculados.
 postfile `variable_post' ///
     int order str24 channel str24 variable ///
     str8 eci_included str8 divx_included ///
     using "`variable_register'", replace
+* Escribir una fila de resultados dentro del archivo temporal.
 post `variable_post' (1) ("Institucional") ("RENTS") ("Sí") ("Sí")
+* Escribir una fila de resultados dentro del archivo temporal.
 post `variable_post' (2) ("Institucional") ("INST") ("Sí") ("Sí")
+* Escribir una fila de resultados dentro del archivo temporal.
 post `variable_post' (3) ("Institucional") ("RENTS x INST") ("Sí") ("Sí")
+* Escribir una fila de resultados dentro del archivo temporal.
 post `variable_post' (4) ("Abundancia") ("ln1p_OILPC") ("Sí") ("Sí")
+* Escribir una fila de resultados dentro del archivo temporal.
 post `variable_post' (5) ("Abundancia") ("ln1p_GASPC") ("Sí") ("Sí")
+* Escribir una fila de resultados dentro del archivo temporal.
 post `variable_post' (6) ("Abundancia") ("ln1p_COALPC") ("Sí") ("Sí")
+* Escribir una fila de resultados dentro del archivo temporal.
 post `variable_post' (7) ("Estructura") ("HHI") ("Sí") ("No")
+* Escribir una fila de resultados dentro del archivo temporal.
 post `variable_post' (8) ("Estructura") ("PEXP") ("Sí") ("Sí")
+* Escribir una fila de resultados dentro del archivo temporal.
 post `variable_post' (9) ("Estructura") ("FEXP") ("Sí") ("Sí")
+* Escribir una fila de resultados dentro del archivo temporal.
 post `variable_post' (10) ("Desarrollo") ("log_GDPPC") ("Sí") ("Sí")
+* Cerrar y guardar la tabla de resultados temporales en disco.
 postclose `variable_post'
 
 preserve
     use "`variable_register'", clear
+    * Control de calidad automático que detiene el script si no se cumple la condición.
     assert _N == 10
+    * Comprobar que la combinación de identificadores de país y año sea única.
     isid order
+    * Control de calidad automático que detiene el script si no se cumple la condición.
     assert divx_included == "No" if variable == "HHI"
     export delimited using ///
         "$OUTPUT_M1/m1_variable_register.csv", replace datafmt
@@ -498,10 +561,12 @@ display as result "5.7. Especificaciones e inferencia de M1 fijadas."
 * Preparar reportes comunes para coeficientes y resúmenes de ambos resultados.
 tempname coefficient_post summary_post
 tempfile coefficient_report summary_report
+* Crear un archivo temporal para ir registrando resultados calculados.
 postfile `coefficient_post' ///
     str8 model str8 outcome int order str32 term ///
     double coefficient standard_error t_statistic p_value ///
     ci_lower ci_upper using "`coefficient_report'", replace
+* Crear un archivo temporal para ir registrando resultados calculados.
 postfile `summary_post' ///
     str8 model str8 outcome long observations int countries ///
     int clusters int effective_years ///
@@ -513,13 +578,17 @@ xtreg eci $M1_ECI_REGRESSORS i.year ///
     if sample_m1_common == 1, fe $M1_INFERENCE
 
 capture estimates drop ECI_M1
+* Guardar el modelo estimado en memoria para comparaciones posteriores.
 estimates store ECI_M1
 estimates save "$OUTPUT_M1/m1_eci.ster", replace
 
 * Verificar que la estimación conserve toda la muestra común aprobada.
 assert e(sample) == sample_m1_common
+* Validar automáticamente que la muestra contenga exactamente 1.044 observaciones.
 assert e(N) == 1044
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert e(N_g) == 49
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert e(N_clust) == 49
 
 * Conservar resultados focales para bootstrap y comparaciones posteriores.
@@ -544,11 +613,13 @@ foreach term of local m1_eci_terms {
     local upper = `b' + `eci_critical_t' * `se'
     scalar m1_eci_b_`eci_order' = `b'
     scalar m1_eci_se_`eci_order' = `se'
+    * Escribir una fila de resultados dentro del archivo temporal.
     post `coefficient_post' ///
         ("M1") ("ECI") (`eci_order') ("`term'") ///
         (`b') (`se') (`t') (`p') (`lower') (`upper')
 }
 
+* Escribir una fila de resultados dentro del archivo temporal.
 post `summary_post' ///
     ("M1") ("ECI") (e(N)) (e(N_g)) (e(N_clust)) ///
     (`m1_year_count') (e(r2_w)) (e(r2_b)) (e(r2_o)) ///
@@ -564,13 +635,17 @@ xtreg divx $M1_DIVX_REGRESSORS i.year ///
     if sample_m1_common == 1, fe $M1_INFERENCE
 
 capture estimates drop DIVX_M1
+* Guardar el modelo estimado en memoria para comparaciones posteriores.
 estimates store DIVX_M1
 estimates save "$OUTPUT_M1/m1_divx.ster", replace
 
 * Confirmar igualdad exacta de observaciones y países con el modelo ECI.
 assert e(sample) == sample_m1_common
+* Validar automáticamente que la muestra contenga exactamente 1.044 observaciones.
 assert e(N) == 1044
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert e(N_g) == 49
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert e(N_clust) == 49
 
 * Conservar resultados focales para la inferencia bootstrap posterior.
@@ -595,23 +670,29 @@ foreach term of local m1_divx_terms {
     local upper = `b' + `divx_critical_t' * `se'
     scalar m1_divx_b_`divx_order' = `b'
     scalar m1_divx_se_`divx_order' = `se'
+    * Escribir una fila de resultados dentro del archivo temporal.
     post `coefficient_post' ///
         ("M1") ("DIVX") (`divx_order') ("`term'") ///
         (`b') (`se') (`t') (`p') (`lower') (`upper')
 }
 
+* Escribir una fila de resultados dentro del archivo temporal.
 post `summary_post' ///
     ("M1") ("DIVX") (e(N)) (e(N_g)) (e(N_clust)) ///
     (`m1_year_count') (e(r2_w)) (e(r2_b)) (e(r2_o)) ///
     (e(F)) (e(p))
 
+* Cerrar y guardar la tabla de resultados temporales en disco.
 postclose `coefficient_post'
+* Cerrar y guardar la tabla de resultados temporales en disco.
 postclose `summary_post'
 
 * Exportar los coeficientes de las dos ecuaciones en un único archivo.
 preserve
     use "`coefficient_report'", clear
+    * Control de calidad automático que detiene el script si no se cumple la condición.
     assert _N == 19
+    * Comprobar que la combinación de identificadores de país y año sea única.
     isid outcome order
     sort outcome order
     format coefficient standard_error t_statistic p_value ///
@@ -623,10 +704,15 @@ restore
 * Exportar cobertura y ajuste para facilitar la comparación con M2 y M3.
 preserve
     use "`summary_report'", clear
+    * Control de calidad automático que detiene el script si no se cumple la condición.
     assert _N == 2
+    * Comprobar que la combinación de identificadores de país y año sea única.
     isid outcome
+    * Control de calidad automático que detiene el script si no se cumple la condición.
     assert observations == 1044
+    * Control de calidad automático que detiene el script si no se cumple la condición.
     assert countries == 49
+    * Control de calidad automático que detiene el script si no se cumple la condición.
     assert clusters == 49
     export delimited using ///
         "$OUTPUT_M1/m1_model_summary.csv", replace datafmt
@@ -640,6 +726,7 @@ display as result "6.2. Modelo M1 para DIVX estimado sin errores."
 * Registrar las pruebas de los canales sin decidir por coeficientes aislados.
 tempname joint_post
 tempfile joint_report
+* Crear un archivo temporal para ir registrando resultados calculados.
 postfile `joint_post' ///
     str8 model str8 outcome int order str32 channel ///
     str100 null_hypothesis double f_statistic df1 df2 p_value ///
@@ -648,32 +735,38 @@ postfile `joint_post' ///
 * Evaluar los canales y restricciones de la ecuación ECI.
 estimates restore ECI_M1
 test rents inst c.rents#c.inst
+* Escribir una fila de resultados dentro del archivo temporal.
 post `joint_post' ///
     ("M1") ("ECI") (1) ("Institucional") ///
     ("RENTS, INST e interacción son conjuntamente cero") ///
     (r(F)) (r(df)) (r(df_r)) (r(p))
 test ln1p_oilpc ln1p_gaspc ln1p_coalpc
+* Escribir una fila de resultados dentro del archivo temporal.
 post `joint_post' ///
     ("M1") ("ECI") (2) ("Abundancia") ///
     ("Petróleo, gas y carbón son conjuntamente cero") ///
     (r(F)) (r(df)) (r(df_r)) (r(p))
 test hhi pexp fexp
+* Escribir una fila de resultados dentro del archivo temporal.
 post `joint_post' ///
     ("M1") ("ECI") (3) ("Estructura exportadora") ///
     ("HHI, PEXP y FEXP son conjuntamente cero") ///
     (r(F)) (r(df)) (r(df_r)) (r(p))
 test log_gdppc
+* Escribir una fila de resultados dentro del archivo temporal.
 post `joint_post' ///
     ("M1") ("ECI") (4) ("Nivel de desarrollo") ///
     ("log_GDPPC es igual a cero") ///
     (r(F)) (r(df)) (r(df_r)) (r(p))
 testparm i.year
+* Escribir una fila de resultados dentro del archivo temporal.
 post `joint_post' ///
     ("M1") ("ECI") (5) ("Efectos de año") ///
     ("Todos los indicadores de año son conjuntamente cero") ///
     (r(F)) (r(df)) (r(df_r)) (r(p))
 test (ln1p_oilpc = ln1p_gaspc) ///
      (ln1p_oilpc = ln1p_coalpc)
+* Escribir una fila de resultados dentro del archivo temporal.
 post `joint_post' ///
     ("M1") ("ECI") (6) ("Igualdad entre recursos") ///
     ("Petróleo, gas y carbón tienen el mismo coeficiente") ///
@@ -682,42 +775,51 @@ post `joint_post' ///
 * Repetir las pruebas para DIVX sin introducir HHI.
 estimates restore DIVX_M1
 test rents inst c.rents#c.inst
+* Escribir una fila de resultados dentro del archivo temporal.
 post `joint_post' ///
     ("M1") ("DIVX") (1) ("Institucional") ///
     ("RENTS, INST e interacción son conjuntamente cero") ///
     (r(F)) (r(df)) (r(df_r)) (r(p))
 test ln1p_oilpc ln1p_gaspc ln1p_coalpc
+* Escribir una fila de resultados dentro del archivo temporal.
 post `joint_post' ///
     ("M1") ("DIVX") (2) ("Abundancia") ///
     ("Petróleo, gas y carbón son conjuntamente cero") ///
     (r(F)) (r(df)) (r(df_r)) (r(p))
 test pexp fexp
+* Escribir una fila de resultados dentro del archivo temporal.
 post `joint_post' ///
     ("M1") ("DIVX") (3) ("Estructura exportadora") ///
     ("PEXP y FEXP son conjuntamente cero; HHI está excluido") ///
     (r(F)) (r(df)) (r(df_r)) (r(p))
 test log_gdppc
+* Escribir una fila de resultados dentro del archivo temporal.
 post `joint_post' ///
     ("M1") ("DIVX") (4) ("Nivel de desarrollo") ///
     ("log_GDPPC es igual a cero") ///
     (r(F)) (r(df)) (r(df_r)) (r(p))
 testparm i.year
+* Escribir una fila de resultados dentro del archivo temporal.
 post `joint_post' ///
     ("M1") ("DIVX") (5) ("Efectos de año") ///
     ("Todos los indicadores de año son conjuntamente cero") ///
     (r(F)) (r(df)) (r(df_r)) (r(p))
 test (ln1p_oilpc = ln1p_gaspc) ///
      (ln1p_oilpc = ln1p_coalpc)
+* Escribir una fila de resultados dentro del archivo temporal.
 post `joint_post' ///
     ("M1") ("DIVX") (6) ("Igualdad entre recursos") ///
     ("Petróleo, gas y carbón tienen el mismo coeficiente") ///
     (r(F)) (r(df)) (r(df_r)) (r(p))
 
+* Cerrar y guardar la tabla de resultados temporales en disco.
 postclose `joint_post'
 
 preserve
     use "`joint_report'", clear
+    * Control de calidad automático que detiene el script si no se cumple la condición.
     assert _N == 12
+    * Comprobar que la combinación de identificadores de país y año sea única.
     isid outcome order
     sort outcome order
     format f_statistic p_value %12.6f
@@ -744,6 +846,7 @@ local inst_labels "P10 P25 P50 P75 P90"
 * Preparar un reporte común de efectos marginales para ECI y DIVX.
 tempname margins_post
 tempfile margins_report
+* Crear un archivo temporal para ir registrando resultados calculados.
 postfile `margins_post' ///
     str8 model str8 outcome int order str8 percentile ///
     double inst_value marginal_effect standard_error p_value ///
@@ -756,6 +859,7 @@ matrix eci_margins = r(table)
 forvalues column = 1/5 {
     local inst_value : word `column' of `inst_values'
     local percentile : word `column' of `inst_labels'
+    * Escribir una fila de resultados dentro del archivo temporal.
     post `margins_post' ///
         ("M1") ("ECI") (`column') ("`percentile'") ///
         (`inst_value') ///
@@ -787,6 +891,7 @@ matrix divx_margins = r(table)
 forvalues column = 1/5 {
     local inst_value : word `column' of `inst_values'
     local percentile : word `column' of `inst_labels'
+    * Escribir una fila de resultados dentro del archivo temporal.
     post `margins_post' ///
         ("M1") ("DIVX") (`column') ("`percentile'") ///
         (`inst_value') ///
@@ -811,11 +916,14 @@ marginsplot, ///
     graphregion(color(white)) ///
     name(m1_divx_margins, replace)
 
+* Cerrar y guardar la tabla de resultados temporales en disco.
 postclose `margins_post'
 
 preserve
     use "`margins_report'", clear
+    * Control de calidad automático que detiene el script si no se cumple la condición.
     assert _N == 10
+    * Comprobar que la combinación de identificadores de país y año sea única.
     isid outcome order
     sort outcome order
     format inst_value marginal_effect standard_error ///
@@ -839,6 +947,7 @@ graph export "$OUTPUT_M1/m1_marginal_effects.png", ///
 * Aplicar bootstrap a RENTS y a la interacción en ambas ecuaciones.
 tempname bootstrap_post
 tempfile bootstrap_report
+* Crear un archivo temporal para ir registrando resultados calculados.
 postfile `bootstrap_post' ///
     str8 model str8 outcome str24 term ///
     double coefficient conventional_p bootstrap_p ///
@@ -847,11 +956,14 @@ postfile `bootstrap_post' ///
 
 quietly xtreg eci $M1_ECI_REGRESSORS i.year ///
     if sample_m1_common == 1, fe $M1_INFERENCE
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert abs(_b[rents] - `eci_base_rents_b') < 1e-10
 boottest rents, cluster(country_id) reps(9999) ///
     seed(20260803) nograph
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert !missing(r(p))
 matrix eci_rents_ci = r(CI)
+* Escribir una fila de resultados dentro del archivo temporal.
 post `bootstrap_post' ///
     ("M1") ("ECI") ("RENTS") ///
     (_b[rents]) (`eci_base_rents_p') (r(p)) ///
@@ -860,8 +972,10 @@ post `bootstrap_post' ///
 
 boottest c.rents#c.inst, cluster(country_id) reps(9999) ///
     seed(20260804) nograph
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert !missing(r(p))
 matrix eci_interaction_ci = r(CI)
+* Escribir una fila de resultados dentro del archivo temporal.
 post `bootstrap_post' ///
     ("M1") ("ECI") ("RENTS x INST") ///
     (_b[c.rents#c.inst]) (`eci_base_interaction_p') (r(p)) ///
@@ -871,11 +985,14 @@ post `bootstrap_post' ///
 
 quietly xtreg divx $M1_DIVX_REGRESSORS i.year ///
     if sample_m1_common == 1, fe $M1_INFERENCE
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert abs(_b[rents] - `divx_base_rents_b') < 1e-10
 boottest rents, cluster(country_id) reps(9999) ///
     seed(20260805) nograph
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert !missing(r(p))
 matrix divx_rents_ci = r(CI)
+* Escribir una fila de resultados dentro del archivo temporal.
 post `bootstrap_post' ///
     ("M1") ("DIVX") ("RENTS") ///
     (_b[rents]) (`divx_base_rents_p') (r(p)) ///
@@ -884,8 +1001,10 @@ post `bootstrap_post' ///
 
 boottest c.rents#c.inst, cluster(country_id) reps(9999) ///
     seed(20260806) nograph
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert !missing(r(p))
 matrix divx_interaction_ci = r(CI)
+* Escribir una fila de resultados dentro del archivo temporal.
 post `bootstrap_post' ///
     ("M1") ("DIVX") ("RENTS x INST") ///
     (_b[c.rents#c.inst]) (`divx_base_interaction_p') (r(p)) ///
@@ -893,11 +1012,14 @@ post `bootstrap_post' ///
     (el(divx_interaction_ci, 1, 2)) ///
     (r(reps)) ("`r(weighttype)'")
 
+* Cerrar y guardar la tabla de resultados temporales en disco.
 postclose `bootstrap_post'
 
 preserve
     use "`bootstrap_report'", clear
+    * Control de calidad automático que detiene el script si no se cumple la condición.
     assert _N == 4
+    * Comprobar que la combinación de identificadores de país y año sea única.
     isid outcome term
     sort outcome term
     format coefficient conventional_p bootstrap_p ///
@@ -915,6 +1037,7 @@ display as result "6.4. Efectos marginales y bootstrap completados."
 * Comparar los coeficientes de xtreg con efectos fijos absorbidos.
 tempname verification_post
 tempfile verification_report
+* Crear un archivo temporal para ir registrando resultados calculados.
 postfile `verification_post' ///
     str8 model str8 outcome int order str32 term ///
     double xtreg_coefficient reghdfe_coefficient ///
@@ -922,9 +1045,11 @@ postfile `verification_post' ///
     using "`verification_report'", replace
 
 local coefficient_tolerance = 1e-8
+* Estimar el modelo de regresión con efectos fijos de país y año y errores agrupados.
 reghdfe eci $M1_ECI_REGRESSORS ///
     if sample_m1_common == 1, ///
     absorb(country_id year) $M1_INFERENCE
+* Validar automáticamente que la muestra contenga exactamente 1.044 observaciones.
 assert e(N) == 1044
 local eci_order = 0
 foreach term of local m1_eci_terms {
@@ -933,15 +1058,19 @@ foreach term of local m1_eci_terms {
     local hdfe_b = _b[`term']
     local difference = abs(`xtreg_b' - `hdfe_b')
     local match = `difference' < `coefficient_tolerance'
+    * Control de calidad automático que detiene el script si no se cumple la condición.
     assert `match' == 1
+    * Escribir una fila de resultados dentro del archivo temporal.
     post `verification_post' ///
         ("M1") ("ECI") (`eci_order') ("`term'") ///
         (`xtreg_b') (`hdfe_b') (`difference') (`match')
 }
 
+* Estimar el modelo de regresión con efectos fijos de país y año y errores agrupados.
 reghdfe divx $M1_DIVX_REGRESSORS ///
     if sample_m1_common == 1, ///
     absorb(country_id year) $M1_INFERENCE
+* Validar automáticamente que la muestra contenga exactamente 1.044 observaciones.
 assert e(N) == 1044
 local divx_order = 0
 foreach term of local m1_divx_terms {
@@ -950,17 +1079,22 @@ foreach term of local m1_divx_terms {
     local hdfe_b = _b[`term']
     local difference = abs(`xtreg_b' - `hdfe_b')
     local match = `difference' < `coefficient_tolerance'
+    * Control de calidad automático que detiene el script si no se cumple la condición.
     assert `match' == 1
+    * Escribir una fila de resultados dentro del archivo temporal.
     post `verification_post' ///
         ("M1") ("DIVX") (`divx_order') ("`term'") ///
         (`xtreg_b') (`hdfe_b') (`difference') (`match')
 }
 
+* Cerrar y guardar la tabla de resultados temporales en disco.
 postclose `verification_post'
 
 preserve
     use "`verification_report'", clear
+    * Control de calidad automático que detiene el script si no se cumple la condición.
     assert _N == 19
+    * Control de calidad automático que detiene el script si no se cumple la condición.
     assert coefficient_match == 1
     sort outcome order
     format xtreg_coefficient reghdfe_coefficient ///
@@ -994,59 +1128,78 @@ esttab ECI_M1 DIVX_M1 using "$OUTPUT_M1/m1_results_table.tex", ///
 * Registrar los productos finales sin crear subcarpetas innecesarias.
 tempname manifest_post
 tempfile manifest_report
+* Crear un archivo temporal para ir registrando resultados calculados.
 postfile `manifest_post' ///
     int order str32 family str80 file str140 purpose ///
     using "`manifest_report'", replace
+* Escribir una fila de resultados dentro del archivo temporal.
 post `manifest_post' ///
     (1) ("Diseño") ("m1_design_register.csv") ///
     ("Pregunta, resultados y regla de exclusión de HHI.")
+* Escribir una fila de resultados dentro del archivo temporal.
 post `manifest_post' ///
     (2) ("Diseño") ("m1_variable_register.csv") ///
     ("Variables y canales incluidos en ECI y DIVX.")
+* Escribir una fila de resultados dentro del archivo temporal.
 post `manifest_post' ///
     (3) ("Muestra") ("m1_sample_validation.csv") ///
     ("Validación de 1.044 observaciones y 49 países.")
+* Escribir una fila de resultados dentro del archivo temporal.
 post `manifest_post' ///
     (4) ("Estimación") ("m1_eci.ster") ///
     ("Estimación principal M1 para ECI.")
+* Escribir una fila de resultados dentro del archivo temporal.
 post `manifest_post' ///
     (5) ("Estimación") ("m1_divx.ster") ///
     ("Estimación complementaria M1 para DIVX.")
+* Escribir una fila de resultados dentro del archivo temporal.
 post `manifest_post' ///
     (6) ("Resultados") ("m1_coefficients.csv") ///
     ("Coeficientes, errores e intervalos de las dos ecuaciones.")
+* Escribir una fila de resultados dentro del archivo temporal.
 post `manifest_post' ///
     (7) ("Resultados") ("m1_model_summary.csv") ///
     ("Cobertura y ajuste within de ECI y DIVX.")
+* Escribir una fila de resultados dentro del archivo temporal.
 post `manifest_post' ///
     (8) ("Inferencia") ("m1_joint_tests.csv") ///
     ("Pruebas conjuntas por canal y restricciones.")
+* Escribir una fila de resultados dentro del archivo temporal.
 post `manifest_post' ///
     (9) ("Inferencia") ("m1_wild_cluster_bootstrap.csv") ///
     ("Bootstrap para RENTS y RENTS x INST.")
+* Escribir una fila de resultados dentro del archivo temporal.
 post `manifest_post' ///
     (10) ("Interpretación") ("m1_marginal_effects.csv") ///
     ("Asociación marginal de RENTS según percentiles de INST.")
+* Escribir una fila de resultados dentro del archivo temporal.
 post `manifest_post' ///
     (11) ("Verificación") ("m1_xtreg_reghdfe_verification.csv") ///
     ("Equivalencia numérica entre xtreg y reghdfe.")
+* Escribir una fila de resultados dentro del archivo temporal.
 post `manifest_post' ///
     (12) ("Tabla") ("m1_results_table.tex") ///
     ("Tabla LaTeX compacta del Modelo 1.")
+* Escribir una fila de resultados dentro del archivo temporal.
 post `manifest_post' ///
     (13) ("Figura") ("m1_marginal_effects.pdf") ///
     ("Figura comparada apta para LaTeX.")
+* Escribir una fila de resultados dentro del archivo temporal.
 post `manifest_post' ///
     (14) ("Figura") ("m1_marginal_effects.png") ///
     ("Figura comparada para inspección visual.")
+* Escribir una fila de resultados dentro del archivo temporal.
 post `manifest_post' ///
     (15) ("Documentación") ("m1_results_manifest.csv") ///
     ("Inventario reproducible de productos de M1.")
+* Cerrar y guardar la tabla de resultados temporales en disco.
 postclose `manifest_post'
 
 preserve
     use "`manifest_report'", clear
+    * Control de calidad automático que detiene el script si no se cumple la condición.
     assert _N == 15
+    * Comprobar que la combinación de identificadores de país y año sea única.
     isid order
     export delimited using ///
         "$OUTPUT_M1/m1_results_manifest.csv", replace datafmt
@@ -1071,6 +1224,7 @@ local required_files ///
     m1_results_manifest.csv
 
 foreach required_file of local required_files {
+    * Verificar la existencia de un archivo antes de intentar cargarlo.
     capture confirm file "$OUTPUT_M1/`required_file'"
     if _rc {
         display as error "Falta el producto de M1: `required_file'"

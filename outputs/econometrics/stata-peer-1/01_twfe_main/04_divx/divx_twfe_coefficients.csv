@@ -1,0 +1,17 @@
+order,term,variable_label,channel,coefficient,standard_error,t_statistic,p_value,ci_lower,ci_upper
+1,rents,Rentas extractivas del subsuelo (% PIB),Institucional,-.0035361282417883,.0012959506,-2.7285979,.0088616125,-.0061418116,-.00093044492
+2,inst,Calidad institucional (INST),Institucional,.0174719903042437,.028185111,.61990142,.53825456,-.039197974,.074141957
+3,rents_x_inst,RENTS x INST,Institucional,.0009478411602349,.0011841657,.80042946,.42740604,-.0014330837,.003328766
+4,log_oilpc,log(1 + OILPC),Abundancia de recursos,.0076432352589494,.0089843161,.85073096,.39914286,-.010420942,.025707413
+5,log_gaspc,log(1 + GASPC),Abundancia de recursos,.0049354397975863,.0066613108,.74091125,.46235663,-.008458023,.018328903
+6,log_coalpc,log(1 + COALPC),Abundancia de recursos,-.0085477451981306,.0078384858,-1.0904841,.28094399,-.024308078,.0072125876
+7,pexp,Exp. primarias no energéticas (% exp. merc.),Estructura exportadora,.0015329972563769,.00062662229,2.4464455,.018141165,.00027308866,.0027929058
+8,fexp,Exp. combustibles (% exp. merc.),Estructura exportadora,-.0010625253746492,.00097841164,-1.0859696,.28291628,-.0030297539,.00090470316
+9,vol,Volatilidad términos de intercambio (VOL),Condiciones macroeconómicas,.0008482358906801,.00095416268,.88898456,.378445,-.0010702368,.0027667086
+10,rer,Tipo de cambio real (log pl_gdpo),Condiciones macroeconómicas,-.0397071117522682,.035911545,-1.1056921,.27437103,-.11191211,.032497887
+11,humcap,Capital humano (Índice retornos),Capacidades productivas,.1068870624325216,.044314068,2.4120347,.019735973,.017787661,.19598646
+12,innov,Innovación (log 1 + art. científ./millón hab),Capacidades productivas,.0111982518260607,.013646547,.82059234,.41593525,-.016239969,.038636472
+13,net,Conectividad digital (% pob. internet),Capacidades productivas,-.0007413849202546,.00035253208,-2.1030283,.040731076,-.0014501982,-.000032571654
+14,log_gdppc,Nivel de desarrollo (log PIB pc PPA),Controles económicos,-.1455512229514946,.035052229,-4.15241,.00013412173,-.21602845,-.075073995
+15,govcons,Consumo del gobierno (% PIB),Controles económicos,.0032385264619265,.0017626542,1.8373011,.072360218,-.00030552718,.0067825802
+16,fin,Profundidad financiera (Crédito bancario % PIB),Controles económicos,.0006048567948969,.00036719337,1.6472433,.10604017,-.00013343495,.0013431485

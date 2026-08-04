@@ -26,17 +26,28 @@
 
 // C.1. Limpiar la sesión y fijar el entorno reproducible
 
+* Fijar la versión 17 de Stata para garantizar la compatibilidad del script.
 version 17.0
+* Limpiar la memoria de Stata borrando todas las variables cargadas.
 clear all
+* Limpiar la consola de comandos de Stata.
 cls
+* Eliminar todas las variables temporales y globales de la memoria.
 macro drop _all
+* Cerrar cualquier registro de texto (log) abierto previamente.
 capture log close _all
 
+* Desactivar las pausas de pantalla para una ejecución continua.
 set more off
+* Evitar que Stata abrevie nombres de variables automáticamente.
 set varabbrev off
+* Usar precisión doble para evitar errores de redondeo numérico.
 set type double
+* Ajustar el ancho de consola a 255 caracteres para ver tablas completas.
 set linesize 255
+* Definir la semilla pseudoaleatoria para hacer 100% reproducibles las simulaciones.
 set seed 20260803
+* Definir la semilla de ordenamiento para garantizar la reproducibilidad de datos.
 set sortseed 20260803
 
 
@@ -53,6 +64,7 @@ global PROJECT_ROOT ""
 local project_candidate "`project_current'"
 forvalues search_level = 0/8 {
     if "$PROJECT_ROOT" == "" {
+        * Verificar la existencia de un archivo antes de intentar cargarlo.
         capture confirm file "`project_candidate'/`project_marker'"
         if !_rc {
             quietly cd "`project_candidate'"
@@ -63,6 +75,7 @@ forvalues search_level = 0/8 {
 }
 
 if "$PROJECT_ROOT" == "" {
+    * Verificar la existencia de un archivo antes de intentar cargarlo.
     capture confirm file "`project_windows'/`project_marker'"
     if !_rc {
         global PROJECT_ROOT "`project_windows'"
@@ -70,6 +83,7 @@ if "$PROJECT_ROOT" == "" {
 }
 
 if "$PROJECT_ROOT" == "" & "`project_manual'" != "" {
+    * Verificar la existencia de un archivo antes de intentar cargarlo.
     capture confirm file "`project_manual'/`project_marker'"
     if !_rc {
         global PROJECT_ROOT "`project_manual'"
@@ -142,6 +156,7 @@ foreach command in ftools reghdfe esttab boottest {
 
 local estimation_file ///
     "$OUTPUT_SAMPLE/master_panel_estimation_sample.dta"
+* Verificar la existencia de un archivo antes de intentar cargarlo.
 capture confirm file "`estimation_file'"
 if _rc {
     display as error "No se encontró la base de estimación del archivo 01."
@@ -160,30 +175,38 @@ display as result ///
 
 tempname design_post
 tempfile design_register
+* Crear un archivo temporal para ir registrando resultados calculados.
 postfile `design_post' ///
     str8 model str8 outcome str20 role str180 question ///
     str32 rent_measure str28 sample_rule str32 interpretation ///
     using "`design_register'", replace
 
 foreach model in M1_OG M2_OG {
+    * Escribir una fila de resultados dentro del archivo temporal.
     post `design_post' ///
         ("`model'") ("ECI") ("Principal") ///
         ("¿Cómo se asocian las rentas de petróleo y gas con ECI?") ///
         ("Petróleo más gas, % PIB") ///
         ("Muestra común congelada") ("Asociación condicional")
+    * Escribir una fila de resultados dentro del archivo temporal.
     post `design_post' ///
         ("`model'") ("DIVX") ("Complementario") ///
         ("¿Cómo se asocian las rentas de petróleo y gas con DIVX?") ///
         ("Petróleo más gas, % PIB") ///
         ("Muestra común congelada") ("Asociación condicional")
 }
+* Cerrar y guardar la tabla de resultados temporales en disco.
 postclose `design_post'
 
 preserve
     use "`design_register'", clear
+    * Control de calidad automático que detiene el script si no se cumple la condición.
     assert _N == 4
+    * Comprobar que la combinación de identificadores de país y año sea única.
     isid model outcome
+    * Control de calidad automático que detiene el script si no se cumple la condición.
     assert sample_rule == "Muestra común congelada"
+    * Control de calidad automático que detiene el script si no se cumple la condición.
     assert interpretation == "Asociación condicional"
     sort model outcome
     export delimited using ///
@@ -194,6 +217,7 @@ restore
 // 15.2. Definir la variable focal
 
 use "`estimation_file'", clear
+* Comprobar que la combinación de identificadores de país y año sea única.
 isid country_iso3_code year
 
 confirm variable ///
@@ -218,24 +242,32 @@ generate double rents_oil_gas_x_inst = rents_oil_gas * inst ///
     if !missing(rents_oil_gas, inst)
 label variable rents_oil_gas_x_inst "RENTS_OIL_GAS x INST"
 
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert abs(rents_oil_gas_x_inst - rents_oil_gas * inst) < 1e-10 ///
     if !missing(rents_oil_gas_x_inst, rents_oil_gas, inst)
 
 
 // 15.3. Validar cobertura, variación e identidad
 
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert abs(rents - rents_oil_gas - rents_mining) < 1e-10 ///
     if !missing(rents, rents_oil_gas, rents_mining)
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert abs(divx - (1 - hhi)) < 1e-10 if !missing(divx, hhi)
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert rents_oil_gas >= 0 if !missing(rents_oil_gas)
 
+* Declarar la estructura de panel definiendo la variable país y año.
 xtset country_id year
 
 
 // 15.4. Congelar la muestra comparable
 
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert inlist(sample_eci, 0, 1)
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert inlist(sample_divx, 0, 1)
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert sample_eci == sample_divx
 generate byte sample_og_common = sample_eci == 1 & sample_divx == 1
 label variable sample_og_common ///
@@ -245,8 +277,10 @@ egen int og_missing_union = rowmiss( ///
     eci hhi divx rents_oil_gas inst rents_oil_gas_x_inst ///
     ln1p_oilpc ln1p_gaspc ln1p_coalpc pexp fexp ///
     vol rer humcap innov net log_gdppc govcons fin)
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert og_missing_union == 0 if sample_og_common == 1
 
+* Contar silenciosamente cuántas observaciones cumplen una condición determinada.
 quietly count if sample_og_common == 1
 local og_n = r(N)
 quietly levelsof country_id if sample_og_common == 1, ///
@@ -258,10 +292,15 @@ quietly summarize year if sample_og_common == 1, meanonly
 local og_first_year = r(min)
 local og_last_year = r(max)
 
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert `og_n' == 1044
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert `og_countries' == 49
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert `og_year_count' == 23
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert `og_first_year' == 1996
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert `og_last_year' == 2021
 
 bysort country_id: egen double og_country_mean = ///
@@ -269,6 +308,7 @@ bysort country_id: egen double og_country_mean = ///
 generate double og_within_deviation = ///
     rents_oil_gas - og_country_mean if sample_og_common == 1
 quietly summarize og_within_deviation if sample_og_common == 1
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert r(sd) > 0
 local og_within_sd = r(sd)
 drop og_country_mean og_within_deviation og_missing_union
@@ -311,6 +351,7 @@ local og_m2_terms ///
 
 tempname sample_post specification_post
 tempfile sample_report specification_report
+* Crear un archivo temporal para ir registrando resultados calculados.
 postfile `sample_post' ///
     str8 model str8 outcome long observations int countries ///
     int effective_years int first_year int last_year ///
@@ -319,54 +360,69 @@ postfile `sample_post' ///
 
 foreach model in M1_OG M2_OG {
     foreach outcome in ECI DIVX {
+        * Escribir una fila de resultados dentro del archivo temporal.
         post `sample_post' ///
             ("`model'") ("`outcome'") (`og_n') (`og_countries') ///
             (`og_year_count') (`og_first_year') (`og_last_year') ///
             (`og_within_sd') (1)
     }
 }
+* Cerrar y guardar la tabla de resultados temporales en disco.
 postclose `sample_post'
 
 preserve
     use "`sample_report'", clear
+    * Control de calidad automático que detiene el script si no se cumple la condición.
     assert _N == 4
+    * Comprobar que la combinación de identificadores de país y año sea única.
     isid model outcome
+    * Control de calidad automático que detiene el script si no se cumple la condición.
     assert observations == 1044
+    * Control de calidad automático que detiene el script si no se cumple la condición.
     assert countries == 49
+    * Control de calidad automático que detiene el script si no se cumple la condición.
     assert complete_union == 1
     sort model outcome
     export delimited using ///
         "$OUTPUT_OG/og_sample_validation.csv", replace datafmt
 restore
 
+* Crear un archivo temporal para ir registrando resultados calculados.
 postfile `specification_post' ///
     str8 model str8 outcome str244 regressors str32 hhi_rule ///
     using "`specification_report'", replace
+* Escribir una fila de resultados dentro del archivo temporal.
 post `specification_post' ///
     ("M1_OG") ("ECI") ///
     ("RENTS_OIL_GAS, INST, interacción, OILPC, GASPC, " + ///
         "COALPC, HHI, PEXP, FEXP y log_GDPPC") ///
     ("Incluir HHI")
+* Escribir una fila de resultados dentro del archivo temporal.
 post `specification_post' ///
     ("M1_OG") ("DIVX") ///
     ("RENTS_OIL_GAS, INST, interacción, OILPC, GASPC, " + ///
         "COALPC, PEXP, FEXP y log_GDPPC") ///
     ("Excluir HHI: DIVX=1-HHI")
+* Escribir una fila de resultados dentro del archivo temporal.
 post `specification_post' ///
     ("M2_OG") ("ECI") ///
     ("RENTS_OIL_GAS, INST, interacción, VOL, RER, HUMCAP, " + ///
         "INNOV, NET, log_GDPPC, GOVCONS y FIN") ///
     ("No aplica")
+* Escribir una fila de resultados dentro del archivo temporal.
 post `specification_post' ///
     ("M2_OG") ("DIVX") ///
     ("RENTS_OIL_GAS, INST, interacción, VOL, RER, HUMCAP, " + ///
         "INNOV, NET, log_GDPPC, GOVCONS y FIN") ///
     ("No aplica")
+* Cerrar y guardar la tabla de resultados temporales en disco.
 postclose `specification_post'
 
 preserve
     use "`specification_report'", clear
+    * Control de calidad automático que detiene el script si no se cumple la condición.
     assert _N == 4
+    * Comprobar que la combinación de identificadores de país y año sea única.
     isid model outcome
     export delimited using ///
         "$OUTPUT_OG/og_specification_register.csv", replace datafmt
@@ -384,20 +440,24 @@ display as result ///
 
 tempname coefficient_post summary_post joint_post
 tempfile coefficient_report summary_report joint_report
+* Crear un archivo temporal para ir registrando resultados calculados.
 postfile `coefficient_post' ///
     str8 model str8 outcome int order str32 term ///
     double coefficient standard_error t_statistic p_value ///
     ci_lower ci_upper using "`coefficient_report'", replace
+* Crear un archivo temporal para ir registrando resultados calculados.
 postfile `summary_post' ///
     str8 model str8 outcome long observations int countries ///
     int clusters effective_years double r2_within r2_between ///
     r2_overall f_statistic model_p_value ///
     using "`summary_report'", replace
+* Crear un archivo temporal para ir registrando resultados calculados.
 postfile `joint_post' ///
     str8 model str8 outcome int order str32 channel ///
     str100 null_hypothesis double f_statistic df1 df2 p_value ///
     using "`joint_report'", replace
 
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert abs(rents_oil_gas_x_inst - rents_oil_gas * inst) < 1e-10 ///
     if sample_og_common == 1
 
@@ -405,9 +465,12 @@ assert abs(rents_oil_gas_x_inst - rents_oil_gas * inst) < 1e-10 ///
 // 16.2. Incorporar abundancia y estructura exportadora
 
 foreach variable of global OG_M1_ABUNDANCE {
+    * Control de calidad automático que detiene el script si no se cumple la condición.
     assert `variable' >= 0 if sample_og_common == 1
+    * Control de calidad automático que detiene el script si no se cumple la condición.
     assert !missing(`variable') if sample_og_common == 1
 }
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert abs(divx - (1 - hhi)) < 1e-10 if sample_og_common == 1
 
 
@@ -416,12 +479,17 @@ assert abs(divx - (1 - hhi)) < 1e-10 if sample_og_common == 1
 xtreg eci $OG_M1_ECI_REGRESSORS i.year ///
     if sample_og_common == 1, fe $OG_INFERENCE
 capture estimates drop ECI_M1_OG
+* Guardar el modelo estimado en memoria para comparaciones posteriores.
 estimates store ECI_M1_OG
 estimates save "$OUTPUT_OG/og_m1_eci.ster", replace
 
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert e(sample) == sample_og_common
+* Validar automáticamente que la muestra contenga exactamente 1.044 observaciones.
 assert e(N) == 1044
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert e(N_g) == 49
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert e(N_clust) == 49
 
 local critical_t = invttail(e(df_r), 0.025)
@@ -435,36 +503,43 @@ foreach term of local og_m1_eci_terms {
     local lower = `b' - `critical_t' * `se'
     local upper = `b' + `critical_t' * `se'
     scalar og_m1_eci_b_`order' = `b'
+    * Escribir una fila de resultados dentro del archivo temporal.
     post `coefficient_post' ///
         ("M1_OG") ("ECI") (`order') ("`term'") ///
         (`b') (`se') (`t') (`p') (`lower') (`upper')
 }
+* Escribir una fila de resultados dentro del archivo temporal.
 post `summary_post' ///
     ("M1_OG") ("ECI") (e(N)) (e(N_g)) (e(N_clust)) ///
     (`og_year_count') (e(r2_w)) (e(r2_b)) (e(r2_o)) ///
     (e(F)) (e(p))
 
 test rents_oil_gas inst c.rents_oil_gas#c.inst
+* Escribir una fila de resultados dentro del archivo temporal.
 post `joint_post' ///
     ("M1_OG") ("ECI") (1) ("Institucional") ///
     ("RENTS_OIL_GAS, INST e interacción son cero") ///
     (r(F)) (r(df)) (r(df_r)) (r(p))
 test ln1p_oilpc ln1p_gaspc ln1p_coalpc
+* Escribir una fila de resultados dentro del archivo temporal.
 post `joint_post' ///
     ("M1_OG") ("ECI") (2) ("Abundancia") ///
     ("OILPC, GASPC y COALPC son conjuntamente cero") ///
     (r(F)) (r(df)) (r(df_r)) (r(p))
 test hhi pexp fexp
+* Escribir una fila de resultados dentro del archivo temporal.
 post `joint_post' ///
     ("M1_OG") ("ECI") (3) ("Estructura exportadora") ///
     ("HHI, PEXP y FEXP son conjuntamente cero") ///
     (r(F)) (r(df)) (r(df_r)) (r(p))
 test log_gdppc
+* Escribir una fila de resultados dentro del archivo temporal.
 post `joint_post' ///
     ("M1_OG") ("ECI") (4) ("Nivel de desarrollo") ///
     ("log_GDPPC es igual a cero") ///
     (r(F)) (r(df)) (r(df_r)) (r(p))
 testparm i.year
+* Escribir una fila de resultados dentro del archivo temporal.
 post `joint_post' ///
     ("M1_OG") ("ECI") (5) ("Efectos de año") ///
     ("Todos los indicadores de año son cero") ///
@@ -476,12 +551,17 @@ post `joint_post' ///
 xtreg divx $OG_M1_DIVX_REGRESSORS i.year ///
     if sample_og_common == 1, fe $OG_INFERENCE
 capture estimates drop DIVX_M1_OG
+* Guardar el modelo estimado en memoria para comparaciones posteriores.
 estimates store DIVX_M1_OG
 estimates save "$OUTPUT_OG/og_m1_divx.ster", replace
 
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert e(sample) == sample_og_common
+* Validar automáticamente que la muestra contenga exactamente 1.044 observaciones.
 assert e(N) == 1044
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert e(N_g) == 49
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert e(N_clust) == 49
 
 local critical_t = invttail(e(df_r), 0.025)
@@ -495,36 +575,43 @@ foreach term of local og_m1_divx_terms {
     local lower = `b' - `critical_t' * `se'
     local upper = `b' + `critical_t' * `se'
     scalar og_m1_divx_b_`order' = `b'
+    * Escribir una fila de resultados dentro del archivo temporal.
     post `coefficient_post' ///
         ("M1_OG") ("DIVX") (`order') ("`term'") ///
         (`b') (`se') (`t') (`p') (`lower') (`upper')
 }
+* Escribir una fila de resultados dentro del archivo temporal.
 post `summary_post' ///
     ("M1_OG") ("DIVX") (e(N)) (e(N_g)) (e(N_clust)) ///
     (`og_year_count') (e(r2_w)) (e(r2_b)) (e(r2_o)) ///
     (e(F)) (e(p))
 
 test rents_oil_gas inst c.rents_oil_gas#c.inst
+* Escribir una fila de resultados dentro del archivo temporal.
 post `joint_post' ///
     ("M1_OG") ("DIVX") (1) ("Institucional") ///
     ("RENTS_OIL_GAS, INST e interacción son cero") ///
     (r(F)) (r(df)) (r(df_r)) (r(p))
 test ln1p_oilpc ln1p_gaspc ln1p_coalpc
+* Escribir una fila de resultados dentro del archivo temporal.
 post `joint_post' ///
     ("M1_OG") ("DIVX") (2) ("Abundancia") ///
     ("OILPC, GASPC y COALPC son conjuntamente cero") ///
     (r(F)) (r(df)) (r(df_r)) (r(p))
 test pexp fexp
+* Escribir una fila de resultados dentro del archivo temporal.
 post `joint_post' ///
     ("M1_OG") ("DIVX") (3) ("Estructura exportadora") ///
     ("PEXP y FEXP son conjuntamente cero") ///
     (r(F)) (r(df)) (r(df_r)) (r(p))
 test log_gdppc
+* Escribir una fila de resultados dentro del archivo temporal.
 post `joint_post' ///
     ("M1_OG") ("DIVX") (4) ("Nivel de desarrollo") ///
     ("log_GDPPC es igual a cero") ///
     (r(F)) (r(df)) (r(df_r)) (r(p))
 testparm i.year
+* Escribir una fila de resultados dentro del archivo temporal.
 post `joint_post' ///
     ("M1_OG") ("DIVX") (5) ("Efectos de año") ///
     ("Todos los indicadores de año son cero") ///
@@ -544,6 +631,7 @@ display as result ///
 
 // 16.7. Verificar y almacenar M1
 
+* Restaurar una estimación previa desde la memoria de Stata.
 estimates restore DIVX_M1_OG
 display as result "Sección 16 completa: M1_OG estimado y almacenado."
 
@@ -554,22 +642,26 @@ display as result "Sección 16 completa: M1_OG estimado y almacenado."
 
 // 17.1. Definir el canal institucional de M2
 
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert abs(rents_oil_gas_x_inst - rents_oil_gas * inst) < 1e-10 ///
     if sample_og_common == 1
 
 
 // 17.2. Incorporar el canal macroeconómico
 
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert !missing(vol, rer) if sample_og_common == 1
 
 
 // 17.3. Incorporar las capacidades productivas
 
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert !missing(humcap, innov, net) if sample_og_common == 1
 
 
 // 17.4. Incorporar controles económicos, fiscales y financieros
 
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert !missing(log_gdppc, govcons, fin) if sample_og_common == 1
 
 
@@ -578,12 +670,17 @@ assert !missing(log_gdppc, govcons, fin) if sample_og_common == 1
 xtreg eci $OG_M2_REGRESSORS i.year ///
     if sample_og_common == 1, fe $OG_INFERENCE
 capture estimates drop ECI_M2_OG
+* Guardar el modelo estimado en memoria para comparaciones posteriores.
 estimates store ECI_M2_OG
 estimates save "$OUTPUT_OG/og_m2_eci.ster", replace
 
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert e(sample) == sample_og_common
+* Validar automáticamente que la muestra contenga exactamente 1.044 observaciones.
 assert e(N) == 1044
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert e(N_g) == 49
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert e(N_clust) == 49
 
 local critical_t = invttail(e(df_r), 0.025)
@@ -597,41 +694,49 @@ foreach term of local og_m2_terms {
     local lower = `b' - `critical_t' * `se'
     local upper = `b' + `critical_t' * `se'
     scalar og_m2_eci_b_`order' = `b'
+    * Escribir una fila de resultados dentro del archivo temporal.
     post `coefficient_post' ///
         ("M2_OG") ("ECI") (`order') ("`term'") ///
         (`b') (`se') (`t') (`p') (`lower') (`upper')
 }
+* Escribir una fila de resultados dentro del archivo temporal.
 post `summary_post' ///
     ("M2_OG") ("ECI") (e(N)) (e(N_g)) (e(N_clust)) ///
     (`og_year_count') (e(r2_w)) (e(r2_b)) (e(r2_o)) ///
     (e(F)) (e(p))
 
 test rents_oil_gas inst c.rents_oil_gas#c.inst
+* Escribir una fila de resultados dentro del archivo temporal.
 post `joint_post' ///
     ("M2_OG") ("ECI") (1) ("Institucional") ///
     ("RENTS_OIL_GAS, INST e interacción son cero") ///
     (r(F)) (r(df)) (r(df_r)) (r(p))
 test vol rer
+* Escribir una fila de resultados dentro del archivo temporal.
 post `joint_post' ///
     ("M2_OG") ("ECI") (2) ("Macroeconomía") ///
     ("VOL y RER son conjuntamente cero") ///
     (r(F)) (r(df)) (r(df_r)) (r(p))
 test humcap innov net
+* Escribir una fila de resultados dentro del archivo temporal.
 post `joint_post' ///
     ("M2_OG") ("ECI") (3) ("Capacidades productivas") ///
     ("HUMCAP, INNOV y NET son conjuntamente cero") ///
     (r(F)) (r(df)) (r(df_r)) (r(p))
 test log_gdppc
+* Escribir una fila de resultados dentro del archivo temporal.
 post `joint_post' ///
     ("M2_OG") ("ECI") (4) ("Nivel de desarrollo") ///
     ("log_GDPPC es igual a cero") ///
     (r(F)) (r(df)) (r(df_r)) (r(p))
 test govcons fin
+* Escribir una fila de resultados dentro del archivo temporal.
 post `joint_post' ///
     ("M2_OG") ("ECI") (5) ("Fiscal y financiero") ///
     ("GOVCONS y FIN son conjuntamente cero") ///
     (r(F)) (r(df)) (r(df_r)) (r(p))
 testparm i.year
+* Escribir una fila de resultados dentro del archivo temporal.
 post `joint_post' ///
     ("M2_OG") ("ECI") (6) ("Efectos de año") ///
     ("Todos los indicadores de año son cero") ///
@@ -640,12 +745,17 @@ post `joint_post' ///
 xtreg divx $OG_M2_REGRESSORS i.year ///
     if sample_og_common == 1, fe $OG_INFERENCE
 capture estimates drop DIVX_M2_OG
+* Guardar el modelo estimado en memoria para comparaciones posteriores.
 estimates store DIVX_M2_OG
 estimates save "$OUTPUT_OG/og_m2_divx.ster", replace
 
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert e(sample) == sample_og_common
+* Validar automáticamente que la muestra contenga exactamente 1.044 observaciones.
 assert e(N) == 1044
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert e(N_g) == 49
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert e(N_clust) == 49
 
 local critical_t = invttail(e(df_r), 0.025)
@@ -659,41 +769,49 @@ foreach term of local og_m2_terms {
     local lower = `b' - `critical_t' * `se'
     local upper = `b' + `critical_t' * `se'
     scalar og_m2_divx_b_`order' = `b'
+    * Escribir una fila de resultados dentro del archivo temporal.
     post `coefficient_post' ///
         ("M2_OG") ("DIVX") (`order') ("`term'") ///
         (`b') (`se') (`t') (`p') (`lower') (`upper')
 }
+* Escribir una fila de resultados dentro del archivo temporal.
 post `summary_post' ///
     ("M2_OG") ("DIVX") (e(N)) (e(N_g)) (e(N_clust)) ///
     (`og_year_count') (e(r2_w)) (e(r2_b)) (e(r2_o)) ///
     (e(F)) (e(p))
 
 test rents_oil_gas inst c.rents_oil_gas#c.inst
+* Escribir una fila de resultados dentro del archivo temporal.
 post `joint_post' ///
     ("M2_OG") ("DIVX") (1) ("Institucional") ///
     ("RENTS_OIL_GAS, INST e interacción son cero") ///
     (r(F)) (r(df)) (r(df_r)) (r(p))
 test vol rer
+* Escribir una fila de resultados dentro del archivo temporal.
 post `joint_post' ///
     ("M2_OG") ("DIVX") (2) ("Macroeconomía") ///
     ("VOL y RER son conjuntamente cero") ///
     (r(F)) (r(df)) (r(df_r)) (r(p))
 test humcap innov net
+* Escribir una fila de resultados dentro del archivo temporal.
 post `joint_post' ///
     ("M2_OG") ("DIVX") (3) ("Capacidades productivas") ///
     ("HUMCAP, INNOV y NET son conjuntamente cero") ///
     (r(F)) (r(df)) (r(df_r)) (r(p))
 test log_gdppc
+* Escribir una fila de resultados dentro del archivo temporal.
 post `joint_post' ///
     ("M2_OG") ("DIVX") (4) ("Nivel de desarrollo") ///
     ("log_GDPPC es igual a cero") ///
     (r(F)) (r(df)) (r(df_r)) (r(p))
 test govcons fin
+* Escribir una fila de resultados dentro del archivo temporal.
 post `joint_post' ///
     ("M2_OG") ("DIVX") (5) ("Fiscal y financiero") ///
     ("GOVCONS y FIN son conjuntamente cero") ///
     (r(F)) (r(df)) (r(df_r)) (r(p))
 testparm i.year
+* Escribir una fila de resultados dentro del archivo temporal.
 post `joint_post' ///
     ("M2_OG") ("DIVX") (6) ("Efectos de año") ///
     ("Todos los indicadores de año son cero") ///
@@ -702,13 +820,18 @@ post `joint_post' ///
 
 // 17.6. Ejecutar pruebas conjuntas por canal
 
+* Cerrar y guardar la tabla de resultados temporales en disco.
 postclose `coefficient_post'
+* Cerrar y guardar la tabla de resultados temporales en disco.
 postclose `summary_post'
+* Cerrar y guardar la tabla de resultados temporales en disco.
 postclose `joint_post'
 
 preserve
     use "`coefficient_report'", clear
+    * Control de calidad automático que detiene el script si no se cumple la condición.
     assert _N == 41
+    * Comprobar que la combinación de identificadores de país y año sea única.
     isid model outcome order
     sort model outcome order
     format coefficient standard_error t_statistic p_value ///
@@ -719,10 +842,15 @@ restore
 
 preserve
     use "`summary_report'", clear
+    * Control de calidad automático que detiene el script si no se cumple la condición.
     assert _N == 4
+    * Comprobar que la combinación de identificadores de país y año sea única.
     isid model outcome
+    * Control de calidad automático que detiene el script si no se cumple la condición.
     assert observations == 1044
+    * Control de calidad automático que detiene el script si no se cumple la condición.
     assert countries == 49
+    * Control de calidad automático que detiene el script si no se cumple la condición.
     assert clusters == 49
     sort model outcome
     export delimited using ///
@@ -731,7 +859,9 @@ restore
 
 preserve
     use "`joint_report'", clear
+    * Control de calidad automático que detiene el script si no se cumple la condición.
     assert _N == 22
+    * Comprobar que la combinación de identificadores de país y año sea única.
     isid model outcome order
     sort model outcome order
     format f_statistic p_value %12.6f
@@ -747,6 +877,7 @@ restore
 
 // 17.8. Verificar y almacenar M2
 
+* Restaurar una estimación previa desde la memoria de Stata.
 estimates restore DIVX_M2_OG
 display as result "Sección 17 completa: M2_OG estimado y almacenado."
 
@@ -769,6 +900,7 @@ global AGG_M2_REGRESSORS ///
 
 tempname comparison_post
 tempfile comparison_report
+* Crear un archivo temporal para ir registrando resultados calculados.
 postfile `comparison_post' ///
     str4 model_family str8 outcome str18 specification ///
     int order str24 concept str32 term double coefficient ///
@@ -803,6 +935,7 @@ forvalues index = 1/4 {
 
     quietly xtreg `dependent' `aggregate_regressors' i.year ///
         if sample_og_common == 1, fe $OG_INFERENCE
+    * Validar automáticamente que la muestra contenga exactamente 1.044 observaciones.
     assert e(N) == 1044
 
     local aggregate_terms ///
@@ -814,12 +947,14 @@ forvalues index = 1/4 {
         local ++order
         local concept : word `order' of `concepts'
         local p = 2 * ttail(e(df_r), abs(_b[`term'] / _se[`term']))
+        * Escribir una fila de resultados dentro del archivo temporal.
         post `comparison_post' ///
             ("`model_family'") ("`outcome'") ("RENTS total") ///
             (`order') ("`concept'") ("`term'") ///
             (_b[`term']) (_se[`term']) (`p')
     }
 
+    * Restaurar una estimación previa desde la memoria de Stata.
     estimates restore `og_estimate'
     local oil_gas_terms ///
         rents_oil_gas inst c.rents_oil_gas#c.inst
@@ -828,17 +963,21 @@ forvalues index = 1/4 {
         local ++order
         local concept : word `order' of `concepts'
         local p = 2 * ttail(e(df_r), abs(_b[`term'] / _se[`term']))
+        * Escribir una fila de resultados dentro del archivo temporal.
         post `comparison_post' ///
             ("`model_family'") ("`outcome'") ("RENTS_OIL_GAS") ///
             (`order') ("`concept'") ("`term'") ///
             (_b[`term']) (_se[`term']) (`p')
     }
 }
+* Cerrar y guardar la tabla de resultados temporales en disco.
 postclose `comparison_post'
 
 preserve
     use "`comparison_report'", clear
+    * Control de calidad automático que detiene el script si no se cumple la condición.
     assert _N == 24
+    * Comprobar que la combinación de identificadores de país y año sea única.
     isid model_family outcome specification order
     sort model_family outcome order specification
     format coefficient standard_error p_value %12.6f
@@ -867,6 +1006,7 @@ local inst_labels "P10 P25 P50 P75 P90"
 
 tempname margins_post
 tempfile margins_report
+* Crear un archivo temporal para ir registrando resultados calculados.
 postfile `margins_post' ///
     str8 model str8 outcome int order str8 percentile ///
     double inst_value marginal_effect standard_error p_value ///
@@ -879,6 +1019,7 @@ forvalues index = 1/4 {
     local outcome : word `index' of `outcomes'
     local model_label "`model_family'_OG"
 
+    * Restaurar una estimación previa desde la memoria de Stata.
     estimates restore `estimate_name'
     margins, dydx(rents_oil_gas) at(inst=(`inst_values'))
     matrix current_margins = r(table)
@@ -886,6 +1027,7 @@ forvalues index = 1/4 {
     forvalues column = 1/5 {
         local inst_value : word `column' of `inst_values'
         local percentile : word `column' of `inst_labels'
+        * Escribir una fila de resultados dentro del archivo temporal.
         post `margins_post' ///
             ("`model_label'") ("`outcome'") ///
             (`column') ("`percentile'") (`inst_value') ///
@@ -912,11 +1054,14 @@ forvalues index = 1/4 {
         graphregion(color(white)) ///
         nodraw name(`graph_name', replace)
 }
+* Cerrar y guardar la tabla de resultados temporales en disco.
 postclose `margins_post'
 
 preserve
     use "`margins_report'", clear
+    * Control de calidad automático que detiene el script si no se cumple la condición.
     assert _N == 20
+    * Comprobar que la combinación de identificadores de país y año sea única.
     isid model outcome order
     sort model outcome order
     format inst_value marginal_effect standard_error ///
@@ -939,6 +1084,7 @@ graph export "$OUTPUT_OG/og_marginal_effects.png", ///
 
 tempname bootstrap_post
 tempfile bootstrap_report
+* Crear un archivo temporal para ir registrando resultados calculados.
 postfile `bootstrap_post' ///
     str8 model str8 outcome str28 term ///
     double coefficient conventional_p bootstrap_p ///
@@ -953,6 +1099,7 @@ forvalues index = 1/4 {
     local seed_level = 20260810 + (2 * `index') - 1
     local seed_interaction = 20260810 + (2 * `index')
 
+    * Restaurar una estimación previa desde la memoria de Stata.
     estimates restore `estimate_name'
     local level_p = 2 * ttail(e(df_r), ///
         abs(_b[rents_oil_gas] / _se[rents_oil_gas]))
@@ -962,8 +1109,10 @@ forvalues index = 1/4 {
 
     boottest rents_oil_gas, cluster(country_id) reps(9999) ///
         seed(`seed_level') nograph
+    * Control de calidad automático que detiene el script si no se cumple la condición.
     assert !missing(r(p))
     matrix level_ci = r(CI)
+    * Escribir una fila de resultados dentro del archivo temporal.
     post `bootstrap_post' ///
         ("`model_label'") ("`outcome'") ("RENTS_OIL_GAS") ///
         (_b[rents_oil_gas]) (`level_p') (r(p)) ///
@@ -973,8 +1122,10 @@ forvalues index = 1/4 {
     boottest c.rents_oil_gas#c.inst, ///
         cluster(country_id) reps(9999) ///
         seed(`seed_interaction') nograph
+    * Control de calidad automático que detiene el script si no se cumple la condición.
     assert !missing(r(p))
     matrix interaction_ci = r(CI)
+    * Escribir una fila de resultados dentro del archivo temporal.
     post `bootstrap_post' ///
         ("`model_label'") ("`outcome'") ///
         ("RENTS_OIL_GAS x INST") ///
@@ -983,11 +1134,14 @@ forvalues index = 1/4 {
         (el(interaction_ci, 1, 2)) ///
         (r(reps)) ("`r(weighttype)'")
 }
+* Cerrar y guardar la tabla de resultados temporales en disco.
 postclose `bootstrap_post'
 
 preserve
     use "`bootstrap_report'", clear
+    * Control de calidad automático que detiene el script si no se cumple la condición.
     assert _N == 8
+    * Comprobar que la combinación de identificadores de país y año sea única.
     isid model outcome term
     sort model outcome term
     format coefficient conventional_p bootstrap_p ///
@@ -1002,6 +1156,7 @@ display as result ///
 
 // 18.4. Crear las tablas comparativas
 
+* Exportar los coeficientes y estadísticas del modelo a tablas de LaTeX.
 esttab ECI_M1_OG DIVX_M1_OG ///
     using "$OUTPUT_OG/og_m1_results_table.tex", ///
     replace booktabs label se nonotes noomitted nobaselevels ///
@@ -1027,6 +1182,7 @@ esttab ECI_M1_OG DIVX_M1_OG ///
     stats(N N_g r2_w, fmt(0 0 3) ///
         labels("Observaciones" "Países" "R-cuadrado within"))
 
+* Exportar los coeficientes y estadísticas del modelo a tablas de LaTeX.
 esttab ECI_M1_OG DIVX_M1_OG ///
     using "$OUTPUT_OG/og_m1_results_table.txt", ///
     replace label se nonotes noomitted nobaselevels ///
@@ -1052,6 +1208,7 @@ esttab ECI_M1_OG DIVX_M1_OG ///
     stats(N N_g r2_w, fmt(0 0 3) ///
         labels("Observaciones" "Países" "R-cuadrado within"))
 
+* Exportar los coeficientes y estadísticas del modelo a tablas de LaTeX.
 esttab ECI_M2_OG DIVX_M2_OG ///
     using "$OUTPUT_OG/og_m2_results_table.tex", ///
     replace booktabs label se nonotes noomitted nobaselevels ///
@@ -1073,6 +1230,7 @@ esttab ECI_M2_OG DIVX_M2_OG ///
     stats(N N_g r2_w, fmt(0 0 3) ///
         labels("Observaciones" "Países" "R-cuadrado within"))
 
+* Exportar los coeficientes y estadísticas del modelo a tablas de LaTeX.
 esttab ECI_M2_OG DIVX_M2_OG ///
     using "$OUTPUT_OG/og_m2_results_table.txt", ///
     replace label se nonotes noomitted nobaselevels ///
@@ -1099,6 +1257,7 @@ esttab ECI_M2_OG DIVX_M2_OG ///
 
 tempname verification_post
 tempfile verification_report
+* Crear un archivo temporal para ir registrando resultados calculados.
 postfile `verification_post' ///
     str8 model str8 outcome int order str32 term ///
     double xtreg_coefficient reghdfe_coefficient ///
@@ -1136,9 +1295,11 @@ forvalues index = 1/4 {
         local scalar_prefix "og_m2_divx_b"
     }
 
+    * Estimar el modelo de regresión con efectos fijos de país y año y errores agrupados.
     reghdfe `dependent' `regressors' ///
         if sample_og_common == 1, ///
         absorb(country_id year) $OG_INFERENCE
+    * Validar automáticamente que la muestra contenga exactamente 1.044 observaciones.
     assert e(N) == 1044
 
     local order = 0
@@ -1148,19 +1309,25 @@ forvalues index = 1/4 {
         local hdfe_b = _b[`term']
         local difference = abs(`xtreg_b' - `hdfe_b')
         local match = `difference' < `coefficient_tolerance'
+        * Control de calidad automático que detiene el script si no se cumple la condición.
         assert `match' == 1
+        * Escribir una fila de resultados dentro del archivo temporal.
         post `verification_post' ///
             ("`model_label'") ("`outcome'") ///
             (`order') ("`term'") ///
             (`xtreg_b') (`hdfe_b') (`difference') (`match')
     }
 }
+* Cerrar y guardar la tabla de resultados temporales en disco.
 postclose `verification_post'
 
 preserve
     use "`verification_report'", clear
+    * Control de calidad automático que detiene el script si no se cumple la condición.
     assert _N == 41
+    * Control de calidad automático que detiene el script si no se cumple la condición.
     assert coefficient_match == 1
+    * Comprobar que la combinación de identificadores de país y año sea única.
     isid model outcome order
     sort model outcome order
     format xtreg_coefficient reghdfe_coefficient ///
@@ -1175,74 +1342,98 @@ restore
 
 tempname manifest_post
 tempfile manifest_report
+* Crear un archivo temporal para ir registrando resultados calculados.
 postfile `manifest_post' ///
     int order str28 family str80 file str140 purpose ///
     using "`manifest_report'", replace
+* Escribir una fila de resultados dentro del archivo temporal.
 post `manifest_post' ///
     (1) ("Diseño") ("og_design_register.csv") ///
     ("Pregunta y función de las cuatro ecuaciones.")
+* Escribir una fila de resultados dentro del archivo temporal.
 post `manifest_post' ///
     (2) ("Muestra") ("og_sample_validation.csv") ///
     ("Validación de 1.044 observaciones y 49 países.")
+* Escribir una fila de resultados dentro del archivo temporal.
 post `manifest_post' ///
     (3) ("Diseño") ("og_specification_register.csv") ///
     ("Regresores y regla de HHI por ecuación.")
+* Escribir una fila de resultados dentro del archivo temporal.
 post `manifest_post' ///
     (4) ("Estimación") ("og_m1_eci.ster") ///
     ("Estimación M1_OG para ECI.")
+* Escribir una fila de resultados dentro del archivo temporal.
 post `manifest_post' ///
     (5) ("Estimación") ("og_m1_divx.ster") ///
     ("Estimación M1_OG para DIVX.")
+* Escribir una fila de resultados dentro del archivo temporal.
 post `manifest_post' ///
     (6) ("Estimación") ("og_m2_eci.ster") ///
     ("Estimación M2_OG para ECI.")
+* Escribir una fila de resultados dentro del archivo temporal.
 post `manifest_post' ///
     (7) ("Estimación") ("og_m2_divx.ster") ///
     ("Estimación M2_OG para DIVX.")
+* Escribir una fila de resultados dentro del archivo temporal.
 post `manifest_post' ///
     (8) ("Resultados") ("og_coefficients.csv") ///
     ("Coeficientes e incertidumbre de las cuatro ecuaciones.")
+* Escribir una fila de resultados dentro del archivo temporal.
 post `manifest_post' ///
     (9) ("Resultados") ("og_model_summary.csv") ///
     ("Cobertura y ajuste within de M1_OG y M2_OG.")
+* Escribir una fila de resultados dentro del archivo temporal.
 post `manifest_post' ///
     (10) ("Inferencia") ("og_joint_tests.csv") ///
     ("Pruebas conjuntas por canal.")
+* Escribir una fila de resultados dentro del archivo temporal.
 post `manifest_post' ///
     (11) ("Comparación") ("og_aggregate_comparison.csv") ///
     ("Comparación focal con RENTS total en la misma muestra.")
+* Escribir una fila de resultados dentro del archivo temporal.
 post `manifest_post' ///
     (12) ("Interpretación") ("og_marginal_effects.csv") ///
     ("Efectos marginales según percentiles de INST.")
+* Escribir una fila de resultados dentro del archivo temporal.
 post `manifest_post' ///
     (13) ("Inferencia") ("og_wild_cluster_bootstrap.csv") ///
     ("Bootstrap para RENTS_OIL_GAS y su interacción.")
+* Escribir una fila de resultados dentro del archivo temporal.
 post `manifest_post' ///
     (14) ("Verificación") ("og_xtreg_reghdfe_verification.csv") ///
     ("Equivalencia numérica entre xtreg y reghdfe.")
+* Escribir una fila de resultados dentro del archivo temporal.
 post `manifest_post' ///
     (15) ("Tabla") ("og_m1_results_table.tex") ///
     ("Tabla LaTeX del Modelo 1.")
+* Escribir una fila de resultados dentro del archivo temporal.
 post `manifest_post' ///
     (16) ("Tabla") ("og_m1_results_table.txt") ///
     ("Tabla de texto del Modelo 1.")
+* Escribir una fila de resultados dentro del archivo temporal.
 post `manifest_post' ///
     (17) ("Tabla") ("og_m2_results_table.tex") ///
     ("Tabla LaTeX del Modelo 2.")
+* Escribir una fila de resultados dentro del archivo temporal.
 post `manifest_post' ///
     (18) ("Tabla") ("og_m2_results_table.txt") ///
     ("Tabla de texto del Modelo 2.")
+* Escribir una fila de resultados dentro del archivo temporal.
 post `manifest_post' ///
     (19) ("Figura") ("og_marginal_effects.png") ///
     ("Figura comparada para revisión visual.")
+* Escribir una fila de resultados dentro del archivo temporal.
 post `manifest_post' ///
     (20) ("Documentación") ("og_results_manifest.csv") ///
     ("Inventario reproducible de productos.")
+* Cerrar y guardar la tabla de resultados temporales en disco.
 postclose `manifest_post'
 
 preserve
     use "`manifest_report'", clear
+    * Control de calidad automático que detiene el script si no se cumple la condición.
     assert _N == 20
+    * Comprobar que la combinación de identificadores de país y año sea única.
     isid order
     export delimited using ///
         "$OUTPUT_OG/og_results_manifest.csv", replace datafmt
@@ -1271,6 +1462,7 @@ local required_files ///
     og_results_manifest.csv
 
 foreach required_file of local required_files {
+    * Verificar la existencia de un archivo antes de intentar cargarlo.
     capture confirm file "$OUTPUT_OG/`required_file'"
     if _rc {
         display as error "Falta el producto: `required_file'"
@@ -1278,6 +1470,7 @@ foreach required_file of local required_files {
     }
 }
 
+* Restaurar una estimación previa desde la memoria de Stata.
 estimates restore DIVX_M2_OG
 display as result ///
     "Archivo 06 finalizado: secciones 15 a 18 sin errores."
@@ -1287,7 +1480,7 @@ log close og_log
 
 
 // *****************************************************************************
-// FIN DEL ARCHIVO 06
+// FIN DEL ARCHIVO 06.
 // *****************************************************************************
 
 * La ejecución termina después de validar todos los productos declarados.

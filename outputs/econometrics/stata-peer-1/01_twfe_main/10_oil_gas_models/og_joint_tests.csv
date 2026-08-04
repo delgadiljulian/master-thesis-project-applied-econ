@@ -1,0 +1,5 @@
+model,outcome,test_name,f_stat,p_val
+M1_OG,ECI,Mecanismo Hidrocarburos (rents + inter),.2910246589098683,.7488067734877312
+M1_OG,DIVX,Mecanismo Hidrocarburos (rents + inter),10.38626570931436,.0001785786138195
+M2_OG,ECI,Mecanismo Hidrocarburos (rents + inter),2.557684200368888,.0880045130653253
+M2_OG,DIVX,Mecanismo Hidrocarburos (rents + inter),11.09868622626356,.0001091664387514

@@ -23,19 +23,28 @@
 
 // 1.1. Definir el entorno de ejecución
 
-* Limpiar la sesión y fijar la versión de Stata
+* Limpiar la sesión y fijar la versión de Stata.
 version 17.0
+* Limpiar la memoria de Stata borrando todas las variables cargadas.
 clear all
+* Limpiar la consola de comandos de Stata.
 cls
+* Eliminar todas las variables temporales y globales de la memoria.
 macro drop _all
+* Cerrar cualquier registro de texto (log) abierto previamente.
 capture log close _all
 
-* Establecer opciones comunes para que los resultados sean reproducibles
+* Establecer opciones comunes para que los resultados sean reproducibles.
 set more off
+* Evitar que Stata abrevie nombres de variables automáticamente.
 set varabbrev off
+* Usar precisión doble para evitar errores de redondeo numérico.
 set type double
+* Ajustar el ancho de consola a 255 caracteres para ver tablas completas.
 set linesize 255
+* Definir la semilla pseudoaleatoria para hacer 100% reproducibles las simulaciones.
 set seed 20260729
+* Definir la semilla de ordenamiento para garantizar la reproducibilidad de datos.
 set sortseed 20260729
 
 
@@ -64,7 +73,7 @@ if _rc {
     ssc install xtcsd
 }
 
-* Comprobar que Stata reconoce todos los comandos que utilizará el análisis
+* Comprobar que Stata reconoce todos los comandos que utilizará el análisis.
 local required_commands ///
     isid encode levelsof xtset xtdescribe ///
     xtserial xttest3 xtcsd
@@ -81,35 +90,28 @@ foreach command of local required_commands {
 
 // 1.3. Establecer la raíz reproducible del proyecto
 
-* Definir la ruta relativa del panel maestro. Esta ruta es igual para cualquier
-* persona que clone el repositorio completo, sin importar dónde lo guarde.
+* Definir la ruta relativa del panel maestro. Esta ruta es igual para cualquier persona que clone el repositorio completo, sin importar dónde lo guarde.
 local panel_relative ///
     "data/processed/00_master_panel/master_panel_country_year.dta"
 
-* Guardar el directorio desde el cual se abrió Stata. A partir de esta
-* ubicación se examinarán también ocho carpetas superiores, lo que permite
-* ejecutar el archivo desde la raíz, desde su carpeta o desde logs/batch.
+* Guardar el directorio desde el cual se abrió Stata. A partir de esta ubicación se examinarán también ocho carpetas superiores, lo que permite ejecutar el archivo desde la raíz, desde su carpeta o desde logs/batch.
 local project_current "`c(pwd)'"
 
-* Construir automáticamente la ubicación habitual del repositorio en Windows.
-* c(username) adapta la ruta al nombre del usuario que ejecuta el archivo.
+* Construir automáticamente la ubicación habitual del repositorio en Windows. c(username) adapta la ruta al nombre del usuario que ejecuta el archivo.
 local project_windows ///
     "C:/Users/`c(username)'/GitHub/master-thesis-project-applied-econ"
 
-* Permitir una ruta manual para equipos que guarden el repositorio en otro
-* lugar. Solo es necesario escribirla entre comillas si fallan las dos
-* alternativas automáticas anteriores.
+* Permitir una ruta manual para equipos que guarden el repositorio en otro lugar. Solo es necesario escribirla entre comillas si fallan las dos alternativas automáticas anteriores.
 local project_manual ""
 
 * Inicializar vacía la ruta global antes de evaluar las ubicaciones candidatas.
 global PROJECT_ROOT ""
 
-* Primera búsqueda: examinar el directorio actual y hasta ocho niveles
-* superiores. La primera carpeta que contenga el panel maestro se adopta como
-* raíz y se normaliza mediante c(pwd).
+* Primera búsqueda: examinar el directorio actual y hasta ocho niveles superiores. La primera carpeta que contenga el panel maestro se adopta como raíz y se normaliza mediante c(pwd).
 local project_candidate "`project_current'"
 forvalues search_level = 0/8 {
     if "$PROJECT_ROOT" == "" {
+        * Verificar la existencia de un archivo antes de intentar cargarlo.
         capture confirm file "`project_candidate'/`panel_relative'"
         if !_rc {
             quietly cd "`project_candidate'"
@@ -119,26 +121,25 @@ forvalues search_level = 0/8 {
     local project_candidate "`project_candidate'/.."
 }
 
-* Segunda búsqueda: probar la carpeta GitHub habitual del usuario de Windows
-* únicamente si la búsqueda ascendente no encontró el repositorio.
+* Segunda búsqueda: probar la carpeta GitHub habitual del usuario de Windows únicamente si la búsqueda ascendente no encontró el repositorio.
 if "$PROJECT_ROOT" == "" {
+    * Verificar la existencia de un archivo antes de intentar cargarlo.
     capture confirm file "`project_windows'/`panel_relative'"
     if !_rc {
         global PROJECT_ROOT "`project_windows'"
     }
 }
 
-* Tercera búsqueda: utilizar la ruta manual únicamente si fue diligenciada y
-* las alternativas automáticas anteriores fallaron.
+* Tercera búsqueda: utilizar la ruta manual únicamente si fue diligenciada y las alternativas automáticas anteriores fallaron.
 if "$PROJECT_ROOT" == "" & "`project_manual'" != "" {
+    * Verificar la existencia de un archivo antes de intentar cargarlo.
     capture confirm file "`project_manual'/`panel_relative'"
     if !_rc {
         global PROJECT_ROOT "`project_manual'"
     }
 }
 
-* Detener la ejecución con instrucciones precisas si ninguna ruta contiene el
-* panel maestro. En ese caso basta con editar project_manual una sola vez.
+* Detener la ejecución con instrucciones precisas si ninguna ruta contiene el panel maestro. En ese caso basta con editar project_manual una sola vez.
 if "$PROJECT_ROOT" == "" {
     display as error "No se pudo localizar la raíz del repositorio."
     display as error "Directorio desde el cual se abrió Stata: `c(pwd)'"
@@ -147,15 +148,14 @@ if "$PROJECT_ROOT" == "" {
     exit 601
 }
 
-* Cambiar el directorio de trabajo a la raíz identificada. A partir de este
-* punto todas las rutas del análisis se construyen de forma relativa.
+* Cambiar el directorio de trabajo a la raíz identificada. A partir de este punto todas las rutas del análisis se construyen de forma relativa.
 quietly cd "$PROJECT_ROOT"
 
 * Mostrar el directorio definitivo para confirmar la ubicación del proyecto.
 display as result "Raíz del proyecto localizada correctamente:"
 pwd
 
-* Guardar las rutas del insumo para utilizarlas en las demás secciones
+* Guardar las rutas del insumo para utilizarlas en las demás secciones.
 global DATA_MASTER ///
     "$PROJECT_ROOT/data/processed/00_master_panel"
 global PANEL_FILE ///
@@ -164,7 +164,7 @@ global PANEL_FILE ///
 
 // 1.4. Definir y crear las carpetas de resultados
 
-* Centralizar todas las salidas de la versión Codex
+* Centralizar todas las salidas de la versión Codex.
 global OUTPUT_ROOT ///
     "$PROJECT_ROOT/outputs/econometrics/stata-peer-2/01_twfe_main"
 global OUTPUT_DESIGN      "$OUTPUT_ROOT/00_design"
@@ -176,7 +176,7 @@ global OUTPUT_STABILITY   "$OUTPUT_ROOT/05_stability"
 global OUTPUT_FINAL       "$OUTPUT_ROOT/06_final"
 global OUTPUT_LOGS        "$OUTPUT_ROOT/logs"
 
-* Crear las carpetas si todavía no existen
+* Crear las carpetas si todavía no existen.
 capture mkdir "$PROJECT_ROOT/outputs"
 capture mkdir "$PROJECT_ROOT/outputs/econometrics"
 capture mkdir "$OUTPUT_ROOT"
@@ -192,12 +192,11 @@ capture mkdir "$OUTPUT_LOGS"
 
 // 1.5. Abrir el registro de ejecución
 
-* Abrir un log de texto exclusivo para las secciones 1 a 4. replace asegura que
-* el archivo corresponda únicamente a la ejecución más reciente.
+* Abrir un log de texto exclusivo para las secciones 1 a 4. replace asegura que el archivo corresponda únicamente a la ejecución más reciente.
 log using "$OUTPUT_LOGS/01_data_preparation_diagnostics.log", ///
     text replace name(preparation_log)
 
-* Mostrar en pantalla las rutas y opciones principales de la ejecución
+* Mostrar en pantalla las rutas y opciones principales de la ejecución.
 display as text   "1. Configuración"
 display as result "Configuración completada sin errores."
 display as result "Stata:    versión 17.0"
@@ -206,8 +205,7 @@ display as result "Panel:    $PANEL_FILE"
 display as result "Salidas:  $OUTPUT_ROOT"
 display as result "Inicio:   `c(current_date)' `c(current_time)'"
 
-* Registrar en el log las versiones de los tres paquetes utilizados por los
-* diagnósticos. Los paquetes de estimación se verifican en el archivo 02.
+* Registrar en el log las versiones de los tres paquetes utilizados por los diagnósticos. Los paquetes de estimación se verifican en el archivo 02.
 display as text "Dependencias externas verificadas:"
 which xtserial
 which xttest3
@@ -218,14 +216,14 @@ which xtcsd
 // 2. Carga y Validación del Panel Maestro
 // *****************************************************************************
 
-* Mostrar mensaje de inicio de la sección 2 en la consola de Stata
+* Mostrar mensaje de inicio de la sección 2 en la consola de Stata.
 display as text "2. Carga y validación del panel maestro"
 display as text "Directorio de trabajo: `c(pwd)'"
 
 
 // 2.1. Verificar y cargar el panel maestro
 
-* Comprobar que el archivo existe antes de intentar abrirlo
+* Comprobar que el archivo existe antes de intentar abrirlo.
 capture confirm file "$PANEL_FILE"
 if _rc {
     display as error "No se encontró el panel maestro:"
@@ -233,36 +231,15 @@ if _rc {
     exit 601
 }
 
-* Cargar el panel sin modificar el archivo original
+* Cargar el panel sin modificar el archivo original.
 use "$PANEL_FILE", clear
 
-// Variable: country_iso3_code   // Etiqueta: Código ISO3 del país
-// Variable: country             // Etiqueta: Nombre del país
-// Variable: year                // Etiqueta: Año
-// Variable: eci                 // Etiqueta: Complejidad económica (ECI)
-// Variable: divx                // Etiqueta: Diversificación exportadora (1 - HHI)
-// Variable: rents               // Etiqueta: Rentas extractivas del subsuelo (% PIB)
-// Variable: inst                // Etiqueta: Calidad institucional
-// Variable: rents_x_inst        // Etiqueta: Interacción entre RENTS e INST
-// Variable: oilpc               // Etiqueta: Renta petrolera per cápita
-// Variable: gaspc               // Etiqueta: Renta gasífera per cápita
-// Variable: coalpc              // Etiqueta: Renta carbonífera per cápita
-// Variable: hhi                 // Etiqueta: Concentración exportadora
-// Variable: pexp                // Etiqueta: Exportaciones primarias no energéticas
-// Variable: fexp                // Etiqueta: Exportaciones de combustibles
-// Variable: vol                 // Etiqueta: Volatilidad de términos de intercambio
-// Variable: rer                 // Etiqueta: Tipo de cambio real
-// Variable: humcap              // Etiqueta: Capital humano
-// Variable: innov               // Etiqueta: Innovación
-// Variable: net                 // Etiqueta: Conectividad digital
-// Variable: log_gdppc           // Etiqueta: Logaritmo del PIB per cápita PPA
-// Variable: govcons             // Etiqueta: Consumo final del gobierno
-// Variable: fin                 // Etiqueta: Profundidad financiera
+// Variable: country_iso3_code // Etiqueta: Código ISO3 del país Variable: country // Etiqueta: Nombre del país Variable: year // Etiqueta: Año Variable: eci // Etiqueta: Complejidad económica (ECI) Variable: divx // Etiqueta: Diversificación exportadora (1 - HHI) Variable: rents // Etiqueta: Rentas extractivas del subsuelo (% PIB) Variable: inst // Etiqueta: Calidad institucional Variable: rents_x_inst // Etiqueta: Interacción entre RENTS e INST Variable: oilpc // Etiqueta: Renta petrolera per cápita Variable: gaspc // Etiqueta: Renta gasífera per cápita Variable: coalpc // Etiqueta: Renta carbonífera per cápita Variable: hhi // Etiqueta: Concentración exportadora Variable: pexp // Etiqueta: Exportaciones primarias no energéticas Variable: fexp // Etiqueta: Exportaciones de combustibles Variable: vol // Etiqueta: Volatilidad de términos de intercambio Variable: rer // Etiqueta: Tipo de cambio real Variable: humcap // Etiqueta: Capital humano Variable: innov // Etiqueta: Innovación Variable: net // Etiqueta: Conectividad digital Variable: log_gdppc // Etiqueta: Logaritmo del PIB per cápita PPA Variable: govcons // Etiqueta: Consumo final del gobierno Variable: fin // Etiqueta: Profundidad financiera.
 
 
 // 2.2. Verificar la estructura mínima del archivo
 
-* Confirmar que están presentes todas las variables requeridas
+* Confirmar que están presentes todas las variables requeridas.
 local required_vars ///
     country_iso3_code country dres_base_mean dres_base_mean_percent year ///
     rents rents_oil_gas rents_mining inst rents_x_inst ///
@@ -278,7 +255,7 @@ foreach var of local required_vars {
     }
 }
 
-* Verificar que los identificadores de país sean variables de texto
+* Verificar que los identificadores de país sean variables de texto.
 foreach var in country_iso3_code country {
     capture confirm string variable `var'
     if _rc {
@@ -287,7 +264,7 @@ foreach var in country_iso3_code country {
     }
 }
 
-* Verificar que las variables analíticas sean numéricas
+* Verificar que las variables analíticas sean numéricas.
 local numeric_vars ///
     dres_base_mean dres_base_mean_percent year ///
     rents rents_oil_gas rents_mining inst rents_x_inst ///
@@ -303,9 +280,7 @@ foreach var of local numeric_vars {
     }
 }
 
-* Aplicar etiquetas descriptivas después de verificar que todas las variables
-* existen. Estas etiquetas se conservan en las bases derivadas y en los
-* reportes de coeficientes de las secciones 5 y 6.
+* Aplicar etiquetas descriptivas después de verificar que todas las variables existen. Estas etiquetas se conservan en las bases derivadas y en los reportes de coeficientes de las secciones 5 y 6.
 label variable country_iso3_code "Código ISO3 del país"
 label variable country           "Nombre del país"
 label variable year              "Año"
@@ -331,26 +306,31 @@ label variable log_gdppc         "Logaritmo del PIB per cápita PPA"
 label variable govcons           "Consumo final del gobierno (% PIB)"
 label variable fin               "Profundidad financiera"
 
-* Mostrar la estructura general de la base cargada
+* Mostrar la estructura general de la base cargada.
 describe
 
 
 // 2.3. Verificar identificadores, llave país-año y dimensiones
 
-* Comprobar que los identificadores no tengan valores faltantes
+* Comprobar que los identificadores no tengan valores faltantes.
 assert !missing(country_iso3_code)
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert !missing(country)
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert !missing(year)
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert strlen(country_iso3_code) == 3
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert country_iso3_code == upper(country_iso3_code)
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert year == floor(year)
 
-* Verificar que cada código ISO3 corresponda a un único nombre de país
+* Verificar que cada código ISO3 corresponda a un único nombre de país.
 bysort country_iso3_code (country): assert country == country[1]
 bysort country (country_iso3_code): assert country_iso3_code == ///
     country_iso3_code[1]
 
-* Confirmar que la combinación país-año identifica cada observación
+* Confirmar que la combinación país-año identifica cada observación.
 capture isid country_iso3_code year, sort
 if _rc {
     display as error "La llave country_iso3_code-year no es única."
@@ -358,19 +338,22 @@ if _rc {
     exit 459
 }
 
-* Verificar las dimensiones esperadas del panel
+* Verificar las dimensiones esperadas del panel.
 quietly count
 local n_observations = r(N)
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert `n_observations' == 1430
 
 * Recuperar los años extremos y confirmar el periodo 1996-2021.
 quietly summarize year, meanonly
 local first_year = r(min)
 local last_year  = r(max)
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert `first_year' == 1996
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert `last_year'  == 2021
 
-* Crear un identificador numérico de país para declarar el panel
+* Crear un identificador numérico de país para declarar el panel.
 capture confirm new variable country_id
 if _rc {
     display as error "La variable country_id ya existe en el panel maestro."
@@ -387,69 +370,77 @@ order country_id, after(country)
 * Contar los identificadores numéricos distintos y confirmar los 55 países.
 quietly levelsof country_id, local(panel_ids)
 local n_countries : word count `panel_ids'
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert `n_countries' == 55
 
-* Comprobar que cada país tenga los 26 años consecutivos del período
+* Comprobar que cada país tenga los 26 años consecutivos del período.
 bysort country_id (year): assert _N == 26
 by country_id: assert year == 1995 + _n
 
-* Declarar la estructura país-año del panel
+* Declarar la estructura país-año del panel.
 xtset country_id year
 
 
 // 2.4. Verificar los dominios económicos y contables
 
-* Comprobar las variables expresadas como proporciones entre cero y uno
+* Comprobar las variables expresadas como proporciones entre cero y uno.
 local bounded_0_1 dres_base_mean hhi divx
 foreach var of local bounded_0_1 {
+    * Control de calidad automático que detiene el script si no se cumple la condición.
     assert inrange(`var', 0, 1) if !missing(`var')
 }
 
-* Comprobar las variables expresadas como porcentajes entre cero y cien
+* Comprobar las variables expresadas como porcentajes entre cero y cien.
 local bounded_0_100 ///
     dres_base_mean_percent rents rents_oil_gas rents_mining ///
     pexp fexp net govcons
 
 * Recorrer las variables porcentuales y verificar su dominio de cero a cien.
 foreach var of local bounded_0_100 {
+    * Control de calidad automático que detiene el script si no se cumple la condición.
     assert inrange(`var', 0, 100) if !missing(`var')
 }
 
-* Comprobar que las variables que no admiten valores negativos sean válidas
+* Comprobar que las variables que no admiten valores negativos sean válidas.
 local nonnegative_vars ///
     oilpc gaspc coalpc vol humcap innov log_gdppc fin
 
 * Recorrer las variables no negativas y comprobar su dominio observado.
 foreach var of local nonnegative_vars {
+    * Control de calidad automático que detiene el script si no se cumple la condición.
     assert `var' >= 0 if !missing(`var')
 }
 
-* Verificar la equivalencia entre la medida decimal y la porcentual
+* Verificar la equivalencia entre la medida decimal y la porcentual.
 assert dres_base_mean >= 0.20
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert abs(dres_base_mean_percent - 100*dres_base_mean) <= 1e-10
 
 
 // 2.5. Verificar las identidades construidas en el panel
 
-* Comprobar que DIVX sea exactamente igual a uno menos HHI
+* Comprobar que DIVX sea exactamente igual a uno menos HHI.
 assert missing(divx) == missing(hhi)
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert abs(divx - (1 - hhi)) <= 1e-10 if !missing(divx, hhi)
 
-* Comprobar que RENTS sea la suma de las rentas petroleras, gasíferas y mineras
+* Comprobar que RENTS sea la suma de las rentas petroleras, gasíferas y mineras.
 assert missing(rents) == ///
     (missing(rents_oil_gas) | missing(rents_mining))
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert abs(rents - (rents_oil_gas + rents_mining)) <= 1e-10 ///
     if !missing(rents, rents_oil_gas, rents_mining)
 
-* Comprobar que RENTS_X_INST sea la interacción entre RENTS e INST
+* Comprobar que RENTS_X_INST sea la interacción entre RENTS e INST.
 assert missing(rents_x_inst) == (missing(rents) | missing(inst))
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert abs(rents_x_inst - rents*inst) <= 1e-10 ///
     if !missing(rents_x_inst, rents, inst)
 
 
 // 2.6. Presentar el resumen de la validación
 
-* Reportar en la consola los resultados consolidados de la validación del panel
+* Reportar en la consola los resultados consolidados de la validación del panel.
 display as result "Validación del panel completada sin errores."
 display as result "Observaciones: `n_observations'"
 display as result "Países:       `n_countries'"
@@ -468,125 +459,129 @@ browse
 
 // 3.1. Evaluar y transformar las rentas extractivas per cápita
 
-* Eliminar únicamente variables derivadas para poder repetir esta sección
+* Eliminar únicamente variables derivadas para poder repetir esta sección.
 capture drop ln1p_oilpc ln1p_gaspc ln1p_coalpc
 capture drop n_missing_eci n_missing_divx sample_eci sample_divx
 
-* Crear un registro temporal para comparar niveles y logaritmos
+* Crear un registro temporal para comparar niveles y logaritmos.
 tempname transform_post
 tempfile transformation_report
 
-* Definir las columnas que tendrá el reporte de transformación
+* Definir las columnas que tendrá el reporte de transformación.
 postfile `transform_post' ///
     str12 variable long observations long zeros ///
     double zero_percent skewness_level skewness_ln1p ///
     using "`transformation_report'", replace
 
-* Aplicar ln(1+x) para conservar los ceros y reducir la asimetría
+* Aplicar ln(1+x) para conservar los ceros y reducir la asimetría.
 foreach var in oilpc gaspc coalpc {
-    // Contar las observaciones disponibles de la variable original
+    // Contar las observaciones disponibles de la variable original.
     quietly count if !missing(`var')
     local n_nonmissing = r(N)
 
-    // Contar los ceros y calcular su participación entre los valores observados
+    // Contar los ceros y calcular su participación entre los valores observados.
     quietly count if `var' == 0
     local n_zeros = r(N)
     local zero_percent = 100 * `n_zeros' / `n_nonmissing'
 
-    // Calcular la asimetría de la variable expresada en niveles
+    // Calcular la asimetría de la variable expresada en niveles.
     quietly summarize `var', detail
     local skewness_level = r(skewness)
 
-    // Crear la transformación logarítmica sin eliminar observaciones iguales a cero
+    // Crear la transformación logarítmica sin eliminar observaciones iguales a cero.
     generate double ln1p_`var' = ln(1 + `var') if !missing(`var')
     local var_upper = upper("`var'")
     label variable ln1p_`var' "ln(1 + `var_upper')"
 
-    // Calcular la asimetría después de aplicar la transformación ln(1+x)
+    // Calcular la asimetría después de aplicar la transformación ln(1+x).
     quietly summarize ln1p_`var', detail
     local skewness_ln1p = r(skewness)
 
-    // Confirmar que la transformación no altere el patrón de valores faltantes
+    // Confirmar que la transformación no altere el patrón de valores faltantes.
     assert missing(ln1p_`var') == missing(`var')
+    * Control de calidad automático que detiene el script si no se cumple la condición.
     assert ln1p_`var' == 0 if `var' == 0
 
-    // Añadir al reporte una fila con los resultados de esta variable
+    // Añadir al reporte una fila con los resultados de esta variable.
     post `transform_post' ///
         ("`var'") (`n_nonmissing') (`n_zeros') ///
         (`zero_percent') (`skewness_level') (`skewness_ln1p')
 }
 
-* Cerrar el registro temporal para poder abrirlo y exportarlo
+* Cerrar el registro temporal para poder abrirlo y exportarlo.
 postclose `transform_post'
 
-* Exportar la comparación utilizada para decidir la transformación
+* Exportar la comparación utilizada para decidir la transformación.
 preserve
-    * Abrir temporalmente el reporte sin perder el panel que está en memoria
+    * Abrir temporalmente el reporte sin perder el panel que está en memoria.
     use "`transformation_report'", clear
 
-    * Redondear y formatear los resultados para facilitar su lectura
+    * Redondear y formatear los resultados para facilitar su lectura.
     replace zero_percent = round(zero_percent, 0.01)
     replace skewness_level = round(skewness_level, 0.001)
     replace skewness_ln1p = round(skewness_ln1p, 0.001)
     format zero_percent %9.2f
     format skewness_level skewness_ln1p %9.3f
 
-    * Ordenar las variables antes de guardar el reporte
+    * Ordenar las variables antes de guardar el reporte.
     sort variable
 
-    * Exportar la comparación a la carpeta de decisiones metodológicas
+    * Exportar la comparación a la carpeta de decisiones metodológicas.
     export delimited using ///
         "$OUTPUT_DESIGN/resource_transformation_comparison.csv", ///
         replace datafmt
 
-    * Mostrar la tabla de comparación en la ventana de resultados de Stata
+    * Mostrar la tabla de comparación en la ventana de resultados de Stata.
     list, noobs abbreviate(20)
 
-    * Recuperar el panel completo que estaba cargado antes de abrir el reporte
+    * Recuperar el panel completo que estaba cargado antes de abrir el reporte.
 restore
 
 
 // 3.2. Definir las variables de cada especificación
 
-* Definir los regresores comunes de los modelos ECI y DIVX
+* Definir los regresores comunes de los modelos ECI y DIVX.
 global MODEL_COMMON ///
     rents inst rents_x_inst ///
     ln1p_oilpc ln1p_gaspc ln1p_coalpc ///
     pexp fexp vol rer humcap innov net ///
     log_gdppc govcons fin
 
-* Añadir ECI como dependiente y HHI como regresor del modelo principal
+* Añadir ECI como dependiente y HHI como regresor del modelo principal.
 global MODEL_ECI  eci  $MODEL_COMMON hhi
 
-* Añadir DIVX como dependiente y excluir HHI por la identidad DIVX = 1 - HHI
+* Añadir DIVX como dependiente y excluir HHI por la identidad DIVX = 1 - HHI.
 global MODEL_DIVX divx $MODEL_COMMON
 
 
 // 3.3. Construir las muestras mediante casos completos
 
-* Contar valores faltantes en la ecuación principal con ECI
+* Contar valores faltantes en la ecuación principal con ECI.
 egen n_missing_eci = rowmiss($MODEL_ECI)
 
-* Marcar con uno las observaciones que tienen información para todo el modelo ECI
+* Marcar con uno las observaciones que tienen información para todo el modelo ECI.
 generate byte sample_eci = n_missing_eci == 0
 label variable sample_eci "Muestra completa del modelo ECI"
 
-* Contar valores faltantes en la ecuación complementaria con DIVX
+* Contar valores faltantes en la ecuación complementaria con DIVX.
 egen n_missing_divx = rowmiss($MODEL_DIVX)
 
-* Marcar con uno las observaciones que tienen información para todo el modelo DIVX
+* Marcar con uno las observaciones que tienen información para todo el modelo DIVX.
 generate byte sample_divx = n_missing_divx == 0
 label variable sample_divx "Muestra completa del modelo DIVX"
 
-* Confirmar que las banderas únicamente dependan de la información observada
+* Confirmar que las banderas únicamente dependan de la información observada.
 assert inlist(sample_eci, 0, 1)
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert inlist(sample_divx, 0, 1)
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert sample_eci == (n_missing_eci == 0)
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert sample_divx == (n_missing_divx == 0)
 
-* Verificar la cobertura efectiva de cada modelo
+* Verificar la cobertura efectiva de cada modelo.
 
-* Contar las observaciones y los países de la grilla maestra completa
+* Contar las observaciones y los países de la grilla maestra completa.
 quietly count
 local n_grid = r(N)
 
@@ -594,7 +589,7 @@ local n_grid = r(N)
 quietly levelsof country_id, local(grid_country_ids)
 local n_grid_countries : word count `grid_country_ids'
 
-* Contar las observaciones, países y años disponibles para el modelo ECI
+* Contar las observaciones, países y años disponibles para el modelo ECI.
 quietly count if sample_eci == 1
 local n_eci = r(N)
 quietly levelsof country_id if sample_eci == 1, local(eci_country_ids)
@@ -603,7 +598,7 @@ quietly summarize year if sample_eci == 1, meanonly
 local eci_first_year = r(min)
 local eci_last_year  = r(max)
 
-* Contar las observaciones, países y años disponibles para el modelo DIVX
+* Contar las observaciones, países y años disponibles para el modelo DIVX.
 quietly count if sample_divx == 1
 local n_divx = r(N)
 quietly levelsof country_id if sample_divx == 1, local(divx_country_ids)
@@ -612,7 +607,7 @@ quietly summarize year if sample_divx == 1, meanonly
 local divx_first_year = r(min)
 local divx_last_year  = r(max)
 
-* Conservar los conteos para ejecutar las siguientes subsecciones por separado
+* Conservar los conteos para ejecutar las siguientes subsecciones por separado.
 global SAMPLE_N_GRID             `n_grid'
 global SAMPLE_N_GRID_COUNTRIES   `n_grid_countries'
 global SAMPLE_N_ECI              `n_eci'
@@ -624,203 +619,208 @@ global SAMPLE_N_DIVX_COUNTRIES   `n_divx_countries'
 global SAMPLE_DIVX_FIRST_YEAR    `divx_first_year'
 global SAMPLE_DIVX_LAST_YEAR     `divx_last_year'
 
-* Validar los conteos esperados del panel cerrado
+* Validar los conteos esperados del panel cerrado.
 assert $SAMPLE_N_GRID == 1430
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert $SAMPLE_N_GRID_COUNTRIES == 55
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert $SAMPLE_N_ECI == 1044
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert $SAMPLE_N_ECI_COUNTRIES == 49
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert $SAMPLE_N_DIVX == 1044
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert $SAMPLE_N_DIVX_COUNTRIES == 49
 
-* Confirmar que las muestras coincidan con la disponibilidad actual del panel
+* Confirmar que las muestras coincidan con la disponibilidad actual del panel.
 quietly count if sample_eci != sample_divx
 
-* Detener la ejecución si las dos banderas difieren en el panel actual
+* Detener la ejecución si las dos banderas difieren en el panel actual.
 assert r(N) == 0
 
 
 // 3.4. Documentar la composición de las muestras
 
-* Registrar la disponibilidad individual de las variables de cada ecuación
+* Registrar la disponibilidad individual de las variables de cada ecuación.
 tempname missingness_post
 tempfile missingness_report
 
-* Definir las columnas del reporte de disponibilidad por modelo y variable
+* Definir las columnas del reporte de disponibilidad por modelo y variable.
 postfile `missingness_post' ///
     str8 model str24 variable long available long missing ///
     double coverage_percent using "`missingness_report'", replace
 
-* Recorrer todas las variables requeridas por el modelo principal con ECI
+* Recorrer todas las variables requeridas por el modelo principal con ECI.
 foreach var of global MODEL_ECI {
-    // Contar cuántas observaciones tienen información para esta variable
+    // Contar cuántas observaciones tienen información para esta variable.
     quietly count if !missing(`var')
     local available = r(N)
 
-    // Calcular cuántas observaciones faltan y el porcentaje de cobertura
+    // Calcular cuántas observaciones faltan y el porcentaje de cobertura.
     local missing = $SAMPLE_N_GRID - `available'
     local coverage = 100 * `available' / $SAMPLE_N_GRID
 
-    // Guardar los resultados de la variable en el reporte temporal
+    // Guardar los resultados de la variable en el reporte temporal.
     post `missingness_post' ///
         ("ECI") ("`var'") (`available') (`missing') (`coverage')
 }
 
-* Repetir el mismo cálculo para el modelo complementario con DIVX
+* Repetir el mismo cálculo para el modelo complementario con DIVX.
 foreach var of global MODEL_DIVX {
-    // Contar cuántas observaciones tienen información para esta variable
+    // Contar cuántas observaciones tienen información para esta variable.
     quietly count if !missing(`var')
     local available = r(N)
 
-    // Calcular cuántas observaciones faltan y el porcentaje de cobertura
+    // Calcular cuántas observaciones faltan y el porcentaje de cobertura.
     local missing = $SAMPLE_N_GRID - `available'
     local coverage = 100 * `available' / $SAMPLE_N_GRID
 
-    // Guardar los resultados de la variable en el reporte temporal
+    // Guardar los resultados de la variable en el reporte temporal.
     post `missingness_post' ///
         ("DIVX") ("`var'") (`available') (`missing') (`coverage')
 }
 
-* Cerrar el registro temporal para poder exportar su contenido
+* Cerrar el registro temporal para poder exportar su contenido.
 postclose `missingness_post'
 
-* Exportar el reporte sin reemplazar el panel cargado en memoria
+* Exportar el reporte sin reemplazar el panel cargado en memoria.
 preserve
-    * Abrir temporalmente el reporte de disponibilidad
+    * Abrir temporalmente el reporte de disponibilidad.
     use "`missingness_report'", clear
 
-    * Redondear y formatear el porcentaje de cobertura
+    * Redondear y formatear el porcentaje de cobertura.
     replace coverage_percent = round(coverage_percent, 0.01)
     format coverage_percent %9.2f
 
-    * Ordenar las filas por modelo y nombre de variable
+    * Ordenar las filas por modelo y nombre de variable.
     sort model variable
 
-    * Guardar el reporte como un archivo CSV reproducible
+    * Guardar el reporte como un archivo CSV reproducible.
     export delimited using ///
         "$OUTPUT_SAMPLE/sample_missingness_by_variable.csv", ///
         replace datafmt
 
-    * Recuperar el panel completo después de terminar la exportación
+    * Recuperar el panel completo después de terminar la exportación.
 restore
 
-* Crear el resumen general de observaciones, países y período
+* Crear el resumen general de observaciones, países y período.
 tempname sample_post
 tempfile sample_report
 
-* Definir las columnas del resumen general de las muestras
+* Definir las columnas del resumen general de las muestras.
 postfile `sample_post' ///
     str8 model long observations long excluded_observations ///
     int countries int excluded_countries int first_year int last_year ///
     using "`sample_report'", replace
 
-* Guardar los conteos del modelo principal con ECI
+* Guardar los conteos del modelo principal con ECI.
 post `sample_post' ///
     ("ECI") ($SAMPLE_N_ECI) ($SAMPLE_N_GRID - $SAMPLE_N_ECI) ///
     ($SAMPLE_N_ECI_COUNTRIES) ///
     ($SAMPLE_N_GRID_COUNTRIES - $SAMPLE_N_ECI_COUNTRIES) ///
     ($SAMPLE_ECI_FIRST_YEAR) ($SAMPLE_ECI_LAST_YEAR)
 
-* Guardar los conteos del modelo complementario con DIVX
+* Guardar los conteos del modelo complementario con DIVX.
 post `sample_post' ///
     ("DIVX") ($SAMPLE_N_DIVX) ($SAMPLE_N_GRID - $SAMPLE_N_DIVX) ///
     ($SAMPLE_N_DIVX_COUNTRIES) ///
     ($SAMPLE_N_GRID_COUNTRIES - $SAMPLE_N_DIVX_COUNTRIES) ///
     ($SAMPLE_DIVX_FIRST_YEAR) ($SAMPLE_DIVX_LAST_YEAR)
 
-* Cerrar el registro temporal del resumen general
+* Cerrar el registro temporal del resumen general.
 postclose `sample_post'
 
-* Exportar y mostrar el resumen sin perder el panel que está en memoria
+* Exportar y mostrar el resumen sin perder el panel que está en memoria.
 preserve
-    * Abrir temporalmente el resumen general de las muestras
+    * Abrir temporalmente el resumen general de las muestras.
     use "`sample_report'", clear
 
-    * Exportar el resumen a la carpeta de resultados de las muestras
+    * Exportar el resumen a la carpeta de resultados de las muestras.
     export delimited using "$OUTPUT_SAMPLE/sample_summary.csv", replace
 
-    * Mostrar el resumen en la ventana de resultados de Stata
+    * Mostrar el resumen en la ventana de resultados de Stata.
     list, noobs abbreviate(24)
 
-    * Recuperar el panel completo después de revisar el resumen
+    * Recuperar el panel completo después de revisar el resumen.
 restore
 
-* Documentar la cobertura de cada país
+* Documentar la cobertura de cada país.
 preserve
-    * Sumar por país las observaciones incluidas en cada muestra
+    * Sumar por país las observaciones incluidas en cada muestra.
     collapse ///
         (sum) observations_eci=sample_eci ///
         observations_divx=sample_divx, ///
         by(country_iso3_code country country_id)
 
-    * Calcular cuántos de los 26 años quedan excluidos en cada modelo
+    * Calcular cuántos de los 26 años quedan excluidos en cada modelo.
     generate int excluded_eci  = 26 - observations_eci
     generate int excluded_divx = 26 - observations_divx
 
-    * Organizar las columnas y ordenar alfabéticamente los países
+    * Organizar las columnas y ordenar alfabéticamente los países.
     order country_iso3_code country country_id ///
         observations_eci excluded_eci ///
         observations_divx excluded_divx
     sort country_iso3_code
 
-    * Exportar el detalle de cobertura por país
+    * Exportar el detalle de cobertura por país.
     export delimited using ///
         "$OUTPUT_SAMPLE/sample_coverage_by_country.csv", replace
 
-    * Recuperar el panel completo después de terminar el reporte por país
+    * Recuperar el panel completo después de terminar el reporte por país.
 restore
 
-* Documentar la cobertura de cada año
+* Documentar la cobertura de cada año.
 preserve
-    * Sumar por año los países incluidos en cada muestra
+    * Sumar por año los países incluidos en cada muestra.
     collapse ///
         (sum) observations_eci=sample_eci ///
         observations_divx=sample_divx, by(year)
 
-    * Calcular cuántos de los 55 países quedan excluidos en cada año
+    * Calcular cuántos de los 55 países quedan excluidos en cada año.
     generate int excluded_eci  = 55 - observations_eci
     generate int excluded_divx = 55 - observations_divx
 
-    * Organizar las columnas y ordenar cronológicamente los años
+    * Organizar las columnas y ordenar cronológicamente los años.
     order year observations_eci excluded_eci ///
         observations_divx excluded_divx
     sort year
 
-    * Exportar el detalle de cobertura anual
+    * Exportar el detalle de cobertura anual.
     export delimited using ///
         "$OUTPUT_SAMPLE/sample_coverage_by_year.csv", replace
 
-    * Recuperar el panel completo después de terminar el reporte anual
+    * Recuperar el panel completo después de terminar el reporte anual.
 restore
 
 
 // 3.5. Guardar las bases derivadas sin modificar el panel maestro
 
-* Guardar una copia derivada con las transformaciones y las banderas de muestra
+* Guardar una copia derivada con las transformaciones y las banderas de muestra.
 save "$OUTPUT_SAMPLE/master_panel_estimation_sample.dta", replace
 
-* Guardar la muestra completa del modelo principal con ECI
+* Guardar la muestra completa del modelo principal con ECI.
 preserve
-    * Conservar temporalmente solo los casos completos del modelo ECI
+    * Conservar temporalmente solo los casos completos del modelo ECI.
     keep if sample_eci == 1
 
-    * Guardar la muestra ECI como una base independiente
+    * Guardar la muestra ECI como una base independiente.
     save "$OUTPUT_SAMPLE/sample_eci.dta", replace
 
-    * Recuperar el panel completo antes de construir la muestra DIVX
+    * Recuperar el panel completo antes de construir la muestra DIVX.
 restore
 
-* Guardar la muestra completa del modelo complementario con DIVX
+* Guardar la muestra completa del modelo complementario con DIVX.
 preserve
-    * Conservar temporalmente solo los casos completos del modelo DIVX
+    * Conservar temporalmente solo los casos completos del modelo DIVX.
     keep if sample_divx == 1
 
-    * Guardar la muestra DIVX como una base independiente
+    * Guardar la muestra DIVX como una base independiente.
     save "$OUTPUT_SAMPLE/sample_divx.dta", replace
 
-    * Recuperar nuevamente el panel completo
+    * Recuperar nuevamente el panel completo.
 restore
 
-* Informar en la ventana de resultados que la sección terminó correctamente
+* Informar en la ventana de resultados que la sección terminó correctamente.
 display as result "Preparación de variables y muestras completada sin errores."
 display as result ///
     "Muestra ECI:  $SAMPLE_N_ECI observaciones y $SAMPLE_N_ECI_COUNTRIES países."
@@ -828,7 +828,7 @@ display as result ///
     "Muestra DIVX: $SAMPLE_N_DIVX observaciones y $SAMPLE_N_DIVX_COUNTRIES países."
 display as result "No se imputaron ni interpolaron valores faltantes."
 
-* Abrir la base derivada completa en el Editor de Datos en modo de solo lectura
+* Abrir la base derivada completa en el Editor de Datos en modo de solo lectura.
 use "$OUTPUT_SAMPLE/master_panel_estimation_sample.dta", clear
 browse
 
@@ -839,7 +839,7 @@ browse
 
 // 4.1. Cargar y verificar la base preparada para el análisis
 
-* Confirmar que la sección 3 haya creado la base analítica derivada
+* Confirmar que la sección 3 haya creado la base analítica derivada.
 capture confirm file "$OUTPUT_SAMPLE/master_panel_estimation_sample.dta"
 if _rc {
     display as error "No se encontró la base preparada para las estimaciones."
@@ -847,25 +847,28 @@ if _rc {
     exit 601
 }
 
-* Cargar la base derivada sin modificar el panel maestro original
+* Cargar la base derivada sin modificar el panel maestro original.
 use "$OUTPUT_SAMPLE/master_panel_estimation_sample.dta", clear
 
-* Declarar nuevamente la estructura país-año después de cargar el archivo
+* Declarar nuevamente la estructura país-año después de cargar el archivo.
 xtset country_id year
 
-* Verificar que la base conserve la grilla y las muestras validadas
+* Verificar que la base conserve la grilla y las muestras validadas.
 quietly count
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert r(N) == 1430
 
 * Confirmar el número de casos completos de la ecuación ECI.
 quietly count if sample_eci == 1
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert r(N) == 1044
 
 * Confirmar el número de casos completos de la ecuación DIVX.
 quietly count if sample_divx == 1
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert r(N) == 1044
 
-* Definir las variables que se describirán y diagnosticarán
+* Definir las variables que se describirán y diagnosticarán.
 global DIAGNOSTIC_VARS ///
     eci divx rents inst rents_x_inst ///
     ln1p_oilpc ln1p_gaspc ln1p_coalpc ///
@@ -875,37 +878,37 @@ global DIAGNOSTIC_VARS ///
 
 // 4.2. Calcular estadísticas descriptivas
 
-* Crear un registro temporal para almacenar los estadísticos de cada variable
+* Crear un registro temporal para almacenar los estadísticos de cada variable.
 tempname descriptive_post
 tempfile descriptive_report
 
-* Definir las columnas del reporte descriptivo
+* Definir las columnas del reporte descriptivo.
 postfile `descriptive_post' ///
     str16 analysis_sample str24 variable ///
     long observations long zeros double zero_percent ///
     double mean sd min p25 median p75 max ///
     using "`descriptive_report'", replace
 
-* Comparar el panel completo con la muestra efectiva de estimación
+* Comparar el panel completo con la muestra efectiva de estimación.
 foreach analysis_sample in PANEL_COMPLETE ESTIMATION {
-    // Recorrer todas las variables utilizadas en las dos ecuaciones
+    // Recorrer todas las variables utilizadas en las dos ecuaciones.
     foreach var of global DIAGNOSTIC_VARS {
-        // Definir la restricción correspondiente a cada muestra
+        // Definir la restricción correspondiente a cada muestra.
         local restriction "!missing(`var')"
         if "`analysis_sample'" == "ESTIMATION" {
             local restriction "sample_eci == 1 & !missing(`var')"
         }
 
-        // Contar las observaciones disponibles de la variable
+        // Contar las observaciones disponibles de la variable.
         quietly count if `restriction'
         local n_available = r(N)
 
-        // Contar los valores iguales a cero dentro de la muestra correspondiente
+        // Contar los valores iguales a cero dentro de la muestra correspondiente.
         quietly count if `restriction' & `var' == 0
         local n_zeros = r(N)
         local zero_share = 100 * `n_zeros' / `n_available'
 
-        // Calcular media, dispersión, percentiles y valores extremos
+        // Calcular media, dispersión, percentiles y valores extremos.
         quietly summarize `var' if `restriction', detail
         local var_mean   = r(mean)
         local var_sd     = r(sd)
@@ -915,7 +918,7 @@ foreach analysis_sample in PANEL_COMPLETE ESTIMATION {
         local var_p75    = r(p75)
         local var_max    = r(max)
 
-        // Guardar una fila del reporte para esta variable y muestra
+        // Guardar una fila del reporte para esta variable y muestra.
         post `descriptive_post' ///
             ("`analysis_sample'") ("`var'") ///
             (`n_available') (`n_zeros') (`zero_share') ///
@@ -924,106 +927,106 @@ foreach analysis_sample in PANEL_COMPLETE ESTIMATION {
     }
 }
 
-* Cerrar el registro para poder abrir y exportar sus resultados
+* Cerrar el registro para poder abrir y exportar sus resultados.
 postclose `descriptive_post'
 
-* Exportar los estadísticos sin perder la base que está cargada en memoria
+* Exportar los estadísticos sin perder la base que está cargada en memoria.
 preserve
-    * Abrir temporalmente el reporte descriptivo
+    * Abrir temporalmente el reporte descriptivo.
     use "`descriptive_report'", clear
 
-    * Redondear los porcentajes y aplicar formatos legibles
+    * Redondear los porcentajes y aplicar formatos legibles.
     replace zero_percent = round(zero_percent, 0.01)
     format zero_percent %9.2f
     format mean sd min p25 median p75 max %12.6f
 
-    * Ordenar el reporte por muestra y variable
+    * Ordenar el reporte por muestra y variable.
     sort analysis_sample variable
 
-    * Guardar los descriptivos como un archivo CSV reproducible
+    * Guardar los descriptivos como un archivo CSV reproducible.
     export delimited using ///
         "$OUTPUT_DIAGNOSTICS/descriptive_statistics.csv", ///
         replace datafmt
 
-    * Mostrar el reporte en la ventana de resultados de Stata
+    * Mostrar el reporte en la ventana de resultados de Stata.
     list, sepby(analysis_sample) noobs abbreviate(20)
 
-    * Recuperar la base analítica completa
+    * Recuperar la base analítica completa.
 restore
 
 
 // 4.3. Examinar la variación overall, between y within
 
-* Crear un registro para documentar la variación temporal y entre países
+* Crear un registro para documentar la variación temporal y entre países.
 tempname variation_post
 tempfile variation_report
 
-* Definir las columnas del reporte de variación del panel
+* Definir las columnas del reporte de variación del panel.
 postfile `variation_post' ///
     str24 variable long observations int countries ///
     double average_periods mean ///
     double sd_overall sd_between sd_within within_sd_ratio ///
     byte has_within_variation using "`variation_report'", replace
 
-* Calcular la descomposición de variación en la muestra efectiva
+* Calcular la descomposición de variación en la muestra efectiva.
 foreach var of global DIAGNOSTIC_VARS {
-    // Ejecutar xtsum individualmente para recuperar sus resultados almacenados
+    // Ejecutar xtsum individualmente para recuperar sus resultados almacenados.
     quietly xtsum `var' if sample_eci == 1
 
-    // Calcular la proporción de la desviación overall asociada a variación within
+    // Calcular la proporción de la desviación overall asociada a variación within.
     local within_ratio = r(sd_w) / r(sd)
 
-    // Identificar si la variable tiene variación temporal aprovechable
+    // Identificar si la variable tiene variación temporal aprovechable.
     local within_available = r(sd_w) > 1e-10
 
-    // Guardar los resultados de esta variable
+    // Guardar los resultados de esta variable.
     post `variation_post' ///
         ("`var'") (r(N)) (r(n)) (r(Tbar)) (r(mean)) ///
         (r(sd)) (r(sd_b)) (r(sd_w)) (`within_ratio') ///
         (`within_available')
 }
 
-* Cerrar el registro temporal de variación
+* Cerrar el registro temporal de variación.
 postclose `variation_post'
 
-* Exportar el reporte sin reemplazar la base analítica
+* Exportar el reporte sin reemplazar la base analítica.
 preserve
-    * Abrir temporalmente el reporte de variación
+    * Abrir temporalmente el reporte de variación.
     use "`variation_report'", clear
 
-    * Aplicar formatos para facilitar la comparación
+    * Aplicar formatos para facilitar la comparación.
     format average_periods mean ///
         sd_overall sd_between sd_within within_sd_ratio %12.6f
 
-    * Ordenar las variables y guardar el reporte
+    * Ordenar las variables y guardar el reporte.
     sort variable
     export delimited using ///
         "$OUTPUT_DIAGNOSTICS/panel_variation.csv", ///
         replace datafmt
 
-    * Mostrar la descomposición en la ventana de resultados
+    * Mostrar la descomposición en la ventana de resultados.
     list, noobs abbreviate(24)
 
-    * Recuperar la base analítica
+    * Recuperar la base analítica.
 restore
 
-* Mostrar también la salida estándar de xtsum para revisión directa
+* Mostrar también la salida estándar de xtsum para revisión directa.
 xtsum $DIAGNOSTIC_VARS if sample_eci == 1
 
 
 // 4.4. Examinar las correlaciones entre las variables
 
-* Calcular la matriz de correlaciones del modelo principal con ECI
+* Calcular la matriz de correlaciones del modelo principal con ECI.
 quietly correlate $MODEL_ECI if sample_eci == 1
 matrix correlation_eci = r(C)
 
-* Exportar la matriz ECI con nombres de filas y columnas
+* Exportar la matriz ECI con nombres de filas y columnas.
 preserve
-    * Convertir la matriz en variables de Stata
+    * Convertir la matriz en variables de Stata.
     clear
     svmat double correlation_eci, names(col)
 
-    * Crear una columna que identifique la variable de cada fila
+    * Crear una columna que identifique la variable de cada fila.
     generate str24 variable = ""
     local row_number = 1
     foreach var of global MODEL_ECI {
@@ -1031,23 +1034,23 @@ preserve
         local ++row_number
     }
 
-    * Organizar y exportar la matriz de correlaciones ECI
+    * Organizar y exportar la matriz de correlaciones ECI.
     order variable
     export delimited using ///
         "$OUTPUT_DIAGNOSTICS/correlation_matrix_eci.csv", replace
 restore
 
-* Calcular la matriz de correlaciones del modelo complementario con DIVX
+* Calcular la matriz de correlaciones del modelo complementario con DIVX.
 quietly correlate $MODEL_DIVX if sample_divx == 1
 matrix correlation_divx = r(C)
 
-* Exportar la matriz DIVX con nombres de filas y columnas
+* Exportar la matriz DIVX con nombres de filas y columnas.
 preserve
-    * Convertir la matriz en variables de Stata
+    * Convertir la matriz en variables de Stata.
     clear
     svmat double correlation_divx, names(col)
 
-    * Crear una columna que identifique la variable de cada fila
+    * Crear una columna que identifique la variable de cada fila.
     generate str24 variable = ""
     local row_number = 1
     foreach var of global MODEL_DIVX {
@@ -1055,121 +1058,121 @@ preserve
         local ++row_number
     }
 
-    * Organizar y exportar la matriz de correlaciones DIVX
+    * Organizar y exportar la matriz de correlaciones DIVX.
     order variable
     export delimited using ///
         "$OUTPUT_DIAGNOSTICS/correlation_matrix_divx.csv", replace
 restore
 
-* Mostrar correlaciones y significancia para revisión en la consola
+* Mostrar correlaciones y significancia para revisión en la consola.
 pwcorr $MODEL_ECI if sample_eci == 1, sig star(0.05)
 pwcorr $MODEL_DIVX if sample_divx == 1, sig star(0.05)
 
 
 // 4.5. Evaluar la colinealidad de los regresores
 
-* Crear un registro para los factores de inflación de la varianza
+* Crear un registro para los factores de inflación de la varianza.
 tempname vif_post
 tempfile vif_report
 
-* Definir las columnas del reporte de VIF
+* Definir las columnas del reporte de VIF.
 postfile `vif_post' ///
     str8 model str24 variable double vif str12 assessment ///
     using "`vif_report'", replace
 
-* Definir los regresores del modelo ECI, incluido HHI
+* Definir los regresores del modelo ECI, incluido HHI.
 local regressors_eci "$MODEL_COMMON hhi"
 
-* Residualizar cada regresor respecto de los efectos fijos de país y año
+* Residualizar cada regresor respecto de los efectos fijos de país y año.
 foreach var of local regressors_eci {
-    // Eliminar la variable auxiliar si esta subsección se ejecuta nuevamente
+    // Eliminar la variable auxiliar si esta subsección se ejecuta nuevamente.
     capture drop within_`var'
 
-    // Separar la variación que no es explicada por las dummies de país y año
+    // Separar la variación que no es explicada por las dummies de país y año.
     quietly regress `var' i.country_id i.year if sample_eci == 1
     predict double within_`var' if e(sample), residuals
 }
 
-* Calcular cada VIF utilizando únicamente la variación residualizada
+* Calcular cada VIF utilizando únicamente la variación residualizada.
 foreach target of local regressors_eci {
-    // Retirar temporalmente la variable objetivo del lado derecho
+    // Retirar temporalmente la variable objetivo del lado derecho.
     local remaining : list regressors_eci - target
 
-    // Construir la lista residualizada de las demás covariables
+    // Construir la lista residualizada de las demás covariables.
     local within_remaining ""
     foreach var of local remaining {
         local within_remaining "`within_remaining' within_`var'"
     }
 
-    // Regresar la variación within objetivo sobre las demás variaciones within
+    // Regresar la variación within objetivo sobre las demás variaciones within.
     quietly regress within_`target' `within_remaining' ///
         if sample_eci == 1
 
-    // Obtener el VIF como 1 dividido por 1 menos el R cuadrado auxiliar
+    // Obtener el VIF como 1 dividido por 1 menos el R cuadrado auxiliar.
     local vif_value = 1 / (1 - e(r2))
 
-    // Clasificar el valor sin eliminar automáticamente ninguna variable
+    // Clasificar el valor sin eliminar automáticamente ninguna variable.
     local vif_assessment "LOW"
     if `vif_value' >= 5  local vif_assessment "REVIEW"
     if `vif_value' >= 10 local vif_assessment "HIGH"
 
-    // Guardar el resultado del regresor en el reporte
+    // Guardar el resultado del regresor en el reporte.
     post `vif_post' ///
         ("ECI") ("`target'") (`vif_value') ("`vif_assessment'")
 }
 
-* Definir los regresores del modelo DIVX, que excluye HHI
+* Definir los regresores del modelo DIVX, que excluye HHI.
 local regressors_divx "$MODEL_COMMON"
 
-* Repetir el cálculo de VIF con el conjunto de regresores que excluye HHI
+* Repetir el cálculo de VIF con el conjunto de regresores que excluye HHI.
 foreach target of local regressors_divx {
-    // Retirar temporalmente la variable objetivo del lado derecho
+    // Retirar temporalmente la variable objetivo del lado derecho.
     local remaining : list regressors_divx - target
 
-    // Construir la lista residualizada de las demás covariables
+    // Construir la lista residualizada de las demás covariables.
     local within_remaining ""
     foreach var of local remaining {
         local within_remaining "`within_remaining' within_`var'"
     }
 
-    // Regresar la variación within objetivo sobre las demás variaciones within
+    // Regresar la variación within objetivo sobre las demás variaciones within.
     quietly regress within_`target' `within_remaining' ///
         if sample_divx == 1
 
-    // Obtener el VIF de la regresión auxiliar
+    // Obtener el VIF de la regresión auxiliar.
     local vif_value = 1 / (1 - e(r2))
 
-    // Clasificar el valor únicamente como señal de revisión
+    // Clasificar el valor únicamente como señal de revisión.
     local vif_assessment "LOW"
     if `vif_value' >= 5  local vif_assessment "REVIEW"
     if `vif_value' >= 10 local vif_assessment "HIGH"
 
-    // Guardar el resultado del regresor en el reporte
+    // Guardar el resultado del regresor en el reporte.
     post `vif_post' ///
         ("DIVX") ("`target'") (`vif_value') ("`vif_assessment'")
 }
 
-* Cerrar y exportar el reporte de colinealidad
+* Cerrar y exportar el reporte de colinealidad.
 postclose `vif_post'
 
 * Abrir temporalmente el reporte de VIF sin reemplazar la base analítica.
 preserve
-    * Abrir temporalmente el reporte de VIF
+    * Abrir temporalmente el reporte de VIF.
     use "`vif_report'", clear
 
-    * Ordenar primero los valores más altos dentro de cada modelo
+    * Ordenar primero los valores más altos dentro de cada modelo.
     gsort model -vif
     format vif %12.4f
 
-    * Exportar y mostrar el reporte
+    * Exportar y mostrar el reporte.
     export delimited using ///
         "$OUTPUT_DIAGNOSTICS/vif_by_model.csv", replace datafmt
     list, sepby(model) noobs abbreviate(24)
 
-    * Recuperar la base analítica
+    * Recuperar la base analítica.
 restore
 
-* Eliminar las variables auxiliares utilizadas exclusivamente para calcular VIF
+* Eliminar las variables auxiliares utilizadas exclusivamente para calcular VIF.
 foreach var of local regressors_eci {
     drop within_`var'
 }
@@ -1177,19 +1180,19 @@ foreach var of local regressors_eci {
 
 // 4.6. Evaluar la estructura de los errores del panel
 
-* Crear un registro para las pruebas de especificación de los errores
+* Crear un registro para las pruebas de especificación de los errores.
 tempname tests_post
 tempfile tests_report
 
-* Definir las columnas del reporte de pruebas diagnósticas
+* Definir las columnas del reporte de pruebas diagnósticas.
 postfile `tests_post' ///
     str8 model str32 test str80 null_hypothesis ///
     double statistic df1 df2 p_value str20 decision ///
     using "`tests_report'", replace
 
-* Ejecutar las tres pruebas para los modelos ECI y DIVX
+* Ejecutar las tres pruebas para los modelos ECI y DIVX.
 foreach model in ECI DIVX {
-    // Definir la dependiente, los regresores y la bandera de cada modelo
+    // Definir la dependiente, los regresores y la bandera de cada modelo.
     local dependent "eci"
     local regressors "$MODEL_COMMON hhi"
     local sample_flag "sample_eci"
@@ -1201,11 +1204,11 @@ foreach model in ECI DIVX {
         local sample_flag "sample_divx"
     }
 
-    // Estimar silenciosamente el modelo auxiliar con efectos fijos de país y año
+    // Estimar silenciosamente el modelo auxiliar con efectos fijos de país y año.
     quietly xtreg `dependent' `regressors' i.year ///
         if `sample_flag' == 1, fe
 
-    // Probar heterocedasticidad entre países mediante Wald modificado
+    // Probar heterocedasticidad entre países mediante Wald modificado.
     noisily xttest3
     local hetero_stat = r(wald)
     local hetero_df   = r(df)
@@ -1213,14 +1216,14 @@ foreach model in ECI DIVX {
     local hetero_decision "DO NOT REJECT H0"
     if `hetero_p' < 0.05 local hetero_decision "REJECT H0"
 
-    // Guardar el resultado de heterocedasticidad
+    // Guardar el resultado de heterocedasticidad.
     post `tests_post' ///
         ("`model'") ("Modified Wald") ///
         ("Equal error variance across countries") ///
         (`hetero_stat') (`hetero_df') (.) (`hetero_p') ///
         ("`hetero_decision'")
 
-    // Probar autocorrelación de primer orden mediante Wooldridge
+    // Probar autocorrelación de primer orden mediante Wooldridge.
     noisily xtserial `dependent' `regressors' if `sample_flag' == 1
     local serial_stat = r(F)
     local serial_df1  = r(df)
@@ -1229,31 +1232,31 @@ foreach model in ECI DIVX {
     local serial_decision "DO NOT REJECT H0"
     if `serial_p' < 0.05 local serial_decision "REJECT H0"
 
-    // Guardar el resultado de autocorrelación
+    // Guardar el resultado de autocorrelación.
     post `tests_post' ///
         ("`model'") ("Wooldridge AR(1)") ///
         ("No first-order serial correlation") ///
         (`serial_stat') (`serial_df1') (`serial_df2') (`serial_p') ///
         ("`serial_decision'")
 
-    // Reestimar el modelo auxiliar antes de la prueba postestimación de Pesaran
+    // Reestimar el modelo auxiliar antes de la prueba postestimación de Pesaran.
     quietly xtreg `dependent' `regressors' i.year ///
         if `sample_flag' == 1, fe
 
-    // Probar independencia transversal de los residuos
+    // Probar independencia transversal de los residuos.
     noisily xtcsd, pesaran abs
     local cd_stat = r(pesaran)
     local cd_p = 2 * normal(-abs(`cd_stat'))
     local cd_decision "DO NOT REJECT H0"
     if `cd_p' < 0.05 local cd_decision "REJECT H0"
 
-    // Guardar el resultado de dependencia transversal
+    // Guardar el resultado de dependencia transversal.
     post `tests_post' ///
         ("`model'") ("Pesaran CD") ///
         ("Cross-sectional independence of residuals") ///
         (`cd_stat') (.) (.) (`cd_p') ("`cd_decision'")
 
-    // Conservar los valores p para definir la inferencia de los modelos
+    // Conservar los valores p para definir la inferencia de los modelos.
     if "`model'" == "ECI" {
         global P_HET_ECI    `hetero_p'
         global P_SERIAL_ECI `serial_p'
@@ -1268,34 +1271,34 @@ foreach model in ECI DIVX {
     }
 }
 
-* Cerrar y exportar el reporte de pruebas diagnósticas
+* Cerrar y exportar el reporte de pruebas diagnósticas.
 postclose `tests_post'
 
 * Abrir temporalmente el reporte de pruebas sin perder la base analítica.
 preserve
-    * Abrir temporalmente el reporte de pruebas
+    * Abrir temporalmente el reporte de pruebas.
     use "`tests_report'", clear
 
-    * Aplicar formatos y ordenar las pruebas por modelo
+    * Aplicar formatos y ordenar las pruebas por modelo.
     format statistic p_value %12.6f
     sort model test
 
-    * Exportar y mostrar los resultados
+    * Exportar y mostrar los resultados.
     export delimited using ///
         "$OUTPUT_DIAGNOSTICS/panel_error_tests.csv", replace datafmt
     list, sepby(model) noobs abbreviate(24)
 
-    * Recuperar la base analítica
+    * Recuperar la base analítica.
 restore
 
-* Adoptar errores agrupados por país si hay heterocedasticidad o autocorrelación
+* Adoptar errores agrupados por país si hay heterocedasticidad o autocorrelación.
 global INFERENCE_MAIN "vce(cluster country_id)"
 
 * Mostrar la estrategia de inferencia que utilizarán los modelos principales.
 display as result ///
     "Inferencia principal recomendada: errores estándar agrupados por país."
 
-* Advertir si la dependencia transversal requiere una sensibilidad adicional
+* Advertir si la dependencia transversal requiere una sensibilidad adicional.
 if $P_CD_ECI < 0.05 | $P_CD_DIVX < 0.05 {
     display as error ///
         "Alerta: revisar inferencia alternativa por dependencia transversal."
@@ -1304,27 +1307,27 @@ if $P_CD_ECI < 0.05 | $P_CD_DIVX < 0.05 {
 
 // 4.7. Identificar observaciones potencialmente influyentes
 
-* Crear archivos temporales para reunir las alertas de los dos modelos
+* Crear archivos temporales para reunir las alertas de los dos modelos.
 tempfile influence_eci influence_divx
 
-* Calcular influencia mediante una regresión auxiliar TWFE para ECI
+* Calcular influencia mediante una regresión auxiliar TWFE para ECI.
 preserve
-    * Estimar ECI con indicadores de país y año solo para fines diagnósticos
+    * Estimar ECI con indicadores de país y año solo para fines diagnósticos.
     quietly regress eci $MODEL_COMMON hhi ///
         i.country_id i.year if sample_eci == 1
 
-    * Calcular umbrales convencionales según N y número de parámetros
+    * Calcular umbrales convencionales según N y número de parámetros.
     local influence_n = e(N)
     local influence_k = e(df_m) + 1
     local leverage_threshold = 2 * `influence_k' / `influence_n'
     local cooks_threshold = 4 / `influence_n'
 
-    * Obtener apalancamiento, distancia de Cook y residuo estandarizado
+    * Obtener apalancamiento, distancia de Cook y residuo estandarizado.
     predict double leverage if e(sample), hat
     predict double cooks_distance if e(sample), cooksd
     predict double standardized_residual if e(sample), rstandard
 
-    * Crear alertas separadas para cada criterio de influencia
+    * Crear alertas separadas para cada criterio de influencia.
     generate byte flag_leverage = ///
         leverage > `leverage_threshold' if e(sample)
     generate byte flag_cooks = ///
@@ -1332,44 +1335,44 @@ preserve
     generate byte flag_residual = ///
         abs(standardized_residual) > 3 if e(sample)
 
-    * Conservar solo observaciones que activan al menos una alerta
+    * Conservar solo observaciones que activan al menos una alerta.
     keep if e(sample) & ///
         (flag_leverage == 1 | flag_cooks == 1 | flag_residual == 1)
 
-    * Identificar el modelo y guardar los umbrales utilizados
+    * Identificar el modelo y guardar los umbrales utilizados.
     generate str8 model = "ECI"
     generate double dependent_value = eci
     generate double leverage_cutoff = `leverage_threshold'
     generate double cooks_cutoff = `cooks_threshold'
 
-    * Seleccionar las columnas necesarias para revisar cada observación
+    * Seleccionar las columnas necesarias para revisar cada observación.
     keep model country_iso3_code country country_id year dependent_value ///
         leverage leverage_cutoff cooks_distance cooks_cutoff ///
         standardized_residual ///
         flag_leverage flag_cooks flag_residual
 
-    * Guardar temporalmente las alertas del modelo ECI
+    * Guardar temporalmente las alertas del modelo ECI.
     save "`influence_eci'", replace
 restore
 
-* Repetir el diagnóstico de influencia para el modelo DIVX
+* Repetir el diagnóstico de influencia para el modelo DIVX.
 preserve
-    * Estimar DIVX con efectos de país y año, excluyendo HHI
+    * Estimar DIVX con efectos de país y año, excluyendo HHI.
     quietly regress divx $MODEL_COMMON ///
         i.country_id i.year if sample_divx == 1
 
-    * Calcular umbrales convencionales según N y número de parámetros
+    * Calcular umbrales convencionales según N y número de parámetros.
     local influence_n = e(N)
     local influence_k = e(df_m) + 1
     local leverage_threshold = 2 * `influence_k' / `influence_n'
     local cooks_threshold = 4 / `influence_n'
 
-    * Obtener apalancamiento, distancia de Cook y residuo estandarizado
+    * Obtener apalancamiento, distancia de Cook y residuo estandarizado.
     predict double leverage if e(sample), hat
     predict double cooks_distance if e(sample), cooksd
     predict double standardized_residual if e(sample), rstandard
 
-    * Crear alertas separadas para cada criterio de influencia
+    * Crear alertas separadas para cada criterio de influencia.
     generate byte flag_leverage = ///
         leverage > `leverage_threshold' if e(sample)
     generate byte flag_cooks = ///
@@ -1377,46 +1380,46 @@ preserve
     generate byte flag_residual = ///
         abs(standardized_residual) > 3 if e(sample)
 
-    * Conservar solo observaciones que activan al menos una alerta
+    * Conservar solo observaciones que activan al menos una alerta.
     keep if e(sample) & ///
         (flag_leverage == 1 | flag_cooks == 1 | flag_residual == 1)
 
-    * Identificar el modelo y guardar los umbrales utilizados
+    * Identificar el modelo y guardar los umbrales utilizados.
     generate str8 model = "DIVX"
     generate double dependent_value = divx
     generate double leverage_cutoff = `leverage_threshold'
     generate double cooks_cutoff = `cooks_threshold'
 
-    * Seleccionar las columnas necesarias para revisar cada observación
+    * Seleccionar las columnas necesarias para revisar cada observación.
     keep model country_iso3_code country country_id year dependent_value ///
         leverage leverage_cutoff cooks_distance cooks_cutoff ///
         standardized_residual ///
         flag_leverage flag_cooks flag_residual
 
-    * Guardar temporalmente las alertas del modelo DIVX
+    * Guardar temporalmente las alertas del modelo DIVX.
     save "`influence_divx'", replace
 restore
 
-* Unir y exportar las alertas sin excluir observaciones de las estimaciones
+* Unir y exportar las alertas sin excluir observaciones de las estimaciones.
 preserve
-    * Abrir las alertas ECI y anexar las correspondientes a DIVX
+    * Abrir las alertas ECI y anexar las correspondientes a DIVX.
     use "`influence_eci'", clear
     append using "`influence_divx'"
 
-    * Ordenar primero las mayores distancias de Cook dentro de cada modelo
+    * Ordenar primero las mayores distancias de Cook dentro de cada modelo.
     gsort model -cooks_distance
 
-    * Aplicar formatos y exportar el reporte
+    * Aplicar formatos y exportar el reporte.
     format leverage leverage_cutoff ///
         cooks_distance cooks_cutoff standardized_residual %12.6f
     export delimited using ///
         "$OUTPUT_DIAGNOSTICS/influential_observations.csv", ///
         replace datafmt
 
-    * Mostrar las alertas en la ventana de resultados
+    * Mostrar las alertas en la ventana de resultados.
     list, sepby(model) noobs abbreviate(20)
 
-    * Recuperar la base analítica completa
+    * Recuperar la base analítica completa.
 restore
 
 * Informar que todos los descriptivos y diagnósticos fueron completados.
@@ -1424,6 +1427,6 @@ display as result "Sección 4 completada: descriptivos y diagnósticos exportado
 display as result ///
     "No se eliminaron países ni observaciones por los diagnósticos de influencia."
 
-* Cerrar el registro al finalizar las secciones de preparación y diagnóstico
+* Cerrar el registro al finalizar las secciones de preparación y diagnóstico.
 display as result "Archivo 01 completado: secciones 1 a 4 ejecutadas sin errores."
 log close preparation_log

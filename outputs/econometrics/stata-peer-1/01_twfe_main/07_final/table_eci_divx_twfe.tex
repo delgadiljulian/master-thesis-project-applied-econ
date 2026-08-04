@@ -1,0 +1,72 @@
+\begin{table}[htbp]\centering
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\caption{Modelo 3 Completo (M3): Estimación TWFE ECI vs DIVX}
+\begin{tabular}{l*{2}{c}}
+\toprule
+                    &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}\\
+                    &\multicolumn{1}{c}{ECI (Complejidad)}&\multicolumn{1}{c}{DIVX (Diversificación)}\\
+\midrule
+Rentas extractivas del subsuelo (% PIB)&     -0.0098\sym{**} &     -0.0035\sym{***}\\
+                    &    (0.0042)         &    (0.0013)         \\
+\addlinespace
+Calidad institucional (INST)&      0.2667\sym{*}  &      0.0175         \\
+                    &    (0.1367)         &    (0.0282)         \\
+\addlinespace
+RENTS x INST        &     -0.0052         &      0.0009         \\
+                    &    (0.0035)         &    (0.0012)         \\
+\addlinespace
+log(1 + OILPC)      &      0.0283         &      0.0076         \\
+                    &    (0.0376)         &    (0.0090)         \\
+\addlinespace
+log(1 + GASPC)      &      0.0396         &      0.0049         \\
+                    &    (0.0343)         &    (0.0067)         \\
+\addlinespace
+log(1 + COALPC)     &      0.0109         &     -0.0085         \\
+                    &    (0.0264)         &    (0.0078)         \\
+\addlinespace
+Concentración exportadora (HHI)&     -0.5355\sym{**} &                     \\
+                    &    (0.2252)         &                     \\
+\addlinespace
+Exp. primarias no energéticas (% exp. merc.)&     -0.0042\sym{***}&      0.0015\sym{**} \\
+                    &    (0.0016)         &    (0.0006)         \\
+\addlinespace
+Exp. combustibles (% exp. merc.)&     -0.0068\sym{***}&     -0.0011         \\
+                    &    (0.0019)         &    (0.0010)         \\
+\addlinespace
+Volatilidad términos de intercambio (VOL)&     -0.0029         &      0.0008         \\
+                    &    (0.0024)         &    (0.0010)         \\
+\addlinespace
+Tipo de cambio real (log pl\_gdpo)&     -0.0873         &     -0.0397         \\
+                    &    (0.0984)         &    (0.0359)         \\
+\addlinespace
+Capital humano (Índice retornos)&     -0.0540         &      0.1069\sym{**} \\
+                    &    (0.2244)         &    (0.0443)         \\
+\addlinespace
+Innovación (log 1 + art. científ./millón hab)&     -0.0361         &      0.0112         \\
+                    &    (0.0484)         &    (0.0136)         \\
+\addlinespace
+Conectividad digital (% pob. internet)&     -0.0013         &     -0.0007\sym{**} \\
+                    &    (0.0021)         &    (0.0004)         \\
+\addlinespace
+Nivel de desarrollo (log PIB pc PPA)&     -0.0459         &     -0.1456\sym{***}\\
+                    &    (0.2212)         &    (0.0351)         \\
+\addlinespace
+Consumo del gobierno (% PIB)&     -0.0060         &      0.0032\sym{*}  \\
+                    &    (0.0089)         &    (0.0018)         \\
+\addlinespace
+Profundidad financiera (Crédito bancario % PIB)&     -0.0010         &      0.0006         \\
+                    &    (0.0024)         &    (0.0004)         \\
+\addlinespace
+Constant            &      0.8476         &      1.7242\sym{***}\\
+                    &    (2.3686)         &    (0.3288)         \\
+\midrule
+Observaciones       &        1044         &        1044         \\
+Países              &                     &                     \\
+R2 Within           &      0.1333         &      0.2713         \\
+Estadístico F       &       6.467         &      12.411         \\
+p-valor F           &      0.0000         &      0.0000         \\
+\bottomrule
+\multicolumn{3}{l}{\footnotesize Standard errors in parentheses}\\
+\multicolumn{3}{l}{\footnotesize \sym{*} \(p<0.10\), \sym{**} \(p<0.05\), \sym{***} \(p<0.01\)}\\
+\end{tabular}
+\end{table}

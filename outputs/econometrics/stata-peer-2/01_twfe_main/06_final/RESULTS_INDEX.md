@@ -1,6 +1,6 @@
 # Índice de resultados econométricos agregados
 
-Generado por 02_econometric_models.do el  3 Aug 2026.
+Generado por 04_twfe_full.do el  4 Aug 2026.
 
 Este paquete corresponde a los modelos agregados de RENTS. No contiene la futura desagregación hidrocarburos-minería.
 
@@ -34,3 +34,4 @@ Este paquete corresponde a los modelos agregados de RENTS. No contiene la futura
 4. Las sensibilidades no sustituyen las especificaciones ECI_TWFE_MAIN y DIVX_TWFE_MAIN.
 5. La sensibilidad de forma funcional solo cambia OILPC, GASPC y COALPC; RENTS permanece agregado.
 6. HHI se excluye de DIVX porque DIVX = 1 - HHI.
+

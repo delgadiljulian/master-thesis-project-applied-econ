@@ -1,0 +1,2 @@
+model,dependent,obs,countries,clusters,years,r2_within,r2_between,r2_overall,f_stat,df_m,df_r,p_val,rmse,sigma_u,sigma_e,rho
+ECI_TWFE_MAIN,eci,1044,,49,23,.1332924739202916,,,6.4667673,17,48,,.26996228,,,

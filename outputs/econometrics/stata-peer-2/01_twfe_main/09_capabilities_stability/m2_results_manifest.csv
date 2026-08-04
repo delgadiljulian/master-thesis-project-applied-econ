@@ -11,6 +11,7 @@ order,family,file,purpose
 10,Interpretación,m2_marginal_effects.csv,Asociación marginal de RENTS según percentiles de INST.
 11,Verificación,m2_xtreg_reghdfe_verification.csv,Equivalencia numérica entre xtreg y reghdfe.
 12,Tabla,m2_results_table.tex,Tabla LaTeX compacta del Modelo 2.
-13,Figura,m2_marginal_effects.pdf,Figura comparada apta para LaTeX.
-14,Figura,m2_marginal_effects.png,Figura comparada para inspección visual.
-15,Documentación,m2_results_manifest.csv,Inventario reproducible de productos de M2.
+13,Tabla,m2_results_table.txt,Tabla de texto compacta del Modelo 2.
+14,Figura,m2_marginal_effects.pdf,Figura comparada apta para LaTeX.
+15,Figura,m2_marginal_effects.png,Figura comparada para inspección visual.
+16,Documentación,m2_results_manifest.csv,Inventario reproducible de productos de M2.

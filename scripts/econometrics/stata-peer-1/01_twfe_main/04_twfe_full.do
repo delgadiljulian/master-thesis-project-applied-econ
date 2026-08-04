@@ -1,0 +1,526 @@
+// *****************************************************************************
+// Universidad: Universidad de Buenos Aires
+// Facultad: Facultad de Ciencias Económicas
+// Escuela: Escuela de Negocios y Administración Pública
+// Programa: Maestría en Economía Aplicada
+//
+// Tipo de trabajo: Trabajo Final de Maestría (TFM)
+// Título: Rentas extractivas y transformación estructural externa en economías
+//         dependientes de recursos naturales no renovables del subsuelo (1996--2021)
+// Autor: Julián Alberto Delgadillo Marín
+// Director: Martín Grandes
+//
+// Archivo: 04_twfe_full.do (Versión Peer-1)
+// Contenido: Modelo 3 (M3) — Especificación TWFE completa integrando todos los canales
+// Ubicación: scripts/econometrics/stata-peer-1/01_twfe_main/
+// Fecha: Segundo Cuatrimestre 2026
+// *****************************************************************************
+
+
+// *****************************************************************************
+// 1. Inicialización del Entorno y Rutas de Trabajo
+// *****************************************************************************
+
+* Fijar la versión 17 de Stata para garantizar la compatibilidad del script.
+version 17.0
+* Limpiar la memoria de Stata borrando todas las variables cargadas.
+clear all
+* Limpiar la consola de comandos de Stata.
+cls
+* Eliminar todas las variables temporales y globales de la memoria.
+macro drop _all
+* Cerrar cualquier registro de texto (log) abierto previamente.
+capture log close _all
+
+* Configurar parámetros generales de ejecución, semillas y precisión numérica.
+set more off
+* Evitar que Stata abrevie nombres de variables automáticamente.
+set varabbrev off
+* Usar precisión doble para evitar errores de redondeo numérico.
+set type double
+* Ajustar el ancho de consola a 255 caracteres para ver tablas completas.
+set linesize 255
+* Definir la semilla pseudoaleatoria para hacer 100% reproducibles las simulaciones.
+set seed 20260729
+* Definir la semilla de ordenamiento para garantizar la reproducibilidad de datos.
+set sortseed 20260729
+
+* Verificar e instalar dependencias de inferencia si no están presentes.
+foreach pkg in boottest ftools reghdfe estout {
+    capture which `pkg'
+    if _rc {
+        capture ssc install `pkg'
+    }
+}
+
+* Localizar la raíz del proyecto con ruta relativa e infalible.
+local rel_path "data/processed/00_master_panel/master_panel_country_year.dta"
+capture confirm file "`rel_path'"
+if !_rc {
+    // Stata ya se encuentra en la raíz del proyecto
+}
+else {
+    capture confirm file "../../../`rel_path'"
+    if !_rc {
+        quietly cd "../../.."
+    }
+    else {
+        capture confirm file "../../`rel_path'"
+        if !_rc {
+            quietly cd "../.."
+        }
+        else {
+            capture confirm file "../`rel_path'"
+            if !_rc {
+                quietly cd ".."
+            }
+            else {
+                quietly cd "C:/Users/julla/GitHub/master-thesis-project-applied-econ"
+            }
+        }
+    }
+}
+
+* Definir variables globales para las rutas del repositorio en Peer-1.
+global PROJECT_ROOT "`c(pwd)'"
+global OUTPUT_ROOT              "$PROJECT_ROOT/outputs/econometrics/stata-peer-1/01_twfe_main"
+global OUTPUT_SAMPLE            "$OUTPUT_ROOT/01_sample"
+global OUTPUT_DIAGNOSTICS       "$OUTPUT_ROOT/02_diagnostics"
+global OUTPUT_ECI               "$OUTPUT_ROOT/03_eci"
+global OUTPUT_DIVX              "$OUTPUT_ROOT/04_divx"
+global OUTPUT_STABILITY         "$OUTPUT_ROOT/05_stability"
+global OUTPUT_RESOURCE_DISAGG   "$OUTPUT_ROOT/06_resource_disaggregation"
+global OUTPUT_FINAL             "$OUTPUT_ROOT/07_final"
+global OUTPUT_LOGS              "$OUTPUT_ROOT/logs"
+
+* Crear los directorios de salida utilizando shell mkdir para compatibilidad en Windows.
+capture shell mkdir "$PROJECT_ROOT\outputs\econometrics\stata-peer-1\01_twfe_main\03_eci"
+capture shell mkdir "$PROJECT_ROOT\outputs\econometrics\stata-peer-1\01_twfe_main\04_divx"
+capture shell mkdir "$PROJECT_ROOT\outputs\econometrics\stata-peer-1\01_twfe_main\05_stability"
+capture shell mkdir "$PROJECT_ROOT\outputs\econometrics\stata-peer-1\01_twfe_main\07_final"
+capture shell mkdir "$PROJECT_ROOT\outputs\econometrics\stata-peer-1\01_twfe_main\logs"
+
+* Abrir el registro de ejecución del Modelo 3 Completo.
+log using "$OUTPUT_LOGS/04_twfe_full.log", text replace name(full_model_log)
+
+* Confirmar la presencia de la base de estimación congelada.
+capture confirm file "$OUTPUT_SAMPLE/master_panel_sample.dta"
+if _rc {
+    display as error "Error: No se encontró $OUTPUT_SAMPLE/master_panel_sample.dta"
+    exit 601
+}
+
+
+// *****************************************************************************
+// 2. Modelo 3 Completo (M3) — Complejidad Económica (ECI)
+// *****************************************************************************
+
+* Cargar la base de datos de estimación y declarar la estructura de panel.
+use "$OUTPUT_SAMPLE/master_panel_sample.dta", clear
+xtset country_id year
+
+* Definir conjunto completo de regresores para el modelo ECI.
+global ECI_REGRESSORS rents inst rents_x_inst log_oilpc log_gaspc log_coalpc hhi pexp fexp vol rer humcap innov net log_gdppc govcons fin
+
+* Estimar el Modelo 3 Completo (M3) de ECI con efectos fijos de país y año.
+reghdfe eci $ECI_REGRESSORS if sample_eci == 1, absorb(country_id year) vce(cluster country_id)
+
+* Guardar estimaciones en memoria y en archivo .ster.
+estimates store ECI_TWFE_MAIN
+estimates save "$OUTPUT_ECI/eci_twfe_main.ster", replace
+
+* Verificar que la muestra utilizada coincide con los 1.044 casos congelados.
+quietly count if e(sample)
+assert r(N) == 1044
+
+* Exportar tabla CSV detallada de coeficientes e intervalos de confianza.
+tempname eci_coef_post
+tempfile eci_coef_report
+postfile `eci_coef_post' int order str32 term str100 variable_label str32 channel double coefficient standard_error t_statistic p_value ci_lower ci_upper using "`eci_coef_report'", replace
+
+local eci_terms rents inst rents_x_inst log_oilpc log_gaspc log_coalpc hhi pexp fexp vol rer humcap innov net log_gdppc govcons fin
+local critical_t = invttail(e(df_r), 0.025)
+local term_order = 0
+
+foreach term of local eci_terms {
+    local ++term_order
+    local b = _b[`term']
+    local se = _se[`term']
+    local term_label : variable label `term'
+    if `"`term_label'"' == "" local term_label "`term'"
+
+    local channel "Controles económicos"
+    if inlist("`term'", "rents", "inst", "rents_x_inst") local channel "Institucional"
+    if inlist("`term'", "log_oilpc", "log_gaspc", "log_coalpc") local channel "Abundancia de recursos"
+    if inlist("`term'", "hhi", "pexp", "fexp") local channel "Estructura exportadora"
+    if inlist("`term'", "vol", "rer") local channel "Condiciones macroeconómicas"
+    if inlist("`term'", "humcap", "innov", "net") local channel "Capacidades productivas"
+
+    local t = `b' / `se'
+    local p = 2 * ttail(e(df_r), abs(`t'))
+    local low = `b' - `critical_t' * `se'
+    local high = `b' + `critical_t' * `se'
+
+    post `eci_coef_post' (`term_order') ("`term'") (`"`term_label'"') (`"`channel'"') (`b') (`se') (`t') (`p') (`low') (`high')
+}
+postclose `eci_coef_post'
+
+preserve
+    use "`eci_coef_report'", clear
+    sort order
+    format coefficient standard_error t_statistic ci_lower ci_upper %12.6f
+    format p_value %10.6f
+    export delimited using "$OUTPUT_ECI/eci_twfe_coefficients.csv", replace
+    list term coefficient standard_error p_value ci_lower ci_upper, noobs abbreviate(24)
+restore
+
+* Exportar el resumen general del modelo ECI en CSV.
+tempname eci_sum_post
+tempfile eci_sum_report
+postfile `eci_sum_post' str24 model str12 dependent int obs countries clusters years double r2_within r2_between r2_overall f_stat df_m df_r p_val rmse sigma_u sigma_e rho using "`eci_sum_report'", replace
+
+post `eci_sum_post' ("ECI_TWFE_MAIN") ("eci") (e(N)) (e(N_g)) (e(N_clust)) (23) (e(r2_within)) (.) (.) (e(F)) (e(df_m)) (e(df_r)) (e(p)) (e(rmse)) (.) (.) (.)
+postclose `eci_sum_post'
+
+preserve
+    use "`eci_sum_report'", clear
+    format r2_within f_stat p_val rmse %12.6f
+    export delimited using "$OUTPUT_ECI/eci_twfe_model_summary.csv", replace
+restore
+
+* Realizar pruebas de hipótesis conjuntas por canal teórico para ECI.
+tempname eci_tests_post
+tempfile eci_tests_report
+postfile `eci_tests_post' int order str40 test str100 null_hypothesis double f_stat df1 df2 p_val using "`eci_tests_report'", replace
+
+test rents inst rents_x_inst
+post `eci_tests_post' (1) ("Canal institucional") ("RENTS, INST y RENTSxINST son conjuntamente cero") (r(F)) (r(df)) (r(df_r)) (r(p))
+
+test log_oilpc log_gaspc log_coalpc
+post `eci_tests_post' (2) ("Canal de abundancia") ("Petróleo, gas y carbón son conjuntamente cero") (r(F)) (r(df)) (r(df_r)) (r(p))
+
+test hhi pexp fexp
+post `eci_tests_post' (3) ("Canal estructural") ("HHI, PEXP y FEXP son conjuntamente cero") (r(F)) (r(df)) (r(df_r)) (r(p))
+
+test vol rer
+post `eci_tests_post' (4) ("Canal macroeconómico") ("VOL y RER son conjuntamente cero") (r(F)) (r(df)) (r(df_r)) (r(p))
+
+test humcap innov net
+post `eci_tests_post' (5) ("Capacidades productivas") ("HUMCAP, INNOV y NET son conjuntamente cero") (r(F)) (r(df)) (r(df_r)) (r(p))
+
+test log_gdppc govcons fin
+post `eci_tests_post' (6) ("Controles económicos") ("log(GDPPC), GOVCONS y FIN son conjuntamente cero") (r(F)) (r(df)) (r(df_r)) (r(p))
+
+test (log_oilpc = log_gaspc) (log_oilpc = log_coalpc)
+post `eci_tests_post' (7) ("Igualdad entre recursos") ("Coeficientes de petróleo, gas y carbón son iguales") (r(F)) (r(df)) (r(df_r)) (r(p))
+
+postclose `eci_tests_post'
+
+preserve
+    use "`eci_tests_report'", clear
+    sort order
+    format f_stat p_val %12.6f
+    export delimited using "$OUTPUT_ECI/eci_twfe_channel_tests.csv", replace
+    list test null_hypothesis f_stat p_val, noobs abbreviate(24)
+restore
+
+
+// *****************************************************************************
+// 3. Modelo 3 Completo (M3) — Diversificación Exportadora (DIVX)
+// *****************************************************************************
+
+* Cargar la base de datos de estimación.
+use "$OUTPUT_SAMPLE/master_panel_sample.dta", clear
+xtset country_id year
+
+* Definir regresores excluyendo HHI para evitar identidad contable (DIVX = 1 - HHI).
+global DIVX_REGRESSORS rents inst rents_x_inst log_oilpc log_gaspc log_coalpc pexp fexp vol rer humcap innov net log_gdppc govcons fin
+
+* Estimar el Modelo 3 Completo (M3) de DIVX con efectos fijos de país y año.
+reghdfe divx $DIVX_REGRESSORS if sample_divx == 1, absorb(country_id year) vce(cluster country_id)
+
+* Guardar estimaciones en memoria y en archivo .ster.
+estimates store DIVX_TWFE_MAIN
+estimates save "$OUTPUT_DIVX/divx_twfe_main.ster", replace
+
+* Exportar coeficientes del modelo DIVX a CSV.
+tempname divx_coef_post
+tempfile divx_coef_report
+postfile `divx_coef_post' int order str32 term str100 variable_label str32 channel double coefficient standard_error t_statistic p_value ci_lower ci_upper using "`divx_coef_report'", replace
+
+local divx_terms rents inst rents_x_inst log_oilpc log_gaspc log_coalpc pexp fexp vol rer humcap innov net log_gdppc govcons fin
+local critical_t = invttail(e(df_r), 0.025)
+local term_order = 0
+
+foreach term of local divx_terms {
+    local ++term_order
+    local b = _b[`term']
+    local se = _se[`term']
+    local term_label : variable label `term'
+    if `"`term_label'"' == "" local term_label "`term'"
+
+    local channel "Controles económicos"
+    if inlist("`term'", "rents", "inst", "rents_x_inst") local channel "Institucional"
+    if inlist("`term'", "log_oilpc", "log_gaspc", "log_coalpc") local channel "Abundancia de recursos"
+    if inlist("`term'", "pexp", "fexp") local channel "Estructura exportadora"
+    if inlist("`term'", "vol", "rer") local channel "Condiciones macroeconómicas"
+    if inlist("`term'", "humcap", "innov", "net") local channel "Capacidades productivas"
+
+    local t = `b' / `se'
+    local p = 2 * ttail(e(df_r), abs(`t'))
+    local low = `b' - `critical_t' * `se'
+    local high = `b' + `critical_t' * `se'
+
+    post `divx_coef_post' (`term_order') ("`term'") (`"`term_label'"') (`"`channel'"') (`b') (`se') (`t') (`p') (`low') (`high')
+}
+postclose `divx_coef_post'
+
+preserve
+    use "`divx_coef_report'", clear
+    sort order
+    format coefficient standard_error t_statistic ci_lower ci_upper %12.6f
+    format p_value %10.6f
+    export delimited using "$OUTPUT_DIVX/divx_twfe_coefficients.csv", replace
+    list term coefficient standard_error p_value ci_lower ci_upper, noobs abbreviate(24)
+restore
+
+* Exportar el resumen general del modelo DIVX en CSV.
+tempname divx_sum_post
+tempfile divx_sum_report
+postfile `divx_sum_post' str24 model str12 dependent int obs countries clusters years double r2_within r2_between r2_overall f_stat df_m df_r p_val rmse sigma_u sigma_e rho using "`divx_sum_report'", replace
+
+post `divx_sum_post' ("DIVX_TWFE_MAIN") ("divx") (e(N)) (e(N_g)) (e(N_clust)) (23) (e(r2_within)) (.) (.) (e(F)) (e(df_m)) (e(df_r)) (e(p)) (e(rmse)) (.) (.) (.)
+postclose `divx_sum_post'
+
+preserve
+    use "`divx_sum_report'", clear
+    format r2_within f_stat p_val rmse %12.6f
+    export delimited using "$OUTPUT_DIVX/divx_twfe_model_summary.csv", replace
+restore
+
+* Realizar pruebas de hipótesis conjuntas por canal para DIVX.
+tempname divx_tests_post
+tempfile divx_tests_report
+postfile `divx_tests_post' int order str40 test str100 null_hypothesis double f_stat df1 df2 p_val using "`divx_tests_report'", replace
+
+test rents inst rents_x_inst
+post `divx_tests_post' (1) ("Canal institucional") ("RENTS, INST y RENTSxINST son conjuntamente cero") (r(F)) (r(df)) (r(df_r)) (r(p))
+
+test log_oilpc log_gaspc log_coalpc
+post `divx_tests_post' (2) ("Canal de abundancia") ("Petróleo, gas y carbón son conjuntamente cero") (r(F)) (r(df)) (r(df_r)) (r(p))
+
+test pexp fexp
+post `divx_tests_post' (3) ("Canal estructural") ("PEXP y FEXP son conjuntamente cero (HHI excluido)") (r(F)) (r(df)) (r(df_r)) (r(p))
+
+test vol rer
+post `divx_tests_post' (4) ("Canal macroeconómico") ("VOL y RER son conjuntamente cero") (r(F)) (r(df)) (r(df_r)) (r(p))
+
+test humcap innov net
+post `divx_tests_post' (5) ("Capacidades productivas") ("HUMCAP, INNOV y NET son conjuntamente cero") (r(F)) (r(df)) (r(df_r)) (r(p))
+
+test log_gdppc govcons fin
+post `divx_tests_post' (6) ("Controles económicos") ("log(GDPPC), GOVCONS y FIN son conjuntamente cero") (r(F)) (r(df)) (r(df_r)) (r(p))
+
+test (log_oilpc = log_gaspc) (log_oilpc = log_coalpc)
+post `divx_tests_post' (7) ("Igualdad entre recursos") ("Coeficientes de petróleo, gas y carbón son iguales") (r(F)) (r(df)) (r(df_r)) (r(p))
+
+postclose `divx_tests_post'
+
+preserve
+    use "`divx_tests_report'", clear
+    sort order
+    format f_stat p_val %12.6f
+    export delimited using "$OUTPUT_DIVX/divx_twfe_channel_tests.csv", replace
+    list test null_hypothesis f_stat p_val, noobs abbreviate(24)
+restore
+
+
+// *****************************************************************************
+// 4. Estabilidad, Efectos Marginales y Sensibilidad
+// *****************************************************************************
+
+* Cargar la base de datos de estimación.
+use "$OUTPUT_SAMPLE/master_panel_sample.dta", clear
+xtset country_id year
+
+* Obtener percentiles observados de INST.
+quietly summarize inst if sample_eci == 1, detail
+local p10 = r(p10)
+local p25 = r(p25)
+local p50 = r(p50)
+local p75 = r(p75)
+local p90 = r(p90)
+local inst_vals "`p10' `p25' `p50' `p75' `p90'"
+local inst_lbls "P10 P25 P50 P75 P90"
+
+* Calcular efectos marginales condicionales d(Y)/d(RENTS) según percentiles de INST.
+tempname margins_post
+tempfile margins_report
+postfile `margins_post' str8 model str4 percentile double inst_val double marginal_effect double standard_error double t_stat double p_val double ci_lower double ci_upper str12 significance using "`margins_report'", replace
+
+* --- Modelo ECI ---
+quietly reghdfe eci $ECI_REGRESSORS if sample_eci == 1, absorb(country_id year) vce(cluster country_id)
+margins, dydx(rents) at(inst=(`inst_vals'))
+matrix eci_m = r(table)
+
+marginsplot, recast(line) recastci(rarea) plotopts(lcolor(navy) lwidth(medthick)) ciopts(color(navy%25) lcolor(navy%45)) ///
+    yline(0, lcolor(gs8) lpattern(dash)) xlabel(`p10' "P10" `p25' "P25" `p50' "P50" `p75' "P75" `p90' "P90", labsize(small) angle(45)) ///
+    ylabel(, labsize(small) angle(horizontal)) ///
+    title("ECI (M3): Asociación marginal estimada de RENTS según INST", size(medium)) ///
+    ytitle("Asociación marginal d(ECI)/d(RENTS)") xtitle("Percentil de calidad institucional (INST)") ///
+    name(eci_m3_margins_plot, replace)
+cap graph export "$OUTPUT_STABILITY/eci_rents_marginal_effect_by_inst.png", width(2400) replace
+
+forvalues col = 1/5 {
+    local pct : word `col' of `inst_lbls'
+    local val : word `col' of `inst_vals'
+    local eff = el(eci_m, 1, `col')
+    local se  = el(eci_m, 2, `col')
+    local t   = el(eci_m, 3, `col')
+    local p   = el(eci_m, 4, `col')
+    local low = el(eci_m, 5, `col')
+    local high = el(eci_m, 6, `col')
+    local sig "No"
+    if `p' < 0.10 local sig "10%"
+    if `p' < 0.05 local sig "5%"
+    if `p' < 0.01 local sig "1%"
+    post `margins_post' ("ECI") ("`pct'") (`val') (`eff') (`se') (`t') (`p') (`low') (`high') ("`sig'")
+}
+
+* --- Modelo DIVX ---
+quietly reghdfe divx $DIVX_REGRESSORS if sample_divx == 1, absorb(country_id year) vce(cluster country_id)
+margins, dydx(rents) at(inst=(`inst_vals'))
+matrix divx_m = r(table)
+
+marginsplot, recast(line) recastci(rarea) plotopts(lcolor(maroon) lwidth(medthick)) ciopts(color(maroon%25) lcolor(maroon%45)) ///
+    yline(0, lcolor(gs8) lpattern(dash)) xlabel(`p10' "P10" `p25' "P25" `p50' "P50" `p75' "P75" `p90' "P90", labsize(small) angle(45)) ///
+    ylabel(, labsize(small) angle(horizontal)) ///
+    title("DIVX (M3): Asociación marginal estimada de RENTS según INST", size(medium)) ///
+    ytitle("Asociación marginal d(DIVX)/d(RENTS)") xtitle("Percentil de calidad institucional (INST)") ///
+    name(divx_m3_margins_plot, replace)
+cap graph export "$OUTPUT_STABILITY/divx_rents_marginal_effect_by_inst.png", width(2400) replace
+
+forvalues col = 1/5 {
+    local pct : word `col' of `inst_lbls'
+    local val : word `col' of `inst_vals'
+    local eff = el(divx_m, 1, `col')
+    local se  = el(divx_m, 2, `col')
+    local t   = el(divx_m, 3, `col')
+    local p   = el(divx_m, 4, `col')
+    local low = el(divx_m, 5, `col')
+    local high = el(divx_m, 6, `col')
+    local sig "No"
+    if `p' < 0.10 local sig "10%"
+    if `p' < 0.05 local sig "5%"
+    if `p' < 0.01 local sig "1%"
+    post `margins_post' ("DIVX") ("`pct'") (`val') (`eff') (`se') (`t') (`p') (`low') (`high') ("`sig'")
+}
+postclose `margins_post'
+
+preserve
+    use "`margins_report'", clear
+    sort model inst_val
+    format inst_val marginal_effect standard_error t_stat p_val ci_lower ci_upper %12.6f
+    export delimited using "$OUTPUT_STABILITY/rents_marginal_effects_by_inst.csv", replace
+    list, sepby(model) noobs abbreviate(24)
+restore
+
+* Reestimación Leave-One-Country-Out Jackknife omitiendo un país a la vez.
+quietly levelsof country_id if sample_eci == 1, local(c_list)
+tempname loo_post
+tempfile loo_report
+postfile `loo_post' str8 model double excluded_id str3 excluded_iso3 str24 term double base_b b se p obs countries using "`loo_report'", replace
+
+quietly reghdfe eci $ECI_REGRESSORS if sample_eci == 1, absorb(country_id year) vce(cluster country_id)
+local base_eci_b = _b[rents]
+quietly reghdfe divx $DIVX_REGRESSORS if sample_divx == 1, absorb(country_id year) vce(cluster country_id)
+local base_divx_b = _b[rents]
+
+foreach cid of local c_list {
+    quietly levelsof country_iso3_code if country_id == `cid', local(c_iso3) clean
+
+    quietly reghdfe eci $ECI_REGRESSORS if sample_eci == 1 & country_id != `cid', absorb(country_id year) vce(cluster country_id)
+    local p_val = 2 * ttail(e(df_r), abs(_b[rents] / _se[rents]))
+    post `loo_post' ("ECI") (`cid') ("`c_iso3'") ("RENTS") (`base_eci_b') (_b[rents]) (_se[rents]) (`p_val') (e(N)) (e(N_g))
+
+    quietly reghdfe divx $DIVX_REGRESSORS if sample_divx == 1 & country_id != `cid', absorb(country_id year) vce(cluster country_id)
+    local p_val = 2 * ttail(e(df_r), abs(_b[rents] / _se[rents]))
+    post `loo_post' ("DIVX") (`cid') ("`c_iso3'") ("RENTS") (`base_divx_b') (_b[rents]) (_se[rents]) (`p_val') (e(N)) (e(N_g))
+}
+postclose `loo_post'
+
+preserve
+    use "`loo_report'", clear
+    gen byte sign_change = (sign(b) != sign(base_b))
+    gen byte sig_5 = (p < 0.05)
+    export delimited using "$OUTPUT_STABILITY/leave_one_country_out.csv", replace
+
+    collapse (count) reps=b (firstnm) base_b (min) min_b=b min_p=p (max) max_b=b max_p=p (sum) sign_changes=sign_change sig_5, by(model term)
+    format base_b min_b max_b min_p max_p %12.6f
+    export delimited using "$OUTPUT_STABILITY/leave_one_country_out_summary.csv", replace
+    list, sepby(model) noobs abbreviate(24)
+restore
+
+* Inferencia complementaria mediante Wild Cluster Bootstrap.
+cap which boottest
+if _rc == 0 {
+    tempname boot_post
+    tempfile boot_report
+    postfile `boot_post' str8 model str24 term double conv_b conv_p boot_p ci_low ci_high reps str12 weight using "`boot_report'", replace
+
+    quietly reghdfe eci $ECI_REGRESSORS if sample_eci == 1, absorb(country_id year) vce(cluster country_id)
+    local cp = 2 * ttail(e(df_r), abs(_b[rents] / _se[rents]))
+    boottest rents, cluster(country_id) reps(9999) seed(20260729) nograph
+    matrix boot_ci = r(CI)
+    post `boot_post' ("ECI") ("RENTS") (_b[rents]) (`cp') (r(p)) (el(boot_ci,1,1)) (el(boot_ci,1,2)) (r(reps)) ("`r(weighttype)'")
+
+    boottest rents_x_inst, cluster(country_id) reps(9999) seed(20260730) nograph
+    matrix boot_ci = r(CI)
+    local cp = 2 * ttail(e(df_r), abs(_b[rents_x_inst] / _se[rents_x_inst]))
+    post `boot_post' ("ECI") ("RENTS x INST") (_b[rents_x_inst]) (`cp') (r(p)) (el(boot_ci,1,1)) (el(boot_ci,1,2)) (r(reps)) ("`r(weighttype)'")
+
+    quietly reghdfe divx $DIVX_REGRESSORS if sample_divx == 1, absorb(country_id year) vce(cluster country_id)
+    local cp = 2 * ttail(e(df_r), abs(_b[rents] / _se[rents]))
+    boottest rents, cluster(country_id) reps(9999) seed(20260731) nograph
+    matrix boot_ci = r(CI)
+    post `boot_post' ("DIVX") ("RENTS") (_b[rents]) (`cp') (r(p)) (el(boot_ci,1,1)) (el(boot_ci,1,2)) (r(reps)) ("`r(weighttype)'")
+
+    boottest rents_x_inst, cluster(country_id) reps(9999) seed(20260732) nograph
+    matrix boot_ci = r(CI)
+    local cp = 2 * ttail(e(df_r), abs(_b[rents_x_inst] / _se[rents_x_inst]))
+    post `boot_post' ("DIVX") ("RENTS x INST") (_b[rents_x_inst]) (`cp') (r(p)) (el(boot_ci,1,1)) (el(boot_ci,1,2)) (r(reps)) ("`r(weighttype)'")
+
+    postclose `boot_post'
+
+    preserve
+        use "`boot_report'", clear
+        format conv_b conv_p boot_p ci_low ci_high %12.6f
+        export delimited using "$OUTPUT_STABILITY/wild_cluster_bootstrap.csv", replace
+        list, sepby(model) noobs abbreviate(24)
+    restore
+}
+
+
+// *****************************************************************************
+// 5. Exportación de Resultados y Tablas Formateadas
+// *****************************************************************************
+
+* Exportar las tablas formateadas principales a LaTeX.
+cap which esttab
+if _rc == 0 {
+    esttab ECI_TWFE_MAIN DIVX_TWFE_MAIN using "$OUTPUT_FINAL/table_eci_divx_twfe.tex", replace ///
+        b(%9.4f) se(%9.4f) star(* 0.10 ** 0.05 *** 0.01) ///
+        stats(N N_g r2_within F p, labels("Observaciones" "Países" "R2 Within" "Estadístico F" "p-valor F") fmt(%9.0f %9.0f %9.4f %9.3f %9.4f)) ///
+        mtitles("ECI (Complejidad)" "DIVX (Diversificación)") ///
+        title("Modelo 3 Completo (M3): Estimación TWFE ECI vs DIVX") ///
+        booktabs label alignment(c)
+}
+
+* Informar en consola la finalización exitosa del Modelo 3 Completo.
+display as result "---------------------------------------------------------"
+display as result "Parte 2 (Secciones 5 a 8) completada con éxito en stata-peer-1."
+display as result "Tablas LaTeX exportadas en: $OUTPUT_FINAL"
+display as result "---------------------------------------------------------"
+
+* Cerrar el archivo de registro de ejecución de la Parte 2.
+log close full_model_log

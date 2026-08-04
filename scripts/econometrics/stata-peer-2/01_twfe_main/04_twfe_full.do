@@ -23,22 +23,28 @@
 
 // A.1. Limpiar la sesión y fijar el entorno reproducible
 
-* Este archivo puede ejecutarse en una sesión nueva después del archivo 01.
-* La numeración econométrica continúa directamente en la sección 9.
+* Este archivo puede ejecutarse en una sesión nueva después del archivo 01. La numeración econométrica continúa directamente en la sección 9.
 version 17.0
+* Limpiar la memoria de Stata borrando todas las variables cargadas.
 clear all
+* Limpiar la consola de comandos de Stata.
 cls
+* Eliminar todas las variables temporales y globales de la memoria.
 macro drop _all
+* Cerrar cualquier registro de texto (log) abierto previamente.
 capture log close _all
 
-* Configurar la forma en que Stata presenta, almacena y reproduce los
-* resultados. Se desactúan las pausas y abreviaciones, se fija precisión double,
-* se amplía el ancho del log y se establecen semillas para procesos aleatorios.
+* Configurar la forma en que Stata presenta, almacena y reproduce los resultados. Se desactúan las pausas y abreviaciones, se fija precisión double, se amplía el ancho del log y se establecen semillas para procesos aleatorios.
 set more off
+* Evitar que Stata abrevie nombres de variables automáticamente.
 set varabbrev off
+* Usar precisión doble para evitar errores de redondeo numérico.
 set type double
+* Ajustar el ancho de consola a 255 caracteres para ver tablas completas.
 set linesize 255
+* Definir la semilla pseudoaleatoria para hacer 100% reproducibles las simulaciones.
 set seed 20260729
+* Definir la semilla de ordenamiento para garantizar la reproducibilidad de datos.
 set sortseed 20260729
 
 
@@ -48,21 +54,18 @@ set sortseed 20260729
 local project_marker ///
     "data/processed/00_master_panel/master_panel_country_year.dta"
 
-* Examinar primero el directorio actual y hasta ocho niveles superiores.
-* Después se probará la ubicación habitual de Windows; project_manual queda
-* disponible para otros equipos.
+* Examinar primero el directorio actual y hasta ocho niveles superiores. Después se probará la ubicación habitual de Windows; project_manual queda disponible para otros equipos.
 local project_current "`c(pwd)'"
 local project_windows ///
     "C:/Users/`c(username)'/GitHub/master-thesis-project-applied-econ"
 local project_manual ""
 global PROJECT_ROOT ""
 
-* Buscar el marcador desde el directorio actual y ascendiendo como máximo
-* ocho niveles. Esto permite ejecutarlo desde su carpeta o desde logs/batch
-* sin depender de una ruta absoluta.
+* Buscar el marcador desde el directorio actual y ascendiendo como máximo ocho niveles. Esto permite ejecutarlo desde su carpeta o desde logs/batch sin depender de una ruta absoluta.
 local project_candidate "`project_current'"
 forvalues search_level = 0/8 {
     if "$PROJECT_ROOT" == "" {
+        * Verificar la existencia de un archivo antes de intentar cargarlo.
         capture confirm file "`project_candidate'/`project_marker'"
         if !_rc {
             quietly cd "`project_candidate'"
@@ -74,6 +77,7 @@ forvalues search_level = 0/8 {
 
 * Probar la ubicación habitual de Windows si la búsqueda ascendente falló.
 if "$PROJECT_ROOT" == "" {
+    * Verificar la existencia de un archivo antes de intentar cargarlo.
     capture confirm file "`project_windows'/`project_marker'"
     if !_rc {
         global PROJECT_ROOT "`project_windows'"
@@ -82,6 +86,7 @@ if "$PROJECT_ROOT" == "" {
 
 * Probar finalmente la ruta manual cuando haya sido diligenciada.
 if "$PROJECT_ROOT" == "" & "`project_manual'" != "" {
+    * Verificar la existencia de un archivo antes de intentar cargarlo.
     capture confirm file "`project_manual'/`project_marker'"
     if !_rc {
         global PROJECT_ROOT "`project_manual'"
@@ -95,8 +100,7 @@ if "$PROJECT_ROOT" == "" {
     exit 601
 }
 
-* Cambiar a la raíz identificada y mostrarla en pantalla para que el usuario
-* pueda verificar desde dónde se ejecutará el resto del análisis.
+* Cambiar a la raíz identificada y mostrarla en pantalla para que el usuario pueda verificar desde dónde se ejecutará el resto del análisis.
 quietly cd "$PROJECT_ROOT"
 display as result "Raíz del proyecto localizada correctamente:"
 pwd
@@ -104,8 +108,7 @@ pwd
 
 // A.3. Definir las entradas, salidas y el log del archivo 04
 
-* Centralizar las rutas de todas las salidas econométricas. Cada macro global
-* identifica una carpeta específica y evita repetir rutas absolutas más abajo.
+* Centralizar las rutas de todas las salidas econométricas. Cada macro global identifica una carpeta específica y evita repetir rutas absolutas más abajo.
 global OUTPUT_ROOT ///
     "$PROJECT_ROOT/outputs/econometrics/stata-peer-2/01_twfe_main"
 global OUTPUT_DESIGN      "$OUTPUT_ROOT/00_design"
@@ -118,8 +121,7 @@ global OUTPUT_FINAL       "$OUTPUT_ROOT/06_final"
 global OUTPUT_LOGS        "$OUTPUT_ROOT/logs"
 global ADO_PROJECT        "$OUTPUT_ROOT/ado"
 
-* Crear la estructura de carpetas necesaria. capture permite repetir el archivo
-* sin detenerse cuando alguna carpeta ya existe.
+* Crear la estructura de carpetas necesaria. capture permite repetir el archivo sin detenerse cuando alguna carpeta ya existe.
 capture mkdir "$PROJECT_ROOT/outputs"
 capture mkdir "$PROJECT_ROOT/outputs/econometrics"
 capture mkdir "$OUTPUT_ROOT"
@@ -131,24 +133,20 @@ capture mkdir "$OUTPUT_LOGS"
 capture mkdir "$ADO_PROJECT"
 capture mkdir "$ADO_PROJECT/plus"
 
-* Abrir un registro de texto exclusivo para las secciones 9 a 12. replace
-* garantiza que el log corresponda únicamente a la ejecución más reciente.
+* Abrir un registro de texto exclusivo para las secciones 9 a 12. replace garantiza que el log corresponda únicamente a la ejecución más reciente.
 log using "$OUTPUT_LOGS/04_twfe_full.log", ///
     text replace name(models_log)
 
 
 // A.4. Verificar e instalar los paquetes de estimación y exportación
 
-* Añadir una biblioteca de paquetes exclusiva de stata-peer-2 sin reemplazar
-* las rutas donde ya están instalados ftools, reghdfe y esttab.
+* Añadir una biblioteca de paquetes exclusiva de stata-peer-2 sin reemplazar las rutas donde ya están instalados ftools, reghdfe y esttab.
 adopath ++ "$ADO_PROJECT/plus"
 
-* Indicar que las nuevas instalaciones deben escribirse en la biblioteca local,
-* no en la carpeta personal del usuario.
+* Indicar que las nuevas instalaciones deben escribirse en la biblioteca local, no en la carpeta personal del usuario.
 net set ado "$ADO_PROJECT/plus"
 
-* Confirmar que la biblioteca local y las rutas existentes forman parte de la
-* búsqueda de comandos ado.
+* Confirmar que la biblioteca local y las rutas existentes forman parte de la búsqueda de comandos ado.
 adopath
 
 * ftools es la dependencia utilizada por reghdfe.
@@ -172,8 +170,7 @@ if _rc {
     ssc install estout
 }
 
-* boottest permite contrastar los términos centrales mediante wild cluster
-* bootstrap. Esta inferencia se utilizará únicamente como sensibilidad.
+* boottest permite contrastar los términos centrales mediante wild cluster bootstrap. Esta inferencia se utilizará únicamente como sensibilidad.
 capture which boottest
 if _rc {
     display as text ///
@@ -198,20 +195,17 @@ which reghdfe
 which esttab
 which boottest
 
-* Actualizar el índice de bibliotecas Mata después de añadir la ruta local.
-* boottest guarda sus funciones compiladas dentro de lboottest.mlib.
+* Actualizar el índice de bibliotecas Mata después de añadir la ruta local. boottest guarda sus funciones compiladas dentro de lboottest.mlib.
 mata: mata mlib index
 
 
 // A.5. Comprobar que el archivo 01 produjo la base analítica
 
-* Guardar en una macro local la ruta de la base derivada que alimenta los dos
-* modelos econométricos.
+* Guardar en una macro local la ruta de la base derivada que alimenta los dos modelos econométricos.
 local estimation_file ///
     "$OUTPUT_SAMPLE/master_panel_estimation_sample.dta"
 
-* Detener la ejecución con una instrucción clara si todavía no se ha ejecutado
-* el archivo 01 o si su base analítica no está disponible.
+* Detener la ejecución con una instrucción clara si todavía no se ha ejecutado el archivo 01 o si su base analítica no está disponible.
 capture confirm file "`estimation_file'"
 if _rc {
     display as error "No se encontró la base preparada para las estimaciones."
@@ -221,8 +215,7 @@ if _rc {
     exit 601
 }
 
-* Informar que todas las comprobaciones de inicialización fueron superadas y
-* que el archivo puede comenzar la estimación del modelo principal.
+* Informar que todas las comprobaciones de inicialización fueron superadas y que el archivo puede comenzar la estimación del modelo principal.
 display as result ///
     "Inicialización del archivo 04 completada; comienza la sección 9."
 
@@ -234,8 +227,7 @@ display as result ///
 
 // 9.1. Cargar y verificar la muestra del modelo principal
 
-* Abrir la base derivada en la sección 3. El panel maestro original permanece
-* intacto; todas las estimaciones utilizan exclusivamente esta copia analítica.
+* Abrir la base derivada en la sección 3. El panel maestro original permanece intacto; todas las estimaciones utilizan exclusivamente esta copia analítica.
 use "$OUTPUT_SAMPLE/master_panel_estimation_sample.dta", clear
 
 * Confirmar que la base conserva una sola observación por país y año.
@@ -249,41 +241,36 @@ confirm variable ///
     hhi pexp fexp vol rer humcap innov net ///
     log_gdppc govcons fin
 
-* Verificar nuevamente que la interacción almacenada corresponde exactamente
-* al producto entre las rentas extractivas y la calidad institucional.
+* Verificar nuevamente que la interacción almacenada corresponde exactamente al producto entre las rentas extractivas y la calidad institucional.
 assert abs(rents_x_inst - rents * inst) < 1e-10 ///
     if !missing(rents_x_inst, rents, inst)
 
 * Declarar el identificador del país y el año como dimensiones del panel.
 xtset country_id year
 
-* Contar las observaciones y los países que deben entrar en la estimación.
-* Estos valores se compararán después con la muestra utilizada por xtreg.
+* Contar las observaciones y los países que deben entrar en la estimación. Estos valores se compararán después con la muestra utilizada por xtreg.
 quietly count if sample_eci == 1
 local eci_expected_n = r(N)
 
-* Identificar los países presentes en la muestra y contar cuántos paneles
-* individuales aportan al modelo ECI.
+* Identificar los países presentes en la muestra y contar cuántos paneles individuales aportan al modelo ECI.
 quietly levelsof country_id if sample_eci == 1, ///
     local(eci_expected_country_ids)
 local eci_expected_countries : word count `eci_expected_country_ids'
 
-* Identificar los años efectivos de estimación y contar los periodos con al
-* menos una observación completa.
+* Identificar los años efectivos de estimación y contar los periodos con al menos una observación completa.
 quietly levelsof year if sample_eci == 1, local(eci_expected_years)
 local eci_expected_year_count : word count `eci_expected_years'
 
-* Recuperar los extremos temporales para documentar el intervalo cubierto por
-* la muestra analítica.
+* Recuperar los extremos temporales para documentar el intervalo cubierto por la muestra analítica.
 quietly summarize year if sample_eci == 1, meanonly
 local eci_first_year = r(min)
 local eci_last_year  = r(max)
 
-* Los WGI no publicaron los componentes de INST en 1997, 1999 y 2001.
-* Por ello la muestra de casos completos contiene 23 años efectivos dentro del
-* intervalo 1996-2021. Se conservan los vacíos: no se imputan ni interpolan.
+* Los WGI no publicaron los componentes de INST en 1997, 1999 y 2001. Por ello la muestra de casos completos contiene 23 años efectivos dentro del intervalo 1996-2021. Se conservan los vacíos: no se imputan ni interpolan.
 foreach structural_wgi_gap in 1997 1999 2001 {
+    * Contar silenciosamente cuántas observaciones cumplen una condición determinada.
     quietly count if year == `structural_wgi_gap' & sample_eci == 1
+    * Control de calidad automático que detiene el script si no se cumple la condición.
     assert r(N) == 0
 }
 
@@ -297,9 +284,7 @@ display as text ///
 
 // 9.2. Definir la ecuación ECI y la estrategia de inferencia
 
-* Escribir la interacción con notación factorial. El operador ## incorpora
-* RENTS, INST y RENTS x INST y permitirá calcular efectos marginales en la
-* sección 7 sin reconstruir manualmente el modelo.
+* Escribir la interacción con notación factorial. El operador ## incorpora RENTS, INST y RENTS x INST y permitirá calcular efectos marginales en la sección 7 sin reconstruir manualmente el modelo.
 global ECI_REGRESSORS ///
     c.rents##c.inst ///
     ln1p_oilpc ln1p_gaspc ln1p_coalpc ///
@@ -308,9 +293,7 @@ global ECI_REGRESSORS ///
     humcap innov net ///
     log_gdppc govcons fin
 
-* Definir los 17 términos sustantivos que se reportarán. Los indicadores de año
-* también forman parte de la estimación, pero no se mostrarán como coeficientes
-* individuales en las tablas principales.
+* Definir los 17 términos sustantivos que se reportarán. Los indicadores de año también forman parte de la estimación, pero no se mostrarán como coeficientes individuales en las tablas principales.
 local eci_terms ///
     rents inst c.rents#c.inst ///
     ln1p_oilpc ln1p_gaspc ln1p_coalpc ///
@@ -319,22 +302,17 @@ local eci_terms ///
     humcap innov net ///
     log_gdppc govcons fin
 
-* Aplicar la decisión aprobada en el Control C. Los errores se agrupan por país
-* porque los diagnósticos detectaron heterocedasticidad y autocorrelación.
+* Aplicar la decisión aprobada en el Control C. Los errores se agrupan por país porque los diagnósticos detectaron heterocedasticidad y autocorrelación.
 global INFERENCE_MAIN "vce(cluster country_id)"
 
 
 // 9.3. Estimar el modelo principal mediante xtreg
 
-* Estimar la ecuación completa de la metodología:
-* - fe absorbe los efectos fijos por país;
-* - i.year incorpora los efectos fijos por año;
-* - vce(cluster country_id) permite dependencia arbitraria dentro de cada país.
+* Estimar la ecuación completa de la metodología: - fe absorbe los efectos fijos por país; - i.year incorpora los efectos fijos por año; - vce(cluster country_id) permite dependencia arbitraria dentro de cada país.
 xtreg eci $ECI_REGRESSORS i.year if sample_eci == 1, ///
     fe $INFERENCE_MAIN
 
-* Eliminar una copia previa con el mismo nombre para que la sección pueda
-* ejecutarse nuevamente durante la revisión interactiva.
+* Eliminar una copia previa con el mismo nombre para que la sección pueda ejecutarse nuevamente durante la revisión interactiva.
 capture estimates drop ECI_TWFE_MAIN
 
 * Guardar la estimación principal en la memoria de Stata.
@@ -343,14 +321,14 @@ estimates store ECI_TWFE_MAIN
 * Guardar también una copia permanente para recuperarla sin reestimar.
 estimates save "$OUTPUT_ECI/eci_twfe_main.ster", replace
 
-* Comprobar que xtreg utilizó todos y únicamente los casos completos definidos
-* en la sección 3. Cualquier diferencia detiene inmediatamente el archivo.
+* Comprobar que xtreg utilizó todos y únicamente los casos completos definidos en la sección 3. Cualquier diferencia detiene inmediatamente el archivo.
 assert e(sample) == sample_eci
+* Validar automáticamente que la muestra contenga exactamente 1.044 observaciones.
 assert e(N)   == `eci_expected_n'
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert e(N_g) == `eci_expected_countries'
 
-* Guardar los principales resultados globales antes de ejecutar pruebas o abrir
-* archivos temporales de resultados.
+* Guardar los principales resultados globales antes de ejecutar pruebas o abrir archivos temporales de resultados.
 local eci_n          = e(N)
 local eci_countries  = e(N_g)
 local eci_clusters   = e(N_clust)
@@ -366,8 +344,7 @@ local eci_sigma_u    = e(sigma_u)
 local eci_sigma_e    = e(sigma_e)
 local eci_rho        = e(rho)
 
-* Con errores agrupados por país, Stata utiliza G-1 grados de libertad para la
-* inferencia, donde G es el número de países que actúan como conglomerados.
+* Con errores agrupados por país, Stata utiliza G-1 grados de libertad para la inferencia, donde G es el número de países que actúan como conglomerados.
 assert `eci_df_error' == `eci_clusters' - 1
 
 * Mostrar el tamaño de la estimación y su principal medida de ajuste within.
@@ -379,13 +356,11 @@ display as result ///
 
 // 9.4. Exportar los coeficientes y la incertidumbre del modelo
 
-* Crear un reporte largo con una fila por término sustantivo. Este formato
-* facilita revisar coeficientes, errores estándar, valores p e intervalos.
+* Crear un reporte largo con una fila por término sustantivo. Este formato facilita revisar coeficientes, errores estándar, valores p e intervalos.
 tempname eci_coefficients_post
 tempfile eci_coefficients_report
 
-* Definir la estructura del archivo temporal que recibirá una fila por
-* coeficiente sustantivo del modelo.
+* Definir la estructura del archivo temporal que recibirá una fila por coeficiente sustantivo del modelo.
 postfile `eci_coefficients_post' ///
     int order ///
     str32 term ///
@@ -395,8 +370,7 @@ postfile `eci_coefficients_post' ///
     ci_lower ci_upper ///
     using "`eci_coefficients_report'", replace
 
-* Utilizar la distribución t con grados de libertad determinados por los
-* conglomerados de país para construir intervalos de confianza del 95 %.
+* Utilizar la distribución t con grados de libertad determinados por los conglomerados de país para construir intervalos de confianza del 95 %.
 local eci_critical_t = invttail(`eci_df_error', 0.025)
 local eci_term_order = 0
 
@@ -418,8 +392,7 @@ foreach term of local eci_terms {
     // Asignar cada coeficiente al canal teórico definido en la metodología.
     local channel "Controles económicos y financieros"
 
-    // Reemplazar la categoría predeterminada cuando el término pertenece a uno
-    // de los canales sustantivos de la especificación.
+    // Reemplazar la categoría predeterminada cuando el término pertenece a uno de los canales sustantivos de la especificación.
     if inlist("`term'", "rents", "inst", "c.rents#c.inst") {
         local channel "Institucional"
     }
@@ -451,8 +424,7 @@ foreach term of local eci_terms {
     scalar eci_xtreg_b_`eci_term_order'  = `coefficient'
     scalar eci_xtreg_se_`eci_term_order' = `standard_error'
 
-    // Añadir al archivo temporal todos los resultados calculados para el término
-    // que se encuentra activo en esta iteración.
+    // Añadir al archivo temporal todos los resultados calculados para el término que se encuentra activo en esta iteración.
     post `eci_coefficients_post' ///
         (`eci_term_order') ///
         ("`term'") ///
@@ -481,8 +453,7 @@ preserve
     export delimited using ///
         "$OUTPUT_ECI/eci_twfe_coefficients.csv", replace datafmt
 
-    * Mostrar los coeficientes en la ventana de resultados para facilitar la
-    * revisión cuando el archivo se ejecute de forma interactiva.
+    * Mostrar los coeficientes en la ventana de resultados para facilitar la revisión cuando el archivo se ejecute de forma interactiva.
     list term coefficient standard_error p_value ci_lower ci_upper, ///
         noobs abbreviate(24)
 restore
@@ -490,8 +461,7 @@ restore
 
 // 9.5. Exportar el resumen general de la estimación
 
-* Crear una tabla de una fila con tamaño de muestra, cobertura, ajuste y
-* componentes de la varianza del modelo de efectos fijos.
+* Crear una tabla de una fila con tamaño de muestra, cobertura, ajuste y componentes de la varianza del modelo de efectos fijos.
 tempname eci_summary_post
 tempfile eci_summary_report
 
@@ -530,8 +500,7 @@ post `eci_summary_post' ///
 * Cerrar el archivo temporal antes de abrirlo para su exportación.
 postclose `eci_summary_post'
 
-* Abrir temporalmente el resumen, aplicar formatos y conservar intacta la base
-* analítica que permanece en memoria.
+* Abrir temporalmente el resumen, aplicar formatos y conservar intacta la base analítica que permanece en memoria.
 preserve
     use "`eci_summary_report'", clear
     format r2_within r2_between r2_overall ///
@@ -564,6 +533,7 @@ postfile `eci_tests_post' ///
 
 * Prueba 1: los tres términos del canal institucional son conjuntamente cero.
 test rents inst c.rents#c.inst
+* Escribir una fila de resultados dentro del archivo temporal.
 post `eci_tests_post' ///
     (1) ///
     ("Canal institucional") ///
@@ -572,6 +542,7 @@ post `eci_tests_post' ///
 
 * Prueba 2: los coeficientes de petróleo, gas y carbón son conjuntamente cero.
 test ln1p_oilpc ln1p_gaspc ln1p_coalpc
+* Escribir una fila de resultados dentro del archivo temporal.
 post `eci_tests_post' ///
     (2) ///
     ("Canal de abundancia") ///
@@ -580,6 +551,7 @@ post `eci_tests_post' ///
 
 * Prueba 3: concentración y especialización exportadora son conjuntamente cero.
 test hhi pexp fexp
+* Escribir una fila de resultados dentro del archivo temporal.
 post `eci_tests_post' ///
     (3) ///
     ("Canal estructural") ///
@@ -588,6 +560,7 @@ post `eci_tests_post' ///
 
 * Prueba 4: volatilidad y tipo de cambio real son conjuntamente cero.
 test vol rer
+* Escribir una fila de resultados dentro del archivo temporal.
 post `eci_tests_post' ///
     (4) ///
     ("Canal macroeconómico") ///
@@ -596,6 +569,7 @@ post `eci_tests_post' ///
 
 * Prueba 5: capital humano, innovación y conectividad son conjuntamente cero.
 test humcap innov net
+* Escribir una fila de resultados dentro del archivo temporal.
 post `eci_tests_post' ///
     (5) ///
     ("Capacidades productivas") ///
@@ -604,6 +578,7 @@ post `eci_tests_post' ///
 
 * Prueba 6: los tres controles económicos y financieros son conjuntamente cero.
 test log_gdppc govcons fin
+* Escribir una fila de resultados dentro del archivo temporal.
 post `eci_tests_post' ///
     (6) ///
     ("Controles económicos y financieros") ///
@@ -612,16 +587,17 @@ post `eci_tests_post' ///
 
 * Prueba 7: verificar la relevancia conjunta de los efectos temporales.
 testparm i.year
+* Escribir una fila de resultados dentro del archivo temporal.
 post `eci_tests_post' ///
     (7) ///
     ("Efectos fijos por año") ///
     ("Todos los indicadores de año son conjuntamente cero") ///
     (r(F)) (r(df)) (r(df_r)) (r(p))
 
-* Prueba 8: evaluar si petróleo, gas y carbón tienen el mismo coeficiente.
-* Esta prueba no impone que los efectos sean cero, sino que sean iguales.
+* Prueba 8: evaluar si petróleo, gas y carbón tienen el mismo coeficiente. Esta prueba no impone que los efectos sean cero, sino que sean iguales.
 test (ln1p_oilpc = ln1p_gaspc) ///
      (ln1p_oilpc = ln1p_coalpc)
+* Escribir una fila de resultados dentro del archivo temporal.
 post `eci_tests_post' ///
     (8) ///
     ("Igualdad entre recursos") ///
@@ -646,9 +622,7 @@ restore
 
 // 9.7. Verificar los coeficientes mediante reghdfe
 
-* Estimar exactamente la misma ecuación absorbiendo directamente los efectos
-* fijos por país y año. Esta no es una especificación adicional: funciona como
-* una comprobación numérica independiente del modelo principal.
+* Estimar exactamente la misma ecuación absorbiendo directamente los efectos fijos por país y año. Esta no es una especificación adicional: funciona como una comprobación numérica independiente del modelo principal.
 reghdfe eci $ECI_REGRESSORS if sample_eci == 1, ///
     absorb(country_id year) $INFERENCE_MAIN
 
@@ -662,8 +636,7 @@ estimates save "$OUTPUT_ECI/eci_reghdfe_check.ster", replace
 * Verificar que reghdfe conservó la misma muestra utilizada por xtreg.
 assert e(N) == `eci_n'
 
-* Guardar el tamaño de la comprobación, el número de singletons y la tolerancia
-* numérica que se utilizará para comparar ambos comandos.
+* Guardar el tamaño de la comprobación, el número de singletons y la tolerancia numérica que se utilizará para comparar ambos comandos.
 local eci_hdfe_n          = e(N)
 local eci_hdfe_singletons = e(num_singletons)
 local coefficient_tolerance = 1e-8
@@ -684,16 +657,14 @@ postfile `eci_verification_post' ///
     byte coefficient_match ///
     using "`eci_verification_report'", replace
 
-* Reiniciar el contador para que el orden coincida con el reporte de
-* coeficientes producido anteriormente.
+* Reiniciar el contador para que el orden coincida con el reporte de coeficientes producido anteriormente.
 local eci_term_order = 0
 
 * Recorrer los términos sustantivos y comparar las dos implementaciones.
 foreach term of local eci_terms {
     local ++eci_term_order
 
-    // Comparar coeficientes y registrar también cualquier diferencia entre los
-    // errores estándar producidos por los dos comandos.
+    // Comparar coeficientes y registrar también cualquier diferencia entre los errores estándar producidos por los dos comandos.
     local xtreg_coefficient  = scalar(eci_xtreg_b_`eci_term_order')
     local reghdfe_coefficient = _b[`term']
     local coefficient_difference = abs( ///
@@ -765,8 +736,7 @@ display as result ///
 * Recuperar el modelo xtreg porque constituye la estimación principal del TFM.
 estimates restore ECI_TWFE_MAIN
 
-* Exportar una tabla provisional con los coeficientes sustantivos. La sección 8
-* se encargará posteriormente del formato final y de integrar ECI con DIVX.
+* Exportar una tabla provisional con los coeficientes sustantivos. La sección 8 se encargará posteriormente del formato final y de integrar ECI con DIVX.
 esttab ECI_TWFE_MAIN using "$OUTPUT_ECI/eci_twfe_main.tex", ///
     replace ///
     label ///
@@ -800,16 +770,13 @@ display as result ///
 
 // 10.1. Cargar y verificar la muestra del modelo complementario
 
-* Abrir nuevamente la base analítica completa. Este paso evita que una
-* transformación temporal de la sección 9 pueda afectar el modelo DIVX.
+* Abrir nuevamente la base analítica completa. Este paso evita que una transformación temporal de la sección 9 pueda afectar el modelo DIVX.
 use "$OUTPUT_SAMPLE/master_panel_estimation_sample.dta", clear
 
 * Confirmar que cada fila continúa identificada de manera única por país y año.
 isid country_iso3_code year
 
-* Verificar que están disponibles DIVX, su bandera de muestra y todos los
-* regresores previstos. HHI se conserva únicamente para validar la identidad
-* DIVX = 1 - HHI; no se incorporará en la ecuación econométrica.
+* Verificar que están disponibles DIVX, su bandera de muestra y todos los regresores previstos. HHI se conserva únicamente para validar la identidad DIVX = 1 - HHI; no se incorporará en la ecuación econométrica.
 confirm variable ///
     divx hhi sample_divx country_id year ///
     rents inst rents_x_inst ///
@@ -817,8 +784,7 @@ confirm variable ///
     pexp fexp vol rer humcap innov net ///
     log_gdppc govcons fin
 
-* Confirmar que la variable dependiente complementaria sigue correspondiendo
-* exactamente al inverso del índice de concentración exportadora.
+* Confirmar que la variable dependiente complementaria sigue correspondiendo exactamente al inverso del índice de concentración exportadora.
 assert abs(divx - (1 - hhi)) < 1e-10 if !missing(divx, hhi)
 
 * Confirmar también la identidad de la interacción institucional.
@@ -832,14 +798,12 @@ xtset country_id year
 quietly count if sample_divx == 1
 local divx_expected_n = r(N)
 
-* Identificar los países presentes y contar cuántos paneles individuales
-* aportan observaciones al modelo complementario.
+* Identificar los países presentes y contar cuántos paneles individuales aportan observaciones al modelo complementario.
 quietly levelsof country_id if sample_divx == 1, ///
     local(divx_expected_country_ids)
 local divx_expected_countries : word count `divx_expected_country_ids'
 
-* Identificar los años efectivos y contar los periodos representados en la
-* muestra completa del modelo DIVX.
+* Identificar los años efectivos y contar los periodos representados en la muestra completa del modelo DIVX.
 quietly levelsof year if sample_divx == 1, local(divx_expected_years)
 local divx_expected_year_count : word count `divx_expected_years'
 
@@ -850,7 +814,9 @@ local divx_last_year  = r(max)
 
 * Verificar que los vacíos estructurales de WGI permanecen fuera de la muestra.
 foreach structural_wgi_gap in 1997 1999 2001 {
+    * Contar silenciosamente cuántas observaciones cumplen una condición determinada.
     quietly count if year == `structural_wgi_gap' & sample_divx == 1
+    * Control de calidad automático que detiene el script si no se cumple la condición.
     assert r(N) == 0
 }
 
@@ -864,8 +830,7 @@ display as text ///
 
 // 10.2. Definir la ecuación DIVX y excluir HHI
 
-* Mantener la misma especificación aprobada para ECI, excepto HHI. Incluir HHI
-* sería una identidad mecánica porque DIVX se construye como 1 - HHI.
+* Mantener la misma especificación aprobada para ECI, excepto HHI. Incluir HHI sería una identidad mecánica porque DIVX se construye como 1 - HHI.
 global DIVX_REGRESSORS ///
     c.rents##c.inst ///
     ln1p_oilpc ln1p_gaspc ln1p_coalpc ///
@@ -874,8 +839,7 @@ global DIVX_REGRESSORS ///
     humcap innov net ///
     log_gdppc govcons fin
 
-* Definir los 16 términos sustantivos que se exportarán. Los indicadores de año
-* permanecen en la estimación, pero no se muestran individualmente.
+* Definir los 16 términos sustantivos que se exportarán. Los indicadores de año permanecen en la estimación, pero no se muestran individualmente.
 local divx_terms ///
     rents inst c.rents#c.inst ///
     ln1p_oilpc ln1p_gaspc ln1p_coalpc ///
@@ -884,28 +848,23 @@ local divx_terms ///
     humcap innov net ///
     log_gdppc govcons fin
 
-* Buscar el nombre HHI dentro de la lista de regresores para impedir que una
-* edición futura introduzca accidentalmente esta identidad en la ecuación.
+* Buscar el nombre HHI dentro de la lista de regresores para impedir que una edición futura introduzca accidentalmente esta identidad en la ecuación.
 local divx_hhi_position = strpos(" $DIVX_REGRESSORS ", " hhi ")
 
 * Detener la ejecución si la búsqueda anterior encuentra HHI.
 assert `divx_hhi_position' == 0
 
-* Conservar la inferencia aprobada en el Control C: errores estándar agrupados
-* por país para responder a heterocedasticidad y autocorrelación.
+* Conservar la inferencia aprobada en el Control C: errores estándar agrupados por país para responder a heterocedasticidad y autocorrelación.
 global INFERENCE_MAIN "vce(cluster country_id)"
 
 
 // 10.3. Estimar el modelo complementario mediante xtreg
 
-* Estimar DIVX con efectos fijos por país, indicadores de año y errores
-* agrupados por país. La estructura es idéntica a ECI salvo por la exclusión de
-* HHI y el cambio de variable dependiente.
+* Estimar DIVX con efectos fijos por país, indicadores de año y errores agrupados por país. La estructura es idéntica a ECI salvo por la exclusión de HHI y el cambio de variable dependiente.
 xtreg divx $DIVX_REGRESSORS i.year if sample_divx == 1, ///
     fe $INFERENCE_MAIN
 
-* Eliminar de la memoria una estimación anterior con el mismo nombre para que
-* esta sección pueda ejecutarse nuevamente durante la revisión.
+* Eliminar de la memoria una estimación anterior con el mismo nombre para que esta sección pueda ejecutarse nuevamente durante la revisión.
 capture estimates drop DIVX_TWFE_MAIN
 
 * Guardar la estimación principal en la memoria activa de Stata.
@@ -916,7 +875,9 @@ estimates save "$OUTPUT_DIVX/divx_twfe_main.ster", replace
 
 * Comprobar que la estimación utilizó todos y únicamente los casos previstos.
 assert e(sample) == sample_divx
+* Validar automáticamente que la muestra contenga exactamente 1.044 observaciones.
 assert e(N)   == `divx_expected_n'
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert e(N_g) == `divx_expected_countries'
 
 * Guardar las medidas generales antes de ejecutar pruebas adicionales.
@@ -951,8 +912,7 @@ display as result ///
 tempname divx_coefficients_post
 tempfile divx_coefficients_report
 
-* Definir la estructura del archivo temporal que recibirá una fila por
-* coeficiente sustantivo.
+* Definir la estructura del archivo temporal que recibirá una fila por coeficiente sustantivo.
 postfile `divx_coefficients_post' ///
     int order ///
     str32 term ///
@@ -962,8 +922,7 @@ postfile `divx_coefficients_post' ///
     ci_lower ci_upper ///
     using "`divx_coefficients_report'", replace
 
-* Calcular el valor crítico t correspondiente a 49 conglomerados y reiniciar el
-* contador que define el orden de presentación.
+* Calcular el valor crítico t correspondiente a 49 conglomerados y reiniciar el contador que define el orden de presentación.
 local divx_critical_t = invttail(`divx_df_error', 0.025)
 local divx_term_order = 0
 
@@ -985,8 +944,7 @@ foreach term of local divx_terms {
     // Asignar inicialmente el término al grupo general de controles.
     local channel "Controles económicos y financieros"
 
-    // Reemplazar la categoría predeterminada cuando el término pertenece a uno
-    // de los canales sustantivos del modelo.
+    // Reemplazar la categoría predeterminada cuando el término pertenece a uno de los canales sustantivos del modelo.
     if inlist("`term'", "rents", "inst", "c.rents#c.inst") {
         local channel "Institucional"
     }
@@ -1141,6 +1099,7 @@ postfile `divx_tests_post' ///
 
 * Prueba 1: los términos del canal institucional son conjuntamente cero.
 test rents inst c.rents#c.inst
+* Escribir una fila de resultados dentro del archivo temporal.
 post `divx_tests_post' ///
     (1) ///
     ("Canal institucional") ///
@@ -1149,15 +1108,16 @@ post `divx_tests_post' ///
 
 * Prueba 2: petróleo, gas y carbón son conjuntamente cero.
 test ln1p_oilpc ln1p_gaspc ln1p_coalpc
+* Escribir una fila de resultados dentro del archivo temporal.
 post `divx_tests_post' ///
     (2) ///
     ("Canal de abundancia") ///
     ("Petróleo, gas y carbón son conjuntamente cero") ///
     (r(F)) (r(df)) (r(df_r)) (r(p))
 
-* Prueba 3: PEXP y FEXP son conjuntamente cero. HHI queda expresamente fuera
-* porque constituye la transformación inversa de la variable dependiente.
+* Prueba 3: PEXP y FEXP son conjuntamente cero. HHI queda expresamente fuera porque constituye la transformación inversa de la variable dependiente.
 test pexp fexp
+* Escribir una fila de resultados dentro del archivo temporal.
 post `divx_tests_post' ///
     (3) ///
     ("Canal estructural") ///
@@ -1166,6 +1126,7 @@ post `divx_tests_post' ///
 
 * Prueba 4: volatilidad y tipo de cambio real son conjuntamente cero.
 test vol rer
+* Escribir una fila de resultados dentro del archivo temporal.
 post `divx_tests_post' ///
     (4) ///
     ("Canal macroeconómico") ///
@@ -1174,6 +1135,7 @@ post `divx_tests_post' ///
 
 * Prueba 5: capital humano, innovación y conectividad son conjuntamente cero.
 test humcap innov net
+* Escribir una fila de resultados dentro del archivo temporal.
 post `divx_tests_post' ///
     (5) ///
     ("Capacidades productivas") ///
@@ -1182,6 +1144,7 @@ post `divx_tests_post' ///
 
 * Prueba 6: los controles económicos y financieros son conjuntamente cero.
 test log_gdppc govcons fin
+* Escribir una fila de resultados dentro del archivo temporal.
 post `divx_tests_post' ///
     (6) ///
     ("Controles económicos y financieros") ///
@@ -1190,6 +1153,7 @@ post `divx_tests_post' ///
 
 * Prueba 7: los indicadores de año son conjuntamente cero.
 testparm i.year
+* Escribir una fila de resultados dentro del archivo temporal.
 post `divx_tests_post' ///
     (7) ///
     ("Efectos fijos por año") ///
@@ -1199,6 +1163,7 @@ post `divx_tests_post' ///
 * Prueba 8: petróleo, gas y carbón tienen el mismo coeficiente.
 test (ln1p_oilpc = ln1p_gaspc) ///
      (ln1p_oilpc = ln1p_coalpc)
+* Escribir una fila de resultados dentro del archivo temporal.
 post `divx_tests_post' ///
     (8) ///
     ("Igualdad entre recursos") ///
@@ -1229,8 +1194,7 @@ restore
 
 // 10.7. Verificar los coeficientes mediante reghdfe
 
-* Reestimar exactamente la misma ecuación absorbiendo los efectos fijos por
-* país y año. Esta es una comprobación numérica, no un modelo alternativo.
+* Reestimar exactamente la misma ecuación absorbiendo los efectos fijos por país y año. Esta es una comprobación numérica, no un modelo alternativo.
 reghdfe divx $DIVX_REGRESSORS if sample_divx == 1, ///
     absorb(country_id year) $INFERENCE_MAIN
 
@@ -1355,12 +1319,10 @@ display as result ///
 
 // 10.8. Crear una tabla LaTeX provisional para revisión
 
-* Recuperar el modelo xtreg porque constituye la estimación complementaria que
-* se comparará con ECI en el Control E.
+* Recuperar el modelo xtreg porque constituye la estimación complementaria que se comparará con ECI en el Control E.
 estimates restore DIVX_TWFE_MAIN
 
-* Exportar una tabla provisional. La sección 8 integrará posteriormente los dos
-* modelos dentro de una presentación común.
+* Exportar una tabla provisional. La sección 8 integrará posteriormente los dos modelos dentro de una presentación común.
 esttab DIVX_TWFE_MAIN using "$OUTPUT_DIVX/divx_twfe_main.tex", ///
     replace ///
     label ///
@@ -1396,15 +1358,13 @@ display as result ///
 
 // 11.1. Recuperar la base analítica y definir valores observados de INST
 
-* Abrir nuevamente la base derivada para que todas las sensibilidades partan de
-* la misma información utilizada por los modelos principales.
+* Abrir nuevamente la base derivada para que todas las sensibilidades partan de la misma información utilizada por los modelos principales.
 use "$OUTPUT_SAMPLE/master_panel_estimation_sample.dta", clear
 
 * Confirmar que la llave país-año continúa identificando cada observación.
 isid country_iso3_code year
 
-* Verificar las variables que se utilizarán para efectos marginales,
-* exclusiones y reestimaciones de estabilidad.
+* Verificar las variables que se utilizarán para efectos marginales, exclusiones y reestimaciones de estabilidad.
 confirm variable ///
     eci divx sample_eci sample_divx ///
     country_iso3_code country_id year ///
@@ -1413,15 +1373,13 @@ confirm variable ///
     hhi pexp fexp vol rer humcap innov net ///
     log_gdppc govcons fin
 
-* Confirmar que ECI y DIVX utilizan exactamente las mismas observaciones. Esta
-* igualdad permite comparar las sensibilidades sin cambios de composición.
+* Confirmar que ECI y DIVX utilizan exactamente las mismas observaciones. Esta igualdad permite comparar las sensibilidades sin cambios de composición.
 assert sample_eci == sample_divx
 
 * Declarar nuevamente las dimensiones del panel antes de reestimar modelos.
 xtset country_id year
 
-* Calcular percentiles de INST dentro de la muestra común. Se emplean P10, P25,
-* P50, P75 y P90 para evitar que casos extremos determinen toda la figura.
+* Calcular percentiles de INST dentro de la muestra común. Se emplean P10, P25, P50, P75 y P90 para evitar que casos extremos determinen toda la figura.
 quietly summarize inst if sample_eci == 1, detail
 local inst_p10 = r(p10)
 local inst_p25 = r(p25)
@@ -1431,21 +1389,18 @@ local inst_p90 = r(p90)
 local inst_min = r(min)
 local inst_max = r(max)
 
-* Reunir los cinco valores y sus nombres en macros que se reutilizarán para
-* ambos modelos y para la exportación del reporte.
+* Reunir los cinco valores y sus nombres en macros que se reutilizarán para ambos modelos y para la exportación del reporte.
 local inst_values ///
     "`inst_p10' `inst_p25' `inst_p50' `inst_p75' `inst_p90'"
 local inst_labels "P10 P25 P50 P75 P90"
 
-* Mostrar el rango completo y los puntos seleccionados para que el usuario
-* pueda verificar qué niveles institucionales alimentan los márgenes.
+* Mostrar el rango completo y los puntos seleccionados para que el usuario pueda verificar qué niveles institucionales alimentan los márgenes.
 display as text ///
     "Rango observado de INST: " %9.4f `inst_min' " a " %9.4f `inst_max'
 display as text ///
     "Valores de referencia: `inst_values'"
 
-* Recuperar los coeficientes centrales ECI almacenados. La marca e(sample) ya no
-* es válida después de use, pero los coeficientes y la matriz de varianzas sí.
+* Recuperar los coeficientes centrales ECI almacenados. La marca e(sample) ya no es válida después de use, pero los coeficientes y la matriz de varianzas sí.
 estimates restore ECI_TWFE_MAIN
 local eci_base_rents_b = _b[rents]
 local eci_base_rents_se = _se[rents]
@@ -1472,10 +1427,10 @@ local divx_base_interaction_p = ///
 
 // 11.2. Calcular los efectos marginales de RENTS según INST
 
-* Crear un archivo temporal común para guardar efectos, errores estándar,
-* valores p e intervalos de confianza de ECI y DIVX.
+* Crear un archivo temporal común para guardar efectos, errores estándar, valores p e intervalos de confianza de ECI y DIVX.
 tempname margins_post
 tempfile margins_report
+* Crear un archivo temporal para ir registrando resultados calculados.
 postfile `margins_post' ///
     str8 model ///
     str4 institutional_percentile ///
@@ -1484,29 +1439,24 @@ postfile `margins_post' ///
     str12 significance ///
     using "`margins_report'", replace
 
-* Reestimar silenciosamente el modelo ECI aprobado. La recarga de la base
-* invalida la marca interna e(sample) de una estimación restaurada y margins
-* necesita reconstruirla sobre los mismos 1.044 casos.
+* Reestimar silenciosamente el modelo ECI aprobado. La recarga de la base invalida la marca interna e(sample) de una estimación restaurada y margins necesita reconstruirla sobre los mismos 1.044 casos.
 quietly xtreg eci $ECI_REGRESSORS i.year if sample_eci == 1, ///
     fe $INFERENCE_MAIN
 
-* Confirmar que la reestimación utilizada por margins reproduce el coeficiente
-* RENTS del modelo principal y conserva su muestra completa.
+* Confirmar que la reestimación utilizada por margins reproduce el coeficiente RENTS del modelo principal y conserva su muestra completa.
 assert abs(_b[rents] - `eci_base_rents_b') < 1e-10
+* Validar automáticamente que la muestra contenga exactamente 1.044 observaciones.
 assert e(N) == `eci_expected_n'
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert e(N_g) == `eci_expected_countries'
 
-* Calcular d(ECI)/d(RENTS) en los cinco percentiles institucionales. Con una
-* interacción lineal, cada margen combina el coeficiente de RENTS con el de
-* RENTS x INST y conserva su incertidumbre conjunta.
+* Calcular d(ECI)/d(RENTS) en los cinco percentiles institucionales. Con una interacción lineal, cada margen combina el coeficiente de RENTS con el de RENTS x INST y conserva su incertidumbre conjunta.
 margins, dydx(rents) at(inst=(`inst_values'))
 
-* Conservar la tabla completa devuelta por margins antes de construir la
-* figura o ejecutar cualquier otro comando.
+* Conservar la tabla completa devuelta por margins antes de construir la figura o ejecutar cualquier otro comando.
 matrix eci_margins_table = r(table)
 
-* Graficar la asociación marginal estimada y su intervalo de confianza del
-* 95 %. La línea horizontal en cero permite identificar dónde cambia el signo.
+* Graficar la asociación marginal estimada y su intervalo de confianza del 95 %. La línea horizontal en cero permite identificar dónde cambia el signo.
 marginsplot, ///
     recast(line) ///
     recastci(rarea) ///
@@ -1544,8 +1494,7 @@ graph export ///
     "$OUTPUT_STABILITY/eci_rents_marginal_effect_by_inst.png", ///
     width(2400) replace
 
-* Recorrer las cinco columnas de la tabla de margins y registrar cada resultado
-* con el percentil institucional correspondiente.
+* Recorrer las cinco columnas de la tabla de margins y registrar cada resultado con el percentil institucional correspondiente.
 forvalues column = 1/5 {
     local percentile : word `column' of `inst_labels'
     local inst_value : word `column' of `inst_values'
@@ -1556,15 +1505,13 @@ forvalues column = 1/5 {
     local lower  = el(eci_margins_table, 5, `column')
     local upper  = el(eci_margins_table, 6, `column')
 
-    // Clasificar la precisión estadística sin convertirla en una conclusión
-    // causal ni alterar el umbral principal del estudio.
+    // Clasificar la precisión estadística sin convertirla en una conclusión causal ni alterar el umbral principal del estudio.
     local significance "No"
     if `pvalue' < 0.10 local significance "10%"
     if `pvalue' < 0.05 local significance "5%"
     if `pvalue' < 0.01 local significance "1%"
 
-    // Guardar el efecto marginal ECI y todas las cantidades necesarias para
-    // reproducir su interpretación.
+    // Guardar el efecto marginal ECI y todas las cantidades necesarias para reproducir su interpretación.
     post `margins_post' ///
         ("ECI") ///
         ("`percentile'") ///
@@ -1574,26 +1521,24 @@ forvalues column = 1/5 {
         ("`significance'")
 }
 
-* Reestimar silenciosamente DIVX para reconstruir e(sample) después de cargar
-* nuevamente la base analítica.
+* Reestimar silenciosamente DIVX para reconstruir e(sample) después de cargar nuevamente la base analítica.
 quietly xtreg divx $DIVX_REGRESSORS i.year if sample_divx == 1, ///
     fe $INFERENCE_MAIN
 
-* Confirmar que la reestimación reproduce el coeficiente RENTS y la muestra del
-* modelo complementario.
+* Confirmar que la reestimación reproduce el coeficiente RENTS y la muestra del modelo complementario.
 assert abs(_b[rents] - `divx_base_rents_b') < 1e-10
+* Validar automáticamente que la muestra contenga exactamente 1.044 observaciones.
 assert e(N) == `divx_expected_n'
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert e(N_g) == `divx_expected_countries'
 
-* Calcular d(DIVX)/d(RENTS) en los mismos percentiles de INST utilizados para
-* ECI, manteniendo así una comparación sobre puntos idénticos.
+* Calcular d(DIVX)/d(RENTS) en los mismos percentiles de INST utilizados para ECI, manteniendo así una comparación sobre puntos idénticos.
 margins, dydx(rents) at(inst=(`inst_values'))
 
 * Guardar la tabla completa del modelo DIVX antes de construir la figura.
 matrix divx_margins_table = r(table)
 
-* Graficar los efectos marginales DIVX con intervalo de confianza del 95 % y
-* una referencia explícita en cero.
+* Graficar los efectos marginales DIVX con intervalo de confianza del 95 % y una referencia explícita en cero.
 marginsplot, ///
     recast(line) ///
     recastci(rarea) ///
@@ -1631,8 +1576,7 @@ graph export ///
     "$OUTPUT_STABILITY/divx_rents_marginal_effect_by_inst.png", ///
     width(2400) replace
 
-* Registrar los cinco resultados marginales de DIVX dentro del mismo reporte
-* utilizado para ECI.
+* Registrar los cinco resultados marginales de DIVX dentro del mismo reporte utilizado para ECI.
 forvalues column = 1/5 {
     local percentile : word `column' of `inst_labels'
     local inst_value : word `column' of `inst_values'
@@ -1643,8 +1587,7 @@ forvalues column = 1/5 {
     local lower  = el(divx_margins_table, 5, `column')
     local upper  = el(divx_margins_table, 6, `column')
 
-    // Aplicar la misma clasificación descriptiva de significancia empleada
-    // para ECI.
+    // Aplicar la misma clasificación descriptiva de significancia empleada para ECI.
     local significance "No"
     if `pvalue' < 0.10 local significance "10%"
     if `pvalue' < 0.05 local significance "5%"
@@ -1678,10 +1621,10 @@ restore
 
 // 11.3. Resumir la prueba de igualdad entre petróleo, gas y carbón
 
-* Crear un reporte compacto que reúna las pruebas ya previstas en los dos
-* modelos y evite interpretar coeficientes individuales de forma aislada.
+* Crear un reporte compacto que reúna las pruebas ya previstas en los dos modelos y evite interpretar coeficientes individuales de forma aislada.
 tempname resource_test_post
 tempfile resource_test_report
+* Crear un archivo temporal para ir registrando resultados calculados.
 postfile `resource_test_post' ///
     str8 model ///
     str90 null_hypothesis ///
@@ -1689,13 +1632,13 @@ postfile `resource_test_post' ///
     str16 decision ///
     using "`resource_test_report'", replace
 
-* Recuperar ECI y contrastar que los tres coeficientes transformados sean
-* iguales entre sí.
+* Recuperar ECI y contrastar que los tres coeficientes transformados sean iguales entre sí.
 estimates restore ECI_TWFE_MAIN
 test (ln1p_oilpc = ln1p_gaspc) ///
      (ln1p_oilpc = ln1p_coalpc)
 local eci_resource_decision "No rechazar H0"
 if r(p) < 0.05 local eci_resource_decision "Rechazar H0"
+* Escribir una fila de resultados dentro del archivo temporal.
 post `resource_test_post' ///
     ("ECI") ///
     ("Los coeficientes de petróleo, gas y carbón son iguales") ///
@@ -1708,6 +1651,7 @@ test (ln1p_oilpc = ln1p_gaspc) ///
      (ln1p_oilpc = ln1p_coalpc)
 local divx_resource_decision "No rechazar H0"
 if r(p) < 0.05 local divx_resource_decision "Rechazar H0"
+* Escribir una fila de resultados dentro del archivo temporal.
 post `resource_test_post' ///
     ("DIVX") ///
     ("Los coeficientes de petróleo, gas y carbón son iguales") ///
@@ -1730,12 +1674,10 @@ restore
 
 // 11.4. Evaluar la forma funcional de las rentas per cápita
 
-* Comparar la especificación principal ln(1+x) con una alternativa que utiliza
-* OILPC, GASPC y COALPC en niveles. RENTS permanece agregado y sin cambios.
-* Esta prueba evalúa una decisión de transformación, no una desagregación entre
-* hidrocarburos y minería ni una nueva ecuación principal.
+* Comparar la especificación principal ln(1+x) con una alternativa que utiliza OILPC, GASPC y COALPC en niveles. RENTS permanece agregado y sin cambios. Esta prueba evalúa una decisión de transformación, no una desagregación entre hidrocarburos y minería ni una nueva ecuación principal.
 tempname pc_transform_post
 tempfile pc_transform_report
+* Crear un archivo temporal para ir registrando resultados calculados.
 postfile `pc_transform_post' ///
     str8 model ///
     str24 specification ///
@@ -1747,8 +1689,7 @@ postfile `pc_transform_post' ///
     str20 coal_term double coal_coefficient coal_p_value ///
     using "`pc_transform_report'", replace
 
-* Recuperar el modelo ECI principal y registrar sus coeficientes bajo la
-* transformación ln(1+x), que admite ceros y reduce la asimetría de las series.
+* Recuperar el modelo ECI principal y registrar sus coeficientes bajo la transformación ln(1+x), que admite ceros y reduce la asimetría de las series.
 estimates restore ECI_TWFE_MAIN
 local eci_main_rents_p = ///
     2 * ttail(e(df_r), abs(_b[rents] / _se[rents]))
@@ -1760,6 +1701,7 @@ local eci_main_gas_p = ///
     2 * ttail(e(df_r), abs(_b[ln1p_gaspc] / _se[ln1p_gaspc]))
 local eci_main_coal_p = ///
     2 * ttail(e(df_r), abs(_b[ln1p_coalpc] / _se[ln1p_coalpc]))
+* Escribir una fila de resultados dentro del archivo temporal.
 post `pc_transform_post' ///
     ("ECI") ("ln(1+x), principal") ///
     (e(N)) (e(N_g)) ///
@@ -1770,8 +1712,7 @@ post `pc_transform_post' ///
     ("ln1p_gaspc") (_b[ln1p_gaspc]) (`eci_main_gas_p') ///
     ("ln1p_coalpc") (_b[ln1p_coalpc]) (`eci_main_coal_p')
 
-* Reestimar ECI sustituyendo únicamente los tres controles transformados por
-* sus valores per cápita sin transformar; el resto de la ecuación no cambia.
+* Reestimar ECI sustituyendo únicamente los tres controles transformados por sus valores per cápita sin transformar; el resto de la ecuación no cambia.
 quietly xtreg eci ///
     c.rents##c.inst ///
     oilpc gaspc coalpc ///
@@ -1784,18 +1725,20 @@ quietly xtreg eci ///
 
 * Comprobar que la alternativa ECI conserva exactamente la muestra aprobada.
 assert e(sample) == sample_eci
+* Validar automáticamente que la muestra contenga exactamente 1.044 observaciones.
 assert e(N) == `eci_expected_n'
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert e(N_g) == `eci_expected_countries'
 
 * Guardar la alternativa ECI para poder incluirla en la tabla comparativa final.
 capture estimates drop ECI_PC_LEVELS_SENSITIVITY
+* Guardar el modelo estimado en memoria para comparaciones posteriores.
 estimates store ECI_PC_LEVELS_SENSITIVITY
 estimates save ///
     "$OUTPUT_STABILITY/eci_per_capita_levels_sensitivity.ster", ///
     replace
 
-* Calcular y registrar la incertidumbre de los términos relevantes en la
-* especificación ECI con controles per cápita sin transformar.
+* Calcular y registrar la incertidumbre de los términos relevantes en la especificación ECI con controles per cápita sin transformar.
 local eci_levels_rents_p = ///
     2 * ttail(e(df_r), abs(_b[rents] / _se[rents]))
 local eci_levels_interaction_p = ///
@@ -1806,6 +1749,7 @@ local eci_levels_gas_p = ///
     2 * ttail(e(df_r), abs(_b[gaspc] / _se[gaspc]))
 local eci_levels_coal_p = ///
     2 * ttail(e(df_r), abs(_b[coalpc] / _se[coalpc]))
+* Escribir una fila de resultados dentro del archivo temporal.
 post `pc_transform_post' ///
     ("ECI") ("Niveles per capita") ///
     (e(N)) (e(N_g)) ///
@@ -1816,8 +1760,7 @@ post `pc_transform_post' ///
     ("gaspc") (_b[gaspc]) (`eci_levels_gas_p') ///
     ("coalpc") (_b[coalpc]) (`eci_levels_coal_p')
 
-* Recuperar el modelo DIVX principal y registrar la especificación aprobada con
-* los tres componentes per cápita transformados mediante ln(1+x).
+* Recuperar el modelo DIVX principal y registrar la especificación aprobada con los tres componentes per cápita transformados mediante ln(1+x).
 estimates restore DIVX_TWFE_MAIN
 local divx_main_rents_p = ///
     2 * ttail(e(df_r), abs(_b[rents] / _se[rents]))
@@ -1829,6 +1772,7 @@ local divx_main_gas_p = ///
     2 * ttail(e(df_r), abs(_b[ln1p_gaspc] / _se[ln1p_gaspc]))
 local divx_main_coal_p = ///
     2 * ttail(e(df_r), abs(_b[ln1p_coalpc] / _se[ln1p_coalpc]))
+* Escribir una fila de resultados dentro del archivo temporal.
 post `pc_transform_post' ///
     ("DIVX") ("ln(1+x), principal") ///
     (e(N)) (e(N_g)) ///
@@ -1839,8 +1783,7 @@ post `pc_transform_post' ///
     ("ln1p_gaspc") (_b[ln1p_gaspc]) (`divx_main_gas_p') ///
     ("ln1p_coalpc") (_b[ln1p_coalpc]) (`divx_main_coal_p')
 
-* Reestimar DIVX con los controles OILPC, GASPC y COALPC en niveles, manteniendo
-* la exclusión de HHI y todos los demás elementos de la ecuación aprobada.
+* Reestimar DIVX con los controles OILPC, GASPC y COALPC en niveles, manteniendo la exclusión de HHI y todos los demás elementos de la ecuación aprobada.
 quietly xtreg divx ///
     c.rents##c.inst ///
     oilpc gaspc coalpc ///
@@ -1853,18 +1796,20 @@ quietly xtreg divx ///
 
 * Comprobar que la alternativa DIVX conserva la misma muestra país-año.
 assert e(sample) == sample_divx
+* Validar automáticamente que la muestra contenga exactamente 1.044 observaciones.
 assert e(N) == `divx_expected_n'
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert e(N_g) == `divx_expected_countries'
 
 * Guardar la alternativa DIVX para su revisión y exportación reproducible.
 capture estimates drop DIVX_PC_LEVELS_SENSITIVITY
+* Guardar el modelo estimado en memoria para comparaciones posteriores.
 estimates store DIVX_PC_LEVELS_SENSITIVITY
 estimates save ///
     "$OUTPUT_STABILITY/divx_per_capita_levels_sensitivity.ster", ///
     replace
 
-* Calcular y registrar la incertidumbre de los términos relevantes en la
-* especificación DIVX con controles per cápita sin transformar.
+* Calcular y registrar la incertidumbre de los términos relevantes en la especificación DIVX con controles per cápita sin transformar.
 local divx_levels_rents_p = ///
     2 * ttail(e(df_r), abs(_b[rents] / _se[rents]))
 local divx_levels_interaction_p = ///
@@ -1875,6 +1820,7 @@ local divx_levels_gas_p = ///
     2 * ttail(e(df_r), abs(_b[gaspc] / _se[gaspc]))
 local divx_levels_coal_p = ///
     2 * ttail(e(df_r), abs(_b[coalpc] / _se[coalpc]))
+* Escribir una fila de resultados dentro del archivo temporal.
 post `pc_transform_post' ///
     ("DIVX") ("Niveles per capita") ///
     (e(N)) (e(N_g)) ///
@@ -1888,8 +1834,7 @@ post `pc_transform_post' ///
 * Cerrar el archivo temporal una vez registradas las cuatro especificaciones.
 postclose `pc_transform_post'
 
-* Exportar la comparación numérica en formato abierto y con una fila por
-* modelo-especificación para facilitar la revisión entre pares.
+* Exportar la comparación numérica en formato abierto y con una fila por modelo-especificación para facilitar la revisión entre pares.
 preserve
     use "`pc_transform_report'", clear
     sort model specification
@@ -1902,13 +1847,13 @@ restore
 
 * Restablecer los modelos principales antes de continuar con las demás pruebas.
 estimates restore ECI_TWFE_MAIN
+* Restaurar una estimación previa desde la memoria de Stata.
 estimates restore DIVX_TWFE_MAIN
 
 
 // 11.5. Evaluar sensibilidad a las observaciones previamente señaladas
 
-* Confirmar que la sección 4 dejó disponible el inventario de alertas. Estas
-* filas son casos para revisión y no observaciones declaradas erróneas.
+* Confirmar que la sección 4 dejó disponible el inventario de alertas. Estas filas son casos para revisión y no observaciones declaradas erróneas.
 capture confirm file ///
     "$OUTPUT_DIAGNOSTICS/influential_observations.csv"
 if _rc {
@@ -1917,8 +1862,7 @@ if _rc {
     exit 601
 }
 
-* Transformar el inventario largo de alertas en dos indicadores país-año, uno
-* para ECI y otro para DIVX.
+* Transformar el inventario largo de alertas en dos indicadores país-año, uno para ECI y otro para DIVX.
 tempfile influence_flags
 preserve
     import delimited using ///
@@ -1952,25 +1896,26 @@ restore
 merge 1:1 country_iso3_code year using "`influence_flags'", ///
     keep(master match) nogen
 
-* Completar con cero los país-año que nunca fueron señalados por los
-* diagnósticos.
+* Completar con cero los país-año que nunca fueron señalados por los diagnósticos.
 replace influential_eci  = 0 if missing(influential_eci)
 replace influential_divx = 0 if missing(influential_divx)
 
 * Verificar que la combinación reproduce exactamente las 70 alertas ECI.
 quietly count if sample_eci == 1 & influential_eci == 1
 local eci_influential_n = r(N)
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert `eci_influential_n' == 70
 
 * Verificar que la combinación reproduce exactamente las 75 alertas DIVX.
 quietly count if sample_divx == 1 & influential_divx == 1
 local divx_influential_n = r(N)
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert `divx_influential_n' == 75
 
-* Preparar un reporte que compare cada estimación base con la sensibilidad que
-* excluye conjuntamente todas las observaciones señaladas.
+* Preparar un reporte que compare cada estimación base con la sensibilidad que excluye conjuntamente todas las observaciones señaladas.
 tempname influential_post
 tempfile influential_report
+* Crear un archivo temporal para ir registrando resultados calculados.
 postfile `influential_post' ///
     str8 model ///
     str28 specification ///
@@ -1990,6 +1935,7 @@ local eci_base_interaction_se = _se[c.rents#c.inst]
 local eci_base_interaction_p = ///
     2 * ttail(e(df_r), ///
         abs(_b[c.rents#c.inst] / _se[c.rents#c.inst]))
+* Escribir una fila de resultados dentro del archivo temporal.
 post `influential_post' ///
     ("ECI") ("Modelo base") ///
     (e(N)) (e(N_g)) ///
@@ -1997,18 +1943,19 @@ post `influential_post' ///
     (`eci_base_interaction_b') ///
     (`eci_base_interaction_se') (`eci_base_interaction_p')
 
-* Reestimar ECI sin las 70 observaciones señaladas. Esta especificación se
-* conserva únicamente como sensibilidad y no reemplaza ECI_TWFE_MAIN.
+* Reestimar ECI sin las 70 observaciones señaladas. Esta especificación se conserva únicamente como sensibilidad y no reemplaza ECI_TWFE_MAIN.
 quietly xtreg eci $ECI_REGRESSORS i.year ///
     if sample_eci == 1 & influential_eci == 0, ///
     fe $INFERENCE_MAIN
 capture estimates drop ECI_EXCL_INFLUENTIAL
+* Guardar el modelo estimado en memoria para comparaciones posteriores.
 estimates store ECI_EXCL_INFLUENTIAL
 local eci_excl_rents_p = ///
     2 * ttail(e(df_r), abs(_b[rents] / _se[rents]))
 local eci_excl_interaction_p = ///
     2 * ttail(e(df_r), ///
         abs(_b[c.rents#c.inst] / _se[c.rents#c.inst]))
+* Escribir una fila de resultados dentro del archivo temporal.
 post `influential_post' ///
     ("ECI") ("Excluye alertas") ///
     (e(N)) (e(N_g)) ///
@@ -2027,6 +1974,7 @@ local divx_base_interaction_se = _se[c.rents#c.inst]
 local divx_base_interaction_p = ///
     2 * ttail(e(df_r), ///
         abs(_b[c.rents#c.inst] / _se[c.rents#c.inst]))
+* Escribir una fila de resultados dentro del archivo temporal.
 post `influential_post' ///
     ("DIVX") ("Modelo base") ///
     (e(N)) (e(N_g)) ///
@@ -2034,18 +1982,19 @@ post `influential_post' ///
     (`divx_base_interaction_b') ///
     (`divx_base_interaction_se') (`divx_base_interaction_p')
 
-* Reestimar DIVX sin las 75 observaciones señaladas. Esta sensibilidad tampoco
-* modifica la estimación complementaria principal.
+* Reestimar DIVX sin las 75 observaciones señaladas. Esta sensibilidad tampoco modifica la estimación complementaria principal.
 quietly xtreg divx $DIVX_REGRESSORS i.year ///
     if sample_divx == 1 & influential_divx == 0, ///
     fe $INFERENCE_MAIN
 capture estimates drop DIVX_EXCL_INFLUENTIAL
+* Guardar el modelo estimado en memoria para comparaciones posteriores.
 estimates store DIVX_EXCL_INFLUENTIAL
 local divx_excl_rents_p = ///
     2 * ttail(e(df_r), abs(_b[rents] / _se[rents]))
 local divx_excl_interaction_p = ///
     2 * ttail(e(df_r), ///
         abs(_b[c.rents#c.inst] / _se[c.rents#c.inst]))
+* Escribir una fila de resultados dentro del archivo temporal.
 post `influential_post' ///
     ("DIVX") ("Excluye alertas") ///
     (e(N)) (e(N_g)) ///
@@ -2076,10 +2025,10 @@ restore
 quietly levelsof country_id if sample_eci == 1, ///
     local(leave_one_out_country_ids)
 
-* Crear un archivo donde cada fila registre una reestimación que excluye un
-* país y un término central.
+* Crear un archivo donde cada fila registre una reestimación que excluye un país y un término central.
 tempname leave_one_out_post
 tempfile leave_one_out_report
+* Crear un archivo temporal para ir registrando resultados calculados.
 postfile `leave_one_out_post' ///
     str8 model ///
     double excluded_country_id ///
@@ -2089,8 +2038,7 @@ postfile `leave_one_out_post' ///
     observations countries ///
     using "`leave_one_out_report'", replace
 
-* Excluir sucesivamente cada país del modelo ECI y registrar RENTS y la
-* interacción institucional.
+* Excluir sucesivamente cada país del modelo ECI y registrar RENTS y la interacción institucional.
 foreach excluded_id of local leave_one_out_country_ids {
 
     // Recuperar el código ISO3 del país omitido para que el reporte sea legible.
@@ -2130,8 +2078,7 @@ foreach excluded_id of local leave_one_out_country_ids {
         (e(N)) (e(N_g))
 }
 
-* Excluir sucesivamente cada país del modelo DIVX y registrar los mismos dos
-* términos para una comparación simétrica.
+* Excluir sucesivamente cada país del modelo DIVX y registrar los mismos dos términos para una comparación simétrica.
 foreach excluded_id of local leave_one_out_country_ids {
 
     // Recuperar el código ISO3 del país omitido.
@@ -2171,8 +2118,7 @@ foreach excluded_id of local leave_one_out_country_ids {
         (e(N)) (e(N_g))
 }
 
-* Cerrar el archivo después de completar las 196 combinaciones
-* modelo-país-término.
+* Cerrar el archivo después de completar las 196 combinaciones modelo-país-término.
 postclose `leave_one_out_post'
 
 * Exportar el detalle completo y construir una síntesis por modelo y término.
@@ -2180,8 +2126,7 @@ preserve
     use "`leave_one_out_report'", clear
     sort model term excluded_country_iso3
 
-    * Identificar cambios de signo y la frecuencia con que cada término conserva
-    * significancia en las reestimaciones.
+    * Identificar cambios de signo y la frecuencia con que cada término conserva significancia en las reestimaciones.
     generate byte sign_reversal = ///
         sign(coefficient) != sign(base_coefficient)
     generate byte significant_5  = p_value < 0.05
@@ -2193,8 +2138,7 @@ preserve
         "$OUTPUT_STABILITY/leave_one_country_out.csv", ///
         replace datafmt
 
-    * Resumir rangos de coeficientes y valores p, además de cambios de signo y
-    * frecuencias de significancia.
+    * Resumir rangos de coeficientes y valores p, además de cambios de signo y frecuencias de significancia.
     collapse ///
         (count) repetitions=coefficient ///
         (firstnm) base_coefficient ///
@@ -2204,8 +2148,7 @@ preserve
               significant_5 significant_10, ///
         by(model term)
 
-    * Exportar la síntesis utilizada para decidir si un solo país domina el
-    * resultado central.
+    * Exportar la síntesis utilizada para decidir si un solo país domina el resultado central.
     format base_coefficient min_coefficient max_coefficient ///
         min_p_value max_p_value %12.6f
     export delimited using ///
@@ -2217,10 +2160,10 @@ restore
 
 // 11.7. Aplicar wild cluster bootstrap como inferencia alternativa
 
-* Preparar un reporte para los valores p e intervalos de confianza bootstrap.
-* Esta inferencia complementa, pero no sustituye, el agrupamiento convencional.
+* Preparar un reporte para los valores p e intervalos de confianza bootstrap. Esta inferencia complementa, pero no sustituye, el agrupamiento convencional.
 tempname wild_bootstrap_post
 tempfile wild_bootstrap_report
+* Crear un archivo temporal para ir registrando resultados calculados.
 postfile `wild_bootstrap_post' ///
     str8 model ///
     str24 term ///
@@ -2229,9 +2172,7 @@ postfile `wild_bootstrap_post' ///
     str12 weight_type ///
     using "`wild_bootstrap_report'", replace
 
-* Reestimar ECI mediante xtreg con efectos de año explícitos. boottest no admite
-* reghdfe con dos conjuntos absorbidos, mientras que esta es precisamente la
-* especificación principal aprobada.
+* Reestimar ECI mediante xtreg con efectos de año explícitos. boottest no admite reghdfe con dos conjuntos absorbidos, mientras que esta es precisamente la especificación principal aprobada.
 quietly xtreg eci $ECI_REGRESSORS i.year ///
     if sample_eci == 1, ///
     fe $INFERENCE_MAIN
@@ -2239,8 +2180,7 @@ quietly xtreg eci $ECI_REGRESSORS i.year ///
 * Confirmar nuevamente que el coeficiente RENTS coincide con la referencia.
 assert abs(_b[rents] - `eci_base_rents_b') < 1e-10
 
-* Aplicar wild cluster bootstrap al coeficiente RENTS de ECI con 9.999
-* repeticiones y una semilla fija.
+* Aplicar wild cluster bootstrap al coeficiente RENTS de ECI con 9.999 repeticiones y una semilla fija.
 boottest rents, ///
     cluster(country_id) ///
     reps(9999) ///
@@ -2254,8 +2194,9 @@ if missing(r(p)) {
     exit 498
 }
 
-* Guardar intervalo de confianza bootstrap de RENTS en ECI
+* Guardar intervalo de confianza bootstrap de RENTS en ECI.
 matrix eci_rents_bootstrap_ci = r(CI)
+* Escribir una fila de resultados dentro del archivo temporal.
 post `wild_bootstrap_post' ///
     ("ECI") ("RENTS") ///
     (_b[rents]) (`eci_base_rents_p') (r(p)) ///
@@ -2277,8 +2218,9 @@ if missing(r(p)) {
     exit 498
 }
 
-* Guardar intervalo de confianza bootstrap de RENTS x INST en ECI
+* Guardar intervalo de confianza bootstrap de RENTS x INST en ECI.
 matrix eci_interaction_bootstrap_ci = r(CI)
+* Escribir una fila de resultados dentro del archivo temporal.
 post `wild_bootstrap_post' ///
     ("ECI") ("RENTS x INST") ///
     (_b[c.rents#c.inst]) (`eci_base_interaction_p') (r(p)) ///
@@ -2286,8 +2228,7 @@ post `wild_bootstrap_post' ///
     (el(eci_interaction_bootstrap_ci, 1, 2)) ///
     (r(reps)) ("`r(weighttype)'")
 
-* Reestimar DIVX mediante xtreg con efectos de año explícitos para utilizar una
-* especificación compatible con boottest.
+* Reestimar DIVX mediante xtreg con efectos de año explícitos para utilizar una especificación compatible con boottest.
 quietly xtreg divx $DIVX_REGRESSORS i.year ///
     if sample_divx == 1, ///
     fe $INFERENCE_MAIN
@@ -2309,8 +2250,9 @@ if missing(r(p)) {
     exit 498
 }
 
-* Guardar intervalo de confianza bootstrap de RENTS en DIVX
+* Guardar intervalo de confianza bootstrap de RENTS en DIVX.
 matrix divx_rents_bootstrap_ci = r(CI)
+* Escribir una fila de resultados dentro del archivo temporal.
 post `wild_bootstrap_post' ///
     ("DIVX") ("RENTS") ///
     (_b[rents]) (`divx_base_rents_p') (r(p)) ///
@@ -2332,8 +2274,9 @@ if missing(r(p)) {
     exit 498
 }
 
-* Guardar intervalo de confianza bootstrap de RENTS x INST en DIVX
+* Guardar intervalo de confianza bootstrap de RENTS x INST en DIVX.
 matrix divx_interaction_bootstrap_ci = r(CI)
+* Escribir una fila de resultados dentro del archivo temporal.
 post `wild_bootstrap_post' ///
     ("DIVX") ("RENTS x INST") ///
     (_b[c.rents#c.inst]) (`divx_base_interaction_p') (r(p)) ///
@@ -2359,8 +2302,7 @@ restore
 
 // 11.8. Cerrar la sección sin sustituir los modelos principales
 
-* Recuperar la estimación DIVX principal para que la sección 8 encuentre los dos
-* modelos base almacenados y ninguna sensibilidad activa por accidente.
+* Recuperar la estimación DIVX principal para que la sección 8 encuentre los dos modelos base almacenados y ninguna sensibilidad activa por accidente.
 estimates restore DIVX_TWFE_MAIN
 
 * Informar las pruebas completadas y recordar su condición de sensibilidad.
@@ -2377,26 +2319,28 @@ display as text ///
 
 // 12.1. Confirmar los modelos y resultados que alimentarán el paquete final
 
-* Recuperar ECI y verificar que el objeto almacenado conserva la muestra
-* aprobada. La sección 8 organiza resultados; no modifica la estimación.
+* Recuperar ECI y verificar que el objeto almacenado conserva la muestra aprobada. La sección 8 organiza resultados; no modifica la estimación.
 estimates restore ECI_TWFE_MAIN
+* Validar automáticamente que la muestra contenga exactamente 1.044 observaciones.
 assert e(N) == `eci_expected_n'
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert e(N_g) == `eci_expected_countries'
 
-* Recuperar DIVX y repetir las comprobaciones de cobertura antes de construir
-* cualquier tabla comparativa.
+* Recuperar DIVX y repetir las comprobaciones de cobertura antes de construir cualquier tabla comparativa.
 estimates restore DIVX_TWFE_MAIN
+* Validar automáticamente que la muestra contenga exactamente 1.044 observaciones.
 assert e(N) == `divx_expected_n'
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert e(N_g) == `divx_expected_countries'
 
-* Confirmar que ambos modelos continúan utilizando exactamente la misma muestra
-* país-año, condición necesaria para su lectura conjunta.
+* Confirmar que ambos modelos continúan utilizando exactamente la misma muestra país-año, condición necesaria para su lectura conjunta.
 assert `eci_expected_n' == `divx_expected_n'
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert `eci_expected_countries' == `divx_expected_countries'
+* Control de calidad automático que detiene el script si no se cumple la condición.
 assert `eci_expected_year_count' == `divx_expected_year_count'
 
-* Verificar la existencia de los archivos numéricos generados en las secciones
-* 5, 6 y 7. Si falta uno, el paquete final no debe presentarse como completo.
+* Verificar la existencia de los archivos numéricos generados en las secciones 5, 6 y 7. Si falta uno, el paquete final no debe presentarse como completo.
 local prerequisite_files ///
     outputs/econometrics/stata-peer-2/01_twfe_main/03_eci/eci_twfe_coefficients.csv ///
     outputs/econometrics/stata-peer-2/01_twfe_main/03_eci/eci_twfe_model_summary.csv ///
@@ -2413,6 +2357,7 @@ local prerequisite_files ///
 
 * Recorrer la lista anterior y detener la ejecución ante cualquier ausencia.
 foreach prerequisite_file of local prerequisite_files {
+    * Verificar la existencia de un archivo antes de intentar cargarlo.
     capture confirm file "`prerequisite_file'"
     if _rc {
         display as error ///
@@ -2425,13 +2370,12 @@ foreach prerequisite_file of local prerequisite_files {
 
 // 12.2. Exportar la tabla econométrica principal ECI-DIVX
 
-* Recuperar ambos modelos principales para que esttab utilice únicamente las
-* especificaciones agregadas aprobadas.
+* Recuperar ambos modelos principales para que esttab utilice únicamente las especificaciones agregadas aprobadas.
 estimates restore ECI_TWFE_MAIN
+* Restaurar una estimación previa desde la memoria de Stata.
 estimates restore DIVX_TWFE_MAIN
 
-* Exportar una tabla LaTeX común. HHI aparece solo en ECI porque su inclusión
-* en DIVX produciría una identidad contable.
+* Exportar una tabla LaTeX común. HHI aparece solo en ECI porque su inclusión en DIVX produciría una identidad contable.
 esttab ECI_TWFE_MAIN DIVX_TWFE_MAIN ///
     using "$OUTPUT_FINAL/table_eci_divx_twfe.tex", ///
     replace ///
@@ -2532,8 +2476,7 @@ esttab ECI_TWFE_MAIN DIVX_TWFE_MAIN ///
         "Efectos fijos por país y año en ambos modelos." ///
         "Resultados asociativos; no constituyen efectos causales.")
 
-* Exportar una tabla LaTeX que compare la transformación principal ln(1+x) con
-* los controles OILPC, GASPC y COALPC expresados en niveles per cápita.
+* Exportar una tabla LaTeX que compare la transformación principal ln(1+x) con los controles OILPC, GASPC y COALPC expresados en niveles per cápita.
 esttab ///
     ECI_TWFE_MAIN ECI_PC_LEVELS_SENSITIVITY ///
     DIVX_TWFE_MAIN DIVX_PC_LEVELS_SENSITIVITY ///
@@ -2576,8 +2519,7 @@ esttab ///
         "La especificación ln(1+x) es la principal; los niveles son una sensibilidad." ///
         "Errores estándar agrupados por país. Resultados asociativos.")
 
-* Exportar la misma sensibilidad en texto plano para poder revisarla sin
-* compilar LaTeX ni depender de software adicional.
+* Exportar la misma sensibilidad en texto plano para poder revisarla sin compilar LaTeX ni depender de software adicional.
 esttab ///
     ECI_TWFE_MAIN ECI_PC_LEVELS_SENSITIVITY ///
     DIVX_TWFE_MAIN DIVX_PC_LEVELS_SENSITIVITY ///
@@ -2621,8 +2563,7 @@ esttab ///
 
 // 12.3. Consolidar coeficientes, resúmenes y pruebas conjuntas
 
-* Combinar los coeficientes ECI y DIVX en un único archivo largo, conservando
-* una columna que identifica el modelo de procedencia.
+* Combinar los coeficientes ECI y DIVX en un único archivo largo, conservando una columna que identifica el modelo de procedencia.
 tempfile final_coefficients_dataset
 preserve
     import delimited using ///
@@ -2643,9 +2584,12 @@ preserve
 
     * Verificar que el archivo reúne 17 términos ECI y 16 términos DIVX.
     quietly count
+    * Control de calidad automático que detiene el script si no se cumple la condición.
     assert r(N) == 33
     bysort model: generate int terms_in_model = _N
+    * Control de calidad automático que detiene el script si no se cumple la condición.
     assert terms_in_model == 17 if model == "ECI"
+    * Control de calidad automático que detiene el script si no se cumple la condición.
     assert terms_in_model == 16 if model == "DIVX"
     drop terms_in_model
 
@@ -2676,7 +2620,9 @@ preserve
 
     * Confirmar que existe una y solo una fila por modelo.
     isid model_label
+    * Contar silenciosamente cuántas observaciones cumplen una condición determinada.
     quietly count
+    * Control de calidad automático que detiene el script si no se cumple la condición.
     assert r(N) == 2
 
     * Exportar el resumen conjunto de cobertura y ajuste.
@@ -2705,6 +2651,7 @@ preserve
 
     * Confirmar que cada modelo aporta exactamente ocho pruebas conjuntas.
     quietly count
+    * Control de calidad automático que detiene el script si no se cumple la condición.
     assert r(N) == 16
     bysort model: assert _N == 8
 
@@ -2717,9 +2664,7 @@ restore
 
 // 12.4. Clasificar la evidencia sin convertir asociaciones en causalidad
 
-* Abrir la base consolidada de coeficientes para asignar a cada término una
-* categoría de lectura. Esta clasificación ordena la discusión, pero no altera
-* coeficientes, errores estándar ni valores p.
+* Abrir la base consolidada de coeficientes para asignar a cada término una categoría de lectura. Esta clasificación ordena la discusión, pero no altera coeficientes, errores estándar ni valores p.
 preserve
     use "`final_coefficients_dataset'", clear
 
@@ -2732,8 +2677,7 @@ preserve
     replace significance_level = "Significativo al 1%" ///
         if p_value < 0.01
 
-    * Registrar la dirección de la asociación estimada para facilitar la
-    * comparación de signos entre ECI y DIVX.
+    * Registrar la dirección de la asociación estimada para facilitar la comparación de signos entre ECI y DIVX.
     generate str10 association_direction = ///
         cond(coefficient < 0, "Negativa", "Positiva")
 
@@ -2743,20 +2687,17 @@ preserve
     * Identificar la asociación agregada de RENTS como evidencia central.
     replace evidence_class = "Central" if term == "rents"
 
-    * Identificar PEXP como evidencia comparativa central porque su signo
-    * significativo cambia entre complejidad y diversificación.
+    * Identificar PEXP como evidencia comparativa central porque su signo significativo cambia entre complejidad y diversificación.
     replace evidence_class = "Central comparativa" if term == "pexp"
 
-    * Mantener la interacción y la desagregación per cápita como evidencia no
-    * concluyente, dado que sus pruebas individuales y conjuntas no la respaldan.
+    * Mantener la interacción y la desagregación per cápita como evidencia no concluyente, dado que sus pruebas individuales y conjuntas no la respaldan.
     replace evidence_class = "No concluyente" ///
         if term == "c.rents#c.inst"
     replace evidence_class = "No concluyente" ///
         if inlist(term, ///
             "ln1p_oilpc", "ln1p_gaspc", "ln1p_coalpc")
 
-    * Clasificar los resultados significativos restantes como complementarios,
-    * porque no constituyen por sí solos la hipótesis central del TFM.
+    * Clasificar los resultados significativos restantes como complementarios, porque no constituyen por sí solos la hipótesis central del TFM.
     replace evidence_class = "Complementaria" ///
         if model == "ECI" & ///
         inlist(term, "inst", "hhi", "fexp")
@@ -2803,8 +2744,7 @@ restore
 
 // 12.5. Reunir las sensibilidades y figuras finales
 
-* Copiar al paquete final los efectos marginales numéricos sin modificar el
-* archivo original de la sección 7.
+* Copiar al paquete final los efectos marginales numéricos sin modificar el archivo original de la sección 7.
 copy ///
     "$OUTPUT_STABILITY/rents_marginal_effects_by_inst.csv" ///
     "$OUTPUT_FINAL/final_rents_marginal_effects_by_inst.csv", ///
@@ -2834,15 +2774,13 @@ copy ///
     "$OUTPUT_FINAL/final_resource_coefficient_equality.csv", ///
     replace
 
-* Copiar la sensibilidad de forma funcional de OILPC, GASPC y COALPC. El nombre
-* evita confundirla con una modificación de RENTS o con una desagregación.
+* Copiar la sensibilidad de forma funcional de OILPC, GASPC y COALPC. El nombre evita confundirla con una modificación de RENTS o con una desagregación.
 copy ///
     "$OUTPUT_STABILITY/per_capita_transformation_sensitivity.csv" ///
     "$OUTPUT_FINAL/final_per_capita_transformation_sensitivity.csv", ///
     replace
 
-* Combinar las dos figuras marginales conservando escalas verticales propias,
-* pues ECI y DIVX se expresan en magnitudes distintas.
+* Combinar las dos figuras marginales conservando escalas verticales propias, pues ECI y DIVX se expresan en magnitudes distintas.
 graph combine eci_rents_margins divx_rents_margins, ///
     cols(2) ///
     graphregion(color(white)) ///
@@ -2950,6 +2888,7 @@ file close `results_index'
 * Preparar un manifiesto legible por máquina con la finalidad de cada archivo.
 tempname manifest_post
 tempfile manifest_report
+* Crear un archivo temporal para ir registrando resultados calculados.
 postfile `manifest_post' ///
     int order ///
     str24 family ///
@@ -2962,6 +2901,7 @@ post `manifest_post' ///
     (1) ("Modelos principales") ///
     ("table_eci_divx_twfe.tex") ///
     ("Tabla LaTeX conjunta ECI-DIVX con errores agrupados por país.")
+* Escribir una fila de resultados dentro del archivo temporal.
 post `manifest_post' ///
     (2) ("Modelos principales") ///
     ("table_eci_divx_twfe.txt") ///
@@ -2972,14 +2912,17 @@ post `manifest_post' ///
     (3) ("Resultados numéricos") ///
     ("final_model_coefficients.csv") ///
     ("Coeficientes, errores, valores p e intervalos de ambos modelos.")
+* Escribir una fila de resultados dentro del archivo temporal.
 post `manifest_post' ///
     (4) ("Resultados numéricos") ///
     ("final_model_summaries.csv") ///
     ("Cobertura, ajuste y componentes de varianza de ECI y DIVX.")
+* Escribir una fila de resultados dentro del archivo temporal.
 post `manifest_post' ///
     (5) ("Resultados numéricos") ///
     ("final_joint_tests.csv") ///
     ("Pruebas conjuntas por canal, efectos temporales e igualdad de recursos.")
+* Escribir una fila de resultados dentro del archivo temporal.
 post `manifest_post' ///
     (6) ("Interpretación") ///
     ("evidence_classification.csv") ///
@@ -2990,22 +2933,27 @@ post `manifest_post' ///
     (7) ("Estabilidad") ///
     ("final_rents_marginal_effects_by_inst.csv") ///
     ("Efectos marginales de RENTS en percentiles institucionales.")
+* Escribir una fila de resultados dentro del archivo temporal.
 post `manifest_post' ///
     (8) ("Estabilidad") ///
     ("final_influential_observation_sensitivity.csv") ///
     ("Sensibilidad a observaciones potencialmente influyentes.")
+* Escribir una fila de resultados dentro del archivo temporal.
 post `manifest_post' ///
     (9) ("Estabilidad") ///
     ("final_leave_one_country_out_summary.csv") ///
     ("Resumen de exclusiones individuales de los 49 países.")
+* Escribir una fila de resultados dentro del archivo temporal.
 post `manifest_post' ///
     (10) ("Estabilidad") ///
     ("final_wild_cluster_bootstrap.csv") ///
     ("Contraste bootstrap de RENTS y RENTS x INST.")
+* Escribir una fila de resultados dentro del archivo temporal.
 post `manifest_post' ///
     (11) ("Estabilidad") ///
     ("final_resource_coefficient_equality.csv") ///
     ("Prueba de igualdad entre petróleo, gas y carbón.")
+* Escribir una fila de resultados dentro del archivo temporal.
 post `manifest_post' ///
     (12) ("Estabilidad") ///
     ("final_per_capita_transformation_sensitivity.csv") ///
@@ -3016,6 +2964,7 @@ post `manifest_post' ///
     (13) ("Tablas de sensibilidad") ///
     ("table_per_capita_transformation_sensitivity.tex") ///
     ("Tabla LaTeX de sensibilidad a la transformación per cápita.")
+* Escribir una fila de resultados dentro del archivo temporal.
 post `manifest_post' ///
     (14) ("Tablas de sensibilidad") ///
     ("table_per_capita_transformation_sensitivity.txt") ///
@@ -3026,10 +2975,12 @@ post `manifest_post' ///
     (15) ("Figuras") ///
     ("figure_rents_marginal_effects_eci_divx.pdf") ///
     ("Figura comparada ECI-DIVX en formato apto para LaTeX.")
+* Escribir una fila de resultados dentro del archivo temporal.
 post `manifest_post' ///
     (16) ("Figuras") ///
     ("figure_rents_marginal_effects_eci_divx.png") ///
     ("Figura comparada para inspección visual.")
+* Escribir una fila de resultados dentro del archivo temporal.
 post `manifest_post' ///
     (17) ("Documentación") ///
     ("RESULTS_INDEX.md") ///
@@ -3040,6 +2991,7 @@ postclose `manifest_post'
 preserve
     use "`manifest_report'", clear
     sort order
+    * Control de calidad automático que detiene el script si no se cumple la condición.
     assert _N == 17
     export delimited using ///
         "$OUTPUT_FINAL/results_manifest.csv", ///
@@ -3069,6 +3021,7 @@ local final_required_files ///
 
 * Detener la ejecución si una salida final no fue creada correctamente.
 foreach final_file of local final_required_files {
+    * Verificar la existencia de un archivo antes de intentar cargarlo.
     capture confirm file ///
         "outputs/econometrics/stata-peer-2/01_twfe_main/06_final/`final_file'"
     if _rc {
@@ -3085,6 +3038,7 @@ preserve
     import delimited using ///
         "$OUTPUT_FINAL/final_model_coefficients.csv", ///
         clear varnames(1)
+    * Control de calidad automático que detiene el script si no se cumple la condición.
     assert _N == 33
 restore
 
@@ -3093,6 +3047,7 @@ preserve
     import delimited using ///
         "$OUTPUT_FINAL/final_joint_tests.csv", ///
         clear varnames(1)
+    * Control de calidad automático que detiene el script si no se cumple la condición.
     assert _N == 16
 restore
 

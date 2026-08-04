@@ -1,0 +1,50 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{2}{c}}
+\toprule
+                    &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}\\
+                    &\multicolumn{1}{c}{ECI}&\multicolumn{1}{c}{DIVX}\\
+\midrule
+RENTS               &     -0.0131\sym{***}&     -0.0043\sym{***}\\
+                    &    (0.0042)         &    (0.0012)         \\
+\addlinespace
+INST                &      0.2953\sym{**} &      0.0264         \\
+                    &    (0.1334)         &    (0.0288)         \\
+\addlinespace
+RENTS x INST        &     -0.0046         &      0.0007         \\
+                    &    (0.0038)         &    (0.0012)         \\
+\addlinespace
+VOL                 &     -0.0022         &      0.0013         \\
+                    &    (0.0025)         &    (0.0010)         \\
+\addlinespace
+RER                 &     -0.0848         &     -0.0449         \\
+                    &    (0.1039)         &    (0.0399)         \\
+\addlinespace
+HUMCAP              &      0.0996         &      0.1314\sym{***}\\
+                    &    (0.2445)         &    (0.0434)         \\
+\addlinespace
+INNOV               &     -0.0212         &      0.0106         \\
+                    &    (0.0478)         &    (0.0150)         \\
+\addlinespace
+NET                 &     -0.0016         &     -0.0009\sym{**} \\
+                    &    (0.0022)         &    (0.0004)         \\
+\addlinespace
+log(GDPPC)          &     -0.1532         &     -0.1679\sym{***}\\
+                    &    (0.1977)         &    (0.0338)         \\
+\addlinespace
+GOVCONS             &     -0.0063         &      0.0023         \\
+                    &    (0.0104)         &    (0.0017)         \\
+\addlinespace
+FIN                 &     -0.0002         &      0.0007\sym{*}  \\
+                    &    (0.0026)         &    (0.0004)         \\
+\midrule
+Observaciones       &        1044         &        1044         \\
+Países              &          49         &          49         \\
+R-cuadrado within   &       0.085         &       0.266         \\
+\bottomrule
+\multicolumn{3}{l}{\footnotesize Errores estándar agrupados por país entre paréntesis.}\\
+\multicolumn{3}{l}{\footnotesize Efectos fijos por país y año en ambas ecuaciones.}\\
+\multicolumn{3}{l}{\footnotesize Resultados asociativos; no constituyen efectos causales.}\\
+\multicolumn{3}{l}{\footnotesize * p<0.10, ** p<0.05, *** p<0.01}\\
+\end{tabular}
+}

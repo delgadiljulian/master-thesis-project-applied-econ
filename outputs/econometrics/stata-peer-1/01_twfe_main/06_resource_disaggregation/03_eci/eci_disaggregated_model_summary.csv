@@ -1,0 +1,2 @@
+model,dependent,obs,countries,clusters,r2_within,r2_between,r2_overall,f_stat,p_val,rmse,sigma_u,sigma_e,rho
+ECI_TWFE_DISAGG,eci,1044,49,49,.1566256637442698,.20631136,.21073659,22.90237,1.4376239e-20,.26302266,.74280912,.2695584,.88363457

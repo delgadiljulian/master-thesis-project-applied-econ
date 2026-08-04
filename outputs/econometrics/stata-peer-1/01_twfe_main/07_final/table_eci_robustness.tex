@@ -1,0 +1,79 @@
+\begin{table}[htbp]\centering
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\caption{Sensibilidad del Modelo Principal ECI (Log vs. Niveles)}
+\begin{tabular}{l*{2}{c}}
+\toprule
+                    &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}\\
+                    &\multicolumn{1}{c}{Log Rentas (Base)}&\multicolumn{1}{c}{Rentas Niveles}\\
+\midrule
+Rentas extractivas del subsuelo (% PIB)&      -0.010\sym{**} &      -0.007\sym{*}  \\
+                    &     (0.004)         &     (0.004)         \\
+\addlinespace
+Calidad institucional (INST)&       0.267\sym{*}  &       0.225\sym{*}  \\
+                    &     (0.137)         &     (0.112)         \\
+\addlinespace
+Rentas extractivas del subsuelo (% PIB) $\times$ Calidad institucional (INST)&      -0.005         &      -0.003         \\
+                    &     (0.003)         &     (0.004)         \\
+\addlinespace
+log(1 + OILPC)      &       0.028         &                     \\
+                    &     (0.038)         &                     \\
+\addlinespace
+log(1 + GASPC)      &       0.040         &                     \\
+                    &     (0.034)         &                     \\
+\addlinespace
+log(1 + COALPC)     &       0.011         &                     \\
+                    &     (0.026)         &                     \\
+\addlinespace
+Concentración exportadora (HHI)&      -0.535\sym{**} &      -0.553\sym{***}\\
+                    &     (0.225)         &     (0.205)         \\
+\addlinespace
+Exp. primarias no energéticas (% exp. merc.)&      -0.004\sym{***}&      -0.004\sym{***}\\
+                    &     (0.002)         &     (0.002)         \\
+\addlinespace
+Exp. combustibles (% exp. merc.)&      -0.007\sym{***}&      -0.006\sym{***}\\
+                    &     (0.002)         &     (0.002)         \\
+\addlinespace
+Volatilidad términos de intercambio (VOL)&      -0.003         &      -0.001         \\
+                    &     (0.002)         &     (0.003)         \\
+\addlinespace
+Tipo de cambio real (log pl\_gdpo)&      -0.087         &      -0.096         \\
+                    &     (0.098)         &     (0.100)         \\
+\addlinespace
+Capital humano (Índice retornos)&      -0.054         &      -0.045         \\
+                    &     (0.224)         &     (0.227)         \\
+\addlinespace
+Innovación (log 1 + art. científ./millón hab)&      -0.036         &      -0.042         \\
+                    &     (0.048)         &     (0.049)         \\
+\addlinespace
+Conectividad digital (% pob. internet)&      -0.001         &      -0.001         \\
+                    &     (0.002)         &     (0.002)         \\
+\addlinespace
+Nivel de desarrollo (log PIB pc PPA)&      -0.046         &       0.056         \\
+                    &     (0.221)         &     (0.196)         \\
+\addlinespace
+Consumo del gobierno (% PIB)&      -0.006         &      -0.006         \\
+                    &     (0.009)         &     (0.009)         \\
+\addlinespace
+Profundidad financiera (Crédito bancario % PIB)&      -0.001         &      -0.000         \\
+                    &     (0.002)         &     (0.002)         \\
+\addlinespace
+Renta petrolera per cápita (USD/hab)&                     &      -0.000         \\
+                    &                     &     (0.000)         \\
+\addlinespace
+Renta gasífera per cápita (USD/hab)&                     &      -0.000\sym{***}\\
+                    &                     &     (0.000)         \\
+\addlinespace
+Renta carbonífera per cápita (USD/hab)&                     &      -0.000         \\
+                    &                     &     (0.000)         \\
+\addlinespace
+Constant            &       0.765         &      -0.031         \\
+                    &     (2.273)         &     (2.001)         \\
+\midrule
+Observaciones       &    1044.000         &    1044.000         \\
+Países              &      49.000         &      49.000         \\
+R2 overall          &       0.169         &       0.086         \\
+\bottomrule
+\multicolumn{3}{l}{\footnotesize Standard errors in parentheses}\\
+\multicolumn{3}{l}{\footnotesize \sym{*} \(p<0.10\), \sym{**} \(p<0.05\), \sym{***} \(p<0.01\)}\\
+\end{tabular}
+\end{table}

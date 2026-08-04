@@ -1,0 +1,5 @@
+model,outcome,test_name,f_stat,p_val
+M1_MIN,ECI,Mecanismo Minería (rents + inter),7.213600235418927,.001823127607189
+M1_MIN,DIVX,Mecanismo Minería (rents + inter),.0861771642784997,.9175732967066619
+M2_MIN,ECI,Mecanismo Minería (rents + inter),4.067962099916014,.0233350452156964
+M2_MIN,DIVX,Mecanismo Minería (rents + inter),.4586030834783853,.6349071489447236

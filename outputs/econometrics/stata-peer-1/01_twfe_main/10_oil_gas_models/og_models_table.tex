@@ -1,0 +1,72 @@
+\begin{table}[htbp]\centering
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\caption{Modelos TWFE de Rentas de Hidrocarburos (Petróleo y Gas Natural)}
+\begin{tabular}{l*{4}{c}}
+\toprule
+                    &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}&\multicolumn{1}{c}{(4)}\\
+                    &\multicolumn{1}{c}{M1 ECI}&\multicolumn{1}{c}{M1 DIVX}&\multicolumn{1}{c}{M2 ECI}&\multicolumn{1}{c}{M2 DIVX}\\
+\midrule
+Rentas de hidrocarburos (% PIB)&     -0.0023         &     -0.0059\sym{***}&     -0.0112\sym{**} &     -0.0053\sym{***}\\
+                    &    (0.0047)         &    (0.0015)         &    (0.0050)         &    (0.0013)         \\
+\addlinespace
+Calidad institucional (INST)&      0.2183         &      0.0299         &      0.2980\sym{**} &      0.0224         \\
+                    &    (0.1417)         &    (0.0303)         &    (0.1374)         &    (0.0290)         \\
+\addlinespace
+Rentas hidrocarburos x INST&     -0.0027         &      0.0004         &     -0.0047         &      0.0012         \\
+                    &    (0.0040)         &    (0.0013)         &    (0.0044)         &    (0.0013)         \\
+\addlinespace
+log(1 + OILPC)      &      0.0138         &      0.0093         &                     &                     \\
+                    &    (0.0383)         &    (0.0080)         &                     &                     \\
+\addlinespace
+log(1 + GASPC)      &      0.0392         &      0.0050         &                     &                     \\
+                    &    (0.0369)         &    (0.0069)         &                     &                     \\
+\addlinespace
+log(1 + COALPC)     &     -0.0147         &     -0.0135\sym{**} &                     &                     \\
+                    &    (0.0326)         &    (0.0064)         &                     &                     \\
+\addlinespace
+Concentración exportadora (HHI)&     -0.5678\sym{**} &                     &                     &                     \\
+                    &    (0.2747)         &                     &                     &                     \\
+\addlinespace
+Exp. primarias no energéticas (% exp. merc.)&     -0.0040\sym{**} &      0.0016\sym{**} &                     &                     \\
+                    &    (0.0017)         &    (0.0006)         &                     &                     \\
+\addlinespace
+Exp. combustibles (% exp. merc.)&     -0.0067\sym{***}&     -0.0010         &                     &                     \\
+                    &    (0.0024)         &    (0.0010)         &                     &                     \\
+\addlinespace
+Nivel de desarrollo (log PIB pc PPA)&     -0.0808         &     -0.1336\sym{***}&     -0.1758         &     -0.1658\sym{***}\\
+                    &    (0.2050)         &    (0.0364)         &    (0.1975)         &    (0.0345)         \\
+\addlinespace
+Volatilidad términos de intercambio (VOL)&                     &                     &     -0.0030         &      0.0007         \\
+                    &                     &                     &    (0.0025)         &    (0.0010)         \\
+\addlinespace
+Tipo de cambio real (log pl\_gdpo)&                     &                     &     -0.1049         &     -0.0512         \\
+                    &                     &                     &    (0.1038)         &    (0.0403)         \\
+\addlinespace
+Capital humano (Índice retornos)&                     &                     &      0.1106         &      0.1293\sym{***}\\
+                    &                     &                     &    (0.2488)         &    (0.0416)         \\
+\addlinespace
+Innovación (log 1 + art. científ./millón hab)&                     &                     &     -0.0182         &      0.0089         \\
+                    &                     &                     &    (0.0480)         &    (0.0153)         \\
+\addlinespace
+Conectividad digital (% pob. internet)&                     &                     &     -0.0013         &     -0.0008\sym{*}  \\
+                    &                     &                     &    (0.0021)         &    (0.0004)         \\
+\addlinespace
+Consumo del gobierno (% PIB)&                     &                     &     -0.0065         &      0.0021         \\
+                    &                     &                     &    (0.0105)         &    (0.0016)         \\
+\addlinespace
+Profundidad financiera (Crédito bancario % PIB)&                     &                     &     -0.0002         &      0.0007\sym{*}  \\
+                    &                     &                     &    (0.0027)         &    (0.0004)         \\
+\addlinespace
+Constant            &      0.7771         &      2.0207\sym{***}&      1.2988         &      1.9338\sym{***}\\
+                    &    (1.9012)         &    (0.3435)         &    (2.2826)         &    (0.3298)         \\
+\midrule
+Observaciones       &        1044         &        1044         &        1044         &        1044         \\
+Países              &                     &                     &                     &                     \\
+R2 Within           &      0.1127         &      0.2510         &      0.0519         &      0.2377         \\
+Estadístico F       &       4.979         &      13.882         &       1.736         &      12.294         \\
+p-valor F           &      0.0001         &      0.0000         &      0.0937         &      0.0000         \\
+\bottomrule
+\multicolumn{5}{l}{\footnotesize Standard errors in parentheses}\\
+\multicolumn{5}{l}{\footnotesize \sym{*} \(p<0.10\), \sym{**} \(p<0.05\), \sym{***} \(p<0.01\)}\\
+\end{tabular}
+\end{table}
