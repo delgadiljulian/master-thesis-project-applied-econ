@@ -68,8 +68,8 @@ $availableStages = @{
         CompletionMarker = "Archivo 07 finalizado: secciones 15M a 18M sin errores."
     }
     "08" = [pscustomobject]@{
-        DoFile = "08_resource_disaggregated_integrated.do"
-        InternalLog = "07_resource_disaggregation\logs\08_resource_disaggregated_integrated.log"
+        DoFile = "08_twfe_resource_disaggregated_full.do"
+        InternalLog = "07_resource_disaggregation\logs\08_twfe_resource_disaggregated_full.log"
         CompletionMarker = "Archivo 08 finalizado: secciones 19 a 24 completadas sin errores."
     }
 }

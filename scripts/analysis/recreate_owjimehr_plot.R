@@ -90,8 +90,8 @@ p <- ggplot(df_plot, aes(x = year, y = eci, group = country_iso3_code)) +
     plot.margin = margin(t = 15, r = 25, b = 15, l = 15)
   )
 
-output_orig <- file.path(root, "outputs", "figures", "original", "chapter10_recreated_owjimehr.pdf")
-output_thesis <- file.path(root, "docs", "thesis", "figures", "chapter10_recreated_owjimehr.pdf")
+output_orig <- file.path(root, "outputs", "figures", "original", "recreated_owjimehr.pdf")
+output_thesis <- file.path(root, "docs", "thesis", "figures", "recreated_owjimehr.pdf")
 
 ggsave(output_orig, plot = p, width = 7.5, height = 5.2, device = cairo_pdf)
 ggsave(output_thesis, plot = p, width = 7.5, height = 5.2, device = cairo_pdf)

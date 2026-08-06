@@ -312,9 +312,8 @@
 	Las figuras construidas con el panel final permiten examinar dos dimensiones
 	de la heterogeneidad: la composición de las rentas extractivas entre países y
 	la evolución de la distribución anual de $ECI$ y $DIVX$. Las
-	visualizaciones elaboradas previamente con los datos reportados por
-	\textcite{Anne2021} se conservan como material complementario en el
-	\autoref{sec:figuras-anne2021}.
+	visualizaciones elaboradas con datos del panel maestro por grupo de ingreso
+	se presentan como material complementario en la \autoref{sec:figuras-panel-ingreso}.
 
 	La \autoref{fig:extractive-profile-cap10} utiliza los promedios nacionales de
 	los 53 países con información para los dos componentes. En 27 casos
@@ -397,6 +396,14 @@
 		\end{threeparttable}
 	\end{table}
 
+	Adicionalmente, el análisis de la distribución de la muestra por grupos de ingreso del Banco Mundial (\textit{LIC, LMIC, UMIC y HIC}), presentado formalmente mediante diagramas de caja con rotulación país por país en la \autoref{sec:figuras-panel-ingreso} del Apéndice A (\autoref{fig:panel-commodities-income}, \autoref{fig:panel-oil-gas-rents-income} y \autoref{fig:panel-mining-rents-income}), revela tres regularidades empíricas sustantivas para la investigación:
+
+	En primer lugar, la dependencia exportadora extractiva total ($DRES\%$, \autoref{fig:panel-commodities-income}) no exhibe un gradiente de reducción monotónica a medida que aumenta el ingreso per cápita. La mediana de $DRES\%$ se mantiene en niveles elevados a través de todos los tramos de ingreso (fluctuando entre el 50\% y el 77\%), abarcando desde economías de bajos ingresos (como Liberia \textit{LBR} o Yemen \textit{YEM}) hasta países de altos ingresos altamente especializados en bienes primarios (tales como Kuwait \textit{KWT}, Qatar \textit{QAT}, Arabia Saudita \textit{SAU} o Noruega \textit{NOR}).
+
+	En segundo lugar, la intensidad macroeconómica de las rentas de petróleo y gas natural ($RENTS^{OIL+GAS}$, \autoref{fig:panel-oil-gas-rents-income}) refleja el carácter de enclave intensivo en capital característico de los hidrocarburos. Su magnitud como porcentaje del PIB se concentra de manera predominante en economías de ingresos medios-altos (\textit{UMIC}, con valores atípicos sobresalientes como Irak \textit{IRQ}, Libia \textit{LBY} y Angola \textit{AGO}) y de altos ingresos (\textit{HIC}, con medianas del orden del 20\% del PIB), en donde la absorción de rentas extraordinarias impulsa artificialmente el PIB per cápita.
+
+	En tercer lugar, las rentas mineras ($RENTS^{MINING}$, \autoref{fig:panel-mining-rents-income}) exhiben una morfología opuesta: constituyen un fenómeno concentrado en economías de ingresos medios-bajos (\textit{LMIC}, con casos prominentes como Mongolia \textit{MNG}, Mauritania \textit{MRT}, Papúa Nueva Guinea \textit{PNG} y Zambia \textit{ZMB}) e ingresos medios-altos (\textit{UMIC}, tales como Chile \textit{CHL}, Surinam \textit{SUR}, Guyana \textit{GUY} y Perú \textit{PER}), perdiendo ponderación en economías de altos ingresos (con la excepción de Australia \textit{AUS}). Esta divergencia justifica metodológicamente la necesidad de desagregar el vector de recursos naturales en las estimaciones econométricas del modelo principal.
+
 	Para complementar esta caracterización descriptiva, la \autoref{fig:rents_eci_scatterplot} presenta el diagrama de dispersión entre las rentas de recursos naturales promedio y el ECI promedio para los 55 países de la muestra, contrastando el patrón de comportamiento entre economías desarrolladas (HIC) y en desarrollo (LIC, LMIC, UMIC). Se observa una relación negativa en promedio, representada por la línea de valores ajustados (Fitted values), consistente con las hipótesis de la maldición de los recursos naturales discutidas en el \autoref{chap:marco-teorico}.
 
 	\begin{figure}[htbp]
@@ -411,15 +418,17 @@
 
 	\begin{figure}[!htbp]
 		\centering
-		\begin{subfigure}{0.49\linewidth}
+		\begin{subfigure}{0.85\linewidth}
 			\centering
 			\includegraphics[width=\linewidth]{\subfix{../../figures/eci_annual_evolution}}
 			\caption[Evolución temporal promedio del ECI]{Evolución temporal del valor medio muestral del Índice de Complejidad Económica (ECI), 1996--2021.}
 			\label{fig:eci-annual-evolution-cap10}
 			\caption*{\footnotesize \textit{Fuente: Elaboración propia a partir del panel maestro.}}
 		\end{subfigure}
-		\hfill
-		\begin{subfigure}{0.49\linewidth}
+
+		\vspace{0.4cm}
+
+		\begin{subfigure}{0.85\linewidth}
 			\centering
 			\includegraphics[width=\linewidth]{\subfix{../../figures/divx_annual_evolution}}
 			\caption[Evolución anual de DIVX]{Evolución anual de la Diversificación Exportadora (DIVX), 1996--2021. La línea representa la mediana de los 55 países y la banda, el intervalo intercuartílico.}
@@ -457,15 +466,17 @@
 
 	\begin{figure}[!htbp]
 		\centering
-		\begin{subfigure}{0.49\linewidth}
+		\begin{subfigure}{0.85\linewidth}
 			\centering
 			\includegraphics[width=\linewidth]{\subfix{../../figures/rents_eci_country_means}}
 			\caption[RENTS vs. ECI promedio]{Rentas extractivas medias vs. ECI medio por país.}
 			\label{fig:rents-eci-means-cap10}
 			\caption*{\footnotesize \textit{Fuente: Elaboración propia a partir del panel maestro.}}
 		\end{subfigure}
-		\hfill
-		\begin{subfigure}{0.49\linewidth}
+
+		\vspace{0.4cm}
+
+		\begin{subfigure}{0.85\linewidth}
 			\centering
 			\includegraphics[width=\linewidth]{\subfix{../../figures/rents_divx_country_means}}
 			\caption[Rentas extractivas y DIVX por país]{Relación entre el promedio de las rentas extractivas (\% del PIB) y el promedio de DIVX por país, 1996--2021. La línea corresponde a la tendencia lineal y la banda a su intervalo de confianza del 95\%.}

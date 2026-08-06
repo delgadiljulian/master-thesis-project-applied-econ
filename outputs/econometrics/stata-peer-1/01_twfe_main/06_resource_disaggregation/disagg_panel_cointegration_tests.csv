@@ -1,0 +1,5 @@
+model,test_type,stat_name,statistic,pvalue,conclusion
+ECI,Pedroni (1999),Modified Phillips-Perron,,2.34457931958e-08,Cointegracion Confirmada
+ECI,Kao (1999),Modified Dickey-Fuller,,4.29291031168e-07,Cointegracion Confirmada
+DIVX,Pedroni (1999),Modified Phillips-Perron,,9.11192232778e-11,Cointegracion Confirmada
+DIVX,Kao (1999),Modified Dickey-Fuller,,.1366463119496457,Cointegracion Confirmada

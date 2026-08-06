@@ -131,7 +131,7 @@ No reemplazan los modelos agregados ni forman parte del núcleo principal.
 
 ### 8.3. Contraste desagregado formal: archivo 08
 
-8. `08_resource_disaggregated_integrated.do`: incorpora conjuntamente
+8. `08_twfe_resource_disaggregated_full.do`: incorpora conjuntamente
    RENTS_OIL_GAS y RENTS_MINING, con sus interacciones institucionales, como
    contraste desagregado formal del resultado agregado.
 

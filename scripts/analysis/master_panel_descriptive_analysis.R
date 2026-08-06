@@ -50,14 +50,13 @@ panel_file <- file.path(
 tables_path <- file.path(
   project_path,
   "outputs",
-  "tables",
-  "chapter10"
+  "tables"
 )
 figures_path <- file.path(
   project_path,
   "outputs",
   "figures",
-  "chapter10"
+  "original"
 )
 
 # Evaluar condición de control de flujo
@@ -998,10 +997,10 @@ input_manifest <- data.frame(
   stringsAsFactors = FALSE
 )
 
-# Funciones únicas que utilizarán los siguientes bloques del capítulo.
-write_chapter10_table <- function(data, filename) {
+# Funciones únicas que utilizarán los siguientes bloques del análisis.
+write_descriptive_table <- function(data, filename) {
   if (!grepl("[.]csv$", filename, ignore.case = TRUE)) {
-    stop("Las tablas intermedias del capítulo deben guardarse como CSV.")
+    stop("Las tablas intermedias deben guardarse como CSV.")
   }
   destination <- file.path(tables_path, filename)
   write.csv(
@@ -1015,7 +1014,7 @@ write_chapter10_table <- function(data, filename) {
 }
 
 # Definir función principal o auxiliar
-save_chapter10_figure_pdf <- function(
+save_descriptive_figure_pdf <- function(
     draw_figure,
     filename_stem,
     width = 8,
@@ -1051,31 +1050,31 @@ save_chapter10_figure_pdf <- function(
 }
 
 # Escribir los controles técnicos y las cuatro tablas para revisión.
-validation_file <- write_chapter10_table(
+validation_file <- write_descriptive_table(
   validation,
-  "chapter10_input_validation.csv"
+  "master_panel_input_validation.csv"
 )
-sample_summary_file <- write_chapter10_table(
+sample_summary_file <- write_descriptive_table(
   sample_summary,
-  "chapter10_sample_summary.csv"
+  "master_panel_sample_summary.csv"
 )
-manifest_file <- write_chapter10_table(
+manifest_file <- write_descriptive_table(
   input_manifest,
-  "chapter10_input_manifest.csv"
+  "master_panel_input_manifest.csv"
 )
-table_01_file <- write_chapter10_table(
+table_01_file <- write_descriptive_table(
   table_01_variable_sources_definitions_coverage,
   "table_01_variable_sources_definitions_coverage.csv"
 )
-table_02_file <- write_chapter10_table(
+table_02_file <- write_descriptive_table(
   table_02_descriptive_statistics,
   "table_02_descriptive_statistics.csv"
 )
-table_03_file <- write_chapter10_table(
+table_03_file <- write_descriptive_table(
   table_03_econometric_sample_comparison,
   "table_03_econometric_sample_comparison.csv"
 )
-table_04_file <- write_chapter10_table(
+table_04_file <- write_descriptive_table(
   table_04_missing_data_patterns,
   "table_04_missing_data_patterns.csv"
 )
@@ -2038,43 +2037,43 @@ draw_figure_07 <- function() {
 }
 
 # Ejecutar la siguiente instrucción del bloque
-figure_01_file <- save_chapter10_figure_pdf(
+figure_01_file <- save_descriptive_figure_pdf(
   draw_figure_01,
   "figure_01_dres_distribution",
   width = 8.4,
   height = 5.5
 )
-figure_02_file <- save_chapter10_figure_pdf(
+figure_02_file <- save_descriptive_figure_pdf(
   draw_figure_02,
   "figure_02_extractive_profile_country",
   width = 8.4,
   height = 6.0
 )
-figure_03_file <- save_chapter10_figure_pdf(
+figure_03_file <- save_descriptive_figure_pdf(
   draw_figure_03,
   "figure_03_eci_annual_evolution",
   width = 8.4,
   height = 5.5
 )
-figure_04_file <- save_chapter10_figure_pdf(
+figure_04_file <- save_descriptive_figure_pdf(
   draw_figure_04,
   "figure_04_divx_annual_evolution",
   width = 8.4,
   height = 5.5
 )
-figure_05_file <- save_chapter10_figure_pdf(
+figure_05_file <- save_descriptive_figure_pdf(
   draw_figure_05,
   "figure_05_rents_eci_country_means",
   width = 8.4,
   height = 5.5
 )
-figure_06_file <- save_chapter10_figure_pdf(
+figure_06_file <- save_descriptive_figure_pdf(
   draw_figure_06,
   "figure_06_rents_divx_country_means",
   width = 8.4,
   height = 5.5
 )
-figure_07_file <- save_chapter10_figure_pdf(
+figure_07_file <- save_descriptive_figure_pdf(
   draw_figure_07,
   "figure_07_eci_log_rents_quadrants",
   width = 8.4,
@@ -2082,7 +2081,7 @@ figure_07_file <- save_chapter10_figure_pdf(
 )
 
 # Ejecutar la siguiente instrucción del bloque
-message("Preparación reproducible del capítulo 10 completada.")
+message("Análisis descriptivo del panel maestro completado.")
 message("Panel validado: ", nrow(panel), " filas y ", country_count, " países.")
 message(
   "Cobertura individual de ECI: ",

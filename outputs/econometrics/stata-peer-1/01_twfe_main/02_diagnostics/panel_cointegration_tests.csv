@@ -1,0 +1,9 @@
+model,test_name,statistic_name,statistic,p_value,conclusion
+ECI,Pedroni,Modified PP t,,3.45246164990e-10,Existe Cointegracion de Largo Plazo
+ECI,Pedroni,ADF t,,,No Cointegrado
+ECI,Kao,Modified Dickey-Fuller t,,1.99840144433e-15,Existe Cointegracion de Largo Plazo
+ECI,Westerlund,Variance ratio,-3.268924608696485,.0005397853117001,Existe Cointegracion de Largo Plazo
+DIVX,Pedroni,Modified PP t,,2.12063699934e-12,Existe Cointegracion de Largo Plazo
+DIVX,Pedroni,ADF t,,,No Cointegrado
+DIVX,Kao,Modified Dickey-Fuller t,,.0010220154275559,Existe Cointegracion de Largo Plazo
+DIVX,Westerlund,Variance ratio,-2.396254897505027,.0082817835915708,Existe Cointegracion de Largo Plazo

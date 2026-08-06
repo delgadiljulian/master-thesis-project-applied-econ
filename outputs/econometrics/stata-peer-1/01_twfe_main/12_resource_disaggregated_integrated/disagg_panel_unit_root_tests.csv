@@ -1,0 +1,5 @@
+variable,spec,statistic,pvalue,conclusion
+rents_oil_gas,Niveles (Drift),389.125129388468,1.81393925873e-39,Estacionaria I(0)
+rents_oil_gas,Diferencias (Dri,880.550418725397,5.4252091534e-131,Estacionaria en d. (I(1)
+rents_mining,Niveles (Drift),360.6578140518267,5.88200675652e-36,Estacionaria I(0)
+rents_mining,Diferencias (Dri,708.0997529237596,1.89922446142e-99,Estacionaria en d. (I(1)

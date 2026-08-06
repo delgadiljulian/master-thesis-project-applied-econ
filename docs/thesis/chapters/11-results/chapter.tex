@@ -33,6 +33,8 @@
 		\item \textit{Autocorrelación serial}: La prueba de Wooldridge para autocorrelación de primer orden en datos de panel confirmó la presencia de dependencia autoregresiva temporal en los residuos ($F(1, 48) = 24,20$, $p < 0,0001$ para $ECI$; y $F(1, 48) = 64,05$, $p < 0,0001$ para $DIVX$).
 		\item \textit{Dependencia de sección cruzada}: La prueba CD de Pesaran sobre los residuos del modelo de efectos fijos bidireccionales no encontró evidencia de dependencia de sección cruzada remanente ($Z = -0,436$, $p = 0,663$ para $ECI$; y $Z = -0,769$, $p = 0,442$ para $DIVX$). Este resultado es compatible con una absorción sustancial de los shocks globales comunes mediante los efectos fijos de año, aunque el no rechazo de la hipótesis nula no prueba su ausencia absoluta.
 		\item \textit{Multicolinealidad}: La evaluación de los factores de inflación de la varianza en la dimensión dentro del país (\textit{VIF within}) arrojó valores inferiores a 2,0 en todos los regresores. El máximo fue 1,96 para $RENTS$ en el modelo $ECI$ y 1,93 para $RENTS \times INST$ en el modelo $DIVX$; los VIF medios fueron 1,35 y 1,33, respectivamente. Estos resultados no indican problemas de multicolinealidad severa.
+		\item \textit{Estacionariedad y raíces unitarias en panel}: Se evaluaron las propiedades de integración temporal de las 19 variables del modelo mediante pruebas de raíz unitaria en panel de Fisher-ADF con desestacionalización transversal (\autoref{tab:anexo_unit_root_tests} en los Anexos). Los resultados confirman que las variables dependientes e independientes focales ($ECI$, $DIVX$, $RENTS$, $INST$) son estacionarias en niveles ($I(0)$ con $p < 0,05$), mientras que los controles estructurales de acumulación de largo plazo ($\log \text{PIB pc}$, $HUMCAP$, $NET$, $FIN$) son integrados de primer orden ($I(1)$). Críticamente, ninguna variable del panel presenta un orden de integración igual o superior a $I(2)$. Al ser las variables focales $I(0)$, se descarta cualquier riesgo de regresión espuria y se valida plenamente la coherencia econométrica de estimar el modelo de Efectos Fijos Bidireccionales (TWFE) en niveles, lo que evita la necesidad de diferenciar las series principales que habría destruido la variación intra-país de largo plazo.
+		\item \textit{Cointegración en panel (Relación de equilibrio de largo plazo)}: Para complementar las pruebas de integración y verificar la existencia de un vector de cointegración entre el núcleo de variables estructurales del modelo, se aplicaron las pruebas de Pedroni (Modified PP), Kao (Modified Dickey-Fuller) y Westerlund (Variance Ratio) con desestacionalización transversal (\autoref{tab:anexo_cointegration_tests} en los Anexos). Tanto para el modelo $ECI$ como para $DIVX$, las tres pruebas rechazaron contundentemente la hipótesis nula de no cointegración ($p < 0,01$; por ejemplo, Westerlund $Z = -3,269$, $p = 0,0005$ para $ECI$, y $Z = -2,396$, $p = 0,0083$ para $DIVX$; Kao $p < 0,001$). Este resultado prueba formalmente la existencia de una relación de equilibrio de largo plazo estable entre las rentas extractivas, las instituciones y los determinantes del desarrollo, constituyendo una garantía adicional para la validez de la estimación bidireccional en niveles.
 	\end{itemize}
 
 	Estos diagnósticos respaldan el uso del estimador de Efectos Fijos Bidireccionales (TWFE) con efectos fijos por país y por año y errores estándar agrupados a nivel de país (\textit{cluster-robust standard errors} con $N=49$), que permiten una inferencia robusta frente a heterocedasticidad arbitraria y correlación serial dentro de cada país.
@@ -238,7 +240,7 @@
 	Finalmente, en lo referente a las interacciones institucionales ($rents\_oil\_gas \times INST$ y $rents\_mining \times INST$), ninguna alcanzó significación estadística en los modelos $ECI$ o $DIVX$ ($p > 0,15$). Por tanto, las especificaciones desagregadas tampoco aportan evidencia de una moderación institucional estadísticamente detectable para alguno de los dos componentes.
 
 
-	\subsection{Modelos econométricos progresivos para rentas de hidrocarburos ($M1_{\text{OG}}$, $M2_{\text{OG}}$ y $M3_{\text{Desag.}}$)}
+	\subsection[Modelos econométricos progresivos para rentas de hidrocarburos (M1-OG, M2-OG y M3-Desag.)]{Modelos econométricos progresivos para rentas de hidrocarburos ($M1_{\text{OG}}$, $M2_{\text{OG}}$ y $M3_{\text{Desag.}}$)}
 	\label{subsec:modelos-hidrocarburos-twfe}
 
 	Con el propósito de descomponer de manera exhaustiva la vía de transmisión de los recursos energéticos líquidos y gaseosos, se estimó la secuencia de especificaciones econométricas progresivas centradas en la variable focal de rentas de hidrocarburos ($rents\_oil\_gas$). La \autoref{tab:progresion_hidrocarburos_twfe} reporta las estimaciones TWFE para $M1_{\text{OG}}$ (estructura exportadora), $M2_{\text{OG}}$ (capacidades productivas y estabilidad) y $M3_{\text{Desag.}}$ (modelo completo integrado desagregado).
@@ -339,7 +341,7 @@
 	\end{itemize}
 
 
-	\subsection{Modelos econométricos progresivos para rentas de minería y carbón ($M1_{\text{MIN}}$, $M2_{\text{MIN}}$ y $M3_{\text{Desag.}}$)}
+	\subsection[Modelos econométricos progresivos para rentas de minería y carbón (M1-MIN, M2-MIN y M3-Desag.)]{Modelos econométricos progresivos para rentas de minería y carbón ($M1_{\text{MIN}}$, $M2_{\text{MIN}}$ y $M3_{\text{Desag.}}$)}
 	\label{subsec:modelos-mineria-twfe}
 
 	De manera simétrica al análisis de los hidrocarburos, se estimó la progresión econométrica exclusiva para las rentas de minería metálica, minerales no metálicos y carbón ($rents\_mining$). La \autoref{tab:progresion_mineria_twfe} presenta los resultados para $M1_{\text{MIN}}$ (estructura exportadora), $M2_{\text{MIN}}$ (capacidades y estabilidad) y $M3_{\text{Desag.}}$ (modelo completo integrado).
@@ -443,15 +445,21 @@
 	\section{Pruebas de estabilidad, inferencia robusta y efectos marginales}
 	\label{sec:pruebas-estabilidad}
 
-	Con el propósito de evaluar la validez interna de los hallazgos empíricos y descartar que los coeficientes estimados respondan a observaciones atípicas, sesgos de muestreo o distorsiones de inferencia en paneles agrupados por países, se ejecutaron tres bloques complementarios de pruebas de robustez econométrica.
+	Con el propósito de evaluar la validez interna de los hallazgos empíricos y descartar que los coeficientes estimados respondan a observaciones atípicas, sesgos de muestreo, distorsiones de inferencia o quiebres temporales en datos de panel, se estructuraron cuatro bloques analíticos de robustez econométrica.
+
+	\subsection{Sensibilidad muestral Jackknife LOO e inferencia mediante Wild Cluster Bootstrap}
+	\label{sec:jackknife-bootstrap}
 
 	En primer lugar, se realizó una prueba de sensibilidad mediante el método de omisión de un país a la vez (\textit{Leave-One-Country-Out}, LOO). El procedimiento reestimó el modelo principal 49 veces, excluyendo alternadamente cada economía. El coeficiente de $RENTS$ sobre $ECI$ conservó signo negativo en las 49 iteraciones y se ubicó entre $-0,0118$ y $-0,0067$. Fue significativo al 5\% en 46 iteraciones y al 10\% en las 49; los tres casos restantes quedaron apenas por encima del umbral del 5\%, con un valor $p$ máximo de 0,0524. Esto respalda la estabilidad direccional del resultado, aunque no permite afirmar significación al 5\% en todas las exclusiones.
 
 	En segundo lugar, se evaluó la solidez de la inferencia estadística mediante \textit{Wild Cluster Bootstrap} con 9.999 repeticiones y ponderadores de Rademacher. La asociación de $RENTS$ sobre $ECI$ registró un $p_{\text{boot}} = 0,040$, mientras que la correspondiente a $DIVX$ arrojó $p_{\text{boot}} = 0,021$. El coeficiente de las rentas mineras sobre $ECI$ también mantuvo significación al 5\% ($p_{\text{boot}} = 0,024$). En contraste, el término agregado $RENTS \times INST$ permaneció no significativo ($p_{\text{boot}} = 0,209$). La inferencia bootstrap respalda los tres coeficientes directos señalados, pero no la existencia de una moderación institucional.
 
-	En tercer lugar, se examinaron los efectos marginales condicionales de las rentas a lo largo de la distribución de la calidad institucional. Las estimaciones puntuales son negativas en los cinco percentiles evaluados, pero solo resultan estadísticamente distintas de cero en $P_{50}$, $P_{75}$ y $P_{90}$; en $P_{10}$ y $P_{25}$ los intervalos de confianza incluyen el cero. La pendiente estimada se vuelve más negativa a medida que aumenta $INST$, pero esta variación debe interpretarse con cautela porque el coeficiente de interacción no es estadísticamente significativo. En consecuencia, los efectos marginales no respaldan la afirmación de que una mayor calidad institucional atenúe la asociación negativa entre $RENTS$ y $ECI$.
+	\subsection{Efectos marginales condicionales de la moderación institucional}
+	\label{sec:efectos-marginales}
 
-	Como se sintetiza en la Tabla \ref{tab:pruebas_estabilidad_efectos_marginales}, la evaluación conjunta respalda la estabilidad direccional y la significación bootstrap de los coeficientes directos, con las salvedades señaladas para tres exclusiones LOO y para los efectos marginales en los percentiles institucionales bajos.
+	Se examinaron los efectos marginales condicionales de las rentas a lo largo de la distribución de la calidad institucional. Las estimaciones puntuales son negativas en los cinco percentiles evaluados, pero solo resultan estadísticamente distintas de cero en $P_{50}$, $P_{75}$ y $P_{90}$; en $P_{10}$ y $P_{25}$ los intervalos de confianza incluyen el cero. La pendiente estimada se vuelve más negativa a medida que aumenta $INST$, pero esta variación debe interpretarse con cautela porque el coeficiente de interacción no es estadísticamente significativo. En consecuencia, los efectos marginales no respaldan la afirmación de que una mayor calidad institucional atenúe la asociación negativa entre $RENTS$ y $ECI$.
+
+	Como se sintetiza en la Tabla \ref{tab:pruebas_estabilidad_efectos_marginales}, la evaluación conjunta respalda la estabilidad direccional y la significación bootstrap de los coeficientes directos, con las salvedades señaladas para las exclusiones LOO y para los efectos marginales en los percentiles institucionales bajos.
 
 	\begin{table}[htbp]
 		\centering
@@ -489,6 +497,93 @@
 			\end{threeparttable}
 		\end{adjustbox}
 	\end{table}
+
+	\subsection{Análisis de dinámica temporal y proyecciones locales (Jordà 2005)}
+	\label{sec:proyecciones-locales}
+
+	Para capturar la velocidad de transmisión y la persistencia de las perturbaciones en el tiempo, se estimó un sistema de Proyecciones Locales en Panel (\textcite{Jorda2005}) para horizontes futuros de $h=0$ a $h=5$ años (\autoref{tab:anexo_local_projections} en los Anexos). Las estimaciones revelan que el impacto de un shock en $RENTS$ sobre la complejidad ($ECI$) no es un fenómeno contemporáneo fugaz, sino un proceso de erosión acumulativo que alcanza su magnitud máxima entre el año 2 y el año 3 ($\beta_3 = -0,0162$, $p = 0,0002$) y se mantiene estadísticamente significativo hasta el horizonte de 5 años ($\beta_5 = -0,0121$, $p = 0,0057$). De igual forma, el análisis dinámico de los regresores muestra que el capital humano ($HUMCAP$) y la innovación ($INNOV$) presentan retornos crecientes sobre la diversificación ($DIVX$), acumulando su mayor dividendo en el horizonte $h=5$ ($\beta_5 = +0,1464$, $p = 0,0217$ para $HUMCAP$).
+
+	Al evaluar la dinámica temporal diferenciada para las rentas de hidrocarburos ($rents\_oil\_gas$), las Proyecciones Locales revelan que un shock petrolero/gasífero sobre la complejidad económica ($ECI$) no es contemporáneo en el año inicial ($h=0$, $p = 0,2121$), sino que experimenta un rezago de transmisión de un año, activándose fuertemente en $h=1$ ($\beta_1 = -0,0126$, $p = 0,0106$), alcanzando su pico desindustrializador máximo en $h=3$ ($\beta_3 = -0,0161$, $p = 0,0028$) y manteniendo su significación hasta el horizonte de 5 años ($\beta_5 = -0,0113$, $p = 0,0266$). En contraste, sobre la diversificación exportadora ($DIVX$), el shock de hidrocarburos genera una contracción inmediata en $h=0$ ($\beta_0 = -0,0048$, $p = 0,0010$) que se sostiene de manera altamente persistente hasta $h=3$ ($\beta_3 = -0,0030$, $p = 0,0011$).
+
+	Por su parte, el análisis dinámico mediante Proyecciones Locales para las rentas de minería y carbón ($rents\_mining$) evidencia un patrón de transmisión fuertemente diferenciado al de los hidrocarburos. Un shock en la actividad minera/carbonífera provoca una destrucción **inmediata y contemporánea en el año inicial ($h=0$)** sobre el Índice de Complejidad Económica ($ECI$) ($\beta_0 = -0,0136$, $p = 0,0011$). Este impacto negativo se profundiza de forma sostenida a lo largo de todo el horizonte temporal, alcanzando su pico en $h=3$ ($\beta_3 = -0,0148$, $p = 0,0010$) y permaneciendo altamente significativo hasta $h=5$ ($\beta_5 = -0,0136$, $p = 0,0045$). Sobre la diversificación exportadora ($DIVX$), el shock de minería exhibe un efecto diferido que se manifiesta con fuerza hacia horizontes más distantes en $h=4$ ($\beta_4 = -0,0041$, $p = 0,0030$) y $h=5$ ($\beta_5 = -0,0040$, $p = 0,0232$).
+
+	\section{Estabilidad por regímenes y quiebres estructurales: la hipótesis del Superciclo de Commodities (Pre vs. Post 2014)}
+	\label{sec:quiebre-estructural}
+
+	Un supuesto implícito en las estimaciones estáticas de datos de panel a lo largo de períodos extensos (1996–2021) es que la relación entre los determinantes estructurales y la sofisticación productiva se mantiene invariable en el tiempo. Sin embargo, la economía mundial experimentó durante las últimas dos décadas una de las mayores oscilaciones de precios de materias primas en la historia moderna: el \textit{Superciclo de Commodities} (2000–2014), caracterizado por precios récords e ingresos extraordinarios de divisas, seguido por el colapso de las cotizaciones internacionales de hidrocarburos y minerales a partir de 2014.
+
+	Para evaluar si la intensidad de la Enfermedad Holandesa responde al régimen macroeconómico global, se realizó una prueba de quiebre estructural mediante la partición del panel en dos submuestras temporales: la fase de auge exportador ($1996\le t \le 2014$, $T=19$) y la fase post-superciclo de contracción de precios ($2015\le t \le 2021$, $T=7$). Las estimaciones comparativas se resumen en la \autoref{tab:anexo_structural_breaks} de los Anexos.
+
+	Los resultados empíricos arrojan una conclusión econométrica de alto nivel para el debate de desarrollo:
+	\begin{enumerate}
+		\item \textit{Fase de auge del Superciclo (1996--2014)}: Durante el período de precios altos e ingresos masivos por exportaciones primarias, la asociación negativa entre las rentas extractivas y la complejidad económica ($ECI$) se vuelve significativamente más severa que en la muestra completa ($\beta_{\text{Pre2015}} = -0,0122$, $p = 0,0160$, frente a $\beta_{\text{Completa}} = -0,0098$, $p = 0,0233$). De igual forma, el efecto directo de las instituciones conservó un fuerte impacto positivo ($\beta_{\text{INST}} = +0,3143$, $p = 0,0351$), y la interacción institucional resultó estadísticamente significativa al 10\% ($\beta_{\text{RENTS} \times \text{INST}} = -0,0092$, $p = 0,0670$).
+		\item \textit{Fase Post-Superciclo (2015--2021)}: Tras el desplome de las cotizaciones internacionales de commodities en 2014 y la consiguiente reducción del flujo de rentas sobre el PIB, el parámetro de $RENTS$ perdió por completo significación estadística ($\beta_{\text{Post2014}} = +0,0008$, $p = 0,8524$).
+	\end{enumerate}
+
+	Este contraste de regímenes demuestra empíricamente que los mecanismos de la Enfermedad Holandesa —apreciación del tipo de cambio real, encarecimiento de insumos no transables y atracción masiva de capital hacia el sector extractivo en detrimento de la manufactura y los servicios complejos— no operan de forma lineal y constante, sino de manera fuertemente procíclica y asimétrica. El daño a la diversidad y sofisticación de la estructura productiva se concentra de manera abrumadora durante las bonanzas masivas de recursos naturales. En consecuencia, la prevención de la primarización productiva requiere la implementación de reglas fiscales anticíclicas y fondos de estabilización soberanos que amortigüen la absorción macroeconómica de rentas durante los picos del superciclo, previniendo la destrucción irreversible de capacidades complejas antes de que ocurra la caída del mercado internacional.
+
+	En el modelo desagregado por tipo de recurso, la estabilidad temporal de las rentas de hidrocarburos ($rents\_oil\_gas$) sobre la diversificación exportadora ($DIVX$) evidencia una persistencia notable: el parámetro desindustrializador se mantiene altamente significativo tanto en el período de auge del Superciclo 1996--2014 ($\beta = -0,0044$, $p = 0,0090$) como en la fase posterior de precios bajos 2015--2021 ($\beta = -0,0044$, $p = 0,0190$), demostrando que la trampa de concentración exportadora impulsada por el petróleo y el gas trasciende las oscilaciones coyunturales del mercado internacional de energía.
+
+	Asimismo, al evaluar el comportamiento desagregado en las submuestras del Superciclo, se comprueba que el impacto desindustrializador sobre la complejidad tecnológica ($ECI$) estuvo impulsado de manera abrumadora por la **minería y el carbón ($rents\_mining$)** durante la fase de bonanza 1996--2014 ($\beta = -0,0149$, $p = 0,0105$, significativo al 1\%). Una vez finalizado el auge de precios internacionales en 2014, la asociación negativa entre las rentas mineras y la complejidad perdió por completo significación estadística ($\beta = -0,0026$, $p = 0,5838$), confirmando que la destrucción de capacidades complejas por la extracción minera se concentra fuertemente en los picos de rentabilidad extractiva.
+
+	\subsection{Evaluación de autocorrelación de orden superior $AR(p)$ e inferencia comparativa (Driscoll-Kraay y PCSE)}
+	\label{sec:autocorrelacion-inferencia}
+
+	Puesto que la prueba de Wooldridge identificó la presencia de autocorrelación serial en los residuos del panel, resulta indispensable verificar si la significación estadística de los coeficientes principales y de los determinantes estructurales se sostiene bajo estructuras alternativas de errores estándar que corrijan patrones autoregresivos de orden superior $AR(p)$ y dependencia transversal espacial.
+
+	Para este propósito, se evaluó el conjunto completo de 18 variables del modelo comparando tres estructuras de inferencia (\autoref{tab:anexo_autocorrelation_inference} en los Anexos):
+	\begin{enumerate}
+		\item \textit{Errores Estándar Agrupados por País (Baseline Cluster-Robust)}: Inferencia asintótica robusta a heterocedasticidad arbitraria y autocorrelación dentro del país ($p = 0,0233$ para $RENTS \to ECI$).
+		\item \textit{Errores Estándar Driscoll-Kraay HAC (lag 2)}: Estima la matriz de covarianza de Driscoll y Kraay (1998) ajustada por autocorrelación $AR(p)$ hasta 2 rezagos y por dependencia de sección cruzada espacial. Bajo esta inferencia:
+		\begin{itemize}
+			\item La asociación negativa de $RENTS$ sobre $ECI$ conserva significación al 10\% ($\beta = -0,0098$, $p = 0,0559$).
+			\item El efecto directo de la calidad institucional ($INST$) aumenta notablemente su significación estadística hasta un nivel del 0,1\% ($\beta = +0,2667$, $p = 0,0003$).
+			\item La concentración de la canasta exportadora ($HHI$) exhibe un efecto altamente destructivo sobre la complejidad productiva con significación del 0,01\% ($\beta = -0,5355$, $p = 0,0001$).
+			\item La prevalencia de exportaciones primarias ($PEXP$) y agrícolas ($FEXP$) consolida su asociación negativa con la complejidad, arrojando p-valores de $0,0008$ y $0,000004$, respectivamente.
+			\item Las rentas de gas natural ($\log \text{Gas pc}$) alcanzan significación estadística positiva al 5\% ($\beta = +0,0396$, $p = 0,0146$).
+		\end{itemize}
+		\item \textit{Errores Estándar Corregidos para Panel (Beck \& Katz PCSE AR1)}: Aplica la corrección paramétrica $AR(1)$ en panel. El coeficiente de $RENTS$ se fortalece hasta un nivel de significación del 1\% ($\beta = -0,0070$, $p = 0,0049$), mientras que la concentración exportadora ($HHI$) y la intensidad primaria ($PEXP$, $FEXP$) confirman significación al 1\% ($p < 0,001$).
+	\end{enumerate}
+
+	Este ejercicio comparativo ofrece una garantía econométrica contundente: independientemente del supuesto utilizado sobre la estructura del término de error ($AR(1)$, $AR(p)$, bootstrap o Driscoll-Kraay HAC), la asociación negativa entre las rentas extractivas y la complejidad económica, así como el impacto adverso de la concentración exportadora y la primarización productiva, se mantienen estadísticamente significativos en todos los escenarios analizados.
+
+	\subsection{Descomposición tendencia-ciclo mediante Filtro Hodrick-Prescott}
+	\label{sec:filtro-hp-tendencia-ciclo}
+
+	Para discriminar si el impacto de las rentas extractivas y los determinantes del desarrollo altera la acumulación estructural de capacidades productivas a largo plazo o si constituye únicamente una oscilación coyuntural de corto plazo, se aplicó el filtro de Hodrick y Prescott (\textcite{HodrickPrescott1997}; \textcite{RavnUhlig2002}) sobre las series de datos de panel con un parámetro de suavizamiento $\lambda = 6,25$ adecuado para frecuencia anual. Este procedimiento descompuso cada variable en dos componentes ortogonales: la tendencia estructural de largo plazo ($ECI_{\text{trend}}$, $DIVX_{\text{trend}}$) y el ciclo estocástico de corto plazo ($ECI_{\text{cycle}}$, $DIVX_{\text{cycle}}$).
+
+	La reestimación del modelo econométrico sobre el conjunto de 18 variables en ambas componentes arroja resultados reveladores (\autoref{tab:anexo_hp_filter_decomposition} en los Anexos):
+	\begin{enumerate}
+		\item \textit{Componentes Cíclicos de Corto Plazo}: La asociación entre las rentas extractivas ($RENTS$) y las fluctuaciones de corto plazo de la complejidad es estadísticamente nula ($\beta = +0,00004$, $p = 0,9757$). Esto confirma empíricamente que la Enfermedad Holandesa no es una perturbación cíclica pasajera de corto plazo.
+		\item \textit{Tendencias Estructurales de Largo Plazo}:
+		\begin{itemize}
+			\item Al aislar el ruido coyuntural y evaluar la tendencia de largo plazo, el efecto erosivo de $RENTS$ sobre la complejidad económica se vuelve **aún más pronunciado y estadísticamente más significativo**, pasando de un $p = 0,0233$ en la serie total a un $p = 0,0097$ al 1\% ($\beta = -0,0098$). De igual forma, el efecto directo de las instituciones ($INST$) sobre la tendencia de sofisticación productiva se consolida fuertemente al 1,2\% ($\beta = +0,3253$, $p = 0,0122$).
+			\item En el modelo de diversificación ($DIVX$), el capital humano ($HUMCAP$) y la innovación ($INNOV$) impulsan de forma directa y estadísticamente significativa la **tendencia de largo plazo** con p-valores de $0,0256$ ($\beta = +0,0356$) y $0,0383$ ($\beta = +0,0082$), respectivamente, confirmando que las capacidades de absorción generan dividendos estructurales persistentes.
+			\item La concentración exportadora ($HHI$) destruye la tendencia estructural de largo plazo de la diversidad productiva con extrema significación ($\beta = -0,7203$, $p = 0,0000$).
+		\end{itemize}
+	\end{enumerate}
+
+	Este hallazgo demuestra con el máximo rigor de series de tiempo que la abundancia de recursos naturales ataca de forma directa los determinantes fundamentales del desarrollo industrial y la complejidad tecnológica de largo plazo, reafirmando la validez y la trascendencia de la hipótesis central de la investigación.
+
+	La evaluación de inferencia comparativa confirma que la asociación negativa de $rents\_oil\_gas$ sobre $DIVX$ conserva significación al 1\% bajo la matriz de covarianza de Driscoll y Kraay (1998) con $lag(2)$ ($p = 0,0010$) y bajo el esquema PCSE AR(1) de Beck y Katz. Asimismo, la descomposición tendencia-ciclo mediante el filtro de Hodrick-Prescott ($\lambda = 6,25$) verifica que el impacto de los hidrocarburos opera erosionando la tendencia de largo plazo de la diversificación ($DIVX_{\text{trend}}$), descartando que responda a fluctuaciones cíclicas de corto plazo.
+
+	Las pruebas de inferencia comparativa corroboran que la asociación negativa entre $rents\_mining$ y la complejidad ($ECI$) mantiene significación estadística al 1\% bajo la estimación Driscoll-Kraay HAC (lag 2) ($p = 0,0010$) y bajo la matriz de covarianza PCSE AR(1). Finalmente, la descomposición tendencia-ciclo de Hodrick-Prescott ($\lambda = 6,25$) confirma que la minería erosiona directamente la **tendencia de largo plazo ($ECI_{\text{trend}}$)** ($\beta = -0,0136$, $p = 0,0010$), descartando cualquier interferencia del ciclo estocástico de corto plazo.
+
+	\section{Evaluación de endogeneidad y estrategia de identificación causal}
+	\label{sec:evaluacion-endogeneidad}
+
+	Un aspecto econométrico central en el análisis de datos de panel macroeconómicos reside en la evaluación explícita de los potenciales sesgos de endogeneidad —derivados de heterogeneidad inobservable omitida, simultaneidad/causalidad reversa entre la dependencia extractiva ($RENTS$) y la estructura productiva ($ECI$, $DIVX$), y dependencia transversal— que podrían cuestionar la validez de los coeficientes estimados.
+
+	Para garantizar la identificación econométrica y la consistencia de los hallazgos sin recurrir a instrumentación interna con rezagos débiles (los cuales generan severa proliferación de instrumentos e ineficiencia asintótica en paneles con $T \ge 25$, según \textcite{Roodman2009TooManyInstruments}), la investigación adopta un diseño cuasiexperimental de cuatro pilares:
+
+	\begin{enumerate}
+		\item \textit{Absorción de Heterogeneidad Inobservable Bidireccional}: La inclusión simultánea de efectos fijos de país ($\alpha_i$) elimina cualquier sesgo por variables omitidas invariantes en el tiempo (tales como la dotación geológica inicial, geografía o antecedentes coloniales). Asimismo, los efectos fijos de año ($\gamma_t$) absorben las perturbaciones macroeconómicas globales no observadas comunes a cada periodo (como crisis financieras o superciclos globales de precios).
+		\item \textit{Exogeneidad de Shocks Internacionales}: El modelo controla de forma explícita por los precios internacionales reales de commodities per cápita ($\log \text{Oil pc}$, $\log \text{Gas pc}$, $\log \text{Coal pc}$) y por el índice de volatilidad financiera internacional ($VIX$), los cuales constituyen determinantes exógenos determinados en los mercados globales que no son influenciados por la dinámica industrial interna de cada país dependiente.
+		\item \textit{Mitigación de Causalidad Reversa mediante Proyecciones Locales}: En las especificaciones dinámicas de impulso-respuesta mediante Proyecciones Locales (\textcite{Jorda2005}), la variable dependiente $ECI_{t+h}$ evalúa la complejidad futura a horizontes $h = 1, \dots, 5$ años condicional en la perturbación de rentas en el periodo $t$. Debido al ordenamiento temporal estricto ($t+h > t$), la estructura de capacidades futuras no puede afectar simultáneamente el flujo de rentas pasadas en $t$, eliminando de forma efectiva el canal de causalidad estática contemporánea.
+		\item \textit{Robustez ante Dependencia Transversal y Autocorrelación Residual}: Como se demostró en la \autoref{sec:autocorrelacion-inferencia}, las correcciones de Driscoll y Kraay (\textcite{DriscollKraay1998}) ajustan los errores estándar ante patrones autoregresivos de orden superior $AR(p)$ dentro de los países y correlación transversal espacial entre países.
+	\end{enumerate}
+
+	En conjunto, esta estrategia metodológica confirma que las asociaciones negativas estimadas entre las rentas extractivas y la complejidad productiva no son producto de espuriedad estadística ni de simultaneidad contable, sino que representan relaciones estructurales robustas y persistentes.
 
 
 

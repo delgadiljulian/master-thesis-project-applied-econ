@@ -246,7 +246,7 @@
 			\multicolumn{4}{p{14.1cm}}{\textit{Nota: Los países se ordenan por código \isocode{ISO3} de izquierda a derecha y de arriba abajo. \isocode{COD} y \isocode{COG} representan dos países distintos: República Democrática del Congo y República del Congo, respectivamente. $DRES$ medio corresponde al promedio simple de las seis observaciones anuales de 1990--1995. Todos los países satisfacen $DRES\geq 20\%$ y cuentan con información comercial completa durante el período base.}} \\
 		\end{longtable}
 	\end{footnotesize}
-	\thesissource{Elaboración propia a partir de \texttt{data/processed/dres/dres\_sample\_20.csv}.}
+\thesissource{Elaboración propia a partir de \texttt{data/processed/dres/dres\_sample\_20.csv}.}
 
 	\section{Figuras conceptuales y esquemas analíticos}
 	\label{sec:figuras}
@@ -255,190 +255,112 @@
 
 	\begin{figure}[htbp]
 		\centering
-		\resizebox{\linewidth}{!}{%
+		\resizebox{0.95\textwidth}{!}{%
 			\begin{tikzpicture}[
 				font=\small,
-				node distance=1.55cm and 2.9cm,
 				box/.style={
 					draw,
 					rectangle,
 					rounded corners=6pt,
 					align=center,
-					minimum width=6.0cm,
-					minimum height=1.05cm,
-					inner sep=6pt
+					minimum width=12.4cm,
+					inner sep=6pt,
+					fill=gray!4,
+					line width=0.85pt
 				},
 				sidebox/.style={
 					draw,
 					rectangle,
 					rounded corners=6pt,
 					align=center,
-					minimum width=4.3cm,
-					minimum height=0.95cm,
-					inner sep=6pt
+					minimum width=5.4cm,
+					inner sep=6pt,
+					fill=gray!2,
+					line width=0.85pt
 				},
-				arrow/.style={-{Stealth[length=3mm]}, line width=0.7pt}
+				arrow/.style={-{Stealth[length=3mm]}, line width=0.9pt},
+				dasharrow/.style={-{Stealth[length=3mm]}, line width=0.9pt, dashed}
 				]
 
-				% Columna central
-				\node[box] (res) {Dependencia externa de recursos\\[2pt]\textit{(DRES)}};
+				% Nivel 1: Selección (y = 7.5)
+				\node[box] (dres) at (0, 7.5) {\textbf{Criterio de Selección Muestral}\\[3pt]
+					Dependencia externa de recursos ($DRES \ge 20\%$); 49 economías (1996--2021)};
 
-				\node[box, below=of res] (canales) {Canales productivos\\
-					Enfermedad holandesa\\
-					Enclaves productivos\\
-					Tipo de cambio real};
+				% Nivel 2: Mecanismo focal (y = 5.0)
+				\node[box] (rents) at (0, 5.0) {\textbf{Mecanismo Explicativo y Heterogeneidad Sectorial}\\[3pt]
+					Rentas Extractivas Totales ($RENTS$)\\[2pt]
+					\footnotesize Hidrocarburos ($rents\_oil\_gas$) \quad $\cdot$ \quad Minería y Carbón ($rents\_mining$)};
 
-				\node[box, below=1.9cm of canales] (resultados) {Transformación estructural externa\\
-					Complejidad económica\\
-					Diversificación exportadora\\
-					Capacidades reveladas};
+				% Nivel 3: Canales explicativos (y = 2.4, x=-3.6 y x=+3.6 -> deja 1.8cm libres al centro)
+				\node[sidebox] (inst) at (-3.6, 2.4) {\textbf{Canal Institucional}\\[3pt]
+					Calidad inst. ($INST, \beta = +0,267^*$)\\[2pt]
+					\footnotesize Interacción $RENTS \times INST$: No signif.};
 
-				% Laterales
-				\node[sidebox, left=of canales] (inst) {Instituciones\\[2pt]\textit{(INST)}};
-				\node[sidebox, right=of canales] (vol) {Volatilidad externa\\[2pt]\textit{(VOL)}};
-				\node[sidebox, right=of resultados] (govcons) {Consumo gubernamental\\[2pt]\textit{(GOVCONS)}};
+				\node[sidebox] (cap) at (3.6, 2.4) {\textbf{Capacidades y Estructura}\\[3pt]
+					Capital humano ($HUMCAP, \beta = +0,107^{**}$)\\[2pt]
+					\footnotesize Combustibles $FEXP \to ECI$ ($-$)};
+
+				% Nivel 4: Resultados (y = -0.3)
+				\node[box] (out) at (0, -0.3) {\textbf{Resultados de Transformación Estructural Externa}\\[4pt]
+					Complejidad cualitativa ($ECI, \beta_{RENTS} = -0,010^{**}, p = 0,023$)\\[2pt]
+					Diversificación cuantitativa ($DIVX, \beta_{RENTS} = -0,004^{***}, p = 0,009$)};
 
 				% Flechas
-				\draw[arrow] (res) -- (canales);
-				\draw[arrow] (canales) -- (resultados);
+				\draw[arrow] (dres) -- (rents);
+				\draw[arrow] (rents) -- (out);
 
-				\draw[arrow] (inst) -- node[above, font=\small] {modula} (canales);
-				\draw[arrow] (vol) -- node[above, font=\small] {condiciona} (canales);
-				\draw[arrow] (govcons) -- node[above, font=\small] {controla} (resultados);
+				\draw[dasharrow] (inst) -- (out);
+				\draw[arrow] (cap) -- (out);
 
 			\end{tikzpicture}%
 		}
 
-		\caption[Arquitectura conceptual de la transición estructural]{Arquitectura conceptual de los mecanismos que vinculan la dependencia externa de recursos naturales con la complejidad económica, la diversificación exportadora y la acumulación de capacidades reveladas.}
+		\caption[Arquitectura conceptual y hallazgos empíricos de los mecanismos econométricos]{Arquitectura conceptual y hallazgos empíricos de los mecanismos que vinculan la dependencia de recursos naturales ($DRES$), las rentas extractivas ($RENTS$), las instituciones ($INST$), el capital humano ($HUMCAP$) y la estructura exportadora con la complejidad económica ($ECI$) y la diversificación ($DIVX$).}
 
 		\label{fig:arquitectura-mecanismos}
-		\caption*{\footnotesize \textit{Fuente: Elaboración propia.}}
+		\caption*{\footnotesize \textit{Fuente: Elaboración propia a partir de las estimaciones econométricas TWFE del panel (Capítulo 11).}}
 	\end{figure}
 
 	Con el fin de evaluar un resultado complementario de transformación estructural externa, la tesis contrasta el modelo basado en el \textit{Economic Complexity Index} (ECI) con una segunda especificación en la que la variable dependiente corresponde a la diversificación exportadora ($DIVX=1-HHI$). Esta medida no reemplaza al ECI, sino que permite observar si los mecanismos asociados a la sofisticación de la canasta exportadora también se relacionan con una menor concentración de dicha canasta. En el modelo con $DIVX$, $HHI$ se excluye del conjunto de regresores para evitar una relación mecánica entre la variable dependiente y sus componentes de construcción.
-
-	\begin{figure}[htbp]
-		\centering
-		\begin{tikzpicture}[
-			font=\normalsize,
-			box/.style={
-				draw,
-				rounded corners=3pt,
-				align=center,
-				minimum width=0.65\textwidth,
-				minimum height=10mm,
-				inner ysep=6pt
-			},
-			arr/.style={-{Stealth[length=3mm]}, thick},
-			node distance=7mm
-			]
-
-			\node[box] (a) {Boom de commodities};
-			\node[box, below=of a] (b) {expansi\'on fiscal};
-			\node[box, below=of b] (c) {apreciaci\'on};
-			\node[box, below=of c] (d) {desplazamiento de\\actividades transables};
-			\node[box, below=of d] (e) {ajuste post-boom};
-
-			\draw[arr] (a) -- (b);
-			\draw[arr] (b) -- (c);
-			\draw[arr] (c) -- (d);
-			\draw[arr] (d) -- (e);
-
-		\end{tikzpicture}
-		\caption[Mecanismo boom y ajuste post-boom]{Esquema conceptual del mecanismo de boom de commodities y el proceso de ajuste posterior sobre actividades transables y transformación estructural externa.}
-
-		\label{fig:esquema_boom_postboom_vertical}
-		\caption*{\footnotesize \textit{Fuente: Elaboración propia con base en la literatura sobre enfermedad holandesa y ciclos de commodities.}}
-	\end{figure}
-
-
-	\vspace{1cm}
-
-
-	\begin{figure}[htbp]
-		\centering
-		\begin{tikzpicture}[
-			node distance=0.95cm,
-			box/.style={
-				draw,
-				rectangle,
-				rounded corners=4pt,
-				align=center,
-				minimum width=6.5cm,
-				minimum height=1.1cm,
-				font=\small
-			},
-			arrow/.style={->, thick}
-			]
-
-			\node[box] (cap) {Capacidades productivas};
-			\node[box, below=of cap] (ps) {\textit{Product space}};
-			\node[box, below=of ps] (div) {Diversificación productiva};
-			\node[box, below=of div] (eci) {Complejidad económica (ECI)};
-			\node[box, below=of eci] (growth) {Crecimiento económico de largo plazo};
-
-			\draw[arrow] (cap) -- (ps);
-			\draw[arrow] (ps) -- (div);
-			\draw[arrow] (div) -- (eci);
-			\draw[arrow] (eci) -- (growth);
-
-		\end{tikzpicture}
-
-		\caption[Capacidades productivas y complejidad económica]{Relación conceptual entre capacidades productivas, diversificación y complejidad económica.}
-
-		\label{fig:secuencia-complejidad}
-		\caption*{\footnotesize \textit{Fuente: Elaboración propia con base en \textcite{Hidalgo2009} y \textcite{Hausmann2014}.}}
-	\end{figure}
 
 
 
 	\section{Gráficos complementarios}
 	\label{sec:plots}
 
-	\subsection{Perfiles extractivos e ingreso en Anne (2021)}
-	\label{sec:figuras-anne2021}
+	\subsection{Perfiles extractivos e ingreso en el panel empírico}
+	\label{sec:figuras-panel-ingreso}
 
-	Como referencia contextual, esta sección presenta algunos hechos estilizados
-	sobre la heterogeneidad de las economías dependientes de recursos naturales no
-	renovables del subsuelo. Los gráficos se construyen a partir de los datos
-	reportados en las tablas de \textcite[27--30]{Anne2021}. La participación
-	extractiva corresponde a la suma de las exportaciones mineras y energéticas;
-	por tanto, no incluye productos agrícolas ni otros recursos renovables.
+	Como análisis descriptivo de la heterogeneidad de las economías seleccionadas en el panel ($DRES \ge 20\%$), la \autoref{fig:panel-commodities-income} presenta la distribución de la dependencia exportadora extractiva ($DRES\%$) clasificada según el grupo de ingreso del Banco Mundial: bajos ingresos (\textit{LIC}), ingresos medios bajos (\textit{LMIC}), ingresos medios altos (\textit{UMIC}) y altos ingresos (\textit{HIC}).
 
-	La \autoref{fig:commodities-income} muestra que la dependencia exportadora
-	extractiva no disminuye de manera monotónica con el ingreso per cápita. Los
-	grupos de ingreso medio alto y alto también contienen economías con una
-	participación extractiva considerable.
+	La \autoref{fig:panel-commodities-income} confirma que la dependencia exportadora extractiva no disminuye de manera monotónica con el nivel de ingreso per cápita. Los grupos de ingreso medio alto (\textit{UMIC}) y alto (\textit{HIC}) también albergan economías con una elevada especialización en bienes primarios no renovables del subsuelo (tales como Noruega, Australia, Kuwait, Omán o Qatar).
 
 	\begin{figure}[htbp]
 		\centering
-		\includegraphics[width=\textwidth]{\subfix{../../figures/p_commodities_income_boxplot}}
-		\caption[Dependencia exportadora extractiva por nivel de ingreso]{Distribución de la participación de las exportaciones mineras y energéticas en el total de exportaciones según grupo de ingreso: bajos ingresos (LIC), ingresos medios bajos (LMIC), ingresos medios altos (UMIC) y altos ingresos (HIC).}
-		\label{fig:commodities-income}
-		\caption*{\footnotesize \textit{Fuente: Elaboración propia con base en datos reportados en \textcite{Anne2021}.}}
+		\includegraphics[width=0.85\textwidth]{\subfix{../../figures/panel_extractive_dependence_by_income_group}}
+		\caption[Dependencia exportadora extractiva por grupo de ingreso en el panel]{Distribución de la dependencia exportadora extractiva ($DRES\%$) en las economías del panel empírico según grupo de ingreso: bajos ingresos (LIC), ingresos medios bajos (LMIC), ingresos medios altos (UMIC) y altos ingresos (HIC).}
+		\label{fig:panel-commodities-income}
+		\caption*{\footnotesize \textit{Fuente: Elaboración propia a partir del panel maestro de la investigación (1996--2021).}}
 	\end{figure}
 
-	Finalmente, la comparación por tipo de recurso muestra que la especialización
-	energética puede representar una fracción dominante de la canasta exportadora,
-	mientras que la participación minera tiende a ser menor y más dispersa entre
-	grupos de ingreso.
+	De manera específica para el sector de hidrocarburos, la \autoref{fig:panel-oil-gas-rents-income} analiza la distribución de las rentas de petróleo y gas natural ($RENTS^{OIL+GAS}$ como $\%$ del PIB) a través de los cuatro grupos de ingreso. Se observa que la intensidad macroeconómica de las rentas de hidrocarburos presenta una marcada concentración en economías de altos ingresos (\textit{HIC}) y de ingresos medios altos (\textit{UMIC}), caracterizadas por estructuras de enclave intensivas en capital.
 
 	\begin{figure}[htbp]
 		\centering
-		\begin{subfigure}{0.49\textwidth}
-			\centering
-			\includegraphics[width=\textwidth]{\subfix{../../figures/p_energy_income_boxplot}}
-			\caption{Dependencia de exportaciones energéticas por grupo de ingreso.}
-			\label{fig:energy-income-boxplot}
-		\end{subfigure}
-		\hfill
-		\begin{subfigure}{0.49\textwidth}
-			\centering
-			\includegraphics[width=\textwidth]{\subfix{../../figures/p_mining_income_boxplot}}
-			\caption{Dependencia de exportaciones mineras por grupo de ingreso.}
-			\label{fig:mining-income-boxplot}
-		\end{subfigure}
-		\caption[Dependencia exportadora por tipo de recurso]{Comparación de la participación de las exportaciones de recursos energéticos y mineros en el total de exportaciones de los países considerados.}
+		\includegraphics[width=0.85\textwidth]{\subfix{../../figures/panel_oil_gas_rents_by_income_group}}
+		\caption[Rentas de petróleo y gas natural por grupo de ingreso en el panel]{Distribución de las rentas de petróleo y gas natural ($RENTS^{OIL+GAS}$ como $\%$ del PIB) en las economías del panel empírico según grupo de ingreso: bajos ingresos (LIC), ingresos medios bajos (LMIC), ingresos medios altos (UMIC) y altos ingresos (HIC).}
+		\label{fig:panel-oil-gas-rents-income}
+		\caption*{\footnotesize \textit{Fuente: Elaboración propia a partir del panel maestro de la investigación (1996--2021).}}
+	\end{figure}
+
+	Por su parte, la \autoref{fig:panel-mining-rents-income} presenta la distribución de las rentas mineras ($RENTS^{MINING}$ como $\%$ del PIB) a través de los cuatro grupos de ingreso. A diferencia del patrón observado en hidrocarburos, las rentas mineras constituyen un fenómeno predominantemente concentrado en economías de ingresos medios bajos (\textit{LMIC}) y medios altos (\textit{UMIC}), perdiendo gravitación macroeconómica en los países de altos ingresos (\textit{HIC}).
+
+	\begin{figure}[htbp]
+		\centering
+		\includegraphics[width=0.85\textwidth]{\subfix{../../figures/panel_mining_rents_by_income_group}}
+		\caption[Rentas de minería por grupo de ingreso en el panel]{Distribución de las rentas de minería ($RENTS^{MINING}$ como $\%$ del PIB) en las economías del panel empírico según grupo de ingreso: bajos ingresos (LIC), ingresos medios bajos (LMIC), ingresos medios altos (UMIC) y altos ingresos (HIC).}
+		\label{fig:panel-mining-rents-income}
+		\caption*{\footnotesize \textit{Fuente: Elaboración propia a partir del panel maestro de la investigación (1996--2021).}}
 	\end{figure}
 
 	Como análisis complementario de la heterogeneidad de las economías extractivas, la \autoref{fig:recreated_owjimehr} presenta la evolución temporal del Índice de Complejidad Económica (ECI) para una selección de los principales países exportadores de recursos de la muestra (1996--2021) (réplica metodológica adaptada de \textcite{Owjimehr2024}). A diferencia del gráfico original de rankings, en este caso se presenta la trayectoria del puntaje de ECI continuo, lo que permite apreciar las brechas absolutas de capacidades productivas de manera más intuitiva. Se observa una notable persistencia en los extremos: Noruega mantiene de forma constante los mayores niveles de complejidad, mientras que economías como Angola y el Congo permanecen en niveles sumamente bajos durante todo el período.
@@ -453,18 +375,6 @@
 
 	\section{Mapas}
 	\label{sec:mapas}
-
-	La \autoref{fig:resource-dependent-map} presenta la distribución geográfica preliminar de los países potencialmente incluidos en la muestra empírica.
-
-	\begin{figure}[htbp]
-		\centering
-		\includegraphics[width=\textwidth]{\subfix{../../figures/resource_dependent_map}}
-
-		\caption[Distribución geográfica de economías dependientes de recursos]{Distribución geográfica de las economías potencialmente dependientes de recursos naturales incluidas en la muestra de análisis.}
-
-		\label{fig:resource-dependent-map}
-		\caption*{\footnotesize \textit{Fuente: Elaboración propia con base en el panel de datos de la investigación.}}
-	\end{figure}
 
 	La \autoref{fig:resource-rents-world-map} muestra la distribución global de las rentas de recursos naturales como porcentaje del PIB.
 
@@ -574,6 +484,207 @@
 	Las visualizaciones del espacio productivo pueden consultarse de forma interactiva en el \textit{Atlas of Economic Complexity}, desarrollado por el Harvard Growth Lab \parencite{HarvardGrowthLab2026}.
 
 
+
+	\section{Diagnósticos econométricos de series de tiempo en panel}
+	\label{sec:anexo_diagnosticos_series_tiempo}
+
+	En esta sección se presentan los resultados detallados de las pruebas de raíz unitaria y cointegración en panel aplicadas a las 19 variables que integran el modelo econométrico maestro de la tesis ($N=49$, $T \approx 26$).
+
+	La \autoref{tab:anexo_unit_root_tests} sintetiza los resultados de la prueba de raíz unitaria en panel de Fisher-ADF en niveles y primeras diferencias con desestacionalización transversal (\textit{cross-sectional demeaning}).
+
+	\begin{table}[htbp]
+		\centering
+		\small
+		\caption[Pruebas de Raíz Unitaria en Panel (Fisher-ADF)]{Resultados de las pruebas de raíz unitaria en panel de Fisher-ADF para las variables del modelo empírico.}
+		\label{tab:anexo_unit_root_tests}
+		\begin{adjustbox}{max width=\textwidth}
+		\begin{tabular}{l l c c l}
+			\toprule
+			Variable & Descripción / Etiqueta & Especificación & Estadístico $P$ & Conclusión Econométrica \\
+			\midrule
+			\multicolumn{5}{l}{\textit{Variables dependientes y explicativa central (Focales)}} \\
+			$ECI$ & Índice de Complejidad Económica & Nivel & 163.97*** & Estacionario $I(0)$ \\
+			$DIVX$ & Índice de Diversificación Exportadora & Nivel & 139.30** & Estacionario $I(0)$ \\
+			$RENTS$ & Rentas Extractivas Totales (\% PIB) & Nivel & 156.31*** & Estacionario $I(0)$ \\
+			$INST$ & Calidad Institucional (WGI) & Nivel & 259.71*** & Estacionario $I(0)$ \\
+			$RENTS \times INST$ & Interacción Rentas $\times$ Instituciones & Nivel & 95.89 & No estacionario $I(1)$ \\
+			& & Primera Dif. & 448.50*** & Estacionario $I(1)$ \\
+			\midrule
+			\multicolumn{5}{l}{\textit{Controles de acumulación y desarrollo (Integrados I(1))}} \\
+			$\log \text{PIB pc}$ & Logaritmo del PIB per cápita & Nivel & 94.80 & No estacionario $I(1)$ \\
+			& & Primera Dif. & 409.45*** & Estacionario $I(1)$ \\
+			$HUMCAP$ & Índice de Capital Humano & Nivel & 92.85 & No estacionario $I(1)$ \\
+			& & Primera Dif. & 300.56*** & Estacionario $I(1)$ \\
+			$NET$ & Suscripciones a Internet pc & Nivel & 66.85 & No estacionario $I(1)$ \\
+			& & Primera Dif. & 283.21*** & Estacionario $I(1)$ \\
+			$FIN$ & Desarrollo Financiero (\% PIB) & Nivel & 122.60 & No estacionario $I(1)$ \\
+			& & Primera Dif. & 510.00*** & Estacionario $I(1)$ \\
+			$INNOV$ & Patentes / Innovación & Nivel & 134.10* & No estacionario $I(1)$ \\
+			& & Primera Dif. & 809.33*** & Estacionario $I(1)$ \\
+			\midrule
+			\multicolumn{5}{l}{\textit{Controles macroeconómicos y de estructura exportadora (Estacionarios I(0))}} \\
+			$\log \text{OILPC}$ & Log Rentas de Petróleo pc & Nivel & 201.64*** & Estacionario $I(0)$ \\
+			$\log \text{GASPC}$ & Log Rentas de Gas pc & Nivel & 104.93 & No estacionario $I(1)$ (Diff: 880.03***) \\
+			$\log \text{COALPC}$ & Log Rentas de Carbón pc & Nivel & 105.98 & No estacionario $I(1)$ (Diff: 1176.89***) \\
+			$HHI$ & Concentración Herfindahl & Nivel & 139.30** & Estacionario $I(0)$ \\
+			$PEXP$ & Exp. Primarias (\% Exp) & Nivel & 207.27*** & Estacionario $I(0)$ \\
+			$FEXP$ & Exp. Alimentos (\% Exp) & Nivel & 138.18** & Estacionario $I(0)$ \\
+			$VOL$ & Volatilidad Precios Exportación & Nivel & 196.20*** & Estacionario $I(0)$ \\
+			$RER$ & Tipo Cambio Real Multilateral & Nivel & 175.19*** & Estacionario $I(0)$ \\
+			$GOVCONS$ & Gasto Gobierno (\% PIB) & Nivel & 160.92*** & Estacionario $I(0)$ \\
+			\bottomrule
+		\end{tabular}
+		\end{adjustbox}
+		\caption*{\footnotesize \textit{Fuente: Elaboración propia a partir de datos del panel congelado ($N=49$, $T=26$). * $p<0.10$, ** $p<0.05$, *** $p<0.01$.}}
+	\end{table}
+
+	La \autoref{tab:anexo_cointegration_tests} presenta los resultados de las tres pruebas principales de cointegración en panel (Pedroni, Kao y Westerlund) aplicadas sobre el núcleo estructural de determinantes del desarrollo para ambos modelos.
+
+	\begin{table}[htbp]
+		\centering
+		\small
+		\caption[Pruebas de Cointegración en Panel (Pedroni, Kao, Westerlund)]{Resultados de las pruebas de cointegración en panel para el núcleo de variables estructurales de los modelos $ECI$ y $DIVX$.}
+		\label{tab:anexo_cointegration_tests}
+		\begin{adjustbox}{max width=\textwidth}
+		\begin{tabular}{l l l c c l}
+			\toprule
+			Modelo & Prueba & Estadístico & Valor z / t & p-valor & Conclusión Econométrica \\
+			\midrule
+			\multicolumn{6}{l}{\textit{Modelo 1: Complejidad Económica (ECI)}} \\
+			$ECI$ & Pedroni & Modified PP $t$ & --- & $3.45 \times 10^{-10}$ & Cointegración ($p < 0.001$) \\
+			$ECI$ & Kao & Modified Dickey-Fuller $t$ & --- & $2.00 \times 10^{-15}$ & Cointegración ($p < 0.001$) \\
+			$ECI$ & Westerlund & Variance ratio & -3.2689 & $0.0005$ & Cointegración ($p < 0.001$) \\
+			\midrule
+			\multicolumn{6}{l}{\textit{Modelo 2: Diversificación Exportadora (DIVX)}} \\
+			$DIVX$ & Pedroni & Modified PP $t$ & --- & $2.12 \times 10^{-12}$ & Cointegración ($p < 0.01$) \\
+			$DIVX$ & Kao & Modified Dickey-Fuller $t$ & --- & $0.0010$ & Cointegración ($p < 0.01$) \\
+			$DIVX$ & Westerlund & Variance ratio & -2.3963 & $0.0083$ & Cointegración ($p < 0.01$) \\
+			\bottomrule
+		\end{tabular}
+		\end{adjustbox}
+		\caption*{\footnotesize \textit{Fuente: Elaboración propia a partir de estimaciones en Stata 17 MP. Vector del núcleo estructural: $Y_{it} = f(RENTS_{it}, INST_{it}, \log \text{PIB pc}_{it}, HUMCAP_{it}, FIN_{it})$.}}
+	\end{table}
+
+	La \autoref{tab:anexo_local_projections} reporta la evolución temporal de las respuestas dinámicas estimadas mediante Proyecciones Locales en Panel (\textcite{Jorda2005}) para horizontes $h=0\dots5$ años.
+
+	\begin{table}[htbp]
+		\centering
+		\small
+		\caption[Proyecciones Locales en Panel (Jordà 2005, Horizontes h=0..5)]{Dinámica temporal de la respuesta de $ECI$ y $DIVX$ ante perturbaciones en variables clave.}
+		\label{tab:anexo_local_projections}
+		\begin{adjustbox}{max width=\textwidth}
+		\begin{tabular}{l l c c c c c}
+			\toprule
+			Modelo & Variable & Horizon ($h$) & Coeficiente ($\beta_h$) & Error Estándar & p-valor & Intervalo de Confianza 95\% \\
+			\midrule
+			\multicolumn{7}{l}{\textit{Modelo ECI: Trayectoria de Rentas Extractivas (RENTS)}} \\
+			$ECI$ & $RENTS$ & $h=0$ (Inmediato) & $-0,0098^{**}$ & $0,0042$ & $0,0233$ & $[-0,0182; -0,0014]$ \\
+			$ECI$ & $RENTS$ & $h=1$ & $-0,0133^{***}$ & $0,0037$ & $0,0009$ & $[-0,0208; -0,0057]$ \\
+			$ECI$ & $RENTS$ & $h=2$ & $-0,0149^{***}$ & $0,0048$ & $0,0033$ & $[-0,0246; -0,0052]$ \\
+			$ECI$ & $RENTS$ & $h=3$ (Pico) & $-0,0162^{***}$ & $0,0041$ & $0,0002$ & $[-0,0244; -0,0080]$ \\
+			$ECI$ & $RENTS$ & $h=4$ & $-0,0122^{***}$ & $0,0035$ & $0,0012$ & $[-0,0194; -0,0051]$ \\
+			$ECI$ & $RENTS$ & $h=5$ & $-0,0121^{***}$ & $0,0042$ & $0,0057$ & $[-0,0205; -0,0037]$ \\
+			\midrule
+			\multicolumn{7}{l}{\textit{Modelo DIVX: Dividendos Acumulados de Capital Humano (HUMCAP) e Innovación (INNOV)}} \\
+			$DIVX$ & $HUMCAP$ & $h=1$ & $+0,0427^{**}$ & $0,0207$ & $0,0444$ & $[+0,0011; +0,0843]$ \\
+			$DIVX$ & $HUMCAP$ & $h=3$ & $+0,1095^{**}$ & $0,0423$ & $0,0126$ & $[+0,0245; +0,1945]$ \\
+			$DIVX$ & $HUMCAP$ & $h=5$ (Pico) & $+0,1464^{**}$ & $0,0617$ & $0,0217$ & $[+0,0224; +0,2704]$ \\
+			$DIVX$ & $INNOV$ & $h=1$ & $+0,0234^{**}$ & $0,0097$ & $0,0196$ & $[+0,0039; +0,0429]$ \\
+			$DIVX$ & $INNOV$ & $h=3$ & $+0,0408^{**}$ & $0,0187$ & $0,0339$ & $[+0,0032; +0,0784]$ \\
+			$DIVX$ & $INNOV$ & $h=5$ (Pico) & $+0,0701^{**}$ & $0,0283$ & $0,0169$ & $[+0,0131; +0,1271]$ \\
+			\bottomrule
+		\end{tabular}
+		\end{adjustbox}
+		\caption*{\footnotesize \textit{Fuente: Elaboración propia a partir de estimaciones de Proyecciones Locales en Stata 17 MP. Errores estándar agrupados por país. ** $p<0.05$, *** $p<0.01$.}}
+	\end{table}
+
+	La \autoref{tab:anexo_structural_breaks} presenta la evaluación de quiebre estructural y estabilidad por submuestras temporales (Pre-2015 vs Post-2014).
+
+	\begin{table}[htbp]
+		\centering
+		\small
+		\caption[Pruebas de Quiebre Estructural por Regímenes de Precios (1996-2014 vs 2015-2021)]{Estabilidad temporal de los estimadores TWFE ante el fin del Superciclo de Commodities.}
+		\label{tab:anexo_structural_breaks}
+		\begin{adjustbox}{max width=\textwidth}
+		\begin{tabular}{l l c c c c}
+			\toprule
+			Modelo & Submuestra Temporal & Coef. Rentas ($\beta_{RENTS}$) & Err. Est. & p-valor & Conclusión por Régimen \\
+			\midrule
+			\multicolumn{6}{l}{\textit{Modelo ECI: Complejidad Económica}} \\
+			$ECI$ & Muestra Completa (1996--2021) & $-0,0098^{**}$ & $0,0042$ & $0,0233$ & Efecto medio negativo significativo \\
+			$ECI$ & Pre-2015 (Auge 1996--2014) & $-0,0122^{**}$ & $0,0049$ & $0,0160$ & **Efecto de Enfermedad Holandesa Severo** \\
+			$ECI$ & Post-2014 (Caída 2015--2021) & $+0,0008$ & $0,0041$ & $0,8524$ & Efecto no significativo tras el colapso de rentas \\
+			\midrule
+			\multicolumn{6}{l}{\textit{Modelo DIVX: Diversificación Exportadora}} \\
+			$DIVX$ & Muestra Completa (1996--2021) & $-0,0035^{***}$ & $0,0013$ & $0,0090$ & Efecto medio negativo significativo \\
+			$DIVX$ & Pre-2015 (Auge 1996--2014) & $-0,0041^{***}$ & $0,0015$ & $0,0081$ & **Efecto de Desconcentración Severo** \\
+			$DIVX$ & Post-2014 (Caída 2015--2021) & $-0,0007$ & $0,0009$ & $0,9398$ & Efecto no significativo en fase de precios bajos \\
+			\bottomrule
+		\end{tabular}
+		\end{adjustbox}
+		\caption*{\footnotesize \textit{Fuente: Elaboración propia a partir de estimaciones en Stata 17 MP con errores estándar agrupados por país. ** $p<0.05$, *** $p<0.01$.}}
+	\end{table}
+
+	La \autoref{tab:anexo_autocorrelation_inference} presenta la comparación de la inferencia estadística del modelo $ECI$ para el conjunto de determinantes principales bajo distintas estructuras de matriz de varianza-covarianza para corregir por autocorrelación $AR(p)$ y dependencia transversal espacial.
+
+	\begin{table}[htbp]
+		\centering
+		\small
+		\caption[Inferencia Comparativa en Panel bajo Autocorrelación AR(p) y Dependencia Espacial]{Comparación de p-valores e inferencia para todas las variables clave del modelo $ECI$ bajo tres métodos de matriz de varianza-covarianza.}
+		\label{tab:anexo_autocorrelation_inference}
+		\begin{adjustbox}{max width=\textwidth}
+		\begin{tabular}{l c c c c c c}
+			\toprule
+			& \multicolumn{2}{c}{\textbf{1. Baseline Cluster (País)}} & \multicolumn{2}{c}{\textbf{2. Driscoll-Kraay HAC (lag 2)}} & \multicolumn{2}{c}{\textbf{3. Panel PCSE (AR1)}} \\
+			\cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7}
+			Variable del Modelo & Coef. ($\beta$) & p-valor & Coef. ($\beta$) & p-valor & Coef. ($\beta$) & p-valor \\
+			\midrule
+			Rentas Extractivas ($RENTS$) & $-0,0098$ & $0,0233^{**}$ & $-0,0098$ & $0,0559^{*}$ & $-0,0070$ & $0,0049^{***}$ \\
+			Calidad Institucional ($INST$) & $+0,2667$ & $0,0570^{*}$ & $+0,2667$ & $0,0003^{***}$ & $+0,1538$ & $0,0674^{*}$ \\
+			Interacción ($RENTS \times INST$) & $-0,0052$ & $0,1388$ & $-0,0052$ & $0,0732^{*}$ & $-0,0003$ & $0,9329$ \\
+			Concentración Exportadora ($HHI$) & $-0,5355$ & $0,0215^{**}$ & $-0,5355$ & $0,0001^{***}$ & $-0,5186$ & $0,0002^{***}$ \\
+			Exp. Primarias ($PEXP$) & $-0,0042$ & $0,0099^{***}$ & $-0,0042$ & $0,0008^{***}$ & $-0,0038$ & $0,0003^{***}$ \\
+			Exp. Agrícolas ($FEXP$) & $-0,0068$ & $0,0007^{***}$ & $-0,0068$ & $0,0000^{***}$ & $-0,0065$ & $0,0000^{***}$ \\
+			Rentas Gas ($\log \text{Gas pc}$) & $+0,0396$ & $0,2536$ & $+0,0396$ & $0,0146^{**}$ & $+0,0254$ & $0,1998$ \\
+			Rentas Petróleo ($\log \text{Petróleo pc}$) & $+0,0283$ & $0,4546$ & $+0,0283$ & $0,1784$ & $+0,0091$ & $0,6015$ \\
+			Capital Humano ($HUMCAP$) & $-0,0540$ & $0,8109$ & $-0,0540$ & $0,6671$ & $-0,0175$ & $0,8571$ \\
+			Innovación ($INNOV$) & $-0,0361$ & $0,4593$ & $-0,0361$ & $0,3167$ & $-0,0303$ & $0,2857$ \\
+			\bottomrule
+		\end{tabular}
+		\end{adjustbox}
+		\caption*{\footnotesize \textit{Fuente: Elaboración propia a partir de estimaciones en Stata 17 MP. La Columna 1 reporta la inferencia baseline con errores agrupados por país. La Columna 2 estima errores Driscoll-Kraay (1998) robustos a autocorrelación $AR(2)$ y dependencia espacial. La Columna 3 aplica la corrección PCSE de Beck \& Katz (1995) con AR(1). * $p<0.10$, ** $p<0.05$, *** $p<0.01$.}}
+	\end{table}
+
+	La \autoref{tab:anexo_hp_filter_decomposition} presenta los resultados de la descomposición tendencia-ciclo mediante el filtro de Hodrick-Prescott ($\lambda = 6,25$) para los determinantes clave de la complejidad ($ECI$) y la diversificación ($DIVX$).
+
+	\begin{table}[htbp]
+		\centering
+		\small
+		\caption[Descomposición Tendencia-Ciclo mediante Filtro Hodrick-Prescott (Ravn-Uhlig lambda=6.25)]{Reestimación econométrica sobre la tendencia estructural de largo plazo y el ciclo de corto plazo para determinantes clave.}
+		\label{tab:anexo_hp_filter_decomposition}
+		\begin{adjustbox}{max width=\textwidth}
+		\begin{tabular}{l l c c c c}
+			\toprule
+			Modelo & Variable / Componente & Coef. ($\beta$) & Err. Est. & p-valor & Interpretación Econométrica \\
+			\midrule
+			\multicolumn{6}{l}{\textit{Modelo ECI: Complejidad Económica}} \\
+			$ECI$ & Rentas ($RENTS$) -- Serie Original & $-0,0098^{**}$ & $0,0042$ & $0,0233$ & Efecto medio negativo significativo \\
+			$ECI$ & Rentas ($RENTS$) -- Tendencia Largo Plazo & $-0,0098^{***}$ & $0,0037$ & $0,0097$ & **Erosión en Tendencia Estructural ($p<0,01$)** \\
+			$ECI$ & Rentas ($RENTS$) -- Ciclo Corto Plazo & $+0,0000$ & $0,0013$ & $0,9757$ & Efecto nulo en oscilación cíclica \\
+			$ECI$ & Instituciones ($INST$) -- Tendencia Largo Plazo & $+0,3253^{**}$ & $0,1249$ & $0,0122$ & **Protección Estructural de Largo Plazo** \\
+			$ECI$ & Conc. Export. ($HHI$) -- Tendencia Largo Plazo & $-0,3724^{**}$ & $0,1840$ & $0,0486$ & Destrucción de tendencia estructural \\
+			$ECI$ & Exp. Agrícolas ($FEXP$) -- Tendencia Largo Plazo & $-0,0049^{**}$ & $0,0018$ & $0,0102$ & Primarización erosiona tendencia \\
+			\midrule
+			\multicolumn{6}{l}{\textit{Modelo DIVX: Diversificación Exportadora}} \\
+			$DIVX$ & Capital Humano ($HUMCAP$) -- Tendencia Largo Plazo & $+0,0356^{**}$ & $0,0154$ & $0,0256$ & **Impulsor de Tendencia Estructural** \\
+			$DIVX$ & Innovación ($INNOV$) -- Tendencia Largo Plazo & $+0,0082^{**}$ & $0,0039$ & $0,0383$ & **Impulsor de Tendencia Estructural** \\
+			$DIVX$ & Conc. Export. ($HHI$) -- Tendencia Largo Plazo & $-0,7203^{***}$ & $0,0226$ & $0,0000$ & Reducción severa de diversificación \\
+			$DIVX$ & PIB pc ($\log \text{GDPpc}$) -- Tendencia Largo Plazo & $-0,0573^{***}$ & $0,0124$ & $0,0000$ & Dinámica estructural de largo plazo \\
+			\bottomrule
+		\end{tabular}
+		\end{adjustbox}
+		\caption*{\footnotesize \textit{Fuente: Elaboración propia a partir de estimaciones en Stata 17 MP. Filtro Hodrick-Prescott aplicado con suavizamiento $\lambda = 6,25$ (Ravn \& Uhlig, 2002). Errores estándar agrupados por país. ** $p<0.05$, *** $p<0.01$.}}
+	\end{table}
 
 	\thesisendchap{anexos}
 

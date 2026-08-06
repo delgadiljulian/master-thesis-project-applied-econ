@@ -10,7 +10,7 @@
 // Autor: Julián Alberto Delgadillo Marín
 // Director: Martín Grandes
 //
-// Archivo: 08_resource_disaggregated_integrated.do (Versión Codex)
+// Archivo: 08_twfe_resource_disaggregated_full.do (Versión Codex)
 // Ubicación: scripts/econometrics/stata-peer-2/01_twfe_main/
 // Contenido: Secciones 19 a 24 del análisis econométrico desagregado
 // Extensión: Desagregación de RENTS entre Hidrocarburos y Minería
@@ -130,7 +130,7 @@ capture mkdir "$OUTPUT_DISAGG_DIAGNOSTICS"
 capture mkdir "$OUTPUT_DISAGG_LOGS"
 
 * Iniciar el archivo de registro de ejecución para el script 08.
-log using "$OUTPUT_DISAGG_LOGS/08_resource_disaggregated_integrated.log", text replace name(disaggregation_log)
+log using "$OUTPUT_DISAGG_LOGS/08_twfe_resource_disaggregated_full.log", text replace name(disaggregation_log)
 
 
 // B.4. Verificar los insumos producidos por los archivos 01 y 02
@@ -2616,7 +2616,7 @@ postfile `manifest_post' ///
 * Escribir una fila única con el alcance reproducible de la ejecución.
 post `manifest_post' ///
     ("resource_disaggregation_9_14") ///
-    ("08_resource_disaggregated_integrated.do") ///
+    ("08_twfe_resource_disaggregated_full.do") ///
     ("`c(stata_version)'") ///
     ("`c(current_date)'") ///
     ("`c(current_time)'") ///

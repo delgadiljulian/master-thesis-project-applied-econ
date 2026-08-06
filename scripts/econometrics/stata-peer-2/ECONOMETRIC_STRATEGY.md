@@ -146,7 +146,7 @@ scripts/econometrics/stata-peer-2/
     05_twfe_model_comparison.do
     06_twfe_oil_gas_models.do
     07_twfe_mining_models.do
-    08_resource_disaggregated_integrated.do
+    08_twfe_resource_disaggregated_full.do
     run_stata_peer_2.ps1
     run_stata_peer_2.cmd
   02_temporal_fe/
