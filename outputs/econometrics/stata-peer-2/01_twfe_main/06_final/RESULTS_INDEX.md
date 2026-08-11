@@ -1,6 +1,6 @@
 # Índice de resultados econométricos agregados
 
-Generado por 04_twfe_full.do el  4 Aug 2026.
+Generado por 04_twfe_full.do el 10 Aug 2026.
 
 Este paquete corresponde a los modelos agregados de RENTS. No contiene la futura desagregación hidrocarburos-minería.
 
@@ -23,6 +23,12 @@ Este paquete corresponde a los modelos agregados de RENTS. No contiene la futura
 - final_wild_cluster_bootstrap.csv: inferencia bootstrap agrupada por país.
 - final_resource_coefficient_equality.csv: igualdad entre petróleo, gas y carbón.
 - final_per_capita_transformation_sensitivity.csv: comparación de ln(1+x) con OILPC, GASPC y COALPC en niveles.
+- final_focal_robustness_evidence.csv: matriz trazable de 58 resultados focales, separada por estimando y método.
+- final_focal_joint_test_evidence.csv: ocho pruebas conjuntas focales con inferencia y nulos explícitos.
+- final_focal_robustness_reading_matrix.csv: lectura de signo, magnitud, inferencia, muestra y estabilidad temporal para seis coeficientes.
+- final_rents_marginal_support_summary.csv: resumen de los cinco efectos marginales dentro del soporte observado de INST.
+- final_country_linear_trend_all_coefficients.csv: comparación base-tendencias para los 33 coeficientes sustantivos de ECI y DIVX.
+- ROBUSTNESS_READING_GUIDE.md: guía técnica reproducible para interpretar las matrices sin una etiqueta binaria de robustez.
 - figure_rents_marginal_effects_eci_divx.pdf: figura comparada para LaTeX.
 - figure_rents_marginal_effects_eci_divx.png: figura comparada para revisión visual.
 
@@ -34,4 +40,5 @@ Este paquete corresponde a los modelos agregados de RENTS. No contiene la futura
 4. Las sensibilidades no sustituyen las especificaciones ECI_TWFE_MAIN y DIVX_TWFE_MAIN.
 5. La sensibilidad de forma funcional solo cambia OILPC, GASPC y COALPC; RENTS permanece agregado.
 6. HHI se excluye de DIVX porque DIVX = 1 - HHI.
+7. La robustez se evalúa por estabilidad de signo, magnitud, incertidumbre, muestra y estimando; no solo por significancia.
 

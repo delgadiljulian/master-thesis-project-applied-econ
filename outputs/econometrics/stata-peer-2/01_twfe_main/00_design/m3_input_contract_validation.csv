@@ -1,0 +1,25 @@
+validation_id,validation_item,source,expected,observed,passed,failure_action
+V01,ESTIMATION_DATASET_EXISTS,master_panel_estimation_sample.dta,EXISTS,EXISTS,1,Ejecutar nuevamente el archivo 01.
+V02,SAMPLE_CONTRACT_ROWS,sample_contract.csv,2,2,1,Regenerar el contrato de muestra con el archivo 01.
+V03,COMMON_SAMPLE_OBSERVATIONS,sample_contract.csv; estimation dataset,1044,1044,1,Detener la estimación y revisar las banderas de muestra.
+V04,COMMON_SAMPLE_COUNTRIES,sample_contract.csv; estimation dataset,49,49,1,Detener la estimación y revisar la cobertura por país.
+V05,EFFECTIVE_YEARS,sample_contract.csv; estimation dataset,23,23,1,Detener la estimación y revisar la cobertura temporal.
+V06,SAMPLE_FLAGS_IDENTICAL,sample_contract.csv; estimation dataset,1,1,1,Detener la estimación si ECI y DIVX usan filas diferentes.
+V07,NO_IMPUTATION,sample_contract.csv,1,1,1,Regenerar la base sin imputación.
+V08,NO_INTERPOLATION,sample_contract.csv,1,1,1,Regenerar la base sin interpolación.
+V09,KEY_DEFINITION,sample_contract.csv,country_iso3_code + year,country_iso3_code + year,1,Restablecer la llave país-año validada.
+V10,DECISION_REGISTER_ROWS,econometric_decision_register.csv,18,18,1,Regenerar el registro de decisiones con el archivo 01.
+V11,SIGNIFICANCE_SELECTION,econometric_decision_register.csv,0,0,1,Eliminar cualquier selección de especificación por significancia.
+V12,REQUIRED_ACTIVE_DECISIONS,econometric_decision_register.csv,5,5,1,"Restablecer D01, D02, D03, D06 y D17 como decisiones activas."
+V13,D08_TRENDS_STATUS,econometric_decision_register.csv,IMPLEMENTED,IMPLEMENTED,1,No ejecutar tendencias si D08 no está implementada como sensibilidad.
+V14,D13_2014_STATUS,econometric_decision_register.csv,IMPLEMENTED_WITH_JUSTIFICATION,IMPLEMENTED_WITH_JUSTIFICATION,1,No ejecutar la prueba de 2014 sin justificación externa documentada.
+V15,ERROR_TEST_ROWS,panel_error_tests.csv,6,6,1,Regenerar los diagnósticos de errores con el archivo 01.
+V16,ERROR_TESTS_WITH_YEAR_FE,panel_error_tests.csv,6,6,1,Regenerar las pruebas usando efectos de año.
+V17,INFLUENCE_INVENTORY_EXISTS,influential_observations.csv,EXISTS,EXISTS,1,Regenerar el inventario de influencia con el archivo 01.
+V18,D04_BOOTSTRAP_STATUS,econometric_decision_register.csv,IMPLEMENTED,IMPLEMENTED,1,No presentar el bootstrap si D04 no está implementada.
+V19,D07_MARGINAL_EFFECT_STATUS,econometric_decision_register.csv,IMPLEMENTED,IMPLEMENTED,1,No presentar márgenes fuera del soporte institucional observado.
+V20,D12_INFLUENCE_STATUS,econometric_decision_register.csv,IMPLEMENTED,IMPLEMENTED,1,No presentar influencia sin exclusión diagnóstica y leave-one-out.
+V21,D18_CONTROL_TEMPORAL_STATUS,econometric_decision_register.csv,DIAGNOSTIC_ONLY,DIAGNOSTIC_ONLY,1,Regenerar el registro y el inventario temporal mediante el archivo 01.
+V22,CONTROL_TEMPORAL_INVENTORY_ROWS,temporal_control_inventory.csv,14,14,1,Detener M3 si falta algún control en el inventario temporal.
+V23,CONTROL_UNIT_ROOT_ROWS,panel_unit_root_controls.csv,28,28,1,Regenerar las pruebas predefinidas de los catorce controles.
+V24,CONTROL_DIAGNOSTIC_MODEL_CHANGES,temporal_control_inventory.csv; panel_unit_root_controls.csv,0,0,1,No seleccionar ni transformar controles mediante significancia diagnóstica.

@@ -108,7 +108,9 @@ pwd
 
 * Definir las rutas globales del proyecto para la versión stata-peer-2.
 global OUTPUT_ROOT               "$PROJECT_ROOT/outputs/econometrics/stata-peer-2/01_twfe_main"
+global OUTPUT_DESIGN             "$OUTPUT_ROOT/00_design"
 global OUTPUT_SAMPLE             "$OUTPUT_ROOT/01_sample"
+global OUTPUT_DIAGNOSTICS        "$OUTPUT_ROOT/02_diagnostics"
 global OUTPUT_ECI                "$OUTPUT_ROOT/03_eci"
 global OUTPUT_DIVX               "$OUTPUT_ROOT/04_divx"
 global OUTPUT_DISAGG             "$OUTPUT_ROOT/07_resource_disaggregation"
@@ -119,6 +121,7 @@ global OUTPUT_DISAGG_DIVX        "$OUTPUT_DISAGG/03_divx"
 global OUTPUT_DISAGG_STABILITY   "$OUTPUT_DISAGG/04_stability"
 global OUTPUT_DISAGG_EXPORTS     "$OUTPUT_DISAGG/05_exports"
 global OUTPUT_DISAGG_LOGS        "$OUTPUT_DISAGG/logs"
+global ADO_PROJECT               "$OUTPUT_ROOT/ado"
 
 * Crear la estructura de directorios requeridos si no existen.
 capture mkdir "$PROJECT_ROOT/outputs"
@@ -128,12 +131,26 @@ capture mkdir "$OUTPUT_DISAGG"
 capture mkdir "$OUTPUT_DISAGG_DESIGN"
 capture mkdir "$OUTPUT_DISAGG_DIAGNOSTICS"
 capture mkdir "$OUTPUT_DISAGG_LOGS"
+capture mkdir "$ADO_PROJECT"
+capture mkdir "$ADO_PROJECT/plus"
+
+* Habilitar desde la inicialización las dependencias locales del proyecto.
+adopath ++ "$ADO_PROJECT/plus"
 
 * Iniciar el archivo de registro de ejecución para el script 08.
 log using "$OUTPUT_DISAGG_LOGS/08_twfe_resource_disaggregated_full.log", text replace name(disaggregation_log)
 
+* Verificar antes de los diagnósticos que las pruebas temporales estén disponibles.
+foreach command in xttest3 xtserial xtcsd {
+    capture which `command'
+    if _rc {
+        display as error "No se encontró `command'; instale la dependencia requerida antes de ejecutar el archivo 08."
+        exit 199
+    }
+}
 
-// B.4. Verificar los insumos producidos por los archivos 01 y 02
+
+// B.4. Verificar los insumos producidos por los archivos 01 y 04
 
 * Comprobar la presencia de la base analítica preparada y los resúmenes de estimación.
 display as text "Dependencias externas de la inicialización y la sección 19: ninguna."
@@ -163,6 +180,74 @@ if _rc {
     display as error "Ejecute primero 04_twfe_full.do."
     exit 601
 }
+
+* Exigir el contrato común de muestra y el registro metodológico actualizado.
+capture confirm file "$OUTPUT_SAMPLE/sample_contract.csv"
+if _rc {
+    display as error "No se encontró sample_contract.csv."
+    display as error "Ejecute primero 01_data_preparation_diagnostics.do."
+    exit 601
+}
+
+capture confirm file "$OUTPUT_DESIGN/econometric_decision_register.csv"
+if _rc {
+    display as error "No se encontró econometric_decision_register.csv."
+    display as error "Ejecute primero 01_data_preparation_diagnostics.do."
+    exit 601
+}
+
+* Recuperar las dimensiones y reglas de construcción de la muestra común.
+import delimited using "$OUTPUT_SAMPLE/sample_contract.csv", ///
+    clear varnames(1)
+assert _N == 2
+assert sample_observations[1] == sample_observations[2]
+assert sample_countries[1] == sample_countries[2]
+assert effective_years[1] == effective_years[2]
+assert first_year[1] == first_year[2]
+assert last_year[1] == last_year[2]
+assert samples_identical == 1
+assert no_imputation == 1
+assert no_interpolation == 1
+
+quietly summarize sample_observations, meanonly
+local temporal_contract_n = r(min)
+quietly summarize sample_countries, meanonly
+local temporal_contract_countries = r(min)
+quietly summarize effective_years, meanonly
+local temporal_contract_years = r(min)
+quietly summarize first_year, meanonly
+local temporal_contract_first = r(min)
+quietly summarize last_year, meanonly
+local temporal_contract_last = r(min)
+quietly summarize no_imputation, meanonly
+local temporal_no_imputation = r(min)
+quietly summarize no_interpolation, meanonly
+local temporal_no_interpolation = r(min)
+
+* Confirmar que las exclusiones temporales y el rol diagnóstico permanecen
+* predefinidos antes de observar resultados de los componentes.
+import delimited using ///
+    "$OUTPUT_DESIGN/econometric_decision_register.csv", ///
+    clear varnames(1)
+assert _N == 18
+isid decision_id
+assert significance_selected == 0
+quietly count if inlist(decision_id, "D14", "D15", "D16") & ///
+    hierarchy == "EXCLUDED" & implementation_status == "EXCLUDED"
+local temporal_exclusion_rows = r(N)
+assert `temporal_exclusion_rows' == 3
+quietly count if decision_id == "D18" & hierarchy == "MAIN" & ///
+    implementation_status == "DIAGNOSTIC_ONLY"
+local temporal_d18_rows = r(N)
+assert `temporal_d18_rows' == 1
+quietly count if decision_id == "D13" & hierarchy == "CONDITIONAL" & ///
+    implementation_status == "IMPLEMENTED_WITH_JUSTIFICATION" & ///
+    significance_selected == 0
+local temporal_d13_rows = r(N)
+assert `temporal_d13_rows' == 1
+quietly count if significance_selected != 0
+local temporal_sig_selection = r(N)
+assert `temporal_sig_selection' == 0
 
 * Cargar la base de estimación y declarar el panel de datos.
 use "`estimation_file'", clear
@@ -322,6 +407,37 @@ local eci_aggregate_n = r(N)
 quietly count if sample_divx == 1
 local divx_aggregate_n = r(N)
 
+* Confirmar de forma explícita que la extensión conserva el contrato común.
+quietly count if sample_eci_disagg != sample_divx_disagg
+local disagg_sample_mismatches = r(N)
+assert `disagg_sample_mismatches' == 0
+
+quietly levelsof year if sample_eci_disagg == 1, ///
+    local(eci_disagg_year_values)
+local eci_disagg_years : word count `eci_disagg_year_values'
+quietly levelsof year if sample_divx_disagg == 1, ///
+    local(divx_disagg_year_values)
+local divx_disagg_years : word count `divx_disagg_year_values'
+
+assert `eci_disagg_n' == `temporal_contract_n'
+assert `divx_disagg_n' == `temporal_contract_n'
+assert `eci_disagg_countries' == `temporal_contract_countries'
+assert `divx_disagg_countries' == `temporal_contract_countries'
+assert `eci_disagg_years' == `temporal_contract_years'
+assert `divx_disagg_years' == `temporal_contract_years'
+assert `eci_disagg_first_year' == `temporal_contract_first'
+assert `divx_disagg_first_year' == `temporal_contract_first'
+assert `eci_disagg_last_year' == `temporal_contract_last'
+assert `divx_disagg_last_year' == `temporal_contract_last'
+
+* Verificar programáticamente que HHI conserva su alcance exclusivo de ECI.
+local temporal_hhi_in_eci = ///
+    strpos(" $DISAGG_ECI_REGRESSORS ", " hhi ") > 0
+local temporal_hhi_in_divx = ///
+    strpos(" $DISAGG_DIVX_REGRESSORS ", " hhi ") > 0
+assert `temporal_hhi_in_eci' == 1
+assert `temporal_hhi_in_divx' == 0
+
 
 // 19.6. Predefinir pruebas e interpretación
 
@@ -401,14 +517,126 @@ postclose `validation_post'
 preserve
     use "`validation_report'", clear
     format value %16.10g
-    export delimited using "$OUTPUT_DISAGG_DESIGN/section9_validation.csv", replace
+    export delimited using "$OUTPUT_DISAGG_DESIGN/section19_validation.csv", replace
+restore
+
+
+// 19.8. Predefinir y exportar el contrato temporal de los componentes
+
+* El contrato fija el alcance de los bloques 2 a 5 antes de ejecutar cualquier
+* prueba temporal. Ninguna fila autoriza transformar o seleccionar el M3.
+tempname temporal_design_post
+tempfile temporal_design_report
+
+postfile `temporal_design_post' ///
+    str4 rule_id str40 design_area str80 source ///
+    str100 required_setting ///
+    str160 methodological_action str180 interpretation_limit ///
+    byte passed ///
+    using "`temporal_design_report'", replace
+
+post `temporal_design_post' ///
+    ("T01") ("COMPONENT_SCOPE") ///
+    ("master_panel_estimation_sample.dta") ///
+    ("rents_oil_gas; rents_mining") ///
+    ("Evaluar temporalmente solo los dos componentes contables de RENTS.") ///
+    ("RENTS x INST agregado y auxiliares manuales no son procesos autonomos.") ///
+    (1)
+post `temporal_design_post' ///
+    ("T02") ("COMMON_SAMPLE") ("sample_contract.csv") ///
+    ("N=1044; countries=49; effective_years=23; identical_samples=1") ///
+    ("Usar exactamente la muestra comun de los modelos desagregados aprobados.") ///
+    ("No recortar, balancear, imputar ni interpolar para habilitar una prueba.") ///
+    ((`eci_disagg_n' == `temporal_contract_n') & ///
+     (`divx_disagg_n' == `temporal_contract_n') & ///
+     (`disagg_sample_mismatches' == 0))
+post `temporal_design_post' ///
+    ("T03") ("ACCOUNTING_IDENTITY") ("section19_validation.csv") ///
+    ("RENTS = RENTS_OIL_GAS + RENTS_MINING; tolerance=1e-10") ///
+    ("Detener la extension ante cualquier ruptura de la identidad contable.") ///
+    ("La identidad define componentes; no identifica efectos causales.") ///
+    ((`identity_max_gap' <= 1e-10) & (`missingness_mismatches' == 0))
+post `temporal_design_post' ///
+    ("T04") ("HHI_SCOPE") ("DISAGG_ECI_REGRESSORS; DISAGG_DIVX_REGRESSORS") ///
+    ("HHI in ECI only; HHI absent from DIVX") ///
+    ("Conservar HHI en ECI y excluirlo de toda ecuacion DIVX.") ///
+    ("Incluir HHI en DIVX generaria una identidad mecanica.") ///
+    ((`temporal_hhi_in_eci' == 1) & (`temporal_hhi_in_divx' == 0))
+post `temporal_design_post' ///
+    ("T05") ("NO_IMPUTATION") ("sample_contract.csv") ///
+    ("no_imputation=1") ///
+    ("Preservar los valores observados y los vacios del panel.") ///
+    ("No completar series para mejorar artificialmente elegibilidad o potencia.") ///
+    (`temporal_no_imputation' == 1)
+post `temporal_design_post' ///
+    ("T06") ("NO_INTERPOLATION") ("sample_contract.csv") ///
+    ("no_interpolation=1") ///
+    ("Mantener las brechas temporales reales de la muestra.") ///
+    ("Las diferencias y rezagos deben respetar anos no consecutivos.") ///
+    (`temporal_no_interpolation' == 1)
+post `temporal_design_post' ///
+    ("T07") ("UNIT_ROOT_SPECIFICATION") ("Peer1_audit; D18") ///
+    ("Fisher-ADF; constant; lags=1; demeaned; level and first difference") ///
+    ("Aplicar una sola especificacion predefinida a cada componente.") ///
+    ("El rechazo no demuestra estacionariedad universal ni clasifica I(0) o I(1).") ///
+    (1)
+post `temporal_design_post' ///
+    ("T08") ("DIAGNOSTIC_ROLE") ("econometric_decision_register.csv; D18") ///
+    ("implementation_status=DIAGNOSTIC_ONLY") ///
+    ("Usar persistencia y raices unitarias como contexto temporal.") ///
+    ("No transformar, excluir ni seleccionar componentes automaticamente.") ///
+    (`temporal_d18_rows' == 1)
+post `temporal_design_post' ///
+    ("T09") ("NO_SIGNIFICANCE_SELECTION") ///
+    ("econometric_decision_register.csv") ///
+    ("significance_selected=0") ///
+    ("Predefinir todas las pruebas y conservar tambien resultados no significativos.") ///
+    ("Los valores p no eligen especificaciones ni periodos.") ///
+    (`temporal_sig_selection' == 0)
+post `temporal_design_post' ///
+    ("T10") ("EXCLUDED_METHODS") ///
+    ("econometric_decision_register.csv; D14-D16") ///
+    ("Exclude cointegration, ECM, VAR/VEC, Granger, LP and HP from script 08") ///
+    ("No incorporar metodos sin vector, choque o sistema predefinido.") ///
+    ("Las exclusiones no impiden un proyecto dinamico separado con otro diseno.") ///
+    (`temporal_exclusion_rows' == 3)
+post `temporal_design_post' ///
+    ("T11") ("INFERENCE_GATE") ("future disaggregated_panel_error_tests.csv") ///
+    ("No Driscoll-Kraay or PCSE before residual diagnostics") ///
+    ("Evaluar primero heterocedasticidad, autocorrelacion y Pesaran CD.") ///
+    ("Una alerta residual abriria una decision separada; no activa otro estimador.") ///
+    (1)
+post `temporal_design_post' ///
+    ("T12") ("OUTPUT_ISOLATION") ("OUTPUT_DISAGG") ///
+    ("Write only under 07_resource_disaggregation") ///
+    ("Mantener los nuevos resultados dentro de la extension desagregada.") ///
+    ("Los outputs agregados de 01 y 04 permanecen protegidos.") ///
+    (1)
+
+postclose `temporal_design_post'
+
+preserve
+    use "`temporal_design_report'", clear
+    assert _N == 12
+    isid rule_id
+    assert !missing(design_area, source, required_setting)
+    assert !missing(methodological_action, interpretation_limit)
+    assert passed == 1
+    sort rule_id
+    export delimited using ///
+        "$OUTPUT_DISAGG_DESIGN/component_temporal_design.csv", ///
+        replace datafmt
+    list rule_id design_area required_setting passed, ///
+        noobs abbreviate(32)
 restore
 
 * Notificar el cierre del diseño sin estimar todavía coeficientes desagregados.
 display as result "Control G aprobado antes de observar coeficientes."
+display as result ///
+    "Contrato temporal aprobado: 12 reglas predefinidas y validadas."
 display as result "ECI desagregado: `eci_disagg_n' observaciones, `eci_disagg_countries' países, `eci_disagg_first_year'-`eci_disagg_last_year'."
 display as result "DIVX desagregado: `divx_disagg_n' observaciones, `divx_disagg_countries' países, `divx_disagg_first_year'-`divx_disagg_last_year'."
-display as result "Sección 9 completada: diseño registrado y muestras comparables validadas."
+display as result "Sección 19 completada: diseño registrado y muestras comparables validadas."
 
 
 // *****************************************************************************
@@ -515,6 +743,328 @@ preserve
     export delimited using "$OUTPUT_DISAGG_DIAGNOSTICS/component_panel_variation.csv", replace
 restore
 
+
+// 20.3.1. Inventariar la estructura temporal y la persistencia descriptiva
+
+* Este inventario no prueba raíces unitarias ni autoriza transformar, excluir
+* o sustituir componentes en las especificaciones desagregadas aprobadas.
+assert sample_eci_disagg == sample_divx_disagg
+
+tempname temporal_post
+tempfile temporal_report
+
+postfile `temporal_post' ///
+    str24 variable ///
+    str28 component_label ///
+    str18 sample ///
+    long source_observations ///
+    long valid_lag_pairs ///
+    long ar1_observations ///
+    int countries ///
+    double lag_pair_loss_percent ///
+    int min_periods ///
+    int max_periods ///
+    double average_periods ///
+    int calendar_year_count ///
+    str244 calendar_years ///
+    long total_internal_gaps ///
+    str120 pooled_missing_years ///
+    double ar1_coefficient ///
+    double standard_error ///
+    double t_statistic ///
+    double p_value ///
+    double ci_lower ///
+    double ci_upper ///
+    double cluster_df ///
+    str24 persistence_label ///
+    byte model_change_authorized ///
+    str244 interpretation_limit ///
+    using "`temporal_report'", replace
+
+foreach var in rents_oil_gas rents_mining {
+    local component_label "Petróleo y gas"
+    if "`var'" == "rents_mining" {
+        local component_label "Minería"
+    }
+
+    quietly count if sample_eci_disagg == 1 & !missing(`var')
+    local source_n = r(N)
+
+    quietly count if ///
+        sample_eci_disagg == 1 & ///
+        L.sample_eci_disagg == 1 & ///
+        !missing(`var', L.`var')
+    local lag_pairs = r(N)
+    local pair_loss = 100 * (`source_n' - `lag_pairs') / `source_n'
+
+    preserve
+        keep if sample_eci_disagg == 1 & !missing(`var')
+        sort country_id year
+        by country_id: generate int periods_in_country = _N
+        by country_id (year): generate int internal_gap = ///
+            cond(_n == 1, 0, max(year - year[_n - 1] - 1, 0))
+
+        quietly summarize internal_gap, meanonly
+        local total_gaps = r(sum)
+        quietly levelsof year, local(calendar_years)
+        local year_count : word count `calendar_years'
+        quietly summarize year, meanonly
+        local first_calendar_year = r(min)
+        local last_calendar_year = r(max)
+
+        local pooled_missing ""
+        forvalues calendar_year = ///
+            `first_calendar_year'/`last_calendar_year' {
+            quietly count if year == `calendar_year'
+            if r(N) == 0 {
+                local pooled_missing ///
+                    "`pooled_missing' `calendar_year'"
+            }
+        }
+        local pooled_missing = strtrim("`pooled_missing'")
+        if "`pooled_missing'" == "" {
+            local pooled_missing "Ninguno"
+        }
+
+        by country_id: generate byte country_first = _n == 1
+        quietly count if country_first == 1
+        local country_n = r(N)
+        quietly summarize periods_in_country if country_first == 1, meanonly
+        local min_periods = r(min)
+        local max_periods = r(max)
+        local average_periods = r(mean)
+    restore
+
+    quietly xtreg `var' L.`var' i.year if ///
+        sample_eci_disagg == 1 & ///
+        L.sample_eci_disagg == 1, ///
+        fe vce(cluster country_id)
+    local ar1_n = e(N)
+    local ar1_b = _b[L.`var']
+    local ar1_se = _se[L.`var']
+    local ar1_t = `ar1_b' / `ar1_se'
+    local ar1_df = e(df_r)
+    local ar1_p = 2 * ttail(`ar1_df', abs(`ar1_t'))
+    local ar1_crit = invttail(`ar1_df', 0.025)
+    local ar1_lb = `ar1_b' - `ar1_crit' * `ar1_se'
+    local ar1_ub = `ar1_b' + `ar1_crit' * `ar1_se'
+
+    local persistence_label "Baja descriptiva"
+    if abs(`ar1_b') >= 0.30 {
+        local persistence_label "Moderada descriptiva"
+    }
+    if abs(`ar1_b') >= 0.70 {
+        local persistence_label "Alta descriptiva"
+    }
+
+    post `temporal_post' ///
+        ("`var'") ///
+        ("`component_label'") ///
+        ("ECI_DIVX_common") ///
+        (`source_n') ///
+        (`lag_pairs') ///
+        (`ar1_n') ///
+        (`country_n') ///
+        (`pair_loss') ///
+        (`min_periods') ///
+        (`max_periods') ///
+        (`average_periods') ///
+        (`year_count') ///
+        ("`calendar_years'") ///
+        (`total_gaps') ///
+        ("`pooled_missing'") ///
+        (`ar1_b') ///
+        (`ar1_se') ///
+        (`ar1_t') ///
+        (`ar1_p') ///
+        (`ar1_lb') ///
+        (`ar1_ub') ///
+        (`ar1_df') ///
+        ("`persistence_label'") ///
+        (0) ///
+        ("AR(1) descriptivo con FE de país y año y errores agrupados por país; no es prueba de raíz unitaria ni regla automática de modelación.")
+}
+postclose `temporal_post'
+
+* Validar y exportar el contrato analítico del bloque 2.
+preserve
+    use "`temporal_report'", clear
+    isid variable
+    assert _N == 2
+    assert inlist(variable, "rents_oil_gas", "rents_mining")
+    assert source_observations == 1044
+    assert countries == 49
+    assert valid_lag_pairs < source_observations
+    assert ar1_observations == valid_lag_pairs
+    assert !missing( ///
+        lag_pair_loss_percent, ///
+        min_periods, ///
+        max_periods, ///
+        average_periods, ///
+        calendar_year_count, ///
+        total_internal_gaps, ///
+        ar1_coefficient, ///
+        standard_error, ///
+        t_statistic, ///
+        p_value, ///
+        ci_lower, ///
+        ci_upper, ///
+        cluster_df)
+    assert strpos(lower(variable), "hhi") == 0
+    assert model_change_authorized == 0
+    format lag_pair_loss_percent average_periods %9.2f
+    format ar1_coefficient standard_error t_statistic ///
+        p_value ci_lower ci_upper cluster_df %12.6f
+    sort variable
+    export delimited using ///
+        "$OUTPUT_DISAGG_DIAGNOSTICS/component_temporal_inventory.csv", ///
+        replace datafmt
+restore
+
+display as result ///
+    "Bloque 2 validado: inventario temporal descriptivo de dos componentes."
+
+
+// 20.3.2. Ejecutar Fisher-ADF predefinido para los dos componentes
+
+* Fisher-ADF se usa solo como diagnóstico temporal complementario. El rechazo
+* de la hipótesis nula conjunta no demuestra que todos los países sean
+* estacionarios ni determina por sí solo un orden de integración común.
+capture drop diagnostic_d_rents_oil_gas
+capture drop diagnostic_d_rents_mining
+generate double diagnostic_d_rents_oil_gas = ///
+    D.rents_oil_gas if ///
+    sample_eci_disagg == 1 & L.sample_eci_disagg == 1
+generate double diagnostic_d_rents_mining = ///
+    D.rents_mining if ///
+    sample_eci_disagg == 1 & L.sample_eci_disagg == 1
+
+tempname component_ur_post
+tempfile component_ur_report
+
+postfile `component_ur_post' ///
+    str24 variable ///
+    str28 component_label ///
+    str18 sample ///
+    str18 series_form ///
+    str12 method ///
+    str24 statistic_type ///
+    str12 deterministics ///
+    byte demeaned ///
+    int lags ///
+    long observations ///
+    int countries ///
+    double statistic ///
+    double p_value ///
+    byte reject_5pct ///
+    str36 decision ///
+    int return_code ///
+    str48 null_hypothesis ///
+    str64 alternative_hypothesis ///
+    str20 diagnostic_role ///
+    byte model_change_authorized ///
+    str244 interpretation_limit ///
+    using "`component_ur_report'", replace
+
+foreach var in rents_oil_gas rents_mining {
+    local component_label "Petróleo y gas"
+    if "`var'" == "rents_mining" {
+        local component_label "Minería"
+    }
+
+    foreach series_form in LEVEL FIRST_DIFFERENCE {
+        local test_var "`var'"
+        if "`series_form'" == "FIRST_DIFFERENCE" {
+            local test_var "diagnostic_d_`var'"
+        }
+
+        capture quietly xtunitroot fisher `test_var' ///
+            if sample_eci_disagg == 1, ///
+            dfuller lags(1) demean
+        local fisher_rc = _rc
+        if `fisher_rc' != 0 {
+            display as error ///
+                "Fisher-ADF falló para `var' en `series_form'."
+            exit `fisher_rc'
+        }
+
+        local fisher_n = r(N)
+        local fisher_groups = r(N_g)
+        local fisher_stat = r(P)
+        local fisher_p = r(p_P)
+        if missing(`fisher_stat', `fisher_p') {
+            display as error ///
+                "Fisher-ADF devolvió resultados vacíos para `var' en `series_form'."
+            exit 498
+        }
+
+        local fisher_reject = `fisher_p' < 0.05
+        local fisher_decision "DO_NOT_REJECT_UNIT_ROOT_NULL"
+        if `fisher_reject' == 1 {
+            local fisher_decision "REJECT_UNIT_ROOT_NULL"
+        }
+
+        post `component_ur_post' ///
+            ("`var'") ///
+            ("`component_label'") ///
+            ("ECI_DIVX_common") ///
+            ("`series_form'") ///
+            ("FISHER_ADF") ///
+            ("INVERSE_CHI_SQUARED_P") ///
+            ("CONSTANT") ///
+            (1) ///
+            (1) ///
+            (`fisher_n') ///
+            (`fisher_groups') ///
+            (`fisher_stat') ///
+            (`fisher_p') ///
+            (`fisher_reject') ///
+            ("`fisher_decision'") ///
+            (`fisher_rc') ///
+            ("All panels contain unit roots") ///
+            ("At least one panel is stationary") ///
+            ("DIAGNOSTIC_ONLY") ///
+            (0) ///
+            ("El rechazo indica que no todos los paneles contienen raíz unitaria; no demuestra estacionariedad universal ni clasifica automáticamente I(0) o I(1).")
+    }
+}
+postclose `component_ur_post'
+
+* Validar y exportar la batería reducida comprometida para el bloque 3.
+preserve
+    use "`component_ur_report'", clear
+    isid variable series_form
+    assert _N == 4
+    bysort variable: assert _N == 2
+    assert inlist(variable, "rents_oil_gas", "rents_mining")
+    assert inlist(series_form, "LEVEL", "FIRST_DIFFERENCE")
+    assert method == "FISHER_ADF"
+    assert statistic_type == "INVERSE_CHI_SQUARED_P"
+    assert deterministics == "CONSTANT"
+    assert demeaned == 1
+    assert lags == 1
+    assert observations == 1044 if series_form == "LEVEL"
+    assert observations == 869 if series_form == "FIRST_DIFFERENCE"
+    assert countries == 49
+    assert return_code == 0
+    assert !missing(statistic, p_value)
+    assert inrange(p_value, 0, 1)
+    assert reject_5pct == (p_value < 0.05)
+    assert diagnostic_role == "DIAGNOSTIC_ONLY"
+    assert model_change_authorized == 0
+    assert strpos(lower(variable), "hhi") == 0
+    format statistic p_value %14.10f
+    sort variable series_form
+    export delimited using ///
+        "$OUTPUT_DISAGG_DIAGNOSTICS/panel_unit_root_components.csv", ///
+        replace datafmt
+restore
+
+drop diagnostic_d_rents_oil_gas diagnostic_d_rents_mining
+
+display as result ///
+    "Bloque 3 validado: cuatro resultados Fisher-ADF diagnósticos."
+
 * Exportar la matriz de correlaciones focales de regresores.
 local focal_vars rents_oil_gas rents_mining inst rents_oil_gas_x_inst rents_mining_x_inst ln1p_oilpc ln1p_gaspc ln1p_coalpc
 quietly correlate `focal_vars' if sample_eci_disagg == 1
@@ -597,7 +1147,228 @@ foreach var of local regressors_eci {
 }
 
 
-// 20.4. Revisar distribuciones y observaciones influyentes
+// 20.4. Diagnosticar la estructura residual de las ecuaciones desagregadas
+
+* Crear indicadores anuales explícitos porque xtserial no admite i.year. Se
+* omite el primer año observado como categoría de referencia.
+quietly levelsof year if sample_eci_disagg == 1, ///
+    local(disagg_error_years)
+local disagg_error_base_year : word 1 of `disagg_error_years'
+local disagg_error_year_dummies ""
+
+foreach diagnostic_year of local disagg_error_years {
+    if `diagnostic_year' != `disagg_error_base_year' {
+        capture drop disagg_error_year_`diagnostic_year'
+        generate byte disagg_error_year_`diagnostic_year' = ///
+            year == `diagnostic_year'
+        local disagg_error_year_dummies ///
+            "`disagg_error_year_dummies' disagg_error_year_`diagnostic_year'"
+    }
+}
+
+tempname disagg_error_post
+tempfile disagg_error_report
+
+postfile `disagg_error_post' ///
+    str8 model ///
+    str8 dependent ///
+    str32 test ///
+    str80 null_hypothesis ///
+    double statistic ///
+    double df1 ///
+    double df2 ///
+    double p_value ///
+    long observations ///
+    int countries ///
+    int first_year ///
+    int last_year ///
+    byte includes_country_fe ///
+    byte includes_year_fe ///
+    byte hhi_included ///
+    str20 decision ///
+    int return_code ///
+    str18 sample_rule ///
+    str20 main_inference ///
+    str20 alternative_status ///
+    byte model_change_authorized ///
+    str244 interpretation_limit ///
+    using "`disagg_error_report'", replace
+
+foreach model in ECI DIVX {
+    local dependent "eci"
+    local regressors "`regressors_eci'"
+    local factor_regressors "$DISAGG_ECI_REGRESSORS"
+    local sample_flag "sample_eci_disagg"
+    local hhi_included = 1
+
+    if "`model'" == "DIVX" {
+        local dependent "divx"
+        local regressors "`regressors_divx'"
+        local factor_regressors "$DISAGG_DIVX_REGRESSORS"
+        local sample_flag "sample_divx_disagg"
+        local hhi_included = 0
+    }
+
+    quietly count if `sample_flag' == 1
+    local disagg_diag_n = r(N)
+    assert `disagg_diag_n' == 1044
+    quietly levelsof country_id if `sample_flag' == 1, ///
+        local(disagg_diag_country_ids)
+    local disagg_diag_countries : word count `disagg_diag_country_ids'
+    assert `disagg_diag_countries' == 49
+    quietly summarize year if `sample_flag' == 1, meanonly
+    local disagg_diag_first = r(min)
+    local disagg_diag_last = r(max)
+
+    * Wald modificado para heterocedasticidad entre países.
+    quietly xtreg `dependent' `factor_regressors' i.year ///
+        if `sample_flag' == 1, fe
+    assert e(N) == `disagg_diag_n'
+    assert e(sample) == `sample_flag'
+    capture quietly xttest3
+    local hetero_rc = _rc
+    if `hetero_rc' != 0 {
+        display as error ///
+            "Modified Wald falló para el modelo desagregado `model'."
+        exit `hetero_rc'
+    }
+    local hetero_stat = r(wald)
+    local hetero_df = r(df)
+    local hetero_p = r(p)
+    if missing(`hetero_stat', `hetero_df', `hetero_p') {
+        display as error ///
+            "Modified Wald devolvió resultados vacíos para `model'."
+        exit 498
+    }
+    local hetero_decision "DO NOT REJECT H0"
+    if `hetero_p' < 0.05 local hetero_decision "REJECT H0"
+
+    post `disagg_error_post' ///
+        ("`model'") ("`dependent'") ("Modified Wald") ///
+        ("Equal error variance across countries") ///
+        (`hetero_stat') (`hetero_df') (.) (`hetero_p') ///
+        (`disagg_diag_n') (`disagg_diag_countries') ///
+        (`disagg_diag_first') (`disagg_diag_last') ///
+        (1) (1) (`hhi_included') ///
+        ("`hetero_decision'") (`hetero_rc') ///
+        ("COMMON_COMPLETE") ("CLUSTER_COUNTRY") ///
+        ("NOT_AUTHORIZED") (0) ///
+        ("Diagnóstico de heterocedasticidad; la inferencia principal agrupada por país se mantiene por diseño.")
+
+    * Wooldridge para autocorrelación serial de primer orden, conservando los
+    * controles y los efectos anuales de la ecuación desagregada.
+    capture quietly xtserial `dependent' `regressors' ///
+        `disagg_error_year_dummies' ///
+        if `sample_flag' == 1
+    local serial_rc = _rc
+    if `serial_rc' != 0 {
+        display as error ///
+            "Wooldridge AR(1) falló para el modelo desagregado `model'."
+        exit `serial_rc'
+    }
+    local serial_stat = r(F)
+    local serial_df1 = r(df)
+    local serial_df2 = r(df_r)
+    local serial_p = r(p)
+    if missing(`serial_stat', `serial_df1', `serial_df2', `serial_p') {
+        display as error ///
+            "Wooldridge devolvió resultados vacíos para `model'."
+        exit 498
+    }
+    local serial_decision "DO NOT REJECT H0"
+    if `serial_p' < 0.05 local serial_decision "REJECT H0"
+
+    post `disagg_error_post' ///
+        ("`model'") ("`dependent'") ("Wooldridge AR(1)") ///
+        ("No first-order serial correlation") ///
+        (`serial_stat') (`serial_df1') (`serial_df2') (`serial_p') ///
+        (`disagg_diag_n') (`disagg_diag_countries') ///
+        (`disagg_diag_first') (`disagg_diag_last') ///
+        (1) (1) (`hhi_included') ///
+        ("`serial_decision'") (`serial_rc') ///
+        ("COMMON_COMPLETE") ("CLUSTER_COUNTRY") ///
+        ("NOT_AUTHORIZED") (0) ///
+        ("Diagnóstico de correlación serial residual; no es un modelo AR(p) ni activa PCSE-AR(1).")
+
+    * Pesaran CD sobre los residuos del TWFE con efectos de país y año.
+    quietly xtreg `dependent' `factor_regressors' i.year ///
+        if `sample_flag' == 1, fe
+    assert e(N) == `disagg_diag_n'
+    assert e(sample) == `sample_flag'
+    capture quietly xtcsd, pesaran abs
+    local cd_rc = _rc
+    if `cd_rc' != 0 {
+        display as error ///
+            "Pesaran CD falló para el modelo desagregado `model'."
+        exit `cd_rc'
+    }
+    local cd_stat = r(pesaran)
+    local cd_p = 2 * normal(-abs(`cd_stat'))
+    if missing(`cd_stat', `cd_p') {
+        display as error ///
+            "Pesaran CD devolvió resultados vacíos para `model'."
+        exit 498
+    }
+    local cd_decision "DO NOT REJECT H0"
+    if `cd_p' < 0.05 local cd_decision "REJECT H0"
+
+    post `disagg_error_post' ///
+        ("`model'") ("`dependent'") ("Pesaran CD") ///
+        ("Cross-sectional independence of residuals") ///
+        (`cd_stat') (.) (.) (`cd_p') ///
+        (`disagg_diag_n') (`disagg_diag_countries') ///
+        (`disagg_diag_first') (`disagg_diag_last') ///
+        (1) (1) (`hhi_included') ///
+        ("`cd_decision'") (`cd_rc') ///
+        ("COMMON_COMPLETE") ("CLUSTER_COUNTRY") ///
+        ("NOT_AUTHORIZED") (0) ///
+        ("Una alerta de dependencia transversal exige revisión separada; no activa automáticamente Driscoll-Kraay, PCSE o CCE.")
+}
+
+drop `disagg_error_year_dummies'
+postclose `disagg_error_post'
+
+* Validar la completitud, la muestra y el alcance metodológico del bloque 4.
+preserve
+    use "`disagg_error_report'", clear
+    isid model test
+    assert _N == 6
+    bysort model: assert _N == 3
+    assert inlist(model, "ECI", "DIVX")
+    assert inlist(test, ///
+        "Modified Wald", ///
+        "Wooldridge AR(1)", ///
+        "Pesaran CD")
+    assert observations == 1044
+    assert countries == 49
+    assert first_year == 1996
+    assert last_year == 2021
+    assert includes_country_fe == 1
+    assert includes_year_fe == 1
+    assert hhi_included == 1 if model == "ECI"
+    assert hhi_included == 0 if model == "DIVX"
+    assert return_code == 0
+    assert !missing(statistic, p_value)
+    assert inrange(p_value, 0, 1)
+    assert decision == "REJECT H0" if p_value < 0.05
+    assert decision == "DO NOT REJECT H0" if p_value >= 0.05
+    assert main_inference == "CLUSTER_COUNTRY"
+    assert alternative_status == "NOT_AUTHORIZED"
+    assert model_change_authorized == 0
+    format statistic df1 df2 p_value %12.6f
+    sort model test
+    export delimited using ///
+        "$OUTPUT_DISAGG_DIAGNOSTICS/component_error_tests.csv", ///
+        replace datafmt
+restore
+
+display as result ///
+    "Bloque 4 validado: seis diagnósticos residuales desagregados."
+display as result ///
+    "No se activó Driscoll-Kraay, PCSE ni CCE."
+
+
+// 20.5. Revisar distribuciones y observaciones influyentes
 
 * Detectar observaciones influyentes (Leverage, Cook, Residuos).
 tempfile influence_eci influence_divx
@@ -690,7 +1461,7 @@ preserve
 restore
 
 * Cerrar los diagnósticos sin excluir países ni observaciones.
-display as result "Sección 10 completada: diagnósticos desagregados exportados."
+display as result "Sección 20 completada: diagnósticos desagregados exportados."
 display as result "No se eliminaron países ni observaciones."
 
 
@@ -702,8 +1473,6 @@ display as result "No se eliminaron países ni observaciones."
 
 * Habilitar dependencias y verificar cobertura de la muestra ECI desagregada.
 capture mkdir "$OUTPUT_DISAGG_ECI"
-global ADO_PROJECT "$OUTPUT_ROOT/ado"
-adopath ++ "$ADO_PROJECT/plus"
 
 * Iterar sobre los elementos del conjunto.
 foreach command in reghdfe esttab {
@@ -1677,14 +2446,303 @@ assert sample_eci_disagg == sample_eci
 assert sample_divx_disagg == sample_divx
 
 
-// 23.2. Evaluar sensibilidad a observaciones y países
+// 23.2. Evaluar estabilidad temporal alrededor de 2014
 
-* Convertir el inventario de alertas de la sección 10 en indicadores país-año.
+* El corte está preespecificado en D13 con base en World Bank (2015),
+* Understanding the Plunge in Oil Prices: Sources and Implications. El año
+* 2014 mezcla meses previos y posteriores a la caída del precio del petróleo;
+* por ello esta sección es una sensibilidad y no identifica efectos causales.
+assert `temporal_d13_rows' == 1
+capture drop post2014
+generate byte post2014 = year >= 2014
+label variable post2014 "Año 2014 o posterior"
+assert inlist(post2014, 0, 1)
+
+* Documentar la cobertura previa y posterior dentro de la muestra común.
+quietly levelsof country_iso3_code if sample_eci_disagg == 1, ///
+    local(disagg_full_iso3) clean
+
+quietly count if sample_eci_disagg == 1 & post2014 == 0
+local disagg_pre_n = r(N)
+quietly levelsof country_id if sample_eci_disagg == 1 & post2014 == 0, ///
+    local(disagg_pre_country_ids)
+local disagg_pre_countries : word count `disagg_pre_country_ids'
+quietly levelsof year if sample_eci_disagg == 1 & post2014 == 0, ///
+    local(disagg_pre_years)
+local disagg_pre_effective_years : word count `disagg_pre_years'
+quietly levelsof country_iso3_code ///
+    if sample_eci_disagg == 1 & post2014 == 0, ///
+    local(disagg_pre_iso3) clean
+local disagg_pre_absent : list disagg_full_iso3 - disagg_pre_iso3
+
+quietly count if sample_eci_disagg == 1 & post2014 == 1
+local disagg_post_n = r(N)
+quietly levelsof country_id if sample_eci_disagg == 1 & post2014 == 1, ///
+    local(disagg_post_country_ids)
+local disagg_post_countries : word count `disagg_post_country_ids'
+quietly levelsof year if sample_eci_disagg == 1 & post2014 == 1, ///
+    local(disagg_post_years)
+local disagg_post_effective_years : word count `disagg_post_years'
+quietly levelsof country_iso3_code ///
+    if sample_eci_disagg == 1 & post2014 == 1, ///
+    local(disagg_post_iso3) clean
+local disagg_post_absent : list disagg_full_iso3 - disagg_post_iso3
+
+assert `disagg_pre_n' + `disagg_post_n' == 1044
+assert `disagg_pre_n' == 689
+assert `disagg_post_n' == 355
+assert `disagg_pre_countries' == 49
+assert `disagg_post_countries' == 48
+assert `disagg_pre_effective_years' == 15
+assert `disagg_post_effective_years' == 8
+
+tempname disagg_post2014_post
+tempfile disagg_post2014_report
+
+postfile `disagg_post2014_post' ///
+    str8 model ///
+    str12 component ///
+    str18 term_type ///
+    str36 base_term ///
+    str56 change_term ///
+    double pre_coefficient ///
+    double pre_standard_error ///
+    double pre_p_value ///
+    double pre_ci_lower ///
+    double pre_ci_upper ///
+    double change_from_2014 ///
+    double change_standard_error ///
+    double change_p_value ///
+    double change_ci_lower ///
+    double change_ci_upper ///
+    double post_coefficient ///
+    double post_standard_error ///
+    double post_p_value ///
+    double post_ci_lower ///
+    double post_ci_upper ///
+    byte sign_stable ///
+    double component_joint_f ///
+    double component_joint_df1 ///
+    double component_joint_df2 ///
+    double component_joint_p ///
+    double overall_joint_f ///
+    double overall_joint_df1 ///
+    double overall_joint_df2 ///
+    double overall_joint_p ///
+    long observations ///
+    int countries ///
+    long pre_observations ///
+    int pre_countries ///
+    int pre_effective_years ///
+    long post_observations ///
+    int post_countries ///
+    int post_effective_years ///
+    str24 post_absent_countries ///
+    int cutoff_year ///
+    byte country_fe ///
+    byte year_fe ///
+    byte hhi_included ///
+    byte externally_prespecified ///
+    byte significance_selected ///
+    str16 hierarchy ///
+    byte model_change_authorized ///
+    str40 external_reference ///
+    str244 interpretation_limit ///
+    using "`disagg_post2014_report'", replace
+
+foreach model in ECI DIVX {
+    local dependent "eci"
+    local regressors "$DISAGG_ECI_REGRESSORS"
+    local sample_flag "sample_eci_disagg"
+    local hhi_included = 1
+    if "`model'" == "DIVX" {
+        local dependent "divx"
+        local regressors "$DISAGG_DIVX_REGRESSORS"
+        local sample_flag "sample_divx_disagg"
+        local hhi_included = 0
+    }
+
+    * La muestra completa conserva efectos de país y año. El cambio común de
+    * la pendiente de INST se incluye para mantener la jerarquía del modelo.
+    quietly xtreg `dependent' `regressors' ///
+        i.post2014#c.rents_oil_gas ///
+        i.post2014#c.rents_mining ///
+        i.post2014#c.inst ///
+        i.post2014#c.rents_oil_gas#c.inst ///
+        i.post2014#c.rents_mining#c.inst ///
+        i.year if `sample_flag' == 1, ///
+        fe vce(cluster country_id)
+    assert e(sample) == `sample_flag'
+    assert e(N) == 1044
+    assert e(N_g) == 49
+    local disagg_regime_df = e(df_r)
+
+    * Contrastes predefinidos por componente y para los cinco cambios focales.
+    quietly test ///
+        1.post2014#c.rents_oil_gas ///
+        1.post2014#c.rents_oil_gas#c.inst
+    local oil_joint_f = r(F)
+    local oil_joint_df1 = r(df)
+    local oil_joint_df2 = r(df_r)
+    local oil_joint_p = r(p)
+
+    quietly test ///
+        1.post2014#c.rents_mining ///
+        1.post2014#c.rents_mining#c.inst
+    local mining_joint_f = r(F)
+    local mining_joint_df1 = r(df)
+    local mining_joint_df2 = r(df_r)
+    local mining_joint_p = r(p)
+
+    quietly test ///
+        1.post2014#c.rents_oil_gas ///
+        1.post2014#c.rents_mining ///
+        1.post2014#c.inst ///
+        1.post2014#c.rents_oil_gas#c.inst ///
+        1.post2014#c.rents_mining#c.inst
+    local overall_joint_f = r(F)
+    local overall_joint_df1 = r(df)
+    local overall_joint_df2 = r(df_r)
+    local overall_joint_p = r(p)
+
+    foreach component in oil_gas mining {
+        local component_var "rents_`component'"
+        local component_label "OIL_GAS"
+        local component_f = `oil_joint_f'
+        local component_df1 = `oil_joint_df1'
+        local component_df2 = `oil_joint_df2'
+        local component_p = `oil_joint_p'
+        if "`component'" == "mining" {
+            local component_label "MINING"
+            local component_f = `mining_joint_f'
+            local component_df1 = `mining_joint_df1'
+            local component_df2 = `mining_joint_df2'
+            local component_p = `mining_joint_p'
+        }
+
+        local base_terms ///
+            "`component_var' c.`component_var'#c.inst"
+        local change_terms ///
+            "1.post2014#c.`component_var' 1.post2014#c.`component_var'#c.inst"
+        local term_types "MAIN INST_INTERACTION"
+
+        forvalues term_index = 1/2 {
+            local base_term : word `term_index' of `base_terms'
+            local change_term : word `term_index' of `change_terms'
+            local term_type : word `term_index' of `term_types'
+
+            local pre_b = _b[`base_term']
+            local pre_se = _se[`base_term']
+            local t_critical = invttail(`disagg_regime_df', 0.025)
+            local pre_p = 2 * ttail( ///
+                `disagg_regime_df', abs(`pre_b' / `pre_se'))
+            local pre_lb = `pre_b' - `t_critical' * `pre_se'
+            local pre_ub = `pre_b' + `t_critical' * `pre_se'
+
+            local change_b = _b[`change_term']
+            local change_se = _se[`change_term']
+            local change_p = 2 * ttail( ///
+                `disagg_regime_df', abs(`change_b' / `change_se'))
+            local change_lb = `change_b' - `t_critical' * `change_se'
+            local change_ub = `change_b' + `t_critical' * `change_se'
+
+            quietly lincom `base_term' + `change_term'
+            local post_b = r(estimate)
+            local post_se = r(se)
+            local post_p = r(p)
+            local post_lb = r(lb)
+            local post_ub = r(ub)
+            local sign_stable = sign(`pre_b') == sign(`post_b')
+
+            post `disagg_post2014_post' ///
+                ("`model'") ("`component_label'") ("`term_type'") ///
+                ("`base_term'") ("`change_term'") ///
+                (`pre_b') (`pre_se') (`pre_p') (`pre_lb') (`pre_ub') ///
+                (`change_b') (`change_se') (`change_p') ///
+                (`change_lb') (`change_ub') ///
+                (`post_b') (`post_se') (`post_p') (`post_lb') (`post_ub') ///
+                (`sign_stable') ///
+                (`component_f') (`component_df1') ///
+                (`component_df2') (`component_p') ///
+                (`overall_joint_f') (`overall_joint_df1') ///
+                (`overall_joint_df2') (`overall_joint_p') ///
+                (1044) (49) ///
+                (`disagg_pre_n') (`disagg_pre_countries') ///
+                (`disagg_pre_effective_years') ///
+                (`disagg_post_n') (`disagg_post_countries') ///
+                (`disagg_post_effective_years') ///
+                ("`disagg_post_absent'") (2014) ///
+                (1) (1) (`hhi_included') (1) (0) ///
+                ("SENSITIVITY") (0) ///
+                ("World Bank PRN 1 (2015)") ///
+                ("Sensibilidad en muestra completa; 2014 es transición, los coeficientes no identifican efectos causales y la significancia no selecciona el modelo.")
+        }
+    }
+}
+postclose `disagg_post2014_post'
+
+* Validar y exportar los ocho términos focales con pruebas conjuntas repetidas
+* dentro de cada componente para conservar un único archivo autocontenido.
+preserve
+    use "`disagg_post2014_report'", clear
+    isid model component term_type
+    assert _N == 8
+    bysort model component: assert _N == 2
+    assert observations == 1044
+    assert countries == 49
+    assert pre_observations == 689
+    assert pre_countries == 49
+    assert pre_effective_years == 15
+    assert post_observations == 355
+    assert post_countries == 48
+    assert post_effective_years == 8
+    assert cutoff_year == 2014
+    assert country_fe == 1
+    assert year_fe == 1
+    assert hhi_included == 1 if model == "ECI"
+    assert hhi_included == 0 if model == "DIVX"
+    assert externally_prespecified == 1
+    assert significance_selected == 0
+    assert hierarchy == "SENSITIVITY"
+    assert model_change_authorized == 0
+    assert inrange(pre_p_value, 0, 1)
+    assert inrange(change_p_value, 0, 1)
+    assert inrange(post_p_value, 0, 1)
+    assert inrange(component_joint_p, 0, 1)
+    assert inrange(overall_joint_p, 0, 1)
+    assert inrange(pre_coefficient, pre_ci_lower, pre_ci_upper)
+    assert inrange(change_from_2014, change_ci_lower, change_ci_upper)
+    assert inrange(post_coefficient, post_ci_lower, post_ci_upper)
+    format pre_coefficient pre_standard_error pre_p_value ///
+        pre_ci_lower pre_ci_upper ///
+        change_from_2014 change_standard_error change_p_value ///
+        change_ci_lower change_ci_upper ///
+        post_coefficient post_standard_error post_p_value ///
+        post_ci_lower post_ci_upper ///
+        component_joint_f component_joint_p ///
+        overall_joint_f overall_joint_p %12.6f
+    sort model component term_type
+    export delimited using ///
+        "$OUTPUT_DISAGG_STABILITY/post_2014_stability.csv", ///
+        replace datafmt
+restore
+
+drop post2014
+
+display as result ///
+    "Bloque 5 validado: estabilidad post-2014 en muestra completa."
+display as result ///
+    "La sensibilidad no identifica una ruptura causal ni selecciona el modelo."
+
+
+// 23.3. Evaluar sensibilidad a observaciones y países
+
+* Convertir el inventario de alertas de la sección 20 en indicadores país-año.
 capture confirm file ///
     "$OUTPUT_DISAGG_DIAGNOSTICS/influential_observations.csv"
 if _rc {
     display as error ///
-        "No se encontró influential_observations.csv; ejecute la sección 10."
+        "No se encontró influential_observations.csv; ejecute la sección 20."
     exit 601
 }
 tempfile disagg_influence_flags
@@ -1896,7 +2954,7 @@ preserve
 restore
 
 
-// 23.3. Aplicar inferencia alternativa
+// 23.4. Aplicar inferencia alternativa
 
 * Ejecutar wild cluster bootstrap para los ocho términos focales predefinidos.
 tempname disagg_bootstrap_post
@@ -1966,7 +3024,7 @@ preserve
         replace datafmt
 restore
 
-// 23.4. Comparar estabilidad entre componentes
+// 23.5. Comparar estabilidad entre componentes
 
 * Estimar la única sensibilidad predefinida sin controles per cápita.
 tempname disagg_no_pc_post
@@ -2134,7 +3192,7 @@ foreach required_file in ///
     * Verificar la existencia de un archivo antes de intentar cargarlo.
     capture confirm file "`required_file'"
     if _rc {
-        display as error "Falta un insumo requerido para la sección 14:"
+        display as error "Falta un insumo requerido para la sección 24:"
         display as error "`required_file'"
         exit 601
     }
@@ -2356,7 +3414,7 @@ restore
 * Exigir esttab para producir las versiones LaTeX y texto de la tabla final.
 capture which esttab
 if _rc {
-    display as error "La sección 14 requiere esttab para exportar la tabla final."
+    display as error "La sección 24 requiere esttab para exportar la tabla final."
     exit 199
 }
 
@@ -2585,6 +3643,156 @@ assert `final_figure_count' == 8
 
 // 24.3. Crear el índice reproducible de outputs
 
+* Integrar y volver a validar los cinco productos de la extensión temporal.
+foreach temporal_file in ///
+    "$OUTPUT_DISAGG_DESIGN/component_temporal_design.csv" ///
+    "$OUTPUT_DISAGG_DIAGNOSTICS/component_temporal_inventory.csv" ///
+    "$OUTPUT_DISAGG_DIAGNOSTICS/panel_unit_root_components.csv" ///
+    "$OUTPUT_DISAGG_DIAGNOSTICS/component_error_tests.csv" ///
+    "$OUTPUT_DISAGG_STABILITY/post_2014_stability.csv" {
+    capture confirm file "`temporal_file'"
+    if _rc {
+        display as error ///
+            "Falta un producto requerido para la integración temporal: `temporal_file'"
+        exit 601
+    }
+}
+
+preserve
+    import delimited using ///
+        "$OUTPUT_DISAGG_DESIGN/component_temporal_design.csv", ///
+        clear varnames(1)
+    isid rule_id
+    assert _N == 12
+    assert passed == 1
+    local final_temporal_design_rows = _N
+restore
+
+preserve
+    import delimited using ///
+        "$OUTPUT_DISAGG_DIAGNOSTICS/component_temporal_inventory.csv", ///
+        clear varnames(1)
+    isid variable
+    assert _N == 2
+    assert source_observations == 1044
+    assert countries == 49
+    assert model_change_authorized == 0
+    local final_temporal_inventory_rows = _N
+restore
+
+preserve
+    import delimited using ///
+        "$OUTPUT_DISAGG_DIAGNOSTICS/panel_unit_root_components.csv", ///
+        clear varnames(1)
+    isid variable series_form
+    assert _N == 4
+    assert return_code == 0
+    assert model_change_authorized == 0
+    local final_temporal_unitroot_rows = _N
+restore
+
+preserve
+    import delimited using ///
+        "$OUTPUT_DISAGG_DIAGNOSTICS/component_error_tests.csv", ///
+        clear varnames(1)
+    isid model test
+    assert _N == 6
+    assert return_code == 0
+    assert alternative_status == "NOT_AUTHORIZED"
+    assert model_change_authorized == 0
+    local final_temporal_error_rows = _N
+restore
+
+preserve
+    import delimited using ///
+        "$OUTPUT_DISAGG_STABILITY/post_2014_stability.csv", ///
+        clear varnames(1)
+    isid model component term_type
+    assert _N == 8
+    assert externally_prespecified == 1
+    assert significance_selected == 0
+    assert model_change_authorized == 0
+    local final_temporal_post2014_rows = _N
+restore
+
+local final_temporal_source_rows = ///
+    `final_temporal_design_rows' + ///
+    `final_temporal_inventory_rows' + ///
+    `final_temporal_unitroot_rows' + ///
+    `final_temporal_error_rows' + ///
+    `final_temporal_post2014_rows'
+assert `final_temporal_source_rows' == 32
+
+tempname temporal_extension_post
+tempfile temporal_extension_data
+
+postfile `temporal_extension_post' ///
+    byte order ///
+    str8 block_id ///
+    str60 artifact ///
+    str120 relative_path ///
+    int expected_rows ///
+    int observed_rows ///
+    byte passed ///
+    str24 analytical_role ///
+    byte model_change_authorized ///
+    str244 interpretation_limit ///
+    using "`temporal_extension_data'", replace
+
+post `temporal_extension_post' ///
+    (1) ("BLOCK_1") ("component_temporal_design.csv") ///
+    ("00_design/component_temporal_design.csv") ///
+    (12) (`final_temporal_design_rows') ///
+    (`final_temporal_design_rows' == 12) ///
+    ("DESIGN_CONTRACT") (0) ///
+    ("Predefine alcance, muestra y exclusiones; no contiene estimaciones.")
+post `temporal_extension_post' ///
+    (2) ("BLOCK_2") ("component_temporal_inventory.csv") ///
+    ("01_diagnostics/component_temporal_inventory.csv") ///
+    (2) (`final_temporal_inventory_rows') ///
+    (`final_temporal_inventory_rows' == 2) ///
+    ("DIAGNOSTIC_ONLY") (0) ///
+    ("La persistencia AR(1) es descriptiva y queda sujeta a revisión de Peer-1.")
+post `temporal_extension_post' ///
+    (3) ("BLOCK_3") ("panel_unit_root_components.csv") ///
+    ("01_diagnostics/panel_unit_root_components.csv") ///
+    (4) (`final_temporal_unitroot_rows') ///
+    (`final_temporal_unitroot_rows' == 4) ///
+    ("DIAGNOSTIC_ONLY") (0) ///
+    ("Fisher-ADF no demuestra estacionariedad universal ni clasifica automáticamente I(0) o I(1).")
+post `temporal_extension_post' ///
+    (4) ("BLOCK_4") ("component_error_tests.csv") ///
+    ("01_diagnostics/component_error_tests.csv") ///
+    (6) (`final_temporal_error_rows') ///
+    (`final_temporal_error_rows' == 6) ///
+    ("INFERENCE_DIAGNOSTIC") (0) ///
+    ("Los diagnósticos no activan automáticamente Driscoll-Kraay, PCSE o CCE.")
+post `temporal_extension_post' ///
+    (5) ("BLOCK_5") ("post_2014_stability.csv") ///
+    ("04_stability/post_2014_stability.csv") ///
+    (8) (`final_temporal_post2014_rows') ///
+    (`final_temporal_post2014_rows' == 8) ///
+    ("SENSITIVITY") (0) ///
+    ("2014 es transición externa; la sensibilidad no identifica una ruptura causal.")
+
+postclose `temporal_extension_post'
+
+preserve
+    use "`temporal_extension_data'", clear
+    isid block_id
+    assert _N == 5
+    assert observed_rows == expected_rows
+    assert passed == 1
+    assert model_change_authorized == 0
+    egen int integrated_source_rows = total(observed_rows)
+    assert integrated_source_rows == 32
+    drop integrated_source_rows
+    sort order
+    export delimited using ///
+        "$OUTPUT_DISAGG_EXPORTS/temporal_extension_manifest.csv", ///
+        replace datafmt
+restore
+
 * Registrar la configuración y las verificaciones centrales del paquete final.
 tempname manifest_post
 tempfile manifest_data
@@ -2605,17 +3813,24 @@ postfile `manifest_post' ///
     double joint_test_rows ///
     double marginal_effect_rows ///
     double stability_rows ///
+    double temporal_extension_files ///
+    double temporal_design_rows ///
+    double temporal_inventory_rows ///
+    double temporal_unit_root_rows ///
+    double temporal_error_test_rows ///
+    double temporal_post2014_rows ///
     double figure_files ///
     double final_export_files ///
     double indexed_files ///
     double bootstrap_replications ///
     str32 output_scope ///
     str24 control_status ///
+    str28 temporal_control_status ///
     using "`manifest_data'", replace
 
 * Escribir una fila única con el alcance reproducible de la ejecución.
 post `manifest_post' ///
-    ("resource_disaggregation_9_14") ///
+    ("resource_disaggregation_19_24") ///
     ("08_twfe_resource_disaggregated_full.do") ///
     ("`c(stata_version)'") ///
     ("`c(current_date)'") ///
@@ -2630,12 +3845,19 @@ post `manifest_post' ///
     (14) ///
     (20) ///
     (8) ///
+    (5) ///
+    (`final_temporal_design_rows') ///
+    (`final_temporal_inventory_rows') ///
+    (`final_temporal_unitroot_rows') ///
+    (`final_temporal_error_rows') ///
+    (`final_temporal_post2014_rows') ///
     (`final_figure_count') ///
-    (11) ///
-    (53) ///
+    (12) ///
+    (59) ///
     (9999) ///
     ("07_resource_disaggregation") ///
-    ("Control J validado")
+    ("Control J validado") ///
+    ("Bloques 1-5 validados")
 * Cerrar y guardar la tabla de resultados temporales en disco.
 postclose `manifest_post'
 
@@ -2750,7 +3972,7 @@ preserve
     quietly count
     replace data_rows = r(N) if relative_path == "05_exports/results_index.csv"
     * Control de calidad automático que detiene el script si no se cumple la condición.
-    assert _N == 53
+    assert _N == 59
     export delimited using ///
         "$OUTPUT_DISAGG_EXPORTS/results_index.csv", ///
         replace datafmt
@@ -2759,7 +3981,7 @@ restore
 
 // 24.4. Ejecutar y cerrar el Control J
 
-* Comprobar que los once archivos finales estén presentes y no estén vacíos.
+* Comprobar que los doce archivos finales estén presentes y no estén vacíos.
 local final_export_count = 0
 foreach final_file in ///
     final_focal_coefficients.csv ///
@@ -2771,6 +3993,7 @@ foreach final_file in ///
     table_eci_divx_aggregate_disaggregated.txt ///
     table_eci_divx_full_models.tex ///
     table_eci_divx_full_models.txt ///
+    temporal_extension_manifest.csv ///
     results_manifest.csv ///
     results_index.csv {
     * Verificar la existencia de un archivo antes de intentar cargarlo.
@@ -2780,16 +4003,17 @@ foreach final_file in ///
     local ++final_export_count
 }
 * Control de calidad automático que detiene el script si no se cumple la condición.
-assert `final_export_count' == 11
+assert `final_export_count' == 12
 
-* Verificar los conteos comprometidos en las cinco tablas finales.
+* Verificar los conteos comprometidos en las seis tablas finales.
 local final_tables ///
     final_focal_coefficients.csv ///
     final_model_comparison.csv ///
     final_joint_tests.csv ///
     final_component_marginal_effects.csv ///
-    final_stability_classification.csv
-local expected_rows "12 4 14 20 8"
+    final_stability_classification.csv ///
+    temporal_extension_manifest.csv
+local expected_rows "12 4 14 20 8 5"
 local final_table_count : word count `final_tables'
 forvalues table_index = 1/`final_table_count' {
     local final_table : word `table_index' of `final_tables'
@@ -2805,15 +4029,57 @@ forvalues table_index = 1/`final_table_count' {
     restore
 }
 
+* Confirmar que el manifiesto general integra los conteos temporales aprobados.
+preserve
+    import delimited using ///
+        "$OUTPUT_DISAGG_EXPORTS/results_manifest.csv", ///
+        clear varnames(1)
+    assert _N == 1
+    assert temporal_extension_files == 5
+    assert temporal_design_rows == 12
+    assert temporal_inventory_rows == 2
+    assert temporal_unit_root_rows == 4
+    assert temporal_error_test_rows == 6
+    assert temporal_post2014_rows == 8
+    assert final_export_files == 12
+    assert indexed_files == 59
+    assert temporal_control_status == "Bloques 1-5 validados"
+restore
+
+* Confirmar que el índice contiene los seis artefactos de integración temporal.
+local temporal_index_paths ///
+    "00_design/component_temporal_design.csv 01_diagnostics/component_temporal_inventory.csv 01_diagnostics/panel_unit_root_components.csv 01_diagnostics/component_error_tests.csv 04_stability/post_2014_stability.csv 05_exports/temporal_extension_manifest.csv"
+local temporal_index_rows "12 2 4 6 8 5"
+local temporal_index_count : word count `temporal_index_paths'
+
+preserve
+    import delimited using ///
+        "$OUTPUT_DISAGG_EXPORTS/results_index.csv", ///
+        clear varnames(1)
+    assert _N == 59
+    forvalues temporal_index_i = 1/`temporal_index_count' {
+        local temporal_index_path : word `temporal_index_i' of ///
+            `temporal_index_paths'
+        local temporal_index_expected : word `temporal_index_i' of ///
+            `temporal_index_rows'
+        quietly count if ///
+            relative_path == "`temporal_index_path'" & ///
+            data_rows == `temporal_index_expected'
+        assert r(N) == 1
+    }
+restore
+
 * Notificar que el paquete interno superó todas las verificaciones del Control J.
 display as result "Control J validado: paquete final completo y reproducible."
+display as result ///
+    "Bloque 6 validado: cinco bloques temporales integrados sin cambios del modelo."
 
 
 // *****************************************************************************
-// CIERRE DEL ARCHIVO 03.
+// CIERRE DEL ARCHIVO 08.
 // *****************************************************************************
 
 * Informar el alcance ejecutado y cerrar el registro del archivo 08.
-display as result "Sección 14 completada: exportaciones finales e índice generados."
+display as result "Sección 24 completada: exportaciones finales e índice generados."
 display as result "Archivo 08 finalizado: secciones 19 a 24 completadas sin errores."
 log close disaggregation_log

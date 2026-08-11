@@ -1,0 +1,3 @@
+model,grid_observations,sample_observations,grid_countries,sample_countries,total_calendar_years,effective_years,first_year,last_year,full_coverage_years,partial_coverage_years,common_gap_years,samples_identical,no_imputation,no_interpolation,key_definition,sample_rule
+DIVX,1430,1044,55,49,26,23,1996,2021,6,17,3,1,1,1,country_iso3_code + year,COMPLETE_CASES
+ECI,1430,1044,55,49,26,23,1996,2021,6,17,3,1,1,1,country_iso3_code + year,COMPLETE_CASES

@@ -11,8 +11,14 @@ order,family,file,purpose
 10,Estabilidad,final_wild_cluster_bootstrap.csv,Contraste bootstrap de RENTS y RENTS x INST.
 11,Estabilidad,final_resource_coefficient_equality.csv,"Prueba de igualdad entre petróleo, gas y carbón."
 12,Estabilidad,final_per_capita_transformation_sensitivity.csv,Comparación de ln(1+x) con controles per cápita en niveles.
-13,Tablas de sensibilidad,table_per_capita_transformation_sensitivity.tex,Tabla LaTeX de sensibilidad a la transformación per cápita.
-14,Tablas de sensibilidad,table_per_capita_transformation_sensitivity.txt,Versión de texto de la sensibilidad a la transformación per cápita.
-15,Figuras,figure_rents_marginal_effects_eci_divx.pdf,Figura comparada ECI-DIVX en formato apto para LaTeX.
-16,Figuras,figure_rents_marginal_effects_eci_divx.png,Figura comparada para inspección visual.
-17,Documentación,RESULTS_INDEX.md,"Índice, alcance y reglas de interpretación del paquete final."
+13,Estabilidad,final_focal_robustness_evidence.csv,"Matriz de resultados focales separada por estimando, método y soporte."
+14,Estabilidad,final_focal_joint_test_evidence.csv,"Pruebas conjuntas focales con hipótesis, inferencia y procedencia explícitas."
+15,Estabilidad,final_focal_robustness_reading_matrix.csv,"Matriz de lectura de signo, magnitud, inferencia, muestra y estabilidad temporal."
+16,Estabilidad,final_rents_marginal_support_summary.csv,Resumen de efectos marginales de RENTS dentro del soporte observado de INST.
+17,Documentación,ROBUSTNESS_READING_GUIDE.md,Guía técnica reproducible para la lectura multidimensional de robustez.
+18,Tablas de sensibilidad,table_per_capita_transformation_sensitivity.tex,Tabla LaTeX de sensibilidad a la transformación per cápita.
+19,Tablas de sensibilidad,table_per_capita_transformation_sensitivity.txt,Versión de texto de la sensibilidad a la transformación per cápita.
+20,Figuras,figure_rents_marginal_effects_eci_divx.pdf,Figura comparada ECI-DIVX en formato apto para LaTeX.
+21,Figuras,figure_rents_marginal_effects_eci_divx.png,Figura comparada para inspección visual.
+22,Documentación,RESULTS_INDEX.md,"Índice, alcance y reglas de interpretación del paquete final."
+23,Estabilidad,final_country_linear_trend_all_coefficients.csv,Comparación base-tendencias para todos los regresores sustantivos.

@@ -1,0 +1,3 @@
+model,hypothesis,f_statistic,numerator_df,denominator_df,p_value,observations,countries,cutoff_year,country_fe,year_fe,externally_prespecified,significance_selected,hierarchy
+DIVX,NO_FOCAL_COEFFICIENT_CHANGE_FROM_2014,2.662121,3,48,0.058521,1044,49,2014,1,1,1,0,SENSITIVITY
+ECI,NO_FOCAL_COEFFICIENT_CHANGE_FROM_2014,1.138001,3,48,0.343224,1044,49,2014,1,1,1,0,SENSITIVITY

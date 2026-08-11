@@ -1,0 +1,129 @@
+variable,series_form,method,deterministics,demeaned,lags,observations,countries,statistic,p_value,reject_5pct,decision,return_code,applicability_note,null_hypothesis,alternative_hypothesis
+divx,FIRST_DIFFERENCE,FISHER_ADF,CONSTANT,0,1,869,49,485.6924340342,0.0000000000,1,REJECT_UNIT_ROOT,0,FISHER_ALLOWS_INTERNAL_GAPS,All panels contain unit roots,At least one panel is stationary
+divx,FIRST_DIFFERENCE,FISHER_ADF,CONSTANT,0,2,869,49,236.5221351402,0.0000000000,1,REJECT_UNIT_ROOT,0,FISHER_ALLOWS_INTERNAL_GAPS,All panels contain unit roots,At least one panel is stationary
+divx,FIRST_DIFFERENCE,FISHER_ADF,CONSTANT,1,1,869,49,497.6574277208,0.0000000000,1,REJECT_UNIT_ROOT,0,FISHER_ALLOWS_INTERNAL_GAPS,All panels contain unit roots,At least one panel is stationary
+divx,FIRST_DIFFERENCE,FISHER_ADF,CONSTANT,1,2,869,49,256.7356059070,0.0000000000,1,REJECT_UNIT_ROOT,0,FISHER_ALLOWS_INTERNAL_GAPS,All panels contain unit roots,At least one panel is stationary
+divx,FIRST_DIFFERENCE,FISHER_ADF,TREND,0,1,869,49,375.5539307888,0.0000000000,1,REJECT_UNIT_ROOT,0,FISHER_ALLOWS_INTERNAL_GAPS,All panels contain unit roots,At least one panel is stationary
+divx,FIRST_DIFFERENCE,FISHER_ADF,TREND,0,2,869,49,234.0079403911,0.0000000000,1,REJECT_UNIT_ROOT,0,FISHER_ALLOWS_INTERNAL_GAPS,All panels contain unit roots,At least one panel is stationary
+divx,FIRST_DIFFERENCE,FISHER_ADF,TREND,1,1,869,49,397.5921733523,0.0000000000,1,REJECT_UNIT_ROOT,0,FISHER_ALLOWS_INTERNAL_GAPS,All panels contain unit roots,At least one panel is stationary
+divx,FIRST_DIFFERENCE,FISHER_ADF,TREND,1,2,869,49,192.0637931048,0.0000000445,1,REJECT_UNIT_ROOT,0,FISHER_ALLOWS_INTERNAL_GAPS,All panels contain unit roots,At least one panel is stationary
+divx,FIRST_DIFFERENCE,IPS,CONSTANT,0,1,,,,,,NOT_APPLICABLE,,INTERNAL_GAPS_NOT_ALLOWED,All panels contain unit roots,A nonzero fraction of panels is stationary
+divx,FIRST_DIFFERENCE,IPS,CONSTANT,0,2,,,,,,NOT_APPLICABLE,,INTERNAL_GAPS_NOT_ALLOWED,All panels contain unit roots,A nonzero fraction of panels is stationary
+divx,FIRST_DIFFERENCE,IPS,CONSTANT,1,1,,,,,,NOT_APPLICABLE,,INTERNAL_GAPS_NOT_ALLOWED,All panels contain unit roots,A nonzero fraction of panels is stationary
+divx,FIRST_DIFFERENCE,IPS,CONSTANT,1,2,,,,,,NOT_APPLICABLE,,INTERNAL_GAPS_NOT_ALLOWED,All panels contain unit roots,A nonzero fraction of panels is stationary
+divx,FIRST_DIFFERENCE,IPS,TREND,0,1,,,,,,NOT_APPLICABLE,,INTERNAL_GAPS_NOT_ALLOWED,All panels contain unit roots,A nonzero fraction of panels is stationary
+divx,FIRST_DIFFERENCE,IPS,TREND,0,2,,,,,,NOT_APPLICABLE,,INTERNAL_GAPS_NOT_ALLOWED,All panels contain unit roots,A nonzero fraction of panels is stationary
+divx,FIRST_DIFFERENCE,IPS,TREND,1,1,,,,,,NOT_APPLICABLE,,INTERNAL_GAPS_NOT_ALLOWED,All panels contain unit roots,A nonzero fraction of panels is stationary
+divx,FIRST_DIFFERENCE,IPS,TREND,1,2,,,,,,NOT_APPLICABLE,,INTERNAL_GAPS_NOT_ALLOWED,All panels contain unit roots,A nonzero fraction of panels is stationary
+divx,LEVEL,FISHER_ADF,CONSTANT,0,1,1044,49,98.5214640474,0.4662091136,0,DO_NOT_REJECT,0,FISHER_ALLOWS_INTERNAL_GAPS,All panels contain unit roots,At least one panel is stationary
+divx,LEVEL,FISHER_ADF,CONSTANT,0,2,1044,49,82.5910857929,0.8677832484,0,DO_NOT_REJECT,0,FISHER_ALLOWS_INTERNAL_GAPS,All panels contain unit roots,At least one panel is stationary
+divx,LEVEL,FISHER_ADF,CONSTANT,1,1,1044,49,108.2624141413,0.2247825265,0,DO_NOT_REJECT,0,FISHER_ALLOWS_INTERNAL_GAPS,All panels contain unit roots,At least one panel is stationary
+divx,LEVEL,FISHER_ADF,CONSTANT,1,2,1044,49,70.1843672144,0.9848027825,0,DO_NOT_REJECT,0,FISHER_ALLOWS_INTERNAL_GAPS,All panels contain unit roots,At least one panel is stationary
+divx,LEVEL,FISHER_ADF,TREND,0,1,1044,49,118.6672059882,0.0762920305,0,DO_NOT_REJECT,0,FISHER_ALLOWS_INTERNAL_GAPS,All panels contain unit roots,At least one panel is stationary
+divx,LEVEL,FISHER_ADF,TREND,0,2,1044,49,87.2993562220,0.7721601129,0,DO_NOT_REJECT,0,FISHER_ALLOWS_INTERNAL_GAPS,All panels contain unit roots,At least one panel is stationary
+divx,LEVEL,FISHER_ADF,TREND,1,1,1044,49,152.5182074116,0.0003519204,1,REJECT_UNIT_ROOT,0,FISHER_ALLOWS_INTERNAL_GAPS,All panels contain unit roots,At least one panel is stationary
+divx,LEVEL,FISHER_ADF,TREND,1,2,1044,49,83.4313978174,0.8528909683,0,DO_NOT_REJECT,0,FISHER_ALLOWS_INTERNAL_GAPS,All panels contain unit roots,At least one panel is stationary
+divx,LEVEL,IPS,CONSTANT,0,1,,,,,,NOT_APPLICABLE,,INTERNAL_GAPS_NOT_ALLOWED,All panels contain unit roots,A nonzero fraction of panels is stationary
+divx,LEVEL,IPS,CONSTANT,0,2,,,,,,NOT_APPLICABLE,,INTERNAL_GAPS_NOT_ALLOWED,All panels contain unit roots,A nonzero fraction of panels is stationary
+divx,LEVEL,IPS,CONSTANT,1,1,,,,,,NOT_APPLICABLE,,INTERNAL_GAPS_NOT_ALLOWED,All panels contain unit roots,A nonzero fraction of panels is stationary
+divx,LEVEL,IPS,CONSTANT,1,2,,,,,,NOT_APPLICABLE,,INTERNAL_GAPS_NOT_ALLOWED,All panels contain unit roots,A nonzero fraction of panels is stationary
+divx,LEVEL,IPS,TREND,0,1,,,,,,NOT_APPLICABLE,,INTERNAL_GAPS_NOT_ALLOWED,All panels contain unit roots,A nonzero fraction of panels is stationary
+divx,LEVEL,IPS,TREND,0,2,,,,,,NOT_APPLICABLE,,INTERNAL_GAPS_NOT_ALLOWED,All panels contain unit roots,A nonzero fraction of panels is stationary
+divx,LEVEL,IPS,TREND,1,1,,,,,,NOT_APPLICABLE,,INTERNAL_GAPS_NOT_ALLOWED,All panels contain unit roots,A nonzero fraction of panels is stationary
+divx,LEVEL,IPS,TREND,1,2,,,,,,NOT_APPLICABLE,,INTERNAL_GAPS_NOT_ALLOWED,All panels contain unit roots,A nonzero fraction of panels is stationary
+eci,FIRST_DIFFERENCE,FISHER_ADF,CONSTANT,0,1,869,49,545.4118620621,0.0000000000,1,REJECT_UNIT_ROOT,0,FISHER_ALLOWS_INTERNAL_GAPS,All panels contain unit roots,At least one panel is stationary
+eci,FIRST_DIFFERENCE,FISHER_ADF,CONSTANT,0,2,869,49,285.4332340319,0.0000000000,1,REJECT_UNIT_ROOT,0,FISHER_ALLOWS_INTERNAL_GAPS,All panels contain unit roots,At least one panel is stationary
+eci,FIRST_DIFFERENCE,FISHER_ADF,CONSTANT,1,1,869,49,533.0818315303,0.0000000000,1,REJECT_UNIT_ROOT,0,FISHER_ALLOWS_INTERNAL_GAPS,All panels contain unit roots,At least one panel is stationary
+eci,FIRST_DIFFERENCE,FISHER_ADF,CONSTANT,1,2,869,49,311.3878243312,0.0000000000,1,REJECT_UNIT_ROOT,0,FISHER_ALLOWS_INTERNAL_GAPS,All panels contain unit roots,At least one panel is stationary
+eci,FIRST_DIFFERENCE,FISHER_ADF,TREND,0,1,869,49,413.9269645892,0.0000000000,1,REJECT_UNIT_ROOT,0,FISHER_ALLOWS_INTERNAL_GAPS,All panels contain unit roots,At least one panel is stationary
+eci,FIRST_DIFFERENCE,FISHER_ADF,TREND,0,2,869,49,225.0127307665,0.0000000000,1,REJECT_UNIT_ROOT,0,FISHER_ALLOWS_INTERNAL_GAPS,All panels contain unit roots,At least one panel is stationary
+eci,FIRST_DIFFERENCE,FISHER_ADF,TREND,1,1,869,49,402.3456538599,0.0000000000,1,REJECT_UNIT_ROOT,0,FISHER_ALLOWS_INTERNAL_GAPS,All panels contain unit roots,At least one panel is stationary
+eci,FIRST_DIFFERENCE,FISHER_ADF,TREND,1,2,869,49,258.3818564985,0.0000000000,1,REJECT_UNIT_ROOT,0,FISHER_ALLOWS_INTERNAL_GAPS,All panels contain unit roots,At least one panel is stationary
+eci,FIRST_DIFFERENCE,IPS,CONSTANT,0,1,,,,,,NOT_APPLICABLE,,INTERNAL_GAPS_NOT_ALLOWED,All panels contain unit roots,A nonzero fraction of panels is stationary
+eci,FIRST_DIFFERENCE,IPS,CONSTANT,0,2,,,,,,NOT_APPLICABLE,,INTERNAL_GAPS_NOT_ALLOWED,All panels contain unit roots,A nonzero fraction of panels is stationary
+eci,FIRST_DIFFERENCE,IPS,CONSTANT,1,1,,,,,,NOT_APPLICABLE,,INTERNAL_GAPS_NOT_ALLOWED,All panels contain unit roots,A nonzero fraction of panels is stationary
+eci,FIRST_DIFFERENCE,IPS,CONSTANT,1,2,,,,,,NOT_APPLICABLE,,INTERNAL_GAPS_NOT_ALLOWED,All panels contain unit roots,A nonzero fraction of panels is stationary
+eci,FIRST_DIFFERENCE,IPS,TREND,0,1,,,,,,NOT_APPLICABLE,,INTERNAL_GAPS_NOT_ALLOWED,All panels contain unit roots,A nonzero fraction of panels is stationary
+eci,FIRST_DIFFERENCE,IPS,TREND,0,2,,,,,,NOT_APPLICABLE,,INTERNAL_GAPS_NOT_ALLOWED,All panels contain unit roots,A nonzero fraction of panels is stationary
+eci,FIRST_DIFFERENCE,IPS,TREND,1,1,,,,,,NOT_APPLICABLE,,INTERNAL_GAPS_NOT_ALLOWED,All panels contain unit roots,A nonzero fraction of panels is stationary
+eci,FIRST_DIFFERENCE,IPS,TREND,1,2,,,,,,NOT_APPLICABLE,,INTERNAL_GAPS_NOT_ALLOWED,All panels contain unit roots,A nonzero fraction of panels is stationary
+eci,LEVEL,FISHER_ADF,CONSTANT,0,1,1044,49,131.0214404154,0.0145356320,1,REJECT_UNIT_ROOT,0,FISHER_ALLOWS_INTERNAL_GAPS,All panels contain unit roots,At least one panel is stationary
+eci,LEVEL,FISHER_ADF,CONSTANT,0,2,1044,49,98.3504478149,0.4710501730,0,DO_NOT_REJECT,0,FISHER_ALLOWS_INTERNAL_GAPS,All panels contain unit roots,At least one panel is stationary
+eci,LEVEL,FISHER_ADF,CONSTANT,1,1,1044,49,159.4876967617,0.0000865934,1,REJECT_UNIT_ROOT,0,FISHER_ALLOWS_INTERNAL_GAPS,All panels contain unit roots,At least one panel is stationary
+eci,LEVEL,FISHER_ADF,CONSTANT,1,2,1044,49,139.4273938510,0.0038134437,1,REJECT_UNIT_ROOT,0,FISHER_ALLOWS_INTERNAL_GAPS,All panels contain unit roots,At least one panel is stationary
+eci,LEVEL,FISHER_ADF,TREND,0,1,1044,49,143.0444370767,0.0020440235,1,REJECT_UNIT_ROOT,0,FISHER_ALLOWS_INTERNAL_GAPS,All panels contain unit roots,At least one panel is stationary
+eci,LEVEL,FISHER_ADF,TREND,0,2,1044,49,117.8755971530,0.0837070644,0,DO_NOT_REJECT,0,FISHER_ALLOWS_INTERNAL_GAPS,All panels contain unit roots,At least one panel is stationary
+eci,LEVEL,FISHER_ADF,TREND,1,1,1044,49,136.1167162918,0.0065835332,1,REJECT_UNIT_ROOT,0,FISHER_ALLOWS_INTERNAL_GAPS,All panels contain unit roots,At least one panel is stationary
+eci,LEVEL,FISHER_ADF,TREND,1,2,1044,49,159.4260732525,0.0000877068,1,REJECT_UNIT_ROOT,0,FISHER_ALLOWS_INTERNAL_GAPS,All panels contain unit roots,At least one panel is stationary
+eci,LEVEL,IPS,CONSTANT,0,1,,,,,,NOT_APPLICABLE,,INTERNAL_GAPS_NOT_ALLOWED,All panels contain unit roots,A nonzero fraction of panels is stationary
+eci,LEVEL,IPS,CONSTANT,0,2,,,,,,NOT_APPLICABLE,,INTERNAL_GAPS_NOT_ALLOWED,All panels contain unit roots,A nonzero fraction of panels is stationary
+eci,LEVEL,IPS,CONSTANT,1,1,,,,,,NOT_APPLICABLE,,INTERNAL_GAPS_NOT_ALLOWED,All panels contain unit roots,A nonzero fraction of panels is stationary
+eci,LEVEL,IPS,CONSTANT,1,2,,,,,,NOT_APPLICABLE,,INTERNAL_GAPS_NOT_ALLOWED,All panels contain unit roots,A nonzero fraction of panels is stationary
+eci,LEVEL,IPS,TREND,0,1,,,,,,NOT_APPLICABLE,,INTERNAL_GAPS_NOT_ALLOWED,All panels contain unit roots,A nonzero fraction of panels is stationary
+eci,LEVEL,IPS,TREND,0,2,,,,,,NOT_APPLICABLE,,INTERNAL_GAPS_NOT_ALLOWED,All panels contain unit roots,A nonzero fraction of panels is stationary
+eci,LEVEL,IPS,TREND,1,1,,,,,,NOT_APPLICABLE,,INTERNAL_GAPS_NOT_ALLOWED,All panels contain unit roots,A nonzero fraction of panels is stationary
+eci,LEVEL,IPS,TREND,1,2,,,,,,NOT_APPLICABLE,,INTERNAL_GAPS_NOT_ALLOWED,All panels contain unit roots,A nonzero fraction of panels is stationary
+inst,FIRST_DIFFERENCE,FISHER_ADF,CONSTANT,0,1,869,49,472.3673936668,0.0000000000,1,REJECT_UNIT_ROOT,0,FISHER_ALLOWS_INTERNAL_GAPS,All panels contain unit roots,At least one panel is stationary
+inst,FIRST_DIFFERENCE,FISHER_ADF,CONSTANT,0,2,869,49,265.3751202125,0.0000000000,1,REJECT_UNIT_ROOT,0,FISHER_ALLOWS_INTERNAL_GAPS,All panels contain unit roots,At least one panel is stationary
+inst,FIRST_DIFFERENCE,FISHER_ADF,CONSTANT,1,1,869,49,462.9654671975,0.0000000000,1,REJECT_UNIT_ROOT,0,FISHER_ALLOWS_INTERNAL_GAPS,All panels contain unit roots,At least one panel is stationary
+inst,FIRST_DIFFERENCE,FISHER_ADF,CONSTANT,1,2,869,49,265.3504631488,0.0000000000,1,REJECT_UNIT_ROOT,0,FISHER_ALLOWS_INTERNAL_GAPS,All panels contain unit roots,At least one panel is stationary
+inst,FIRST_DIFFERENCE,FISHER_ADF,TREND,0,1,869,49,395.6352031831,0.0000000000,1,REJECT_UNIT_ROOT,0,FISHER_ALLOWS_INTERNAL_GAPS,All panels contain unit roots,At least one panel is stationary
+inst,FIRST_DIFFERENCE,FISHER_ADF,TREND,0,2,869,49,196.1433009580,0.0000000156,1,REJECT_UNIT_ROOT,0,FISHER_ALLOWS_INTERNAL_GAPS,All panels contain unit roots,At least one panel is stationary
+inst,FIRST_DIFFERENCE,FISHER_ADF,TREND,1,1,869,49,397.0032972050,0.0000000000,1,REJECT_UNIT_ROOT,0,FISHER_ALLOWS_INTERNAL_GAPS,All panels contain unit roots,At least one panel is stationary
+inst,FIRST_DIFFERENCE,FISHER_ADF,TREND,1,2,869,49,207.6984801633,0.0000000007,1,REJECT_UNIT_ROOT,0,FISHER_ALLOWS_INTERNAL_GAPS,All panels contain unit roots,At least one panel is stationary
+inst,FIRST_DIFFERENCE,IPS,CONSTANT,0,1,,,,,,NOT_APPLICABLE,,INTERNAL_GAPS_NOT_ALLOWED,All panels contain unit roots,A nonzero fraction of panels is stationary
+inst,FIRST_DIFFERENCE,IPS,CONSTANT,0,2,,,,,,NOT_APPLICABLE,,INTERNAL_GAPS_NOT_ALLOWED,All panels contain unit roots,A nonzero fraction of panels is stationary
+inst,FIRST_DIFFERENCE,IPS,CONSTANT,1,1,,,,,,NOT_APPLICABLE,,INTERNAL_GAPS_NOT_ALLOWED,All panels contain unit roots,A nonzero fraction of panels is stationary
+inst,FIRST_DIFFERENCE,IPS,CONSTANT,1,2,,,,,,NOT_APPLICABLE,,INTERNAL_GAPS_NOT_ALLOWED,All panels contain unit roots,A nonzero fraction of panels is stationary
+inst,FIRST_DIFFERENCE,IPS,TREND,0,1,,,,,,NOT_APPLICABLE,,INTERNAL_GAPS_NOT_ALLOWED,All panels contain unit roots,A nonzero fraction of panels is stationary
+inst,FIRST_DIFFERENCE,IPS,TREND,0,2,,,,,,NOT_APPLICABLE,,INTERNAL_GAPS_NOT_ALLOWED,All panels contain unit roots,A nonzero fraction of panels is stationary
+inst,FIRST_DIFFERENCE,IPS,TREND,1,1,,,,,,NOT_APPLICABLE,,INTERNAL_GAPS_NOT_ALLOWED,All panels contain unit roots,A nonzero fraction of panels is stationary
+inst,FIRST_DIFFERENCE,IPS,TREND,1,2,,,,,,NOT_APPLICABLE,,INTERNAL_GAPS_NOT_ALLOWED,All panels contain unit roots,A nonzero fraction of panels is stationary
+inst,LEVEL,FISHER_ADF,CONSTANT,0,1,1044,49,221.2550454916,0.0000000000,1,REJECT_UNIT_ROOT,0,FISHER_ALLOWS_INTERNAL_GAPS,All panels contain unit roots,At least one panel is stationary
+inst,LEVEL,FISHER_ADF,CONSTANT,0,2,1044,49,126.0019507289,0.0298639461,1,REJECT_UNIT_ROOT,0,FISHER_ALLOWS_INTERNAL_GAPS,All panels contain unit roots,At least one panel is stationary
+inst,LEVEL,FISHER_ADF,CONSTANT,1,1,1044,49,169.1654663219,0.0000107656,1,REJECT_UNIT_ROOT,0,FISHER_ALLOWS_INTERNAL_GAPS,All panels contain unit roots,At least one panel is stationary
+inst,LEVEL,FISHER_ADF,CONSTANT,1,2,1044,49,94.4444173265,0.5829011202,0,DO_NOT_REJECT,0,FISHER_ALLOWS_INTERNAL_GAPS,All panels contain unit roots,At least one panel is stationary
+inst,LEVEL,FISHER_ADF,TREND,0,1,1044,49,211.0202496475,0.0000000003,1,REJECT_UNIT_ROOT,0,FISHER_ALLOWS_INTERNAL_GAPS,All panels contain unit roots,At least one panel is stationary
+inst,LEVEL,FISHER_ADF,TREND,0,2,1044,49,158.0814889525,0.0001157117,1,REJECT_UNIT_ROOT,0,FISHER_ALLOWS_INTERNAL_GAPS,All panels contain unit roots,At least one panel is stationary
+inst,LEVEL,FISHER_ADF,TREND,1,1,1044,49,262.4561197210,0.0000000000,1,REJECT_UNIT_ROOT,0,FISHER_ALLOWS_INTERNAL_GAPS,All panels contain unit roots,At least one panel is stationary
+inst,LEVEL,FISHER_ADF,TREND,1,2,1044,49,120.6133726557,0.0603038482,0,DO_NOT_REJECT,0,FISHER_ALLOWS_INTERNAL_GAPS,All panels contain unit roots,At least one panel is stationary
+inst,LEVEL,IPS,CONSTANT,0,1,,,,,,NOT_APPLICABLE,,INTERNAL_GAPS_NOT_ALLOWED,All panels contain unit roots,A nonzero fraction of panels is stationary
+inst,LEVEL,IPS,CONSTANT,0,2,,,,,,NOT_APPLICABLE,,INTERNAL_GAPS_NOT_ALLOWED,All panels contain unit roots,A nonzero fraction of panels is stationary
+inst,LEVEL,IPS,CONSTANT,1,1,,,,,,NOT_APPLICABLE,,INTERNAL_GAPS_NOT_ALLOWED,All panels contain unit roots,A nonzero fraction of panels is stationary
+inst,LEVEL,IPS,CONSTANT,1,2,,,,,,NOT_APPLICABLE,,INTERNAL_GAPS_NOT_ALLOWED,All panels contain unit roots,A nonzero fraction of panels is stationary
+inst,LEVEL,IPS,TREND,0,1,,,,,,NOT_APPLICABLE,,INTERNAL_GAPS_NOT_ALLOWED,All panels contain unit roots,A nonzero fraction of panels is stationary
+inst,LEVEL,IPS,TREND,0,2,,,,,,NOT_APPLICABLE,,INTERNAL_GAPS_NOT_ALLOWED,All panels contain unit roots,A nonzero fraction of panels is stationary
+inst,LEVEL,IPS,TREND,1,1,,,,,,NOT_APPLICABLE,,INTERNAL_GAPS_NOT_ALLOWED,All panels contain unit roots,A nonzero fraction of panels is stationary
+inst,LEVEL,IPS,TREND,1,2,,,,,,NOT_APPLICABLE,,INTERNAL_GAPS_NOT_ALLOWED,All panels contain unit roots,A nonzero fraction of panels is stationary
+rents,FIRST_DIFFERENCE,FISHER_ADF,CONSTANT,0,1,869,49,403.6322853635,0.0000000000,1,REJECT_UNIT_ROOT,0,FISHER_ALLOWS_INTERNAL_GAPS,All panels contain unit roots,At least one panel is stationary
+rents,FIRST_DIFFERENCE,FISHER_ADF,CONSTANT,0,2,869,49,173.8221285375,0.0000037446,1,REJECT_UNIT_ROOT,0,FISHER_ALLOWS_INTERNAL_GAPS,All panels contain unit roots,At least one panel is stationary
+rents,FIRST_DIFFERENCE,FISHER_ADF,CONSTANT,1,1,869,49,370.7586258617,0.0000000000,1,REJECT_UNIT_ROOT,0,FISHER_ALLOWS_INTERNAL_GAPS,All panels contain unit roots,At least one panel is stationary
+rents,FIRST_DIFFERENCE,FISHER_ADF,CONSTANT,1,2,869,49,198.6169013438,0.0000000082,1,REJECT_UNIT_ROOT,0,FISHER_ALLOWS_INTERNAL_GAPS,All panels contain unit roots,At least one panel is stationary
+rents,FIRST_DIFFERENCE,FISHER_ADF,TREND,0,1,869,49,258.3545162536,0.0000000000,1,REJECT_UNIT_ROOT,0,FISHER_ALLOWS_INTERNAL_GAPS,All panels contain unit roots,At least one panel is stationary
+rents,FIRST_DIFFERENCE,FISHER_ADF,TREND,0,2,869,49,83.9449965941,0.8433089256,0,DO_NOT_REJECT,0,FISHER_ALLOWS_INTERNAL_GAPS,All panels contain unit roots,At least one panel is stationary
+rents,FIRST_DIFFERENCE,FISHER_ADF,TREND,1,1,869,49,334.5754186901,0.0000000000,1,REJECT_UNIT_ROOT,0,FISHER_ALLOWS_INTERNAL_GAPS,All panels contain unit roots,At least one panel is stationary
+rents,FIRST_DIFFERENCE,FISHER_ADF,TREND,1,2,869,49,103.1710403883,0.3407221437,0,DO_NOT_REJECT,0,FISHER_ALLOWS_INTERNAL_GAPS,All panels contain unit roots,At least one panel is stationary
+rents,FIRST_DIFFERENCE,IPS,CONSTANT,0,1,,,,,,NOT_APPLICABLE,,INTERNAL_GAPS_NOT_ALLOWED,All panels contain unit roots,A nonzero fraction of panels is stationary
+rents,FIRST_DIFFERENCE,IPS,CONSTANT,0,2,,,,,,NOT_APPLICABLE,,INTERNAL_GAPS_NOT_ALLOWED,All panels contain unit roots,A nonzero fraction of panels is stationary
+rents,FIRST_DIFFERENCE,IPS,CONSTANT,1,1,,,,,,NOT_APPLICABLE,,INTERNAL_GAPS_NOT_ALLOWED,All panels contain unit roots,A nonzero fraction of panels is stationary
+rents,FIRST_DIFFERENCE,IPS,CONSTANT,1,2,,,,,,NOT_APPLICABLE,,INTERNAL_GAPS_NOT_ALLOWED,All panels contain unit roots,A nonzero fraction of panels is stationary
+rents,FIRST_DIFFERENCE,IPS,TREND,0,1,,,,,,NOT_APPLICABLE,,INTERNAL_GAPS_NOT_ALLOWED,All panels contain unit roots,A nonzero fraction of panels is stationary
+rents,FIRST_DIFFERENCE,IPS,TREND,0,2,,,,,,NOT_APPLICABLE,,INTERNAL_GAPS_NOT_ALLOWED,All panels contain unit roots,A nonzero fraction of panels is stationary
+rents,FIRST_DIFFERENCE,IPS,TREND,1,1,,,,,,NOT_APPLICABLE,,INTERNAL_GAPS_NOT_ALLOWED,All panels contain unit roots,A nonzero fraction of panels is stationary
+rents,FIRST_DIFFERENCE,IPS,TREND,1,2,,,,,,NOT_APPLICABLE,,INTERNAL_GAPS_NOT_ALLOWED,All panels contain unit roots,A nonzero fraction of panels is stationary
+rents,LEVEL,FISHER_ADF,CONSTANT,0,1,1044,49,117.8987711394,0.0834820867,0,DO_NOT_REJECT,0,FISHER_ALLOWS_INTERNAL_GAPS,All panels contain unit roots,At least one panel is stationary
+rents,LEVEL,FISHER_ADF,CONSTANT,0,2,1044,49,64.3043122668,0.9966037869,0,DO_NOT_REJECT,0,FISHER_ALLOWS_INTERNAL_GAPS,All panels contain unit roots,At least one panel is stationary
+rents,LEVEL,FISHER_ADF,CONSTANT,1,1,1044,49,111.1726619091,0.1713349074,0,DO_NOT_REJECT,0,FISHER_ALLOWS_INTERNAL_GAPS,All panels contain unit roots,At least one panel is stationary
+rents,LEVEL,FISHER_ADF,CONSTANT,1,2,1044,49,76.2861902186,0.9489234686,0,DO_NOT_REJECT,0,FISHER_ALLOWS_INTERNAL_GAPS,All panels contain unit roots,At least one panel is stationary
+rents,LEVEL,FISHER_ADF,TREND,0,1,1044,49,103.6133509037,0.3296196759,0,DO_NOT_REJECT,0,FISHER_ALLOWS_INTERNAL_GAPS,All panels contain unit roots,At least one panel is stationary
+rents,LEVEL,FISHER_ADF,TREND,0,2,1044,49,74.6938408253,0.9616400003,0,DO_NOT_REJECT,0,FISHER_ALLOWS_INTERNAL_GAPS,All panels contain unit roots,At least one panel is stationary
+rents,LEVEL,FISHER_ADF,TREND,1,1,1044,49,137.5355385640,0.0052253325,1,REJECT_UNIT_ROOT,0,FISHER_ALLOWS_INTERNAL_GAPS,All panels contain unit roots,At least one panel is stationary
+rents,LEVEL,FISHER_ADF,TREND,1,2,1044,49,91.9925016306,0.6518474817,0,DO_NOT_REJECT,0,FISHER_ALLOWS_INTERNAL_GAPS,All panels contain unit roots,At least one panel is stationary
+rents,LEVEL,IPS,CONSTANT,0,1,,,,,,NOT_APPLICABLE,,INTERNAL_GAPS_NOT_ALLOWED,All panels contain unit roots,A nonzero fraction of panels is stationary
+rents,LEVEL,IPS,CONSTANT,0,2,,,,,,NOT_APPLICABLE,,INTERNAL_GAPS_NOT_ALLOWED,All panels contain unit roots,A nonzero fraction of panels is stationary
+rents,LEVEL,IPS,CONSTANT,1,1,,,,,,NOT_APPLICABLE,,INTERNAL_GAPS_NOT_ALLOWED,All panels contain unit roots,A nonzero fraction of panels is stationary
+rents,LEVEL,IPS,CONSTANT,1,2,,,,,,NOT_APPLICABLE,,INTERNAL_GAPS_NOT_ALLOWED,All panels contain unit roots,A nonzero fraction of panels is stationary
+rents,LEVEL,IPS,TREND,0,1,,,,,,NOT_APPLICABLE,,INTERNAL_GAPS_NOT_ALLOWED,All panels contain unit roots,A nonzero fraction of panels is stationary
+rents,LEVEL,IPS,TREND,0,2,,,,,,NOT_APPLICABLE,,INTERNAL_GAPS_NOT_ALLOWED,All panels contain unit roots,A nonzero fraction of panels is stationary
+rents,LEVEL,IPS,TREND,1,1,,,,,,NOT_APPLICABLE,,INTERNAL_GAPS_NOT_ALLOWED,All panels contain unit roots,A nonzero fraction of panels is stationary
+rents,LEVEL,IPS,TREND,1,2,,,,,,NOT_APPLICABLE,,INTERNAL_GAPS_NOT_ALLOWED,All panels contain unit roots,A nonzero fraction of panels is stationary

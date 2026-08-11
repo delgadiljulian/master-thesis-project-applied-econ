@@ -1,11 +1,15 @@
 section,filename,relative_path,format,data_rows,content
+00_design,component_temporal_design.csv,00_design/component_temporal_design.csv,csv,12,Diseño y validaciones previas
 00_design,control_g_design.csv,00_design/control_g_design.csv,csv,8,Diseño y validaciones previas
-00_design,section9_validation.csv,00_design/section9_validation.csv,csv,11,Diseño y validaciones previas
+00_design,section19_validation.csv,00_design/section19_validation.csv,csv,11,Diseño y validaciones previas
+01_diagnostics,component_error_tests.csv,01_diagnostics/component_error_tests.csv,csv,6,Diagnósticos de componentes
 01_diagnostics,component_panel_variation.csv,01_diagnostics/component_panel_variation.csv,csv,4,Diagnósticos de componentes
 01_diagnostics,component_profile.csv,01_diagnostics/component_profile.csv,csv,2,Diagnósticos de componentes
+01_diagnostics,component_temporal_inventory.csv,01_diagnostics/component_temporal_inventory.csv,csv,2,Diagnósticos de componentes
 01_diagnostics,focal_correlation_matrix.csv,01_diagnostics/focal_correlation_matrix.csv,csv,8,Diagnósticos de componentes
 01_diagnostics,influence_summary.csv,01_diagnostics/influence_summary.csv,csv,2,Diagnósticos de componentes
 01_diagnostics,influential_observations.csv,01_diagnostics/influential_observations.csv,csv,153,Diagnósticos de componentes
+01_diagnostics,panel_unit_root_components.csv,01_diagnostics/panel_unit_root_components.csv,csv,4,Diagnósticos de componentes
 01_diagnostics,within_vif_by_model.csv,01_diagnostics/within_vif_by_model.csv,csv,37,Diagnósticos de componentes
 02_eci,eci_aggregate_disaggregated_focal_comparison.csv,02_eci/eci_aggregate_disaggregated_focal_comparison.csv,csv,6,Modelo ECI desagregado
 02_eci,eci_aggregate_disaggregated_model_comparison.csv,02_eci/eci_aggregate_disaggregated_model_comparison.csv,csv,2,Modelo ECI desagregado
@@ -38,6 +42,7 @@ section,filename,relative_path,format,data_rows,content
 04_stability,leave_one_country_out_detail.csv,04_stability/leave_one_country_out_detail.csv,csv,392,Estabilidad y efectos marginales
 04_stability,leave_one_country_out_summary.csv,04_stability/leave_one_country_out_summary.csv,csv,8,Estabilidad y efectos marginales
 04_stability,no_per_capita_controls_sensitivity.csv,04_stability/no_per_capita_controls_sensitivity.csv,csv,16,Estabilidad y efectos marginales
+04_stability,post_2014_stability.csv,04_stability/post_2014_stability.csv,csv,8,Estabilidad y efectos marginales
 04_stability,stability_classification.csv,04_stability/stability_classification.csv,csv,8,Estabilidad y efectos marginales
 04_stability,wild_cluster_bootstrap.csv,04_stability/wild_cluster_bootstrap.csv,csv,8,Estabilidad y efectos marginales
 05_exports,final_component_marginal_effects.csv,05_exports/final_component_marginal_effects.csv,csv,20,Paquete final consolidado
@@ -45,10 +50,11 @@ section,filename,relative_path,format,data_rows,content
 05_exports,final_joint_tests.csv,05_exports/final_joint_tests.csv,csv,14,Paquete final consolidado
 05_exports,final_model_comparison.csv,05_exports/final_model_comparison.csv,csv,4,Paquete final consolidado
 05_exports,final_stability_classification.csv,05_exports/final_stability_classification.csv,csv,8,Paquete final consolidado
-05_exports,results_index.csv,05_exports/results_index.csv,csv,53,Paquete final consolidado
+05_exports,results_index.csv,05_exports/results_index.csv,csv,59,Paquete final consolidado
 05_exports,results_manifest.csv,05_exports/results_manifest.csv,csv,1,Paquete final consolidado
 05_exports,table_eci_divx_aggregate_disaggregated.tex,05_exports/table_eci_divx_aggregate_disaggregated.tex,tex,,Paquete final consolidado
 05_exports,table_eci_divx_aggregate_disaggregated.txt,05_exports/table_eci_divx_aggregate_disaggregated.txt,txt,,Paquete final consolidado
 05_exports,table_eci_divx_full_models.tex,05_exports/table_eci_divx_full_models.tex,tex,,Paquete final consolidado
 05_exports,table_eci_divx_full_models.txt,05_exports/table_eci_divx_full_models.txt,txt,,Paquete final consolidado
-logs,03_resource_disaggregation.log,logs/03_resource_disaggregation.log,log,,Registro de ejecución
+05_exports,temporal_extension_manifest.csv,05_exports/temporal_extension_manifest.csv,csv,5,Paquete final consolidado
+logs,08_twfe_resource_disaggregated_full.log,logs/08_twfe_resource_disaggregated_full.log,log,,Registro de ejecución

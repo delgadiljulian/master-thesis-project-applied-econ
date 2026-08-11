@@ -1,0 +1,3 @@
+model,hypothesis,f_statistic,numerator_df,denominator_df,p_value,observations,countries,singletons_removed,trend_center_year,country_fe,year_fe,hierarchy
+DIVX,RENTS_INST_INTERACTION_JOINT_ZERO,2.287136,3,48,0.090505,1044,49,0,1996,1,1,SENSITIVITY
+ECI,RENTS_INST_INTERACTION_JOINT_ZERO,0.622190,3,48,0.604106,1044,49,0,1996,1,1,SENSITIVITY
