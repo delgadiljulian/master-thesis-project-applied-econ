@@ -18,7 +18,7 @@
 	\label{sec:tipo-de-estudio}
 
 	El estudio adopta un enfoque \emph{cuantitativo} con alcance
-	\emph{explicativo}, orientado a contrastar empíricamente las hipótesis
+	\emph{analítico y asociativo}, orientado a contrastar empíricamente las hipótesis
 	formuladas sobre la relación entre rentas de recursos naturales,
 	condiciones institucionales y transformación estructural en economías
 	dependientes de recursos. El diseño de investigación es
@@ -182,7 +182,7 @@
 	de referencia utiliza $\theta=20\%$, umbral empleado por el Fondo Monetario
 	Internacional para identificar economías en las que los recursos agotables
 	representan una proporción significativa de las exportaciones
-	\parencite{IMF2012}. Este valor se adopta como referencia externa y no como
+	\parencite{InternationalMonetaryFund2012}. Este valor se adopta como referencia externa y no como
 	una réplica exacta de la clasificación del FMI, originalmente construida para
 	otro período y un universo específico de economías en desarrollo. Con los
 	datos del período base, esta regla produce una muestra fija de 55 países. La
@@ -435,7 +435,7 @@ coyunturales asociadas a los ciclos de precios de commodities.
 
 Operativamente, se utiliza el campo \texttt{countryYear.eci} de la API
 GraphQL oficial del \textit{Atlas of Economic Complexity}
-\parencite{HarvardGrowthLab2026}. La versión vigente del Atlas representa la
+\parencite{HarvardGrowthLab2024}. La versión vigente del Atlas representa la
 intensidad de la especialización mediante
 $M_{cp}=RCA_{cp}/(1+RCA_{cp})$, en lugar de reducirla a una presencia binaria.
 Para mantener una definición homogénea, todas las observaciones se extraen de
@@ -479,13 +479,14 @@ empírico. La selección definitiva de indicadores responde a criterios de
 	y disponibilidad de información para el período de estimación 1996--2021.
 	\renewcommand{\arraystretch}{1.2}
 	\setlength{\tabcolsep}{4pt}
+	\small
 
 	\begin{longtable}{|
-			>{\raggedright\arraybackslash}p{0.22\textwidth}|
+			>{\raggedright\arraybackslash}p{0.21\textwidth}|
 			>{\centering\arraybackslash\ttfamily}p{0.10\textwidth}|
-			>{\raggedright\arraybackslash}p{0.14\textwidth}|
-			>{\raggedright\arraybackslash}p{0.34\textwidth}|
-			>{\raggedright\arraybackslash}p{0.15\textwidth}|}
+			>{\raggedright\arraybackslash}p{0.13\textwidth}|
+			>{\raggedright\arraybackslash}p{0.32\textwidth}|
+			>{\raggedright\arraybackslash}p{0.14\textwidth}|}
 
 		\caption[Variables y definiciones]{Descripción y definición operacional de las variables del modelo econométrico.}
 
@@ -523,7 +524,7 @@ empírico. La selección definitiva de indicadores responde a criterios de
 			\footnotesize\textit{Fuente: Elaboración propia con base en fuentes internacionales comparables.}
 		} \\[0.3em]
 
-		\multicolumn{5}{p{\textwidth}}{%
+		\multicolumn{5}{p{\dimexpr\textwidth-2\tabcolsep\relax}}{%
 			\textit{Nota: La transformación estructural se aproxima desde su dimensión externa mediante el Índice de Complejidad Económica (ECI) como variable dependiente principal y la diversificación exportadora ($DIVX=1-HHI$) como resultado complementario. Cada variable utiliza exclusivamente la definición y la transformación indicadas en esta tabla y en las ecuaciones siguientes.}
 		} \\
 
@@ -695,6 +696,7 @@ empírico. La selección definitiva de indicadores responde a criterios de
 		\hline
 
 	\end{longtable}
+	\normalsize
 
 	Las rentas extractivas se construyen únicamente cuando están observados sus
 	cuatro componentes:
@@ -795,18 +797,21 @@ empírico. La selección definitiva de indicadores responde a criterios de
 
 	La medida de capital humano se construye con los años promedio de escolaridad
 	$s_{it}$ de la población de 25 años o más publicados por el PNUD
-	\parencite{UNDP2025}. Para mantener la interpretación del índice de capital
+	\parencite{UNDPUnitedNationsDevelopmentProgramme2025}. Para mantener la interpretación del índice de capital
 	humano de PWT, se aplica su función de retornos educativos por tramos
 	\parencite{GGDCHumanCapital2016}:
 	\[
-		\phi(s_{it})=
-		\begin{cases}
-			0{,}134s_{it}, & s_{it}\leq4,\\
-			0{,}134(4)+0{,}101(s_{it}-4), & 4<s_{it}\leq8,\\
-			0{,}134(4)+0{,}101(4)+0{,}068(s_{it}-8), & s_{it}>8,
-		\end{cases}
-		\qquad
-		HUMCAP_{it}=\exp\!\left[\phi(s_{it})\right].
+		\begin{aligned}
+			\phi(s_{it})
+			&=
+			\begin{cases}
+				0{,}134s_{it}, & s_{it}\leq4,\\
+				0{,}134(4)+0{,}101(s_{it}-4), & 4<s_{it}\leq8,\\
+				0{,}134(4)+0{,}101(4)+0{,}068(s_{it}-8), & s_{it}>8,
+			\end{cases}\\[0.4em]
+			HUMCAP_{it}
+			&=\exp\!\left[\phi(s_{it})\right].
+		\end{aligned}
 	\]
 	Por tanto, $HUMCAP_{it}$ representa un índice de capacidades acumuladas y no
 	los años de escolaridad observados directamente.
@@ -824,7 +829,7 @@ empírico. La selección definitiva de indicadores responde a criterios de
 		\right).
 	\]
 	El numerador corresponde al indicador de artículos científicos y técnicos
-	\texttt{IP.JRN.ARTC.SC} de los \textit{World Development Indicators}. Esta
+	\nolinkurl{IP.JRN.ARTC.SC} de los \textit{World Development Indicators}. Esta
 	medida aproxima las capacidades científico-tecnológicas y la producción de
 	conocimiento, más que la innovación comercial en sentido estricto.
 
@@ -844,16 +849,18 @@ empírico. La selección definitiva de indicadores responde a criterios de
 	\label{sec:recoleccion-datos}
 
 	El estudio utiliza exclusivamente datos secundarios recopilados y
-	sistematizados por fuentes comparables a escala internacional: los
-	\textit{World Development Indicators} y \textit{Worldwide Governance
-	Indicators} del Banco Mundial, el \textit{Atlas of Economic Complexity} del
-	Harvard Growth Lab, la base \textit{National Accounts Main Aggregates} de
-	Naciones Unidas \parencite{UnitedNationsStatisticsDivision2026}, el Fondo
-	Monetario Internacional, Penn World Table y la base de indicadores del
-	\textit{Human Development Report 2025} del PNUD \parencite{UNDP2025},
-	según la variable considerada y tal como se resume en la
-	\autoref{tab:variables}. La selección responde a criterios de comparabilidad,
-	cobertura temporal, transparencia metodológica y reproducibilidad.
+	sistematizados por fuentes comparables a escala internacional. Estas fuentes
+	son los \textit{World Development Indicators} y los \textit{Worldwide
+	Governance Indicators} del Banco Mundial; el \textit{Atlas of Economic
+	Complexity} del Harvard Growth Lab; la base \textit{National Accounts Main
+	Aggregates} de Naciones Unidas
+	\parencite{UnitedNationsStatisticsDivision2026}; el Fondo Monetario
+	Internacional; Penn World Table; y la base de indicadores del \textit{Human
+	Development Report 2025} del PNUD
+	\parencite{UNDPUnitedNationsDevelopmentProgramme2025}. La fuente utilizada para
+	cada variable se resume en la \autoref{tab:variables}. La selección responde a
+	criterios de comparabilidad, cobertura temporal, transparencia metodológica y
+	reproducibilidad.
 
 	La preparación de los datos sigue una arquitectura de tres niveles. La capa
 	\texttt{data/raw} conserva las capturas y extracciones de las fuentes sin
@@ -1057,11 +1064,12 @@ empírico. La selección definitiva de indicadores responde a criterios de
 
 	\renewcommand{\arraystretch}{1.2}
 	\setlength{\tabcolsep}{4pt}
+	\small
 
 	\begin{longtable}{|
 			>{\raggedright\arraybackslash}p{0.20\textwidth}|
 			>{\centering\arraybackslash}p{0.12\textwidth}|
-			>{\raggedright\arraybackslash}p{0.58\textwidth}|}
+			>{\raggedright\arraybackslash}p{0.56\textwidth}|}
 
 		\caption[Expectativas teóricas de signo]
 		{Expectativas teóricas de signo de las variables utilizadas en el modelo econométrico de transformación estructural.}
@@ -1095,7 +1103,7 @@ empírico. La selección definitiva de indicadores responde a criterios de
 
 		\hline
 
-		\multicolumn{3}{p{\textwidth}}{
+		\multicolumn{3}{p{\dimexpr\textwidth-2\tabcolsep\relax}}{
 			\footnotesize
 			\textit{Nota: Los signos esperados corresponden a las hipótesis teóricas planteadas para el modelo de transformación estructural externa. La variable dependiente principal es el Índice de Complejidad Económica (ECI), y la diversificación exportadora ($DIVX=1-HHI$) se utiliza como resultado complementario. Los signos pueden diferir entre ambas variables dependientes.}
 		} \\
@@ -1194,6 +1202,7 @@ empírico. La selección definitiva de indicadores responde a criterios de
 		\hline
 
 	\end{longtable}
+	\normalsize
 	\thesissource{Elaboración propia a partir del marco teórico y de las hipótesis de la investigación.}
 
 
@@ -1354,8 +1363,8 @@ empírico. La selección definitiva de indicadores responde a criterios de
 
 	En quinto lugar, la inferencia y la estabilidad de M3 se evalúan mediante
 	\textit{Wild Cluster Bootstrap} con 9.999 replicaciones
-	(\textcite{CameronGelbachMiller2008};
-	\textcite{Roodman2019WildBootstrap}), exclusión iterativa de países
+	(\textcite{Cameron2008};
+	\textcite{Roodman2019}), exclusión iterativa de países
 	(\textit{leave-one-out}), análisis de observaciones influyentes y cálculo de
 	efectos marginales de $RENTS$ dentro del soporte observado de $INST$. También
 	se estiman especificaciones con tendencias lineales por país. El año 2014 se
@@ -1428,12 +1437,12 @@ empírico. La selección definitiva de indicadores responde a criterios de
 	Hodrick--Prescott. Una descomposición mecánica entre tendencia y ciclo no
 	resuelve la endogeneidad de un diseño observacional ni identifica una relación
 	estructural de largo plazo; además, puede introducir dinámicas artificiales y
-	distorsiones en los extremos de la muestra \parencite{Hamilton2018}. Filtrar
+	distorsiones en los extremos de la muestra \parencite{Hamilton2017}. Filtrar
 	solo $ECI$ o $DIVX$ mientras los regresores permanecen en niveles agravaría la
 	asimetría de la especificación. Por su parte, las proyecciones locales pueden
 	describir asociaciones dinámicas, pero no permiten denominar sus coeficientes
 	respuestas a impulsos causales cuando no existe un \textit{shock} identificado
-	ni una estrategia de identificación externa \parencite{Jorda2005}. Por ello,
+	ni una estrategia de identificación externa \parencite{Jord2005}. Por ello,
 	no se incorporan como evidencia del TFM.
 
 	\subsection{Métodos adicionales descartados}

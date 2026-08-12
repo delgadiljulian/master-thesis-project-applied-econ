@@ -132,10 +132,6 @@ outputs/econometrics/stata-peer-2/01_twfe_main/*
 outputs/econometrics/stata-peer-2/02_temporal_fe/*
 !outputs/econometrics/stata-peer-2/02_temporal_fe/0[0-9]_*/
 !outputs/econometrics/stata-peer-2/02_temporal_fe/0[0-9]_*/**
-!outputs/econometrics/stata-peer-2/03_within_between/
-outputs/econometrics/stata-peer-2/03_within_between/*
-!outputs/econometrics/stata-peer-2/03_within_between/.gitkeep
-
 # Keep reproducible summaries and figures, but not derived data or model states
 outputs/econometrics/**/*.dta
 outputs/econometrics/**/*.ster
@@ -176,6 +172,10 @@ environment.lock.yml
 *.docx
 *.pptx
 *.xlsx
+
+# Previous thesis submissions retained only as local reference
+docs/entrega-anterior/
+docs/previous-submission/
 
 ############################
 # Project governance

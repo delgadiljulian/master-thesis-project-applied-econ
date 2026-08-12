@@ -114,7 +114,7 @@ assert `: word count `c_list'' == 49
 // *****************************************************************************
 
 * Estimar la regresión TWFE de ECI sobre el bloque de capacidades productivas, estabilidad y controles.
-reghdfe eci rents inst rents_x_inst vol rer humcap innov net log_gdppc govcons fin if sample_eci == 1, absorb(country_id year) vce(cluster country_id)
+reghdfe eci c.rents##c.inst vol rer humcap innov net log_gdppc govcons fin if sample_eci == 1, absorb(country_id year) vce(cluster country_id)
 
 * Guardar el modelo estimado en la memoria interna de Stata.
 estimates store M2_ECI
@@ -139,7 +139,7 @@ local f_fisc_eci = r(F)
 local p_fisc_eci = r(p)
 
 * Evaluar la significancia conjunta del mecanismo institucional de rentas.
-quietly test rents rents_x_inst
+quietly test rents c.rents#c.inst
 local f_rents_eci = r(F)
 local p_rents_eci = r(p)
 
@@ -182,7 +182,7 @@ postclose `me_post_eci'
 // *****************************************************************************
 
 * Estimar la regresión TWFE de DIVX sobre el bloque de capacidades productivas, estabilidad y controles.
-reghdfe divx rents inst rents_x_inst vol rer humcap innov net log_gdppc govcons fin if sample_divx == 1, absorb(country_id year) vce(cluster country_id)
+reghdfe divx c.rents##c.inst vol rer humcap innov net log_gdppc govcons fin if sample_divx == 1, absorb(country_id year) vce(cluster country_id)
 
 * Guardar el modelo estimado en la memoria interna de Stata.
 estimates store M2_DIVX
@@ -207,7 +207,7 @@ local f_fisc_divx = r(F)
 local p_fisc_divx = r(p)
 
 * Evaluar la significancia conjunta del mecanismo institucional de rentas.
-quietly test rents rents_x_inst
+quietly test rents c.rents#c.inst
 local f_rents_divx = r(F)
 local p_rents_divx = r(p)
 

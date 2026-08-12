@@ -23,6 +23,7 @@
 \newcommand{\thesisbodyformat}{%
 	\onehalfspacing
 	\justifying
+	\setlength{\emergencystretch}{2em}
 	\setlength{\parindent}{0pt}
 	\setlength{\parskip}{0.8em}
 }
@@ -79,6 +80,7 @@ hyperref=true
 \usepackage{xcolor}
 \usepackage[hang,flushmargin]{footmisc}
 \usepackage[toc,page]{appendix}
+\usepackage{xurl}
 
 % Hipervínculos
 \usepackage{hyperref}
@@ -354,7 +356,7 @@ hyperref=true
 	% =====================================================
 	\chapter*{Agradecimientos}
 	\label{chap:agradecimiento}
-
+	PENDIENTE
 
 
 	% =====================================================
@@ -362,7 +364,7 @@ hyperref=true
 	% =====================================================
 	\chapter*{Resumen}
 	\label{chap:resumen}
-
+	PENDIENTE\par\medskip
 	\noindent\textbf{Palabras clave:}
 
 
@@ -391,11 +393,4 @@ hyperref=true
 	\subfile{chapters/13-cronograma/cronograma.tex}
 	\subfile{chapters/bibliography/bibliography.tex}
 	\subfile{chapters/appendices/appendices.tex}
-	\clearpage
-	\includepdf[
-		pages=-,
-		pagecommand={\thispagestyle{empty}},
-		fitpaper=true
-	]{chapters/14-approval-form/approval-form-director.pdf}
-
 \end{document}

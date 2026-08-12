@@ -138,8 +138,9 @@
 	resume mediante el logaritmo del PIB per cápita en paridad de poder
 	adquisitivo constante.
 
-	Los demás indicadores representan los canales institucional, de abundancia,
-	estructural, macroeconómico, de capacidades productivas y financiero
+	Los demás indicadores representan los canales institucional, de rentas
+	extractivas específicas por habitante, estructural, macroeconómico, de
+	capacidades productivas y financiero
 	definidos en el capítulo metodológico. Esta organización evita repetir la
 	justificación de cada regresor y mantiene una correspondencia directa entre
 	el \autoref{tab:variables}, el panel maestro y las dos ecuaciones
@@ -275,14 +276,15 @@
 	La muestra presenta una heterogeneidad considerable en sus dos resultados de
 	transformación estructural. El $ECI$ varía entre $-2,901$ y 1,283, con una
 	media de $-0,410$, mientras que $DIVX$ se sitúa entre 0,016 y 0,988, con una
-	media de 0,749. La amplitud de ambos intervalos confirma que la selección por
+	media de 0,749. La amplitud de ambos intervalos muestra que la selección por
 	dependencia extractiva no conduce a un grupo homogéneo en complejidad o
 	diversificación exportadora.
 
 	Las rentas extractivas alcanzan una media de 12,41\% del PIB y una mediana de
 	6,83\%. La diferencia entre ambas medidas revela una distribución sesgada
-	hacia la derecha. La asimetría es todavía más marcada en los indicadores de
-	abundancia: la media de $OILPC$ es 1.683,81 dólares constantes por habitante,
+	hacia la derecha. La asimetría es todavía más marcada en las rentas
+	extractivas específicas por habitante: la media de $OILPC$ es 1.683,81
+	dólares constantes por habitante,
 	frente a una mediana de 69,65; en $GASPC$, los valores respectivos son 270,12
 	y 3,69; y en $COALPC$, 21,71 y cero. Estos contrastes reflejan la presencia de
 	pocos productores de gran escala y de numerosos país--años con producción
@@ -317,8 +319,8 @@
 
 	La \autoref{fig:extractive-profile-cap10} utiliza los promedios nacionales de
 	los 53 países con información para los dos componentes. En 27 casos
-	predominan las rentas de petróleo y gas, en 16 predominan las rentas de
-	carbón y minerales y 10 presentan un perfil mixto. La transformación de los
+	predominan las rentas de petróleo y gas, en 15 predominan las rentas de
+	carbón y minerales y 11 presentan un perfil mixto. La transformación de los
 	ejes amplía la zona próxima a cero y permite distinguir países con rentas
 	reducidas sin modificar las unidades indicadas. La clasificación depende de
 	la composición y no del nivel absoluto: una economía puede presentar
@@ -346,12 +348,14 @@
 	alcance el umbral del 75\%. Esta tipología es exclusivamente descriptiva y no
 	reemplaza la medida agregada $RENTS$ utilizada en las ecuaciones.
 
-	La distribución completa de los 55 países de la muestra según esta clasificación del perfil extractivo cruzada con sus niveles de desarrollo económico (siguiendo los grupos de ingresos del Banco Mundial) se detalla en la \autoref{tab:extractive_typology}.
+	La distribución de los 53 países con información para ambos componentes,
+	según esta clasificación del perfil extractivo y su grupo de ingreso del
+	Banco Mundial, se detalla en la \autoref{tab:extractive_typology}.
 
 	\begin{table}[htbp]
 		\centering
 		\small
-		\caption[Tipología de economías extractivas]{Tipología de economías dependientes de recursos naturales según tipo de sector extractivo y nivel de ingreso.}
+		\caption[Tipología de economías extractivas]{Tipología de las economías con información sobre la composición de las rentas extractivas, según sector predominante y nivel de ingreso.}
 		\label{tab:extractive_typology}
 
 		\begin{threeparttable}
@@ -381,17 +385,18 @@
 
 					Economías extractivas mixtas \\
 					(Perfil mixto: $25\% - 75\%$)
-					& COD, SLE
+					& COD
 					& BOL, GHA, GMB, IND, PNG
 					& IDN, SUR
-					& ATG, ISR, NRU, SYC \\
+					& ATG, ISR, SYC \\
 
 					\bottomrule
 				\end{tabularx}
 
 			\begin{tablenotes}[para,flushleft]
 				\footnotesize
-				\item \textit{Nota: LIC = Low Income Countries; LMIC = Lower Middle Income Countries; UMIC = Upper Middle Income Countries; HIC = High Income Countries. Los países se representan mediante sus códigos ISO3 oficiales (ver Tabla A.2). La clasificación por nivel de ingresos sigue la tipología del Banco Mundial, mientras que el perfil extractivo se define según la participación promedio observada en el panel empírico (1996--2021) de la investigación.}
+				\item \textit{Nota: LIC = Low Income Countries; LMIC = Lower Middle Income Countries; UMIC = Upper Middle Income Countries; HIC = High Income Countries. Los países se representan mediante sus códigos ISO3 oficiales (ver Tabla A.2). La clasificación por nivel de ingresos sigue la tipología del Banco Mundial, mientras que el perfil extractivo se define según la participación promedio observada en el panel empírico (1996--2021). Sierra Leona y Nauru, incluidas en la selección inicial de 55 países, no se clasifican por falta de información para ambos componentes.}
+				\item \textit{Fuente: Elaboración propia a partir del panel maestro y de la clasificación por ingresos del Banco Mundial.}
 			\end{tablenotes}
 		\end{threeparttable}
 	\end{table}
@@ -400,19 +405,21 @@
 
 	En primer lugar, la dependencia exportadora extractiva total ($DRES\%$, \autoref{fig:panel-commodities-income}) no exhibe un gradiente de reducción monotónica a medida que aumenta el ingreso per cápita. La mediana de $DRES\%$ se mantiene en niveles elevados a través de todos los tramos de ingreso (fluctuando entre el 50\% y el 77\%), abarcando desde economías de bajos ingresos (como Liberia \textit{LBR} o Yemen \textit{YEM}) hasta países de altos ingresos altamente especializados en bienes primarios (tales como Kuwait \textit{KWT}, Qatar \textit{QAT}, Arabia Saudita \textit{SAU} o Noruega \textit{NOR}).
 
-	En segundo lugar, la intensidad macroeconómica de las rentas de petróleo y gas natural ($RENTS^{OIL+GAS}$, \autoref{fig:panel-oil-gas-rents-income}) refleja el carácter de enclave intensivo en capital característico de los hidrocarburos. Su magnitud como porcentaje del PIB se concentra de manera predominante en economías de ingresos medios-altos (\textit{UMIC}, con valores atípicos sobresalientes como Irak \textit{IRQ}, Libia \textit{LBY} y Angola \textit{AGO}) y de altos ingresos (\textit{HIC}, con medianas del orden del 20\% del PIB), en donde la absorción de rentas extraordinarias impulsa artificialmente el PIB per cápita.
+	En segundo lugar, la intensidad macroeconómica de las rentas de petróleo y
+	gas natural ($RENTS^{OIL+GAS}$,
+	\autoref{fig:panel-oil-gas-rents-income}) presenta valores elevados en varias
+	economías de ingresos medios-altos y altos, entre ellas Irak, Libia, Angola y
+	varios exportadores de hidrocarburos del Golfo. El gráfico describe la
+	distribución por grupos de ingreso, pero no permite atribuir a las rentas el
+	nivel de PIB per cápita observado.
 
-	En tercer lugar, las rentas mineras ($RENTS^{MINING}$, \autoref{fig:panel-mining-rents-income}) exhiben una morfología opuesta: constituyen un fenómeno concentrado en economías de ingresos medios-bajos (\textit{LMIC}, con casos prominentes como Mongolia \textit{MNG}, Mauritania \textit{MRT}, Papúa Nueva Guinea \textit{PNG} y Zambia \textit{ZMB}) e ingresos medios-altos (\textit{UMIC}, tales como Chile \textit{CHL}, Surinam \textit{SUR}, Guyana \textit{GUY} y Perú \textit{PER}), perdiendo ponderación en economías de altos ingresos (con la excepción de Australia \textit{AUS}). Esta divergencia justifica metodológicamente la necesidad de desagregar el vector de recursos naturales en las estimaciones econométricas del modelo principal.
-
-	Para complementar esta caracterización descriptiva, la \autoref{fig:rents_eci_scatterplot} presenta el diagrama de dispersión entre las rentas de recursos naturales promedio y el ECI promedio para los 55 países de la muestra, contrastando el patrón de comportamiento entre economías desarrolladas (HIC) y en desarrollo (LIC, LMIC, UMIC). Se observa una relación negativa en promedio, representada por la línea de valores ajustados (Fitted values), consistente con las hipótesis de la maldición de los recursos naturales discutidas en el \autoref{chap:marco-teorico}.
-
-	\begin{figure}[htbp]
-		\centering
-		\includegraphics[width=0.85\textwidth]{\subfix{../../figures/recreated_hausmann_eci_rents}}
-		\caption[Rentas de recursos naturales y complejidad económica]{Rentas de recursos naturales y complejidad económica (ECI) en la muestra del panel (réplica de \textcite{Hausmann2014}).}
-		\label{fig:rents_eci_scatterplot}
-		\caption*{\footnotesize \textit{Fuente: Elaboración propia a partir del panel maestro de la investigación, siguiendo la metodología de \textcite{Hausmann2014}.}}
-	\end{figure}
+	En tercer lugar, las rentas mineras ($RENTS^{MINING}$,
+	\autoref{fig:panel-mining-rents-income}) se concentran principalmente en
+	economías de ingresos medios-bajos y medios-altos, con casos como Mongolia,
+	Mauritania, Zambia, Chile, Surinam, Guyana y Perú. Esta diferencia descriptiva
+	frente a los hidrocarburos motiva la desagregación complementaria de las
+	rentas, cuyos resultados se evalúan con la misma muestra y especificación del
+	modelo completo.
 
 	Las \autoref{fig:eci-annual-evolution-cap10} y \autoref{fig:divx-annual-evolution-cap10} presentan la mediana anual y el intervalo intercuartílico de $ECI$ y $DIVX$, respectivamente, para los 55 países. Esta comparación permite observar el movimiento de la posición central y la persistencia de diferencias dentro de la muestra.
 
@@ -502,7 +509,7 @@
 	descriptiva más estrecha con la concentración de la canasta exportadora que
 	con el contenido de capacidades sintetizado por el $ECI$.
 
-	Complementariamente, la \autoref{fig:eci-log-rents-quadrants-cap10} examina la relación entre el $ECI$ medio y el logaritmo de las rentas extractivas medias dividida por cuadrantes. La transformación logarítmica de $RENTS$ atenúa la compresión en el extremo inferior de rentas y permite agrupar los países en cuatro cuadrantes según el umbral $ECI=0$ y la mediana muestral de $RENTS$. Los ajustes no lineal (LOESS) y lineal (OLS) confirman la marcada heterogeneidad entre cuadrantes: se distinguen economías de rentas elevadas con complejidad positiva (como Noruega o Arabia Saudita), rentas altas con reducida complejidad (como Irak, Angola o Libia), y países con niveles moderados o bajos de rentas distribuidos en ambos lados de la mediana de complejidad.
+	Complementariamente, la \autoref{fig:eci-log-rents-quadrants-cap10} examina la relación entre el $ECI$ medio y el logaritmo de las rentas extractivas medias dividida por cuadrantes. La transformación logarítmica de $RENTS$ atenúa la compresión en el extremo inferior de rentas y permite agrupar los países en cuatro cuadrantes según el umbral $ECI=0$ y la mediana muestral de $RENTS$. Los ajustes no lineal (LOESS) y lineal (OLS) ilustran la marcada heterogeneidad entre cuadrantes: se distinguen economías de rentas elevadas con complejidad positiva (como Noruega o Arabia Saudita), rentas altas con reducida complejidad (como Irak, Angola o Libia), y países con niveles moderados o bajos de rentas distribuidos en ambos lados de la mediana de complejidad.
 
 	\begin{figure}[!htbp]
 		\centering
@@ -512,19 +519,14 @@
 		\caption*{\footnotesize \textit{Fuente: Elaboración propia a partir del panel maestro.}}
 	\end{figure}
 
-	Como contraste empírico de los debates sobre dotaciones físicas y crecimiento de largo plazo, la \autoref{fig:recreated_brunnschweiler_cap10} presenta la réplica metodológica del análisis de \textcite{Brunnschweiler2006} utilizando los datos reales del panel maestro (1996--2021). En esta literatura, la distinción entre abundancia y dependencia resulta crucial: mientras la corriente clásica de la maldición de los recursos señala un efecto perjudicial de la dependencia extractiva, \textcite{Brunnschweiler2006} cuestiona esta hipótesis argumentando que la abundancia física de activos en el subsuelo (en dólares per cápita) exhibe una asociación directa y positiva con el crecimiento del PIB. En su estimación global de corte transversal, la recta de ajuste presenta una pendiente positiva, lo que sustentó la conclusión optimista de que la abundancia de recursos naturales opera como un factor favorable y no como un obstáculo para el desempeño de largo plazo.
-
-	Sin embargo, el resultado de Brunnschweiler presenta un sesgo de composición muestral al incluir de forma conjunta a economías altamente industrializadas y de rápido crecimiento que carecen de recursos naturales (como Corea del Sur, Japón, Singapur o Suiza) junto con países primario-exportadores. Al incorporar estas economías sin recursos en el plano de dispersión, la línea de ajuste lineal se desplaza hacia arriba artificialmente, simulando una asociación positiva global. Al restringir el análisis empírico al grupo homogéneo de países que efectivamente experimentan dependencia de recursos ($DRES \geq 20\%$), el patrón se invierte por completo. La réplica de este gráfico con los datos del panel muestra una relación ligeramente negativa y estadísticamente no significativa entre la dotación del subsuelo per cápita y el crecimiento promedio del PIB.
-
-	Esta inversión del resultado es analíticamente relevante por tres razones principales. En primer lugar, desmitifica el optimismo de la literatura de abundancia al evidenciar que su conclusión no constituye una ley general, sino un artefacto de la inclusión de economías de ingresos altos no dependientes. En segundo lugar, justifica metodológicamente la focalización de esta investigación en la muestra fija de economías dependientes ($DRES$), donde la abundancia del subsuelo no compensa los sesgos estructurales de la especialización. Por último, este hecho estilizado anticipa los resultados econométricos del \autoref{chap:resultados}, donde los indicadores de abundancia física per cápita ($OILPC$, $GASPC$ y $COALPC$) no resultan significativos bajo efectos fijos bidireccionales, confirmando descriptivamente que la mera dotación geográfica in situ no actúa como motor de desarrollo económico una vez que un país se ha especializado en la extracción primaria.
-
-	\begin{figure}[htbp]
-		\centering
-		\includegraphics[width=0.85\textwidth]{\subfix{../../figures/recreated_brunnschweiler}}
-		\caption[Riqueza del subsuelo y crecimiento económico (réplica de Brunnschweiler)]{Relación entre la riqueza del subsuelo per cápita y el crecimiento promedio anual del PIB per cápita en la muestra del panel (réplica de \textcite{Brunnschweiler2006}).}
-		\label{fig:recreated_brunnschweiler_cap10}
-		\caption*{\footnotesize \textit{Fuente: Elaboración propia a partir del panel maestro de la investigación, siguiendo la metodología de \textcite{Brunnschweiler2006}.}}
-	\end{figure}
+	El panel no contiene una medida de existencias físicas o de riqueza del
+	subsuelo comparable con el capital natural per cápita utilizado por
+	\textcite{Brunnschweiler2006}. $OILPC$, $GASPC$ y $COALPC$ son flujos
+	monetarios de rentas reales por habitante, construidos a partir de las rentas
+	como porcentaje del PIB; no representan reservas, producción física ni
+	precios de los recursos. Por esta razón, estas variables no se emplean para
+	replicar el contraste de abundancia física de ese estudio ni para extraer
+	conclusiones sobre dotaciones geológicas.
 
 	Estas asociaciones no incorporan efectos fijos, controles, rezagos ni la
 	interacción institucional. Tampoco distinguen si los promedios reflejan
@@ -600,7 +602,8 @@
 
 	El capítulo econométrico parte de esta base y examina las relaciones dentro
 	de cada país mediante efectos fijos nacionales y temporales, junto con los
-	canales institucional, de abundancia, estructural, macroeconómico, de
+	canales institucional, de rentas extractivas específicas, estructural,
+	macroeconómico, de
 	capacidades productivas y financiero definidos en la metodología. La
 	distinción entre la evidencia descriptiva de este capítulo y las
 	estimaciones posteriores evita atribuir contenido causal a correlaciones

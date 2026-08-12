@@ -117,14 +117,14 @@ label variable rents_mining_x_inst "Rentas minería x INST"
 // *****************************************************************************
 
 * 3.1. Estimar M1 Minería sobre Complejidad Económica (ECI)
-reghdfe eci rents_mining inst rents_mining_x_inst log_oilpc log_gaspc log_coalpc hhi pexp fexp log_gdppc if sample_eci == 1, absorb(country_id year) vce(cluster country_id)
+reghdfe eci c.rents_mining##c.inst log_oilpc log_gaspc log_coalpc hhi pexp fexp log_gdppc if sample_eci == 1, absorb(country_id year) vce(cluster country_id)
 estimates store M1_MIN_ECI
 local ster_path "$OUTPUT_MIN/m1_mining_eci.ster"
 local ster_path = subinstr("`ster_path'", "/", "\", .)
 estimates save "`ster_path'", replace
 
 * 3.2. Estimar M1 Minería sobre Diversificación Exportadora (DIVX)
-reghdfe divx rents_mining inst rents_mining_x_inst log_oilpc log_gaspc log_coalpc pexp fexp log_gdppc if sample_divx == 1, absorb(country_id year) vce(cluster country_id)
+reghdfe divx c.rents_mining##c.inst log_oilpc log_gaspc log_coalpc pexp fexp log_gdppc if sample_divx == 1, absorb(country_id year) vce(cluster country_id)
 estimates store M1_MIN_DIVX
 local ster_path "$OUTPUT_MIN/m1_mining_divx.ster"
 local ster_path = subinstr("`ster_path'", "/", "\", .)
@@ -136,14 +136,14 @@ estimates save "`ster_path'", replace
 // *****************************************************************************
 
 * 4.1. Estimar M2 Minería sobre Complejidad Económica (ECI)
-reghdfe eci rents_mining inst rents_mining_x_inst vol rer humcap innov net log_gdppc govcons fin if sample_eci == 1, absorb(country_id year) vce(cluster country_id)
+reghdfe eci c.rents_mining##c.inst vol rer humcap innov net log_gdppc govcons fin if sample_eci == 1, absorb(country_id year) vce(cluster country_id)
 estimates store M2_MIN_ECI
 local ster_path "$OUTPUT_MIN/m2_mining_eci.ster"
 local ster_path = subinstr("`ster_path'", "/", "\", .)
 estimates save "`ster_path'", replace
 
 * 4.2. Estimar M2 Minería sobre Diversificación Exportadora (DIVX)
-reghdfe divx rents_mining inst rents_mining_x_inst vol rer humcap innov net log_gdppc govcons fin if sample_divx == 1, absorb(country_id year) vce(cluster country_id)
+reghdfe divx c.rents_mining##c.inst vol rer humcap innov net log_gdppc govcons fin if sample_divx == 1, absorb(country_id year) vce(cluster country_id)
 estimates store M2_MIN_DIVX
 local ster_path "$OUTPUT_MIN/m2_mining_divx.ster"
 local ster_path = subinstr("`ster_path'", "/", "\", .)
@@ -229,22 +229,22 @@ postfile `min_test_post' str12 model str12 outcome str40 test_name double f_stat
 
 * M1 ECI
 estimates restore M1_MIN_ECI
-quietly test rents_mining rents_mining_x_inst
+quietly test rents_mining c.rents_mining#c.inst
 post `min_test_post' ("M1_MIN") ("ECI") ("Mecanismo Minería (rents + inter)") (r(F)) (r(p))
 
 * M1 DIVX
 estimates restore M1_MIN_DIVX
-quietly test rents_mining rents_mining_x_inst
+quietly test rents_mining c.rents_mining#c.inst
 post `min_test_post' ("M1_MIN") ("DIVX") ("Mecanismo Minería (rents + inter)") (r(F)) (r(p))
 
 * M2 ECI
 estimates restore M2_MIN_ECI
-quietly test rents_mining rents_mining_x_inst
+quietly test rents_mining c.rents_mining#c.inst
 post `min_test_post' ("M2_MIN") ("ECI") ("Mecanismo Minería (rents + inter)") (r(F)) (r(p))
 
 * M2 DIVX
 estimates restore M2_MIN_DIVX
-quietly test rents_mining rents_mining_x_inst
+quietly test rents_mining c.rents_mining#c.inst
 post `min_test_post' ("M2_MIN") ("DIVX") ("Mecanismo Minería (rents + inter)") (r(F)) (r(p))
 
 postclose `min_test_post'

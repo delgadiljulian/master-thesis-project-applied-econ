@@ -131,18 +131,21 @@ function Invoke-StataStage {
         }
     }
 
-    if (-not $stataProcess.HasExited) {
-        Stop-Process -Id $stataProcess.Id -Force
+    if (-not $completed) {
+        if (-not $stataProcess.HasExited) {
+            Stop-Process -Id $stataProcess.Id -Force
+        }
+        throw "La etapa $StageNumber falló o no escribió el marcador de finalización: $($stageDefinition.CompletionMarker)"
     }
 
     Write-Host "Etapa $StageNumber completada en stata-peer-1."
 }
 
 if ($Stage -eq "core") {
-    $stagesToRun = @("01", "02", "04", "05")
+    $stagesToRun = @("01", "02", "03", "04", "05")
 }
 elseif ($Stage -eq "all") {
-    $stagesToRun = @("01", "02", "04", "05", "06", "07", "08")
+    $stagesToRun = @("01", "02", "03", "04", "05", "06", "07", "08")
 }
 else {
     $stagesToRun = @($Stage)

@@ -4,108 +4,255 @@
 
 \begin{document}
 
-	% =====================================================
-	% CONCLUSIONES
-	% =====================================================
-	\chapter{Conclusiones}
-	\label{chap:conclusiones}
+% =====================================================
+% CONCLUSIONES
+% =====================================================
 
-	\thesisstartchap{conclusiones}
+\chapter{Conclusiones}
+\label{chap:conclusiones}
+\thesisstartchap{conclusiones}
 
-	Este capítulo sintetiza los principales hallazgos del trabajo de investigación y articula las lecciones teóricas, metodológicas y de política económica derivadas del análisis empírico sobre la transformación estructural en economías dependientes de recursos naturales. La discusión final se organiza en torno a cuatro ejes fundamentales: en primer lugar, la respuesta directa a la pregunta de investigación y el balance de hallazgos; en segundo lugar, las contribuciones al debate teórico y empírico; en tercer lugar, las recomendaciones para el diseño de políticas públicas e industriales; y, en cuarto lugar, las limitaciones del estudio y las líneas para una agenda futura de investigación.
+Este capítulo responde la pregunta de investigación a partir de la evidencia
+presentada en el \autoref{chap:resultados}. La interpretación se limita a
+asociaciones condicionales dentro de los países. Los modelos con efectos fijos,
+los diagnósticos y las sensibilidades permiten evaluar la estabilidad de los
+patrones estimados, pero no identifican efectos causales ni demuestran por sí
+solos los mecanismos teóricos discutidos en la tesis.
 
-	\section{Síntesis de hallazgos y respuesta a las preguntas de investigación}
-	\label{sec:sintesis-hallazgos}
 
-	La presente investigación tuvo como objetivo central analizar en qué medida y a través de qué mecanismos la dependencia de recursos naturales condiciona los procesos de transformación estructural externa en economías en desarrollo durante el periodo 1996--2021. Al articular los conceptos de la complejidad económica cualitativa ($ECI$) y la dispersión cuantitativa exportadora ($DIVX = 1 - HHI$) \parencite{Hidalgo2009, Hausmann2014}, la evidencia econométrica obtenida mediante modelos de efectos fijos bidireccionales (TWFE) y pruebas de inferencia bootstrapeada (\textit{Wild Cluster Bootstrap}) permite dar respuesta rigurosa al interrogante principal del estudio.
+\section{Síntesis de hallazgos y respuesta a la pregunta de investigación}
+\label{sec:sintesis-hallazgos}
 
-	En primer lugar, los resultados muestran una asociación negativa entre la intensidad macroeconómica de las rentas del subsuelo ($RENTS$) y los dos resultados de transformación estructural externa, en sintonía con las hipótesis clásicas sobre los costos de la abundancia primaria \parencite{Auty1993, Sachs1995}. Un incremento de 10 puntos porcentuales en la participación de las rentas como proporción del PIB se asocia con una reducción aproximada de 0,098 puntos del Índice de Complejidad Económica ($\beta = -0,010^{**}, p = 0,023$) y de 0,035 unidades del indicador de diversificación exportadora ($\beta = -0,004^{***}, p = 0,009$), tal como se reporta en el modelo completo ($M_3$) de la \autoref{tab:progresion_modelos_twfe} (columnas 3 y 6). La estabilidad de los signos frente a distintas pruebas de sensibilidad es compatible con un vínculo adverso entre dependencia macroeconómica de las rentas y transformación productiva, pero el diseño observacional no permite atribuirle por sí solo un efecto causal ni identificar de manera concluyente un mecanismo específico.
+La pregunta que guía el estudio indaga cómo se asocian las rentas extractivas y
+los canales productivos, institucionales y macroeconómicos con la transformación
+estructural externa de las economías dependientes de recursos naturales. La
+respuesta empírica se limita a asociaciones condicionales estimadas a partir de
+los cambios observados dentro de cada país; no pretende explicar exhaustivamente
+las diferencias históricas entre países.
+En ese margen, la intensidad macroeconómica de las rentas y la estructura de la
+canasta exportadora concentran la evidencia más definida. Los resultados son
+menos concluyentes para la moderación institucional, las condiciones
+macroeconómicas y varias medidas de capacidades productivas.
 
-	En segundo lugar, la desagregación por tipo de recurso muestra patrones complementarios y diferenciados \parencite{Avom2022, Owjimehr2024}. Las rentas de minería y carbón ($rents\_mining$) presentan una asociación negativa con la complejidad ($ECI, \beta = -0,014^{***}, p = 0,001$; \autoref{tab:progresion_mineria_twfe}), mientras que las rentas de hidrocarburos ($rents\_oil\_gas$) se asocian negativamente con la diversificación ($DIVX, \beta = -0,005^{***}, p = 0,001$; \autoref{tab:progresion_hidrocarburos_twfe}), habiendo sido contrastadas de manera integrada en la \autoref{tab:modelos_desagregados_twfe}. Sin embargo, las pruebas formales de igualdad no rechazan al 5\% que los coeficientes directos de ambos componentes sean iguales. Por ello, esta heterogeneidad es sugestiva y coherente con mecanismos sectoriales distintos, pero no constituye evidencia concluyente de que cada recurso opere exclusivamente a través de un canal determinado.
+En el modelo completo, $RENTS$ presenta una asociación negativa con la
+complejidad económica y con la diversificación exportadora. Cuando $INST=0$, un
+aumento de diez puntos porcentuales del PIB en las rentas extractivas se asocia
+con una disminución aproximada de 0,098 puntos de $ECI$ y 0,035 puntos de
+$DIVX$. Los p-valores convencionales son 0,023 y 0,009, respectivamente, y la
+inferencia mediante \textit{Wild Cluster Bootstrap} mantiene significación al
+5\% ($p_{boot}=0,040$ para $ECI$ y $p_{boot}=0,021$ para $DIVX$). La exclusión
+de un país por vez conserva el signo negativo en las 49 iteraciones de ambas
+ecuaciones.
 
-	En tercer lugar, la investigación pone de manifiesto una diferencia entre diversificación cuantitativa y complejidad cualitativa. La participación de las exportaciones primarias no energéticas ($PEXP$) se asocia positivamente con $DIVX$ ($\beta = +0,002^{**}, p = 0,018$), indicador que refleja una menor concentración de la canasta, y negativamente con $ECI$ ($\beta = -0,004^{***}, p = 0,010$). Este patrón es consistente con la posibilidad de ampliar la dispersión exportadora sin aumentar simultáneamente la sofisticación productiva \parencite{Hartmann2017}; no implica, sin embargo, que el modelo identifique el efecto causal de incorporar productos primarios específicos.
+La estabilidad no es idéntica en todos los ejercicios. Al incorporar tendencias
+lineales específicas por país, $RENTS$ conserva una asociación negativa y
+significativa con $DIVX$ ($p=0,020$), pero pierde precisión en $ECI$
+($p=0,210$). Por tanto, la relación con la diversificación es más estable frente
+a tendencias nacionales diferenciadas; la conclusión sobre complejidad debe
+formularse con mayor cautela.
 
-	En cuarto lugar, el capital humano ($HUMCAP$) presenta una asociación positiva con la diversificación exportadora ($\beta = +0,107^{**}, p = 0,020$), aunque no resulta estadísticamente significativo en la ecuación de complejidad. Por su parte, el término de interacción ($RENTS \times INST$) no alcanzó significación estadística en el modelo $ECI$ ($\beta = -0,005, p = 0,139; p_{\text{boot}} = 0,209$) ni en el modelo $DIVX$, resultado validado en los diagnósticos de inferencia robusta de la \autoref{tab:pruebas_estabilidad_efectos_marginales} (Panel A). En consecuencia, la especificación no aporta evidencia de una moderación institucional estadísticamente detectable, pero este no resultado tampoco demuestra que las instituciones carezcan de relevancia ni permite derivar por sí solo la superioridad de una estrategia de política determinada.
+La estructura exportadora ofrece el resultado más definido para $ECI$. La
+concentración ($HHI$), las exportaciones primarias no energéticas ($PEXP$) y las
+exportaciones de combustibles ($FEXP$) presentan asociaciones negativas y son
+conjuntamente significativas. En cambio, $PEXP$ se asocia positivamente con
+$DIVX$. Esta diferencia confirma la importancia analítica de separar dos
+dimensiones: una canasta puede ser menos concentrada porque incorpora una mayor
+variedad de productos primarios, sin que ello implique una mayor sofisticación
+o acumulación de capacidades productivas reveladas.
 
-	Finalmente, la incorporación del protocolo econométrico de series de tiempo para datos de panel aporta tres conclusiones fundamentales de alto nivel. En primer lugar, la desindustrialización inducida por los recursos naturales es de carácter fuertemente procíclico y asimétrico: el impacto negativo de las rentas se concentró de manera abrumadora durante la fase de auge del Superciclo de Commodities (1996--2014), perdiendo significación estadística tras el desplome internacional de precios en 2014. En segundo lugar, las Proyecciones Locales en Panel (\textcite{Jorda2005}) demuestran que la minería genera una destrucción inmediata y contemporánea de la complejidad ($h=0$), mientras que los hidrocarburos operan con un rezago de transmisión de un año ($h=1$), alcanzando su pico desindustrializador en $h=3$. En tercer lugar, el filtrado de Hodrick-Prescott ($\lambda = 6,25$) confirma de forma contundente que la abundancia extractiva erosiona directamente la tendencia de largo plazo del desarrollo industrial ($ECI_{\text{trend}}$ y $DIVX_{\text{trend}}$), descartando que responda a oscilaciones cíclicas de corto plazo.
+La calidad institucional no muestra el papel moderador previsto. El coeficiente
+de $INST$ es positivo y marginal al 10\% en la ecuación de $ECI$, pero
+$RENTS\times INST$ no es significativo en ninguna de las dos ecuaciones, tampoco
+con bootstrap. Los efectos marginales de $RENTS$ son negativos en los cinco
+percentiles observados de $INST$, aunque su precisión varía. En consecuencia,
+la tesis no encuentra evidencia suficiente para afirmar que el indicador
+institucional utilizado modifique sistemáticamente la asociación entre rentas y
+transformación estructural externa. Este resultado no demuestra que las
+instituciones sean irrelevantes; delimita lo que puede concluirse con esta
+medición y esta especificación.
 
-	\section{Implicaciones teóricas y contribuciones metodológicas}
-	\label{sec:implicaciones-teoricas}
+Las variables $VOL$ y $RER$ no son significativas individual ni conjuntamente.
+Por ello, el modelo no respalda directamente el canal macroeconómico formulado,
+pero tampoco permite descartarlo: la medida de volatilidad captura una dimensión
+específica de los términos de intercambio y puede no representar todos los
+mecanismos fiscales, financieros o cambiarios relevantes.
 
-	Los hallazgos empíricos de esta investigación aportan elementos para la discusión sobre la maldición de los recursos y el cambio estructural \parencite{Auty1993, Sachs1995}. En primer lugar, la ausencia de significación estadística del término de interacción entre rentas e instituciones no respalda, en esta muestra y especificación, la hipótesis de que una mayor calidad institucional atenúe de forma detectable la asociación negativa de las rentas \parencite{Mehlum2006, Acemoglu2001}. Este resultado matiza una interpretación exclusivamente institucional, pero no constituye una refutación general de la importancia de las instituciones ni de la literatura que estudia sus efectos \parencite{Brunnschweiler2008, Arezki2012}.
+En capacidades productivas, $HUMCAP$ se asocia positivamente con $DIVX$, pero no
+con $ECI$, y pierde precisión al incorporar tendencias por país. $INNOV$ no
+presenta una asociación adicional significativa. La evidencia, por tanto,
+ofrece un respaldo limitado al papel del capital humano en la dispersión
+exportadora y no autoriza una conclusión general sobre el efecto de las
+capacidades en la complejidad.
 
-	Los resultados también son compatibles con las teorías del espacio de productos y la complejidad económica desarrolladas por \textcite{Hidalgo2009} y \textcite{Hausmann2014}, que destacan la acumulación de capacidades productivas específicas y conocimiento práctico. La asociación positiva de $HUMCAP$ con $DIVX$ sugiere que el capital humano merece atención dentro de esta discusión, aunque el modelo no identifica su efecto causal ni permite establecer que sea condición suficiente para aumentar la complejidad.
+La desagregación muestra dos patrones complementarios. Las rentas de minería y
+carbón se asocian negativamente con $ECI$ ($\beta=-0,0136$, $p=0,001$), mientras
+que las rentas de petróleo y gas se asocian negativamente con $DIVX$
+($\beta=-0,0048$, $p=0,001$). Ambos resultados conservan el signo en las 49
+exclusiones de países y mantienen significación con bootstrap. Sin embargo, las
+pruebas de igualdad de los coeficientes directos no rechazan igualdad al 5\%.
+Estos patrones sugieren heterogeneidad sectorial, pero no demuestran que cada
+recurso opere mediante un mecanismo exclusivo.
 
-	En segundo lugar, la divergencia de signos de $PEXP$ entre $DIVX$ y $ECI$ refuerza la necesidad de distinguir dispersión y sofisticación \parencite{Hartmann2017, Owjimehr2024}. Una canasta menos concentrada puede continuar especializada en actividades primarias y, por tanto, no necesariamente exhibir mayores capacidades productivas reveladas \parencite{Agosin2012}. Esta diferencia conceptual ayuda a evitar que todo aumento de $DIVX$ se interprete automáticamente como \textit{upgrading}; la evidencia estimada respalda esa cautela sin demostrar por sí sola los efectos de una política concreta de diversificación.
+Finalmente, la sensibilidad de 2014 no aporta evidencia de un quiebre general.
+Las pruebas conjuntas de cambio en $RENTS$, $INST$ y su interacción no rechazan
+estabilidad al 5\% para $ECI$ ($p=0,343$) ni para $DIVX$ ($p=0,059$). El segundo
+resultado es marginal al 10\%, pero debe interpretarse como sensibilidad
+temporal en muestra completa, no como ruptura causal ni como base para dividir
+el período de estimación.
 
-	En tercer lugar, los resultados permiten distinguir entre abundancia física e intensidad macroeconómica de los recursos \parencite{Brunnschweiler2008}. Las variables de abundancia per cápita no presentan asociaciones intra-país estadísticamente significativas una vez incluidos los efectos fijos y los demás controles, mientras que $RENTS$ conserva una asociación negativa. Este contraste es compatible con la idea de que el peso económico de las rentas resulta más informativo que la dotación física para describir las trayectorias observadas, pero no identifica el mecanismo macroeconómico específico que produce esa relación.
+En relación con las hipótesis, la evidencia puede resumirse así: la
+\hyperref[hyp:h1]{primera hipótesis} recibe apoyo parcial porque los patrones son
+compatibles con una relación adversa entre intensidad extractiva, estructura
+exportadora y transformación externa, pero no identifican directamente los
+mecanismos propuestos; la \hyperref[hyp:h2]{segunda hipótesis} no recibe respaldo
+de la interacción institucional; la \hyperref[hyp:h3]{tercera hipótesis} queda
+inconclusa; la \hyperref[hyp:h4]{cuarta hipótesis} recibe apoyo limitado por el
+resultado de capital humano en $DIVX$; y la \hyperref[hyp:h5]{quinta hipótesis}
+encuentra patrones sectoriales sugestivos, aunque no diferencias concluyentes
+entre los coeficientes directos.
 
-	En cuarto lugar, desde el punto de vista metodológico, el estudio combina efectos fijos por país y año con errores estándar agrupados, \textit{Wild Cluster Bootstrap}, exclusión sucesiva de países y análisis de sensibilidad (\autoref{tab:pruebas_estabilidad_efectos_marginales}). Los efectos fijos controlan los factores inobservables invariantes en el tiempo y los shocks temporales comunes, mientras que las pruebas complementarias permiten evaluar la estabilidad de la inferencia. Esta estrategia mejora la credibilidad y la reproducibilidad de las asociaciones estimadas, pero no elimina la endogeneidad derivada de causalidad inversa, variables omitidas cambiantes en el tiempo o errores de medición.
 
-	\section{Recomendaciones de política económica e industrial}
-	\label{sec:recomendaciones-politica}
+\section{Implicaciones teóricas y contribuciones metodológicas}
+\label{sec:implicaciones-teoricas}
 
-	Los resultados econométricos y el análisis de trayectorias nacionales permiten formular orientaciones de política consistentes con las asociaciones observadas. Dado que el diseño no identifica efectos causales, estas recomendaciones deben entenderse como implicaciones plausibles que requieren evaluación adicional en cada contexto nacional:
+La primera contribución consiste en desplazar el resultado de interés desde la
+dependencia o las rentas hacia la transformación estructural externa. La
+selección inicial mediante $DRES$ delimita economías con una inserción externa
+dependiente de recursos, mientras que $RENTS$ mide la intensidad macroeconómica
+de las rentas dentro de esa muestra. Esta separación evita tratar como
+equivalentes la estructura exportadora utilizada para seleccionar países y la
+variable explicativa que cambia a lo largo del tiempo.
 
-	En primer lugar, la asociación positiva entre capital humano ($HUMCAP$) y diversificación respalda prestar atención a la formación de capacidades dentro de las estrategias productivas \parencite{Rodrik2016}. Los gobiernos de economías extractivas podrían complementar la educación básica con educación técnica avanzada, formación universitaria en disciplinas científicas y tecnológicas (STEM) y centros de investigación aplicada articulados con el sector productivo. La eficacia de estas intervenciones deberá evaluarse de manera específica, pues las estimaciones no permiten afirmar que el capital humano sea por sí solo suficiente para generar saltos hacia productos complejos.
+La segunda contribución es distinguir sofisticación y diversificación. $ECI$ y
+$DIVX$ no son medidas intercambiables: los signos opuestos de $PEXP$ muestran
+que una expansión de la variedad exportada puede ocurrir sin un aumento de la
+complejidad. Esta distinción permite evaluar con mayor precisión qué dimensión
+de la transformación externa está asociada con cada canal teórico y evita usar
+la palabra diversificación como sinónimo automático de \textit{upgrading}.
 
-	En segundo lugar, los patrones desagregados sugieren explorar estrategias diferenciadas según el sector extractivo dominante (\autoref{tab:progresion_hidrocarburos_twfe} y \autoref{tab:progresion_mineria_twfe}), en consonancia con la evidencia empírica sectorial reciente \parencite{Avom2022, Owjimehr2024}. En economías mineras puede resultar pertinente evaluar instrumentos para fortalecer encadenamientos locales, proveedores tecnológicos y procesamiento con mayor valor agregado. En economías dependientes de hidrocarburos, puede ser útil examinar mecanismos de reinversión y apoyo a sectores exportadores alternativos. La selección de requisitos de contenido local, incentivos o subsidios debe apoyarse en evaluaciones de viabilidad, costos fiscales y efectos sobre competencia y productividad.
+La tercera contribución es empírica. El estudio compara $M_1$ y $M_2$ como
+especificaciones temáticas paralelas y concentra la interpretación en $M_3$,
+estimado sobre una muestra común de 1.044 observaciones, 49 países y 23 años
+efectivos. Esta regla evita atribuir a la incorporación de variables lo que
+podría deberse a cambios de muestra. La inferencia principal se complementa con
+bootstrap, exclusión de países, observaciones influyentes, efectos marginales,
+tendencias nacionales y una sensibilidad temporal preespecificada.
 
-	En tercer lugar, es necesario reformular el diseño y el uso de los fondos de riqueza soberana y las reglas macro-fiscales \parencite{Lebdioui2019}. En lugar de limitar estos instrumentos a un rol meramente pasivo de estabilización fiscal o acumulación de reservas internacionales invertidas en el extranjero, los excedentes de las rentas extractivas deben constituir vehículos de inversión de capital de riesgo para la reconversión productiva. Siguiendo lecciones exitosas como la trayectoria de Malasia \parencite{Lebdioui2019}, estos fondos estatales deben financiar activamente la infraestructura de conectividad, parques tecnológicos y coinversiones en sectores estratégicos con alto potencial de aprendizaje tecnológico, permitiendo que la renta financiera temporal del subsuelo se traduzca de forma permanente en capacidades exportadoras sofisticadas.
+La cuarta contribución es de alcance interpretativo. Los diagnósticos temporales
+y residuales se utilizan como información sobre el panel, no como mecanismos
+automáticos para clasificar series, escoger estimadores o transformar el modelo.
+Del mismo modo, la ausencia de significación se presenta como falta de evidencia
+estadística suficiente y no como prueba de irrelevancia económica. Esta
+jerarquía separa resultados centrales, evidencia complementaria y resultados no
+concluyentes.
 
-	\section{Limitaciones del estudio y agenda futura de investigación}
-	\label{sec:limitaciones-agenda}
+Los hallazgos son compatibles con partes de la literatura sobre especialización
+extractiva y complejidad económica \parencite{Auty1993,Sachs1995,Hidalgo2009,Hausmann2014},
+pero no constituyen una prueba general de la denominada maldición de los
+recursos. Tampoco refutan la importancia de las instituciones o las capacidades.
+La contribución del estudio es identificar regularidades condicionales dentro de
+la muestra y mostrar cuáles permanecen bajo sensibilidades exigentes.
 
-	A pesar de la estabilidad observada en varias pruebas de sensibilidad, este estudio presenta delimitaciones conceptuales y empíricas que deben tenerse en cuenta al interpretar sus resultados, trazando a su vez líneas claras para futuras investigaciones.
 
-	La principal delimitación de esta investigación radica en su enfoque exclusivo en la dimensión externa de las economías analizadas. El Índice de Complejidad Económica ($ECI$) y el indicador de dispersión ($DIVX$) miden de forma única la sofisticación y diversificación de la canasta exportadora transada internacionalmente. Por consiguiente, la tesis no captura los aspectos internos de la estructura económica nacional, tales como la heterogeneidad de los sectores de bienes no transables, la productividad de las micro, pequeñas y medianas empresas orientadas al mercado doméstico, o el grado de integración de valor agregado al interior del tejido industrial local. Si bien este enfoque externo es el que permite una alta comparabilidad internacional y refleja de manera fiel la competitividad tecnológica del país frente a las cadenas globales de valor, representa un límite al omitir las dinámicas de empleo, informalidad y desarrollo productivo interno que coexisten con la trampa extractiva.
+\section{Implicaciones para la política económica y productiva}
+\label{sec:recomendaciones-politica}
 
-	Asimismo, a nivel de datos, el uso de registros comerciales agregados a nivel país impide analizar la variabilidad a nivel de firmas. En particular, las grandes empresas transnacionales mineras y petroleras suelen operar bajo regímenes aduaneros y fiscales especiales que no son plenamente visibles en las estadísticas agregadas de exportaciones.
+Las implicaciones de política deben formularse como ámbitos que merecen
+evaluación, no como recetas derivadas causalmente de los coeficientes. La
+evidencia permite señalar cuatro orientaciones prudentes.
 
-	Una limitación econométrica central es la posible endogeneidad de $RENTS$, $INST$ y otros regresores. Los efectos fijos bidireccionales y las pruebas de estabilidad reducen algunos riesgos de confusión e inferencia, pero no resuelven la causalidad inversa ni las variables omitidas que cambian en el tiempo. Por esta razón, la tesis interpreta los coeficientes como asociaciones condicionales. Como se documenta en la \autoref{sec:metodos-descartados}, los ejercicios preliminares GMM e IV/2SLS se excluyeron porque la proliferación de instrumentos volvió poco informativas las pruebas de validez de GMM \parencite{Roodman2009TooManyInstruments} y porque los rezagos internos utilizados en IV no satisfacen una restricción de exclusión defendible. Una extensión causal requeriría nuevos datos, un instrumento externo o un diseño cuasiexperimental que genere variación exógena; no bastaría con reestimar el mismo panel mediante un procedimiento más complejo. Las extensiones temporales y \textit{within--between} propuestas amplían la descripción de las asociaciones, pero tampoco eliminan esta limitación causal.
+En primer lugar, el seguimiento de la transformación productiva debería utilizar
+simultáneamente indicadores de sofisticación y dispersión exportadora. Una
+política que aumente el número de productos exportados puede mejorar $DIVX$ sin
+elevar $ECI$. Por ello, las evaluaciones de diversificación deberían considerar
+también contenido tecnológico, capacidades requeridas, productividad y
+encadenamientos, además del número o la participación de productos.
 
-	A partir de estas limitaciones, se proponen tres líneas clave para la agenda futura de investigación:
+En segundo lugar, la asociación entre capital humano y $DIVX$ justifica evaluar
+programas de formación y capacidades vinculados a la diversificación, pero el
+resultado no establece qué intervención es eficaz ni demuestra un efecto sobre
+la complejidad. Las políticas de educación técnica, formación avanzada o
+investigación aplicada deberían someterse a evaluaciones específicas que midan
+adopción tecnológica, productividad y resultados exportadores.
 
-	En primer lugar, se sugiere integrar el análisis de la complejidad externa con matrices de insumo-producto domésticas. Esto permitiría evaluar en qué medida las capacidades tecnológicas exportadas generan derrames y encadenamientos productivos al interior de los sectores no exportadores, logrando una caracterización tridimensional de la transformación estructural.
+En tercer lugar, los patrones de minería-carbón y petróleo-gas sugieren que el
+diagnóstico productivo debe considerar el tipo de recurso predominante. No
+obstante, como la igualdad de los coeficientes directos no se rechaza al 5\%, los
+resultados no justifican asignar automáticamente instrumentos distintos a cada
+sector. Las estrategias de proveedores, procesamiento, contenido local o apoyo
+a exportaciones alternativas requieren análisis de viabilidad, competencia,
+costos fiscales y capacidades nacionales.
 
-	En segundo lugar, se recomienda realizar estudios de caso comparativos utilizando micro-datos a nivel de firmas exportadoras. Analizar la heterogeneidad y el comportamiento de las empresas frente a los shocks de rentas permitiría identificar si el canal de Enfermedad Holandesa opera por destrucción física de firmas manufactureras o por reasignación ineficiente de factores de producción (trabajo y capital) al interior del país \parencite{Corden1982}.
+En cuarto lugar, la falta de moderación estadística de $INST$ impide concluir
+que una mejora general de gobernanza neutralice por sí sola la asociación
+negativa de las rentas. Tampoco la ausencia de significación de $VOL$ autoriza a
+descartar la estabilización macroeconómica. Las reformas institucionales,
+reglas fiscales o fondos de ahorro pueden tener fundamentos independientes en
+la literatura y en objetivos de política, pero su diseño específico no se
+deduce de las estimaciones de esta tesis y debe evaluarse con evidencia
+adicional.
 
-	En tercer lugar, futuras investigaciones deberían extender el horizonte temporal del panel para analizar los efectos estructurales a largo plazo causados por la pandemia de COVID-19 y la aceleración de la transición energética global \parencite{Boucekkine2021}. Dado que las economías extractivas se enfrentan a un escenario de descarbonización global, estudiar cómo este shock de demanda reconfigura sus espacios productivos será crucial para el diseño de políticas públicas en las próximas décadas.
 
-	\begin{table}[htbp]
-		\centering
-		\caption{Distribución sugerida de la extensión de los capítulos de la tesis}
-		\label{tab:estructura_longitud_tesis}
-		\small
-		\renewcommand{\arraystretch}{1.05}
-		\begin{tabularx}{\linewidth}{@{}Xccc@{}}
-			\toprule
-			Capítulo & Páginas aproximadas & Porcentaje estimado & Páginas actuales \\
-			\midrule
-			Introducción & 10--12 & 8--10\% & \thesischappages{introduccion} \\
-			Pregunta de investigación & 2--3 & 2--3\% & \thesischappages{pregunta} \\
-			Justificación & 3--4 & 2--3\% & \thesischappages{justificacion} \\
-			Planteamiento del problema & 3--4 & 2--3\% & \thesischappages{planteamiento} \\
-			Objetivos & 1--2 & 1--2\% & \thesischappages{objetivos} \\
-			Hipótesis & 2--3 & 2--3\% & \thesischappages{hipotesis} \\
-			Marco teórico & 18--20 & 14--16\% & \thesischappages{marco-teorico} \\
-			Literatura empírica & 10--12 & 8--10\% & \thesischappages{literatura-empirica} \\
-			Metodología & 8--10 & 6--8\% & \thesischappages{metodologia} \\
-			Datos, variables y análisis descriptivo & 5--6 & 4--5\% & \thesischappages{datos-variables} \\
-			Resultados & 35--40 & 28--32\% & \thesischappages{resultados} \\
-			Conclusiones & 6--8 & 5--7\% & \thesischappages{conclusiones} \\
-			Anexos & 15--20 & 12--15\% & \thesischappages{anexos} \\
-			\midrule
-			Total aproximado & 120--125 & 100\% & \pageref{LastPage} \\
-			\bottomrule
-		\end{tabularx}
-		\begin{minipage}{\linewidth}
-			\par\smallskip
-			\footnotesize
-			\textit{Nota:} La tabla presenta una distribución referencial de la extensión de los capítulos para una tesis de aproximadamente 120--125 páginas.
-		\end{minipage}
-	\end{table}
+\section{Limitaciones y agenda futura de investigación}
+\label{sec:limitaciones-agenda}
 
-	\thesisendchap{conclusiones}
+La principal limitación es la naturaleza observacional del diseño. Los efectos
+fijos por país controlan factores invariantes y los efectos de año absorben
+shocks globales comunes, pero no eliminan causalidad inversa, errores de
+medición ni variables omitidas que cambian en el tiempo. Por ello, los
+coeficientes no identifican el efecto de modificar las rentas, las instituciones
+o las capacidades mediante una intervención.
+
+La segunda limitación corresponde al alcance de los resultados. $ECI$ y $DIVX$
+describen la dimensión externa de la transformación estructural, pero no captan
+directamente empleo, productividad sectorial, informalidad, valor agregado
+doméstico ni encadenamientos entre firmas. Asimismo, los indicadores nacionales
+pueden ocultar heterogeneidad regional, empresarial y sectorial.
+
+La tercera limitación es muestral y temporal. La selección inicial se fija con
+$DRES\geq20\%$ en 1990--1995, mientras que la muestra econométrica común queda
+reducida a 49 países y 23 años efectivos. El panel es desbalanceado, contiene
+vacíos comunes y termina en 2021. En consecuencia, los resultados no se
+generalizan automáticamente a economías no dependientes, a países excluidos por
+disponibilidad de información ni a la fase más reciente de la transición
+energética.
+
+La cuarta limitación se relaciona con las mediciones. $INST$ resume cuatro
+dimensiones amplias de gobernanza y puede no captar instituciones específicas
+del sector extractivo, como reglas de licenciamiento, tributación, transparencia
+o gestión de empresas estatales. $VOL$ mide la desviación móvil de las
+variaciones del índice CTOT y no representa todas las fuentes de inestabilidad
+macrofiscal. De forma similar, las rentas reales per cápita son medidas
+monetarias y no dotaciones físicas.
+
+La quinta limitación es la sensibilidad de algunos resultados. La asociación de
+$RENTS$ con $ECI$ y varios coeficientes complementarios pierden precisión al
+incorporar tendencias lineales por país. La interacción institucional tampoco
+es precisa y la prueba temporal de $DIVX$ en 2014 es marginal al 10\%. Estas
+variaciones impiden presentar todos los coeficientes del modelo base como
+regularidades igualmente robustas.
+
+La agenda futura puede avanzar en cuatro direcciones. Primero, extender las
+series con datos comparables posteriores a 2021 para estudiar la transición
+energética y los cambios recientes sin imponer anticipadamente un quiebre.
+Segundo, combinar información comercial con matrices insumo-producto, empleo y
+datos de firmas para observar capacidades y encadenamientos internos. Tercero,
+incorporar medidas institucionales específicas de la gobernanza extractiva y
+evaluar su soporte temporal dentro de los países. Cuarto, desarrollar diseños
+con fuentes externas de variación, reformas escalonadas u otros eventos
+institucionales defendibles que permitan responder preguntas causales. Una
+estrategia más compleja aplicada al mismo panel no sustituye la necesidad de una
+fuente creíble de identificación.
+
+En conclusión, la tesis encuentra que una mayor intensidad de rentas y una
+estructura exportadora más concentrada se asocian con resultados menos
+favorables de transformación estructural externa en la muestra analizada. La
+evidencia es más estable para la diversificación exportadora que para la
+complejidad bajo tendencias nacionales, y no respalda una moderación
+institucional sistemática. Estos resultados aportan una base comparativa para
+orientar nuevas preguntas y evaluaciones, pero deben conservarse dentro de los
+límites de un análisis observacional.
+
+\thesisendchap{conclusiones}
 
 \end{document}

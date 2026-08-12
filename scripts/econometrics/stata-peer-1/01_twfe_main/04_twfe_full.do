@@ -487,7 +487,7 @@ use "$OUTPUT_SAMPLE/master_panel_sample.dta", clear
 xtset country_id year
 
 * Definir conjunto completo de regresores para el modelo ECI.
-global ECI_REGRESSORS rents inst rents_x_inst log_oilpc log_gaspc log_coalpc hhi pexp fexp vol rer humcap innov net log_gdppc govcons fin
+global ECI_REGRESSORS c.rents##c.inst log_oilpc log_gaspc log_coalpc hhi pexp fexp vol rer humcap innov net log_gdppc govcons fin
 
 * Estimar el Modelo 3 Completo (M3) de ECI con efectos fijos de país y año.
 reghdfe eci $ECI_REGRESSORS if sample_eci == 1, absorb(country_id year) vce(cluster country_id)
@@ -601,7 +601,7 @@ use "$OUTPUT_SAMPLE/master_panel_sample.dta", clear
 xtset country_id year
 
 * Definir regresores excluyendo HHI para evitar identidad contable (DIVX = 1 - HHI).
-global DIVX_REGRESSORS rents inst rents_x_inst log_oilpc log_gaspc log_coalpc pexp fexp vol rer humcap innov net log_gdppc govcons fin
+global DIVX_REGRESSORS c.rents##c.inst log_oilpc log_gaspc log_coalpc pexp fexp vol rer humcap innov net log_gdppc govcons fin
 
 * Estimar el Modelo 3 Completo (M3) de DIVX con efectos fijos de país y año.
 reghdfe divx $DIVX_REGRESSORS if sample_divx == 1, absorb(country_id year) vce(cluster country_id)

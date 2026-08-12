@@ -4,645 +4,488 @@
 
 \begin{document}
 
-
-	% =====================================================
-	% RESULTADOS / HALLAZGOS / DESARROLLO
-	% =====================================================
-	\chapter{Resultados}
-	\label{chap:resultados}
-	\thesisstartchap{resultados}
-
-	El presente capítulo expone y analiza los resultados empíricos derivados de la estimación econométrica de los modelos de datos de panel desarrollados en la metodología. El objetivo central consiste en evaluar la asociación entre la intensidad macroeconómica de las rentas extractivas del subsuelo ($RENTS$), las condiciones institucionales ($INST$), sus interacciones y los canales de transmisión productivos, estructurales, macroeconómicos y de capacidades sobre la transformación estructural externa de las economías dependientes de recursos naturales durante el período 1996--2021.
-
-	Para ello, el análisis parte de la caracterización de la muestra analítica efectiva y los diagnósticos econométricos del panel. A continuación, se presenta la secuencia de estimaciones econométricas progresivas ($M_1$, $M_2$ y $M_3$) para el Índice de Complejidad Económica ($ECI$) y para la diversificación exportadora ($DIVX = 1 - HHI$), evaluando la estabilidad de los coeficientes a través de las distintas capas de canales teóricos. Posteriormente, se examina la heterogeneidad por tipo de recurso extractivo (hidrocarburos frente a minería y carbón) mediante modelos progresivos específicos, las pruebas de estabilidad econométrica, las tipologías de trayectorias nacionales y casos de estudio, concluyendo con la discusión de hallazgos y el contraste formal de las hipótesis planteadas.
-
-
-
-	\section{Muestra analítica y diagnósticos econométricos del panel}
-	\label{sec:muestra-analitica-resultados}
-
-	La selección de la muestra sigue el criterio de dependencia externa de recursos naturales no renovables del subsuelo definido en el capítulo metodológico, aplicando el umbral $DRES \ge 20\%$ para el período base 1990--1995. Este procedimiento establece una grilla maestra inicial de 55 economías.
-
-	Al cruzar esta selección nominal con la disponibilidad efectiva de datos continuos para todas las variables explicativas y dependientes del modelo en el período 1996--2021, la muestra analítica utilizada en las estimaciones econométricas queda conformada por 49 países y un total de 1.044 observaciones país--año, con un promedio de 21,3 períodos por país. La reducción marginal de 55 a 49 economías responde exclusivamente a la falta de cobertura ininterrumpida en las series de gobernanza ($INST$) de los \textit{Worldwide Governance Indicators}, cuentas nacionales o conectividad digital en pequeños Estados o economías afectadas por conflictos armados. Conforme a las reglas metodológicas del estudio, no se realizaron imputaciones sobre observaciones faltantes ni se redefinieron las reglas de selección.
-
-	La estructura de variación del panel confirma que, si bien la mayor parte de la dispersión de las rentas extractivas y la complejidad económica es de carácter inter-país (\textit{between}), existe una sustancial variación intra-país (\textit{within}) a lo largo del tiempo. Específicamente, la variable $RENTS$ presenta un promedio muestral de 12,41\% del PIB, con una desviación estándar total de 13,73\%, dividida entre una variación inter-país de 12,80\% y una variación intra-país de 5,63\%. Por su parte, el $ECI$ exhibe una media de $-0,410$, una desviación estándar total de 0,863 (0,829 entre países y 0,281 dentro del país), mientras que $DIVX$ registra una media de 0,749 con una desviación estándar dentro del país de 0,085. Esta presencia de variabilidad temporal intra-país permite identificar los efectos econométricos mediante modelos de efectos fijos.
-
-	Antes de interpretar los coeficientes estimados, se evaluaron las propiedades econométricas de los residuos y la especificación del panel:
-	\begin{itemize}
-		\item \textit{Heterocedasticidad}: La prueba modificada de Wald para heterocedasticidad en grupos rechazó fuertemente la hipótesis nula de varianza constante entre países, tanto en el modelo $ECI$ ($\chi^2(49) = 9046,05$, $p < 0,0001$) como en el modelo $DIVX$ ($\chi^2(49) = 13046,62$, $p < 0,0001$).
-		\item \textit{Autocorrelación serial}: La prueba de Wooldridge para autocorrelación de primer orden en datos de panel confirmó la presencia de dependencia autoregresiva temporal en los residuos ($F(1, 48) = 24,20$, $p < 0,0001$ para $ECI$; y $F(1, 48) = 64,05$, $p < 0,0001$ para $DIVX$).
-		\item \textit{Dependencia de sección cruzada}: La prueba CD de Pesaran sobre los residuos del modelo de efectos fijos bidireccionales no encontró evidencia de dependencia de sección cruzada remanente ($Z = -0,436$, $p = 0,663$ para $ECI$; y $Z = -0,769$, $p = 0,442$ para $DIVX$). Este resultado es compatible con una absorción sustancial de los shocks globales comunes mediante los efectos fijos de año, aunque el no rechazo de la hipótesis nula no prueba su ausencia absoluta.
-		\item \textit{Multicolinealidad}: La evaluación de los factores de inflación de la varianza en la dimensión dentro del país (\textit{VIF within}) arrojó valores inferiores a 2,0 en todos los regresores. El máximo fue 1,96 para $RENTS$ en el modelo $ECI$ y 1,93 para $RENTS \times INST$ en el modelo $DIVX$; los VIF medios fueron 1,35 y 1,33, respectivamente. Estos resultados no indican problemas de multicolinealidad severa.
-		\item \textit{Estacionariedad y raíces unitarias en panel}: Se evaluaron las propiedades de integración temporal de las 19 variables del modelo mediante pruebas de raíz unitaria en panel de Fisher-ADF con desestacionalización transversal (\autoref{tab:anexo_unit_root_tests} en los Anexos). Los resultados confirman que las variables dependientes e independientes focales ($ECI$, $DIVX$, $RENTS$, $INST$) son estacionarias en niveles ($I(0)$ con $p < 0,05$), mientras que los controles estructurales de acumulación de largo plazo ($\log \text{PIB pc}$, $HUMCAP$, $NET$, $FIN$) son integrados de primer orden ($I(1)$). Críticamente, ninguna variable del panel presenta un orden de integración igual o superior a $I(2)$. Al ser las variables focales $I(0)$, se descarta cualquier riesgo de regresión espuria y se valida plenamente la coherencia econométrica de estimar el modelo de Efectos Fijos Bidireccionales (TWFE) en niveles, lo que evita la necesidad de diferenciar las series principales que habría destruido la variación intra-país de largo plazo.
-		\item \textit{Cointegración en panel (Relación de equilibrio de largo plazo)}: Para complementar las pruebas de integración y verificar la existencia de un vector de cointegración entre el núcleo de variables estructurales del modelo, se aplicaron las pruebas de Pedroni (Modified PP), Kao (Modified Dickey-Fuller) y Westerlund (Variance Ratio) con desestacionalización transversal (\autoref{tab:anexo_cointegration_tests} en los Anexos). Tanto para el modelo $ECI$ como para $DIVX$, las tres pruebas rechazaron contundentemente la hipótesis nula de no cointegración ($p < 0,01$; por ejemplo, Westerlund $Z = -3,269$, $p = 0,0005$ para $ECI$, y $Z = -2,396$, $p = 0,0083$ para $DIVX$; Kao $p < 0,001$). Este resultado prueba formalmente la existencia de una relación de equilibrio de largo plazo estable entre las rentas extractivas, las instituciones y los determinantes del desarrollo, constituyendo una garantía adicional para la validez de la estimación bidireccional en niveles.
-	\end{itemize}
-
-	Estos diagnósticos respaldan el uso del estimador de Efectos Fijos Bidireccionales (TWFE) con efectos fijos por país y por año y errores estándar agrupados a nivel de país (\textit{cluster-robust standard errors} con $N=49$), que permiten una inferencia robusta frente a heterocedasticidad arbitraria y correlación serial dentro de cada país.
-
-
-
-	\section{Secuencia de especificación econométrica: modelos parciales (M1, M2) y modelo completo (M3)}
-	\label{sec:secuencia-modelos-twfe}
-
-	Para profundizar la comprensión del papel que juega cada bloque de canales teóricos y verificar la robustez de los parámetros estimados frente a sesgos por omisión de variables, la estrategia econométrica se estructura en tres especificaciones progresivas para cada variable dependiente:
-
-	\begin{enumerate}
-		\item Modelo 1 ($M_1$ --- Estructura extractiva y exportadora): Introduce la variable focal $RENTS$, la calidad institucional ($INST$), el término de interacción ($RENTS \times INST$), los indicadores de abundancia física per cápita ($\log(1+\text{OILPC})$, $\log(1+\text{GASPC})$, $\log(1+\text{COALPC})$) y las variables de estructura exportadora ($HHI$, $PEXP$, $FEXP$), junto con el control por nivel de desarrollo ($\log \text{PIB pc}$).
-		\item Modelo 2 ($M_2$ --- Capacidades productivas y estabilidad macroeconómica): Evalúa los canales de transmisión macroeconómicos ($VOL$, $RER$) y de capacidades productivas ($HUMCAP$, $INNOV$, $NET$), manteniendo el bloque de rentas e instituciones y agregando controles fiscales y financieros ($GOVCONS$, $FIN$).
-		\item Modelo 3 ($M_3$ --- Modelo completo integrado): Incorpora de manera simultánea la totalidad de los 7 canales teóricos definidos en el esquema conceptual de la investigación, representando la especificación estructural completa del estudio (Ecuación 9.17 para $ECI$ y Ecuación 9.58 para $DIVX$).
-	\end{enumerate}
-
-	La \autoref{tab:progresion_modelos_twfe} reporta las estimaciones de Efectos Fijos Bidireccionales (TWFE) para los tres modelos en ambas variables dependientes.
-
-	\begin{table}[htbp]
-		\centering
-		\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
-		\caption{Progresión de Especificaciones Econométricas TWFE: Modelos M1, M2 y M3}
-		\label{tab:progresion_modelos_twfe}
-		\begin{adjustbox}{max width=\textwidth}
-		\begin{tabular}{l*{6}{c}}
-			\toprule
-			&\multicolumn{3}{c}{\textbf{Complejidad Económica (ECI)}}&\multicolumn{3}{c}{\textbf{Diversificación Exportadora (DIVX)}}\\
-			\cmidrule(lr){2-4} \cmidrule(lr){5-7}
-			Variable &\multicolumn{1}{c}{(1) $M_1$}&\multicolumn{1}{c}{(2) $M_2$}&\multicolumn{1}{c}{(3) $M_3$}&\multicolumn{1}{c}{(4) $M_1$}&\multicolumn{1}{c}{(5) $M_2$}&\multicolumn{1}{c}{(6) $M_3$}\\
-			\midrule
-			$RENTS$ (Rentas \% PIB)&     -0.007\sym{*}  &     -0.013\sym{***}&     -0.010\sym{**} &     -0.005\sym{***}&     -0.004\sym{***}&     -0.004\sym{***}\\
-			&    (0.004)         &    (0.004)         &    (0.004)         &    (0.001)         &    (0.001)         &    (0.001)         \\
-			\addlinespace
-			$INST$ (Calidad inst.)&      0.220         &      0.295\sym{**} &      0.267\sym{*}  &      0.036         &      0.026         &      0.017         \\
-			&    (0.140)         &    (0.133)         &    (0.137)         &    (0.031)         &    (0.029)         &    (0.028)         \\
-			\addlinespace
-			$RENTS \times INST$&     -0.003         &     -0.005         &     -0.005         &      0.000         &      0.001         &      0.001         \\
-			&    (0.004)         &    (0.004)         &    (0.004)         &    (0.001)         &    (0.001)         &    (0.001)         \\
-			\addlinespace
-			$HHI$ (Concentración)&     -0.503\sym{*}  &                    &     -0.535\sym{**} &                    &                    &                    \\
-			&    (0.266)         &                    &    (0.225)         &                    &                    &                    \\
-			\addlinespace
-			$PEXP$ (Exp. primarias)&     -0.004\sym{**} &                    &     -0.004\sym{***}&      0.002\sym{**} &                    &      0.002\sym{**} \\
-			&    (0.002)         &                    &    (0.002)         &    (0.001)         &                    &    (0.001)         \\
-			\addlinespace
-			$FEXP$ (Combustibles)&     -0.007\sym{***}&                    &     -0.007\sym{***}&     -0.001         &                    &     -0.001         \\
-			&    (0.002)         &                    &    (0.002)         &    (0.001)         &                    &    (0.001)         \\
-			\addlinespace
-			$VOL$ (Volatilidad TdI)&                    &     -0.002         &     -0.003         &                    &      0.001         &      0.001         \\
-			&                    &    (0.003)         &    (0.002)         &                    &    (0.001)         &    (0.001)         \\
-			\addlinespace
-			$RER$ (Tipo cambio real)&                    &     -0.085         &     -0.087         &                    &     -0.045         &     -0.040         \\
-			&                    &    (0.104)         &    (0.098)         &                    &    (0.040)         &    (0.036)         \\
-			\addlinespace
-			$HUMCAP$ (Capital humano)&                    &      0.100         &     -0.054         &                    &      0.131\sym{***}&      0.107\sym{**} \\
-			&                    &    (0.245)         &    (0.224)         &                    &    (0.043)         &    (0.044)         \\
-			\addlinespace
-			$INNOV$ (Innovación)&                    &     -0.021         &     -0.036         &                    &      0.011         &      0.011         \\
-			&                    &    (0.048)         &    (0.048)         &                    &    (0.015)         &    (0.014)         \\
-			\addlinespace
-			$NET$ (Internet)&                    &     -0.002         &     -0.001         &                    &     -0.001\sym{**} &     -0.001\sym{**} \\
-			&                    &    (0.002)         &    (0.002)         &                    &    (0.000)         &    (0.000)         \\
-			\addlinespace
-			$\log \text{PIB pc}$ ($GDPPC$)&     -0.078         &     -0.153         &     -0.046         &     -0.139\sym{***}&     -0.168\sym{***}&     -0.146\sym{***}\\
-			&    (0.204)         &    (0.198)         &    (0.221)         &    (0.036)         &    (0.034)         &    (0.035)         \\
-			\addlinespace
-			$GOVCONS$ (Consumo Gob.)&                    &     -0.006         &     -0.006         &                    &      0.002         &      0.003\sym{*}  \\
-			&                    &    (0.010)         &    (0.009)         &                    &    (0.002)         &    (0.002)         \\
-			\addlinespace
-			$FIN$ (Crédito Privado)&                    &     -0.000         &     -0.001         &                    &      0.001\sym{*}  &      0.001         \\
-			&                    &    (0.003)         &    (0.002)         &                    &    (0.000)         &    (0.000)         \\
-			\midrule
-			Observaciones       &       1044         &       1044         &       1044         &       1044         &       1044         &       1044         \\
-			Países              &         49         &         49         &         49         &         49         &         49         &         49         \\
-			R2 Within           &     0.1190         &     0.0646         &     0.1333         &     0.2313         &     0.2228         &     0.2713         \\
-			Estadístico F       &      5.459         &      2.194         &      6.467         &     10.845         &     10.316         &     12.411         \\
-			p-valor F           &     0.0000         &     0.0306         &     0.0000         &     0.0000         &     0.0000         &     0.0000         \\
-			\bottomrule
-			\multicolumn{7}{l}{\footnotesize Errores estándar agrupados por país entre paréntesis. EF de país y año incluidos en todos los modelos.}\\
-			\multicolumn{7}{l}{\footnotesize \sym{*} \(p<0.10\), \sym{**} \(p<0.05\), \sym{***} \(p<0.01\)}\\
-		\end{tabular}
-		\end{adjustbox}
-		\thesissource{Elaboración propia sobre la base de estimaciones en Stata 17 MP.}
-	\end{table}
-
-	La comparativa entre las especificaciones $M_1$, $M_2$ y $M_3$ aporta tres lecciones metodológicas fundamentales:
-
-	En primer lugar, la variable focal $RENTS$ demuestra una estabilidad paramétrica inquebrantable: conserva un coeficiente negativo y estadísticamente significativo a lo largo de las 6 columnas estimadas. Para el $ECI$, la magnitud del parámetro oscila entre $-0,007^*$ (en $M_1$) y $-0,013^{***}$ (en $M_2$), situándose en $-0,010^{**}$ en la especificación completa $M_3$. Para $DIVX$, el parámetro exhibe una notable constancia entre $-0,0035^{***}$ y $-0,0045^{***}$. Este comportamiento evidencia que la asociación adversa entre las rentas extractivas y la transformación estructural no es un artefacto derivado de la inclusión u omisión de un bloque particular de controles.
-
-	En segundo lugar, el poder explicativo de la estructura exportadora ($M_1$) resulta determinante. El Modelo 1 por sí solo explica el 11,9\% de la variación intra-país en la complejidad cualitativa ($ECI$) y el 23,1\% en la diversificación cuantitativa ($DIVX$). La inclusión de la concentración ($HHI$) y la participación de combustibles ($FEXP$) capta el canal directo mediante el cual la especialización extractiva constriñe la sofisticación.
-
-	En tercer lugar, el bloque de capacidades productivas ($M_2$) destaca la relevancia del capital humano ($HUMCAP$) como motor exclusivo de la diversificación. Mientras que en los modelos de complejidad cualitativa ($ECI$) el capital humano no resulta significativo, en la diversificación cuantitativa ($DIVX$) registra coeficientes fuertemente significativos tanto en $M_2$ ($\beta = +0,131^{***}, p < 0,01$) como en $M_3$ ($\beta = +0,107^{**}, p < 0,05$), subrayando que la formación de capacidades es indispensable para ampliar la variedad de la canasta exportadora.
-
-
-
-	\section{Resultados principales: complejidad económica (ECI)}
-	\label{sec:resultados-eci}
-
-	En esta sección se analiza en detalle la especificación completa del Modelo 3 ($M_3$, Ecuación 9.17 del TFM), que conecta simultáneamente la totalidad de los canales de transmisión sobre el Índice de Complejidad Económica ($ECI$). La columna (3) de la \autoref{tab:progresion_modelos_twfe} reporta los coeficientes finales.
-
-	En primer lugar, los resultados confirman la asociación negativa de la variable focal $RENTS$ con el $ECI$: el coeficiente estimado es $-0,010$ y resulta estadísticamente significativo al 5\% ($p = 0,023$). Dentro de un mismo país y controlando por choques temporales comunes, un incremento de 10 puntos porcentuales del PIB en la intensidad macroeconómica de las rentas extractivas se asocia con una reducción aproximada de 0,098 puntos del índice de complejidad económica, equivalente a cerca de 0,35 desviaciones estándar de su variación intra-país.
-
-	En segundo lugar, se destaca el análisis de los coeficientes institucionales y de interacción. Aunque el coeficiente constitutivo de la calidad institucional ($INST$) muestra un signo positivo y significación marginal al 10\% ($\beta = +0,267, p = 0,057$), el término de interacción $RENTS \times INST$ resulta negativo y estadísticamente no significativo ($\beta = -0,005, p = 0,139$). Este resultado no aporta evidencia de que una mayor gobernanza atenúe de manera estadísticamente detectable la asociación negativa entre rentas y complejidad, como postula una fracción importante de la literatura institucionalista tradicional \parencite{Mehlum2006,Bhattacharyya2010,Arezki2012}. Por el contrario, los datos respaldan la crítica planteada por \textcite{Brunnschweiler2008}, \textcite{Boyce2011} y \textcite{Hausmann2014}, según la cual las instituciones de gobernanza transversal (como el control anticorrupción o el estado de derecho) constituyen condiciones de entorno necesarias pero insuficientes por sí solas para neutralizar la trampa extractiva, en ausencia de políticas activas de acumulación de capacidades productivas, tecnológicas y de escalamiento industrial \parencite{Agosin2012,Cherif2013,Lebdioui2019}.
-
-	En tercer lugar, en lo relativo al canal de concentración exportadora, el índice de Herfindahl--Hirschman ($HHI$) presenta una asociación negativa con el $ECI$ ($\beta = -0,535^{**}, p = 0,021$), coherente con un vínculo adverso entre concentración de la oferta exportadora y sofisticación. Asimismo, las participaciones de exportaciones primarias no energéticas ($PEXP$, $\beta = -0,004^{***}, p = 0,010$) y de combustibles ($FEXP$, $\beta = -0,007^{***}, p < 0,001$) muestran asociaciones negativas y estadísticamente significativas.
-
-	En cuarto lugar, los indicadores de abundancia física per cápita ($OILPC$, $GASPC$, $COALPC$) no muestran asociaciones estadísticamente significativas con el $ECI$ ($p > 0,20$). Tampoco resultaron significativas variables como la volatilidad de los términos de intercambio ($VOL$), el tipo de cambio real ($RER$), la profundidad financiera ($FIN$) y la producción científica ($INNOV$). Estos resultados indican que la especificación no detecta asociaciones intra-país adicionales para esas variables; no permiten concluir que carezcan de relevancia económica, pues sus efectos podrían estar parcialmente absorbidos por los efectos fijos o requerir horizontes temporales distintos, en consonancia con la elevada persistencia temporal de los precios primarios y los arreglos institucionales de largo plazo \parencite{Cashin2002,Jacks2011,Boucekkine2021}.
-
-
-
-	\section{Resultados complementarios: diversificación exportadora (DIVX)}
-	\label{sec:resultados-divx}
-
-	La columna (6) de la \autoref{tab:progresion_modelos_twfe} presenta las estimaciones del modelo econométrico completo ($M_3$) para la diversificación exportadora ($DIVX = 1 - HHI$, Ecuación 9.58 del TFM). Dado que la medida $DIVX$ se define operacionalmente como el complemento del índice de Herfindahl--Hirschman ($1 - HHI$), el regresor $HHI$ se omite de esta especificación debido a la identidad contable directa. El análisis de esta dimensión permite evaluar en qué medida la dependencia de los recursos extractivos altera no solo la sofisticación cualitativa de la canasta exportada ($ECI$), sino también su amplitud y nivel de dispersión cuantitativa.
-
-	En primer lugar, los resultados muestran una asociación negativa entre la intensidad macroeconómica de las rentas y la diversificación. La variable focal $RENTS$ presenta un coeficiente estimado de $-0,004$, estadísticamente significativo al 1\% ($p = 0,009$). En términos cuantitativos, un incremento de 10 puntos porcentuales del PIB en las rentas del subsuelo se asocia con una reducción aproximada de 0,035 unidades del índice $DIVX$, equivalente a cerca de 0,42 desviaciones estándar de su variación intra-país ($SD_{\text{within}} = 0,085$). Este patrón es consistente con una menor variedad de la oferta exportadora en episodios de mayor dependencia macroeconómica de las rentas.
-
-	En segundo lugar, la comparación de los coeficientes de especialización sectorial entre los modelos $ECI$ y $DIVX$ revela una asimetría estructural relevante para la literatura sobre transformación productiva. Mientras que en el modelo de complejidad económica ($ECI$) la participación de las exportaciones primarias no energéticas ($PEXP$) presenta una asociación negativa ($\beta = -0,004^{***}, p = 0,010$), en el modelo de diversificación ($DIVX$) la misma variable registra un coeficiente positivo y significativo al 5\% ($\beta = +0,002^{**}, p = 0,018$). Esta discrepancia confirma empíricamente la distinción conceptual planteada por \textcite{Lebdioui2019} y \textcite{Coniglio2018} entre la diversificación cuantitativa u horizontal y la sofisticación cualitativa: una mayor variedad de productos primarios agrícolas o minerales no relacionados puede ampliar la dispersión estadística de la canasta comercial ($DIVX$) sin implicar un aumento en la densidad de capacidades tecnológicas o complejidad del aparato productivo ($ECI$) \parencite{Agosin2012}.
-
-	En tercer lugar, los coeficientes de las variables de control y canales de desarrollo destacan el papel del capital humano. El índice $HUMCAP$ exhibe un coeficiente positivo y estadísticamente significativo al 5\% ($\beta = +0,107^{**}, p = 0,020$), lo que concuerda con las predicciones de \textcite{Bravo-Ortega2005} y \textcite{Agosin2012} sobre la acumulación de habilidades como la fuerza motriz clave para ampliar el abanico comercial y mitigar la concentración extractiva. Por su parte, el nivel de desarrollo ($GDPPC$) registra un coeficiente negativo ($\beta = -0,146^{***}, p < 0,001$). Este hallazgo se alinea con la regularidad empírica identificada por \textcite{Hausmann2014} y que se ilustra conceptualmente en la \autoref{fig:eci_income_resources}: mientras que en las economías diversificadas (puntos azules) existe una asociación positiva lineal muy estrecha entre complejidad e ingreso, las economías dependientes de recursos naturales (puntos rojos) se sitúan sistemáticamente por encima de dicha tendencia. En la muestra analizada, por tanto, mayores niveles de ingreso per cápita impulsados por rentas primarias no coinciden automáticamente con avances en diversificación exportadora.
-
-	\begin{figure}[htbp]
-		\centering
-		\includegraphics[width=0.85\textwidth]{\subfix{../../figures/2_hausmann_2014.png}}
-		\caption[ECI e ingreso per cápita]{Relación entre el Índice de Complejidad Económica (ECI) y el ingreso per cápita para 128 países. Los colores distinguen economías dependientes de recursos naturales y economías con menor dependencia.}
-		\label{fig:eci_income_resources}
-		\caption*{\footnotesize \textit{Fuente: Tomado de \textcite{Hausmann2014}.}}
-	\end{figure}
-
-	En cuarto lugar, al examinar las estimaciones del modelo $DIVX$, resulta relevante discutir la falta de significación estadística de la calidad institucional y los controles macroeconómicos. Tanto la variable constitutiva de gobernanza ($INST$, $\beta = +0,017, p = 0,538$) como el término de interacción ($RENTS \times INST$, $\beta = +0,001, p = 0,427$) muestran p-valores elevados. La estimación no aporta evidencia de un efecto institucional directo ni de una moderación institucional de la asociación entre rentas y diversificación. Del mismo modo, la participación de exportaciones de combustibles ($FEXP$, $\beta = -0,001, p = 0,283$), la volatilidad de los términos de intercambio ($VOL$) y el tipo de cambio real ($RER$) no resultaron estadísticamente significativos al 5\%.
-
-
-
-	\section{Heterogeneidad por tipo de recurso extractivo}
-	\label{sec:resultados-desagregados}
-
-	Para determinar si los efectos de las rentas extractivas sobre la transformación estructural externa difieren según la naturaleza física, la intensidad de capital y la estructura de enclave de los recursos, se estimaron modelos econométricos que desagregan la variable agregada $RENTS$ en dos componentes fundamentales: rentas de hidrocarburos ($rents\_oil\_gas$, que abarca petróleo crudo y gas natural) y rentas de minería y carbón ($rents\_mining$). La \autoref{tab:modelos_desagregados_twfe} reporta los resultados comparativos para el Índice de Complejidad Económica ($ECI$, columnas 1 y 2) y para la diversificación exportadora ($DIVX$, columnas 3 y 4).
-
-	\begin{table}[htbp]
-		\centering
-		\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
-		\caption{Modelos Econométricos Desagregados: Hidrocarburos vs. Minería y Carbón}
-		\label{tab:modelos_desagregados_twfe}
-		\begin{adjustbox}{max width=\textwidth}
-		\begin{tabular}{l*{4}{c}}
-			\toprule
-			Variable &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}&\multicolumn{1}{c}{(4)}\\
-			&\multicolumn{1}{c}{ECI --- Rentas totales}&\multicolumn{1}{c}{ECI --- Rentas desagregadas}&\multicolumn{1}{c}{DIVX --- Rentas totales}&\multicolumn{1}{c}{DIVX --- Rentas desagregadas}\\
-			\midrule
-			Rentas extractivas ($RENTS$)&      -0.010\sym{**} &                     &      -0.004\sym{***}&                     \\
-			&     (0.004)         &                     &     (0.001)         &                     \\
-			\addlinespace
-			Rentas hidrocarburos ($rents\_oil\_gas$)&                     &      -0.007         &                     &      -0.005\sym{***}\\
-			&                     &     (0.006)         &                     &     (0.001)         \\
-			\addlinespace
-			$rents\_oil\_gas \times INST$&                     &      -0.006         &                     &       0.001         \\
-			&                     &     (0.004)         &                     &     (0.001)         \\
-			\addlinespace
-			Rentas minería y carbón ($rents\_mining$)&                     &      -0.014\sym{***}&                     &      -0.001         \\
-			&                     &     (0.004)         &                     &     (0.002)         \\
-			\addlinespace
-			$rents\_mining \times INST$&                     &      -0.002         &                     &      -0.001         \\
-			&                     &     (0.004)         &                     &     (0.002)         \\
-			\addlinespace
-			Calidad institucional ($INST$)&       0.267\sym{*}  &       0.268\sym{*}  &       0.017         &       0.016         \\
-			&     (0.137)         &     (0.138)         &     (0.028)         &     (0.028)         \\
-			\addlinespace
-			Concentración exportadora ($HHI$)&      -0.535\sym{**} &      -0.575\sym{**} &                     &                     \\
-			&     (0.225)         &     (0.234)         &                     &                     \\
-			\addlinespace
-			Exp. primarias no energéticas ($PEXP$)&      -0.004\sym{***}&      -0.004\sym{**} &       0.002\sym{**} &       0.002\sym{**} \\
-			&     (0.002)         &     (0.002)         &     (0.001)         &     (0.001)         \\
-			\addlinespace
-			Exp. combustibles ($FEXP$)&      -0.007\sym{***}&      -0.007\sym{***}&      -0.001         &      -0.001         \\
-			&     (0.002)         &     (0.002)         &     (0.001)         &     (0.001)         \\
-			\addlinespace
-			Capital humano ($HUMCAP$)&      -0.054         &      -0.057         &       0.107\sym{**} &       0.107\sym{**} \\
-			&     (0.224)         &     (0.225)         &     (0.044)         &     (0.042)         \\
-			\addlinespace
-			Nivel de desarrollo ($\log GDPPC$)&      -0.046         &      -0.048         &      -0.146\sym{***}&      -0.141\sym{***}\\
-			&     (0.221)         &     (0.221)         &     (0.035)         &     (0.036)         \\
-			\addlinespace
-			Controles adicionales&         Sí          &         Sí          &         Sí          &         Sí          \\
-			Constante&       0.765         &       0.787         &       1.666\sym{***}&       1.639\sym{***}\\
-			&     (2.273)         &     (2.279)         &     (0.321)         &     (0.329)         \\
-			\midrule
-			Observaciones       &    1044.000         &    1044.000         &    1044.000         &    1044.000         \\
-			Países              &      49.000         &      49.000         &      49.000         &      49.000         \\
-			R2 overall          &       0.169         &       0.211         &       0.301         &       0.325         \\
-			\bottomrule
-			\multicolumn{5}{l}{\footnotesize Errores estándar agrupados por país entre paréntesis.}\\
-			\multicolumn{5}{l}{\footnotesize \sym{*} \(p<0.10\), \sym{**} \(p<0.05\), \sym{***} \(p<0.01\)}\\
-		\end{tabular}
-		\end{adjustbox}
-		\thesissource{Elaboración propia sobre la base de estimaciones en Stata 17 MP.}
-	\end{table}
-
-	El análisis de la columna (2) muestra que las rentas mineras y carboníferas ($rents\_mining$) presentan un coeficiente negativo y significativo al 1\% ($\beta = -0,014^{***}, p = 0,001$). Un incremento de 10 puntos porcentuales del PIB en estas rentas se asocia con una reducción aproximada de 0,136 puntos del índice $ECI$. En contraste, el coeficiente de las rentas de hidrocarburos ($rents\_oil\_gas$) resulta menor en magnitud y estadísticamente no significativo ($\beta = -0,007, p = 0,212$). Sin embargo, la prueba formal no rechaza la igualdad entre ambos coeficientes directos ($p = 0,325$); por ello, la mayor precisión del componente minero constituye evidencia complementaria, no una diferencia concluyente entre tipos de recurso.
-
-	Por el contrario, en la columna (4) las rentas de hidrocarburos ($rents\_oil\_gas$) presentan una asociación negativa y significativa al 1\% con $DIVX$ ($\beta = -0,005^{***}, p = 0,001$), mientras que el coeficiente de las rentas mineras no es estadísticamente significativo ($\beta = -0,001, p = 0,459$). La igualdad entre ambos coeficientes directos no se rechaza al 5\% ($p = 0,108$), aunque la restricción conjunta del modelo agregado sí se rechaza ($p = 0,018$). En consecuencia, la evidencia respalda una heterogeneidad complementaria del patrón de diversificación, pero no una diferencia causal concluyente entre componentes.
-
-	Finalmente, en lo referente a las interacciones institucionales ($rents\_oil\_gas \times INST$ y $rents\_mining \times INST$), ninguna alcanzó significación estadística en los modelos $ECI$ o $DIVX$ ($p > 0,15$). Por tanto, las especificaciones desagregadas tampoco aportan evidencia de una moderación institucional estadísticamente detectable para alguno de los dos componentes.
-
-
-	\subsection[Modelos econométricos progresivos para rentas de hidrocarburos (M1-OG, M2-OG y M3-Desag.)]{Modelos econométricos progresivos para rentas de hidrocarburos ($M1_{\text{OG}}$, $M2_{\text{OG}}$ y $M3_{\text{Desag.}}$)}
-	\label{subsec:modelos-hidrocarburos-twfe}
-
-	Con el propósito de descomponer de manera exhaustiva la vía de transmisión de los recursos energéticos líquidos y gaseosos, se estimó la secuencia de especificaciones econométricas progresivas centradas en la variable focal de rentas de hidrocarburos ($rents\_oil\_gas$). La \autoref{tab:progresion_hidrocarburos_twfe} reporta las estimaciones TWFE para $M1_{\text{OG}}$ (estructura exportadora), $M2_{\text{OG}}$ (capacidades productivas y estabilidad) y $M3_{\text{Desag.}}$ (modelo completo integrado desagregado).
-
-	\begin{table}[htbp]
-		\centering
-		\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
-		\caption{Progresión de Especificaciones Econométricas TWFE para Hidrocarburos (Petróleo y Gas Natural)}
-		\label{tab:progresion_hidrocarburos_twfe}
-		\begin{adjustbox}{max width=\textwidth}
-		\begin{tabular}{l*{6}{c}}
-			\toprule
-			&\multicolumn{3}{c}{\textbf{Complejidad Económica (ECI)}}&\multicolumn{3}{c}{\textbf{Diversificación Exportadora (DIVX)}}\\
-			\cmidrule(lr){2-4} \cmidrule(lr){5-7}
-			Variable &\multicolumn{1}{c}{(1) $M1_{\text{OG}}$}&\multicolumn{1}{c}{(2) $M2_{\text{OG}}$}&\multicolumn{1}{c}{(3) $M3_{\text{Desag.}}$}&\multicolumn{1}{c}{(4) $M1_{\text{OG}}$}&\multicolumn{1}{c}{(5) $M2_{\text{OG}}$}&\multicolumn{1}{c}{(6) $M3_{\text{Desag.}}$}\\
-			\midrule
-			Rentas hidrocarburos ($rents\_oil\_gas$)&     -0.0023         &     -0.0112\sym{**} &     -0.0073         &     -0.0059\sym{***}&     -0.0053\sym{***}&     -0.0048\sym{***}\\
-								&    (0.0047)         &    (0.0050)         &    (0.0057)         &    (0.0015)         &    (0.0013)         &    (0.0014)         \\
-			\addlinespace
-			Calidad institucional ($INST$)&      0.2183         &      0.2980\sym{**} &      0.2679\sym{*}  &      0.0299         &      0.0224         &      0.0163         \\
-								&    (0.1417)         &    (0.1374)         &    (0.1379)         &    (0.0303)         &    (0.0290)         &    (0.0280)         \\
-			\addlinespace
-			$rents\_oil\_gas \times INST$&     -0.0027         &     -0.0047         &     -0.0057         &      0.0004         &      0.0012         &      0.0012         \\
-								&    (0.0040)         &    (0.0044)         &    (0.0039)         &    (0.0013)         &    (0.0013)         &    (0.0013)         \\
-			\addlinespace
-			Rentas minería ($rents\_mining$)&                     &                     &     -0.0136\sym{***}&                     &                     &     -0.0014         \\
-								&                     &                     &    (0.0039)         &                     &                     &    (0.0019)         \\
-			\addlinespace
-			$rents\_mining \times INST$&                     &                     &     -0.0021         &                     &                     &     -0.0009         \\
-								&                     &                     &    (0.0043)         &                     &                     &    (0.0023)         \\
-			\addlinespace
-			$\log(1 + \text{OILPC})$&      0.0138         &                     &      0.0258         &      0.0093         &                     &      0.0089         \\
-								&    (0.0383)         &                     &    (0.0370)         &    (0.0080)         &                     &    (0.0085)         \\
-			\addlinespace
-			$\log(1 + \text{GASPC})$&      0.0392         &                     &      0.0397         &      0.0050         &                     &      0.0048         \\
-								&    (0.0369)         &                     &    (0.0341)         &    (0.0069)         &                     &    (0.0065)         \\
-			\addlinespace
-			$\log(1 + \text{COALPC})$&     -0.0147         &                     &      0.0203         &     -0.0135\sym{**} &                     &     -0.0136\sym{*}  \\
-								&    (0.0326)         &                     &    (0.0251)         &    (0.0064)         &                     &    (0.0073)         \\
-			\addlinespace
-			Concentración ($HHI$)&     -0.5678\sym{**} &                     &     -0.5747\sym{**} &                     &                     &                     \\
-								&    (0.2747)         &                     &    (0.2336)         &                     &                     &                     \\
-			\addlinespace
-			Exp. primarias ($PEXP$)&     -0.0040\sym{**} &                     &     -0.0042\sym{**} &      0.0016\sym{**} &                     &      0.0015\sym{**} \\
-								&    (0.0017)         &                     &    (0.0016)         &    (0.0006)         &                     &    (0.0006)         \\
-			\addlinespace
-			Combustibles ($FEXP$)&     -0.0067\sym{***}&                     &     -0.0070\sym{***}&     -0.0010         &                     &     -0.0009         \\
-								&    (0.0024)         &                     &    (0.0020)         &    (0.0010)         &                     &    (0.0010)         \\
-			\addlinespace
-			Volatilidad TdI ($VOL$)&                     &     -0.0030         &     -0.0022         &                     &      0.0007         &      0.0005         \\
-								&                     &    (0.0025)         &    (0.0026)         &                     &    (0.0010)         &    (0.0010)         \\
-			\addlinespace
-			Tipo cambio real ($RER$)&                     &     -0.1049         &     -0.0826         &                     &     -0.0512         &     -0.0414         \\
-								&                     &    (0.1038)         &    (0.0976)         &                     &    (0.0403)         &    (0.0354)         \\
-			\addlinespace
-			Capital humano ($HUMCAP$)&                     &      0.1106         &     -0.0575         &                     &      0.1293\sym{***}&      0.1066\sym{**} \\
-								&                     &    (0.2488)         &    (0.2249)         &                     &    (0.0416)         &    (0.0424)         \\
-			\addlinespace
-			Innovación ($INNOV$)&                     &     -0.0182         &     -0.0349         &                     &      0.0089         &      0.0102         \\
-								&                     &    (0.0480)         &    (0.0492)         &                     &    (0.0153)         &    (0.0137)         \\
-			\addlinespace
-			Conectividad digital ($NET$)&                     &     -0.0013         &     -0.0014         &                     &     -0.0008\sym{*}  &     -0.0006\sym{*}  \\
-								&                     &    (0.0021)         &    (0.0021)         &                     &    (0.0004)         &    (0.0004)         \\
-			\addlinespace
-			$\log \text{PIB pc}$ ($GDPPC$)&     -0.0808         &     -0.1758         &     -0.0482         &     -0.1336\sym{***}&     -0.1658\sym{***}&     -0.1411\sym{***}\\
-								&    (0.2050)         &    (0.1975)         &    (0.2215)         &    (0.0364)         &    (0.0345)         &    (0.0359)         \\
-			\addlinespace
-			Consumo Gobierno ($GOVCONS$)&                     &     -0.0065         &     -0.0056         &                     &      0.0021         &      0.0029         \\
-								&                     &    (0.0105)         &    (0.0092)         &                     &    (0.0016)         &    (0.0017)         \\
-			\addlinespace
-			Profundidad financiera ($FIN$)&                     &     -0.0002         &     -0.0010         &                     &      0.0007\sym{*}  &      0.0006         \\
-								&                     &    (0.0027)         &    (0.0024)         &                     &    (0.0004)         &    (0.0004)         \\
-			\midrule
-			Observaciones       &        1044         &        1044         &        1044         &        1044         &        1044         &        1044         \\
-			Países              &          49         &          49         &          49         &          49         &          49         &          49         \\
-			R2 Within           &      0.1127         &      0.0519         &      0.1377         &      0.2510         &      0.2377         &      0.2873         \\
-			Estadístico F       &       4.979         &       1.736         &       6.252         &      13.882         &      12.294         &      14.577         \\
-			p-valor F           &      0.0001         &      0.0000         &      0.0000         &      0.0000         &      0.0000         &      0.0000         \\
-			\bottomrule
-			\multicolumn{7}{l}{\footnotesize Errores estándar agrupados por país entre paréntesis. EF de país y año incluidos en todos los modelos.}\\
- 			\multicolumn{7}{l}{\footnotesize \sym{*} \(p<0.10\), \sym{**} \(p<0.05\), \sym{***} \(p<0.01\)}\\
-		\end{tabular}
-		\end{adjustbox}
-		\thesissource{Elaboración propia sobre la base de estimaciones en Stata 17 MP.}
-	\end{table}
-
-	El análisis de la secuencia de estimaciones para el subsector de hidrocarburos ofrece tres conclusiones centrales:
-
-	En primer lugar, se ratifica la extraordinaria constancia del efecto adverso de $rents\_oil\_gas$ sobre la diversificación ($DIVX$). El coeficiente estimado se mantiene negativo y estadísticamente significativo al 1\% en las tres etapas ($\beta = -0,0059^{***}$ en $M1_{\text{OG}}$, $\beta = -0,0053^{***}$ en $M2_{\text{OG}}$ y $\beta = -0,0048^{***}$ en $M3_{\text{Desag.}}$). Este comportamiento demuestra que la dependencia de las rentas petroleras y gasíferas ejerce un impacto directo de compresión sobre el abanico de bienes exportados por la economía.
-
-	En segundo lugar, en lo referente a la sofisticación cualitativa ($ECI$), el parámetro constitutivo de $rents\_oil\_gas$ gana significación al 5\% en la especificación $M2_{\text{OG}}$ ($\beta = -0,0112^{**}, p = 0,028$), pero se absorbe parcialmente en $M1_{\text{OG}}$ y $M3_{\text{Desag.}}$ al incluir la participación directa de exportaciones de combustibles ($FEXP$, $\beta = -0,0070^{***}, p = 0,001$). Ello revela que la vía de afectación de los hidrocarburos sobre la complejidad opera predominantemente a través de la concentración exportadora en combustibles.
-
-	En tercer lugar, al examinar la totalidad de los 7 canales teóricos definidos en el marco conceptual para las economías de hidrocarburos:
-	\begin{itemize}
-		\item \textit{Canal Institucional}: La calidad institucional ($INST$) estimula significativamente la complejidad ($\beta = +0,2980^{**}, p < 0,05$ en $M2_{\text{OG}}$), pero el término interactivo no neutraliza la penalización extractiva.
-		\item \textit{Canal de Capacidades}: El capital humano ($HUMCAP$) se consolida como la palanca fundamental para la diversificación exportadora ($\beta = +0,1293^{***}, p < 0,01$ en $M2_{\text{OG}}$; $\beta = +0,1066^{**}, p < 0,05$ en $M3$).
-		\item \textit{Canal de Desarrollo}: El nivel de ingreso per cápita ($\log \text{PIB pc}$) registra coeficientes negativos sistemáticos en diversificación ($\beta = -0,1658^{***}, p < 0,001$), reflejando que el crecimiento impulsado por bonanzas petroleras no deriva automáticamente en diversificación productiva.
-	\end{itemize}
-
-
-	\subsection[Modelos econométricos progresivos para rentas de minería y carbón (M1-MIN, M2-MIN y M3-Desag.)]{Modelos econométricos progresivos para rentas de minería y carbón ($M1_{\text{MIN}}$, $M2_{\text{MIN}}$ y $M3_{\text{Desag.}}$)}
-	\label{subsec:modelos-mineria-twfe}
-
-	De manera simétrica al análisis de los hidrocarburos, se estimó la progresión econométrica exclusiva para las rentas de minería metálica, minerales no metálicos y carbón ($rents\_mining$). La \autoref{tab:progresion_mineria_twfe} presenta los resultados para $M1_{\text{MIN}}$ (estructura exportadora), $M2_{\text{MIN}}$ (capacidades y estabilidad) y $M3_{\text{Desag.}}$ (modelo completo integrado).
-
-	\begin{table}[htbp]
-		\centering
-		\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
-		\caption{Progresión de Especificaciones Econométricas TWFE para Minería y Carbón}
-		\label{tab:progresion_mineria_twfe}
-		\begin{adjustbox}{max width=\textwidth}
-		\begin{tabular}{l*{6}{c}}
-			\toprule
-			&\multicolumn{3}{c}{\textbf{Complejidad Económica (ECI)}}&\multicolumn{3}{c}{\textbf{Diversificación Exportadora (DIVX)}}\\
-			\cmidrule(lr){2-4} \cmidrule(lr){5-7}
-			Variable &\multicolumn{1}{c}{(1) $M1_{\text{MIN}}$}&\multicolumn{1}{c}{(2) $M2_{\text{MIN}}$}&\multicolumn{1}{c}{(3) $M3_{\text{Desag.}}$}&\multicolumn{1}{c}{(4) $M1_{\text{MIN}}$}&\multicolumn{1}{c}{(5) $M2_{\text{MIN}}$}&\multicolumn{1}{c}{(6) $M3_{\text{Desag.}}$}\\
-			\midrule
-			Rentas minería ($rents\_mining$)&     -0.0127\sym{***}&     -0.0116\sym{**} &     -0.0136\sym{***}&     -0.0003         &     -0.0013         &     -0.0014         \\
-								&    (0.0035)         &    (0.0047)         &    (0.0039)         &    (0.0018)         &    (0.0015)         &    (0.0019)         \\
-			\addlinespace
-			Calidad institucional ($INST$)&      0.1992         &      0.2715\sym{**} &      0.2679\sym{*}  &      0.0478\sym{*}  &      0.0446\sym{*}  &      0.0163         \\
-								&    (0.1324)         &    (0.1250)         &    (0.1379)         &    (0.0275)         &    (0.0253)         &    (0.0280)         \\
-			\addlinespace
-			$rents\_mining \times INST$&     -0.0022         &     -0.0009         &     -0.0021         &     -0.0009         &     -0.0013         &     -0.0009         \\
-								&    (0.0041)         &    (0.0039)         &    (0.0043)         &    (0.0024)         &    (0.0016)         &    (0.0023)         \\
-			\addlinespace
-			Rentas hidrocarburos ($rents\_oil\_gas$)&                     &                     &     -0.0073         &                     &                     &     -0.0048\sym{***}\\
-								&                     &                     &    (0.0057)         &                     &                     &    (0.0014)         \\
-			\addlinespace
-			$rents\_oil\_gas \times INST$&                     &                     &     -0.0057         &                     &                     &      0.0012         \\
-								&                     &                     &    (0.0039)         &                     &                     &    (0.0013)         \\
-			\addlinespace
-			$\log(1 + \text{OILPC})$&      0.0161         &                     &      0.0258         &     -0.0021         &                     &      0.0089         \\
-								&    (0.0349)         &                     &    (0.0370)         &    (0.0088)         &                     &    (0.0085)         \\
-			\addlinespace
-			$\log(1 + \text{GASPC})$&      0.0363         &                     &      0.0397         &      0.0090         &                     &      0.0048         \\
-								&    (0.0369)         &                     &    (0.0341)         &    (0.0075)         &                     &    (0.0065)         \\
-			\addlinespace
-			$\log(1 + \text{COALPC})$&      0.0029         &                     &      0.0203         &     -0.0072         &                     &     -0.0136\sym{*}  \\
-								&    (0.0261)         &                     &    (0.0251)         &    (0.0069)         &                     &    (0.0073)         \\
-			\addlinespace
-			Concentración ($HHI$)&     -0.5741\sym{**} &                     &     -0.5747\sym{**} &                     &                     &                     \\
-								&    (0.2338)         &                     &    (0.2336)         &                     &                     &                     \\
-			\addlinespace
-			Exp. primarias ($PEXP$)&     -0.0042\sym{**} &                     &     -0.0042\sym{**} &      0.0016\sym{**} &                     &      0.0015\sym{**} \\
-								&    (0.0017)         &                     &    (0.0016)         &    (0.0006)         &                     &    (0.0006)         \\
-			\addlinespace
-			Combustibles ($FEXP$)&     -0.0069\sym{***}&                     &     -0.0070\sym{***}&     -0.0014         &                     &     -0.0009         \\
-								&    (0.0023)         &                     &    (0.0020)         &    (0.0011)         &                     &    (0.0010)         \\
-			\addlinespace
-			Volatilidad TdI ($VOL$)&                     &     -0.0010         &     -0.0022         &                     &      0.0020\sym{*}  &      0.0005         \\
-								&                     &    (0.0027)         &    (0.0026)         &                     &    (0.0010)         &    (0.0010)         \\
-			\addlinespace
-			Tipo cambio real ($RER$)&                     &     -0.0870         &     -0.0826         &                     &     -0.0544         &     -0.0414         \\
-								&                     &    (0.1018)         &    (0.0976)         &                     &    (0.0415)         &    (0.0354)         \\
-			\addlinespace
-			Capital humano ($HUMCAP$)&                     &      0.1513         &     -0.0575         &                     &      0.1468\sym{***}&      0.1066\sym{**} \\
-								&                     &    (0.2435)         &    (0.2249)         &                     &    (0.0484)         &    (0.0424)         \\
-			\addlinespace
-			Innovación ($INNOV$)&                     &     -0.0129         &     -0.0349         &                     &      0.0162         &      0.0102         \\
-								&                     &    (0.0502)         &    (0.0492)         &                     &    (0.0159)         &    (0.0137)         \\
-			\addlinespace
-			Conectividad digital ($NET$)&                     &     -0.0013         &     -0.0014         &                     &     -0.0008\sym{*}  &     -0.0006\sym{*}  \\
-								&                     &    (0.0023)         &    (0.0021)         &                     &    (0.0004)         &    (0.0004)         \\
-			\addlinespace
-			$\log \text{PIB pc}$ ($GDPPC$)&     -0.0941         &     -0.2279         &     -0.0482         &     -0.1482\sym{***}&     -0.1918\sym{***}&     -0.1411\sym{***}\\
-								&    (0.2095)         &    (0.2104)         &    (0.2215)         &    (0.0369)         &    (0.0369)         &    (0.0359)         \\
-			\addlinespace
-			Consumo Gobierno ($GOVCONS$)&                     &     -0.0031         &     -0.0056         &                     &      0.0022         &      0.0029         \\
-								&                     &    (0.0103)         &    (0.0092)         &                     &    (0.0017)         &    (0.0017)         \\
-			\addlinespace
-			Profundidad financiera ($FIN$)&                     &      0.0007         &     -0.0010         &                     &      0.0009\sym{**} &      0.0006         \\
-								&                     &    (0.0026)         &    (0.0024)         &                     &    (0.0004)         &    (0.0004)         \\
-			\midrule
-			Observaciones       &        1044         &        1044         &        1044         &        1044         &        1044         &        1044         \\
-			Países              &          49         &          49         &          49         &          49         &          49         &          49         \\
-			R2 Within           &      0.1226         &      0.0475         &      0.1377         &      0.1795         &      0.1617         &      0.2873         \\
-			Estadístico F       &       5.669         &       2.004         &       6.252         &      12.800         &       8.865         &      14.577         \\
-			p-valor F           &      0.0000         &      0.0488         &      0.0000         &      0.0000         &      0.0000         &      0.0000         \\
-			\bottomrule
-			\multicolumn{7}{l}{\footnotesize Errores estándar agrupados por país entre paréntesis. EF de país y año incluidos en todos los modelos.}\\
-			\multicolumn{7}{l}{\footnotesize \sym{*} \(p<0.10\), \sym{**} \(p<0.05\), \sym{***} \(p<0.01\)}\\
-		\end{tabular}
-		\end{adjustbox}
-		\thesissource{Elaboración propia sobre la base de estimaciones en Stata 17 MP.}
-	\end{table}
-
-	Las estimaciones del subsector minero revelan una notable simetría inversa respecto a los hidrocarburos:
-
-	En primer lugar, las rentas mineras ($rents\_mining$) imponen un **efecto adverso dominante y altamente significativo sobre la complejidad cualitativa ($ECI$)**. En las tres especificaciones, el parámetro se mantiene estadísticamente significativo al 1\% o al 5\% ($\beta = -0,0127^{***}$ en $M1_{\text{MIN}}$, $\beta = -0,0116^{**}$ en $M2_{\text{MIN}}$ y $\beta = -0,0136^{***}$ en $M3_{\text{Desag.}}$). Ello confirma que la extracción minera y carbonífera actúa como una barrera directa a la sofisticación tecnológica de las capacidades locales.
-
-	En segundo lugar, en lo referente a la diversificación cuantitativa ($DIVX$), las rentas mineras presentan coeficientes de menor magnitud y estadísticamente no significativos ($\beta = -0,0003$ a $-0,0014$). La dispersión de la oferta exportadora en economías mineras es sostenida de manera contundente por la acumulación de **capital humano ($HUMCAP = +0,1468^{***}, p < 0,01$ en $M2_{\text{MIN}}$)** y la **profundidad financiera ($FIN = +0,0009^{**}, p < 0,05$ en $M2_{\text{MIN}}$)**.
-
-	En tercer lugar, al contrastar la heterogeneidad entre ambos tipos de recursos extractivos, la evidencia empírica confirma una especialización de los canales de afectación:
-	\begin{itemize}
-		\item Los **hidrocarburos ($rents\_oil\_gas$)** deterioran principalmente la **diversificación cuantitativa ($DIVX$, $\beta = -0,0059^{***}$)** por el efecto enclave concentrador de la oferta exportadora.
-		\item La **minería y carbón ($rents\_mining$)** deterioran principalmente la **complejidad cualitativa ($ECI$, $\beta = -0,0136^{***}$)** por la escasa transferencia de tecnología y encadenamientos productivos del enclave minero.
-	\end{itemize}
-
-
-
-	\section{Pruebas de estabilidad, inferencia robusta y efectos marginales}
-	\label{sec:pruebas-estabilidad}
-
-	Con el propósito de evaluar la validez interna de los hallazgos empíricos y descartar que los coeficientes estimados respondan a observaciones atípicas, sesgos de muestreo, distorsiones de inferencia o quiebres temporales en datos de panel, se estructuraron cuatro bloques analíticos de robustez econométrica.
-
-	\subsection{Sensibilidad muestral Jackknife LOO e inferencia mediante Wild Cluster Bootstrap}
-	\label{sec:jackknife-bootstrap}
-
-	En primer lugar, se realizó una prueba de sensibilidad mediante el método de omisión de un país a la vez (\textit{Leave-One-Country-Out}, LOO). El procedimiento reestimó el modelo principal 49 veces, excluyendo alternadamente cada economía. El coeficiente de $RENTS$ sobre $ECI$ conservó signo negativo en las 49 iteraciones y se ubicó entre $-0,0118$ y $-0,0067$. Fue significativo al 5\% en 46 iteraciones y al 10\% en las 49; los tres casos restantes quedaron apenas por encima del umbral del 5\%, con un valor $p$ máximo de 0,0524. Esto respalda la estabilidad direccional del resultado, aunque no permite afirmar significación al 5\% en todas las exclusiones.
-
-	En segundo lugar, se evaluó la solidez de la inferencia estadística mediante \textit{Wild Cluster Bootstrap} con 9.999 repeticiones y ponderadores de Rademacher. La asociación de $RENTS$ sobre $ECI$ registró un $p_{\text{boot}} = 0,040$, mientras que la correspondiente a $DIVX$ arrojó $p_{\text{boot}} = 0,021$. El coeficiente de las rentas mineras sobre $ECI$ también mantuvo significación al 5\% ($p_{\text{boot}} = 0,024$). En contraste, el término agregado $RENTS \times INST$ permaneció no significativo ($p_{\text{boot}} = 0,209$). La inferencia bootstrap respalda los tres coeficientes directos señalados, pero no la existencia de una moderación institucional.
-
-	\subsection{Efectos marginales condicionales de la moderación institucional}
-	\label{sec:efectos-marginales}
-
-	Se examinaron los efectos marginales condicionales de las rentas a lo largo de la distribución de la calidad institucional. Las estimaciones puntuales son negativas en los cinco percentiles evaluados, pero solo resultan estadísticamente distintas de cero en $P_{50}$, $P_{75}$ y $P_{90}$; en $P_{10}$ y $P_{25}$ los intervalos de confianza incluyen el cero. La pendiente estimada se vuelve más negativa a medida que aumenta $INST$, pero esta variación debe interpretarse con cautela porque el coeficiente de interacción no es estadísticamente significativo. En consecuencia, los efectos marginales no respaldan la afirmación de que una mayor calidad institucional atenúe la asociación negativa entre $RENTS$ y $ECI$.
-
-	Como se sintetiza en la Tabla \ref{tab:pruebas_estabilidad_efectos_marginales}, la evaluación conjunta respalda la estabilidad direccional y la significación bootstrap de los coeficientes directos, con las salvedades señaladas para las exclusiones LOO y para los efectos marginales en los percentiles institucionales bajos.
-
-	\begin{table}[htbp]
-		\centering
-		\small
-		\caption{Diagnósticos de inferencia robusta, sensibilidad Jackknife y efectos marginales condicionales}
-		\label{tab:pruebas_estabilidad_efectos_marginales}
-		\begin{adjustbox}{max width=\textwidth}
-			\begin{threeparttable}
-				\begin{tabular}{lccccc}
-					\toprule
-					Variable / Métrica & Coef. Asintótico & SE Asintótico & p-val Asintótico & p-val Wild Bootstrap & IC 95\% \\
-					\midrule
-					\multicolumn{6}{l}{\textit{Panel A: Inferencia Robusta mediante Wild Cluster Bootstrap (9.999 repeticiones)}} \\
-					$RENTS \to ECI$ & $-0,0098^{**}$ & $(0,0042)$ & $0,023$ & $0,040$ & $[-0,0197; -0,0004]$ \\
-					$RENTS \to DIVX$ & $-0,0035^{***}$ & $(0,0013)$ & $0,009$ & $0,021$ & $[-0,0064; -0,0006]$ \\
-					$rents\_mining \to ECI$ & $-0,0136^{***}$ & $(0,0039)$ & $0,001$ & $0,024$ & $[-0,0267; -0,0030]$ \\
-					$RENTS \times INST \to ECI$ & $-0,0052$ & $(0,0035)$ & $0,139$ & $0,209$ & $[-0,0134; +0,0030]$ \\
-					\midrule
-					\multicolumn{6}{l}{\textit{Panel B: Sensibilidad Jackknife Omisión de un País a la Vez (LOO, 49 iteraciones)}} \\
-					Rango coef. $RENTS \to ECI$ & $[-0,0118; -0,0067]$ & -- & -- & -- & 46/49 con $p<0,05$; signo negativo en 49/49 \\
-					\midrule
-					\multicolumn{6}{l}{\textit{Panel C: Efectos Marginales Condicionales de $RENTS$ sobre $ECI$ por Percentiles de $INST$}} \\
-					Percentil $P_{10}$ ($INST = -1,239$) & $-0,0034$ & $(0,0044)$ & $0,448$ & -- & $[-0,0120; +0,0053]$ \\
-					Percentil $P_{25}$ ($INST = -0,878$) & $-0,0052$ & $(0,0039)$ & $0,179$ & -- & $[-0,0129; +0,0024]$ \\
-					Percentil $P_{50}$ ($INST = -0,392$) & $-0,0078^{**}$ & $(0,0038)$ & $0,039$ & -- & $[-0,0151; -0,0004]$ \\
-					Percentil $P_{75}$ ($INST = +0,141$) & $-0,0105^{**}$ & $(0,0044)$ & $0,017$ & -- & $[-0,0192; -0,0019]$ \\
-					Percentil $P_{90}$ ($INST = +0,915$) & $-0,0146^{**}$ & $(0,0063)$ & $0,021$ & -- & $[-0,0269; -0,0022]$ \\
-					\bottomrule
-				\end{tabular}
-				\begin{tablenotes}
-					\small
-					\item \textit{Nota:} El Panel A reporta errores estándar agrupados por país y contrasta los p-valores asintóticos con los obtenidos mediante \textit{Wild Cluster Bootstrap} de 9.999 repeticiones y ponderadores de Rademacher (Cameron et al., 2008; Roodman et al., 2019); sus intervalos de confianza corresponden al bootstrap. El Panel B presenta el rango del parámetro de $RENTS$ al omitir alternadamente cada uno de los 49 países. El Panel C calcula el efecto marginal condicional $\frac{\partial ECI}{\partial RENTS} = \beta_{RENTS} + \beta_{RENTS \times INST} \cdot INST$ y reporta inferencia asintótica. Errores estándar entre paréntesis. $^{***} p<0,01$, $^{**} p<0,05$, $^* p<0,10$.
-					\item[] \centering\textit{Fuente: Elaboración propia a partir de estimaciones econométricas del panel.}
-				\end{tablenotes}
-			\end{threeparttable}
-		\end{adjustbox}
-	\end{table}
-
-	\subsection{Análisis de dinámica temporal y proyecciones locales (Jordà 2005)}
-	\label{sec:proyecciones-locales}
-
-	Para capturar la velocidad de transmisión y la persistencia de las perturbaciones en el tiempo, se estimó un sistema de Proyecciones Locales en Panel (\textcite{Jorda2005}) para horizontes futuros de $h=0$ a $h=5$ años (\autoref{tab:anexo_local_projections} en los Anexos). Las estimaciones revelan que el impacto de un shock en $RENTS$ sobre la complejidad ($ECI$) no es un fenómeno contemporáneo fugaz, sino un proceso de erosión acumulativo que alcanza su magnitud máxima entre el año 2 y el año 3 ($\beta_3 = -0,0162$, $p = 0,0002$) y se mantiene estadísticamente significativo hasta el horizonte de 5 años ($\beta_5 = -0,0121$, $p = 0,0057$). De igual forma, el análisis dinámico de los regresores muestra que el capital humano ($HUMCAP$) y la innovación ($INNOV$) presentan retornos crecientes sobre la diversificación ($DIVX$), acumulando su mayor dividendo en el horizonte $h=5$ ($\beta_5 = +0,1464$, $p = 0,0217$ para $HUMCAP$).
-
-	Al evaluar la dinámica temporal diferenciada para las rentas de hidrocarburos ($rents\_oil\_gas$), las Proyecciones Locales revelan que un shock petrolero/gasífero sobre la complejidad económica ($ECI$) no es contemporáneo en el año inicial ($h=0$, $p = 0,2121$), sino que experimenta un rezago de transmisión de un año, activándose fuertemente en $h=1$ ($\beta_1 = -0,0126$, $p = 0,0106$), alcanzando su pico desindustrializador máximo en $h=3$ ($\beta_3 = -0,0161$, $p = 0,0028$) y manteniendo su significación hasta el horizonte de 5 años ($\beta_5 = -0,0113$, $p = 0,0266$). En contraste, sobre la diversificación exportadora ($DIVX$), el shock de hidrocarburos genera una contracción inmediata en $h=0$ ($\beta_0 = -0,0048$, $p = 0,0010$) que se sostiene de manera altamente persistente hasta $h=3$ ($\beta_3 = -0,0030$, $p = 0,0011$).
-
-	Por su parte, el análisis dinámico mediante Proyecciones Locales para las rentas de minería y carbón ($rents\_mining$) evidencia un patrón de transmisión fuertemente diferenciado al de los hidrocarburos. Un shock en la actividad minera/carbonífera provoca una destrucción **inmediata y contemporánea en el año inicial ($h=0$)** sobre el Índice de Complejidad Económica ($ECI$) ($\beta_0 = -0,0136$, $p = 0,0011$). Este impacto negativo se profundiza de forma sostenida a lo largo de todo el horizonte temporal, alcanzando su pico en $h=3$ ($\beta_3 = -0,0148$, $p = 0,0010$) y permaneciendo altamente significativo hasta $h=5$ ($\beta_5 = -0,0136$, $p = 0,0045$). Sobre la diversificación exportadora ($DIVX$), el shock de minería exhibe un efecto diferido que se manifiesta con fuerza hacia horizontes más distantes en $h=4$ ($\beta_4 = -0,0041$, $p = 0,0030$) y $h=5$ ($\beta_5 = -0,0040$, $p = 0,0232$).
-
-	\section{Estabilidad por regímenes y quiebres estructurales: la hipótesis del Superciclo de Commodities (Pre vs. Post 2014)}
-	\label{sec:quiebre-estructural}
-
-	Un supuesto implícito en las estimaciones estáticas de datos de panel a lo largo de períodos extensos (1996–2021) es que la relación entre los determinantes estructurales y la sofisticación productiva se mantiene invariable en el tiempo. Sin embargo, la economía mundial experimentó durante las últimas dos décadas una de las mayores oscilaciones de precios de materias primas en la historia moderna: el \textit{Superciclo de Commodities} (2000–2014), caracterizado por precios récords e ingresos extraordinarios de divisas, seguido por el colapso de las cotizaciones internacionales de hidrocarburos y minerales a partir de 2014.
-
-	Para evaluar si la intensidad de la Enfermedad Holandesa responde al régimen macroeconómico global, se realizó una prueba de quiebre estructural mediante la partición del panel en dos submuestras temporales: la fase de auge exportador ($1996\le t \le 2014$, $T=19$) y la fase post-superciclo de contracción de precios ($2015\le t \le 2021$, $T=7$). Las estimaciones comparativas se resumen en la \autoref{tab:anexo_structural_breaks} de los Anexos.
-
-	Los resultados empíricos arrojan una conclusión econométrica de alto nivel para el debate de desarrollo:
-	\begin{enumerate}
-		\item \textit{Fase de auge del Superciclo (1996--2014)}: Durante el período de precios altos e ingresos masivos por exportaciones primarias, la asociación negativa entre las rentas extractivas y la complejidad económica ($ECI$) se vuelve significativamente más severa que en la muestra completa ($\beta_{\text{Pre2015}} = -0,0122$, $p = 0,0160$, frente a $\beta_{\text{Completa}} = -0,0098$, $p = 0,0233$). De igual forma, el efecto directo de las instituciones conservó un fuerte impacto positivo ($\beta_{\text{INST}} = +0,3143$, $p = 0,0351$), y la interacción institucional resultó estadísticamente significativa al 10\% ($\beta_{\text{RENTS} \times \text{INST}} = -0,0092$, $p = 0,0670$).
-		\item \textit{Fase Post-Superciclo (2015--2021)}: Tras el desplome de las cotizaciones internacionales de commodities en 2014 y la consiguiente reducción del flujo de rentas sobre el PIB, el parámetro de $RENTS$ perdió por completo significación estadística ($\beta_{\text{Post2014}} = +0,0008$, $p = 0,8524$).
-	\end{enumerate}
-
-	Este contraste de regímenes demuestra empíricamente que los mecanismos de la Enfermedad Holandesa —apreciación del tipo de cambio real, encarecimiento de insumos no transables y atracción masiva de capital hacia el sector extractivo en detrimento de la manufactura y los servicios complejos— no operan de forma lineal y constante, sino de manera fuertemente procíclica y asimétrica. El daño a la diversidad y sofisticación de la estructura productiva se concentra de manera abrumadora durante las bonanzas masivas de recursos naturales. En consecuencia, la prevención de la primarización productiva requiere la implementación de reglas fiscales anticíclicas y fondos de estabilización soberanos que amortigüen la absorción macroeconómica de rentas durante los picos del superciclo, previniendo la destrucción irreversible de capacidades complejas antes de que ocurra la caída del mercado internacional.
-
-	En el modelo desagregado por tipo de recurso, la estabilidad temporal de las rentas de hidrocarburos ($rents\_oil\_gas$) sobre la diversificación exportadora ($DIVX$) evidencia una persistencia notable: el parámetro desindustrializador se mantiene altamente significativo tanto en el período de auge del Superciclo 1996--2014 ($\beta = -0,0044$, $p = 0,0090$) como en la fase posterior de precios bajos 2015--2021 ($\beta = -0,0044$, $p = 0,0190$), demostrando que la trampa de concentración exportadora impulsada por el petróleo y el gas trasciende las oscilaciones coyunturales del mercado internacional de energía.
-
-	Asimismo, al evaluar el comportamiento desagregado en las submuestras del Superciclo, se comprueba que el impacto desindustrializador sobre la complejidad tecnológica ($ECI$) estuvo impulsado de manera abrumadora por la **minería y el carbón ($rents\_mining$)** durante la fase de bonanza 1996--2014 ($\beta = -0,0149$, $p = 0,0105$, significativo al 1\%). Una vez finalizado el auge de precios internacionales en 2014, la asociación negativa entre las rentas mineras y la complejidad perdió por completo significación estadística ($\beta = -0,0026$, $p = 0,5838$), confirmando que la destrucción de capacidades complejas por la extracción minera se concentra fuertemente en los picos de rentabilidad extractiva.
-
-	\subsection{Evaluación de autocorrelación de orden superior $AR(p)$ e inferencia comparativa (Driscoll-Kraay y PCSE)}
-	\label{sec:autocorrelacion-inferencia}
-
-	Puesto que la prueba de Wooldridge identificó la presencia de autocorrelación serial en los residuos del panel, resulta indispensable verificar si la significación estadística de los coeficientes principales y de los determinantes estructurales se sostiene bajo estructuras alternativas de errores estándar que corrijan patrones autoregresivos de orden superior $AR(p)$ y dependencia transversal espacial.
-
-	Para este propósito, se evaluó el conjunto completo de 18 variables del modelo comparando tres estructuras de inferencia (\autoref{tab:anexo_autocorrelation_inference} en los Anexos):
-	\begin{enumerate}
-		\item \textit{Errores Estándar Agrupados por País (Baseline Cluster-Robust)}: Inferencia asintótica robusta a heterocedasticidad arbitraria y autocorrelación dentro del país ($p = 0,0233$ para $RENTS \to ECI$).
-		\item \textit{Errores Estándar Driscoll-Kraay HAC (lag 2)}: Estima la matriz de covarianza de Driscoll y Kraay (1998) ajustada por autocorrelación $AR(p)$ hasta 2 rezagos y por dependencia de sección cruzada espacial. Bajo esta inferencia:
-		\begin{itemize}
-			\item La asociación negativa de $RENTS$ sobre $ECI$ conserva significación al 10\% ($\beta = -0,0098$, $p = 0,0559$).
-			\item El efecto directo de la calidad institucional ($INST$) aumenta notablemente su significación estadística hasta un nivel del 0,1\% ($\beta = +0,2667$, $p = 0,0003$).
-			\item La concentración de la canasta exportadora ($HHI$) exhibe un efecto altamente destructivo sobre la complejidad productiva con significación del 0,01\% ($\beta = -0,5355$, $p = 0,0001$).
-			\item La prevalencia de exportaciones primarias ($PEXP$) y agrícolas ($FEXP$) consolida su asociación negativa con la complejidad, arrojando p-valores de $0,0008$ y $0,000004$, respectivamente.
-			\item Las rentas de gas natural ($\log \text{Gas pc}$) alcanzan significación estadística positiva al 5\% ($\beta = +0,0396$, $p = 0,0146$).
-		\end{itemize}
-		\item \textit{Errores Estándar Corregidos para Panel (Beck \& Katz PCSE AR1)}: Aplica la corrección paramétrica $AR(1)$ en panel. El coeficiente de $RENTS$ se fortalece hasta un nivel de significación del 1\% ($\beta = -0,0070$, $p = 0,0049$), mientras que la concentración exportadora ($HHI$) y la intensidad primaria ($PEXP$, $FEXP$) confirman significación al 1\% ($p < 0,001$).
-	\end{enumerate}
-
-	Este ejercicio comparativo ofrece una garantía econométrica contundente: independientemente del supuesto utilizado sobre la estructura del término de error ($AR(1)$, $AR(p)$, bootstrap o Driscoll-Kraay HAC), la asociación negativa entre las rentas extractivas y la complejidad económica, así como el impacto adverso de la concentración exportadora y la primarización productiva, se mantienen estadísticamente significativos en todos los escenarios analizados.
-
-	\subsection{Descomposición tendencia-ciclo mediante Filtro Hodrick-Prescott}
-	\label{sec:filtro-hp-tendencia-ciclo}
-
-	Para discriminar si el impacto de las rentas extractivas y los determinantes del desarrollo altera la acumulación estructural de capacidades productivas a largo plazo o si constituye únicamente una oscilación coyuntural de corto plazo, se aplicó el filtro de Hodrick y Prescott (\textcite{HodrickPrescott1997}; \textcite{RavnUhlig2002}) sobre las series de datos de panel con un parámetro de suavizamiento $\lambda = 6,25$ adecuado para frecuencia anual. Este procedimiento descompuso cada variable en dos componentes ortogonales: la tendencia estructural de largo plazo ($ECI_{\text{trend}}$, $DIVX_{\text{trend}}$) y el ciclo estocástico de corto plazo ($ECI_{\text{cycle}}$, $DIVX_{\text{cycle}}$).
-
-	La reestimación del modelo econométrico sobre el conjunto de 18 variables en ambas componentes arroja resultados reveladores (\autoref{tab:anexo_hp_filter_decomposition} en los Anexos):
-	\begin{enumerate}
-		\item \textit{Componentes Cíclicos de Corto Plazo}: La asociación entre las rentas extractivas ($RENTS$) y las fluctuaciones de corto plazo de la complejidad es estadísticamente nula ($\beta = +0,00004$, $p = 0,9757$). Esto confirma empíricamente que la Enfermedad Holandesa no es una perturbación cíclica pasajera de corto plazo.
-		\item \textit{Tendencias Estructurales de Largo Plazo}:
-		\begin{itemize}
-			\item Al aislar el ruido coyuntural y evaluar la tendencia de largo plazo, el efecto erosivo de $RENTS$ sobre la complejidad económica se vuelve **aún más pronunciado y estadísticamente más significativo**, pasando de un $p = 0,0233$ en la serie total a un $p = 0,0097$ al 1\% ($\beta = -0,0098$). De igual forma, el efecto directo de las instituciones ($INST$) sobre la tendencia de sofisticación productiva se consolida fuertemente al 1,2\% ($\beta = +0,3253$, $p = 0,0122$).
-			\item En el modelo de diversificación ($DIVX$), el capital humano ($HUMCAP$) y la innovación ($INNOV$) impulsan de forma directa y estadísticamente significativa la **tendencia de largo plazo** con p-valores de $0,0256$ ($\beta = +0,0356$) y $0,0383$ ($\beta = +0,0082$), respectivamente, confirmando que las capacidades de absorción generan dividendos estructurales persistentes.
-			\item La concentración exportadora ($HHI$) destruye la tendencia estructural de largo plazo de la diversidad productiva con extrema significación ($\beta = -0,7203$, $p = 0,0000$).
-		\end{itemize}
-	\end{enumerate}
-
-	Este hallazgo demuestra con el máximo rigor de series de tiempo que la abundancia de recursos naturales ataca de forma directa los determinantes fundamentales del desarrollo industrial y la complejidad tecnológica de largo plazo, reafirmando la validez y la trascendencia de la hipótesis central de la investigación.
-
-	La evaluación de inferencia comparativa confirma que la asociación negativa de $rents\_oil\_gas$ sobre $DIVX$ conserva significación al 1\% bajo la matriz de covarianza de Driscoll y Kraay (1998) con $lag(2)$ ($p = 0,0010$) y bajo el esquema PCSE AR(1) de Beck y Katz. Asimismo, la descomposición tendencia-ciclo mediante el filtro de Hodrick-Prescott ($\lambda = 6,25$) verifica que el impacto de los hidrocarburos opera erosionando la tendencia de largo plazo de la diversificación ($DIVX_{\text{trend}}$), descartando que responda a fluctuaciones cíclicas de corto plazo.
-
-	Las pruebas de inferencia comparativa corroboran que la asociación negativa entre $rents\_mining$ y la complejidad ($ECI$) mantiene significación estadística al 1\% bajo la estimación Driscoll-Kraay HAC (lag 2) ($p = 0,0010$) y bajo la matriz de covarianza PCSE AR(1). Finalmente, la descomposición tendencia-ciclo de Hodrick-Prescott ($\lambda = 6,25$) confirma que la minería erosiona directamente la **tendencia de largo plazo ($ECI_{\text{trend}}$)** ($\beta = -0,0136$, $p = 0,0010$), descartando cualquier interferencia del ciclo estocástico de corto plazo.
-
-	\section{Evaluación de endogeneidad y estrategia de identificación causal}
-	\label{sec:evaluacion-endogeneidad}
-
-	Un aspecto econométrico central en el análisis de datos de panel macroeconómicos reside en la evaluación explícita de los potenciales sesgos de endogeneidad —derivados de heterogeneidad inobservable omitida, simultaneidad/causalidad reversa entre la dependencia extractiva ($RENTS$) y la estructura productiva ($ECI$, $DIVX$), y dependencia transversal— que podrían cuestionar la validez de los coeficientes estimados.
-
-	Para garantizar la identificación econométrica y la consistencia de los hallazgos sin recurrir a instrumentación interna con rezagos débiles (los cuales generan severa proliferación de instrumentos e ineficiencia asintótica en paneles con $T \ge 25$, según \textcite{Roodman2009TooManyInstruments}), la investigación adopta un diseño cuasiexperimental de cuatro pilares:
-
-	\begin{enumerate}
-		\item \textit{Absorción de Heterogeneidad Inobservable Bidireccional}: La inclusión simultánea de efectos fijos de país ($\alpha_i$) elimina cualquier sesgo por variables omitidas invariantes en el tiempo (tales como la dotación geológica inicial, geografía o antecedentes coloniales). Asimismo, los efectos fijos de año ($\gamma_t$) absorben las perturbaciones macroeconómicas globales no observadas comunes a cada periodo (como crisis financieras o superciclos globales de precios).
-		\item \textit{Exogeneidad de Shocks Internacionales}: El modelo controla de forma explícita por los precios internacionales reales de commodities per cápita ($\log \text{Oil pc}$, $\log \text{Gas pc}$, $\log \text{Coal pc}$) y por el índice de volatilidad financiera internacional ($VIX$), los cuales constituyen determinantes exógenos determinados en los mercados globales que no son influenciados por la dinámica industrial interna de cada país dependiente.
-		\item \textit{Mitigación de Causalidad Reversa mediante Proyecciones Locales}: En las especificaciones dinámicas de impulso-respuesta mediante Proyecciones Locales (\textcite{Jorda2005}), la variable dependiente $ECI_{t+h}$ evalúa la complejidad futura a horizontes $h = 1, \dots, 5$ años condicional en la perturbación de rentas en el periodo $t$. Debido al ordenamiento temporal estricto ($t+h > t$), la estructura de capacidades futuras no puede afectar simultáneamente el flujo de rentas pasadas en $t$, eliminando de forma efectiva el canal de causalidad estática contemporánea.
-		\item \textit{Robustez ante Dependencia Transversal y Autocorrelación Residual}: Como se demostró en la \autoref{sec:autocorrelacion-inferencia}, las correcciones de Driscoll y Kraay (\textcite{DriscollKraay1998}) ajustan los errores estándar ante patrones autoregresivos de orden superior $AR(p)$ dentro de los países y correlación transversal espacial entre países.
-	\end{enumerate}
-
-	En conjunto, esta estrategia metodológica confirma que las asociaciones negativas estimadas entre las rentas extractivas y la complejidad productiva no son producto de espuriedad estadística ni de simultaneidad contable, sino que representan relaciones estructurales robustas y persistentes.
-
-
-
-	\section{Tipologías de trayectorias nacionales y análisis de casos de estudio}
-	\label{sec:ranking-descriptivo}
-
-	Con el propósito de complementar las estimaciones econométricas de datos de panel con un análisis detallado de la heterogeneidad muestral, se desarrolla un esquema de clasificación descriptivo basado en la evaluación de la trayectoria de complejidad económica ($RTC$, por sus siglas para la trayectoria relativa de complejidad) y la trayectoria de diversificación exportadora ($RTD$). Este marco analítico evalúa a las 49 economías extractivas del panel a partir de tres métricas sintéticas: el nivel promedio de sofisticación productiva ($RTC_i^{\text{nivel}} = \overline{ECI}_i$), la variación temporal de la complejidad entre 1996 y 2021 ($RTC_i^{\text{din}} = \Delta ECI_i = ECI_{i,2021} - ECI_{i,1996}$) y el índice medio de dispersión de la canasta exportadora ($RTD_i = \overline{DIVX}_i = 1 - \overline{HHI}_i$).
-
-	La articulación empírica de estas tres dimensiones permite segmentar el conjunto de economías dependientes de recursos naturales en tres tipologías estructurales de desempeño:
-
-	En primer lugar, el grupo de \textit{economías complejas consolidadas} comprende países que han logrado combinar una alta dependencia en rentas naturales con la preservación o expansión de capacidades tecnológicas avanzadas ($RTC_i^{\text{nivel}} > 0,50$ y $RTD_i > 0,80$). Casos representativos como Noruega, Malasia y México demuestran vías diferenciadas de elusión de la trampa extractiva. Noruega, a pesar de sus abundantes ingresos petroleros, canalizó la renta hacia la constitución de un potente complejo tecnológico nacional de servicios especializados mar adentro (\textit{offshore}), metalmecánica y biotecnología marina. Por su parte, Malasia y México lograron diversificar sus matrices exportadoras mediante la integración activa en cadenas globales de valor de bienes electrónicos, equipos de transporte y manufacturas de alta intensidad de capital, reduciendo la prevalencia de los bienes primarios en su valor agregado comercial.
-
-	En segundo lugar, la categoría de \textit{economías en transición dinámica favorable} incluye países de ingreso medio que parten de niveles moderados de sofisticación pero muestran trayectorias continuas de acumulación de capacidades ($\Delta ECI_i > +0,15$) y avances en diversificación. Economías como Indonesia, Vietnam y Colombia ilustran esta dinámica intermedia. Vietnam e Indonesia han protagonizado una transformación acelerada desde bienes agrícolas y extractivos hacia manufacturas livianas y componentes industriales. Colombia, por su parte, exhibe una transición caracterizada por avances en la sofisticación de sus exportaciones agrícolas no tradicionales (como café procesado, flores y derivados de palma) y servicios productivos, aunque su trayectoria ha estado fuertemente expuesta a la volatilidad de los precios internacionales del petróleo y el carbón.
-
-	En tercer lugar, la tipología de \textit{economías en trampa extractiva persistente} agrupa a países caracterizados por niveles marcadamente negativos de complejidad ($RTC_i^{\text{nivel}} < -0,50$), variaciones temporales estancadas o regresivas ($\Delta ECI_i \le 0$) y una extrema concentración de la oferta exportadora ($RTD_i < 0,50$; $HHI_i > 0,50$). Casos emblemáticos como Angola, Nigeria, Zambia y Arabia Saudita ejemplifican los efectos más agudos del extractivismo de enclave. En Angola y Nigeria, la dominancia abrumadora del petróleo crudo (superior al 90\% del valor exportado) destruyó el tejido manufacturero local mediante apreciación del tipo de cambio real e ineficiencia fiscal. En Zambia, el monocultivo del cobre impidió la diversificación hacia sectores de mayor contenido tecnológico, consolidando un patrón de estancamiento estructural y vulnerabilidad externa frente a los ciclos internacionales de superciclos de commodities.
-
-	\noindent\colorbox{yellow}{\parbox{\dimexpr\textwidth-2\fboxsep\relax}{[NOTA: Pendiente sustentar y respaldar documentalmente con citas bibliográficas específicas los estudios de caso de cada país (Noruega, Malasia, México, Colombia, Indonesia, Vietnam, Angola, Nigeria, Zambia y Arabia Saudita)]}}
-
-
-
-	\section{Discusión de resultados econométricos, canales teóricos e integración de hipótesis}
-	\label{sec:discusion-resultados}
-
-	Con el propósito de articular una interpretación económica integral, esta sección sintetiza los hallazgos empíricos del capítulo evaluando, en primer lugar, la jerarquía y relevancia econométrica de los seis canales teóricos del modelo (Figura 9.2) y, en segundo lugar, contrastando de forma explícita las cinco hipótesis específicas formuladas en la investigación.
-
-	En cuanto a la evaluación por canales teóricos, la evidencia econométrica revela una marcada heterogeneidad en el poder explicativo de las distintas dimensiones conceptuales:
-
-	El \textit{canal estructural} se consolida como una dimensión relevante para la sofisticación y la diversificación exportadora. El índice de Herfindahl--Hirschman ($HHI$) presenta una asociación negativa con la complejidad ($ECI, \beta = -0,535^{**}$, $p = 0,021$). Asimismo, las exportaciones primarias no energéticas ($PEXP$) muestran signos opuestos: se asocian positivamente con la dispersión de la canasta ($DIVX, \beta = +0,002^{**}$, $p = 0,018$) y negativamente con la complejidad cualitativa ($ECI, \beta = -0,004^{***}$, $p = 0,010$). Por su parte, las exportaciones de combustibles ($FEXP$) presentan una asociación negativa con el $ECI$ ($\beta = -0,007^{***}$, $p < 0,001$).
-
-	El \textit{canal de capacidades productivas} muestra una asociación positiva entre capital humano ($HUMCAP$) y diversificación exportadora ($\beta = +0,107^{**}$, $p = 0,020$). El resultado es consistente con la importancia de la acumulación de competencias para ampliar la canasta comercial, sin constituir por sí solo una prueba causal.
-
-	El \textit{canal institucional} muestra una significación asimétrica: $RENTS$ presenta asociaciones negativas con la complejidad ($ECI, \beta = -0,010^{**}$, $p = 0,023$) y la diversificación ($DIVX, \beta = -0,004^{***}$, $p = 0,009$), mientras que $INST$ se asocia positivamente y de manera marginal con el $ECI$ ($\beta = +0,267^*$, $p = 0,057$). El término de interacción no resulta estadísticamente significativo ($\beta = -0,005$, $p = 0,139$; $p_{\text{boot}} = 0,209$), por lo que no se detecta una moderación institucional robusta de la asociación entre rentas y complejidad.
-
-	En contraste, las variables del \textit{canal de abundancia física} ($OILPC, GASPC, COALPC$) y del \textit{canal macroeconómico} ($VOL, RER$) no resultaron significativas al 5\% en ninguno de los dos modelos ($p > 0,20$). Tampoco $GOVCONS$ ni $FIN$ alcanzaron significación al 5\%; no obstante, en el modelo $DIVX$, $GOVCONS$ presentó significación marginal al 10\% ($p = 0,072$) y $FIN$ registró $p = 0,106$. Estos resultados indican ausencia de asociaciones intra-país estadísticamente detectables en la especificación estimada, pero no demuestran que dichos canales carezcan de relevancia económica.
-
-	El caso del desarrollo financiero ($FIN$) resulta de especial interés metodológico. Diversos estudios de corte transversal o basados en estimaciones de momentos generales \parencite[e.g.,][]{Valentine2024} sugieren que el desarrollo financiero puede mitigar los efectos adversos de las rentas de recursos naturales. La \autoref{fig:recursos_eci_desarrollo_financiero} recrea esta relación descriptiva para las observaciones del panel: un mayor nivel de desarrollo financiero se asocia descriptivamente con un mayor nivel promedio de complejidad económica para distintos niveles de dependencia extractiva. Sin embargo, $FIN$ no resulta significativo en el modelo de efectos fijos. Esta diferencia es compatible con que la relación descriptiva refleje principalmente variación estructural entre países, pero la especificación estimada no permite identificar de manera concluyente el mecanismo subyacente.
-
-	\begin{figure}[htbp]
-		\centering
-		\includegraphics[width=0.85\textwidth]{\subfix{../../figures/recreated_financial_dev_eci}}
-		\caption[Recursos, complejidad y desarrollo financiero]{Recursos naturales, complejidad económica (ECI) y desarrollo financiero en la muestra de la investigación (réplica metodológica de \textcite{Valentine2024}).}
-		\label{fig:recursos_eci_desarrollo_financiero}
-		\caption*{\footnotesize \textit{Fuente: Elaboración propia a partir del panel maestro de la investigación, siguiendo la metodología de \textcite{Valentine2024}.}}
-	\end{figure}
-
-	Finalmente, la integración econométrica de estos canales permite contrastar de manera rigurosa las cinco hipótesis de investigación formuladas en la tesis, articulándolas directamente con la literatura del marco teórico:
-
-	\begin{enumerate}
-		\item \hyperref[hyp:h1]{\textit{Hipótesis 1 ($H_1$) --- Apoyada}}: Una mayor intensidad de rentas extractivas ($RENTS$) se asocia con menor sofisticación cualitativa ($ECI, \beta = -0,010^{**}$) y menor diversificación cuantitativa ($DIVX, \beta = -0,004^{***}$). Estos resultados respaldan empíricamente los canales de desindustrialización por Enfermedad Holandesa \parencite{Corden1982,Sachs1995,Sachs2001} y la formación de economías de enclave extractivo con escasos encadenamientos productivos locales \parencite{Hirschman1958,Hirschman1981,Ross1999,Harding2016}, tal como se planteó en la revisión teórica \parencite{Auty1993}.
-
-		\item \hyperref[hyp:h2]{\textit{Hipótesis 2 ($H_2$) --- Matizada / Apoyada parcialmente}}: La calidad institucional ($INST$) presenta una asociación positiva y marginal con la complejidad ($\beta = +0,267^*$), pero la falta de significación estadística del término $RENTS \times INST$ no respalda la hipótesis de que las instituciones de gobernanza transversal (WGI) neutralicen o reviertan automáticamente la penalización extractiva. Este hallazgo matiza la hipótesis de institucionalidad condicional \parencite{Mehlum2006,Bhattacharyya2010,Arezki2012,Brckner2010} y aporta evidencia a favor de las tesis de \textcite{Brunnschweiler2008}, \textcite{Boyce2011} y \textcite{Hausmann2014}, demostrando que el fortalecimiento institucional formal resulta insuficiente si no viene acompañado de una política explícita de acumulación de capacidades productivas e industriales \parencite{Agosin2012,Cherif2013,Lebdioui2019}.
-
-		\item \hyperref[hyp:h3]{\textit{Hipótesis 3 ($H_3$) --- Matizada / Revaluada}}: La volatilidad agregada de los términos de intercambio ($VOL$) no presenta una asociación adicional estadísticamente detectable una vez controlados los efectos fijos bidireccionales y la intensidad de rentas. Este resultado no anula la relevancia de la inestabilidad de precios, sino que sugiere que sus efectos operan predominantemente a través de la dependencia macro-fiscal de las rentas y la prociclicidad del gasto público \parencite{Tornell1999,Arezki2012,Cspedes2014}, en un contexto dominado por superciclos y una alta persistencia temporal de las cotizaciones primarias \parencite{Cashin2002,Jacks2011,Boucekkine2021}.
-
-		\item \hyperref[hyp:h4]{\textit{Hipótesis 4 ($H_4$) --- Apoyada para el Capital Humano}}: El capital humano ($HUMCAP$) presenta una asociación positiva y estadísticamente significativa con la diversificación exportadora ($DIVX, \beta = +0,107^{**}$). Ello confirma empíricamente los planteamientos de \textcite{Bravo-Ortega2005} y \textcite{Agosin2012}: la formación de competencias y habilidades constituye el amortiguador indispensable para ampliar la variedad comercial y evitar el estancamiento en estructuras productivas reprimidas por rentas extractivas \parencite{Gylfason2001,Du2020}.
-
-		\item \hyperref[hyp:h5]{\textit{Hipótesis 5 ($H_5$) --- Apoyada parcialmente}}: Las estimaciones desagregadas revelan patrones complementarios por tipo de recurso: la minería ($rents\_mining$) comprime principalmente la complejidad cualitativa ($ECI, \beta = -0,014^{***}$), mientras que los hidrocarburos ($rents\_oil\_gas$) dañan sistemáticamente la diversificación cuantitativa ($DIVX, \beta = -0,005^{***}$). Esta heterogeneidad se alinea con la literatura sobre economías de enclave petrolero intensivas en capital y sustitución de exportaciones no extractivas \parencite{Ross1999,Harding2016,Gelan2021}, frente a la minería que, al carecer de vínculos tecnológicos con industrias habilitadoras locales, frena el escalamiento cualitativo \parencite{Ville2013,Wright2004,Bebbington2013}. No obstante, dado que las pruebas de Wald no rechazan la igualdad estricta de coeficientes directos al 5\%, esta heterogeneidad se interpreta como evidencia de canales diferenciados pero complementarios.
-	\end{enumerate}
-
-	\thesisendchap{resultados}
+% =====================================
+% RESULTADOS
+% =====================================
+
+\chapter{Resultados}
+\label{chap:resultados}
+\thesisstartchap{resultados}
+
+Este capítulo presenta los resultados obtenidos con la estrategia empírica
+descrita en el \autoref{chap:metodologia}. El análisis mantiene al Índice de
+Complejidad Económica ($ECI$) como resultado principal y a la diversificación
+exportadora ($DIVX=1-HHI$) como resultado complementario. Todas las
+estimaciones corresponden a asociaciones condicionales dentro de los países,
+con efectos fijos por país y por año y errores estándar agrupados por país; no
+se interpretan como efectos causales.
+
+La exposición sigue la arquitectura aprobada de tres especificaciones. $M_1$
+resume la estructura extractiva y exportadora; $M_2$ reúne capacidades
+productivas y estabilidad macroeconómica; y $M_3$ integra simultáneamente los
+seis canales del modelo. $M_1$ y $M_2$ son especificaciones temáticas paralelas,
+ambas anidadas en $M_3$, y no etapas sucesivas de selección de variables. La
+desagregación de las rentas y las pruebas de sensibilidad se presentan después
+de los resultados completos.
+
+
+\section{Muestra analítica y diagnósticos del panel}
+\label{sec:resultados-muestra-diagnosticos}
+
+La muestra econométrica común contiene 1.044 observaciones de 49 países y 23
+años efectivos dentro del intervalo 1996--2021. El panel es desbalanceado y no
+contiene observaciones comunes para 1997, 1999 y 2001. La muestra es idéntica
+para $ECI$ y $DIVX$ y no incorpora imputaciones ni interpolaciones. Esta regla
+permite comparar $M_1$, $M_2$ y $M_3$ sin que los cambios entre especificaciones
+respondan a una composición muestral diferente.
+
+El diagnóstico descriptivo de persistencia arroja coeficientes AR(1) de 0,495
+para $ECI$, 0,744 para $DIVX$, 0,701 para $RENTS$ y 0,809 para $INST$. Estos
+valores describen la continuidad temporal de las series, pero no constituyen
+una clasificación automática de su orden de integración.
+
+Las pruebas Fisher--ADF también ofrecen evidencia dependiente de la
+especificación. En niveles, la hipótesis nula de raíz unitaria para todos los
+paneles se rechaza en seis de ocho variantes para $ECI$ y $INST$, pero solo en
+una de ocho para $DIVX$ y $RENTS$. En primeras diferencias se rechaza en las
+ocho variantes para $ECI$, $DIVX$ e $INST$, y en seis de ocho para $RENTS$.
+Dado que el rechazo de la prueba Fisher
+solo indica que al menos uno de los paneles es estacionario, estos resultados
+no autorizan a clasificar universalmente las variables como $I(0)$ o $I(1)$ ni
+a reemplazar de manera automática el modelo en niveles.
+
+La \autoref{tab:diagnosticos_m3_peer2} resume los diagnósticos aplicados a los
+residuos de $M_3$. La prueba de Wald modificada rechaza homocedasticidad y la
+prueba de Wooldridge rechaza ausencia de autocorrelación de primer orden en
+ambas ecuaciones. En cambio, Pesaran CD no rechaza independencia transversal
+residual. Los factores de inflación de la varianza calculados sobre la
+transformación \textit{within} son reducidos: el máximo es 1,956 para $ECI$ y
+1,929 para $DIVX$. En conjunto, estos diagnósticos respaldan el uso de errores
+estándar agrupados por país como inferencia principal, pero no operan como una
+regla automática para escoger otro estimador.
+
+\begin{table}[htbp]
+    \centering
+    \caption{Diagnósticos residuales y de colinealidad del modelo completo}
+    \label{tab:diagnosticos_m3_peer2}
+    \begin{tabularx}{\textwidth}{@{}lrrr>{\RaggedRight\arraybackslash}X@{}}
+        \toprule
+        Modelo y diagnóstico & Estadístico & gl & $p$-valor & Lectura \\
+        \midrule
+        $ECI$: Wald modificado & 9.046,05 & 49 & $<0,001$ & Rechaza homocedasticidad \\
+        $ECI$: Wooldridge AR(1) & 23,95 & 1; 48 & $<0,001$ & Rechaza ausencia de AR(1) \\
+        $ECI$: Pesaran CD & $-0,44$ & --- & 0,663 & No rechaza independencia \\
+        $ECI$: VIF \textit{within} máximo & 1,956 & --- & --- & Bajo \\
+        \addlinespace
+        $DIVX$: Wald modificado & 13.046,62 & 49 & $<0,001$ & Rechaza homocedasticidad \\
+        $DIVX$: Wooldridge AR(1) & 82,68 & 1; 48 & $<0,001$ & Rechaza ausencia de AR(1) \\
+        $DIVX$: Pesaran CD & $-0,77$ & --- & 0,442 & No rechaza independencia \\
+        $DIVX$: VIF \textit{within} máximo & 1,929 & --- & --- & Bajo \\
+        \bottomrule
+    \end{tabularx}
+    \caption*{\footnotesize \textit{Nota:} Los diagnósticos utilizan la muestra común de 1.044 observaciones y 49 países. Los VIF se calculan después de retirar los efectos fijos de país y año.}
+    \caption*{\footnotesize \textit{Fuente: Elaboración propia a partir del panel maestro.}}
+\end{table}
+
+
+\section{Especificaciones temáticas $M_1$ y $M_2$}
+\label{sec:resultados-m1-m2}
+
+La \autoref{tab:progresion_modelos_twfe} presenta los términos institucionales
+comunes a $M_1$, $M_2$ y $M_3$. La disposición conjunta facilita la comparación,
+pero no representa una progresión escalonada. Los tres modelos se estiman sobre
+la misma muestra congelada.
+
+\begin{table}[htbp]
+    \centering
+    \caption{Términos focales en las especificaciones $M_1$, $M_2$ y $M_3$}
+    \label{tab:progresion_modelos_twfe}
+    \label{tab:resultados_m1_m2_m3_focal}
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{lrrrrrr}
+        \toprule
+        & \multicolumn{3}{c}{$ECI$} & \multicolumn{3}{c}{$DIVX$} \\
+        \cmidrule(lr){2-4}\cmidrule(lr){5-7}
+        Variable & $M_1$ & $M_2$ & $M_3$ & $M_1$ & $M_2$ & $M_3$ \\
+        \midrule
+        $RENTS$ & $-0,0072^{*}$ & $-0,0131^{***}$ & $-0,0098^{**}$
+                & $-0,0045^{***}$ & $-0,0043^{***}$ & $-0,0035^{***}$ \\
+        & $(0,0039)$ & $(0,0042)$ & $(0,0042)$
+        & $(0,0014)$ & $(0,0012)$ & $(0,0013)$ \\
+        $INST$ & $0,2195$ & $0,2953^{**}$ & $0,2667^{*}$
+               & $0,0355$ & $0,0264$ & $0,0175$ \\
+        & $(0,1401)$ & $(0,1334)$ & $(0,1367)$
+        & $(0,0310)$ & $(0,0288)$ & $(0,0282)$ \\
+        $RENTS\times INST$ & $-0,0032$ & $-0,0046$ & $-0,0052$
+                           & $0,0001$ & $0,0007$ & $0,0009$ \\
+        & $(0,0037)$ & $(0,0038)$ & $(0,0035)$
+        & $(0,0011)$ & $(0,0012)$ & $(0,0012)$ \\
+        \midrule
+        Observaciones & 1.044 & 1.044 & 1.044 & 1.044 & 1.044 & 1.044 \\
+        Países & 49 & 49 & 49 & 49 & 49 & 49 \\
+        $R^2$ \textit{within} & 0,138 & 0,085 & 0,152 & 0,274 & 0,266 & 0,312 \\
+        \bottomrule
+    \end{tabular}}
+    \caption*{\footnotesize \textit{Nota:} Errores estándar agrupados por país entre paréntesis. Todas las ecuaciones incluyen efectos fijos por país y por año. $M_1$ y $M_2$ son especificaciones temáticas paralelas; $M_3$ es el modelo completo. $^{*}p<0,10$, $^{**}p<0,05$, $^{***}p<0,01$.}
+    \caption*{\footnotesize \textit{Fuente: Elaboración propia a partir del panel maestro.}}
+\end{table}
+
+En $M_1$, el bloque de estructura exportadora es conjuntamente distinto de
+cero en la ecuación de $ECI$ ($p=0,004$) y en la de $DIVX$ ($p=0,022$). Para
+$ECI$, $PEXP$ y $FEXP$ presentan asociaciones negativas al 5\% y al 1\%,
+respectivamente, mientras que $HHI$ es negativo con significación al 10\%. Para
+$DIVX$, $PEXP$ presenta una asociación positiva al 5\%. Las tres rentas reales
+per cápita no son conjuntamente significativas en ninguna ecuación
+($p=0,600$ para $ECI$ y $p=0,513$ para $DIVX$).
+
+En $M_2$, el bloque institucional es conjuntamente significativo para $ECI$
+($p=0,022$) y $DIVX$ ($p<0,001$). En la ecuación complementaria, las capacidades
+productivas son conjuntamente significativas ($p=0,004$): $HUMCAP$ presenta
+signo positivo y $NET$ signo negativo. El bloque fiscal y financiero también
+es conjunto al 5\% en $DIVX$ ($p=0,048$), aunque sus coeficientes individuales
+son menos precisos. En ninguna de las dos ecuaciones el bloque formado por
+$VOL$ y $RER$ es conjuntamente significativo. Estas comparaciones describen
+qué patrones aparecen dentro de cada bloque; la interpretación sustantiva se
+basa en $M_3$.
+
+
+\section{Resultados principales del modelo completo $M_3$}
+\label{sec:resultados-m3}
+
+La \autoref{tab:resultados_m3_twfe} reporta el modelo completo para ambos
+resultados. En cada ecuación, el coeficiente de $RENTS$ corresponde a la
+asociación estimada cuando $INST=0$; la asociación en otros niveles
+institucionales debe calcularse combinando el término constitutivo y la
+interacción.
+
+\begingroup
+\small
+\setlength{\tabcolsep}{5pt}
+\begin{longtable}{p{0.44\textwidth}cc}
+    \caption{Modelo completo de complejidad económica y diversificación exportadora}
+    \label{tab:resultados_m3_twfe}\\
+    \toprule
+    Variable & $ECI$ & $DIVX$ \\
+    \midrule
+    \endfirsthead
+    \multicolumn{3}{c}{\tablename\ \thetable\ (continuación)}\\
+    \toprule
+    Variable & $ECI$ & $DIVX$ \\
+    \midrule
+    \endhead
+    \midrule
+    \multicolumn{3}{r}{Continúa en la página siguiente}\\
+    \endfoot
+    \bottomrule
+    \multicolumn{3}{p{0.96\textwidth}}{\footnotesize \textit{Nota:} Errores estándar agrupados por país entre paréntesis. Todas las ecuaciones incluyen efectos fijos por país y año. $HHI$ se excluye de $DIVX$ porque $DIVX=1-HHI$. $^{*}p<0,10$, $^{**}p<0,05$, $^{***}p<0,01$.}\\
+    \multicolumn{3}{l}{\footnotesize \textit{Fuente: Elaboración propia a partir del panel maestro.}}\\
+    \endlastfoot
+    $RENTS$ & $-0,0098^{**}$ $(0,0042)$ & $-0,0035^{***}$ $(0,0013)$ \\
+    $INST$ & $0,2667^{*}$ $(0,1367)$ & $0,0175$ $(0,0282)$ \\
+    $RENTS\times INST$ & $-0,0052$ $(0,0035)$ & $0,0009$ $(0,0012)$ \\
+    $\ln(1+OILPC)$ & $0,0283$ $(0,0376)$ & $0,0076$ $(0,0090)$ \\
+    $\ln(1+GASPC)$ & $0,0396$ $(0,0343)$ & $0,0049$ $(0,0067)$ \\
+    $\ln(1+COALPC)$ & $0,0109$ $(0,0264)$ & $-0,0085$ $(0,0078)$ \\
+    $HHI$ & $-0,5355^{**}$ $(0,2252)$ & --- \\
+    $PEXP$ & $-0,0042^{***}$ $(0,0016)$ & $0,0015^{**}$ $(0,0006)$ \\
+    $FEXP$ & $-0,0068^{***}$ $(0,0019)$ & $-0,0011$ $(0,0010)$ \\
+    $VOL$ & $-0,0029$ $(0,0024)$ & $0,0008$ $(0,0010)$ \\
+    $RER$ & $-0,0873$ $(0,0984)$ & $-0,0397$ $(0,0359)$ \\
+    $HUMCAP$ & $-0,0540$ $(0,2244)$ & $0,1069^{**}$ $(0,0443)$ \\
+    $INNOV$ & $-0,0361$ $(0,0484)$ & $0,0112$ $(0,0136)$ \\
+    $NET$ & $-0,0013$ $(0,0021)$ & $-0,0007^{**}$ $(0,0004)$ \\
+    $\log(GDPPC)$ & $-0,0459$ $(0,2212)$ & $-0,1456^{***}$ $(0,0351)$ \\
+    $GOVCONS$ & $-0,0060$ $(0,0089)$ & $0,0032^{*}$ $(0,0018)$ \\
+    $FIN$ & $-0,0010$ $(0,0024)$ & $0,0006$ $(0,0004)$ \\
+    \midrule
+    Observaciones & 1.044 & 1.044 \\
+    Países & 49 & 49 \\
+    $R^2$ \textit{within} & 0,152 & 0,312 \\
+\end{longtable}
+\endgroup
+
+\subsection{Complejidad económica}
+\label{subsec:resultados-eci-m3}
+
+En la ecuación de $ECI$, $RENTS$ presenta un coeficiente de $-0,0098$
+($p=0,023$). En $INST=0$, un aumento de diez puntos porcentuales del PIB en las
+rentas extractivas se asocia con una disminución aproximada de 0,098 puntos de
+$ECI$. El coeficiente de $INST$ es positivo y marginal al 10\% ($p=0,057$),
+pero la interacción $RENTS\times INST$ no es estadísticamente distinta de cero
+($p=0,139$). Por tanto, la ecuación no aporta evidencia suficiente de que la
+asociación entre rentas y complejidad cambie sistemáticamente con la calidad
+institucional.
+
+El resultado más definido por bloques corresponde a la estructura exportadora.
+$HHI$ ($p=0,021$), $PEXP$ ($p=0,010$) y $FEXP$ ($p=0,001$) presentan signos
+negativos y son conjuntamente distintos de cero ($p<0,001$). Este patrón es
+compatible con una asociación adversa entre concentración o especialización
+primaria y sofisticación exportadora, pero no identifica cuál mecanismo causal
+produce esa relación.
+
+Las rentas reales per cápita de petróleo, gas y carbón no son significativas de
+manera individual ni conjunta ($p=0,506$). Tampoco se detectan asociaciones
+adicionales al 5\% para $VOL$, $RER$, $HUMCAP$, $INNOV$, $NET$ o los controles
+económicos y financieros. La ausencia de significación condicional no implica
+que esas dimensiones carezcan de relevancia económica; indica que $M_3$ no
+separa una asociación adicional precisa dentro de los países una vez incluidos
+los demás regresores y efectos fijos.
+
+\subsection{Diversificación exportadora}
+\label{subsec:resultados-divx-m3}
+
+En la ecuación complementaria, $RENTS$ presenta un coeficiente de $-0,0035$
+($p=0,009$). Cuando $INST=0$, un aumento de diez puntos porcentuales del PIB en
+las rentas se asocia con una disminución aproximada de 0,035 puntos de $DIVX$.
+La interacción institucional tampoco es significativa ($p=0,427$), por lo que
+no se identifica una moderación estadísticamente precisa.
+
+$PEXP$ se asocia positivamente con $DIVX$ ($p=0,018$) y negativamente con
+$ECI$. Esta diferencia es consistente con la distinción entre ampliar la
+variedad estadística de la canasta y aumentar su sofisticación. $HUMCAP$
+presenta una asociación positiva con $DIVX$ ($p=0,020$), mientras que $NET$ y
+$\log(GDPPC)$ presentan coeficientes negativos. Estos dos últimos resultados
+deben interpretarse con cautela: corresponden a variación condicional dentro de
+la muestra y pierden estabilidad bajo algunas sensibilidades temporales.
+
+Las pruebas conjuntas muestran evidencia para los bloques institucional
+($p<0,001$), estructural ($p=0,019$), de capacidades productivas ($p=0,010$) y
+de controles económicos y financieros ($p<0,001$). Los bloques de rentas
+específicas per cápita y condiciones macroeconómicas no son conjuntamente
+significativos.
+
+
+\section{Desagregación por tipo de recurso extractivo}
+\label{sec:resultados-desagregacion}
+
+La extensión desagregada reemplaza $RENTS$ y su interacción por dos componentes:
+rentas de petróleo y gas, y rentas de minería y carbón. Mantiene la misma
+muestra, los demás regresores de $M_3$, los efectos fijos bidireccionales y los
+errores estándar agrupados por país. Para el TFM, la evidencia sectorial se
+concentra en esta especificación integrada; las secuencias temáticas por recurso
+se conservan como análisis auxiliares y no sustituyen el resultado principal.
+
+\begin{table}[htbp]
+    \centering
+    \caption{Resultados focales del modelo agregado y de la desagregación de rentas}
+    \label{tab:modelos_desagregados_twfe}
+    \label{tab:progresion_hidrocarburos_twfe}
+    \label{tab:progresion_mineria_twfe}
+    \label{tab:resultados_desagregados_peer2}
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{llrrrr}
+        \toprule
+        Resultado & Especificación y término & Coeficiente & EE & $p$-valor & IC 95\% \\
+        \midrule
+        $ECI$ & $RENTS$ agregado & $-0,0098$ & 0,0042 & 0,023 & [$-0,0182$; $-0,0014$] \\
+        $ECI$ & Petróleo y gas & $-0,0073$ & 0,0057 & 0,212 & [$-0,0188$; 0,0043] \\
+        $ECI$ & Minería y carbón & $-0,0136$ & 0,0039 & 0,001 & [$-0,0215$; $-0,0057$] \\
+        $ECI$ & Petróleo y gas $\times INST$ & $-0,0057$ & 0,0039 & 0,155 & [$-0,0135$; 0,0022] \\
+        $ECI$ & Minería y carbón $\times INST$ & $-0,0021$ & 0,0043 & 0,622 & [$-0,0107$; 0,0065] \\
+        \addlinespace
+        $DIVX$ & $RENTS$ agregado & $-0,0035$ & 0,0013 & 0,009 & [$-0,0061$; $-0,0009$] \\
+        $DIVX$ & Petróleo y gas & $-0,0048$ & 0,0014 & 0,001 & [$-0,0076$; $-0,0021$] \\
+        $DIVX$ & Minería y carbón & $-0,0014$ & 0,0019 & 0,459 & [$-0,0052$; 0,0024] \\
+        $DIVX$ & Petróleo y gas $\times INST$ & 0,0012 & 0,0013 & 0,357 & [$-0,0014$; 0,0038] \\
+        $DIVX$ & Minería y carbón $\times INST$ & $-0,0009$ & 0,0023 & 0,693 & [$-0,0054$; 0,0037] \\
+        \bottomrule
+    \end{tabular}}
+    \caption*{\footnotesize \textit{Nota:} Modelos completos con 1.044 observaciones, 49 países, efectos fijos por país y año y errores estándar agrupados por país.}
+    \caption*{\footnotesize \textit{Fuente: Elaboración propia a partir del panel maestro.}}
+\end{table}
+
+Para $ECI$, las rentas de minería y carbón presentan una asociación negativa
+($-0,0136$, $p=0,001$) y el componente formado por su término directo y su
+interacción es conjuntamente significativo ($p=0,002$). Para $DIVX$, el patrón
+análogo se concentra en petróleo y gas: el coeficiente directo es $-0,0048$
+($p=0,001$) y ambos términos son conjuntamente significativos ($p<0,001$).
+
+Estos resultados no demuestran que los componentes sean estadísticamente
+distintos entre sí. La igualdad de los coeficientes directos no se rechaza al
+5\% para $ECI$ ($p=0,325$) ni para $DIVX$ ($p=0,108$). En $DIVX$ sí se rechaza
+la restricción conjunta que iguala simultáneamente los términos directos y las
+interacciones ($p=0,018$). La lectura adecuada es, por tanto, la de patrones
+sectoriales complementarios y sugestivos, no la de mecanismos exclusivos o
+efectos causales diferenciados.
+
+Las sensibilidades específicas respaldan los dos patrones más definidos. El
+coeficiente de minería y carbón en $ECI$ conserva el signo en las 49 exclusiones
+de países, resulta significativo al 5\% en todas ellas y mantiene significación
+con bootstrap ($p_{boot}=0,024$). El coeficiente de petróleo y gas en $DIVX$
+también conserva el signo y la significación en las 49 exclusiones y presenta
+$p_{boot}=0,003$. Los demás términos desagregados no alcanzan el mismo nivel de
+estabilidad, por lo que se mantienen como evidencia no concluyente.
+
+
+\section{Inferencia y sensibilidad del modelo completo}
+\label{sec:resultados-sensibilidad}
+
+La \autoref{tab:pruebas_estabilidad_efectos_marginales} reúne las principales
+sensibilidades de $M_3$. Los ejercicios no se utilizan para seleccionar una
+nueva especificación según la significación obtenida; su función es mostrar qué
+resultados permanecen y cuáles dependen de supuestos adicionales.
+
+\begin{table}[htbp]
+    \centering
+    \caption{Síntesis de inferencia y sensibilidad de los términos focales}
+    \label{tab:pruebas_estabilidad_efectos_marginales}
+    \label{tab:robustez_m3_peer2}
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{p{0.31\textwidth}p{0.30\textwidth}p{0.30\textwidth}}
+        \toprule
+        Ejercicio & $ECI$ & $DIVX$ \\
+        \midrule
+        \textit{Wild Cluster Bootstrap}, $RENTS$
+        & $p_{boot}=0,040$ & $p_{boot}=0,021$ \\
+        \textit{Wild Cluster Bootstrap}, interacción
+        & $p_{boot}=0,209$ & $p_{boot}=0,477$ \\
+        Exclusión de un país por vez, $RENTS$
+        & Sin cambios de signo; significativo al 5\% en 46 de 49 iteraciones
+        & Sin cambios de signo; significativo al 5\% en 49 de 49 iteraciones \\
+        Exclusión de observaciones influyentes, $RENTS$
+        & $-0,0053$; $p=0,046$ & $-0,0045$; $p<0,001$ \\
+        Tendencias lineales por país, $RENTS$
+        & $-0,0044$; $p=0,210$ & $-0,0030$; $p=0,020$ \\
+        Interacciones desde 2014, prueba conjunta
+        & $p=0,343$ & $p=0,059$ \\
+        \bottomrule
+    \end{tabular}}
+    \caption*{\footnotesize \textit{Nota:} El bootstrap utiliza 9.999 replicaciones y pesos Rademacher. La sensibilidad de 2014 se estima en la muestra completa y contrasta conjuntamente los cambios de $RENTS$, $INST$ y $RENTS\times INST$.}
+    \caption*{\footnotesize \textit{Fuente: Elaboración propia a partir del panel maestro.}}
+\end{table}
+
+\subsection{Efectos marginales de las rentas según la calidad institucional}
+\label{subsec:resultados-efectos-marginales}
+
+Los efectos marginales se calculan dentro del soporte observado de $INST$, en
+los percentiles 10, 25, 50, 75 y 90. Para $ECI$, las cinco estimaciones son
+negativas y resultan distintas de cero al 5\% desde la mediana hasta el
+percentil 90. Para $DIVX$, también son negativas en los cinco puntos y son
+significativas desde el percentil 10 hasta el 75, pero no en el percentil 90.
+
+La pendiente marginal estimada se vuelve más negativa con $INST$ en la ecuación
+de $ECI$ y menos negativa en la de $DIVX$. Sin embargo, las interacciones no son
+significativas con la inferencia principal ni con el bootstrap. En consecuencia,
+las figuras describen cómo se combinan los coeficientes estimados, pero no aportan
+evidencia suficiente para afirmar una moderación institucional sistemática.
+
+La \autoref{fig:efectos-marginales-rents-inst-eci-peer2} muestra que la
+asociación marginal estimada entre $RENTS$ y $ECI$ se hace más negativa al
+aumentar $INST$. No obstante, el intervalo de confianza incluye cero en los
+percentiles institucionales inferiores y la interacción subyacente no es
+estadísticamente significativa.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.88\textwidth]{\subfix{../../../../outputs/econometrics/stata-peer-2/01_twfe_main/05_stability/eci_rents_marginal_effect_by_inst.pdf}}
+    \caption[Efecto marginal de las rentas sobre la complejidad económica]{Efecto marginal estimado de $RENTS$ sobre $ECI$ en cinco percentiles de $INST$.}
+    \label{fig:efectos-marginales-rents-inst-eci-peer2}
+    \caption*{\footnotesize \textit{Nota:} Intervalos de confianza del 95\%. Los puntos corresponden a percentiles observados de $INST$ y no implican extrapolación fuera del soporte muestral.}
+    \caption*{\footnotesize \textit{Fuente: Elaboración propia a partir del panel maestro.}}
+\end{figure}
+
+La \autoref{fig:efectos-marginales-rents-inst-divx-peer2} presenta el patrón
+opuesto para $DIVX$: la asociación marginal permanece negativa, pero se aproxima
+a cero a medida que aumenta $INST$. Su intervalo de confianza incluye cero en el
+percentil 90 y, al igual que en la ecuación de $ECI$, este perfil no permite
+afirmar una moderación institucional estadísticamente identificada.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.88\textwidth]{\subfix{../../../../outputs/econometrics/stata-peer-2/01_twfe_main/05_stability/divx_rents_marginal_effect_by_inst.pdf}}
+    \caption[Efecto marginal de las rentas sobre la diversificación exportadora]{Efecto marginal estimado de $RENTS$ sobre $DIVX$ en cinco percentiles de $INST$.}
+    \label{fig:efectos-marginales-rents-inst-divx-peer2}
+    \caption*{\footnotesize \textit{Nota:} Intervalos de confianza del 95\%. Los puntos corresponden a percentiles observados de $INST$ y no implican extrapolación fuera del soporte muestral.}
+    \caption*{\footnotesize \textit{Fuente: Elaboración propia a partir del panel maestro.}}
+\end{figure}
+
+\subsection{Estabilidad muestral, transformación y tendencias}
+\label{subsec:resultados-estabilidad-adicional}
+
+La exclusión de un país por vez conserva el signo negativo de $RENTS$ en las 49
+iteraciones de ambas ecuaciones. La asociación permanece significativa al 5\%
+en todas las iteraciones de $DIVX$ y en 46 de 49 para $ECI$; en este último caso
+es significativa al 10\% en las 49. Al retirar las observaciones señaladas por
+los diagnósticos de influencia, $RENTS$ continúa siendo negativo y significativo
+en ambas ecuaciones. La interacción permanece no concluyente.
+
+El reemplazo de $\ln(1+x)$ por los niveles de las rentas reales per cápita
+mantiene el coeficiente negativo de $RENTS$ en ambos modelos. Permanece
+significativo al 5\% para $DIVX$ ($p=0,017$), mientras que para $ECI$ pasa a ser
+marginal al 10\% ($p=0,068$). Los coeficientes individuales de las rentas per
+cápita son más sensibles a esta transformación, lo que refuerza su lectura como
+controles y no como resultados centrales.
+
+La incorporación de tendencias lineales específicas por país conserva la
+asociación negativa de $RENTS$ con $DIVX$ ($p=0,020$), pero reduce la magnitud y
+la precisión en $ECI$ ($p=0,210$). En esta sensibilidad también pierden
+significación varios coeficientes no focales de $DIVX$, entre ellos $PEXP$,
+$HUMCAP$, $NET$ y $\log(GDPPC)$. En cambio, $HHI$ y $FEXP$ mantienen asociaciones
+negativas con $ECI$. Estos cambios muestran que los resultados no focales son
+más dependientes de la forma en que se controlan las tendencias nacionales.
+
+\subsection{Sensibilidad temporal de 2014}
+\label{subsec:resultados-sensibilidad-2014}
+
+La sensibilidad temporal conserva las 1.044 observaciones y permite que los
+tres términos focales cambien desde 2014 mediante interacciones en una única
+regresión. La prueba conjunta no rechaza estabilidad al 5\% para $ECI$
+($p=0,343$) ni para $DIVX$ ($p=0,059$). El resultado de $DIVX$ es marginal al
+10\%, pero no justifica afirmar un quiebre general ni seleccionar otro modelo.
+Además, los datos anuales de 2014 combinan meses anteriores y posteriores a la
+caída internacional de precios, por lo que este ejercicio se interpreta
+exclusivamente como sensibilidad temporal preespecificada.
+
+
+\section{Discusión integrada y contraste de hipótesis}
+\label{sec:discusion-resultados}
+
+Los resultados principales distinguen con claridad entre sofisticación y
+dispersión exportadora. La estructura exportadora concentra la evidencia más
+consistente para $ECI$: mayor concentración, mayor participación primaria no
+energética y mayor participación de combustibles se asocian con menor
+complejidad. Para $DIVX$, $PEXP$ presenta signo positivo, lo que indica que una
+canasta puede incorporar una mayor variedad de productos primarios sin aumentar
+necesariamente su sofisticación.
+
+$RENTS$ presenta una asociación negativa en ambas ecuaciones y mantiene su
+signo bajo bootstrap, exclusión de países y observaciones influyentes. No
+obstante, su resultado para $ECI$ pierde precisión al incluir tendencias
+lineales por país. Por ello, la evidencia es más estable para diversificación
+que para complejidad bajo esa sensibilidad exigente.
+
+La calidad institucional no muestra una moderación estadísticamente precisa.
+El coeficiente de $INST$ es positivo y marginal en $ECI$, pero las interacciones
+no son significativas y los efectos marginales siguen patrones diferentes entre
+ambos resultados. Tampoco se detecta una asociación adicional robusta para
+$VOL$ y $RER$. En capacidades, el resultado positivo de $HUMCAP$ sobre $DIVX$
+es relevante en el modelo base, aunque pierde precisión con tendencias por
+país; $INNOV$ no presenta una asociación adicional significativa.
+
+A partir de esta evidencia, las hipótesis se evalúan de la siguiente manera:
+
+\begin{enumerate}
+    \item \textit{\hyperref[hyp:h1]{Hipótesis 1} --- evidencia compatible, pero parcial}. Las asociaciones negativas de $RENTS$, $HHI$, $PEXP$ y $FEXP$ con $ECI$, y de $RENTS$ con $DIVX$, son compatibles con una relación adversa entre especialización extractiva y transformación estructural externa. El modelo no identifica directamente enfermedad holandesa, estructuras de enclave ni encadenamientos débiles como mecanismos causales.
+
+    \item \textit{\hyperref[hyp:h2]{Hipótesis 2} --- no respaldada por la interacción estimada}. $RENTS\times INST$ no es significativo en $ECI$ ni en $DIVX$, tampoco bajo bootstrap. Por tanto, no se detecta que la calidad institucional modifique sistemáticamente la asociación de las rentas en la forma propuesta.
+
+    \item \textit{\hyperref[hyp:h3]{Hipótesis 3} --- evidencia no concluyente}. $VOL$ y $RER$ no son significativos individual ni conjuntamente. El diseño no permite concluir que la volatilidad carezca de importancia, pero tampoco aporta evidencia directa a favor del canal macroeconómico formulado.
+
+    \item \textit{\hyperref[hyp:h4]{Hipótesis 4} --- respaldo limitado}. $HUMCAP$ se asocia positivamente con $DIVX$, pero no con $ECI$, y pierde precisión al incorporar tendencias por país. $INNOV$ no es significativa. La evidencia respalda parcialmente el papel del capital humano en diversificación, no una conclusión general sobre todas las capacidades.
+
+    \item \textit{\hyperref[hyp:h5]{Hipótesis 5} --- patrones sugestivos, no diferencias concluyentes}. La minería y el carbón se asocian con menor $ECI$, mientras que el petróleo y el gas se asocian con menor $DIVX$. Sin embargo, las pruebas de igualdad de los coeficientes directos no rechazan igualdad al 5\%. La desagregación sugiere heterogeneidad sectorial, pero no demuestra que cada recurso actúe mediante un canal exclusivo.
+\end{enumerate}
+
+En síntesis, la evidencia más consistente se concentra en la asociación negativa
+de las rentas con ambos resultados y en el papel de la estructura exportadora
+para la complejidad. La moderación institucional y los canales macroeconómicos
+no reciben respaldo estadístico suficiente, mientras que las capacidades y la
+desagregación ofrecen resultados complementarios cuya estabilidad es desigual.
+Esta jerarquía empírica orienta la lectura de las conclusiones sin exceder el
+alcance observacional del estudio.
+
+% =====================================
+% FIN DEL CAPÍTULO
+% =====================================
 
 \end{document}

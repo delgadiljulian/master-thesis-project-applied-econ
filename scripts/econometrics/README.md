@@ -32,8 +32,6 @@ scripts/econometrics/
       02_lagged_and_cumulative_models.do
       03_leads_changes_and_sensitivity.do
       WORK_PLAN.md
-    03_within_between/
-      WORK_PLAN.md
 ```
 
 ## Alcance
@@ -53,8 +51,7 @@ causales.
 El núcleo principal utiliza RENTS totales en M1, M2 y M3. Los archivos 06 y 07
 replican M1 y M2 con RENTS_OIL_GAS y RENTS_MINING, respectivamente. El archivo
 08 constituye el contraste desagregado formal que incorpora ambos componentes
-conjuntamente. El módulo temporal se conserva como robustez complementaria y la
-descomposición within-between permanece aplazada.
+conjuntamente. El módulo temporal se conserva como robustez complementaria.
 
 ## Insumo común
 
@@ -94,12 +91,10 @@ outputs/econometrics/
   stata-peer-2/
     01_twfe_main/
     02_temporal_fe/
-    03_within_between/
 ```
 
 En Peer 2, Git conserva las tablas, figuras y manifiestos reproducibles de
-`01_twfe_main/` y `02_temporal_fe/`. `03_within_between/` solo conserva su
-marcador mientras el módulo permanezca aplazado.
+`01_twfe_main/` y `02_temporal_fe/`.
 
 Se excluyen del repositorio:
 
@@ -115,5 +110,4 @@ documentan en:
 - [`stata-peer-1/twfe/WORK_PLAN.md`](stata-peer-1/twfe/WORK_PLAN.md);
 - [`stata-peer-2/ECONOMETRIC_STRATEGY.md`](stata-peer-2/ECONOMETRIC_STRATEGY.md);
 - [`stata-peer-2/01_twfe_main/WORK_PLAN.md`](stata-peer-2/01_twfe_main/WORK_PLAN.md);
-- [`stata-peer-2/02_temporal_fe/WORK_PLAN.md`](stata-peer-2/02_temporal_fe/WORK_PLAN.md);
-- [`stata-peer-2/03_within_between/WORK_PLAN.md`](stata-peer-2/03_within_between/WORK_PLAN.md).
+- [`stata-peer-2/02_temporal_fe/WORK_PLAN.md`](stata-peer-2/02_temporal_fe/WORK_PLAN.md).

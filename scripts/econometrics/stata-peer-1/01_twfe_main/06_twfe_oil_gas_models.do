@@ -117,14 +117,14 @@ label variable rents_oil_gas_x_inst "Rentas hidrocarburos x INST"
 // *****************************************************************************
 
 * 3.1. Estimar M1 Hidrocarburos sobre Complejidad Económica (ECI)
-reghdfe eci rents_oil_gas inst rents_oil_gas_x_inst log_oilpc log_gaspc log_coalpc hhi pexp fexp log_gdppc if sample_eci == 1, absorb(country_id year) vce(cluster country_id)
+reghdfe eci c.rents_oil_gas##c.inst log_oilpc log_gaspc log_coalpc hhi pexp fexp log_gdppc if sample_eci == 1, absorb(country_id year) vce(cluster country_id)
 estimates store M1_OG_ECI
 local ster_path "$OUTPUT_OG/m1_og_eci.ster"
 local ster_path = subinstr("`ster_path'", "/", "\", .)
 estimates save "`ster_path'", replace
 
 * 3.2. Estimar M1 Hidrocarburos sobre Diversificación Exportadora (DIVX)
-reghdfe divx rents_oil_gas inst rents_oil_gas_x_inst log_oilpc log_gaspc log_coalpc pexp fexp log_gdppc if sample_divx == 1, absorb(country_id year) vce(cluster country_id)
+reghdfe divx c.rents_oil_gas##c.inst log_oilpc log_gaspc log_coalpc pexp fexp log_gdppc if sample_divx == 1, absorb(country_id year) vce(cluster country_id)
 estimates store M1_OG_DIVX
 local ster_path "$OUTPUT_OG/m1_og_divx.ster"
 local ster_path = subinstr("`ster_path'", "/", "\", .)
@@ -136,14 +136,14 @@ estimates save "`ster_path'", replace
 // *****************************************************************************
 
 * 4.1. Estimar M2 Hidrocarburos sobre Complejidad Económica (ECI)
-reghdfe eci rents_oil_gas inst rents_oil_gas_x_inst vol rer humcap innov net log_gdppc govcons fin if sample_eci == 1, absorb(country_id year) vce(cluster country_id)
+reghdfe eci c.rents_oil_gas##c.inst vol rer humcap innov net log_gdppc govcons fin if sample_eci == 1, absorb(country_id year) vce(cluster country_id)
 estimates store M2_OG_ECI
 local ster_path "$OUTPUT_OG/m2_og_eci.ster"
 local ster_path = subinstr("`ster_path'", "/", "\", .)
 estimates save "`ster_path'", replace
 
 * 4.2. Estimar M2 Hidrocarburos sobre Diversificación Exportadora (DIVX)
-reghdfe divx rents_oil_gas inst rents_oil_gas_x_inst vol rer humcap innov net log_gdppc govcons fin if sample_divx == 1, absorb(country_id year) vce(cluster country_id)
+reghdfe divx c.rents_oil_gas##c.inst vol rer humcap innov net log_gdppc govcons fin if sample_divx == 1, absorb(country_id year) vce(cluster country_id)
 estimates store M2_OG_DIVX
 local ster_path "$OUTPUT_OG/m2_og_divx.ster"
 local ster_path = subinstr("`ster_path'", "/", "\", .)
@@ -229,22 +229,22 @@ postfile `og_test_post' str12 model str12 outcome str40 test_name double f_stat 
 
 * M1 ECI
 estimates restore M1_OG_ECI
-quietly test rents_oil_gas rents_oil_gas_x_inst
+quietly test rents_oil_gas c.rents_oil_gas#c.inst
 post `og_test_post' ("M1_OG") ("ECI") ("Mecanismo Hidrocarburos (rents + inter)") (r(F)) (r(p))
 
 * M1 DIVX
 estimates restore M1_OG_DIVX
-quietly test rents_oil_gas rents_oil_gas_x_inst
+quietly test rents_oil_gas c.rents_oil_gas#c.inst
 post `og_test_post' ("M1_OG") ("DIVX") ("Mecanismo Hidrocarburos (rents + inter)") (r(F)) (r(p))
 
 * M2 ECI
 estimates restore M2_OG_ECI
-quietly test rents_oil_gas rents_oil_gas_x_inst
+quietly test rents_oil_gas c.rents_oil_gas#c.inst
 post `og_test_post' ("M2_OG") ("ECI") ("Mecanismo Hidrocarburos (rents + inter)") (r(F)) (r(p))
 
 * M2 DIVX
 estimates restore M2_OG_DIVX
-quietly test rents_oil_gas rents_oil_gas_x_inst
+quietly test rents_oil_gas c.rents_oil_gas#c.inst
 post `og_test_post' ("M2_OG") ("DIVX") ("Mecanismo Hidrocarburos (rents + inter)") (r(F)) (r(p))
 
 postclose `og_test_post'

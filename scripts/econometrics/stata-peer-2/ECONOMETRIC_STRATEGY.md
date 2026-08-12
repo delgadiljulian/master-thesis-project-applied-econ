@@ -10,7 +10,6 @@ estructura efectiva del panel:
 |---|---|---|---|
 | Principal | TWFE jerarquizado | Asociaciones dentro de cada país | Evidencia central |
 | Auxiliar, no integrado al TFM vigente | FE temporal | Orden temporal de la exposición en muestras propias | Asociación separada; no sustituye ni robustece directamente el TWFE |
-| Aplazado | Within-between de Mundlak | Separar variación dentro y entre países | Descomposición descriptiva |
 
 System GMM e IV/2SLS se retiran del plan operativo. Tampoco se adoptan como
 estimadores principales CCE, PCSE, panel ARDL o efectos aleatorios simples.
@@ -72,24 +71,6 @@ rezagada ni pretende corregir endogeneidad mediante instrumentos internos.
 Sus muestras no coinciden con la muestra congelada del núcleo; por ello no se
 presenta en el TFM vigente como una robustez directa ni como evidencia central.
 
-### 3.3. Within-between de Mundlak
-
-Pregunta: ¿la relación observada proviene de cambios dentro de los países o de
-diferencias estructurales persistentes entre países?
-
-El modelo separa cada variable focal en:
-
-- desviación respecto de la media del país: componente within;
-- media del país: componente between.
-
-El componente within debe ser coherente con TWFE cuando la muestra y la
-especificación sean equivalentes. El componente between es descriptivo y no
-se interpreta causalmente.
-
-Este módulo no forma parte de la agenda econométrica activa. Se conserva su
-diseño, pero no se implementará antes de cerrar la comparación TWFE y redactar
-los resultados ya disponibles.
-
 ## 4. Secuencia principal de especificaciones
 
 Para ECI y DIVX se utilizarán tres especificaciones con RENTS totales:
@@ -128,7 +109,8 @@ de año. Por ello:
 - control por 49 conglomerados: wild cluster bootstrap;
 - estabilidad: exclusión sucesiva de países y revisión de observaciones
   influyentes;
-- Driscoll–Kraay: sensibilidad secundaria, no inferencia principal;
+- Driscoll–Kraay: solo se reconsiderará si futuros diagnósticos detectan
+  dependencia transversal residual sustantiva;
 - tendencias lineales específicas por país: sensibilidad exigente, no columna
   base;
 - CCE: solo se reconsiderará si nuevos diagnósticos detectan dependencia
@@ -157,11 +139,9 @@ scripts/econometrics/stata-peer-2/
     01_temporal_data_and_samples.do
     02_lagged_and_cumulative_models.do
     03_leads_changes_and_sensitivity.do
-  03_within_between/
-    WORK_PLAN.md
 ```
 
-Las salidas replican exactamente estos tres nombres dentro de
+Las salidas replican exactamente estos dos nombres dentro de
 `outputs/econometrics/stata-peer-2/`.
 
 ## 8. Estado y siguiente fase
@@ -172,27 +152,21 @@ Las salidas replican exactamente estos tres nombres dentro de
 4. El módulo temporal está completo como paquete auxiliar, pero no se integra
    al TFM vigente ni se interpreta como robustez directamente comparable con
    la muestra TWFE congelada.
-5. La descomposición within-between permanece aplazada y no se ejecutará en
-   esta fase.
-6. No se agregarán especificaciones antes de cerrar la comparación y redactar
+5. No se agregarán especificaciones antes de cerrar la comparación y redactar
    los resultados disponibles, sin votar resultados por significancia.
 
 ## 9. Criterio final para el TFM
 
 El TFM debe sostener sus conclusiones en TWFE. El paquete temporal permanece
 separado hasta que exista una decisión expresa y una reconciliación de muestra;
-en ningún caso convierte el estudio en causal. La descomposición
-within-between solo se reconsiderará después de cerrar la redacción vigente;
-si no aporta una pregunta adicional necesaria, se excluirá sin reemplazarla
-por GMM o IV.
+en ningún caso convierte el estudio en causal. No se incorporarán estimadores
+adicionales por obligación ni se reemplazará el núcleo por GMM o IV.
 
 ## 10. Referencias metodológicas de partida
 
 - [Roodman](https://doi.org/10.1111/j.1468-0084.2008.00542.x), sobre
   los riesgos de proliferación de instrumentos y la adecuación de GMM a
   paneles cortos y anchos.
-- [Mundlak](https://ideas.repec.org/a/ecm/emetrp/v46y1978i1p69-85.html),
-  sobre la separación de variación dentro y entre unidades.
 - [Driscoll y Kraay](https://direct.mit.edu/rest/article/80/4/549/57586/Consistent-Covariance-Matrix-Estimation-with), sobre inferencia robusta frente
   a dependencia temporal y transversal cuando la dimensión temporal es
   suficientemente informativa.
