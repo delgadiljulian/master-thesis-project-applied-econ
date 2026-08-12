@@ -177,6 +177,10 @@ environment.lock.yml
 docs/entrega-anterior/
 docs/previous-submission/
 
+# Peer review and audit folders retained only as local working material
+scripts/econometrics/stata-peer-1/*audit*/
+scripts/econometrics/stata-peer-2/*audit*/
+
 ############################
 # Project governance
 ############################
