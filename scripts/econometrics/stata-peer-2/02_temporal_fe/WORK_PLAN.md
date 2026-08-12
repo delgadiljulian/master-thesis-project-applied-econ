@@ -1,5 +1,17 @@
 # Plan de trabajo — efectos fijos y orden temporal
 
+## 0. Estado respecto del TFM vigente
+
+Este paquete está implementado como evidencia temporal asociativa separada. No
+forma parte de los resultados centrales del TFM ni es una robustez directamente
+comparable con `01_twfe_main`: sus muestras propias difieren de la muestra
+congelada de 1.044 observaciones y 49 países. Su incorporación al manuscrito
+exigiría autorización específica y una reconciliación previa de muestra y
+especificación.
+
+No contiene cointegración, ECM, VAR/VEC, Granger, proyecciones locales, filtro
+HP ni análisis de shocks; tampoco identifica relaciones causales.
+
 ## 1. Función
 
 Este módulo examina si la relación entre rentas extractivas y transformación

@@ -9,7 +9,7 @@ estructura efectiva del panel:
 | Jerarquía | Módulo | Función | Interpretación |
 |---|---|---|---|
 | Principal | TWFE jerarquizado | Asociaciones dentro de cada país | Evidencia central |
-| Complementario | FE temporal | Orden temporal y persistencia de la exposición | Robustez, no causalidad |
+| Auxiliar, no integrado al TFM vigente | FE temporal | Orden temporal de la exposición en muestras propias | Asociación separada; no sustituye ni robustece directamente el TWFE |
 | Aplazado | Within-between de Mundlak | Separar variación dentro y entre países | Descomposición descriptiva |
 
 System GMM e IV/2SLS se retiran del plan operativo. Tampoco se adoptan como
@@ -61,7 +61,7 @@ Estimando principal:
 - moderación de esa asociación por INST;
 - aporte de los canales extractivos, productivos y macroeconómicos.
 
-### 3.2. FE temporal
+### 3.2. FE temporal (paquete auxiliar separado)
 
 Pregunta: ¿la asociación aparece contemporáneamente, con rezago o al considerar
 una exposición acumulada reciente?
@@ -69,6 +69,8 @@ una exposición acumulada reciente?
 Este módulo utiliza valores rezagados y promedios móviles de RENTS e INST,
 además de una prueba con adelantos. No incluye una variable dependiente
 rezagada ni pretende corregir endogeneidad mediante instrumentos internos.
+Sus muestras no coinciden con la muestra congelada del núcleo; por ello no se
+presenta en el TFM vigente como una robustez directa ni como evidencia central.
 
 ### 3.3. Within-between de Mundlak
 
@@ -150,6 +152,7 @@ scripts/econometrics/stata-peer-2/
     run_stata_peer_2.ps1
     run_stata_peer_2.cmd
   02_temporal_fe/
+    README.md  # sensibilidades asociativas separadas; no LP, VAR/VEC ni ECM
     WORK_PLAN.md
     01_temporal_data_and_samples.do
     02_lagged_and_cumulative_models.do
@@ -166,7 +169,9 @@ Las salidas replican exactamente estos tres nombres dentro de
 1. El núcleo TWFE 01--05 está implementado y validado sobre la muestra común.
 2. Las extensiones 06 y 07 están implementadas para petróleo y gas y minería.
 3. El archivo 08 se conserva como contraste desagregado formal.
-4. El módulo temporal está completo y validado; se mantiene como robustez.
+4. El módulo temporal está completo como paquete auxiliar, pero no se integra
+   al TFM vigente ni se interpreta como robustez directamente comparable con
+   la muestra TWFE congelada.
 5. La descomposición within-between permanece aplazada y no se ejecutará en
    esta fase.
 6. No se agregarán especificaciones antes de cerrar la comparación y redactar
@@ -174,8 +179,9 @@ Las salidas replican exactamente estos tres nombres dentro de
 
 ## 9. Criterio final para el TFM
 
-El TFM debe sostener sus conclusiones en TWFE. El módulo temporal amplía la
-lectura, pero no convierte el estudio en causal. La descomposición
+El TFM debe sostener sus conclusiones en TWFE. El paquete temporal permanece
+separado hasta que exista una decisión expresa y una reconciliación de muestra;
+en ningún caso convierte el estudio en causal. La descomposición
 within-between solo se reconsiderará después de cerrar la redacción vigente;
 si no aporta una pregunta adicional necesaria, se excluirá sin reemplazarla
 por GMM o IV.

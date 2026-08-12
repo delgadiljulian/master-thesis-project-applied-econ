@@ -105,6 +105,9 @@ quietly cd "$PROJECT_ROOT"
 display as result "Raíz del proyecto localizada correctamente:"
 pwd
 
+* Cargar rutinas compartidas para los contratos esenciales de estimación.
+do "scripts/econometrics/stata-peer-2/01_twfe_main/00_validation_helpers.do"
+
 
 // A.3. Definir las entradas, salidas y el log del archivo 04
 
@@ -661,7 +664,9 @@ local eci_terms ///
     humcap innov net ///
     log_gdppc govcons fin
 
-* Aplicar la decisión aprobada en el Control C. Los errores se agrupan por país porque los diagnósticos detectaron heterocedasticidad y autocorrelación.
+* Inferencia principal: errores agrupados por país ante heterocedasticidad y
+* autocorrelación. Los efectos de año absorben shocks comunes; Pesaran CD no
+* activa automáticamente Driscoll--Kraay. Véase INFERENCE_RULE.md.
 global INFERENCE_MAIN "vce(cluster country_id)"
 
 
@@ -681,11 +686,9 @@ estimates store ECI_TWFE_MAIN
 estimates save "$OUTPUT_ECI/eci_twfe_main.ster", replace
 
 * Comprobar que xtreg utilizó todos y únicamente los casos completos definidos en la sección 3. Cualquier diferencia detiene inmediatamente el archivo.
-assert e(sample) == sample_eci
-* Validar automáticamente que la muestra contenga exactamente 1.044 observaciones.
-assert e(N)   == `eci_expected_n'
-* Control de calidad automático que detiene el script si no se cumple la condición.
-assert e(N_g) == `eci_expected_countries'
+peer2_assert_estimation_contract, ///
+    sample(sample_eci) observations(`eci_expected_n') ///
+    countries(`eci_expected_countries') clusters(`eci_expected_countries')
 
 * Guardar los principales resultados globales antes de ejecutar pruebas o abrir archivos temporales de resultados.
 local eci_n          = e(N)
@@ -1223,7 +1226,8 @@ local divx_hhi_position = strpos(" $DIVX_REGRESSORS ", " hhi ")
 * Detener la ejecución si la búsqueda anterior encuentra HHI.
 assert `divx_hhi_position' == 0
 
-* Conservar la inferencia aprobada en el Control C: errores estándar agrupados por país para responder a heterocedasticidad y autocorrelación.
+* Conservar la inferencia principal: errores agrupados por país para responder
+* a heterocedasticidad y autocorrelación; no sustituirla automáticamente por DK.
 global INFERENCE_MAIN "vce(cluster country_id)"
 
 
@@ -1243,11 +1247,9 @@ estimates store DIVX_TWFE_MAIN
 estimates save "$OUTPUT_DIVX/divx_twfe_main.ster", replace
 
 * Comprobar que la estimación utilizó todos y únicamente los casos previstos.
-assert e(sample) == sample_divx
-* Validar automáticamente que la muestra contenga exactamente 1.044 observaciones.
-assert e(N)   == `divx_expected_n'
-* Control de calidad automático que detiene el script si no se cumple la condición.
-assert e(N_g) == `divx_expected_countries'
+peer2_assert_estimation_contract, ///
+    sample(sample_divx) observations(`divx_expected_n') ///
+    countries(`divx_expected_countries') clusters(`divx_expected_countries')
 
 * Guardar las medidas generales antes de ejecutar pruebas adicionales.
 local divx_n          = e(N)

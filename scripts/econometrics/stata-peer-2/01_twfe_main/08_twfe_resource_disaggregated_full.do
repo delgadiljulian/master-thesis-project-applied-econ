@@ -103,6 +103,9 @@ quietly cd "$PROJECT_ROOT"
 display as result "Raíz del proyecto localizada correctamente:"
 pwd
 
+* Cargar rutinas compartidas para los contratos esenciales de estimación.
+do "scripts/econometrics/stata-peer-2/01_twfe_main/00_validation_helpers.do"
+
 
 // B.3. Definir las entradas, salidas y el log del archivo 08
 
@@ -1528,13 +1531,9 @@ estimates store ECI_TWFE_DISAGG
 estimates save "$OUTPUT_DISAGG_ECI/eci_twfe_disaggregated.ster", replace
 
 * Validar la integridad de los datos.
-assert e(sample) == sample_eci_disagg
-* Validar automáticamente que la muestra contenga exactamente 1.044 observaciones.
-assert e(N) == `eci_expected_n'
-* Control de calidad automático que detiene el script si no se cumple la condición.
-assert e(N_g) == `eci_expected_countries'
-* Control de calidad automático que detiene el script si no se cumple la condición.
-assert e(N_clust) == `eci_expected_countries'
+peer2_assert_estimation_contract, ///
+    sample(sample_eci_disagg) observations(`eci_expected_n') ///
+    countries(`eci_expected_countries') clusters(`eci_expected_countries')
 
 * Recuperar métricas de ajuste del modelo.
 local eci_n = e(N)
@@ -1922,13 +1921,9 @@ estimates store DIVX_TWFE_DISAGG
 estimates save "$OUTPUT_DISAGG_DIVX/divx_twfe_disaggregated.ster", replace
 
 * Validar la integridad de los datos.
-assert e(sample) == sample_divx_disagg
-* Validar automáticamente que la muestra contenga exactamente 1.044 observaciones.
-assert e(N) == `divx_expected_n'
-* Control de calidad automático que detiene el script si no se cumple la condición.
-assert e(N_g) == `divx_expected_countries'
-* Control de calidad automático que detiene el script si no se cumple la condición.
-assert e(N_clust) == `divx_expected_countries'
+peer2_assert_estimation_contract, ///
+    sample(sample_divx_disagg) observations(`divx_expected_n') ///
+    countries(`divx_expected_countries') clusters(`divx_expected_countries')
 
 * Conservar métricas de ajuste para DIVX.
 local divx_n = e(N)

@@ -9,7 +9,7 @@
 % =====================================
 
 
-	\chapter{Metodología y técnicas a utilizar}
+	\chapter{Metodología y estrategia empírica}
 	\label{chap:metodologia}
 	\thesisstartchap{metodologia}
 
@@ -38,16 +38,18 @@
 	para clasificar la dependencia externa de recursos naturales mediante el
 	indicador $DRES$.
 
-	En este marco, la estrategia empírica principal combina análisis descriptivo y
-	dos estimaciones en datos de panel con efectos fijos bidireccionales. La especificación
-	principal utiliza el índice de complejidad económica ($ECI$) como variable
-	dependiente, mientras que la especificación complementaria utiliza
+	En este marco, la estrategia empírica combina análisis descriptivo y dos
+	familias de estimaciones en datos de panel con efectos fijos bidireccionales.
+	La familia principal utiliza el índice de complejidad económica ($ECI$) como
+	variable dependiente, mientras que la familia complementaria utiliza
 	$DIVX=1-HHI$. Ambas incorporan el mismo conjunto de canales teóricos y la
 	interacción entre rentas extractivas y calidad institucional; la única
 	diferencia entre ellas es la exclusión de $HHI$ cuando $DIVX$ constituye la
-	variable dependiente. Estas dos ecuaciones definen los resultados sustantivos
-	del estudio, mientras que la desagregación por tipo de recurso y las pruebas de
-	estabilidad se utilizan para evaluar la robustez de la evidencia principal.
+	variable dependiente. Dentro de cada familia, M1 y M2 son especificaciones
+	temáticas paralelas y M3 es la especificación completa principal. Las dos
+	ecuaciones M3 definen los resultados sustantivos del estudio, mientras que la
+	desagregación por tipo de recurso y las pruebas de estabilidad se utilizan para
+	evaluar la sensibilidad de la evidencia principal.
 
 	Dado el carácter observacional del diseño y la posible endogeneidad
 	entre algunas variables centrales, los resultados se interpretarán como
@@ -452,16 +454,16 @@ económica también se relacionan con una menor concentración exportadora.
 La medida se interpreta como complemento del ECI, no como sustituto de la
 sofisticación productiva capturada por dicho índice.
 
-En el plano explicativo, además de $RENTS_{it}$ se incorporan variables
-que capturan distintas dimensiones de la inserción extractiva y de sus
-canales de transmisión. Entre ellas se incluyen proxies de abundancia
-extractiva en términos per cápita ($OILPC_{it}$, $GASPC_{it}$ y
-$COALPC_{it}$), indicadores de especialización exportadora como la
+En el plano explicativo, $RENTS_{it}$ se incorpora como uno de los componentes
+del modelo, junto con variables que capturan distintas dimensiones de la
+inserción extractiva y de sus canales de transmisión. Entre ellas se incluyen
+las rentas reales por habitante provenientes del petróleo, el gas y el carbón
+($OILPC_{it}$, $GASPC_{it}$ y $COALPC_{it}$), indicadores de especialización exportadora como la
 participación de exportaciones primarias no energéticas ($PEXP_{it}$) y de combustibles
 ($FEXP_{it}$), y una medida de concentración exportadora ($HHI_{it}$).
 Asimismo, la calidad institucional ($INST_{it}$) se incorpora como
-variable moderadora para evaluar si el efecto de las rentas extractivas
-sobre la transformación estructural depende del entorno institucional.
+variable moderadora para evaluar si la asociación entre las rentas extractivas
+y la transformación estructural varía con el entorno institucional.
 Junto con ello, se añaden variables macroeconómicas, fiscales, financieras
 y de capacidades productivas, tales como el tipo de cambio real
 ($RER_{it}$), la volatilidad ($VOL_{it}$), el consumo final del gobierno
@@ -473,10 +475,8 @@ utilizado como proxy del nivel de desarrollo económico.
 La \autoref{tab:variables} presenta la descripción, definición
 operacional y fuentes de las variables utilizadas en el análisis
 empírico. La selección definitiva de indicadores responde a criterios de
-consistencia conceptual, comparabilidad internacional, cobertura temporal
-y disponibilidad de información para el período principal de estimación
-1996--2021, sin perder de vista el horizonte general de recopilación
-1980--2022.
+	consistencia conceptual, comparabilidad internacional, cobertura temporal
+	y disponibilidad de información para el período de estimación 1996--2021.
 	\renewcommand{\arraystretch}{1.2}
 	\setlength{\tabcolsep}{4pt}
 
@@ -568,32 +568,32 @@ y disponibilidad de información para el período principal de estimación
 		Interacción entre rentas extractivas e instituciones
 		& RENTS $\times$ INST
 		& Interacción
-		& Término de interacción que evalúa si una mayor calidad institucional mitiga los efectos adversos de una mayor intensidad de rentas extractivas sobre la transformación estructural.
+		& Término de interacción que evalúa si la asociación entre la intensidad de las rentas extractivas y la transformación estructural varía con la calidad institucional.
 		& Elaboración propia \\
 		\hline
 
 		% -----------------------------------------------------
-		% CANAL DE ABUNDANCIA
+		% RENTAS EXTRACTIVAS ESPECÍFICAS
 		% -----------------------------------------------------
 
 		Renta petrolera per cápita
 		& OILPC
-		& Explicativa de abundancia
-		& Valor real de la renta petrolera por habitante, obtenido al aplicar la renta petrolera como porcentaje del PIB al PIB real y dividir el resultado por la población.
+		& Explicativa de intensidad extractiva
+		& Valor real de la renta petrolera por habitante, obtenido al aplicar la renta petrolera como porcentaje del PIB al PIB real y dividir el resultado por la población. En las estimaciones se utiliza $\ln(1+OILPC)$.
 		& World Development Indicators / elaboración propia \\
 		\hline
 
 		Renta gasífera per cápita
 		& GASPC
-		& Explicativa de abundancia
-		& Valor real de la renta de gas natural por habitante, obtenido al aplicar la renta gasífera como porcentaje del PIB al PIB real y dividir el resultado por la población.
+		& Explicativa de intensidad extractiva
+		& Valor real de la renta de gas natural por habitante, obtenido al aplicar la renta gasífera como porcentaje del PIB al PIB real y dividir el resultado por la población. En las estimaciones se utiliza $\ln(1+GASPC)$.
 		& World Development Indicators / elaboración propia \\
 		\hline
 
 		Renta carbonífera per cápita
 		& COALPC
-		& Explicativa de abundancia
-		& Valor real de la renta del carbón por habitante, obtenido al aplicar la renta carbonífera como porcentaje del PIB al PIB real y dividir el resultado por la población.
+		& Explicativa de intensidad extractiva
+		& Valor real de la renta del carbón por habitante, obtenido al aplicar la renta carbonífera como porcentaje del PIB al PIB real y dividir el resultado por la población. En las estimaciones se utiliza $\ln(1+COALPC)$.
 		& World Development Indicators / elaboración propia \\
 		\hline
 
@@ -890,9 +890,19 @@ y disponibilidad de información para el período principal de estimación
 	\label{subsec:cobertura-panel-maestro}
 
 	La grilla maestra conserva las 1.430 llaves país--año aun cuando alguna
-	variable no esté disponible. La muestra efectiva de cada ecuación se define
-	por la intersección de su variable dependiente y los regresores requeridos,
-	sin imputar información ni alterar la selección original de 55 economías.
+	variable no esté disponible. A partir de esa grilla, las estimaciones de
+	$ECI$ y $DIVX$ utilizan una muestra común y fija de 1.044 observaciones,
+	correspondientes a 49 países y 23 años efectivos dentro del intervalo
+	1996--2021. El panel es desbalanceado: además de las ausencias específicas por
+	país, la muestra común no contiene observaciones para 1997, 1999 y 2001. Por
+	tanto, el intervalo calendario no equivale a una serie continua de 26 años.
+
+	La muestra econométrica se obtiene por la intersección de las variables
+	dependientes y los regresores requeridos, sin imputaciones ni interpolaciones
+	y sin alterar la selección inicial de 55 economías definida mediante
+	$DRES\geq20\%$ en 1990--1995. Esta regla permite que M1, M2 y M3 sean
+	comparables y evita que las diferencias entre especificaciones respondan a
+	cambios en la composición muestral.
 	La cobertura individual, la composición de la muestra conjunta y los
 	estadísticos descriptivos se presentan exclusivamente en el
 	\autoref{chap:datos-variables}, para no duplicar resultados empíricos dentro
@@ -906,9 +916,29 @@ y disponibilidad de información para el período principal de estimación
 
 	En este marco, la transformación estructural se aproxima desde su dimensión externa. La variable dependiente principal es la complejidad económica ($ECI$), que refleja la sofisticación de la canasta exportadora, y se considera como resultado complementario la diversificación exportadora ($DIVX=1-HHI$), que captura el grado de dispersión de dicha canasta.
 
-	A diferencia de enfoques que tratan la dependencia exportadora de recursos como resultado, en este modelo la variable principal de interés no es $DRES$, utilizada para seleccionar la muestra, sino la intensidad macroeconómica de las rentas extractivas ($RENTS$). En particular, su efecto se encuentra mediado por la calidad institucional ($INST$), lo que permite capturar mecanismos mediante los cuales el peso económico de los recursos puede traducirse en trayectorias divergentes de desarrollo.
+	$DRES$ se utiliza exclusivamente para seleccionar la muestra y no interviene
+	como variable dependiente ni como regresor. Por su parte, $RENTS$ aproxima la
+	intensidad macroeconómica de las rentas extractivas y constituye uno de los
+	componentes explicativos del modelo, no el resultado ni el único centro de la
+	tesis. Su interacción con $INST$ permite evaluar si la asociación condicional
+	entre las rentas extractivas y la transformación estructural varía con la
+	calidad institucional; no identifica por sí misma un mecanismo causal de
+	mediación.
 
-	En términos analíticos, el modelo se organiza en varios canales complementarios: (i) un canal institucional, capturado por $RENTS$, $INST$ y su interacción; (ii) un canal de abundancia, aproximado mediante $OILPC$, $GASPC$ y $COALPC$; (iii) un canal estructural, representado por la concentración exportadora ($HHI$) y por indicadores de especialización externa ($PEXP$ y $FEXP$); (iv) un canal macroeconómico, asociado a la volatilidad ($VOL$) y al tipo de cambio real ($RER$); y (v) un canal de capacidades productivas, reflejado por $HUMCAP$, $INNOV$ y $NET$. Adicionalmente, se incorporan controles económicos y financieros ($\log(GDPPC_{it})$, $GOVCONS$ y $FIN$), donde el logaritmo del PIB per cápita actúa como proxy del nivel de desarrollo económico y $GOVCONS$ controla por el tamaño relativo del consumo público.
+	En términos analíticos, el modelo se organiza en seis canales complementarios:
+	(i) rentas e instituciones, capturado por $RENTS$, $INST$ y su interacción;
+	(ii) rentas extractivas específicas por habitante, medidas mediante $OILPC$,
+	$GASPC$ y $COALPC$; (iii) estructura exportadora, representada por $HHI$,
+	$PEXP$ y $FEXP$; (iv) estabilidad macroeconómica, aproximada mediante $VOL$ y
+	$RER$; (v) capacidades productivas, reflejadas por $HUMCAP$, $INNOV$ y $NET$;
+	y (vi) controles económicos y financieros, integrados por
+	$\log(GDPPC_{it})$, $GOVCONS$ y $FIN$. $OILPC$, $GASPC$ y $COALPC$ son
+	medidas monetarias de rentas reales per cápita y entran en las estimaciones
+	mediante la transformación $\ln(1+x)$: no representan precios
+	internacionales ni dotaciones físicas de recursos. Asimismo, $VOL$ es la
+	desviación estándar móvil de cinco años de las variaciones logarítmicas del
+	índice CTOT del FMI con ponderaciones fijas, y no un indicador de volatilidad
+	financiera o del precio internacional del petróleo.
 
 	La especificación econométrica de referencia se define como:
 
@@ -919,9 +949,9 @@ y disponibilidad de información para el período principal de estimación
 			&+ \beta_1 RENTS_{it}
 			+ \beta_2 INST_{it}
 			+ \beta_3(RENTS_{it} \times INST_{it}) \\
-			&+ \beta_4 OILPC_{it}
-			+ \beta_5 GASPC_{it}
-			+ \beta_6 COALPC_{it} \\
+			&+ \beta_4 \ln(1+OILPC_{it})
+			+ \beta_5 \ln(1+GASPC_{it})
+			+ \beta_6 \ln(1+COALPC_{it}) \\
 			&+ \beta_7 HHI_{it}
 			+ \beta_8 PEXP_{it}
 			+ \beta_9 FEXP_{it} \\
@@ -939,16 +969,30 @@ y disponibilidad de información para el período principal de estimación
 
 	donde $ECI_{it}$ representa la complejidad económica del país $i$ en el período $t$, $\mu_i$ corresponde a efectos fijos por país, $\lambda_t$ a efectos temporales comunes y $\varepsilon_{it}$ al término de error. Esta especificación constituye el modelo principal de la tesis, dado que el ECI captura la sofisticación de la canasta exportadora y las capacidades productivas reveladas.
 
-	La especificación incorpora de manera explícita los canales de abundancia ($OILPC_{it}$, $GASPC_{it}$, $COALPC_{it}$), estructura exportadora ($HHI_{it}$, $PEXP_{it}$, $FEXP_{it}$), condiciones macroeconómicas ($VOL_{it}$, $RER_{it}$), capacidades productivas ($HUMCAP_{it}$, $INNOV_{it}$, $NET_{it}$) y controles económicos y financieros ($\log(GDPPC_{it})$, $GOVCONS_{it}$, $FIN_{it}$). En esta especificación, $\log(GDPPC_{it})$ se interpreta explícitamente como proxy del nivel de desarrollo económico, y no como el PIB per cápita en niveles, mientras que $GOVCONS_{it}$ controla por el tamaño relativo del consumo público. Este conjunto de variables es consistente con el esquema conceptual presentado en la \autoref{fig:modelo-econometrico}.
+	La especificación incorpora de manera explícita las rentas extractivas
+	específicas por habitante ($OILPC_{it}$, $GASPC_{it}$, $COALPC_{it}$), la
+	estructura exportadora ($HHI_{it}$, $PEXP_{it}$, $FEXP_{it}$), las condiciones
+	macroeconómicas ($VOL_{it}$, $RER_{it}$), las capacidades productivas
+	($HUMCAP_{it}$, $INNOV_{it}$, $NET_{it}$) y los controles económicos y
+	financieros ($\log(GDPPC_{it})$, $GOVCONS_{it}$, $FIN_{it}$). En esta
+	especificación, $\log(GDPPC_{it})$ se interpreta explícitamente como proxy del
+	nivel de desarrollo económico, y no como el PIB per cápita en niveles,
+	mientras que $GOVCONS_{it}$ controla por el tamaño relativo del consumo
+	público. Este conjunto de variables es consistente con el esquema conceptual
+	presentado en la \autoref{fig:modelo-econometrico}.
 
 	Desde el punto de vista teórico, se espera que una mayor concentración exportadora ($HHI$), así como condiciones macroeconómicas adversas ---particularmente la volatilidad de los términos de intercambio de commodities y la apreciación del tipo de cambio real---, afecten negativamente la complejidad económica. Por el contrario, mayores niveles de capital humano e innovación deberían favorecer la acumulación de capacidades productivas y la diversificación exportadora.
 
-	En relación con el canal institucional, el efecto de las rentas extractivas ($RENTS$) sobre la transformación estructural no es unívoco, sino que depende de la calidad institucional. En economías con instituciones débiles, una mayor intensidad de rentas extractivas puede reforzar patrones de especialización, mientras que en contextos institucionales sólidos puede facilitar procesos de transformación productiva.
+	En relación con el canal institucional, la asociación entre las rentas
+	extractivas ($RENTS$) y la transformación estructural puede variar con la
+	calidad institucional. La hipótesis plantea que una mayor intensidad de rentas
+	puede asociarse con patrones de especialización en entornos institucionales
+	débiles y con trayectorias productivas distintas en contextos institucionales
+	más sólidos.
 
-	La interacción $RENTS_{it} \times INST_{it}$ permite modelar que un mismo
-	aumento de las rentas extractivas produzca efectos diferenciados según el
-	entorno institucional. Esta es la única interacción incluida en las dos
-	especificaciones del estudio.
+	La interacción $RENTS_{it} \times INST_{it}$ permite estimar asociaciones
+	diferenciadas según el entorno institucional. Esta es la única interacción
+	constitutiva incluida en las dos ecuaciones centrales del estudio.
 
 	Como resultado complementario, la tesis estima una segunda especificación en la que la variable dependiente es la diversificación exportadora, definida como $DIVX_{it}=1-HHI_{it}$. Esta especificación permite evaluar si los mecanismos asociados a la complejidad económica también se relacionan con una menor concentración de la canasta exportadora:
 
@@ -959,9 +1003,9 @@ y disponibilidad de información para el período principal de estimación
 			&+ \delta_1 RENTS_{it}
 			+ \delta_2 INST_{it}
 			+ \delta_3(RENTS_{it} \times INST_{it}) \\
-			&+ \delta_4 OILPC_{it}
-			+ \delta_5 GASPC_{it}
-			+ \delta_6 COALPC_{it} \\
+			&+ \delta_4 \ln(1+OILPC_{it})
+			+ \delta_5 \ln(1+GASPC_{it})
+			+ \delta_6 \ln(1+COALPC_{it}) \\
 			&+ \delta_7 PEXP_{it}
 			+ \delta_8 FEXP_{it} \\
 			&+ \delta_9 VOL_{it}
@@ -978,15 +1022,34 @@ y disponibilidad de información para el período principal de estimación
 
 	En la \autoref{eq:modelo_divx}, $HHI_{it}$ se excluye del conjunto de regresores porque $DIVX_{it}$ se construye directamente como su complemento. Esta es la única exclusión respecto del canal estructural: $PEXP_{it}$ y $FEXP_{it}$ permanecen como regresores y capturan, respectivamente, la especialización primaria no energética y la especialización en combustibles. De este modo, se evita introducir una relación mecánica entre la variable dependiente y una covariable explicativa sin alterar los demás canales del modelo. La interpretación de esta especificación es complementaria a la del modelo principal: mientras el ECI mide sofisticación y capacidades productivas reveladas, $DIVX$ captura la dispersión de la canasta exportadora.
 
-	Estas dos ecuaciones delimitan los resultados sustantivos de la tesis, pero no
-	agotan las herramientas de validación econométrica. Cada variable explicativa
-	conserva una definición operativa y una fuente activa; la única desagregación
-	predefinida separa las rentas de hidrocarburos de las rentas de minería y
-	carbón. La especificación con $DIVX$ es el resultado complementario al modelo
-	principal con $ECI$, y las estimaciones desagregadas, los cambios de
-	transformación y las pruebas de estabilidad se interpretan como análisis de
-	robustez, no como nuevos resultados dependientes seleccionados después de
-	observar los datos.
+	\subsection{Arquitectura de especificaciones M1, M2 y M3}
+	\label{subsec:arquitectura-modelos}
+
+	Para cada variable dependiente se estiman tres especificaciones sobre la misma
+	muestra común. M1 resume el bloque de estructura extractiva y exportadora:
+	incorpora $RENTS$, $INST$, su interacción, las tres rentas específicas per
+	cápita, $PEXP$, $FEXP$ y $\log(GDPPC)$. En el modelo de $ECI$ también incluye
+	$HHI$, mientras que en el modelo de $DIVX$ se excluye por construcción.
+
+	M2 representa el bloque de capacidades y estabilidad. Incluye $RENTS$,
+	$INST$, su interacción, $VOL$, $RER$, $HUMCAP$, $INNOV$, $NET$,
+	$\log(GDPPC)$, $GOVCONS$ y $FIN$. M1 y M2 son especificaciones temáticas
+	paralelas: ninguna constituye una ampliación secuencial de la otra y ambas se
+	encuentran anidadas en M3.
+
+	M3 reúne simultáneamente los seis canales descritos y corresponde a las
+	ecuaciones completas de las \autoref{eq:modelo_base} y
+	\autoref{eq:modelo_divx}. Por esta razón, constituye la especificación
+	principal para la interpretación sustantiva y para el protocolo integral de
+	diagnósticos y sensibilidad. M1 y M2 permiten examinar la estabilidad temática
+	de los patrones, pero no sustituyen a M3 ni se seleccionan en función de la
+	significancia obtenida.
+
+	Todas las especificaciones incluyen efectos fijos por país y por año y
+	errores estándar agrupados por país. Como extensión complementaria, la
+	desagregación predefinida de $RENTS$ separa las rentas de petróleo y gas de las
+	rentas de minería y carbón. Este ejercicio no modifica el centro analítico en
+	$ECI$ y $DIVX$ ni se interpreta como una nueva variable de resultado.
 
 	%%%%%%%%
 
@@ -1034,7 +1097,7 @@ y disponibilidad de información para el período principal de estimación
 
 		\multicolumn{3}{p{\textwidth}}{
 			\footnotesize
-			\textit{Nota: Los signos esperados corresponden a las hipótesis teóricas planteadas para el modelo de transformación estructural externa. La variable dependiente principal es el Índice de Complejidad Económica (ECI), y la diversificación exportadora ($DIVX=1-HHI$) se utiliza como resultado complementario. Los efectos esperados pueden diferir entre ambas variables dependientes.}
+			\textit{Nota: Los signos esperados corresponden a las hipótesis teóricas planteadas para el modelo de transformación estructural externa. La variable dependiente principal es el Índice de Complejidad Económica (ECI), y la diversificación exportadora ($DIVX=1-HHI$) se utiliza como resultado complementario. Los signos pueden diferir entre ambas variables dependientes.}
 		} \\
 
 		\endlastfoot
@@ -1051,7 +1114,7 @@ y disponibilidad de información para el período principal de estimación
 
 		RENTS $\times$ INST
 		& (+)
-		& Instituciones de mayor calidad pueden mitigar los efectos adversos de una mayor intensidad de rentas extractivas y facilitar su conversión en capacidades productivas. \\
+		& Instituciones de mayor calidad pueden atenuar la asociación adversa entre una mayor intensidad de rentas extractivas y la transformación estructural, y facilitar su conversión en capacidades productivas. \\
 		\hline
 
 		OILPC
@@ -1131,12 +1194,14 @@ y disponibilidad de información para el período principal de estimación
 		\hline
 
 	\end{longtable}
+	\thesissource{Elaboración propia a partir del marco teórico y de las hipótesis de la investigación.}
 
 
-	Dado que la disponibilidad temporal de algunas variables varía entre países
-	y fuentes, las estimaciones se realizarán sobre paneles desbalanceados. Las
-	dos ecuaciones principales se estimarán con efectos fijos por país y por año;
-	no se utilizarán modelos con efectos aleatorios como referencia sustantiva.
+	Las estimaciones se realizan sobre la muestra común desbalanceada de 1.044
+	observaciones, 49 países y 23 años efectivos. M1, M2 y M3 incluyen efectos
+	fijos por país y por año, y la inferencia principal utiliza errores estándar
+	agrupados por país. Los modelos con efectos aleatorios no se emplean como
+	referencia sustantiva.
 
 
 
@@ -1169,12 +1234,12 @@ y disponibilidad de información para el período principal de estimación
 			\node[var, below=of inst] (inter) {$RENTS \times INST$};
 
 			% -------------------------------
-			% CANAL ABUNDANCIA
+			% RENTAS EXTRACTIVAS ESPECÍFICAS
 			% -------------------------------
-			\node[channel, below=0.5cm of inter] (cA) {Canal de abundancia};
-			\node[var, below=of cA] (oil) {OILPC};
-			\node[var, below=of oil] (gas) {GASPC};
-			\node[var, below=of gas] (coal) {COALPC};
+			\node[channel, below=0.5cm of inter] (cA) {Rentas per cápita};
+			\node[var, below=of cA] (oil) {$\ln(1+OILPC)$};
+			\node[var, below=of oil] (gas) {$\ln(1+GASPC)$};
+			\node[var, below=of gas] (coal) {$\ln(1+COALPC)$};
 
 			% -------------------------------
 			% CANAL ESTRUCTURAL
@@ -1250,7 +1315,7 @@ y disponibilidad de información para el período principal de estimación
 
 		\end{tikzpicture}
 
-		\caption[Modelo econométrico de transformación estructural externa]{Modelo econométrico de transformación estructural externa. Esquema conceptual organizado por canales teóricos, incorporando abundancia de recursos, dependencia estructural, capacidades productivas y diversificación exportadora como resultado complementario.\protect\\[0.3em]\textit{Nota:} $HHI$ se incluye en el modelo donde $ECI$ es la variable dependiente; en el modelo complementario con $DIVX=1-HHI$, se excluye del conjunto de regresores.}
+		\caption[Modelo econométrico de transformación estructural externa]{Modelo econométrico de transformación estructural externa. Esquema conceptual organizado por canales teóricos, incorporando rentas extractivas reales per cápita, estructura exportadora, estabilidad macroeconómica, capacidades productivas y diversificación exportadora como resultado complementario.\protect\\[0.3em]\textit{Nota:} $HHI$ se incluye en el modelo donde $ECI$ es la variable dependiente; en el modelo complementario con $DIVX=1-HHI$, se excluye del conjunto de regresores.}
 		\label{fig:modelo-econometrico}
 		\caption*{\footnotesize \textit{Fuente: Elaboración propia.}}
 	\end{figure}
@@ -1259,38 +1324,144 @@ y disponibilidad de información para el período principal de estimación
 	\section{Procedimientos de análisis econométrico}
 	\label{sec:analisis-econometrico}
 
-	El análisis empírico se estructura en cinco etapas secuenciales que guían la contrastación de las hipótesis planteadas. En primer lugar, se realiza la descripción y caracterización de trayectorias a través de estadísticos descriptivos y análisis exploratorios de correlación, con el propósito de identificar patrones preliminares en la relación entre dependencia de recursos naturales y transformación estructural. El análisis se realiza sobre los 55 países definidos mediante $DRES\geq20\%$ en 1990--1995 y describe la cobertura efectiva de cada variable sin imputar observaciones faltantes.
+	El análisis empírico se organiza en seis etapas. En primer lugar, se describe
+	la selección inicial de 55 economías mediante $DRES\geq20\%$ en 1990--1995 y
+	se examinan la cobertura temporal, los vacíos y las distribuciones de las
+	variables, sin imputar ni interpolar observaciones.
 
-	En segundo lugar, se aborda el modelo principal centrado en el Índice de Complejidad Económica ($ECI$), estimando la \autoref{eq:modelo_base} mediante una especificación de datos de panel con efectos fijos por país y por año. Esta especificación incorpora todos los canales teóricos presentados en el diseño metodológico, incluida la interacción constitutiva entre la dependencia extractiva y la calidad institucional ($RENTS_{it}\times INST_{it}$), calculando errores estándar robustos a la estructura de dependencia del panel.
+	En segundo lugar, se fija la muestra econométrica común de 1.044 observaciones,
+	49 países y 23 años efectivos del período 1996--2021. Esta misma muestra se
+	mantiene en M1, M2 y M3 para $ECI$ y $DIVX$, con la única exclusión sustantiva
+	de $HHI$ en las ecuaciones de $DIVX$.
 
-	En tercer lugar, se evalúa el modelo complementario para la diversificación exportadora ($DIVX$), estimando la \autoref{eq:modelo_divx} bajo la misma estructura de efectos fijos bidireccionales y el mismo conjunto de regresores explicativos. En esta ecuación se excluye únicamente el índice de Herfindahl-Hirschman ($HHI$), debido a la identidad contable $DIVX = 1 - HHI$, manteniendo la prevalencia de exportaciones primarias y combustibles en el canal estructural.
+	En tercer lugar, se estiman M1 y M2 como especificaciones temáticas paralelas y
+	M3 como especificación completa principal. En todos los casos se incorporan
+	efectos fijos por país y por año y se calculan errores estándar agrupados por
+	país. La interacción $RENTS_{it}\times INST_{it}$ se incluye junto con sus
+	términos constitutivos.
 
-	En cuarto lugar, se examina la heterogeneidad por tipo de recurso extractivo reestimando ambas ecuaciones al sustituir la variable agregada $RENTS$ por sus componentes predefinidos de hidrocarburos y minería y carbón. Esta desagregación permite identificar y comparar patrones sectoriales diferenciados sin alterar la selección muestral ni atribuir carácter causal a las diferencias observadas.
+	En cuarto lugar, se realiza un diagnóstico descriptivo de persistencia mediante
+	coeficientes autorregresivos AR(1), sin convertirlos en categorías mecánicas,
+	y se aplican pruebas Fisher--ADF como información complementaria sobre el
+	comportamiento temporal de las series. Sus resultados no se utilizan para
+	clasificar automáticamente las variables como $I(0)$ o $I(1)$, transformar
+	las series ni seleccionar el estimador. Sobre los residuos de M3 se aplican la
+	prueba de Wald modificada para heterocedasticidad, la prueba de Wooldridge para
+	autocorrelación y la prueba de Pesaran CD para dependencia transversal; la
+	colinealidad se examina mediante factores de inflación de la varianza en la
+	transformación \textit{within}. Estas pruebas se interpretan como diagnósticos y no
+	como reglas automáticas de reemplazo de la especificación principal.
 
-	En quinto lugar, se aplica un protocolo econométrico integral de diagnósticos de series de tiempo, estabilidad e inferencia robusta para datos de panel. En esta dimensión, se verifica el orden de integración $I(1)$ de las series mediante pruebas Fisher-ADF y se evalúa la presencia de cointegración multivariada mediante las pruebas de Pedroni (1999), Kao (1999) y Westerlund (2007), garantizando la superconsistencia del estimador TWFE en niveles. Asimismo, se estima un sistema dinámico de impulso-respuesta mediante Proyecciones Locales en Panel (\textcite{Jorda2005}) para horizontes de $h=0$ a $h=5$ años en especificaciones agregadas y desagregadas, evaluando de forma simultánea la estabilidad temporal por submuestras para contrastar el auge del Superciclo (1996--2014) frente al período post-superciclo (2015--2021).
+	En quinto lugar, la inferencia y la estabilidad de M3 se evalúan mediante
+	\textit{Wild Cluster Bootstrap} con 9.999 replicaciones
+	(\textcite{CameronGelbachMiller2008};
+	\textcite{Roodman2019WildBootstrap}), exclusión iterativa de países
+	(\textit{leave-one-out}), análisis de observaciones influyentes y cálculo de
+	efectos marginales de $RENTS$ dentro del soporte observado de $INST$. También
+	se estiman especificaciones con tendencias lineales por país. El año 2014 se
+	incorpora únicamente como sensibilidad temporal preespecificada mediante
+	interacciones en la muestra completa y pruebas conjuntas; no se divide el
+	panel en regresiones separadas antes y después de ese año ni se interpreta
+	como un quiebre causal.
 
-	De forma complementaria, el análisis de robustez e inferencia contrasta la estimación baseline agrupada por país frente a la sensibilidad Jackknife LOO, el \textit{Wild Cluster Bootstrap} (\textcite{CameronGelbachMiller2008}; \textcite{Roodman2019WildBootstrap}), la matriz de covarianza de Driscoll y Kraay (1998) ajustada por $AR(p)$ y correlación espacial, y el esquema PCSE AR(1) de Beck y Katz. Finalmente, se aplica el filtro de Hodrick y Prescott ($\lambda = 6,25$, \textcite{RavnUhlig2002}) sobre el conjunto de 18 variables del modelo para discriminar la tendencia estructural de largo plazo del ciclo estocástico de corto plazo.
+	En sexto lugar, se estima la desagregación complementaria que distingue las
+	rentas de petróleo y gas de las rentas de minería y carbón. Este ejercicio
+	compara asociaciones sectoriales sin modificar la selección muestral ni
+	atribuir carácter causal a las diferencias observadas.
 
-	En conjunto, esta estrategia permite contrastar las hipótesis del trabajo y
-	distinguir los resultados principales de sus ejercicios de robustez. Ninguna
-	de estas pruebas elimina por sí sola la posible endogeneidad de las variables
-	centrales; por ello, los resultados se interpretarán dentro de las
-	limitaciones propias de un diseño observacional, comparativo y no
-	experimental.
+	En conjunto, el diseño identifica asociaciones condicionales dentro de los
+	países, netas de heterogeneidad invariable y de shocks anuales comunes. No
+	permite afirmar que las variables explicativas causen enfermedad holandesa,
+	destrucción de capacidades o diversificación. Los diagnósticos y ejercicios de
+	sensibilidad delimitan la estabilidad de los resultados, pero no eliminan la
+	endogeneidad propia de un diseño observacional, comparativo y no experimental.
 
 
 	\section{Métodos econométricos descartados y fundamentación metodológica}
 	\label{sec:metodos-descartados}
 
-	La selección de estimadores en esta investigación se realizó rigurosamente a partir de la pregunta de estudio, la estructura observacional del panel macroeconómico ($N=49$ países, $T=26$ años, con un promedio de 21,3 períodos por país) y los supuestos de identificación causal, descartando deliberadamente la comparación retrospectiva por significancia estadística. A continuación se exponen las razones metodológicas por las cuales diversas técnicas econométricas alternativas no fueron adoptadas como evidencia principal:
+	La elección de la estrategia empírica responde a la pregunta de investigación,
+	a la estructura observacional del panel ($N=49$ países y 23 años efectivos,
+	con un promedio de 21,3 observaciones por país) y a la ausencia de una fuente
+	exógena de variación que permita sostener identificación causal. Las
+	alternativas se descartan por razones de diseño y no a partir de comparaciones
+	retrospectivas de significancia estadística.
+
+	\subsection{Delimitación metodológica, diagnósticos y justificación de la especificación}
+	\label{subsec:delimitacion-metodologica}
+
+	La estrategia se circunscribe a asociaciones condicionadas estimadas mediante
+	efectos fijos por país y año. Esta delimitación no supone que otros métodos
+	carezcan de utilidad en paneles macroeconómicos; indica que, con la pregunta,
+	las series y la estructura muestral de esta investigación, no aportan una
+	identificación adicional suficientemente defendible. La inclusión o exclusión
+	de cada extensión se definió antes de interpretar los coeficientes principales.
+
+	\noindent\textit{Diagnósticos e inferencia:} Los residuos de M3 presentan
+	heterocedasticidad entre países y autocorrelación de primer orden. Por ello,
+	la inferencia principal utiliza errores estándar agrupados por país, que
+	permiten dependencia arbitraria dentro de cada conglomerado. Como contraste
+	para el número moderado de 49 conglomerados, los términos focales se evalúan
+	además mediante \textit{wild cluster bootstrap} con 9.999 replicaciones
+	\parencite{Cameron2008, Roodman2019}.
+	La prueba de Pesaran CD aplicada a residuos con efectos fijos anuales no
+	rechaza la independencia transversal ni para $ECI$ ($p=0{,}663$) ni para
+	$DIVX$ ($p=0{,}442$) \parencite{Pesaran2004}. En consecuencia,
+	Driscoll--Kraay no sustituye la inferencia agrupada ni se activa
+	automáticamente como sensibilidad; su uso requeriría una justificación,
+	especificación y regla de rezagos separadas
+	\parencite{Driscoll1998}.
+
+	\noindent\textit{Cointegración y modelos de corrección de errores:} No se estiman
+	pruebas de cointegración en panel ni modelos de corrección de errores. Las
+	pruebas Fisher--ADF entregan evidencia mixta entre variables y variantes, los
+	huecos internos del panel limitan la aplicación uniforme de otras pruebas y
+	no se preespecificó un vector de largo plazo que reproduzca exactamente la
+	ecuación M3 completa. Bajo estas condiciones, una prueba aplicada a un
+	subconjunto de regresores no justificaría interpretar la relación estimada
+	como un equilibrio de largo plazo \parencite{Pedroni1999, Kao1999}. Los efectos fijos no eliminan por sí solos los problemas
+	de integración; por esa razón, la tesis se limita explícitamente a
+	asociaciones contemporáneas condicionadas y no formula afirmaciones de
+	equilibrio de largo plazo.
+
+	\noindent\textit{Filtro HP y proyecciones locales:} Tampoco se utiliza el filtro
+	Hodrick--Prescott. Una descomposición mecánica entre tendencia y ciclo no
+	resuelve la endogeneidad de un diseño observacional ni identifica una relación
+	estructural de largo plazo; además, puede introducir dinámicas artificiales y
+	distorsiones en los extremos de la muestra \parencite{Hamilton2018}. Filtrar
+	solo $ECI$ o $DIVX$ mientras los regresores permanecen en niveles agravaría la
+	asimetría de la especificación. Por su parte, las proyecciones locales pueden
+	describir asociaciones dinámicas, pero no permiten denominar sus coeficientes
+	respuestas a impulsos causales cuando no existe un \textit{shock} identificado
+	ni una estrategia de identificación externa \parencite{Jorda2005}. Por ello,
+	no se incorporan como evidencia del TFM.
+
+	\subsection{Métodos adicionales descartados}
 
 	\begin{enumerate}
-		\item \textit{Panel Dinámico mediante GMM (Difference-GMM y System-GMM)}: Los estimadores de \textcite{ArellanoBond1991} y \textcite{BlundellBond1998} resultan especialmente aptos para micro-paneles cortos y anchos ($N \to \infty, T \text{ pequeño}$). En macro-paneles con $T \ge 25$, la matriz de instrumentos de GMM crece de forma cuadrática ($T^2$), provocando una \textit{proliferación masiva de instrumentos} (\textcite{Roodman2009TooManyInstruments}). En las pruebas preliminares del modelo, las especificaciones GMM generaron entre 97 y 103 instrumentos para 49--53 países, sobreajustando las variables endógenas y produciendo p-valores del test de Hansen cercanos a uno ($p \in [0,9998; 1,0000]$), lo que invalida su capacidad informativa.
-		\item \textit{Variables Instrumentales y 2SLS con Rezagos Internos}: Una estrategia IV/2SLS exige que los instrumentos satisfagan estrictamente la restricción de exclusión (\textcite{AngristImbensRubin1996}; \textcite{AndrewsStockSun2019}). Aunque los ejercicios preliminares con rezagos internos arrojaron estadísticos Kleibergen--Paap de primera etapa elevados (entre 61,8 y 205,1), la precedencia temporal no garantiza exogeneidad frente a shocks persistentes de precios o decisiones de política. Asimismo, un instrumento basado en precios internacionales interactuados afectaría directamente la estructura exportadora y el tipo de cambio real, violando la restricción de exclusión hacia $ECI$ y $DIVX$.
-		\item \textit{Modelos de Vectores Autorregresivos en Panel (PVAR)}: La estimación de un sistema PVAR (\textcite{LoveZicchino2006}) exige estimar cada variable en función de los rezagos de todas las demás. Con un vector completo de 18 variables como el del Modelo 3 ($M3$), un PVAR requeriría la estimación de más de 300 parámetros por ecuación, destruyendo los grados de libertad (\textit{maldición de la dimensionalidad}). Por ello, la investigación prioriza \textit{Proyecciones Locales en Panel} (\textcite{Jorda2005}), las cuales estiman ecuaciones dinámicas independientes por horizonte $h$ sin pérdida de grados de libertad.
-		\item \textit{Estimadores de Cointegración No Lineal en Panel (PMG, DOLS, FMOLS)}: En presencia de variables $I(1)$ y cointegración en panel (confirmada por las pruebas de Pedroni y Kao con $p < 0,0001$), el estimador OLS con efectos fijos bidireccionales (TWFE) en niveles es superconsistente (\textcite{Kao1999}; \textcite{Pedroni2004}; \textcite{PhillipsMoon1999}). Por ello, estimadores como Pooled Mean Group (PMG) o Dynamic OLS (DOLS) no aportan consistencia adicional y restan eficiencia ante la inclusión de 15 regresores.
-		\item \textit{Regresión Discontinua (RDD) y Propensity Score Matching (PSM)}: RDD requiere una variable de selección continua con un umbral institucional arbitrario de elegibilidad (\textit{cut-off}), inexistente en la dotación de recursos naturales. Asimismo, el emparejamiento por PSM está diseñado para datos de corte transversal y no permite controlar por la heterogeneidad inobservable de país invariante en el tiempo ($\alpha_i$).
-		\item \textit{Modelos Tobit y Selección Muestral de Heckman}: Los modelos de censura y selección muestral (\textcite{Heckman1979}) corrigen el sesgo cuando la variable dependiente sólo se observa para una submuestra no aleatoria. En este estudio, las variables dependientes ($ECI$ y $DIVX$) constituyen series continuas, completas e ininterrumpidas para los 49 países durante el período 1996--2021, descartando cualquier sesgo de truncamiento.
+		\item \textit{Panel dinámico mediante GMM}: los estimadores GMM pueden
+		ser vulnerables a la proliferación de instrumentos y a pruebas de validez
+		poco informativas cuando la dimensión temporal no es corta
+		\parencite{Roodman2009}. Además, la pregunta central no
+		requiere incluir una variable dependiente rezagada como componente del
+		modelo principal.
+		\item \textit{Variables instrumentales y 2SLS}: no se dispone de un
+		instrumento externo que satisfaga de manera defendible la relevancia y la
+		restricción de exclusión para $ECI$ y $DIVX$
+		\parencite{Angrist1996, Andrews2019}. Los
+		rezagos internos no resuelven por sí mismos la endogeneidad asociada a
+		shocks persistentes y decisiones de política.
+		\item \textit{Sistemas dinámicos multivariados}: un sistema que trate como
+		endógeno el conjunto completo de variables no corresponde al objetivo de
+		contrastar los canales teóricos definidos y exigiría una parametrización
+		desproporcionada frente al tamaño efectivo del panel. Por ello, no se adopta
+		como evidencia principal.
+		\item \textit{Diseños de tratamiento, censura o selección}: el umbral de
+		$DRES$ define ex ante la población analítica, pero no constituye una regla
+		de asignación cuasiexperimental. Tampoco existe censura de las variables
+		dependientes que justifique modelos de respuesta limitada. En consecuencia,
+		estos diseños no solucionan la pregunta ni las limitaciones de identificación
+		del estudio.
 	\end{enumerate}
 
 
