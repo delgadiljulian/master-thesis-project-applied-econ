@@ -6,18 +6,28 @@
 //
 // Tipo de trabajo: Trabajo Final de Maestría (TFM)
 // Título: Rentas extractivas y transformación estructural externa en economías
-//         dependientes de recursos naturales no renovables del subsuelo
-//         (1996--2021)
+//         dependientes de recursos naturales no renovables del subsuelo (1996--2021)
 // Autor: Julián Alberto Delgadillo Marín
 // Director: Martín Grandes
 //
-// Archivo: 02_twfe_extractive_export_structure.do (Versión Codex)
-// Contenido: Secciones 5 y 6 del análisis econométrico
-// Requisito operativo: ejecutar primero el archivo 01
-// Estado: implementación completa de las secciones 5 y 6
+// Archivo: 02_twfe_extractive_export_structure.do (Versión Codex - Peer-2)
+// Contenido: Modelo 1 (M1) — Evaluación de Estructura Extractiva y Exportadora
+// Propósito: Aislar la asociación entre RENTS y Complejidad/Diversificación
+//            distinguiendo entre la abundancia física per cápita y la estructura exportadora.
+// Requisito operativo: Ejecutar previamente 01_data_preparation_diagnostics.do
 // Fecha: Segundo Cuatrimestre 2026
 // *****************************************************************************
 
+// =============================================================================
+// GUÍA RÁPIDA DE COMPRENSIÓN ECONOMÉTRICA (MODELO 1):
+// - ¿Qué evalúa M1? La hipótesis de que las rentas extractivas (% PIB) ejercen un efecto
+//   independiente sobre ECI y DIVX, diferenciando la dotación física (petróleo, gas, carbón
+//   per cápita) de la estructura del canasto exportador (HHI, PEXP, FEXP).
+// - ¿Por qué se excluye HHI en DIVX? Porque DIVX = 1 - HHI por definición contable.
+//   Incluir HHI en la ecuación de DIVX generaría una colinealidad determinística.
+// - ¿Cómo se modela el canal institucional? Mediante sintaxis factorial c.rents##c.inst,
+//   lo que permite evaluar cómo varía d(Y)/d(RENTS) según el nivel de calidad institucional.
+// =============================================================================
 
 // *****************************************************************************
 // INICIALIZACIÓN DEL ARCHIVO 02

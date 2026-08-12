@@ -23,33 +23,37 @@
 
 
 // *****************************************************************************
-// PROPÓSITO, ALCANCE Y CONTRATO DEL ARCHIVO 03
+// PROPÓSITO, ALCANCE Y CONTRATO ECONOMÉTRICO DEL ARCHIVO 03
 // *****************************************************************************
-
-* Este archivo evalúa la falsificación y estabilidad de los modelos T1 y T2.
-* Su función no es producir una tercera especificación preferida.
-* Su objetivo es definir qué resultados pueden comunicarse con prudencia.
-
-* T4 evalúa un adelanto de RENTS y T5 estudia cambios anuales.
-* Las exclusiones de países examinan la sensibilidad a la composición.
-* Las tendencias nacionales examinan trayectorias propias de cada país.
-
-* Un adelanto significativo puede indicar anticipación o causalidad inversa.
-* También puede reflejar persistencia de RENTS entre años consecutivos.
-* Esta señal no prueba por sí sola una forma específica de endogeneidad.
-
-* Entradas previstas:
-*   - 01_sample/temporal_panel.dta;
-*   - diagnósticos y estimaciones guardadas por el archivo temporal 02.
-
-* Salidas previstas:
-*   - 06_placebo/lead_placebo_tests.csv;
-*   - 07_changes/first_difference_results.csv;
-*   - 08_stability/temporal_leave_one_out.csv;
-*   - 08_stability/country_trend_sensitivity.csv;
-*   - 09_final/temporal_acceptance_decision.csv;
-*   - 09_final/temporal_results_manifest.csv;
-*   - logs/03_leads_changes_and_sensitivity.log.
+//
+// 1. OBJETIVO DE FALSIFICACIÓN Y SENSIBILIDAD:
+//    Este archivo somete las especificaciones temporales preferidas (T1/T2) a cuatro
+//    pruebas econométricas de sensibilidad y falsificación:
+//
+// 2. MODALIDADES DE DIAGNÓSTICO:
+//    - T4 (Placebo / Adelanto t+1): Y_it = alpha_i + delta_t + beta_lead RENTS_i,t+1 + X_it' gamma + epsilon_it
+//      * Criterio placebo: H0: beta_lead = 0. Un beta_lead != 0 sugiere causalidad inversa o anticipación.
+//    - T5 (Primeras Diferencias - FD): Delta Y_it = delta_t + gamma_1 Delta RENTS_it + Delta X_it' gamma + u_it
+//      * Remueve heterogeneidad inobservable invariante en el tiempo mediante diferenciación directa.
+//    - Leave-One-Country-Out (LOO): Re-estimación iterativa (G-1) para descartar sensibilidad a un país dominante.
+//    - Tendencias Específicas por País (Country-Specific Linear Trends):
+//      Y_it = alpha_i + lambda_i × t + delta_t + beta_1 RENTS_it + ... + epsilon_it
+//      * Controla por trayectorias seculares no observadas diferenciadas por nación.
+//
+// 3. MATRIZ DE DECISIÓN Y MANIFIESTO FINAL:
+//    Consolida las decisiones de aceptación/rechazo en 09_final/temporal_acceptance_decision.csv
+//    y compila el manifiesto reproducible de resultados del módulo temporal.
+//
+// 4. ENTRADAS Y SALIDAS:
+//    - Entradas: 01_sample/temporal_panel.dta y modelos .ster generados por el archivo 02.
+//    - Salidas:  06_placebo/lead_placebo_tests.csv
+//               07_changes/first_difference_results.csv
+//               08_stability/temporal_leave_one_out.csv
+//               08_stability/country_trend_sensitivity.csv
+//               09_final/temporal_acceptance_decision.csv
+//               09_final/temporal_results_manifest.csv
+//               logs/03_leads_changes_and_sensitivity.log
+// *****************************************************************************
 
 
 // *****************************************************************************

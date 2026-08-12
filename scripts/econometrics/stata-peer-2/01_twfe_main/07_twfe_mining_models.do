@@ -6,19 +6,25 @@
 //
 // Tipo de trabajo: Trabajo Final de Maestría (TFM)
 // Título: Rentas extractivas y transformación estructural externa en economías
-//         dependientes de recursos naturales no renovables del subsuelo
-//         (1996--2021)
+//         dependientes de recursos naturales no renovables del subsuelo (1996--2021)
 // Autor: Julián Alberto Delgadillo Marín
 // Director: Martín Grandes
 //
-// Archivo: 07_twfe_mining_models.do (Versión Codex)
-// Contenido: Extensión paralela de las secciones 15 a 18
-// Extensión: Modelos 1 y 2 con RENTS_MINING exclusivamente
-// Requisito operativo: ejecutar primero el archivo 01
-// Estado: implementación completa de las secciones 15M a 18M
+// Archivo: 07_twfe_mining_models.do (Versión Codex - Peer-2)
+// Contenido: Sub-especificación de Minería y Carbón (Minerales Sólidos)
+// Propósito: Desagregar las rentas totales (RENTS) para aislar el impacto específico
+//            de RENTS_MINING (% PIB) y su interacción institucional sobre ECI y DIVX.
+// Requisito operativo: Ejecutar previamente 01_data_preparation_diagnostics.do
 // Fecha: Segundo Cuatrimestre 2026
 // *****************************************************************************
 
+// =============================================================================
+// GUÍA RÁPIDA DE COMPRENSIÓN ECONOMÉTRICA (MINERÍA Y CARBÓN):
+// - ¿Por qué aislar la minería? Los proyectos mineros muestran dinámicas territoriales y
+//   encadenamientos locales potencialmente distintos a los enclave de petróleo y gas.
+// - Ecuación de estimación: Y_it = f(RENTS_MINING_it, INST_it, RENTS_MINING_it × INST_it, X_it)
+//   empleando la sintaxis factorial nativa c.rents_mining##c.inst.
+// =============================================================================
 
 // *****************************************************************************
 // INICIALIZACIÓN DEL ARCHIVO 07

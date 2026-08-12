@@ -25,47 +25,38 @@
 
 
 // *****************************************************************************
-// PROPÓSITO, ALCANCE Y CONTRATO DEL ARCHIVO 01
+// PROPÓSITO, ALCANCE Y CONTRATO ECONOMÉTRICO DEL ARCHIVO 01
 // *****************************************************************************
-
-* Este archivo inicia el segundo módulo de la estrategia econométrica.
-* Convierte el panel maestro en una base temporal que puede auditarse.
-* Define las muestras T0--T5 antes de estimar resultados.
-
-* El módulo temporal no reemplaza el modelo TWFE principal.
-* T0 reproduce la especificación contemporánea usada como referencia.
-* T1--T3 estudian exposiciones pasadas y T4 usa un adelanto como placebo.
-* T5 estudia la relación entre cambios anuales de las variables.
-
-* Este archivo prepara los datos, pero todavía no estima modelos.
-* No instala GMM o IV ni selecciona rezagos según su significancia.
-* No imputa datos faltantes, rellena huecos ni modifica el panel maestro.
-
-* Principios que deben quedar implementados cuando se escriba el código:
-*   1. todas las variables temporales se construyen sobre la grilla país-año;
-*   2. un rezago solo es válido si corresponde al año calendario anterior;
-*   3. el promedio de tres años requiere t, t-1 y t-2 consecutivos;
-*   4. las muestras se definen sin observar coeficientes ni valores p;
-*   5. ECI y DIVX se auditan separadamente;
-*   6. cada pérdida de observaciones debe quedar explicada y exportada.
-
-* Entradas previstas:
-*   - panel maestro país-año en formato Stata;
-*   - definiciones de ECI, DIVX, RENTS, INST y RENTS × INST del TWFE principal;
-*   - período analítico 1996--2021 y códigos ISO3 de los países.
-
-* Salidas previstas:
-*   - 00_design/temporal_specification_register.csv;
-*   - 01_sample/temporal_sample_summary.csv;
-*   - 01_sample/temporal_sample_by_country.csv;
-*   - 01_sample/temporal_sample_by_year.csv;
-*   - 01_sample/temporal_panel.dta;
-*   - logs/01_temporal_data_and_samples.log.
-
-* Los archivos 02 y 03 utilizarán únicamente la base temporal validada.
-* Ambos comprobarán su existencia, llave única y marcadores de muestra.
-* Ninguno reconstruirá los rezagos por separado.
-
+//
+// 1. OBJETIVO DEL MÓDULO TEMPORAL:
+//    Este archivo inicia el módulo de diagnóstico de orden temporal y dinámica panel.
+//    Convierte el panel maestro congelado (1996--2021, N=1430) en una base temporal
+//    rigurosa y auditable, definiendo las submuestras analíticas T0--T5.
+//
+// 2. ESPECIFICACIONES TEMPORALES EVALUADAS:
+//    - T0 (Contemporáneo / Baseline): Y_it = f(RENTS_it, INST_it, RENTS_it × INST_it, X_it)
+//    - T1 (Rezago 1 año):           Y_it = f(RENTS_i,t-1, INST_i,t-1, RENTS_i,t-1 × INST_i,t-1, X_i,t-1)
+//    - T2 (Rezago 2 años):          Y_it = f(RENTS_i,t-2, INST_i,t-2, RENTS_i,t-2 × INST_i,t-2, X_i,t-2)
+//    - T3 (Promedio trienal t..t-2):Y_it = f(bar(RENTS)_i,t-2..t, bar(INST)_i,t-2..t, bar(X)_i,t-2..t)
+//    - T4 (Placebo / Adelanto t+1): Y_it = f(RENTS_i,t+1, INST_i,t+1, RENTS_i,t+1 × INST_i,t+1, X_i,t+1)
+//    - T5 (Primeras diferencias):   Delta Y_it = f(Delta RENTS_it, Delta INST_it, Delta X_it)
+//
+// 3. REGLAS DE INTEGRIDAD EN PANEL:
+//    - Todas las transformaciones se construyen sobre la estructura xtset country_id year.
+//    - Un rezago L1.X solo es válido si existe continuidad de año (year - year[_n-1] == 1).
+//    - El promedio móvil trienal exige presencia continua en t, t-1 y t-2.
+//    - Las submuestras ECI y DIVX se auditan separadamente para garantizar N=1044 en T0.
+//    - Cada pérdida de observaciones por efecto de rezagos/diferencias se documenta en CSV.
+//
+// 4. ENTRADAS Y SALIDAS DEL PROCESO:
+//    - Entradas: data/processed/00_master_panel/master_panel_country_year.dta
+//    - Salidas:  00_design/temporal_specification_register.csv
+//               01_sample/temporal_sample_summary.csv
+//               01_sample/temporal_sample_by_country.csv
+//               01_sample/temporal_sample_by_year.csv
+//               01_sample/temporal_panel.dta
+//               logs/01_temporal_data_and_samples.log
+// *****************************************************************************
 
 // *****************************************************************************
 // 1. Configuración reproducible del entorno

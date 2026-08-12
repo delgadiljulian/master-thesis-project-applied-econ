@@ -6,18 +6,27 @@
 //
 // Tipo de trabajo: Trabajo Final de Maestría (TFM)
 // Título: Rentas extractivas y transformación estructural externa en economías
-//         dependientes de recursos naturales no renovables del subsuelo
-//         (1996--2021)
+//         dependientes de recursos naturales no renovables del subsuelo (1996--2021)
 // Autor: Julián Alberto Delgadillo Marín
 // Director: Martín Grandes
 //
-// Archivo: 03_twfe_capabilities_stability.do (Versión Codex)
-// Contenido: Secciones 7 y 8 del análisis econométrico
-// Requisito operativo: ejecutar primero el archivo 01
-// Estado: implementación completa de las secciones 7 y 8
+// Archivo: 03_twfe_capabilities_stability.do (Versión Codex - Peer-2)
+// Contenido: Modelo 2 (M2) — Capacidades Productivas, Estabilidad Macroeconómica y Controles
+// Propósito: Evaluar si el impacto de RENTS sobre ECI/DIVX persiste tras controlar por
+//            acumulación de capacidades (capital humano, innovación, infraestructura digital)
+//            y estabilidad macroeconómica (volatilidad de crecimiento, tipo de cambio real).
+// Requisito operativo: Ejecutar previamente 01_data_preparation_diagnostics.do
 // Fecha: Segundo Cuatrimestre 2026
 // *****************************************************************************
 
+// =============================================================================
+// GUÍA RÁPIDA DE COMPRENSIÓN ECONOMÉTRICA (MODELO 2):
+// - ¿Qué evalúa M2? La hipótesis de enfermedad holandesa y canales de capacidades.
+//   M2 añade el bloque macroeconómico (VOL, RER) y el bloque de acumulación tecnológica
+//   (HUMCAP, INNOV, NET) junto con desarrollo (GDPPC), consumo público (GOVCONS) y finanzas (FIN).
+// - ¿Por qué se compara con M1? Para observar si la inclusión de capacidades absorbe o
+//   atenúa la penalización directa de las rentas extractivas sobre la complejidad económica.
+// =============================================================================
 
 // *****************************************************************************
 // INICIALIZACIÓN DEL ARCHIVO 03

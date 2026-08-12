@@ -1,3 +1,5 @@
+
+
 // *****************************************************************************
 // Universidad: Universidad de Buenos Aires
 // Facultad: Facultad de Ciencias Económicas
@@ -10,45 +12,41 @@
 // Autor: Julián Alberto Delgadillo Marín
 // Director: Martín Grandes
 //
-// Archivo: 08_twfe_resource_disaggregated_full.do (Versión Codex)
-// Ubicación: scripts/econometrics/stata-peer-2/01_twfe_main/
-// Contenido: Secciones 19 a 24 del análisis econométrico desagregado
-// Extensión: Desagregación de RENTS entre Hidrocarburos y Minería
-// Requisito operativo: ejecutar 01 y 04; 06 y 07 son modelos previos
+// Archivo: 08_twfe_resource_disaggregated_full.do (Versión Codex - Peer-2)
+// Contenido: Modelo 3 Desagregado e Integrado (Hidrocarburos y Minería Simultáneos)
+// Propósito: Estimar el modelo M3 completo incluyendo simultáneamente las rentas de hidrocarburos
+//            (RENTS_OIL_GAS) y minería (RENTS_MINING) con sus respectivas interacciones institucionales,
+//            permitiendo evaluar pruebas de igualdad de coeficientes (test RENTS_OIL_GAS = RENTS_MINING).
+// Requisito operativo: Ejecutar previamente 01_data_preparation_diagnostics.do
 // Fecha: Segundo Cuatrimestre 2026
 // *****************************************************************************
 
+// =============================================================================
+// GUÍA RÁPIDA DE COMPRENSIÓN ECONOMÉTRICA (M3 DESAGREGADO SIMULTÁNEO):
+// - ¿Qué prueba este modelo? Evalúa si el impacto directo de las rentas petroleras difiere
+//   estadísticamente del impacto de las rentas mineras en presencia de todos los controles de M3.
+// - Pruebas de igualdad clave:
+//   1. test rents_oil_gas = rents_mining (igualdad de efectos directos).
+//   2. test c.rents_oil_gas#c.inst = c.rents_mining#c.inst (igualdad de pendientes institucionales).
+//   3. test conjunto de canal de recursos desagregado.
+// =============================================================================
 
 // *****************************************************************************
 // INICIALIZACIÓN DEL ARCHIVO 08
 // *****************************************************************************
 
-// B.1. Limpiar la sesión y fijar el entorno reproducible
-
-* Configurar versión de Stata 17.0, limpiar memoria y establecer semilla estandarizada.
 version 17.0
-* Limpiar la memoria de Stata borrando todas las variables cargadas.
 clear all
-* Limpiar la consola de comandos de Stata.
 cls
-* Eliminar todas las variables temporales y globales de la memoria.
 macro drop _all
-* Cerrar cualquier registro de texto (log) abierto previamente.
 capture log close _all
 
-* Ejecutar la siguiente instrucción del bloque.
 set more off
-* Evitar que Stata abrevie nombres de variables automáticamente.
 set varabbrev off
-* Usar precisión doble para evitar errores de redondeo numérico.
 set type double
-* Ajustar el ancho de consola a 255 caracteres para ver tablas completas.
 set linesize 255
-* Definir la semilla pseudoaleatoria para hacer 100% reproducibles las simulaciones.
 set seed 20260729
-* Definir la semilla de ordenamiento para garantizar la reproducibilidad de datos.
 set sortseed 20260729
-
 
 // B.2. Localizar la raíz del proyecto
 

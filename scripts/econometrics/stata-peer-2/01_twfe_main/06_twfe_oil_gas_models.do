@@ -6,19 +6,25 @@
 //
 // Tipo de trabajo: Trabajo Final de Maestría (TFM)
 // Título: Rentas extractivas y transformación estructural externa en economías
-//         dependientes de recursos naturales no renovables del subsuelo
-//         (1996--2021)
+//         dependientes de recursos naturales no renovables del subsuelo (1996--2021)
 // Autor: Julián Alberto Delgadillo Marín
 // Director: Martín Grandes
 //
-// Archivo: 06_twfe_oil_gas_models.do (Versión Codex)
-// Contenido: Secciones 15 a 18 del análisis econométrico
-// Extensión: Modelos 1 y 2 con RENTS_OIL_GAS exclusivamente
-// Requisito operativo: ejecutar primero el archivo 01
-// Estado: implementación completa de las secciones 15 a 18
+// Archivo: 06_twfe_oil_gas_models.do (Versión Codex - Peer-2)
+// Contenido: Sub-especificación de Hidrocarburos (Petróleo y Gas Natural)
+// Propósito: Desagregar las rentas totales (RENTS) para aislar el impacto específico
+//            de RENTS_OIL_GAS (% PIB) y su interacción institucional sobre ECI y DIVX.
+// Requisito operativo: Ejecutar previamente 01_data_preparation_diagnostics.do
 // Fecha: Segundo Cuatrimestre 2026
 // *****************************************************************************
 
+// =============================================================================
+// GUÍA RÁPIDA DE COMPRENSIÓN ECONOMÉTRICA (HIDROCARBUROS):
+// - ¿Por qué desagregar petróleo y gas? Las rentas petroleras suelen presentar una intensidad
+//   de capital y concentración de enclaves superiores a los minerales sólidos.
+// - Ecuación de estimación: Y_it = f(RENTS_OIL_GAS_it, INST_it, RENTS_OIL_GAS_it × INST_it, X_it)
+//   empleando la sintaxis factorial nativa c.rents_oil_gas##c.inst.
+// =============================================================================
 
 // *****************************************************************************
 // INICIALIZACIÓN DEL ARCHIVO 06

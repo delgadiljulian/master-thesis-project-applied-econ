@@ -1,7 +1,29 @@
 // *****************************************************************************
-// Auditoría de entrega de resultados finales de stata-peer-2
-// Propósito: reconciliar outputs ya generados; no estima modelos ni modifica datos.
+// Universidad: Universidad de Buenos Aires
+// Facultad: Facultad de Ciencias Económicas
+// Escuela: Escuela de Negocios y Administración Pública
+// Programa: Maestría en Economía Aplicada
+//
+// Tipo de trabajo: Trabajo Final de Maestría (TFM)
+// Título: Rentas extractivas y transformación estructural externa en economías
+//         dependientes de recursos naturales no renovables del subsuelo (1996--2021)
+// Autor: Julián Alberto Delgadillo Marín
+// Director: Martín Grandes
+//
+// Archivo: 99_final_results_audit.do (Versión Codex - Peer-2)
+// Contenido: Auditoría y Reconciliación de Entregables Finales
+// Propósito: Verificar que todos los archivos de salida (CSV, JSON, gráficos de márgenes,
+//            modelos .ster y resúmenes) hayan sido generados correctamente sin errores.
+// Fecha: Segundo Cuatrimestre 2026
 // *****************************************************************************
+
+// =============================================================================
+// PROPÓSITO DEL ARCHIVO DE AUDITORÍA:
+// - Este script no estima modelos econométricos ni altera la base de datos.
+// - Realiza una inspección automatizada de integridad sobre la carpeta outputs/
+//   comprobando que la muestra congelada (N=1044, G=49), los coeficientes y las marcas
+//   de significancia estén 100% disponibles y reconciliados para la redacción de la tesis.
+// =============================================================================
 
 version 17.0
 clear all

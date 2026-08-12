@@ -24,38 +24,35 @@
 
 
 // *****************************************************************************
-// PROPÓSITO, ALCANCE Y CONTRATO DEL ARCHIVO 02
+// PROPÓSITO, ALCANCE Y CONTRATO ECONOMÉTRICO DEL ARCHIVO 02
 // *****************************************************************************
-
-* Este archivo estima los modelos principales del módulo temporal.
-* Compara T0 contemporáneo con las exposiciones pasadas T1--T3.
-* La misma secuencia se estima por separado para ECI y DIVX.
-
-* Cada modelo controla características de país y choques comunes de año.
-* Los errores permiten que las observaciones de un país estén relacionadas.
-* El bootstrap verifica la inferencia, pero no reemplaza los demás resultados.
-
-* Preguntas que deberá responder:
-*   1. ¿la asociación focal aparece en el mismo año o con un año de rezago?;
-*   2. ¿un promedio reciente resume mejor la exposición que un año aislado?;
-*   3. ¿los rezagos 0--2 contienen información separable o son colineales?;
-*   4. ¿la suma de los rezagos difiere de cero?;
-*   5. ¿las conclusiones cambian al fijar una muestra común T0--T3?
-
-* Este archivo no demuestra causalidad ni incluye el resultado rezagado.
-* Tampoco estima GMM ni selecciona horizontes según su valor p.
-* Si T3 es inestable, se conservan T1 y T2 con la justificación técnica.
-
-* Entrada exclusiva prevista:
-*   - 01_sample/temporal_panel.dta, producido y validado por el archivo 01.
-
-* Salidas previstas:
-*   - 02_diagnostics/lag_correlation_and_vif.csv;
-*   - 03_eci/eci_temporal_coefficients.csv;
-*   - 04_divx/divx_temporal_coefficients.csv;
-*   - 05_cumulative/cumulative_effect_tests.csv;
-*   - modelos .ster necesarios para las sensibilidades del archivo 03;
-*   - logs/02_lagged_and_cumulative_models.log.
+//
+// 1. OBJETIVO DEL ANÁLISIS DE REZAGOS Y EFECTOS ACUMULADOS:
+//    Este archivo estima las especificaciones de exposición temporal (T0--T3) para
+//    evaluar si la relación entre rentas extractivas (RENTS) y complejidad/diversificación
+//    opera de forma contemporánea, con rezago de transmisión, o acumulada.
+//
+// 2. MODELO DE REZAGOS DISTRIBUIDOS (DLM):
+//    Se evalúa la estructura de rezagos distribuidos:
+//    Y_it = alpha_i + delta_t + sum_{k=0}^2 beta_{k,1} RENTS_i,t-k + sum_{k=0}^2 beta_{k,2} (RENTS × INST)_i,t-k + X_it' gamma + epsilon_it
+//    
+//    - Efecto Acumulado de Largo Plazo (Long-Run Multiplier): Phi = sum_{k=0}^2 beta_{k,1}
+//    - Prueba de Hipótesis Conjunta de Suma de Rezagos: H0: Phi = 0 (vía test / lincom)
+//
+// 3. PREGUNTAS CLAVE DE AUDITORÍA EMPÍRICA:
+//    1. ¿La asociación RENTS-ECI/DIVX ocurre en el mismo año t o requiere t-1 / t-2?
+//    2. ¿El promedio móvil trienal (bar(X)_i,t-2..t) suaviza mejor la volatilidad de precios?
+//    3. ¿Los rezagos 0, 1 y 2 presentan colinealidad excesiva (evaluado con VIF panel)?
+//    4. ¿La suma acumulada de los efectos es estadísticamente significativa bajo wild bootstrap?
+//
+// 4. ENTRADA Y SALIDAS:
+//    - Entrada: 01_sample/temporal_panel.dta (validado previamente por el archivo 01)
+//    - Salidas: 02_diagnostics/lag_correlation_and_vif.csv
+//               03_eci/eci_temporal_coefficients.csv
+//               04_divx/divx_temporal_coefficients.csv
+//               05_cumulative/cumulative_effect_tests.csv
+//               logs/02_lagged_and_cumulative_models.log
+// *****************************************************************************
 
 
 // *****************************************************************************

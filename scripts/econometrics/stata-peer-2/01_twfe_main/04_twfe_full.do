@@ -10,41 +10,40 @@
 // Autor: Julián Alberto Delgadillo Marín
 // Director: Martín Grandes
 //
-// Archivo: 04_twfe_full.do (Versión Codex)
-// Contenido: Secciones 9 a 12 del análisis econométrico
-// Requisito operativo: ejecutar primero el archivo 01
+// Archivo: 04_twfe_full.do (Versión Codex - Peer-2)
+// Contenido: Modelo 3 Completo (M3 Integrado) — Estimación Principal, Efectos Marginales e Inferencia
+// Propósito: Integrar todos los canales teóricos (Institucional, Abundancia, Estructura,
+//            Estabilidad Macroeconómica y Capacidades) en la ecuación de referencia del TFM.
+// Requisito operativo: Ejecutar previamente 01_data_preparation_diagnostics.do
 // Fecha: Segundo Cuatrimestre 2026
 // *****************************************************************************
 
+// =============================================================================
+// GUÍA RÁPIDA DE COMPRENSIÓN ECONOMÉTRICA (MODELO 3 INTEGRADO):
+// - ¿Por qué es el modelo central? M3 condensa los 33 coeficientes de la especificación
+//   completa, permitiendo aislar el efecto directo de RENTS sobre ECI y DIVX manteniendo
+//   constantes todos los demás canales de transmisión.
+// - ¿Cómo se validan los efectos marginales? Mediante margins, dydx(rents) at(inst=(...)),
+//   generando las pendientes condicionales y gráficos de interacción por percentil de INST.
+// - Inferencia robusta: Combina errores estándar agrupados por país (cluster country_id) con
+//   Wild Cluster Bootstrap (boottest) a 9.999 repeticiones para descartar sesgos por número de clusters.
+// =============================================================================
 
 // *****************************************************************************
 // INICIALIZACIÓN DEL ARCHIVO 04
 // *****************************************************************************
 
-// A.1. Limpiar la sesión y fijar el entorno reproducible
-
-* Este archivo puede ejecutarse en una sesión nueva después del archivo 01. La numeración econométrica continúa directamente en la sección 9.
 version 17.0
-* Limpiar la memoria de Stata borrando todas las variables cargadas.
 clear all
-* Limpiar la consola de comandos de Stata.
 cls
-* Eliminar todas las variables temporales y globales de la memoria.
 macro drop _all
-* Cerrar cualquier registro de texto (log) abierto previamente.
 capture log close _all
 
-* Configurar la forma en que Stata presenta, almacena y reproduce los resultados. Se desactúan las pausas y abreviaciones, se fija precisión double, se amplía el ancho del log y se establecen semillas para procesos aleatorios.
 set more off
-* Evitar que Stata abrevie nombres de variables automáticamente.
 set varabbrev off
-* Usar precisión doble para evitar errores de redondeo numérico.
 set type double
-* Ajustar el ancho de consola a 255 caracteres para ver tablas completas.
 set linesize 255
-* Definir la semilla pseudoaleatoria para hacer 100% reproducibles las simulaciones.
 set seed 20260729
-* Definir la semilla de ordenamiento para garantizar la reproducibilidad de datos.
 set sortseed 20260729
 
 
