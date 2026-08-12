@@ -1,18 +1,22 @@
 # Econometría
 
-Esta carpeta contiene la primera etapa del análisis econométrico del TFM:
-los modelos agregados de rentas extractivas del subsuelo (`RENTS`) para
-complejidad económica (`ECI`) y diversificación exportadora (`DIVX`).
+Esta carpeta contiene el análisis econométrico del TFM: modelos TWFE
+jerarquizados para complejidad económica (`ECI`) y diversificación exportadora
+(`DIVX`), junto con diagnósticos, inferencia y análisis de sensibilidad. Las
+rentas extractivas del subsuelo (`RENTS`) constituyen uno de los mecanismos
+explicativos evaluados dentro de un modelo organizado por canales teóricos.
 
 El análisis fue desarrollado y contrastado mediante dos implementaciones
 independientes en Stata:
 
+`stata-peer-2/01_twfe_main` es la implementación autoritativa utilizada para
+las tablas y conclusiones del TFM. `stata-peer-1` se conserva como contraste
+independiente.
+
 ```text
 scripts/econometrics/
   stata-peer-1/
-    gmm/
-    iv/
-    twfe/
+    01_twfe_main/
   stata-peer-2/
     ECONOMETRIC_STRATEGY.md
     01_twfe_main/
@@ -23,7 +27,7 @@ scripts/econometrics/
       05_twfe_model_comparison.do
       06_twfe_oil_gas_models.do
       07_twfe_mining_models.do
-      08_resource_disaggregated_integrated.do
+      08_twfe_resource_disaggregated_full.do
       run_stata_peer_2.cmd
       run_stata_peer_2.ps1
       WORK_PLAN.md
@@ -48,10 +52,15 @@ La inferencia principal utiliza errores estándar agrupados por país. Los
 resultados describen asociaciones condicionadas y no identifican efectos
 causales.
 
-El núcleo principal utiliza RENTS totales en M1, M2 y M3. Los archivos 06 y 07
-replican M1 y M2 con RENTS_OIL_GAS y RENTS_MINING, respectivamente. El archivo
-08 constituye el contraste desagregado formal que incorpora ambos componentes
-conjuntamente. El módulo temporal se conserva como robustez complementaria.
+El núcleo principal utiliza RENTS totales en M1, M2 y M3. M1 y M2 son
+especificaciones temáticas y M3 es el modelo completo principal. Los archivos
+06 y 07 replican M1 y M2 con RENTS_OIL_GAS y RENTS_MINING, respectivamente. El
+archivo 08 constituye el contraste desagregado formal que incorpora ambos
+componentes conjuntamente.
+
+El módulo temporal es un paquete auxiliar separado: no integra el TFM vigente
+ni constituye una robustez directamente comparable con la muestra TWFE
+congelada.
 
 ## Insumo común
 
@@ -68,7 +77,7 @@ Ningún script econométrico modifica este archivo.
 Cada implementación puede ejecutarse desde PowerShell mediante su lanzador:
 
 ```powershell
-.\scripts\econometrics\stata-peer-1\twfe\run_stata_peer_1.cmd -Stage all
+.\scripts\econometrics\stata-peer-1\01_twfe_main\run_stata_peer_1.cmd -Stage all
 .\scripts\econometrics\stata-peer-2\01_twfe_main\run_stata_peer_2.cmd -Stage core
 ```
 
@@ -85,9 +94,7 @@ Las salidas siguen la misma separación por estrategia econométrica:
 ```text
 outputs/econometrics/
   stata-peer-1/
-    gmm/
-    iv/
-    twfe/
+    01_twfe_main/
   stata-peer-2/
     01_twfe_main/
     02_temporal_fe/
@@ -107,7 +114,7 @@ Se excluyen del repositorio:
 Los detalles metodológicos, controles y resultados de cada implementación se
 documentan en:
 
-- [`stata-peer-1/twfe/WORK_PLAN.md`](stata-peer-1/twfe/WORK_PLAN.md);
+- [`stata-peer-1/01_twfe_main/WORK_PLAN.md`](stata-peer-1/01_twfe_main/WORK_PLAN.md);
 - [`stata-peer-2/ECONOMETRIC_STRATEGY.md`](stata-peer-2/ECONOMETRIC_STRATEGY.md);
 - [`stata-peer-2/01_twfe_main/WORK_PLAN.md`](stata-peer-2/01_twfe_main/WORK_PLAN.md);
 - [`stata-peer-2/02_temporal_fe/WORK_PLAN.md`](stata-peer-2/02_temporal_fe/WORK_PLAN.md).

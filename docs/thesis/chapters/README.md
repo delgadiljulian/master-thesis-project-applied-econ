@@ -17,6 +17,7 @@ directory.
 \subfile{chapters/10-data-and-variables/chapter.tex}
 \subfile{chapters/11-results/chapter.tex}
 \subfile{chapters/12-conclusions/chapter.tex}
+\subfile{chapters/13-cronograma/cronograma.tex}
 \subfile{chapters/bibliography/bibliography.tex}
 \subfile{chapters/appendices/appendices.tex}
 ```
@@ -36,6 +37,7 @@ Current source files:
 - `10-data-and-variables/chapter.tex`
 - `11-results/chapter.tex`
 - `12-conclusions/chapter.tex`
+- `13-cronograma/cronograma.tex`
 - `bibliography/bibliography.tex`
 - `appendices/appendices.tex`
 
@@ -105,5 +107,6 @@ Example:
 Commit source files such as `.tex`, `.bib`, `.md`, scripts, and intentional
 figures/tables. Do not commit LaTeX build artifacts such as `.aux`, `.bbl`,
 `.bcf`, `.blg`, `.log`, `.out`, `.run.xml`, `.synctex.gz`, or generated PDFs
-unless there is a deliberate reason. These patterns are already covered by the
-repository `.gitignore`.
+unless there is a deliberate reason. `../TFM.pdf` is versioned intentionally as
+the current review copy; the remaining generated PDFs stay ignored. These
+patterns are already covered by the repository `.gitignore`.

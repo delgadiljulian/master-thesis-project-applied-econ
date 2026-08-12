@@ -5,7 +5,7 @@ mediante `DRES >= 20 %` y el período 1996-2021. Los archivos
 `master_panel_country_year.csv` y `master_panel_country_year.dta` representan
 exactamente el mismo panel en dos formatos.
 
-## Etapa actual
+## Contenido
 
 El panel integra:
 
@@ -99,8 +99,8 @@ simultáneamente en todas las regresiones. `HHI` se incluye únicamente cuando
 `ECI` es la variable dependiente; se excluye cuando la dependiente es `DIVX`.
 
 Los años 1997, 1999 y 2001 permanecen sin interacción porque WGI no publicó los
-insumos de `INST`. Las demás variables procesadas se incorporarán
-incrementalmente sin cambiar la cuadrícula maestra.
+insumos de `INST`. La cuadrícula maestra está completa y se mantiene fija para
+preservar la comparabilidad entre las especificaciones.
 
 ## Cobertura validada
 

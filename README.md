@@ -1,6 +1,6 @@
-# Natural Resource Dependence and Structural Transformation
+# Extractive Rents and External Structural Transformation
 
-Reproducible research repository for the **Master's Thesis Project** in the
+Reproducible research repository for the **Master's Thesis** in the
 **Master's Program in Applied Economics** at the University of Buenos Aires.
 
 **Author:** Julian Delgadillo Marin
@@ -9,7 +9,7 @@ Reproducible research repository for the **Master's Thesis Project** in the
 
 **Institution:** University of Buenos Aires, Faculty of Economic Sciences
 
-**Reference version:** Master's thesis project, 2026
+**Reference version:** Manuscript prepared for advisor review, August 2026
 
 ---
 
@@ -52,18 +52,15 @@ macroeconomic, financial, and capability-related channels.
 
 ## Research Question
 
-The general research question is:
+The research question is:
 
-> Why are some resource-dependent economies able to translate extractive rents
-> into more favorable structural transformation trajectories, while others remain
-> trapped in patterns of extractive specialization?
+> How are extractive rents and productive, institutional, and macroeconomic
+> channels associated with the external structural transformation of
+> resource-dependent economies?
 
-The specific empirical question is:
-
-> How do productive, institutional, and macroeconomic factors interact to explain
-> differences in external structural transformation trajectories among economies
-> dependent on natural resources during the main estimation period 1996-2021,
-> considering a broader data collection horizon for selected variables?
+External structural transformation is observed primarily through `ECI`, as a
+proxy for export sophistication and revealed productive capabilities, and
+complementarily through `DIVX = 1 - HHI`, as a measure of export diversification.
 
 ---
 
@@ -132,10 +129,18 @@ period **1990-1995** is used to classify external resource dependence through
 The methodological strategy combines:
 
 - descriptive and exploratory analysis of the final panel;
-- a main panel model with `ECI`, country effects, and time effects;
-- interactions between extractive rents and institutional quality;
-- one complementary panel model using `DIVX = 1 - HHI`, with `HHI` as the only
-  excluded regressor.
+- a hierarchical TWFE strategy with country and year fixed effects for `ECI`
+  and `DIVX`;
+- thematic specifications `M1` and `M2`, followed by the complete specification
+  `M3` used as the main model;
+- an interaction between extractive rents and institutional quality;
+- country-clustered inference, wild cluster bootstrap, leave-one-country-out
+  stability, a 2014 temporal sensitivity, country-specific linear trends, and
+  a complementary disaggregation of extractive rents.
+
+The fixed analytical grid contains 1,430 country-years for 55 economies. The
+common complete-case estimation sample used by the central TWFE models contains
+1,044 country-years from 49 countries and 23 effective years.
 
 Given the observational nature of the design, results are interpreted as
 conditional associations rather than strict causal estimates.
@@ -150,7 +155,7 @@ conditional associations rather than strict causal estimates.
 | Extractive rents | `RENTS`: oil, natural-gas, coal and mineral rents as % of GDP | Explanatory variable | World Development Indicators |
 | External structural transformation | `ECI`: Economic Complexity Index, HS92 | Main dependent variable | Atlas of Economic Complexity, official GraphQL API |
 | Export diversification | `DIVX = 1 - HHI` | Complementary dependent variable | Own construction based on HHI |
-| Export concentration | `HHI`: Herfindahl-Hirschman Index | Structural regressor in ECI models | UN Comtrade, Atlas of Economic Complexity |
+| Export concentration | `HHI`: Herfindahl-Hirschman Index | Structural regressor in ECI models | Own construction from Atlas of Economic Complexity trade data |
 | Resource abundance | `OILPC`, `GASPC`, `COALPC` | Abundance channel | World Development Indicators |
 | Export specialization | `PEXP`, `FEXP` | Structural channel | Atlas of Economic Complexity |
 | Institutions | `INST`: Control of Corruption, Rule of Law, Government Effectiveness | Institutional channel | Worldwide Governance Indicators |
@@ -165,7 +170,7 @@ conditional associations rather than strict causal estimates.
 
 ---
 
-## Current Data Status
+## Current Data and Econometric Status
 
 - `DRES` is constructed and validated for 1990-1995. The single 20% rule
   selects 55 countries for both econometric specifications.
@@ -189,8 +194,16 @@ conditional associations rather than strict causal estimates.
 - `FIN` uses the WDI bank-credit indicator `FD.AST.PRVT.GD.ZS`. It covers
   1,328 country-years (92.87%); the broader `FS.AST.PRVT.GD.ZS` series remains
   unchanged only as a comparison source and is not mixed into `FIN`.
+- The master panel is complete and validated in equivalent CSV and Stata
+  formats. The intersection required by the main specifications contains 1,044
+  country-years from 49 countries.
+- The authoritative econometric implementation is `stata-peer-2/01_twfe_main`.
+  It contains the hierarchical `M1`-`M3` TWFE models, diagnostics, inference,
+  stability checks, marginal effects, and extractive-rent disaggregation.
+- The results, robustness exercises, discussion, conclusions, and supporting
+  appendices are integrated into the current thesis manuscript.
 
-Detailed coverage and pending decisions are documented in
+Detailed variable definitions and coverage are documented in
 [`data/DATA_INVENTORY.md`](data/DATA_INVENTORY.md).
 
 ---
@@ -214,6 +227,7 @@ docs/thesis/chapters/
   10-data-and-variables/
   11-results/
   12-conclusions/
+  13-cronograma/
   appendices/
   bibliography/
 ```
@@ -300,7 +314,9 @@ scripts/
   panel/                     # Integrated country-year panel builders
   literature/                # Reproduction and extraction from prior studies
     anne2021/                # Anne (2021) commodity-specialization extraction
-  econometrics/              # Main ECI model and complementary DIVX model
+  econometrics/              # Stata TWFE estimation, inference, and sensitivities
+    stata-peer-1/            # Independent comparison implementation
+    stata-peer-2/            # Authoritative implementation for the thesis
   project_paths.R            # Shared R helper for project-relative paths
 ```
 
@@ -308,28 +324,20 @@ scripts/
 
 ## Project Status
 
-Advanced components:
+The substantive research cycle is complete:
 
-- Introduction, research question, justification, and problem statement.
-- Objectives, hypotheses, and contribution section.
-- Theoretical framework.
-- Empirical literature review.
-- Methodological design.
-- Operational definition of variables.
-- Reorganized data and reproducibility architecture.
-- Validated DRES samples and processed ECI, HHI, and DIVX panels.
-- Shared Atlas, WDI, and PWT raw sources with documented coverage.
-- Validated single-source raw inputs for INNOV, RER, HUMCAP, and VOL; HUMCAP is
-  derived reproducibly from the UNDP schooling series.
-- Placeholder structure for the results chapter.
+- the raw and processed data architecture is documented and reproducible;
+- the 55-country, 1996-2021 master panel is complete and validated;
+- the main `ECI` and complementary `DIVX` TWFE models are estimated;
+- diagnostics, bootstrap inference, stability checks, temporal sensitivity,
+  country trends, marginal effects, and resource disaggregation are available;
+- the methodology, data, results, conclusions, bibliography, and appendices are
+  integrated into the thesis manuscript.
 
-Components under development:
-
-- Final empirical panel construction.
-- Econometric estimation.
-- Main ECI estimation and complementary DIVX estimation.
-- Results discussion.
-- Final conclusions.
+The project is now in the advisor-review and final-editing stage. Remaining work
+is limited to incorporating advisor feedback, completing the abstract, keywords,
+and acknowledgements, resolving minor bibliographic details, and preparing the
+final institutional submission.
 
 ---
 

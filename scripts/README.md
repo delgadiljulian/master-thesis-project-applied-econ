@@ -28,13 +28,25 @@ scripts/
       dres/
       eci/
       hhi_divx/
+      rents/
+      inst/
+      oilpc_gaspc_coalpc/
+      pexp_fexp/
+      vol/
+      rer/
+      humcap/
+      innov/
+      net/
+      gdppc/
+      govcons/
+      fin/
   panel/                      # Integración del panel maestro país-año
   analysis/                   # Figuras descriptivas y análisis exploratorio
-    chapter10/                # Único flujo reproducible del capítulo de datos
-    eci/
   literature/                 # Reproducción y extracción de estudios previos
     anne2021/
   econometrics/               # Estimaciones y diagnósticos de la tesis
+    stata-peer-1/             # Implementación independiente de contraste
+    stata-peer-2/             # Implementación principal utilizada en el TFM
   project_paths.R             # Helper compartido de rutas para R
 ```
 
@@ -50,8 +62,8 @@ scripts/
 4. `analysis/` contiene figuras descriptivas y análisis exploratorio; no prepara
    insumos raw ni variables del modelo.
 5. `literature/` reproduce o extrae evidencia de estudios previos.
-6. `econometrics/` contendrá el modelo principal con ECI y el modelo
-   complementario con DIVX.
+6. `econometrics/` contiene los modelos TWFE para ECI y DIVX, sus diagnósticos,
+   inferencia, sensibilidades y contrastes desagregados.
 
 No deben existir constructores de variables directamente dentro de
 `scripts/data/`. La capa se identifica por la carpeta y por el sufijo `_raw` o
@@ -83,6 +95,9 @@ No deben existir constructores de variables directamente dentro de
    intermedios.
 8. `panel/build_master_panel.R` integra las salidas validadas en el panel
    maestro.
+9. `econometrics/stata-peer-2/01_twfe_main/` ejecuta la implementación
+   principal M1--M3, los diagnósticos, la inferencia y las sensibilidades que
+   sustentan los capítulos de resultados y conclusiones del TFM.
 
 Los demás scripts bajo `data/raw/` preparan insumos y diagnósticos sin aplicar
 las transformaciones reservadas para `data/processed/`.
