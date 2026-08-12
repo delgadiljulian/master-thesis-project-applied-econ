@@ -271,6 +271,9 @@ egen n_missing_divx = rowmiss($MODEL_DIVX)
 gen byte sample_divx = (n_missing_divx == 0)
 label var sample_divx "Flag muestra modelo DIVX (sin HHI)"
 
+* Comprobar explícitamente que las muestras analíticas de ECI y DIVX sean idénticas
+assert sample_eci == sample_divx
+
 * Generar e exportar informe de cobertura de muestra por país a CSV
 preserve
     collapse (sum) obs_eci=sample_eci obs_divx=sample_divx, by(country_iso3_code country country_id)

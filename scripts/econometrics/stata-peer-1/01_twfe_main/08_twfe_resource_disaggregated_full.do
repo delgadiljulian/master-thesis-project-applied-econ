@@ -91,7 +91,7 @@ capture shell mkdir "$PROJECT_ROOT\outputs\econometrics\stata-peer-1\01_twfe_mai
 capture shell mkdir "$PROJECT_ROOT\outputs\econometrics\stata-peer-1\01_twfe_main\07_final"
 capture shell mkdir "$PROJECT_ROOT\outputs\econometrics\stata-peer-1\01_twfe_main\logs"
 
-* Abrir el registro de ejecución de los modelos desagregados e integrados.
+capture log close _all
 log using "$OUTPUT_LOGS/08_twfe_resource_disaggregated_full.log", text replace name(disagg_integ_log)
 
 * Confirmar la presencia de la base de estimación congelada.
@@ -124,7 +124,7 @@ label variable rents_mining_x_inst "Rentas minería x INST"
 // *****************************************************************************
 
 * Estimar el Modelo 3 Desagregado sobre Complejidad Económica (ECI).
-reghdfe eci rents_oil_gas inst rents_oil_gas_x_inst rents_mining rents_mining_x_inst log_oilpc log_gaspc log_coalpc hhi pexp fexp vol rer humcap innov net log_gdppc govcons fin if sample_eci == 1, absorb(country_id year) vce(cluster country_id)
+reghdfe eci c.rents_oil_gas##c.inst c.rents_mining##c.inst log_oilpc log_gaspc log_coalpc hhi pexp fexp vol rer humcap innov net log_gdppc govcons fin if sample_eci == 1, absorb(country_id year) vce(cluster country_id)
 
 * Guardar estimación en memoria y en archivo .ster.
 estimates store M3_DISAGG_ECI
@@ -138,12 +138,12 @@ local f_eq_eci = r(F)
 local p_eq_eci = r(p)
 
 * Evaluar prueba de igualdad entre términos de interacción en ECI.
-quietly test rents_oil_gas_x_inst = rents_mining_x_inst
+quietly test c.rents_oil_gas#c.inst = c.rents_mining#c.inst
 local f_inter_eci = r(F)
 local p_inter_eci = r(p)
 
 * Evaluar prueba de significancia conjunta del bloque desagregado completo en ECI.
-quietly test rents_oil_gas rents_mining rents_oil_gas_x_inst rents_mining_x_inst
+quietly test rents_oil_gas rents_mining c.rents_oil_gas#c.inst c.rents_mining#c.inst
 local f_joint_eci = r(F)
 local p_joint_eci = r(p)
 
@@ -153,7 +153,7 @@ local p_joint_eci = r(p)
 // *****************************************************************************
 
 * Estimar el Modelo 3 Desagregado sobre Diversificación Exportadora (DIVX).
-reghdfe divx rents_oil_gas inst rents_oil_gas_x_inst rents_mining rents_mining_x_inst log_oilpc log_gaspc log_coalpc pexp fexp vol rer humcap innov net log_gdppc govcons fin if sample_divx == 1, absorb(country_id year) vce(cluster country_id)
+reghdfe divx c.rents_oil_gas##c.inst c.rents_mining##c.inst log_oilpc log_gaspc log_coalpc pexp fexp vol rer humcap innov net log_gdppc govcons fin if sample_divx == 1, absorb(country_id year) vce(cluster country_id)
 
 * Guardar estimación en memoria y en archivo .ster.
 estimates store M3_DISAGG_DIVX
@@ -167,12 +167,12 @@ local f_eq_divx = r(F)
 local p_eq_divx = r(p)
 
 * Evaluar prueba de igualdad entre términos de interacción en DIVX.
-quietly test rents_oil_gas_x_inst = rents_mining_x_inst
+quietly test c.rents_oil_gas#c.inst = c.rents_mining#c.inst
 local f_inter_divx = r(F)
 local p_inter_divx = r(p)
 
 * Evaluar prueba de significancia conjunta del bloque desagregado completo en DIVX.
-quietly test rents_oil_gas rents_mining rents_oil_gas_x_inst rents_mining_x_inst
+quietly test rents_oil_gas rents_mining c.rents_oil_gas#c.inst c.rents_mining#c.inst
 local f_joint_divx = r(F)
 local p_joint_divx = r(p)
 
@@ -348,113 +348,6 @@ restore
 
 
 // -----------------------------------------------------------------------------
-// 8.2. Pruebas de Cointegración en Panel para Modelos Desagregados
-// -----------------------------------------------------------------------------
-tempname disagg_coint_post
-tempfile disagg_coint_report
-postfile `disagg_coint_post' str12 model str24 test_type str24 stat_name double statistic double pvalue str32 conclusion using "`disagg_coint_report'", replace
-
-* Pedroni Cointegration para ECI Desagregado
-capture quietly xtcointtest pedroni eci rents_oil_gas rents_mining inst, trend
-if _rc == 0 {
-    matrix M = r(stat)
-    matrix P = r(p)
-    post `disagg_coint_post' ("ECI") ("Pedroni (1999)") ("Modified Phillips-Perron") (el(M,1,1)) (el(P,1,1)) ("Cointegracion Confirmada")
-}
-* Kao Cointegration para ECI Desagregado
-capture quietly xtcointtest kao eci rents_oil_gas rents_mining inst
-if _rc == 0 {
-    matrix M = r(stat)
-    matrix P = r(p)
-    post `disagg_coint_post' ("ECI") ("Kao (1999)") ("Modified Dickey-Fuller") (el(M,1,1)) (el(P,1,1)) ("Cointegracion Confirmada")
-}
-* Pedroni Cointegration para DIVX Desagregado
-capture quietly xtcointtest pedroni divx rents_oil_gas rents_mining inst, trend
-if _rc == 0 {
-    matrix M = r(stat)
-    matrix P = r(p)
-    post `disagg_coint_post' ("DIVX") ("Pedroni (1999)") ("Modified Phillips-Perron") (el(M,1,1)) (el(P,1,1)) ("Cointegracion Confirmada")
-}
-* Kao Cointegration para DIVX Desagregado
-capture quietly xtcointtest kao divx rents_oil_gas rents_mining inst
-if _rc == 0 {
-    matrix M = r(stat)
-    matrix P = r(p)
-    post `disagg_coint_post' ("DIVX") ("Kao (1999)") ("Modified Dickey-Fuller") (el(M,1,1)) (el(P,1,1)) ("Cointegracion Confirmada")
-}
-postclose `disagg_coint_post'
-
-preserve
-    use "`disagg_coint_report'", clear
-    format statistic pvalue %12.4f
-    export delimited using "$OUTPUT_INTEG/disagg_panel_cointegration_tests.csv", replace
-    export delimited using "$OUTPUT_DISAGG/disagg_panel_cointegration_tests.csv", replace
-restore
-
-
-// -----------------------------------------------------------------------------
-// 8.3. Proyecciones Locales en Panel para Hidrocarburos vs. Minería (Jordà 2005)
-// -----------------------------------------------------------------------------
-tempname disagg_lp_post
-tempfile disagg_lp_report
-postfile `disagg_lp_post' str12 outcome str16 shock_var int horizon double beta double se double pval double ci_lower double ci_upper using "`disagg_lp_report'", replace
-
-* LP para ECI (h=0..5)
-forvalues h = 0/5 {
-    local depvar "eci"
-    if `h' > 0 local depvar "f`h'.eci"
-    capture quietly reghdfe `depvar' `sb_disagg_eci_vars' if sample_eci == 1, absorb(country_id year) vce(cluster country_id)
-    if _rc == 0 {
-        local df = e(df_r)
-        if missing("`df'") | "`df'" == "." local df = e(N) - e(df_m)
-        * Shock Hidrocarburos
-        local b_og = _b[rents_oil_gas]
-        local se_og = _se[rents_oil_gas]
-        local p_og = 2 * ttail(`df', abs(`b_og'/`se_og'))
-        local tc_og = invttail(`df', 0.025)
-        post `disagg_lp_post' ("ECI") ("rents_oil_gas") (`h') (`b_og') (`se_og') (`p_og') (`b_og' - `tc_og'*`se_og') (`b_og' + `tc_og'*`se_og')
-        * Shock Minería
-        local b_mn = _b[rents_mining]
-        local se_mn = _se[rents_mining]
-        local p_mn = 2 * ttail(`df', abs(`b_mn'/`se_mn'))
-        local tc_mn = invttail(`df', 0.025)
-        post `disagg_lp_post' ("ECI") ("rents_mining") (`h') (`b_mn') (`se_mn') (`p_mn') (`b_mn' - `tc_mn'*`se_mn') (`b_mn' + `tc_mn'*`se_mn')
-    }
-}
-
-* LP para DIVX (h=0..5)
-forvalues h = 0/5 {
-    local depvar "divx"
-    if `h' > 0 local depvar "f`h'.divx"
-    capture quietly reghdfe `depvar' `sb_disagg_divx_vars' if sample_divx == 1, absorb(country_id year) vce(cluster country_id)
-    if _rc == 0 {
-        local df = e(df_r)
-        if missing("`df'") | "`df'" == "." local df = e(N) - e(df_m)
-        * Shock Hidrocarburos
-        local b_og = _b[rents_oil_gas]
-        local se_og = _se[rents_oil_gas]
-        local p_og = 2 * ttail(`df', abs(`b_og'/`se_og'))
-        local tc_og = invttail(`df', 0.025)
-        post `disagg_lp_post' ("DIVX") ("rents_oil_gas") (`h') (`b_og') (`se_og') (`p_og') (`b_og' - `tc_og'*`se_og') (`b_og' + `tc_og'*`se_og')
-        * Shock Minería
-        local b_mn = _b[rents_mining]
-        local se_mn = _se[rents_mining]
-        local p_mn = 2 * ttail(`df', abs(`b_mn'/`se_mn'))
-        local tc_mn = invttail(`df', 0.025)
-        post `disagg_lp_post' ("DIVX") ("rents_mining") (`h') (`b_mn') (`se_mn') (`p_mn') (`b_mn' - `tc_mn'*`se_mn') (`b_mn' + `tc_mn'*`se_mn')
-    }
-}
-postclose `disagg_lp_post'
-
-preserve
-    use "`disagg_lp_report'", clear
-    format beta se pval ci_lower ci_upper %12.4f
-    export delimited using "$OUTPUT_INTEG/disagg_panel_local_projections.csv", replace
-    export delimited using "$OUTPUT_DISAGG/disagg_panel_local_projections.csv", replace
-restore
-
-
-// -----------------------------------------------------------------------------
 // 8.4. Quiebres Estructurales y Estabilidad Temporal (Superciclo Pre/Post 2014)
 // -----------------------------------------------------------------------------
 tempname disagg_sb_post
@@ -553,57 +446,10 @@ preserve
 restore
 
 
-// -----------------------------------------------------------------------------
-// 8.6. Descomposición Tendencia-Ciclo con Filtro Hodrick-Prescott Desagregado
-// -----------------------------------------------------------------------------
-capture tsfilter hp eci_cycle = eci, trend(eci_trend) smooth(6.25)
-capture tsfilter hp divx_cycle = divx, trend(divx_trend) smooth(6.25)
-
-tempname disagg_hp_post
-tempfile disagg_hp_report
-postfile `disagg_hp_post' str12 model str24 component str24 variable double beta double se double pval using "`disagg_hp_report'", replace
-
-* ECI Tendencia
-capture quietly reghdfe eci_trend `sb_disagg_eci_vars' if sample_eci == 1, absorb(country_id year) vce(cluster country_id)
-if _rc == 0 {
-    local df = e(df_r)
-    if missing("`df'") | "`df'" == "." local df = e(N) - e(df_m)
-    foreach var of local sb_disagg_eci_vars {
-        capture local b = _b[`var']
-        capture local se = _se[`var']
-        if _rc == 0 & !missing(`b') & !missing(`se') & `se' > 0 {
-            local p = 2 * ttail(`df', abs(`b'/`se'))
-            post `disagg_hp_post' ("ECI") ("Tendencia Largo Plazo") ("`var'") (`b') (`se') (`p')
-        }
-    }
-}
-
-* ECI Ciclo
-capture quietly reghdfe eci_cycle `sb_disagg_eci_vars' if sample_eci == 1, absorb(country_id year) vce(cluster country_id)
-if _rc == 0 {
-    local df = e(df_r)
-    if missing("`df'") | "`df'" == "." local df = e(N) - e(df_m)
-    foreach var of local sb_disagg_eci_vars {
-        capture local b = _b[`var']
-        capture local se = _se[`var']
-        if _rc == 0 & !missing(`b') & !missing(`se') & `se' > 0 {
-            local p = 2 * ttail(`df', abs(`b'/`se'))
-            post `disagg_hp_post' ("ECI") ("Ciclo Corto Plazo") ("`var'") (`b') (`se') (`p')
-        }
-    }
-}
-postclose `disagg_hp_post'
-
-preserve
-    use "`disagg_hp_report'", clear
-    format beta se pval %12.4f
-    export delimited using "$OUTPUT_INTEG/disagg_panel_hp_filter_decomposition.csv", replace
-    export delimited using "$OUTPUT_DISAGG/disagg_panel_hp_filter_decomposition.csv", replace
-restore
 
 * Informar en consola la finalización exitosa del archivo 08.
 display as result "---------------------------------------------------------"
-display as result "Script 08: Modelos Desagregados e Integración de Series de Tiempo completado con éxito."
+display as result "Script 08: Modelos Desagregados TWFE completado con éxito."
 display as result "Resultados exportados en: $OUTPUT_INTEG y $OUTPUT_DISAGG"
 display as result "---------------------------------------------------------"
 

@@ -104,7 +104,7 @@ capture shell mkdir "$PROJECT_ROOT\outputs\econometrics\stata-peer-1\01_twfe_mai
 capture shell mkdir "$PROJECT_ROOT\outputs\econometrics\stata-peer-1\01_twfe_main\07_final"
 capture shell mkdir "$PROJECT_ROOT\outputs\econometrics\stata-peer-1\01_twfe_main\logs"
 
-* Abrir el registro de ejecución del Modelo 3 Completo.
+capture log close _all
 log using "$OUTPUT_LOGS/04_twfe_full.log", text replace name(full_model_log)
 
 * Confirmar la presencia de la base de estimación congelada.
@@ -172,201 +172,6 @@ restore
 
 
 // *****************************************************************************
-// 1.2. Pruebas de Cointegración en Panel (Pedroni, Kao, Westerlund)
-// *****************************************************************************
-
-* Cargar la base de estimación congelada y declarar la estructura de panel.
-use "$OUTPUT_SAMPLE/master_panel_sample.dta", clear
-xtset country_id year
-
-* Definir vectores clave del sistema econométrico para evaluar cointegración de largo plazo.
-local eci_coint_vars rents inst log_gdppc humcap fin
-local divx_coint_vars rents inst log_gdppc humcap fin
-
-tempname coint_post
-tempfile coint_report
-postfile `coint_post' str12 model str16 test_name str24 statistic_name double statistic double p_value str36 conclusion using "`coint_report'", replace
-
-// --- A. EVALUACIÓN DE COINTEGRACIÓN PARA MODELO ECI ---
-// 1. Pruebas de Pedroni (xtcointtest pedroni)
-capture xtcointtest pedroni eci `eci_coint_vars' if !missing(eci, rents, inst, log_gdppc, humcap, fin), demean
-if _rc == 0 {
-    matrix st = r(stat)
-    matrix pv = r(p)
-    local stat = st[1, 1]
-    local pval = pv[1, 1]
-    local conc = "No Cointegrado"
-    if `pval' < 0.05 local conc = "Existe Cointegracion de Largo Plazo"
-    post `coint_post' ("ECI") ("Pedroni") ("Modified PP t") (`stat') (`pval') ("`conc'")
-    
-    local stat_adf = st[3, 1]
-    local pval_adf = pv[3, 1]
-    local conc_adf = "No Cointegrado"
-    if `pval_adf' < 0.05 local conc_adf = "Existe Cointegracion de Largo Plazo"
-    post `coint_post' ("ECI") ("Pedroni") ("ADF t") (`stat_adf') (`pval_adf') ("`conc_adf'")
-}
-
-// 2. Prueba de Kao (xtcointtest kao)
-capture xtcointtest kao eci `eci_coint_vars' if !missing(eci, rents, inst, log_gdppc, humcap, fin)
-if _rc == 0 {
-    matrix st = r(stat)
-    matrix pv = r(p)
-    local stat = st[1, 1]
-    local pval = pv[1, 1]
-    local conc = "No Cointegrado"
-    if `pval' < 0.05 local conc = "Existe Cointegracion de Largo Plazo"
-    post `coint_post' ("ECI") ("Kao") ("Modified Dickey-Fuller t") (`stat') (`pval') ("`conc'")
-}
-
-// 3. Prueba de Westerlund (xtcointtest westerlund)
-capture xtcointtest westerlund eci `eci_coint_vars' if !missing(eci, rents, inst, log_gdppc, humcap, fin), demean
-if _rc == 0 {
-    matrix st = r(stat)
-    matrix pv = r(p)
-    local stat = st[1, 1]
-    local pval = pv[1, 1]
-    local conc = "No Cointegrado"
-    if `pval' < 0.05 local conc = "Existe Cointegracion de Largo Plazo"
-    post `coint_post' ("ECI") ("Westerlund") ("Variance ratio") (`stat') (`pval') ("`conc'")
-}
-
-
-// --- B. EVALUACIÓN DE COINTEGRACIÓN PARA MODELO DIVX ---
-// 1. Pruebas de Pedroni (xtcointtest pedroni)
-capture xtcointtest pedroni divx `divx_coint_vars' if !missing(divx, rents, inst, log_gdppc, humcap, fin), demean
-if _rc == 0 {
-    matrix st = r(stat)
-    matrix pv = r(p)
-    local stat = st[1, 1]
-    local pval = pv[1, 1]
-    local conc = "No Cointegrado"
-    if `pval' < 0.05 local conc = "Existe Cointegracion de Largo Plazo"
-    post `coint_post' ("DIVX") ("Pedroni") ("Modified PP t") (`stat') (`pval') ("`conc'")
-    
-    local stat_adf = st[3, 1]
-    local pval_adf = pv[3, 1]
-    local conc_adf = "No Cointegrado"
-    if `pval_adf' < 0.05 local conc_adf = "Existe Cointegracion de Largo Plazo"
-    post `coint_post' ("DIVX") ("Pedroni") ("ADF t") (`stat_adf') (`pval_adf') ("`conc_adf'")
-}
-
-// 2. Prueba de Kao (xtcointtest kao)
-capture xtcointtest kao divx `divx_coint_vars' if !missing(divx, rents, inst, log_gdppc, humcap, fin)
-if _rc == 0 {
-    matrix st = r(stat)
-    matrix pv = r(p)
-    local stat = st[1, 1]
-    local pval = pv[1, 1]
-    local conc = "No Cointegrado"
-    if `pval' < 0.05 local conc = "Existe Cointegracion de Largo Plazo"
-    post `coint_post' ("DIVX") ("Kao") ("Modified Dickey-Fuller t") (`stat') (`pval') ("`conc'")
-}
-
-// 3. Prueba de Westerlund (xtcointtest westerlund)
-capture xtcointtest westerlund divx `divx_coint_vars' if !missing(divx, rents, inst, log_gdppc, humcap, fin), demean
-if _rc == 0 {
-    matrix st = r(stat)
-    matrix pv = r(p)
-    local stat = st[1, 1]
-    local pval = pv[1, 1]
-    local conc = "No Cointegrado"
-    if `pval' < 0.05 local conc = "Existe Cointegracion de Largo Plazo"
-    post `coint_post' ("DIVX") ("Westerlund") ("Variance ratio") (`stat') (`pval') ("`conc'")
-}
-
-postclose `coint_post'
-
-preserve
-    use "`coint_report'", clear
-    format statistic %12.4f
-    format p_value %10.4f
-    export delimited using "$OUTPUT_DIAGNOSTICS/panel_cointegration_tests.csv", replace
-    display as result "----------------------------------------------------------------------"
-    display as result "Sección 1.2: Pruebas de Cointegración en Panel (Pedroni, Kao, Westerlund)"
-    display as result "----------------------------------------------------------------------"
-    list model test_name statistic_name statistic p_value conclusion, sepby(model) noobs abbreviate(24)
-restore
-
-
-// *****************************************************************************
-// 1.3. Proyecciones Locales en Panel (Jordà 2005, Horizontes h=0..5 para TODAS las variables)
-// *****************************************************************************
-
-* Cargar la base de estimación congelada y declarar la estructura de panel.
-use "$OUTPUT_SAMPLE/master_panel_sample.dta", clear
-xtset country_id year
-
-* Definir conjunto completo de regresores y horizontes de proyección h = 0 .. 5 años.
-local lp_eci_vars rents inst rents_x_inst log_oilpc log_gaspc log_coalpc hhi pexp fexp vol rer humcap innov net log_gdppc govcons fin
-local lp_divx_vars rents inst rents_x_inst log_oilpc log_gaspc log_coalpc hhi pexp fexp vol rer humcap innov net log_gdppc govcons fin
-local horizons 0 1 2 3 4 5
-
-tempname lp_post
-tempfile lp_report
-postfile `lp_post' str12 model str24 variable int horizon double beta double se double t_stat double p_val double ci_low double ci_high using "`lp_report'", replace
-
-// --- A. PROYECCIONES LOCALES PARA COMPLEJIDAD ECONÓMICA (ECI) ---
-foreach h of local horizons {
-    local depvar "eci"
-    if `h' > 0 local depvar "f`h'.eci"
-    
-    capture quietly reghdfe `depvar' `lp_eci_vars' if sample_eci == 1, absorb(country_id year) vce(cluster country_id)
-    if _rc == 0 {
-        foreach var of local lp_eci_vars {
-            capture local b = _b[`var']
-            capture local se = _se[`var']
-            if _rc == 0 & !missing(`b') & !missing(`se') & `se' > 0 {
-                local t = `b' / `se'
-                local p = 2 * ttail(e(df_r), abs(`t'))
-                local low = `b' - invttail(e(df_r), 0.025) * `se'
-                local high = `b' + invttail(e(df_r), 0.025) * `se'
-                post `lp_post' ("ECI") ("`var'") (`h') (`b') (`se') (`t') (`p') (`low') (`high')
-            }
-            else {
-                post `lp_post' ("ECI") ("`var'") (`h') (.) (.) (.) (.) (.) (.)
-            }
-        }
-    }
-}
-
-// --- B. PROYECCIONES LOCALES PARA DIVERSIFICACIÓN EXPORTADORA (DIVX) ---
-foreach h of local horizons {
-    local depvar "divx"
-    if `h' > 0 local depvar "f`h'.divx"
-    
-    capture quietly reghdfe `depvar' `lp_divx_vars' if sample_divx == 1, absorb(country_id year) vce(cluster country_id)
-    if _rc == 0 {
-        foreach var of local lp_divx_vars {
-            capture local b = _b[`var']
-            capture local se = _se[`var']
-            if _rc == 0 & !missing(`b') & !missing(`se') & `se' > 0 {
-                local t = `b' / `se'
-                local p = 2 * ttail(e(df_r), abs(`t'))
-                local low = `b' - invttail(e(df_r), 0.025) * `se'
-                local high = `b' + invttail(e(df_r), 0.025) * `se'
-                post `lp_post' ("DIVX") ("`var'") (`h') (`b') (`se') (`t') (`p') (`low') (`high')
-            }
-            else {
-                post `lp_post' ("DIVX") ("`var'") (`h') (.) (.) (.) (.) (.) (.)
-            }
-        }
-    }
-}
-
-postclose `lp_post'
-
-preserve
-    use "`lp_report'", clear
-    format beta se t_stat p_val ci_low ci_high %12.4f
-    export delimited using "$OUTPUT_DIAGNOSTICS/panel_local_projections.csv", replace
-    display as result "----------------------------------------------------------------------"
-    display as result "Sección 1.3: Proyecciones Locales en Panel (Jordà 2005, Todas las variables h=0..5)"
-    display as result "----------------------------------------------------------------------"
-    list model variable horizon beta se p_val ci_low ci_high, sepby(variable) noobs abbreviate(24)
-restore
-
-
-// *****************************************************************************
 // 1.4. Quiebres Estructurales y Estabilidad Temporal (Pre vs Post 2014)
 // *****************************************************************************
 
@@ -379,7 +184,7 @@ gen byte post_2014 = (year >= 2015) if !missing(year)
 label var post_2014 "Régimen Post-Superciclo (2015-2021)"
 
 local sb_eci_vars rents inst rents_x_inst log_oilpc log_gaspc log_coalpc hhi pexp fexp vol rer humcap innov net log_gdppc govcons fin
-local sb_divx_vars rents inst rents_x_inst log_oilpc log_gaspc log_coalpc hhi pexp fexp vol rer humcap innov net log_gdppc govcons fin
+local sb_divx_vars rents inst rents_x_inst log_oilpc log_gaspc log_coalpc pexp fexp vol rer humcap innov net log_gdppc govcons fin
 
 tempname sb_post
 tempfile sb_report
@@ -921,7 +726,7 @@ tempfile margins_report
 postfile `margins_post' str8 model str4 percentile double inst_val double marginal_effect double standard_error double t_stat double p_val double ci_lower double ci_upper str12 significance using "`margins_report'", replace
 
 * --- Modelo ECI ---
-quietly reghdfe eci $ECI_REGRESSORS if sample_eci == 1, absorb(country_id year) vce(cluster country_id)
+quietly reghdfe eci c.rents##c.inst log_oilpc log_gaspc log_coalpc hhi pexp fexp vol rer humcap innov net log_gdppc govcons fin if sample_eci == 1, absorb(country_id year) vce(cluster country_id)
 margins, dydx(rents) at(inst=(`inst_vals'))
 matrix eci_m = r(table)
 
@@ -950,7 +755,7 @@ forvalues col = 1/5 {
 }
 
 * --- Modelo DIVX ---
-quietly reghdfe divx $DIVX_REGRESSORS if sample_divx == 1, absorb(country_id year) vce(cluster country_id)
+quietly reghdfe divx c.rents##c.inst log_oilpc log_gaspc log_coalpc pexp fexp vol rer humcap innov net log_gdppc govcons fin if sample_divx == 1, absorb(country_id year) vce(cluster country_id)
 margins, dydx(rents) at(inst=(`inst_vals'))
 matrix divx_m = r(table)
 
@@ -1030,27 +835,47 @@ if _rc == 0 {
     tempfile boot_report
     postfile `boot_post' str8 model str24 term double conv_b conv_p boot_p ci_low ci_high reps str12 weight using "`boot_report'", replace
 
-    quietly reghdfe eci $ECI_REGRESSORS if sample_eci == 1, absorb(country_id year) vce(cluster country_id)
+    quietly xtreg eci c.rents##c.inst log_oilpc log_gaspc log_coalpc hhi pexp fexp vol rer humcap innov net log_gdppc govcons fin i.year if sample_eci == 1, fe vce(cluster country_id)
     local cp = 2 * ttail(e(df_r), abs(_b[rents] / _se[rents]))
     boottest rents, cluster(country_id) reps(9999) seed(20260729) nograph
+    local bp = r(p)
     matrix boot_ci = r(CI)
-    post `boot_post' ("ECI") ("RENTS") (_b[rents]) (`cp') (r(p)) (el(boot_ci,1,1)) (el(boot_ci,1,2)) (r(reps)) ("`r(weighttype)'")
+    local lo = el(boot_ci, 1, 1)
+    local hi = el(boot_ci, 1, 2)
+    local reps = r(reps)
+    local wtype "`r(weighttype)'"
+    post `boot_post' ("ECI") ("RENTS") (_b[rents]) (`cp') (`bp') (`lo') (`hi') (`reps') ("`wtype'")
 
-    boottest rents_x_inst, cluster(country_id) reps(9999) seed(20260730) nograph
+    local cp = 2 * ttail(e(df_r), abs(_b[c.rents#c.inst] / _se[c.rents#c.inst]))
+    boottest c.rents#c.inst, cluster(country_id) reps(9999) seed(20260730) nograph
+    local bp = r(p)
     matrix boot_ci = r(CI)
-    local cp = 2 * ttail(e(df_r), abs(_b[rents_x_inst] / _se[rents_x_inst]))
-    post `boot_post' ("ECI") ("RENTS x INST") (_b[rents_x_inst]) (`cp') (r(p)) (el(boot_ci,1,1)) (el(boot_ci,1,2)) (r(reps)) ("`r(weighttype)'")
+    local lo = el(boot_ci, 1, 1)
+    local hi = el(boot_ci, 1, 2)
+    local reps = r(reps)
+    local wtype "`r(weighttype)'"
+    post `boot_post' ("ECI") ("RENTS x INST") (_b[c.rents#c.inst]) (`cp') (`bp') (`lo') (`hi') (`reps') ("`wtype'")
 
-    quietly reghdfe divx $DIVX_REGRESSORS if sample_divx == 1, absorb(country_id year) vce(cluster country_id)
+    quietly xtreg divx c.rents##c.inst log_oilpc log_gaspc log_coalpc pexp fexp vol rer humcap innov net log_gdppc govcons fin i.year if sample_divx == 1, fe vce(cluster country_id)
     local cp = 2 * ttail(e(df_r), abs(_b[rents] / _se[rents]))
     boottest rents, cluster(country_id) reps(9999) seed(20260731) nograph
+    local bp = r(p)
     matrix boot_ci = r(CI)
-    post `boot_post' ("DIVX") ("RENTS") (_b[rents]) (`cp') (r(p)) (el(boot_ci,1,1)) (el(boot_ci,1,2)) (r(reps)) ("`r(weighttype)'")
+    local lo = el(boot_ci, 1, 1)
+    local hi = el(boot_ci, 1, 2)
+    local reps = r(reps)
+    local wtype "`r(weighttype)'"
+    post `boot_post' ("DIVX") ("RENTS") (_b[rents]) (`cp') (`bp') (`lo') (`hi') (`reps') ("`wtype'")
 
-    boottest rents_x_inst, cluster(country_id) reps(9999) seed(20260732) nograph
+    local cp = 2 * ttail(e(df_r), abs(_b[c.rents#c.inst] / _se[c.rents#c.inst]))
+    boottest c.rents#c.inst, cluster(country_id) reps(9999) seed(20260732) nograph
+    local bp = r(p)
     matrix boot_ci = r(CI)
-    local cp = 2 * ttail(e(df_r), abs(_b[rents_x_inst] / _se[rents_x_inst]))
-    post `boot_post' ("DIVX") ("RENTS x INST") (_b[rents_x_inst]) (`cp') (r(p)) (el(boot_ci,1,1)) (el(boot_ci,1,2)) (r(reps)) ("`r(weighttype)'")
+    local lo = el(boot_ci, 1, 1)
+    local hi = el(boot_ci, 1, 2)
+    local reps = r(reps)
+    local wtype "`r(weighttype)'"
+    post `boot_post' ("DIVX") ("RENTS x INST") (_b[c.rents#c.inst]) (`cp') (`bp') (`lo') (`hi') (`reps') ("`wtype'")
 
     postclose `boot_post'
 
