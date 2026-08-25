@@ -60,12 +60,12 @@ $availableStages = @{
     "06" = [pscustomobject]@{
         DoFile = "06_twfe_oil_gas_models.do"
         InternalLog = "10_oil_gas_models\06_twfe_oil_gas_models.log"
-        CompletionMarker = "Archivo 06 finalizado: secciones 15 a 18 sin errores."
+        CompletionMarker = "Archivo 06 finalizado: secciones 15 a 19 sin errores."
     }
     "07" = [pscustomobject]@{
         DoFile = "07_twfe_mining_models.do"
         InternalLog = "11_mining_models\07_twfe_mining_models.log"
-        CompletionMarker = "Archivo 07 finalizado: secciones 15M a 18M sin errores."
+        CompletionMarker = "Archivo 07 finalizado: secciones 15M a 19M sin errores."
     }
     "08" = [pscustomobject]@{
         DoFile = "08_twfe_resource_disaggregated_full.do"
@@ -175,16 +175,25 @@ function Invoke-StataStage {
         # Aceptar el cierre únicamente cuando el log fue actualizado durante
         # esta ejecución y contiene la frase final prevista.
         if (Test-Path -LiteralPath $internalLogPath) {
-            $logItem = Get-Item -LiteralPath $internalLogPath
-            if ($logItem.LastWriteTime -ge $startedAt.AddSeconds(-2)) {
-                $marker = Select-String `
+            # Stata reemplaza el log al iniciar. El archivo puede desaparecer
+            # entre Test-Path y Get-Item; reintentar en la siguiente vuelta.
+            try {
+                $logItem = Get-Item `
                     -LiteralPath $internalLogPath `
-                    -SimpleMatch $stageDefinition.CompletionMarker `
-                    -Quiet
-                if ($marker) {
-                    $completed = $true
-                    break
+                    -ErrorAction Stop
+                if ($logItem.LastWriteTime -ge $startedAt.AddSeconds(-2)) {
+                    $marker = Select-String `
+                        -LiteralPath $internalLogPath `
+                        -SimpleMatch $stageDefinition.CompletionMarker `
+                        -Quiet
+                    if ($marker) {
+                        $completed = $true
+                        break
+                    }
                 }
+            }
+            catch [System.Management.Automation.ItemNotFoundException] {
+                # La siguiente iteración volverá a consultar el log.
             }
         }
 

@@ -1,5 +1,5 @@
 order,family,file,purpose
-1,Diseño,og_design_register.csv,Pregunta y función de las cuatro ecuaciones.
+1,Diseño,og_design_register.csv,Pregunta y función de las seis ecuaciones.
 2,Muestra,og_sample_validation.csv,Validación de 1.044 observaciones y 49 países.
 3,Diseño,og_specification_register.csv,Regresores y regla de HHI por ecuación.
 4,Estimación,og_m1_eci.ster,Estimación M1_OG para ECI.
@@ -19,3 +19,12 @@ order,family,file,purpose
 18,Tabla,og_m2_results_table.txt,Tabla de texto del Modelo 2.
 19,Figura,og_marginal_effects.png,Figura comparada para revisión visual.
 20,Documentación,og_results_manifest.csv,Inventario reproducible de productos.
+21,Estimación,03_m3_full/og_m3_eci.ster,Estimación M3_OG para ECI.
+22,Estimación,03_m3_full/og_m3_divx.ster,Estimación M3_OG para DIVX.
+23,Resultados,03_m3_full/og_m3_coefficients.csv,Coeficientes completos de M3_OG.
+24,Resultados,03_m3_full/og_m3_model_summary.csv,Cobertura y ajuste de M3_OG.
+25,Inferencia,03_m3_full/og_m3_joint_tests.csv,Pruebas conjuntas de M3_OG.
+26,Verificación,03_m3_full/og_m3_xtreg_reghdfe_verification.csv,Equivalencia xtreg-reghdfe de M3_OG.
+27,Tabla,03_m3_full/og_m3_results_table.tex,Tabla LaTeX completa de M3_OG.
+28,Tabla,03_m3_full/og_m3_results_table.txt,Tabla de texto completa de M3_OG.
+29,Documentación,03_m3_full/og_m3_results_manifest.csv,Inventario específico de M3_OG.

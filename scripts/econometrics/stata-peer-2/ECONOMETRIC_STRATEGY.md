@@ -147,20 +147,29 @@ Las salidas replican exactamente estos dos nombres dentro de
 ## 8. Estado y siguiente fase
 
 1. El núcleo TWFE 01--05 está implementado y validado sobre la muestra común.
-2. Las extensiones 06 y 07 están implementadas para petróleo y gas y minería.
+2. Las extensiones M1 y M2 de los archivos 06 y 07 están implementadas para
+   petróleo y gas y minería. Se aprobaron dos variantes completas adicionales,
+   M3_OG y M3_MIN, que conservan todos los canales del M3 agregado. Ambas están
+   ejecutadas y validadas sobre la muestra común; sus salidas se conservan en
+   subcarpetas `03_m3_full` separadas por componente.
 3. El archivo 08 se conserva como contraste desagregado formal.
-4. El módulo temporal está completo como paquete auxiliar, pero no se integra
+4. La comparación reproducible de M3_AGG, M3_OG, M3_MIN y M3_SIM está validada
+   en `13_m3_component_comparison`; organiza todos los coeficientes y canales,
+   no solamente los términos de rentas.
+5. El módulo temporal está completo como paquete auxiliar, pero no se integra
    al TFM vigente ni se interpreta como robustez directamente comparable con
    la muestra TWFE congelada.
-5. No se agregarán especificaciones antes de cerrar la comparación y redactar
+6. No se agregarán especificaciones antes de cerrar la comparación y redactar
    los resultados disponibles, sin votar resultados por significancia.
 
 ## 9. Criterio final para el TFM
 
 El TFM debe sostener sus conclusiones en TWFE. El paquete temporal permanece
 separado hasta que exista una decisión expresa y una reconciliación de muestra;
-en ningún caso convierte el estudio en causal. No se incorporarán estimadores
-adicionales por obligación ni se reemplazará el núcleo por GMM o IV.
+en ningún caso convierte el estudio en causal. Las variantes M3_OG y M3_MIN son
+extensiones TWFE preespecificadas del modelo completo, no nuevos estimadores ni
+reemplazos del núcleo agregado. No se incorporarán estimadores adicionales por
+obligación ni se reemplazará el núcleo por GMM o IV.
 
 ## 10. Referencias metodológicas de partida
 

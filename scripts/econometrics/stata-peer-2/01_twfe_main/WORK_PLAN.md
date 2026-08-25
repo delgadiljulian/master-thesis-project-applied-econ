@@ -1,4 +1,4 @@
-# Plan de trabajo — TWFE con RENTS totales
+# Plan de trabajo — TWFE con RENTS totales y extensiones por componente
 
 ## 1. Función
 
@@ -121,13 +121,14 @@ evalúa su estabilidad y comparabilidad sobre la muestra común.
 
 ### 8.2. Extensiones: archivos 06 y 07
 
-6. `06_twfe_oil_gas_models.do`: replica M1 y M2 sustituyendo RENTS totales por
-   RENTS_OIL_GAS.
-7. `07_twfe_mining_models.do`: replica M1 y M2 sustituyendo RENTS totales por
-   RENTS_MINING.
+6. `06_twfe_oil_gas_models.do`: conserva M1 y M2 y añadirá una variante
+   completa M3_OG, sustituyendo RENTS totales por RENTS_OIL_GAS.
+7. `07_twfe_mining_models.do`: conserva M1 y M2 y añadirá una variante
+   completa M3_MIN, sustituyendo RENTS totales por RENTS_MINING.
 
 Estas extensiones permiten examinar heterogeneidad por componente extractivo.
-No reemplazan los modelos agregados ni forman parte del núcleo principal.
+No reemplazan el M3 agregado. M3_OG y M3_MIN se estimarán como especificaciones
+alternativas completas, con los mismos canales, muestra e inferencia de M3.
 
 ### 8.3. Contraste desagregado formal: archivo 08
 
@@ -139,14 +140,31 @@ El archivo 08 no constituye un modelo principal adicional. Su función es
 contrastar si la agregación de las rentas oculta diferencias entre componentes,
 preservando sin cambios los resultados generados por los archivos 01 a 07.
 
+### 8.4. Comparación documental de las variantes M3
+
+`compare_m3_variants.ps1` no estima modelos. Lee las salidas validadas de
+M3_AGG, M3_OG, M3_MIN y M3_SIM y genera una comparación reproducible de
+coeficientes, canales comunes, términos de rentas, ajuste y pruebas conjuntas en
+`13_m3_component_comparison`.
+
 ## 9. Estado de implementación
 
 - Los archivos 01 a 08 están implementados.
 - M1, M2 y M3 utilizan la misma muestra congelada de 1.044 observaciones y 49
   países.
 - La comparación M1--M3 del archivo 05 está programada y validada.
-- Las extensiones de petróleo y gas y de minería están programadas en archivos
-  separados.
+- Las extensiones M1 y M2 de petróleo y gas y de minería están programadas en
+  archivos separados.
+- Las variantes completas M3_OG y M3_MIN quedaron preespecificadas y
+  autorizadas el 24 de agosto de 2026. Fueron programadas, ejecutadas y
+  validadas en los archivos 06 y 07 sobre 1.044 observaciones y 49 países.
+- Cada variante produjo 17 coeficientes para ECI, 16 para DIVX y 12 pruebas
+  conjuntas; la verificación `xtreg`--`reghdfe` arrojó diferencia máxima cero.
+- Las nueve salidas de cada variante se encuentran aisladas en
+  `10_oil_gas_models/03_m3_full` y `11_mining_models/03_m3_full`.
+- La comparación de los cuatro M3 fue generada y validada en
+  `13_m3_component_comparison`: 136 coeficientes, 29 filas de canales comunes,
+  20 términos de rentas, ocho resúmenes de modelo y 54 pruebas conjuntas.
 - El contraste desagregado integrado se mantiene aislado en el archivo 08.
 - Los resultados de cada archivo se almacenan en rutas separadas para evitar
   sobrescrituras.
@@ -173,18 +191,12 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File `
   -Stage core
 ```
 
-## 11. Cierre antes de nuevas especificaciones
+## 11. Límite para nuevas especificaciones
 
-No se agregarán nuevos modelos ni archivos econométricos hasta completar estas
-dos tareas:
-
-1. cerrar la lectura comparativa de M1, M2 y M3, distinguiendo los resultados
-   robustos de los sensibles a la especificación;
-2. redactar los resultados del núcleo, las extensiones y el contraste formal.
-
-Esta pausa evita ampliar el espacio de especificaciones antes de consolidar la
-evidencia ya producida. La ausencia de significancia individual no será un
-criterio para eliminar controles aprobados.
+La pausa anterior se levanta exclusivamente para implementar M3_OG y M3_MIN,
+preespecificados antes de observar sus coeficientes completos. No se autorizan
+otros modelos, transformaciones ni selecciones de controles. La ausencia de
+significancia individual no será un criterio para eliminar variables.
 
 ## 12. Límite documental actual
 
@@ -194,9 +206,60 @@ tesis requerirá una instrucción posterior y explícita.
 
 ## 13. Punto de reinicio
 
-1. Ejecutar `-Stage core` si se necesita regenerar la comparación principal.
-2. Revisar conjuntamente las tablas de M1, M2 y M3 producidas por el archivo
-   05.
-3. Redactar la síntesis comparativa, sin modificar todavía el TFM.
-4. Revisar luego 06, 07 y 08 como evidencia complementaria.
-5. No diseñar nuevas especificaciones antes de cerrar esa redacción.
+1. Incorporar M3_OG en el archivo 06 sin modificar M1_OG ni M2_OG.
+2. Incorporar M3_MIN en el archivo 07 sin modificar M1_MIN ni M2_MIN.
+3. Ejecutar y validar las cuatro ecuaciones nuevas sobre la muestra congelada.
+4. La comparación con el M3 agregado y el contraste simultáneo del archivo 08
+   está cerrada en `13_m3_component_comparison`.
+5. Revisar esa lectura antes de modificar el TFM; la incorporación al manuscrito
+   requiere una autorización explícita posterior.
+
+## 14. Preespecificación de M3 por componente
+
+### 14.1. Reglas comunes
+
+- Resultados: ECI y DIVX.
+- Muestra exigida: 1.044 observaciones, 49 países y 23 años efectivos dentro de
+  1996--2021.
+- Estimador: efectos fijos por país con indicadores de año.
+- Inferencia principal: errores estándar agrupados por país.
+- HHI entra únicamente en la ecuación ECI porque DIVX = 1 - HHI.
+- Todos los términos se reportan, independientemente de su significancia.
+- Los coeficientes se interpretan como asociaciones condicionales, no causales.
+
+### 14.2. M3_OG
+
+M3_OG sustituye `c.rents##c.inst` por
+`c.rents_oil_gas##c.inst` y mantiene sin cambios:
+
+- `ln1p_oilpc ln1p_gaspc ln1p_coalpc`;
+- `hhi pexp fexp` para ECI y `pexp fexp` para DIVX;
+- `vol rer`;
+- `humcap innov net`;
+- `log_gdppc govcons fin`.
+
+RENTS totales y RENTS_MINING no entran como regresores en esta variante.
+
+### 14.3. M3_MIN
+
+M3_MIN sustituye `c.rents##c.inst` por
+`c.rents_mining##c.inst` y conserva exactamente los mismos controles y reglas
+de M3_OG. RENTS totales y RENTS_OIL_GAS no entran como regresores en esta
+variante.
+
+### 14.4. Pruebas y salidas mínimas
+
+Cada resultado deberá incluir pruebas conjuntas para los bloques institucional,
+abundancia per cápita, estructura exportadora, estabilidad macroeconómica,
+capacidades productivas y controles económicos y financieros. Los scripts
+deberán exportar, como mínimo, coeficientes completos, resumen del modelo,
+pruebas conjuntas, equivalencia `xtreg`--`reghdfe` y una tabla LaTeX/TXT con
+columnas ECI y DIVX.
+
+La ejecución validada conserva estos productos en subcarpetas `03_m3_full`
+propias de cada componente, sin mezclar las salidas nuevas con los productos
+históricos de M1 y M2.
+
+El archivo 08 conserva una función distinta: estima ambos componentes
+simultáneamente y permite interpretar cada uno manteniendo constante el otro.
+No sustituye las dos variantes alternativas preespecificadas aquí.

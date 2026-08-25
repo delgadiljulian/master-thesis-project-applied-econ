@@ -1,0 +1,13 @@
+model,outcome,order,channel,null_hypothesis,f_statistic,df1,df2,p_value
+M3_OG,DIVX,1,Institucional,"RENTS_OIL_GAS, INST e interacción son cero",7.762023,3,48,0.000252
+M3_OG,DIVX,2,Abundancia,"OILPC, GASPC y COALPC son conjuntamente cero",1.830710,3,48,0.154167
+M3_OG,DIVX,3,Estructura exportadora,PEXP y FEXP son conjuntamente cero,4.066474,2,48,0.023365
+M3_OG,DIVX,4,Macroeconomía,VOL y RER son conjuntamente cero,0.744985,2,48,0.480150
+M3_OG,DIVX,5,Capacidades productivas,"HUMCAP, INNOV y NET son conjuntamente cero",3.665069,3,48,0.018560
+M3_OG,DIVX,6,Controles económicos,"log_GDPPC, GOVCONS y FIN son conjuntamente cero",6.606224,3,48,0.000793
+M3_OG,ECI,1,Institucional,"RENTS_OIL_GAS, INST e interacción son cero",1.220218,3,48,0.312557
+M3_OG,ECI,2,Abundancia,"OILPC, GASPC y COALPC son conjuntamente cero",0.571696,3,48,0.636376
+M3_OG,ECI,3,Estructura exportadora,"HHI, PEXP y FEXP son conjuntamente cero",6.324997,3,48,0.001056
+M3_OG,ECI,4,Macroeconomía,VOL y RER son conjuntamente cero,1.701303,2,48,0.193262
+M3_OG,ECI,5,Capacidades productivas,"HUMCAP, INNOV y NET son conjuntamente cero",0.335861,3,48,0.799453
+M3_OG,ECI,6,Controles económicos,"log_GDPPC, GOVCONS y FIN son conjuntamente cero",0.202330,3,48,0.894276

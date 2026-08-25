@@ -128,6 +128,8 @@ outputs/econometrics/stata-peer-2/01_twfe_main/*
 !outputs/econometrics/stata-peer-2/01_twfe_main/0[0-9]_*/**
 !outputs/econometrics/stata-peer-2/01_twfe_main/1[0-2]_*/
 !outputs/econometrics/stata-peer-2/01_twfe_main/1[0-2]_*/**
+!outputs/econometrics/stata-peer-2/01_twfe_main/13_m3_component_comparison/
+!outputs/econometrics/stata-peer-2/01_twfe_main/13_m3_component_comparison/**
 !outputs/econometrics/stata-peer-2/02_temporal_fe/
 outputs/econometrics/stata-peer-2/02_temporal_fe/*
 !outputs/econometrics/stata-peer-2/02_temporal_fe/0[0-9]_*/

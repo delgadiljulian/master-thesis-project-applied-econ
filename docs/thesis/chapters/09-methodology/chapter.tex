@@ -83,7 +83,7 @@
 	comparar cualquier tipo de economías, sino en examinar las diferencias en
 	las trayectorias de transformación estructural dentro del conjunto de
 	países cuya inserción internacional está fuertemente condicionada por los
-	recursos naturales.
+	recursos naturales del subsuelo.
 
 	De manera complementaria, en algunas etapas descriptivas podrán
 	considerarse economías con baja dependencia de recursos como grupo de
@@ -437,7 +437,12 @@ Operativamente, se utiliza el campo \texttt{countryYear.eci} de la API
 GraphQL oficial del \textit{Atlas of Economic Complexity}
 \parencite{HarvardGrowthLab2024}. La versión vigente del Atlas representa la
 intensidad de la especialización mediante
-$M_{cp}=RCA_{cp}/(1+RCA_{cp})$, en lugar de reducirla a una presencia binaria.
+$M_{cp}=RCA_{cp}/(1+RCA_{cp})$\footnote{$RCA_{cp}$ corresponde a la ventaja
+comparativa revelada del país $c$ en el producto $p$: compara la participación
+del producto en las exportaciones del país con su participación en el comercio
+mundial. Un valor superior a uno indica que el país exporta ese producto por
+encima de su participación proporcional en el comercio mundial.}, en lugar de
+reducirla a una presencia binaria.
 Para mantener una definición homogénea, todas las observaciones se extraen de
 una única captura reproducible de la API para 1995--2022 y no se combinan con
 la antigua tabla de rankings ni con indicadores de otros proveedores. En el
@@ -799,7 +804,7 @@ empírico. La selección definitiva de indicadores responde a criterios de
 	$s_{it}$ de la población de 25 años o más publicados por el PNUD
 	\parencite{UNDPUnitedNationsDevelopmentProgramme2025}. Para mantener la interpretación del índice de capital
 	humano de PWT, se aplica su función de retornos educativos por tramos
-	\parencite{GGDCHumanCapital2016}:
+	\colorbox{yellow!50}{\strut\parencite{GGDCHumanCapital2016}}:
 	\[
 		\begin{aligned}
 			\phi(s_{it})
@@ -854,7 +859,7 @@ empírico. La selección definitiva de indicadores responde a criterios de
 	Governance Indicators} del Banco Mundial; el \textit{Atlas of Economic
 	Complexity} del Harvard Growth Lab; la base \textit{National Accounts Main
 	Aggregates} de Naciones Unidas
-	\parencite{UnitedNationsStatisticsDivision2026}; el Fondo Monetario
+	\colorbox{yellow!50}{\strut\parencite{UnitedNationsStatisticsDivision2026}}; el Fondo Monetario
 	Internacional; Penn World Table; y la base de indicadores del \textit{Human
 	Development Report 2025} del PNUD
 	\parencite{UNDPUnitedNationsDevelopmentProgramme2025}. La fuente utilizada para
@@ -1054,9 +1059,12 @@ empírico. La selección definitiva de indicadores responde a criterios de
 
 	Todas las especificaciones incluyen efectos fijos por país y por año y
 	errores estándar agrupados por país. Como extensión complementaria, la
-	desagregación predefinida de $RENTS$ separa las rentas de petróleo y gas de las
-	rentas de minería y carbón. Este ejercicio no modifica el centro analítico en
-	$ECI$ y $DIVX$ ni se interpreta como una nueva variable de resultado.
+	desagregación predefinida de $RENTS$ se implementa mediante dos variantes
+	completas de M3: una incorpora las rentas de petróleo y gas y la otra las rentas
+	de minería y carbón. Un tercer contraste, $M_{3}^{SIM}$, incluye ambos
+	componentes simultáneamente para comparar sus coeficientes y evaluar la
+	estabilidad sectorial. Este ejercicio no modifica el centro analítico en $ECI$
+	y $DIVX$ ni se interpreta como una nueva variable de resultado.
 
 	%%%%%%%%
 
@@ -1358,7 +1366,10 @@ empírico. La selección definitiva de indicadores responde a criterios de
 	prueba de Wald modificada para heterocedasticidad, la prueba de Wooldridge para
 	autocorrelación y la prueba de Pesaran CD para dependencia transversal; la
 	colinealidad se examina mediante factores de inflación de la varianza en la
-	transformación \textit{within}. Estas pruebas se interpretan como diagnósticos y no
+	transformación \textit{within}.\footnote{En este diagnóstico, la transformación
+	\textit{within} retira de cada regresor los componentes asociados a los efectos
+	fijos de país y de año, de modo que el factor de inflación de la varianza se
+	calcule sobre la variación residual utilizada por la estimación.} Estas pruebas se interpretan como diagnósticos y no
 	como reglas automáticas de reemplazo de la especificación principal.
 
 	En quinto lugar, la inferencia y la estabilidad de M3 se evalúan mediante
@@ -1373,10 +1384,15 @@ empírico. La selección definitiva de indicadores responde a criterios de
 	panel en regresiones separadas antes y después de ese año ni se interpreta
 	como un quiebre causal.
 
-	En sexto lugar, se estima la desagregación complementaria que distingue las
-	rentas de petróleo y gas de las rentas de minería y carbón. Este ejercicio
-	compara asociaciones sectoriales sin modificar la selección muestral ni
-	atribuir carácter causal a las diferencias observadas.
+	En sexto lugar, se estiman por separado las dos variantes completas de M3 que
+	distinguen las rentas de petróleo y gas de las rentas de minería y carbón. La
+	presentación de coeficientes y canales se realiza con estas variantes, mientras
+	que $M_{3}^{SIM}$ mantiene ambos componentes en una misma ecuación para las
+	pruebas formales de comparación. Las pruebas sectoriales de bootstrap y
+	exclusión iterativa de países se aplican a este contraste simultáneo y no se
+	extrapolan como pruebas independientes de estabilidad de las dos variantes.
+	El ejercicio no modifica la selección muestral ni atribuye carácter causal a
+	las diferencias observadas.
 
 	En conjunto, el diseño identifica asociaciones condicionales dentro de los
 	países, netas de heterogeneidad invariable y de shocks anuales comunes. No

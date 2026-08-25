@@ -668,21 +668,23 @@
 	\section{Desagregación complementaria de las rentas extractivas}
 	\label{sec:anexo_desagregacion_peer2}
 
-	La desagregación sustituye $RENTS$ por rentas de petróleo y gas y por rentas
-	de minería y carbón, manteniendo los controles, los efectos fijos y la muestra
-	de $M_3$. La \autoref{tab:anexo_desagregacion_peer2} resume los coeficientes
-	directos y su estabilidad. Las cuatro interacciones con $INST$ carecen de
-	precisión convencional y con bootstrap.
+	El capítulo de resultados presenta por separado las variantes completas de
+	petróleo y gas y de minería y carbón. Este anexo resume $M_{3}^{SIM}$, contraste
+	que incorpora simultáneamente ambos componentes y sus interacciones, manteniendo
+	los controles, los efectos fijos y la muestra de M3. Las pruebas de estabilidad
+	sectorial se aplican a esta especificación y no a las dos variantes separadas.
+	Las interacciones de ambos componentes carecen de precisión convencional y con
+	bootstrap en las dos ecuaciones.
 
 	\begin{table}[htbp]
 		\centering
 		\small
-		\caption{Resultados complementarios por componente extractivo}
+		\caption{Estabilidad del contraste simultáneo por componente extractivo}
 		\label{tab:anexo_desagregacion_peer2}
 		\begin{adjustbox}{max width=\textwidth}
 		\begin{tabular}{llrrrrl}
 			\toprule
-			Modelo & Componente & $\hat\beta$ & $p$ & $p_{boot}$ & Cambios de signo LOO & Clasificación \\
+			Resultado & Componente & $\hat\beta$ & $p$ & $p_{boot}$ & Cambios de signo LOO & Clasificación \\
 			\midrule
 			$ECI$ & Petróleo y gas & $-0,0073$ & 0,212 & 0,292 & 0 & No concluyente \\
 			$ECI$ & Minería y carbón & $-0,0136$ & 0,001 & 0,024 & 0 & Complementaria \\
@@ -691,8 +693,8 @@
 			\bottomrule
 		\end{tabular}
 		\end{adjustbox}
-		\caption*{\footnotesize \textit{Nota:} Los dos resultados clasificados como complementarios conservan el signo en las 49 exclusiones de países y mantienen significación con bootstrap. La desagregación no reemplaza el resultado agregado principal.}
-		\caption*{\footnotesize \textit{Fuente: Elaboración propia a partir de la estimación desagregada de las rentas extractivas.}}
+		\caption*{\footnotesize \textit{Nota:} Todas las filas corresponden a $M_{3}^{SIM}$. Los dos resultados clasificados como complementarios conservan el signo en las 49 exclusiones de países y mantienen significación con bootstrap. Estas pruebas no se atribuyen a las variantes sectoriales estimadas por separado.}
+		\caption*{\footnotesize \textit{Fuente: Elaboración propia a partir del contraste simultáneo de las rentas extractivas.}}
 	\end{table}
 
 	\thesisendchap{anexos}

@@ -1,0 +1,10 @@
+order,family,file,purpose
+1,Estimación,og_m3_eci.ster,M3_OG para ECI.
+2,Estimación,og_m3_divx.ster,M3_OG para DIVX.
+3,Resultados,og_m3_coefficients.csv,Coeficientes e incertidumbre de las dos ecuaciones completas.
+4,Resultados,og_m3_model_summary.csv,Cobertura y ajuste de M3_OG.
+5,Inferencia,og_m3_joint_tests.csv,Pruebas conjuntas de los seis bloques teóricos.
+6,Verificación,og_m3_xtreg_reghdfe_verification.csv,Equivalencia numérica entre xtreg y reghdfe.
+7,Tabla,og_m3_results_table.tex,Tabla LaTeX completa de M3_OG.
+8,Tabla,og_m3_results_table.txt,Tabla de texto completa de M3_OG.
+9,Documentación,og_m3_results_manifest.csv,Inventario reproducible de M3_OG.

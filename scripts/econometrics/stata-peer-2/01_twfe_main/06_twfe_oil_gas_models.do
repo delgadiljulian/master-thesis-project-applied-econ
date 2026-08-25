@@ -115,12 +115,14 @@ global OUTPUT_SAMPLE "$OUTPUT_ROOT/01_sample"
 global OUTPUT_M1 "$OUTPUT_ROOT/08_extractive_export_structure"
 global OUTPUT_M2 "$OUTPUT_ROOT/09_capabilities_stability"
 global OUTPUT_OG "$OUTPUT_ROOT/10_oil_gas_models"
+global OUTPUT_OG_M3 "$OUTPUT_OG/03_m3_full"
 global ADO_PROJECT "$OUTPUT_ROOT/ado"
 
 capture mkdir "$PROJECT_ROOT/outputs"
 capture mkdir "$PROJECT_ROOT/outputs/econometrics"
 capture mkdir "$OUTPUT_ROOT"
 capture mkdir "$OUTPUT_OG"
+capture mkdir "$OUTPUT_OG_M3"
 capture mkdir "$ADO_PROJECT"
 capture mkdir "$ADO_PROJECT/plus"
 
@@ -174,7 +176,7 @@ display as result ///
 
 
 // *****************************************************************************
-// 15. Diseño de los Modelos 1 y 2 con RENTS_OIL_GAS
+// 15. Diseño de los Modelos 1, 2 y 3 con RENTS_OIL_GAS
 // *****************************************************************************
 
 // 15.1. Delimitar la pregunta de la extensión
@@ -187,7 +189,7 @@ postfile `design_post' ///
     str32 rent_measure str28 sample_rule str32 interpretation ///
     using "`design_register'", replace
 
-foreach model in M1_OG M2_OG {
+foreach model in M1_OG M2_OG M3_OG {
     * Escribir una fila de resultados dentro del archivo temporal.
     post `design_post' ///
         ("`model'") ("ECI") ("Principal") ///
@@ -207,7 +209,7 @@ postclose `design_post'
 preserve
     use "`design_register'", clear
     * Control de calidad automático que detiene el script si no se cumple la condición.
-    assert _N == 4
+    assert _N == 6
     * Comprobar que la combinación de identificadores de país y año sea única.
     isid model outcome
     * Control de calidad automático que detiene el script si no se cumple la condición.
@@ -340,6 +342,15 @@ global OG_M2_REGRESSORS ///
     $OG_INSTITUTIONAL vol rer humcap innov net ///
     log_gdppc govcons fin
 
+global OG_M3_ECI_REGRESSORS ///
+    $OG_INSTITUTIONAL $OG_M1_ABUNDANCE ///
+    $OG_M1_STRUCTURE_ECI vol rer humcap innov net ///
+    log_gdppc govcons fin
+global OG_M3_DIVX_REGRESSORS ///
+    $OG_INSTITUTIONAL $OG_M1_ABUNDANCE ///
+    $OG_M1_STRUCTURE_DIVX vol rer humcap innov net ///
+    log_gdppc govcons fin
+
 local og_m1_eci_terms ///
     rents_oil_gas inst c.rents_oil_gas#c.inst ///
     ln1p_oilpc ln1p_gaspc ln1p_coalpc ///
@@ -351,6 +362,16 @@ local og_m1_divx_terms ///
 local og_m2_terms ///
     rents_oil_gas inst c.rents_oil_gas#c.inst ///
     vol rer humcap innov net log_gdppc govcons fin
+local og_m3_eci_terms ///
+    rents_oil_gas inst c.rents_oil_gas#c.inst ///
+    ln1p_oilpc ln1p_gaspc ln1p_coalpc ///
+    hhi pexp fexp vol rer humcap innov net ///
+    log_gdppc govcons fin
+local og_m3_divx_terms ///
+    rents_oil_gas inst c.rents_oil_gas#c.inst ///
+    ln1p_oilpc ln1p_gaspc ln1p_coalpc ///
+    pexp fexp vol rer humcap innov net ///
+    log_gdppc govcons fin
 
 
 // 15.6. Registrar el diseño antes de estimar
@@ -364,7 +385,7 @@ postfile `sample_post' ///
     double oil_gas_within_sd byte complete_union ///
     using "`sample_report'", replace
 
-foreach model in M1_OG M2_OG {
+foreach model in M1_OG M2_OG M3_OG {
     foreach outcome in ECI DIVX {
         * Escribir una fila de resultados dentro del archivo temporal.
         post `sample_post' ///
@@ -379,7 +400,7 @@ postclose `sample_post'
 preserve
     use "`sample_report'", clear
     * Control de calidad automático que detiene el script si no se cumple la condición.
-    assert _N == 4
+    assert _N == 6
     * Comprobar que la combinación de identificadores de país y año sea única.
     isid model outcome
     * Control de calidad automático que detiene el script si no se cumple la condición.
@@ -421,13 +442,22 @@ post `specification_post' ///
     ("RENTS_OIL_GAS, INST, interacción, VOL, RER, HUMCAP, " + ///
         "INNOV, NET, log_GDPPC, GOVCONS y FIN") ///
     ("No aplica")
+* Escribir las dos ecuaciones completas preespecificadas de M3_OG.
+post `specification_post' ///
+    ("M3_OG") ("ECI") ///
+    ("RENTS_OIL_GAS, INST, interacción y todos los canales de M3, incluido HHI") ///
+    ("Incluir HHI")
+post `specification_post' ///
+    ("M3_OG") ("DIVX") ///
+    ("RENTS_OIL_GAS, INST, interacción y todos los canales de M3, sin HHI") ///
+    ("Excluir HHI: DIVX=1-HHI")
 * Cerrar y guardar la tabla de resultados temporales en disco.
 postclose `specification_post'
 
 preserve
     use "`specification_report'", clear
     * Control de calidad automático que detiene el script si no se cumple la condición.
-    assert _N == 4
+    assert _N == 6
     * Comprobar que la combinación de identificadores de país y año sea única.
     isid model outcome
     export delimited using ///
@@ -889,10 +919,304 @@ display as result "Sección 17 completa: M2_OG estimado y almacenado."
 
 
 // *****************************************************************************
-// 18. Comparación y Exportación de los Modelos con RENTS_OIL_GAS
+// 18. Modelo 3 Completo con Rentas de Petróleo y Gas
 // *****************************************************************************
 
-// 18.1. Comparar los coeficientes focales de M1 y M2
+// 18.1. Estimar las ecuaciones completas de ECI y DIVX
+
+tempname og_m3_coefficient_post og_m3_summary_post ///
+    og_m3_joint_post og_m3_verification_post og_m3_manifest_post
+tempfile og_m3_coefficient_report og_m3_summary_report ///
+    og_m3_joint_report og_m3_verification_report og_m3_manifest_report
+
+postfile `og_m3_coefficient_post' ///
+    str8 model str8 outcome int order str32 term ///
+    double coefficient standard_error t_statistic p_value ///
+    ci_lower ci_upper using "`og_m3_coefficient_report'", replace
+postfile `og_m3_summary_post' ///
+    str8 model str8 outcome long observations int countries clusters ///
+    effective_years double r2_within r2_between r2_overall ///
+    f_statistic model_p_value using "`og_m3_summary_report'", replace
+postfile `og_m3_joint_post' ///
+    str8 model str8 outcome int order str32 channel ///
+    str120 null_hypothesis double f_statistic df1 df2 p_value ///
+    using "`og_m3_joint_report'", replace
+
+forvalues index = 1/2 {
+    if `index' == 1 {
+        local dependent eci
+        local outcome ECI
+        local regressors "$OG_M3_ECI_REGRESSORS"
+        local current_terms "`og_m3_eci_terms'"
+        local stored_estimate ECI_M3_OG
+        local ster_file og_m3_eci.ster
+        local scalar_prefix og_m3_eci_b
+        local structure_terms hhi pexp fexp
+        local structure_null "HHI, PEXP y FEXP son conjuntamente cero"
+    }
+    else {
+        local dependent divx
+        local outcome DIVX
+        local regressors "$OG_M3_DIVX_REGRESSORS"
+        local current_terms "`og_m3_divx_terms'"
+        local stored_estimate DIVX_M3_OG
+        local ster_file og_m3_divx.ster
+        local scalar_prefix og_m3_divx_b
+        local structure_terms pexp fexp
+        local structure_null "PEXP y FEXP son conjuntamente cero"
+    }
+
+    xtreg `dependent' `regressors' i.year ///
+        if sample_og_common == 1, fe $OG_INFERENCE
+    capture estimates drop `stored_estimate'
+    estimates store `stored_estimate'
+    estimates save "$OUTPUT_OG_M3/`ster_file'", replace
+
+    assert e(sample) == sample_og_common
+    assert e(N) == 1044
+    assert e(N_g) == 49
+    assert e(N_clust) == 49
+    assert e(df_r) == e(N_clust) - 1
+
+    local critical_t = invttail(e(df_r), 0.025)
+    local order = 0
+    foreach term of local current_terms {
+        local ++order
+        local b = _b[`term']
+        local se = _se[`term']
+        local t = `b' / `se'
+        local p = 2 * ttail(e(df_r), abs(`t'))
+        local lower = `b' - `critical_t' * `se'
+        local upper = `b' + `critical_t' * `se'
+        scalar `scalar_prefix'_`order' = `b'
+        post `og_m3_coefficient_post' ///
+            ("M3_OG") ("`outcome'") (`order') ("`term'") ///
+            (`b') (`se') (`t') (`p') (`lower') (`upper')
+    }
+
+    post `og_m3_summary_post' ///
+        ("M3_OG") ("`outcome'") (e(N)) (e(N_g)) (e(N_clust)) ///
+        (`og_year_count') (e(r2_w)) (e(r2_b)) (e(r2_o)) ///
+        (e(F)) (e(p))
+
+    test rents_oil_gas inst c.rents_oil_gas#c.inst
+    post `og_m3_joint_post' ///
+        ("M3_OG") ("`outcome'") (1) ("Institucional") ///
+        ("RENTS_OIL_GAS, INST e interacción son cero") ///
+        (r(F)) (r(df)) (r(df_r)) (r(p))
+    test ln1p_oilpc ln1p_gaspc ln1p_coalpc
+    post `og_m3_joint_post' ///
+        ("M3_OG") ("`outcome'") (2) ("Abundancia") ///
+        ("OILPC, GASPC y COALPC son conjuntamente cero") ///
+        (r(F)) (r(df)) (r(df_r)) (r(p))
+    test `structure_terms'
+    post `og_m3_joint_post' ///
+        ("M3_OG") ("`outcome'") (3) ("Estructura exportadora") ///
+        ("`structure_null'") ///
+        (r(F)) (r(df)) (r(df_r)) (r(p))
+    test vol rer
+    post `og_m3_joint_post' ///
+        ("M3_OG") ("`outcome'") (4) ("Macroeconomía") ///
+        ("VOL y RER son conjuntamente cero") ///
+        (r(F)) (r(df)) (r(df_r)) (r(p))
+    test humcap innov net
+    post `og_m3_joint_post' ///
+        ("M3_OG") ("`outcome'") (5) ("Capacidades productivas") ///
+        ("HUMCAP, INNOV y NET son conjuntamente cero") ///
+        (r(F)) (r(df)) (r(df_r)) (r(p))
+    test log_gdppc govcons fin
+    post `og_m3_joint_post' ///
+        ("M3_OG") ("`outcome'") (6) ("Controles económicos") ///
+        ("log_GDPPC, GOVCONS y FIN son conjuntamente cero") ///
+        (r(F)) (r(df)) (r(df_r)) (r(p))
+}
+
+postclose `og_m3_coefficient_post'
+postclose `og_m3_summary_post'
+postclose `og_m3_joint_post'
+
+preserve
+    use "`og_m3_coefficient_report'", clear
+    assert _N == 33
+    isid model outcome order
+    sort outcome order
+    format coefficient standard_error t_statistic p_value ///
+        ci_lower ci_upper %12.6f
+    export delimited using ///
+        "$OUTPUT_OG_M3/og_m3_coefficients.csv", replace datafmt
+restore
+
+preserve
+    use "`og_m3_summary_report'", clear
+    assert _N == 2
+    isid model outcome
+    assert observations == 1044
+    assert countries == 49
+    assert clusters == 49
+    sort outcome
+    export delimited using ///
+        "$OUTPUT_OG_M3/og_m3_model_summary.csv", replace datafmt
+restore
+
+preserve
+    use "`og_m3_joint_report'", clear
+    assert _N == 12
+    isid model outcome order
+    sort outcome order
+    format f_statistic p_value %12.6f
+    export delimited using ///
+        "$OUTPUT_OG_M3/og_m3_joint_tests.csv", replace datafmt
+restore
+
+
+// 18.2. Verificar equivalencia entre xtreg y reghdfe
+
+postfile `og_m3_verification_post' ///
+    str8 model str8 outcome int order str32 term ///
+    double xtreg_coefficient reghdfe_coefficient ///
+    absolute_difference byte coefficient_match ///
+    using "`og_m3_verification_report'", replace
+
+local coefficient_tolerance = 1e-8
+forvalues index = 1/2 {
+    if `index' == 1 {
+        local dependent eci
+        local outcome ECI
+        local regressors "$OG_M3_ECI_REGRESSORS"
+        local current_terms "`og_m3_eci_terms'"
+        local scalar_prefix og_m3_eci_b
+    }
+    else {
+        local dependent divx
+        local outcome DIVX
+        local regressors "$OG_M3_DIVX_REGRESSORS"
+        local current_terms "`og_m3_divx_terms'"
+        local scalar_prefix og_m3_divx_b
+    }
+
+    reghdfe `dependent' `regressors' ///
+        if sample_og_common == 1, ///
+        absorb(country_id year) $OG_INFERENCE
+    assert e(N) == 1044
+
+    local order = 0
+    foreach term of local current_terms {
+        local ++order
+        local xtreg_b = scalar(`scalar_prefix'_`order')
+        local hdfe_b = _b[`term']
+        local difference = abs(`xtreg_b' - `hdfe_b')
+        local match = `difference' < `coefficient_tolerance'
+        assert `match' == 1
+        post `og_m3_verification_post' ///
+            ("M3_OG") ("`outcome'") (`order') ("`term'") ///
+            (`xtreg_b') (`hdfe_b') (`difference') (`match')
+    }
+}
+postclose `og_m3_verification_post'
+
+preserve
+    use "`og_m3_verification_report'", clear
+    assert _N == 33
+    assert coefficient_match == 1
+    isid model outcome order
+    sort outcome order
+    format xtreg_coefficient reghdfe_coefficient ///
+        absolute_difference %16.10f
+    export delimited using ///
+        "$OUTPUT_OG_M3/og_m3_xtreg_reghdfe_verification.csv", ///
+        replace datafmt
+restore
+
+
+// 18.3. Exportar la tabla completa y el manifiesto de M3_OG
+
+esttab ECI_M3_OG DIVX_M3_OG ///
+    using "$OUTPUT_OG_M3/og_m3_results_table.tex", ///
+    replace booktabs label se nonotes noomitted nobaselevels ///
+    b(4) se(4) star(* 0.10 ** 0.05 *** 0.01) ///
+    keep(`og_m3_eci_terms') order(`og_m3_eci_terms') ///
+    coeflabels( ///
+        rents_oil_gas "RENTS_OIL_GAS" ///
+        inst "INST" ///
+        c.rents_oil_gas#c.inst "RENTS_OIL_GAS x INST" ///
+        ln1p_oilpc "log(1 + OILPC)" ///
+        ln1p_gaspc "log(1 + GASPC)" ///
+        ln1p_coalpc "log(1 + COALPC)" ///
+        hhi "HHI" pexp "PEXP" fexp "FEXP" ///
+        vol "VOL" rer "RER" humcap "HUMCAP" ///
+        innov "INNOV" net "NET" ///
+        log_gdppc "log(GDPPC)" govcons "GOVCONS" fin "FIN") ///
+    mtitles("ECI" "DIVX") ///
+    stats(N N_g r2_w, fmt(0 0 3) ///
+        labels("Observaciones" "Países" "R-cuadrado within"))
+
+esttab ECI_M3_OG DIVX_M3_OG ///
+    using "$OUTPUT_OG_M3/og_m3_results_table.txt", ///
+    replace label se nonotes noomitted nobaselevels ///
+    b(4) se(4) star(* 0.10 ** 0.05 *** 0.01) ///
+    keep(`og_m3_eci_terms') order(`og_m3_eci_terms') ///
+    coeflabels( ///
+        rents_oil_gas "RENTS_OIL_GAS" ///
+        inst "INST" ///
+        c.rents_oil_gas#c.inst "RENTS_OIL_GAS x INST" ///
+        ln1p_oilpc "log(1 + OILPC)" ///
+        ln1p_gaspc "log(1 + GASPC)" ///
+        ln1p_coalpc "log(1 + COALPC)" ///
+        hhi "HHI" pexp "PEXP" fexp "FEXP" ///
+        vol "VOL" rer "RER" humcap "HUMCAP" ///
+        innov "INNOV" net "NET" ///
+        log_gdppc "log(GDPPC)" govcons "GOVCONS" fin "FIN") ///
+    mtitles("ECI" "DIVX") ///
+    stats(N N_g r2_w, fmt(0 0 3) ///
+        labels("Observaciones" "Países" "R-cuadrado within"))
+
+postfile `og_m3_manifest_post' ///
+    int order str28 family str80 file str140 purpose ///
+    using "`og_m3_manifest_report'", replace
+post `og_m3_manifest_post' ///
+    (1) ("Estimación") ("og_m3_eci.ster") ("M3_OG para ECI.")
+post `og_m3_manifest_post' ///
+    (2) ("Estimación") ("og_m3_divx.ster") ("M3_OG para DIVX.")
+post `og_m3_manifest_post' ///
+    (3) ("Resultados") ("og_m3_coefficients.csv") ///
+    ("Coeficientes e incertidumbre de las dos ecuaciones completas.")
+post `og_m3_manifest_post' ///
+    (4) ("Resultados") ("og_m3_model_summary.csv") ///
+    ("Cobertura y ajuste de M3_OG.")
+post `og_m3_manifest_post' ///
+    (5) ("Inferencia") ("og_m3_joint_tests.csv") ///
+    ("Pruebas conjuntas de los seis bloques teóricos.")
+post `og_m3_manifest_post' ///
+    (6) ("Verificación") ("og_m3_xtreg_reghdfe_verification.csv") ///
+    ("Equivalencia numérica entre xtreg y reghdfe.")
+post `og_m3_manifest_post' ///
+    (7) ("Tabla") ("og_m3_results_table.tex") ///
+    ("Tabla LaTeX completa de M3_OG.")
+post `og_m3_manifest_post' ///
+    (8) ("Tabla") ("og_m3_results_table.txt") ///
+    ("Tabla de texto completa de M3_OG.")
+post `og_m3_manifest_post' ///
+    (9) ("Documentación") ("og_m3_results_manifest.csv") ///
+    ("Inventario reproducible de M3_OG.")
+postclose `og_m3_manifest_post'
+
+preserve
+    use "`og_m3_manifest_report'", clear
+    assert _N == 9
+    isid order
+    export delimited using ///
+        "$OUTPUT_OG_M3/og_m3_results_manifest.csv", replace datafmt
+restore
+
+display as result ///
+    "Sección 18 completa: M3_OG estimado, verificado y exportado."
+
+
+// *****************************************************************************
+// 19. Comparación y Exportación de los Modelos con RENTS_OIL_GAS
+// *****************************************************************************
+
+// 19.1. Comparar los coeficientes focales de M1 y M2
 
 global AGG_M1_ECI_REGRESSORS ///
     c.rents##c.inst ln1p_oilpc ln1p_gaspc ln1p_coalpc ///
@@ -992,13 +1316,13 @@ preserve
 restore
 
 
-// 18.2. Contrastar con los modelos equivalentes de RENTS totales
+// 19.2. Contrastar con los modelos equivalentes de RENTS totales
 
 display as result ///
     "Comparación RENTS total y RENTS_OIL_GAS completada en la misma muestra."
 
 
-// 18.3. Resumir pruebas conjuntas y efectos marginales
+// 19.3. Resumir pruebas conjuntas y efectos marginales
 
 quietly summarize inst if sample_og_common == 1, detail
 local inst_p10 = r(p10)
@@ -1160,7 +1484,7 @@ display as result ///
     "Efectos marginales y wild cluster bootstrap completados."
 
 
-// 18.4. Crear las tablas comparativas
+// 19.4. Crear las tablas comparativas
 
 * Exportar los coeficientes y estadísticas del modelo a tablas de LaTeX.
 esttab ECI_M1_OG DIVX_M1_OG ///
@@ -1259,7 +1583,7 @@ esttab ECI_M2_OG DIVX_M2_OG ///
         labels("Observaciones" "Países" "R-cuadrado within"))
 
 
-// 18.5. Exportar las salidas en una carpeta plana
+// 19.5. Exportar las salidas en una carpeta plana
 
 tempname verification_post
 tempfile verification_report
@@ -1344,7 +1668,7 @@ preserve
 restore
 
 
-// 18.6. Validar el paquete y cerrar el archivo
+// 19.6. Validar el paquete y cerrar el archivo
 
 tempname manifest_post
 tempfile manifest_report
@@ -1355,7 +1679,7 @@ postfile `manifest_post' ///
 * Escribir una fila de resultados dentro del archivo temporal.
 post `manifest_post' ///
     (1) ("Diseño") ("og_design_register.csv") ///
-    ("Pregunta y función de las cuatro ecuaciones.")
+    ("Pregunta y función de las seis ecuaciones.")
 * Escribir una fila de resultados dentro del archivo temporal.
 post `manifest_post' ///
     (2) ("Muestra") ("og_sample_validation.csv") ///
@@ -1432,13 +1756,42 @@ post `manifest_post' ///
 post `manifest_post' ///
     (20) ("Documentación") ("og_results_manifest.csv") ///
     ("Inventario reproducible de productos.")
+post `manifest_post' ///
+    (21) ("Estimación") ("03_m3_full/og_m3_eci.ster") ///
+    ("Estimación M3_OG para ECI.")
+post `manifest_post' ///
+    (22) ("Estimación") ("03_m3_full/og_m3_divx.ster") ///
+    ("Estimación M3_OG para DIVX.")
+post `manifest_post' ///
+    (23) ("Resultados") ("03_m3_full/og_m3_coefficients.csv") ///
+    ("Coeficientes completos de M3_OG.")
+post `manifest_post' ///
+    (24) ("Resultados") ("03_m3_full/og_m3_model_summary.csv") ///
+    ("Cobertura y ajuste de M3_OG.")
+post `manifest_post' ///
+    (25) ("Inferencia") ("03_m3_full/og_m3_joint_tests.csv") ///
+    ("Pruebas conjuntas de M3_OG.")
+post `manifest_post' ///
+    (26) ("Verificación") ///
+    ("03_m3_full/og_m3_xtreg_reghdfe_verification.csv") ///
+    ("Equivalencia xtreg-reghdfe de M3_OG.")
+post `manifest_post' ///
+    (27) ("Tabla") ("03_m3_full/og_m3_results_table.tex") ///
+    ("Tabla LaTeX completa de M3_OG.")
+post `manifest_post' ///
+    (28) ("Tabla") ("03_m3_full/og_m3_results_table.txt") ///
+    ("Tabla de texto completa de M3_OG.")
+post `manifest_post' ///
+    (29) ("Documentación") ///
+    ("03_m3_full/og_m3_results_manifest.csv") ///
+    ("Inventario específico de M3_OG.")
 * Cerrar y guardar la tabla de resultados temporales en disco.
 postclose `manifest_post'
 
 preserve
     use "`manifest_report'", clear
     * Control de calidad automático que detiene el script si no se cumple la condición.
-    assert _N == 20
+    assert _N == 29
     * Comprobar que la combinación de identificadores de país y año sea única.
     isid order
     export delimited using ///
@@ -1465,6 +1818,15 @@ local required_files ///
     og_m2_results_table.tex ///
     og_m2_results_table.txt ///
     og_marginal_effects.png ///
+    03_m3_full/og_m3_eci.ster ///
+    03_m3_full/og_m3_divx.ster ///
+    03_m3_full/og_m3_coefficients.csv ///
+    03_m3_full/og_m3_model_summary.csv ///
+    03_m3_full/og_m3_joint_tests.csv ///
+    03_m3_full/og_m3_xtreg_reghdfe_verification.csv ///
+    03_m3_full/og_m3_results_table.tex ///
+    03_m3_full/og_m3_results_table.txt ///
+    03_m3_full/og_m3_results_manifest.csv ///
     og_results_manifest.csv
 
 foreach required_file of local required_files {
@@ -1477,9 +1839,9 @@ foreach required_file of local required_files {
 }
 
 * Restaurar una estimación previa desde la memoria de Stata.
-estimates restore DIVX_M2_OG
+estimates restore DIVX_M3_OG
 display as result ///
-    "Archivo 06 finalizado: secciones 15 a 18 sin errores."
+    "Archivo 06 finalizado: secciones 15 a 19 sin errores."
 display as text ///
     "Resultados asociativos; no constituyen efectos causales."
 log close og_log

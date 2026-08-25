@@ -3,3 +3,5 @@ M1_MIN,ECI,"RENTS_MINING, INST, interacción, OILPC, GASPC, COALPC, HHI, PEXP, F
 M1_MIN,DIVX,"RENTS_MINING, INST, interacción, OILPC, GASPC, COALPC, PEXP, FEXP y log_GDPPC",Excluir HHI: DIVX=1-HHI
 M2_MIN,ECI,"RENTS_MINING, INST, interacción, VOL, RER, HUMCAP, INNOV, NET, log_GDPPC, GOVCONS y FIN",No aplica
 M2_MIN,DIVX,"RENTS_MINING, INST, interacción, VOL, RER, HUMCAP, INNOV, NET, log_GDPPC, GOVCONS y FIN",No aplica
+M3_MIN,ECI,"RENTS_MINING, INST, interacción y todos los canales de M3, incluido HHI",Incluir HHI
+M3_MIN,DIVX,"RENTS_MINING, INST, interacción y todos los canales de M3, sin HHI",Excluir HHI: DIVX=1-HHI

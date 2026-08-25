@@ -248,73 +248,240 @@ $\log(GDPPC)$ presentan coeficientes negativos. Estos dos últimos resultados
 deben interpretarse con cautela: corresponden a variación condicional dentro de
 la muestra y pierden estabilidad bajo algunas sensibilidades temporales.
 
-Las pruebas conjuntas muestran evidencia para los bloques institucional
-($p<0,001$), estructural ($p=0,019$), de capacidades productivas ($p=0,010$) y
-de controles económicos y financieros ($p<0,001$). Los bloques de rentas
-específicas per cápita y condiciones macroeconómicas no son conjuntamente
-significativos.
+Las pruebas conjuntas muestran evidencia para el bloque institucional
+($RENTS$, $INST$ y $RENTS\times INST$; $p<0,001$), el bloque estructural
+($PEXP$ y $FEXP$; $HHI$ se excluye por construcción; $p=0,019$), el bloque de
+capacidades productivas ($HUMCAP$, $INNOV$ y $NET$; $p=0,010$) y el bloque de
+controles económicos y financieros ($\log(GDPPC)$, $GOVCONS$ y $FIN$;
+$p<0,001$). En cambio, los bloques de rentas específicas per cápita
+($\ln(1+OILPC)$, $\ln(1+GASPC)$ y $\ln(1+COALPC)$) y de condiciones
+macroeconómicas ($VOL$ y $RER$) no son conjuntamente significativos.
 
 
 \section{Desagregación por tipo de recurso extractivo}
 \label{sec:resultados-desagregacion}
 
-La extensión desagregada reemplaza $RENTS$ y su interacción por dos componentes:
-rentas de petróleo y gas, y rentas de minería y carbón. Mantiene la misma
-muestra, los demás regresores de $M_3$, los efectos fijos bidireccionales y los
-errores estándar agrupados por país. Para el TFM, la evidencia sectorial se
-concentra en esta especificación integrada; las secuencias temáticas por recurso
-se conservan como análisis auxiliares y no sustituyen el resultado principal.
+La desagregación se desarrolla mediante dos variantes completas de $M_3$: una
+reemplaza $RENTS$ y $RENTS\times INST$ por las rentas de petróleo y gas y su
+interacción; la otra realiza el reemplazo con las rentas de minería y carbón.
+Cada variante conserva la muestra común, los demás regresores de $M_3$, los
+efectos fijos por país y año y los errores estándar agrupados por país.
 
-\begin{table}[htbp]
-    \centering
-    \caption{Resultados focales del modelo agregado y de la desagregación de rentas}
-    \label{tab:modelos_desagregados_twfe}
-    \label{tab:progresion_hidrocarburos_twfe}
-    \label{tab:progresion_mineria_twfe}
-    \label{tab:resultados_desagregados_peer2}
-    \resizebox{\textwidth}{!}{%
-    \begin{tabular}{llrrrr}
-        \toprule
-        Resultado & Especificación y término & Coeficiente & EE & $p$-valor & IC 95\% \\
-        \midrule
-        $ECI$ & $RENTS$ agregado & $-0,0098$ & 0,0042 & 0,023 & [$-0,0182$; $-0,0014$] \\
-        $ECI$ & Petróleo y gas & $-0,0073$ & 0,0057 & 0,212 & [$-0,0188$; 0,0043] \\
-        $ECI$ & Minería y carbón & $-0,0136$ & 0,0039 & 0,001 & [$-0,0215$; $-0,0057$] \\
-        $ECI$ & Petróleo y gas $\times INST$ & $-0,0057$ & 0,0039 & 0,155 & [$-0,0135$; 0,0022] \\
-        $ECI$ & Minería y carbón $\times INST$ & $-0,0021$ & 0,0043 & 0,622 & [$-0,0107$; 0,0065] \\
-        \addlinespace
-        $DIVX$ & $RENTS$ agregado & $-0,0035$ & 0,0013 & 0,009 & [$-0,0061$; $-0,0009$] \\
-        $DIVX$ & Petróleo y gas & $-0,0048$ & 0,0014 & 0,001 & [$-0,0076$; $-0,0021$] \\
-        $DIVX$ & Minería y carbón & $-0,0014$ & 0,0019 & 0,459 & [$-0,0052$; 0,0024] \\
-        $DIVX$ & Petróleo y gas $\times INST$ & 0,0012 & 0,0013 & 0,357 & [$-0,0014$; 0,0038] \\
-        $DIVX$ & Minería y carbón $\times INST$ & $-0,0009$ & 0,0023 & 0,693 & [$-0,0054$; 0,0037] \\
-        \bottomrule
-    \end{tabular}}
-    \caption*{\footnotesize \textit{Nota:} Modelos completos con 1.044 observaciones, 49 países, efectos fijos por país y año y errores estándar agrupados por país.}
-    \caption*{\footnotesize \textit{Fuente: Elaboración propia a partir del panel maestro.}}
-\end{table}
+\subsection{Rentas de petróleo y gas}
+\label{subsec:resultados-rents-oil-gas}
 
-Para $ECI$, las rentas de minería y carbón presentan una asociación negativa
-($-0,0136$, $p=0,001$) y el componente formado por su término directo y su
-interacción es conjuntamente significativo ($p=0,002$). Para $DIVX$, el patrón
-análogo se concentra en petróleo y gas: el coeficiente directo es $-0,0048$
-($p=0,001$) y ambos términos son conjuntamente significativos ($p<0,001$).
+La primera variante permite examinar si la composición sectorial de las rentas
+aporta información adicional sobre $ECI$ y $DIVX$ sin reducir el modelo a los
+términos de petróleo y gas. La \autoref{tab:resultados_m3_oil_gas} presenta, por
+ello, la especificación completa y las pruebas conjuntas se interpretan para
+todos los canales del modelo.
 
-Estos resultados no demuestran que los componentes sean estadísticamente
-distintos entre sí. La igualdad de los coeficientes directos no se rechaza al
-5\% para $ECI$ ($p=0,325$) ni para $DIVX$ ($p=0,108$). En $DIVX$ sí se rechaza
-la restricción conjunta que iguala simultáneamente los términos directos y las
-interacciones ($p=0,018$). La lectura adecuada es, por tanto, la de patrones
-sectoriales complementarios y sugestivos, no la de mecanismos exclusivos o
-efectos causales diferenciados.
+\begingroup
+\small
+\setlength{\tabcolsep}{5pt}
+\begin{longtable}{p{0.44\textwidth}cc}
+    \caption{Modelo completo con rentas de petróleo y gas}
+    \label{tab:resultados_m3_oil_gas}\\
+    \toprule
+    Variable & $ECI$ & $DIVX$ \\
+    \midrule
+    \endfirsthead
+    \multicolumn{3}{c}{\tablename\ \thetable\ (continuación)}\\
+    \toprule
+    Variable & $ECI$ & $DIVX$ \\
+    \midrule
+    \endhead
+    \midrule
+    \multicolumn{3}{r}{Continúa en la página siguiente}\\
+    \endfoot
+    \bottomrule
+    \multicolumn{3}{p{0.96\textwidth}}{\footnotesize \textit{Nota:} Errores estándar agrupados por país entre paréntesis. Todas las ecuaciones incluyen efectos fijos por país y año. $HHI$ se excluye de $DIVX$ porque $DIVX=1-HHI$. $^{*}p<0,10$, $^{**}p<0,05$, $^{***}p<0,01$.}\\
+    \multicolumn{3}{l}{\footnotesize \textit{Fuente: Elaboración propia a partir del panel maestro.}}\\
+    \endlastfoot
+    $RENTS\_OIL\_GAS$ & $-0,0056$ $(0,0058)$ & $-0,0047^{***}$ $(0,0013)$ \\
+    $INST$ & $0,2653^{*}$ $(0,1402)$ & $0,0152$ $(0,0281)$ \\
+    $RENTS\_OIL\_GAS\times INST$ & $-0,0051$ $(0,0039)$ & $0,0013$ $(0,0013)$ \\
+    $\ln(1+OILPC)$ & $0,0189$ $(0,0408)$ & $0,0085$ $(0,0082)$ \\
+    $\ln(1+GASPC)$ & $0,0407$ $(0,0360)$ & $0,0047$ $(0,0066)$ \\
+    $\ln(1+COALPC)$ & $0,0042$ $(0,0305)$ & $-0,0149^{**}$ $(0,0068)$ \\
+    $HHI$ & $-0,5905^{**}$ $(0,2321)$ & --- \\
+    $PEXP$ & $-0,0042^{**}$ $(0,0016)$ & $0,0015^{**}$ $(0,0006)$ \\
+    $FEXP$ & $-0,0069^{***}$ $(0,0020)$ & $-0,0009$ $(0,0010)$ \\
+    $VOL$ & $-0,0031$ $(0,0026)$ & $0,0003$ $(0,0009)$ \\
+    $RER$ & $-0,0962$ $(0,0975)$ & $-0,0427$ $(0,0361)$ \\
+    $HUMCAP$ & $-0,0482$ $(0,2277)$ & $0,1076^{**}$ $(0,0420)$ \\
+    $INNOV$ & $-0,0324$ $(0,0491)$ & $0,0105$ $(0,0138)$ \\
+    $NET$ & $-0,0011$ $(0,0020)$ & $-0,0006^{*}$ $(0,0004)$ \\
+    $\log(GDPPC)$ & $-0,0492$ $(0,2214)$ & $-0,1419^{***}$ $(0,0359)$ \\
+    $GOVCONS$ & $-0,0056$ $(0,0092)$ & $0,0029^{*}$ $(0,0017)$ \\
+    $FIN$ & $-0,0010$ $(0,0025)$ & $0,0006$ $(0,0004)$ \\
+    \midrule
+    Observaciones & 1.044 & 1.044 \\
+    Países & 49 & 49 \\
+    $R^2$ \textit{within} & 0,144 & 0,326 \\
+\end{longtable}
+\endgroup
 
-Las sensibilidades específicas respaldan los dos patrones más definidos. El
-coeficiente de minería y carbón en $ECI$ conserva el signo en las 49 exclusiones
-de países, resulta significativo al 5\% en todas ellas y mantiene significación
-con bootstrap ($p_{boot}=0,024$). El coeficiente de petróleo y gas en $DIVX$
-también conserva el signo y la significación en las 49 exclusiones y presenta
-$p_{boot}=0,003$. Los demás términos desagregados no alcanzan el mismo nivel de
-estabilidad, por lo que se mantienen como evidencia no concluyente.
+En la ecuación de $ECI$, el coeficiente de $RENTS\_OIL\_GAS$ es negativo, pero
+no es estadísticamente distinto de cero ($-0,0056$; $p=0,335$). La interacción
+con $INST$ tampoco es precisa ($p=0,203$), de modo que esta variante no permite
+afirmar que las rentas de petróleo y gas presenten una asociación condicional
+precisa con la complejidad ni que $INST$ modifique sistemáticamente esa relación.
+Aunque $INST$ presenta una
+asociación positiva al 10\%, el bloque institucional completo
+($RENTS\_OIL\_GAS$, $INST$ y su interacción) no es conjuntamente significativo
+($p=0,313$).
+
+El patrón más definido para $ECI$ corresponde a la estructura exportadora:
+$HHI$, $PEXP$ y $FEXP$ presentan coeficientes negativos y el bloque es
+conjuntamente significativo ($p=0,001$). En cambio, no se rechaza la nulidad
+conjunta de las rentas reales per cápita ($p=0,636$), las condiciones
+macroeconómicas ($p=0,193$), las capacidades productivas ($p=0,799$) ni los
+controles económicos y financieros ($p=0,894$).
+
+Para $DIVX$, $RENTS\_OIL\_GAS$ presenta una asociación negativa y precisa
+($-0,0047$; $p=0,001$). Este coeficiente corresponde a $INST=0$ y, en otros
+niveles institucionales, debe combinarse con la interacción. Como esta última no
+es significativa ($p=0,329$), la evidencia identifica la asociación directa
+condicional, pero no una moderación institucional sistemática. La significación
+conjunta del bloque institucional ($p<0,001$) proviene principalmente del término
+de rentas y no debe interpretarse como evidencia de que $INST$ modere su efecto.
+
+Los demás resultados de $DIVX$ también muestran que la variante conserva la
+estructura explicativa de $M_3$. El bloque estructural es conjuntamente
+significativo ($p=0,023$), con una asociación positiva de $PEXP$. Las capacidades
+productivas también son conjuntas ($p=0,019$), con $HUMCAP$ positivo y $NET$
+negativo al 10\%. Los controles económicos y financieros son conjuntamente
+significativos ($p<0,001$): $\log(GDPPC)$ es negativo, $GOVCONS$ es positivo al
+10\% y $FIN$ queda apenas por encima de ese umbral. Entre las rentas reales per
+cápita, solo $\ln(1+COALPC)$ es negativo al 5\%, pero el bloque completo no es
+conjunto ($p=0,154$); tampoco lo es el bloque macroeconómico ($p=0,480$). En
+conjunto, la variante de petróleo y gas conserva una asociación definida con la
+diversificación exportadora, mientras que para la complejidad económica la
+evidencia sectorial permanece imprecisa.
+
+\subsection{Rentas de minería y carbón}
+\label{subsec:resultados-rents-mining}
+
+La segunda variante reemplaza los términos agregados de rentas por
+$RENTS\_MINING$ y su interacción con $INST$, manteniendo sin cambios los demás
+regresores y la estrategia de estimación. La
+\autoref{tab:resultados_m3_mining} reporta la especificación completa para
+examinar conjuntamente el resultado sectorial y los demás canales asociados con
+$ECI$ y $DIVX$.
+
+\begingroup
+\small
+\setlength{\tabcolsep}{5pt}
+\begin{longtable}{p{0.44\textwidth}cc}
+    \caption{Modelo completo con rentas de minería y carbón}
+    \label{tab:resultados_m3_mining}\\
+    \toprule
+    Variable & $ECI$ & $DIVX$ \\
+    \midrule
+    \endfirsthead
+    \multicolumn{3}{c}{\tablename\ \thetable\ (continuación)}\\
+    \toprule
+    Variable & $ECI$ & $DIVX$ \\
+    \midrule
+    \endhead
+    \midrule
+    \multicolumn{3}{r}{Continúa en la página siguiente}\\
+    \endfoot
+    \bottomrule
+    \multicolumn{3}{p{0.96\textwidth}}{\footnotesize \textit{Nota:} Errores estándar agrupados por país entre paréntesis. Todas las ecuaciones incluyen efectos fijos por país y año. $HHI$ se excluye de $DIVX$ porque $DIVX=1-HHI$. $^{*}p<0,10$, $^{**}p<0,05$, $^{***}p<0,01$.}\\
+    \multicolumn{3}{l}{\footnotesize \textit{Fuente: Elaboración propia a partir del panel maestro.}}\\
+    \endlastfoot
+    $RENTS\_MINING$ & $-0,0122^{***}$ $(0,0038)$ & $-0,0005$ $(0,0019)$ \\
+    $INST$ & $0,2221^{*}$ $(0,1262)$ & $0,0339$ $(0,0252)$ \\
+    $RENTS\_MINING\times INST$ & $-0,0014$ $(0,0042)$ & $-0,0007$ $(0,0023)$ \\
+    $\ln(1+OILPC)$ & $0,0166$ $(0,0362)$ & $-0,0016$ $(0,0083)$ \\
+    $\ln(1+GASPC)$ & $0,0363$ $(0,0348)$ & $0,0082$ $(0,0071)$ \\
+    $\ln(1+COALPC)$ & $0,0194$ $(0,0234)$ & $-0,0105$ $(0,0076)$ \\
+    $HHI$ & $-0,5983^{***}$ $(0,1976)$ & --- \\
+    $PEXP$ & $-0,0043^{***}$ $(0,0016)$ & $0,0015^{**}$ $(0,0006)$ \\
+    $FEXP$ & $-0,0073^{***}$ $(0,0020)$ & $-0,0013$ $(0,0011)$ \\
+    $VOL$ & $-0,0021$ $(0,0025)$ & $0,0014$ $(0,0010)$ \\
+    $RER$ & $-0,0796$ $(0,0980)$ & $-0,0471$ $(0,0369)$ \\
+    $HUMCAP$ & $-0,0370$ $(0,2222)$ & $0,1124^{**}$ $(0,0497)$ \\
+    $INNOV$ & $-0,0369$ $(0,0509)$ & $0,0151$ $(0,0143)$ \\
+    $NET$ & $-0,0011$ $(0,0022)$ & $-0,0006$ $(0,0004)$ \\
+    $\log(GDPPC)$ & $-0,0654$ $(0,2317)$ & $-0,1503^{***}$ $(0,0362)$ \\
+    $GOVCONS$ & $-0,0027$ $(0,0091)$ & $0,0033^{*}$ $(0,0017)$ \\
+    $FIN$ & $-0,0005$ $(0,0023)$ & $0,0006^{*}$ $(0,0004)$ \\
+    \midrule
+    Observaciones & 1.044 & 1.044 \\
+    Países & 49 & 49 \\
+    $R^2$ \textit{within} & 0,150 & 0,271 \\
+\end{longtable}
+\endgroup
+
+En la ecuación de $ECI$, $RENTS\_MINING$ presenta una asociación negativa y
+estadísticamente precisa ($-0,0122$; $p=0,003$). El coeficiente corresponde a
+$INST=0$ y debe combinarse con la interacción para interpretar otros niveles
+institucionales. Esta interacción no es significativa ($p=0,736$), por lo que el
+resultado no permite afirmar que la asociación cambie sistemáticamente con la
+calidad institucional. El bloque institucional es conjuntamente significativo
+($p=0,004$), impulsado por el término directo de las rentas mineras y, en menor
+medida, por la asociación positiva de $INST$ al 10\%.
+
+La estructura exportadora también conserva un papel definido en la ecuación de
+$ECI$: $HHI$, $PEXP$ y $FEXP$ son negativos y el bloque es conjuntamente
+significativo ($p<0,001$). En cambio, las rentas reales per cápita
+($p=0,560$), las condiciones macroeconómicas ($p=0,469$), las capacidades
+productivas ($p=0,783$) y los controles económicos y financieros ($p=0,972$)
+no son conjuntamente distintos de cero.
+
+En la ecuación de $DIVX$, ni $RENTS\_MINING$ ($p=0,801$) ni su interacción con
+$INST$ ($p=0,751$) presentan asociaciones precisas. El bloque institucional
+tampoco es conjuntamente significativo ($p=0,596$). Por consiguiente, esta
+variante no aporta evidencia de una relación condicional definida entre las
+rentas de minería y carbón y la diversificación exportadora.
+
+Los demás canales de $DIVX$ muestran resultados similares a los observados en
+el modelo completo agregado. El bloque estructural es conjuntamente
+significativo ($p=0,020$), con $PEXP$ positivo; las capacidades productivas
+también son conjuntas ($p=0,019$), con una asociación positiva de $HUMCAP$; y
+los controles económicos y financieros son conjuntamente significativos
+($p<0,001$), con $\log(GDPPC)$ negativo y $GOVCONS$ y $FIN$ positivos al 10\%.
+Las rentas reales per cápita ($p=0,407$) y las condiciones macroeconómicas
+($p=0,192$) no son conjuntas. En síntesis, la desagregación minera concentra su
+resultado más definido en la complejidad económica, mientras que los canales
+estructural, de capacidades y de controles continúan siendo relevantes para la
+diversificación exportadora.
+
+Leídas conjuntamente, las dos variantes muestran patrones sectoriales
+complementarios: la asociación negativa precisa aparece en las rentas de minería
+y carbón para $ECI$ y en las rentas de petróleo y gas para $DIVX$. El contraste
+simultáneo $M_{3}^{SIM}$, que incorpora ambos componentes y sus interacciones en
+una misma ecuación, conserva estos resultados: minería y carbón presenta un
+coeficiente de $-0,0136$ para $ECI$ ($p=0,001$), mientras que petróleo y gas
+presenta un coeficiente de $-0,0048$ para $DIVX$ ($p=0,001$). En ese contraste,
+el término directo y la interacción son conjuntamente significativos para el
+componente minero en $ECI$ ($p=0,002$) y para el componente de hidrocarburos en
+$DIVX$ ($p<0,001$).
+
+Esta diferencia de significación no demuestra que los coeficientes directos de
+los dos componentes sean estadísticamente distintos: la igualdad no se rechaza
+al 5\% para $ECI$ ($p=0,325$) ni para $DIVX$ ($p=0,108$). La restricción conjunta
+que iguala simultáneamente los términos directos y las interacciones tampoco se
+rechaza para $ECI$ ($p=0,332$), aunque sí para $DIVX$ ($p=0,018$), donde la
+desagregación aporta información adicional frente al modelo agregado. Además,
+las dos interacciones institucionales no son conjuntamente significativas en
+$ECI$ ($p=0,340$) ni en $DIVX$ ($p=0,599$). Por tanto, la evidencia permite
+describir concentraciones sectoriales distintas, pero no atribuir mecanismos
+exclusivos, efectos causales diferenciados ni una moderación institucional
+sistemática.
+
+Las pruebas de estabilidad sectorial se aplican exclusivamente a
+$M_{3}^{SIM}$. En ese contraste, el coeficiente de minería y carbón en $ECI$
+conserva el signo y la significación al excluir sucesivamente cada uno de los 49
+países y mantiene significación con bootstrap
+($p_{\mathrm{boot}}=0,024$). El coeficiente de petróleo y gas en $DIVX$ también
+conserva el signo y la significación en las 49 exclusiones y presenta
+$p_{\mathrm{boot}}=0,003$. Estos resultados respaldan la estabilidad del
+contraste simultáneo, pero no se interpretan como pruebas independientes de
+robustez de $M_{3}^{OG}$ y $M_{3}^{MIN}$.
 
 
 \section{Inferencia y sensibilidad del modelo completo}
@@ -453,6 +620,13 @@ signo bajo bootstrap, exclusión de países y observaciones influyentes. No
 obstante, su resultado para $ECI$ pierde precisión al incluir tendencias
 lineales por país. Por ello, la evidencia es más estable para diversificación
 que para complejidad bajo esa sensibilidad exigente.
+
+Las variantes sectoriales completas muestran una asociación negativa precisa de
+las rentas de minería y carbón con $ECI$ y de las rentas de petróleo y gas con
+$DIVX$. Ambos patrones se conservan en $M_{3}^{SIM}$, especificación sobre la
+cual se aplican las pruebas sectoriales de bootstrap y exclusión de países. Esta
+evidencia complementa el modelo agregado, pero no demuestra que los coeficientes
+sectoriales sean distintos ni que operen mediante mecanismos exclusivos.
 
 La calidad institucional no muestra una moderación estadísticamente precisa.
 El coeficiente de $INST$ es positivo y marginal en $ECI$, pero las interacciones

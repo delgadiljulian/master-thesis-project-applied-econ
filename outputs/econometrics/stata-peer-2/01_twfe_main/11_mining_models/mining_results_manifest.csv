@@ -1,5 +1,5 @@
 order,family,file,purpose
-1,Diseño,mining_design_register.csv,Pregunta y función de las cuatro ecuaciones.
+1,Diseño,mining_design_register.csv,Pregunta y función de las seis ecuaciones.
 2,Muestra,mining_sample_validation.csv,Validación de 1.044 observaciones y 49 países.
 3,Diseño,mining_specification_register.csv,Regresores y regla de HHI por ecuación.
 4,Estimación,mining_m1_eci.ster,Estimación M1_MIN para ECI.
@@ -37,4 +37,13 @@ order,family,file,purpose
 36,Figura,mining_m2_marginal_effects.png,Figura de efectos marginales de M2_MIN.
 37,Figura,mining_marginal_effects.png,Figura comparativa de M1_MIN y M2_MIN.
 38,Documentación,mining_m1_results_manifest.csv,Inventario parcial hasta la sección 16M.
-39,Documentación,mining_results_manifest.csv,Inventario reproducible de las secciones 15M a 18M.
+39,Documentación,mining_results_manifest.csv,Inventario reproducible de las secciones 15M a 19M.
+40,Estimación,03_m3_full/mining_m3_eci.ster,Estimación M3_MIN para ECI.
+41,Estimación,03_m3_full/mining_m3_divx.ster,Estimación M3_MIN para DIVX.
+42,Resultados,03_m3_full/mining_m3_coefficients.csv,Coeficientes completos de M3_MIN.
+43,Resultados,03_m3_full/mining_m3_model_summary.csv,Cobertura y ajuste de M3_MIN.
+44,Inferencia,03_m3_full/mining_m3_joint_tests.csv,Pruebas conjuntas de M3_MIN.
+45,Verificación,03_m3_full/mining_m3_xtreg_reghdfe_verification.csv,Equivalencia xtreg-reghdfe de M3_MIN.
+46,Tabla,03_m3_full/mining_m3_results_table.tex,Tabla LaTeX completa de M3_MIN.
+47,Tabla,03_m3_full/mining_m3_results_table.txt,Tabla de texto completa de M3_MIN.
+48,Documentación,03_m3_full/mining_m3_results_manifest.csv,Inventario específico de M3_MIN.
