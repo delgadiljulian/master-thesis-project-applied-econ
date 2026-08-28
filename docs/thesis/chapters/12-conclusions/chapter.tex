@@ -29,8 +29,11 @@ estructural externa de las economías dependientes de recursos naturales. La
 respuesta empírica se limita a asociaciones condicionales estimadas a partir de
 los cambios observados dentro de cada país; no pretende explicar exhaustivamente
 las diferencias históricas entre países.
-En ese margen, la intensidad macroeconómica de las rentas y la estructura de la
-canasta exportadora concentran la evidencia más definida. Los resultados son
+En ese margen, la evidencia más estable se concentra en la asociación negativa
+entre la intensidad macroeconómica de las rentas y la diversificación, y en el
+papel de la estructura de la canasta exportadora para la complejidad. La
+asociación agregada entre rentas y $ECI$ aparece en el modelo principal, pero es
+más sensible a la muestra, las tendencias y la dinámica. Los resultados son
 menos concluyentes para la moderación institucional, las condiciones
 macroeconómicas y varias medidas de capacidades productivas.
 
@@ -47,9 +50,16 @@ ecuaciones.
 La estabilidad no es idéntica en todos los ejercicios. Al incorporar tendencias
 lineales específicas por país, $RENTS$ conserva una asociación negativa y
 significativa con $DIVX$ ($p=0,020$), pero pierde precisión en $ECI$
-($p=0,210$). Por tanto, la relación con la diversificación es más estable frente
-a tendencias nacionales diferenciadas; la conclusión sobre complejidad debe
-formularse con mayor cautela.
+($p=0,210$). En la muestra apareada de 869 observaciones, el coeficiente en
+niveles deja de ser preciso para ambos resultados; al estimar primeras
+diferencias, la asociación negativa reaparece para $DIVX$ ($p<0,001$), pero no
+para $ECI$ ($p=0,313$). El mismo contraste se observa al incorporar un rezago de
+la variable dependiente: $RENTS$ permanece negativo para $DIVX$ ($p=0,010$) y no
+es significativo para $ECI$ ($p=0,163$). Por tanto, la relación con la
+diversificación es más estable a través de las sensibilidades; la asociación
+entre rentas y complejidad constituye un resultado del TWFE principal respaldado
+por el bootstrap, pero no una regularidad uniforme ante cambios de muestra,
+transformación o dinámica.
 
 La estructura exportadora ofrece el resultado más definido para $ECI$. La
 concentración ($HHI$), las exportaciones primarias no energéticas ($PEXP$) y las
@@ -60,16 +70,20 @@ dimensiones: una canasta puede ser menos concentrada porque incorpora una mayor
 variedad de productos primarios, sin que ello implique una mayor sofisticación
 o acumulación de capacidades productivas reveladas.
 
-La calidad institucional no muestra el papel moderador previsto. El coeficiente
-de $INST$ es positivo y marginal al 10\% en la ecuación de $ECI$, pero
-$RENTS\times INST$ no es significativo en ninguna de las dos ecuaciones, tampoco
-con bootstrap. Los efectos marginales de $RENTS$ son negativos en los cinco
+La calidad institucional no presenta evidencia robusta del papel moderador
+previsto. El coeficiente de $INST$ es positivo y marginal al 10\% en la ecuación
+principal de $ECI$, pero $RENTS\times INST$ no es significativo en ninguna de
+las dos ecuaciones, tampoco con bootstrap ni en la sensibilidad dinámica. En
+primeras diferencias, la interacción es positiva y significativa para $ECI$,
+pero cambia de signo respecto del modelo en niveles y no se reproduce en las
+demás variantes. Los efectos marginales de $RENTS$ son negativos en los cinco
 percentiles observados de $INST$, aunque su precisión varía. En consecuencia,
 la tesis no encuentra evidencia suficiente para afirmar que el indicador
 institucional utilizado modifique sistemáticamente la asociación entre rentas y
-transformación estructural externa. Este resultado no demuestra que las
-instituciones sean irrelevantes; delimita lo que puede concluirse con esta
-medición y esta especificación.
+transformación estructural externa. Esta conclusión no prueba que las
+instituciones sean irrelevantes ni que una mejora institucional carezca de
+efectos; delimita lo que puede inferirse con esta medición, este panel y estas
+especificaciones.
 
 Las variables $VOL$ y $RER$ no son significativas individual ni conjuntamente.
 Por ello, el modelo no respalda directamente el canal macroeconómico formulado,
@@ -110,13 +124,16 @@ el período de estimación.
 En relación con las hipótesis, la evidencia puede resumirse así: la
 \hyperref[hyp:h1]{primera hipótesis} recibe apoyo parcial porque los patrones son
 compatibles con una relación adversa entre intensidad extractiva, estructura
-exportadora y transformación externa, pero no identifican directamente los
-mecanismos propuestos; la \hyperref[hyp:h2]{segunda hipótesis} no recibe respaldo
-de la interacción institucional; la \hyperref[hyp:h3]{tercera hipótesis} queda
-inconclusa; la \hyperref[hyp:h4]{cuarta hipótesis} recibe apoyo limitado por el
-resultado de capital humano en $DIVX$; y la \hyperref[hyp:h5]{quinta hipótesis}
-encuentra patrones sectoriales sugestivos, aunque no diferencias concluyentes
-entre los coeficientes directos.
+exportadora y transformación externa, aunque la asociación de las rentas con
+$ECI$ es sensible y el diseño no identifica directamente los mecanismos
+propuestos; la \hyperref[hyp:h2]{segunda hipótesis} no recibe respaldo robusto,
+pues la interacción institucional aislada en primeras diferencias para $ECI$ no
+se reproduce en el modelo principal ni en las demás sensibilidades; la
+\hyperref[hyp:h3]{tercera hipótesis} queda inconclusa; la
+\hyperref[hyp:h4]{cuarta hipótesis} recibe apoyo limitado por el resultado de
+capital humano en $DIVX$; y la \hyperref[hyp:h5]{quinta hipótesis} encuentra
+patrones sectoriales sugestivos, aunque no diferencias concluyentes entre los
+coeficientes directos.
 
 
 \section{Implicaciones teóricas y contribuciones metodológicas}
@@ -143,7 +160,11 @@ estimado sobre una muestra común de 1.044 observaciones, 49 países y 23 años
 efectivos. Esta regla evita atribuir a la incorporación de variables lo que
 podría deberse a cambios de muestra. La inferencia principal se complementa con
 bootstrap, exclusión de países, observaciones influyentes, efectos marginales,
-tendencias nacionales y una sensibilidad temporal preespecificada.
+tendencias nacionales y una sensibilidad temporal preespecificada. La selección
+del estimador se examina mediante las comparaciones entre \textit{pooled OLS},
+efectos fijos, efectos aleatorios y Mundlak; además, las primeras diferencias y
+la especificación dinámica permiten evaluar qué resultados dependen de la
+persistencia, la transformación temporal o la reducción de la muestra.
 
 La cuarta contribución es de alcance interpretativo. Los diagnósticos temporales
 y residuales se utilizan como información sobre el panel, no como mecanismos
@@ -190,14 +211,15 @@ sector. Las estrategias de proveedores, procesamiento, contenido local o apoyo
 a exportaciones alternativas requieren análisis de viabilidad, competencia,
 costos fiscales y capacidades nacionales.
 
-En cuarto lugar, la falta de moderación estadística de $INST$ impide concluir
-que una mejora general de gobernanza neutralice por sí sola la asociación
-negativa de las rentas. Tampoco la ausencia de significación de $VOL$ autoriza a
-descartar la estabilización macroeconómica. Las reformas institucionales,
-reglas fiscales o fondos de ahorro pueden tener fundamentos independientes en
-la literatura y en objetivos de política, pero su diseño específico no se
-deduce de las estimaciones de esta tesis y debe evaluarse con evidencia
-adicional.
+En cuarto lugar, la ausencia de evidencia robusta de moderación mediante $INST$
+impide concluir que una mejora general de gobernanza neutralice por sí sola la
+asociación negativa de las rentas. Este resultado tampoco demuestra que las
+instituciones sean irrelevantes. De manera análoga, la ausencia de significación
+de $VOL$ no autoriza a descartar la estabilización macroeconómica. Las reformas
+institucionales, reglas fiscales o fondos de ahorro pueden tener fundamentos
+independientes en la literatura y en objetivos de política, pero su diseño
+específico no se deduce de las estimaciones de esta tesis y debe evaluarse con
+evidencia adicional.
 
 
 \section{Limitaciones y agenda futura de investigación}
@@ -205,26 +227,54 @@ adicional.
 
 La principal limitación es la naturaleza observacional del diseño. Los efectos
 fijos por país controlan factores invariantes y los efectos de año absorben
-shocks globales comunes, pero no eliminan causalidad inversa, errores de
-medición ni variables omitidas que cambian en el tiempo. Por ello, los
-coeficientes no identifican el efecto de modificar las rentas, las instituciones
-o las capacidades mediante una intervención.
+shocks globales comunes, pero no eliminan la causalidad inversa, la simultaneidad,
+los errores de medición ni las variables omitidas que cambian en el tiempo. Por
+ejemplo, la complejidad y la diversificación también pueden modificar las rentas,
+las políticas públicas y las instituciones. La comparación entre
+\textit{pooled OLS}, efectos fijos, efectos aleatorios y Mundlak respalda la
+elección de TWFE para estimar asociaciones condicionales dentro de los países;
+no constituye, sin embargo, una estrategia de identificación causal. Del mismo
+modo, cambiar el estimador de la matriz de varianzas mejora la inferencia ante
+determinadas formas de dependencia, pero no resuelve la endogeneidad. En ausencia
+de un instrumento externo, una reforma o un shock cuasiexperimental defendible,
+los coeficientes no identifican el efecto de una intervención sobre las rentas,
+las instituciones o las capacidades productivas.
 
-La segunda limitación corresponde al alcance de los resultados. $ECI$ y $DIVX$
+La segunda limitación surge de la persistencia de los resultados de
+transformación estructural. Los rezagos de $ECI$ y $DIVX$ son positivos y
+estadísticamente significativos en la especificación dinámica, lo que indica que
+el nivel observado en un año depende en parte de su trayectoria previa. El TWFE
+estático no modela explícitamente esa dependencia ni permite recuperar por sí
+solo una senda de ajuste. A su vez, la inclusión de la variable dependiente
+rezagada dentro de un estimador de efectos fijos puede producir sesgo de Nickell
+en paneles con una dimensión temporal finita \parencite{Nickell1981}; por ello,
+la especificación dinámica se interpreta como una sensibilidad acotada y no
+como un reemplazo del modelo principal. Su coeficiente rezagado tampoco debe
+leerse como evidencia causal. La tesis no adopta GMM porque no dispone de una
+estrategia de momentos e instrumentos que sea sustantivamente defendible y que
+evite una proliferación mecánica de instrumentos.
+
+La tercera limitación corresponde al alcance de los resultados. $ECI$ y $DIVX$
 describen la dimensión externa de la transformación estructural, pero no captan
 directamente empleo, productividad sectorial, informalidad, valor agregado
 doméstico ni encadenamientos entre firmas. Asimismo, los indicadores nacionales
-pueden ocultar heterogeneidad regional, empresarial y sectorial.
+pueden ocultar heterogeneidad regional, empresarial y sectorial. La interacción
+entre $RENTS$ e $INST$ evalúa heterogeneidad condicional, no demuestra un
+mecanismo de mediación institucional; de igual manera, la desagregación de las
+rentas por sectores no identifica por sí sola los canales económicos que generan
+las asociaciones estimadas.
 
-La tercera limitación es muestral y temporal. La selección inicial se fija con
+La cuarta limitación es muestral y temporal. La selección inicial se fija con
 $DRES\geq20\%$ en 1990--1995, mientras que la muestra econométrica común queda
 reducida a 49 países y 23 años efectivos. El panel es desbalanceado, contiene
-vacíos comunes y termina en 2021. En consecuencia, los resultados no se
-generalizan automáticamente a economías no dependientes, a países excluidos por
-disponibilidad de información ni a la fase más reciente de la transición
-energética.
+vacíos comunes y termina en 2021. Las especificaciones en primeras diferencias
+y con variable dependiente rezagada se estiman sobre una muestra común más corta,
+con 869 observaciones y 19 años efectivos entre 2003 y 2021. En consecuencia,
+los resultados no se generalizan automáticamente a economías no dependientes, a
+países excluidos por disponibilidad de información ni a la fase más reciente de
+la transición energética.
 
-La cuarta limitación se relaciona con las mediciones. $INST$ resume cuatro
+La quinta limitación se relaciona con las mediciones. $INST$ resume cuatro
 dimensiones amplias de gobernanza y puede no captar instituciones específicas
 del sector extractivo, como reglas de licenciamiento, tributación, transparencia
 o gestión de empresas estatales. $VOL$ mide la desviación móvil de las
@@ -232,14 +282,19 @@ variaciones del índice CTOT y no representa todas las fuentes de inestabilidad
 macrofiscal. De forma similar, las rentas reales per cápita son medidas
 monetarias y no dotaciones físicas.
 
-La quinta limitación es la sensibilidad de algunos resultados. La asociación de
-$RENTS$ con $ECI$ y varios coeficientes complementarios pierden precisión al
-incorporar tendencias lineales por país. La interacción institucional tampoco
-es precisa y la prueba temporal de $DIVX$ en 2014 es marginal al 10\%. Estas
-variaciones impiden presentar todos los coeficientes del modelo base como
-regularidades igualmente robustas.
+La sexta limitación es la sensibilidad de algunos resultados a la dinámica y a
+la transformación de las variables. Las pruebas de raíz unitaria ofrecen
+evidencia mixta y, por tanto, los coeficientes en niveles no deben interpretarse
+como relaciones de equilibrio de largo plazo. Las primeras diferencias reducen
+el papel de tendencias persistentes, pero cambian el estimando hacia asociaciones
+entre variaciones de corto plazo y reducen la muestra disponible. En esa
+comparación, los resultados de $ECI$ son más sensibles, mientras que la relación
+negativa entre rentas y $DIVX$ presenta mayor estabilidad. La asociación de
+$RENTS$ con $ECI$ y varios coeficientes complementarios también pierden precisión
+al incorporar tendencias lineales por país. Estas variaciones impiden presentar
+todos los coeficientes del modelo base como regularidades igualmente robustas.
 
-La agenda futura puede avanzar en cuatro direcciones. Primero, extender las
+La agenda futura puede avanzar en cinco direcciones. Primero, extender las
 series con datos comparables posteriores a 2021 para estudiar la transición
 energética y los cambios recientes sin imponer anticipadamente un quiebre.
 Segundo, combinar información comercial con matrices insumo-producto, empleo y
@@ -247,18 +302,24 @@ datos de firmas para observar capacidades y encadenamientos internos. Tercero,
 incorporar medidas institucionales específicas de la gobernanza extractiva y
 evaluar su soporte temporal dentro de los países. Cuarto, desarrollar diseños
 con fuentes externas de variación, reformas escalonadas u otros eventos
-institucionales defendibles que permitan responder preguntas causales. Una
-estrategia más compleja aplicada al mismo panel no sustituye la necesidad de una
-fuente creíble de identificación.
+institucionales defendibles que permitan responder preguntas causales. Quinto,
+estudiar la dinámica con paneles continuos de mayor longitud y estimadores
+dinámicos cuyas restricciones de momentos e instrumentos se definan y justifiquen
+antes de la estimación. Una estrategia más compleja aplicada al mismo panel no
+sustituye la necesidad de una fuente creíble de identificación.
 
-En conclusión, la tesis encuentra que una mayor intensidad de rentas y una
-estructura exportadora más concentrada se asocian con resultados menos
-favorables de transformación estructural externa en la muestra analizada. La
-evidencia es más estable para la diversificación exportadora que para la
-complejidad bajo tendencias nacionales, y no respalda una moderación
-institucional sistemática. Estos resultados aportan una base comparativa para
-orientar nuevas preguntas y evaluaciones, pero deben conservarse dentro de los
-límites de un análisis observacional.
+En conclusión, la evidencia más estable del estudio es la asociación negativa
+entre la intensidad de las rentas y la diversificación exportadora, junto con la
+relación entre la composición de la canasta exportadora y la complejidad. La
+asociación agregada entre rentas y $ECI$ es negativa en el TWFE principal y bajo
+bootstrap, pero no conserva precisión de manera uniforme al introducir
+tendencias nacionales, restringir la muestra, diferenciar las variables o
+incorporar la dinámica. Tampoco se encuentra evidencia robusta de que el
+indicador institucional utilizado modere sistemáticamente estas asociaciones;
+esto no equivale a demostrar que las instituciones sean irrelevantes. Los
+hallazgos aportan una base comparativa para orientar nuevas preguntas y
+evaluaciones, pero describen asociaciones condicionales y no efectos causales ni
+mecanismos identificados.
 
 \thesisendchap{conclusiones}
 

@@ -20,6 +20,14 @@ estimaciones corresponden a asociaciones condicionales dentro de los países,
 con efectos fijos por país y por año y errores estándar agrupados por país; no
 se interpretan como efectos causales.
 
+La jerarquía de resultados distingue explícitamente entre la especificación
+principal y los ejercicios de sensibilidad. Los coeficientes sustantivos de
+$M_3$ en niveles con TWFE y errores agrupados por país constituyen la evidencia
+principal. Las primeras diferencias, el modelo con un rezago, el
+\textit{wild cluster bootstrap}, Driscoll--Kraay, las tendencias por país y las
+demás variantes se utilizan para evaluar estabilidad; no sustituyen el modelo
+principal ni redefinen las hipótesis según su significación.
+
 La exposición sigue la arquitectura aprobada de tres especificaciones. $M_1$
 resume la estructura extractiva y exportadora; $M_2$ reúne capacidades
 productivas y estabilidad macroeconómica; y $M_3$ integra simultáneamente los
@@ -42,7 +50,8 @@ respondan a una composición muestral diferente.
 El diagnóstico descriptivo de persistencia arroja coeficientes AR(1) de 0,495
 para $ECI$, 0,744 para $DIVX$, 0,701 para $RENTS$ y 0,809 para $INST$. Estos
 valores describen la continuidad temporal de las series, pero no constituyen
-una clasificación automática de su orden de integración.
+una clasificación automática de su orden de integración ni corresponden a los
+coeficientes del modelo dinámico condicional presentado posteriormente.
 
 Las pruebas Fisher--ADF también ofrecen evidencia dependiente de la
 especificación. En niveles, la hipótesis nula de raíz unitaria para todos los
@@ -53,6 +62,10 @@ Dado que el rechazo de la prueba Fisher
 solo indica que al menos uno de los paneles es estacionario, estos resultados
 no autorizan a clasificar universalmente las variables como $I(0)$ o $I(1)$ ni
 a reemplazar de manera automática el modelo en niveles.
+Para los demás controles se dispone de una variante Fisher--ADF predefinida en
+niveles y diferencias. Esta evidencia amplía el diagnóstico a las 18 variables
+sustantivas, pero una sola variante por control se interpreta como señal de
+alerta y no como clasificación definitiva.
 
 La \autoref{tab:diagnosticos_m3_peer2} resume los diagnósticos aplicados a los
 residuos de $M_3$. La prueba de Wald modificada rechaza homocedasticidad y la
@@ -86,6 +99,59 @@ regla automática para escoger otro estimador.
     \caption*{\footnotesize \textit{Nota:} Los diagnósticos utilizan la muestra común de 1.044 observaciones y 49 países. Los VIF se calculan después de retirar los efectos fijos de país y año.}
     \caption*{\footnotesize \textit{Fuente: Elaboración propia a partir del panel maestro.}}
 \end{table}
+
+
+\section{Selección de la especificación principal}
+\label{sec:resultados-seleccion-estimador}
+
+La \autoref{tab:seleccion_estimador_panel} presenta el recorrido de selección
+estimado sobre $M_3$, manteniendo las mismas 1.044 observaciones y los mismos
+regresores. Las pruebas conjuntas rechazan la ausencia de efectos de país y de
+año en ambas ecuaciones. La prueba LM también rechaza que la varianza específica
+del panel sea cero. En consecuencia, MCO agrupado no constituye una referencia
+adecuada y los efectos temporales comunes deben permanecer en la especificación.
+
+\begin{table}[htbp]
+    \centering
+    \caption{Pruebas para la selección de la especificación de panel}
+    \label{tab:seleccion_estimador_panel}
+    \begin{tabularx}{\textwidth}{@{}>{\RaggedRight\arraybackslash}p{0.22\textwidth}cc>{\RaggedRight\arraybackslash}X@{}}
+        \toprule
+        Contraste & $ECI$ & $DIVX$ & Lectura \\
+        \midrule
+        Efectos de país conjuntos
+        & $F(48,956)=44,84^{***}$
+        & $F(48,957)=30,73^{***}$
+        & Se rechaza MCO agrupado frente a efectos de país. \\
+        Efectos de año conjuntos
+        & $F(22,48)=3,53^{***}$
+        & $F(22,48)=3,86^{***}$
+        & Se mantienen shocks temporales comunes. \\
+        LM de componentes de varianza
+        & $\bar{\chi}^{2}(1)=3.470,29^{***}$
+        & $\bar{\chi}^{2}(1)=2.114,12^{***}$
+        & Se rechaza varianza específica del panel igual a cero. \\
+        Hausman FE--RE
+        & $\chi^{2}(30)=94,31^{***}$
+        & $\chi^{2}(29)=89,35^{***}$
+        & Rechaza RE, pero la diferencia de covarianzas no es definida positiva. \\
+        Mundlak, medias conjuntas
+        & $\chi^{2}(17)=28,79^{**}$
+        & $\chi^{2}(16)=79,48^{***}$
+        & Rechaza la ortogonalidad requerida por RE estándar. \\
+        \bottomrule
+    \end{tabularx}
+    \caption*{\footnotesize \textit{Nota:} Todos los contrastes utilizan $M_3$ y la muestra común. Los efectos de país se evalúan mediante la prueba F clásica del estimador FE; los efectos de año, mediante una prueba de Wald con errores agrupados por país; y el componente de varianza, mediante la prueba LM convencional. El contraste de Mundlak emplea errores agrupados por país y constituye el criterio principal para comparar FE y RE. El Hausman clásico se reporta como diagnóstico, no como criterio único, debido a la matriz de diferencias no definida positiva. $^{**}p<0,05$, $^{***}p<0,01$.}
+    \caption*{\footnotesize \textit{Fuente: Elaboración propia a partir del panel maestro.}}
+\end{table}
+
+En el contraste de Mundlak, la hipótesis conjunta de que las medias nacionales
+de los regresores tienen coeficientes iguales a cero se rechaza para $ECI$
+($p=0,0365$) y $DIVX$ ($p<0,001$). Esto indica que la heterogeneidad permanente
+de los países está correlacionada con las covariables y favorece efectos fijos
+frente a efectos aleatorios estándar. La especificación principal es, por tanto,
+TWFE en niveles; esta decisión antecede a la lectura de sus coeficientes y no se
+basa en cuáles variables resultan significativas.
 
 
 \section{Especificaciones temáticas $M_1$ y $M_2$}
@@ -506,6 +572,20 @@ resultados permanecen y cuáles dependen de supuestos adicionales.
         & $p_{boot}=0,040$ & $p_{boot}=0,021$ \\
         \textit{Wild Cluster Bootstrap}, interacción
         & $p_{boot}=0,209$ & $p_{boot}=0,477$ \\
+        Driscoll--Kraay, $RENTS$
+        & $p=0,056$ & $p=0,001$ \\
+        Driscoll--Kraay, interacción
+        & $p=0,073$ & $p=0,216$ \\
+        TWFE en niveles, muestra apareada, $RENTS$
+        & $-0,0050$; $p=0,206$ & $-0,0023$; $p=0,123$ \\
+        Primeras diferencias, $\Delta RENTS$
+        & $0,0033$; $p=0,313$ & $-0,0035$; $p<0,001$ \\
+        Primeras diferencias, $\Delta(RENTS\times INST)$
+        & $0,0073$; $p=0,024$ & $-0,0006$; $p=0,469$ \\
+        Modelo dinámico, dependiente rezagada
+        & $0,467$; $p<0,001$ & $0,631$; $p<0,001$ \\
+        Modelo dinámico, $RENTS$
+        & $-0,0032$; $p=0,163$ & $-0,0021$; $p=0,010$ \\
         Exclusión de un país por vez, $RENTS$
         & Sin cambios de signo; significativo al 5\% en 46 de 49 iteraciones
         & Sin cambios de signo; significativo al 5\% en 49 de 49 iteraciones \\
@@ -517,9 +597,59 @@ resultados permanecen y cuáles dependen de supuestos adicionales.
         & $p=0,343$ & $p=0,059$ \\
         \bottomrule
     \end{tabular}}
-    \caption*{\footnotesize \textit{Nota:} El bootstrap utiliza 9.999 replicaciones y pesos Rademacher. La sensibilidad de 2014 se estima en la muestra completa y contrasta conjuntamente los cambios de $RENTS$, $INST$ y $RENTS\times INST$.}
+    \caption*{\footnotesize \textit{Nota:} El bootstrap utiliza 9.999 replicaciones y pesos Rademacher. Driscoll--Kraay emplea dos rezagos. Las primeras diferencias y los modelos dinámicos utilizan 869 observaciones, 49 países y 19 años efectivos; sus coeficientes no tienen el mismo estimando que TWFE en niveles. La sensibilidad de 2014 se estima en la muestra completa y contrasta conjuntamente los cambios de $RENTS$, $INST$ y $RENTS\times INST$.}
     \caption*{\footnotesize \textit{Fuente: Elaboración propia a partir del panel maestro.}}
 \end{table}
+
+\subsection{Sensibilidad de la inferencia}
+\label{subsec:resultados-inferencia-alternativa}
+
+El \textit{wild cluster bootstrap} confirma la asociación negativa de $RENTS$
+con $ECI$ ($p_{boot}=0,040$) y $DIVX$ ($p_{boot}=0,021$), mientras que la
+interacción permanece no significativa. Con Driscoll--Kraay, que modifica la
+matriz de covarianza pero no los coeficientes TWFE, $RENTS$ conserva una
+asociación negativa al 10\% en $ECI$ ($p=0,056$) y al 1\% en $DIVX$
+($p=0,001$). La interacción es marginal al 10\% únicamente para $ECI$
+($p=0,073$), pero este patrón no se reproduce con la inferencia agrupada ni con
+el bootstrap y no se interpreta como evidencia robusta de moderación.
+
+Entre los controles, $HHI$, $PEXP$ y $FEXP$ en $ECI$, y $PEXP$, $HUMCAP$ y
+$\log(GDPPC)$ en $DIVX$, mantienen significación bajo agrupación por país y
+Driscoll--Kraay. Otros términos cambian de precisión según la matriz de
+covarianza: por ejemplo, $NET$ deja de ser significativo en $DIVX$, mientras
+que algunas rentas específicas per cápita solo alcanzan significación bajo
+Driscoll--Kraay. Esta sensibilidad confirma que el método de inferencia afecta
+la precisión de resultados no focales y respalda conservar los errores agrupados
+por país como referencia principal.
+
+\subsection{Primeras diferencias y dinámica}
+\label{subsec:resultados-diferencias-dinamica}
+
+La transformación temporal reduce mecánicamente la muestra a 869 pares
+consecutivos de 49 países entre 2003 y 2021. Antes de diferenciar, el TWFE en
+niveles estimado sobre esta muestra apareada conserva el signo negativo de
+$RENTS$, pero pierde significación en $ECI$ ($p=0,206$) y $DIVX$ ($p=0,123$).
+Por tanto, parte de la diferencia frente al modelo principal de 1.044
+observaciones responde a la cobertura de la muestra y no exclusivamente a la
+transformación.
+
+En primeras diferencias, $\Delta RENTS$ no es significativo para $\Delta ECI$
+($p=0,313$), mientras que $\Delta(RENTS\times INST)$ presenta un coeficiente
+positivo ($p=0,024$). Para $\Delta DIVX$, $\Delta RENTS$ conserva una asociación
+negativa ($p<0,001$) y la interacción no es significativa. Estos coeficientes
+describen asociaciones entre cambios de corto plazo y no reproducen de manera
+uniforme la ecuación en niveles. En particular, la interacción positiva de
+$ECI$ no coincide con el signo del modelo principal ni aparece en las demás
+sensibilidades, por lo que no sustenta una moderación institucional general.
+
+Al incorporar un rezago de la dependiente, los coeficientes son 0,467 para
+$ECI$ y 0,631 para $DIVX$ ($p<0,001$ en ambos casos), lo que documenta
+persistencia condicional. En esta especificación, $RENTS$ no es significativo
+para $ECI$ ($p=0,163$), pero permanece negativo para $DIVX$ ($p=0,010$); las
+interacciones no son significativas. El ejercicio dinámico se conserva como
+sensibilidad debido al cambio de estimando y al posible sesgo de efectos fijos
+con una dependiente rezagada. En conjunto, la evidencia temporal es más estable
+para la asociación entre rentas y diversificación que para complejidad.
 
 \subsection{Efectos marginales de las rentas según la calidad institucional}
 \label{subsec:resultados-efectos-marginales}
@@ -618,8 +748,10 @@ necesariamente su sofisticación.
 $RENTS$ presenta una asociación negativa en ambas ecuaciones y mantiene su
 signo bajo bootstrap, exclusión de países y observaciones influyentes. No
 obstante, su resultado para $ECI$ pierde precisión al incluir tendencias
-lineales por país. Por ello, la evidencia es más estable para diversificación
-que para complejidad bajo esa sensibilidad exigente.
+lineales por país, al restringir la muestra a pares consecutivos y al incorporar
+la dinámica. En primeras diferencias, la asociación negativa permanece precisa
+para $DIVX$, pero no para $ECI$. Por ello, la evidencia es más estable para
+diversificación que para complejidad a través de las distintas sensibilidades.
 
 Las variantes sectoriales completas muestran una asociación negativa precisa de
 las rentas de minería y carbón con $ECI$ y de las rentas de petróleo y gas con
@@ -630,18 +762,20 @@ sectoriales sean distintos ni que operen mediante mecanismos exclusivos.
 
 La calidad institucional no muestra una moderación estadísticamente precisa.
 El coeficiente de $INST$ es positivo y marginal en $ECI$, pero las interacciones
-no son significativas y los efectos marginales siguen patrones diferentes entre
-ambos resultados. Tampoco se detecta una asociación adicional robusta para
-$VOL$ y $RER$. En capacidades, el resultado positivo de $HUMCAP$ sobre $DIVX$
-es relevante en el modelo base, aunque pierde precisión con tendencias por
-país; $INNOV$ no presenta una asociación adicional significativa.
+no son significativas en el modelo principal, el bootstrap ni la sensibilidad
+dinámica. La interacción positiva en primeras diferencias para $ECI$ no se
+reproduce en las demás variantes y los efectos marginales siguen patrones
+diferentes entre ambos resultados. Tampoco se detecta una asociación adicional
+robusta para $VOL$ y $RER$. En capacidades, el resultado positivo de $HUMCAP$
+sobre $DIVX$ es relevante en el modelo base, aunque pierde precisión con
+tendencias por país; $INNOV$ no presenta una asociación adicional significativa.
 
 A partir de esta evidencia, las hipótesis se evalúan de la siguiente manera:
 
 \begin{enumerate}
-    \item \textit{\hyperref[hyp:h1]{Hipótesis 1} --- evidencia compatible, pero parcial}. Las asociaciones negativas de $RENTS$, $HHI$, $PEXP$ y $FEXP$ con $ECI$, y de $RENTS$ con $DIVX$, son compatibles con una relación adversa entre especialización extractiva y transformación estructural externa. El modelo no identifica directamente enfermedad holandesa, estructuras de enclave ni encadenamientos débiles como mecanismos causales.
+    \item \textit{\hyperref[hyp:h1]{Hipótesis 1} --- evidencia compatible, pero parcial}. Las asociaciones negativas de $RENTS$, $HHI$, $PEXP$ y $FEXP$ con $ECI$, y de $RENTS$ con $DIVX$, son compatibles con una relación adversa entre especialización extractiva y transformación estructural externa. El diseño permite identificar asociaciones condicionales compatibles con estos mecanismos, pero no aislar causalmente si operan mediante enfermedad holandesa, estructuras de enclave o encadenamientos productivos débiles.
 
-    \item \textit{\hyperref[hyp:h2]{Hipótesis 2} --- no respaldada por la interacción estimada}. $RENTS\times INST$ no es significativo en $ECI$ ni en $DIVX$, tampoco bajo bootstrap. Por tanto, no se detecta que la calidad institucional modifique sistemáticamente la asociación de las rentas en la forma propuesta.
+    \item \textit{\hyperref[hyp:h2]{Hipótesis 2} --- no respaldada de manera robusta}. $RENTS\times INST$ no es significativo en el modelo principal de $ECI$ ni de $DIVX$, tampoco bajo bootstrap o en la sensibilidad dinámica. La interacción es positiva y significativa para $ECI$ en primeras diferencias, pero cambia de signo respecto del modelo en niveles y no se reproduce en las demás variantes. Por tanto, no se detecta que la calidad institucional modifique sistemáticamente la asociación de las rentas en la forma propuesta.
 
     \item \textit{\hyperref[hyp:h3]{Hipótesis 3} --- evidencia no concluyente}. $VOL$ y $RER$ no son significativos individual ni conjuntamente. El diseño no permite concluir que la volatilidad carezca de importancia, pero tampoco aporta evidencia directa a favor del canal macroeconómico formulado.
 
@@ -651,12 +785,14 @@ A partir de esta evidencia, las hipótesis se evalúan de la siguiente manera:
 \end{enumerate}
 
 En síntesis, la evidencia más consistente se concentra en la asociación negativa
-de las rentas con ambos resultados y en el papel de la estructura exportadora
-para la complejidad. La moderación institucional y los canales macroeconómicos
-no reciben respaldo estadístico suficiente, mientras que las capacidades y la
-desagregación ofrecen resultados complementarios cuya estabilidad es desigual.
-Esta jerarquía empírica orienta la lectura de las conclusiones sin exceder el
-alcance observacional del estudio.
+de las rentas con la diversificación y en el papel de la estructura exportadora
+para la complejidad. La asociación entre rentas y $ECI$ es negativa en el TWFE
+principal y bajo bootstrap, pero resulta más sensible a muestra, tendencias y
+dinámica. La moderación institucional y los canales macroeconómicos no reciben
+respaldo estadístico suficiente, mientras que las capacidades y la desagregación
+ofrecen resultados complementarios cuya estabilidad es desigual. Esta jerarquía
+empírica orienta la lectura de las conclusiones sin exceder el alcance
+observacional del estudio.
 
 % =====================================
 % FIN DEL CAPÍTULO

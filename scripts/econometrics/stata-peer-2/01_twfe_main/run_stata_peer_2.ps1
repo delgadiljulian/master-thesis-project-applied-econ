@@ -1,8 +1,8 @@
 [CmdletBinding()]
 param(
     [ValidateSet(
-        "01", "02", "03", "04", "05", "06", "07", "08",
-        "core", "extensions", "formal", "all"
+        "01", "02", "03", "04", "05", "06", "07", "08", "09", "99",
+        "core", "extensions", "formal", "review", "all"
     )]
     [string]$Stage = "core",
 
@@ -71,6 +71,16 @@ $availableStages = @{
         DoFile = "08_twfe_resource_disaggregated_full.do"
         InternalLog = "07_resource_disaggregation\logs\08_twfe_resource_disaggregated_full.log"
         CompletionMarker = "Archivo 08 finalizado: secciones 19 a 24 completadas sin errores."
+    }
+    "09" = [pscustomobject]@{
+        DoFile = "09_panel_specification_validation.do"
+        InternalLog = "14_panel_specification_validation\logs\09_panel_specification_validation.log"
+        CompletionMarker = "Archivo 09: bloques 1 a 8 implementados y validados."
+    }
+    "99" = [pscustomobject]@{
+        DoFile = "99_final_results_audit.do"
+        InternalLog = "logs\99_final_results_audit.log"
+        CompletionMarker = "Auditoría final completada: 10 reconciliaciones aprobadas."
     }
 }
 
@@ -249,7 +259,10 @@ $stageGroups = @{
     "core" = @("01", "02", "03", "04", "05")
     "extensions" = @("06", "07")
     "formal" = @("08")
-    "all" = @("01", "02", "03", "04", "05", "06", "07", "08")
+    "review" = @("09", "99")
+    "all" = @(
+        "01", "02", "03", "04", "05", "06", "07", "08", "09", "99"
+    )
 }
 
 if ($stageGroups.ContainsKey($Stage)) {

@@ -1066,7 +1066,58 @@ empírico. La selección definitiva de indicadores responde a criterios de
 	estabilidad sectorial. Este ejercicio no modifica el centro analítico en $ECI$
 	y $DIVX$ ni se interpreta como una nueva variable de resultado.
 
-	%%%%%%%%
+	\subsection{Selección del estimador de panel}
+	\label{subsec:seleccion-estimador-panel}
+
+	La adopción de efectos fijos bidireccionales no se impone de manera previa ni
+	se deriva de la significancia de los coeficientes sustantivos. La selección se
+	evalúa sobre M3 y sobre la misma muestra común de 1.044 observaciones y 49
+	países utilizada en las ecuaciones de $ECI$ y $DIVX$. Se comparan cuatro
+	familias de estimadores mediante cinco especificaciones: MCO agrupado sin
+	efectos temporales, MCO agrupado con indicadores
+	de año, efectos fijos por país, efectos fijos por país y año, y efectos
+	aleatorios con indicadores de año. Mantener constantes la muestra y el conjunto
+	de regresores permite atribuir las diferencias a la estructura del estimador y
+	no a cambios de cobertura o especificación.
+
+	En primer lugar, se contrasta el modelo agrupado frente a la existencia de
+	heterogeneidad específica de los países. La prueba conjunta de los efectos de
+	país rechaza que todos sean iguales a cero en las dos ecuaciones. La prueba del
+	multiplicador de Lagrange para componentes de varianza también rechaza la
+	ausencia de variación específica del panel \parencite{BreuschPagan1980}. Estos
+	resultados descartan MCO agrupado como referencia principal. De manera
+	separada, la prueba conjunta de los indicadores temporales rechaza su nulidad
+	para $ECI$ y $DIVX$; por ello, los efectos de año se conservan para absorber
+	shocks internacionales comunes y cambios globales no observados.
+
+	En segundo lugar, la elección entre efectos fijos y aleatorios considera la
+	posible correlación entre la heterogeneidad inobservable de cada país y los
+	regresores. El contraste clásico de Hausman rechaza la igualdad sistemática de
+	los coeficientes de ambos estimadores \parencite{Hausman1978}; sin embargo, la
+	matriz de diferencias de covarianza no resulta definida positiva. En
+	consecuencia, este resultado se conserva como diagnóstico convencional, pero
+	no se utiliza como criterio único de selección.
+
+	La decisión principal se apoya en una especificación de efectos aleatorios
+	correlacionados de Mundlak \parencite{Mundlak1978}. Esta incorpora, junto con
+	los regresores contemporáneos y los efectos de año, las medias por país de
+	todos los regresores que varían en el tiempo. La hipótesis conjunta de que los
+	coeficientes de esas medias son iguales a cero equivale a evaluar la condición
+	de ortogonalidad requerida por el modelo de efectos aleatorios estándar. La
+	hipótesis se rechaza tanto para $ECI$
+	($\chi^{2}(17)=28{,}79$; $p=0{,}0365$) como para $DIVX$
+	($\chi^{2}(16)=79{,}48$; $p<0{,}001$), utilizando errores estándar agrupados
+	por país. La evidencia indica que la heterogeneidad permanente de los países
+	no es ortogonal a las covariables observadas y favorece el estimador de efectos
+	fijos frente a efectos aleatorios estándar.
+
+	Por tanto, M3 con efectos fijos por país y por año se mantiene como
+	especificación principal, y la misma estructura se aplica a M1 y M2 para
+	preservar la comparabilidad. Los efectos de país eliminan los componentes
+	invariables en el tiempo, mientras que los efectos de año absorben shocks
+	comunes. Los coeficientes se interpretan como asociaciones condicionales
+	estimadas a partir de cambios dentro de cada país; esta selección no convierte
+	el diseño observacional en una estrategia de identificación causal.
 
 	La \autoref{tab:signo} presenta las expectativas teóricas de signo para las variables incluidas en la especificación econométrica.
 
@@ -1215,10 +1266,10 @@ empírico. La selección definitiva de indicadores responde a criterios de
 
 
 	Las estimaciones se realizan sobre la muestra común desbalanceada de 1.044
-	observaciones, 49 países y 23 años efectivos. M1, M2 y M3 incluyen efectos
-	fijos por país y por año, y la inferencia principal utiliza errores estándar
-	agrupados por país. Los modelos con efectos aleatorios no se emplean como
-	referencia sustantiva.
+	observaciones, 49 países y 23 años efectivos. Conforme al procedimiento de
+	selección descrito en la \autoref{subsec:seleccion-estimador-panel}, M1, M2 y
+	M3 incluyen efectos fijos por país y por año, y la inferencia principal utiliza
+	errores estándar agrupados por país.
 
 
 
@@ -1341,7 +1392,7 @@ empírico. La selección definitiva de indicadores responde a criterios de
 	\section{Procedimientos de análisis econométrico}
 	\label{sec:analisis-econometrico}
 
-	El análisis empírico se organiza en seis etapas. En primer lugar, se describe
+	El análisis empírico se organiza en siete etapas. En primer lugar, se describe
 	la selección inicial de 55 economías mediante $DRES\geq20\%$ en 1990--1995 y
 	se examinan la cobertura temporal, los vacíos y las distribuciones de las
 	variables, sin imputar ni interpolar observaciones.
@@ -1351,40 +1402,57 @@ empírico. La selección definitiva de indicadores responde a criterios de
 	mantiene en M1, M2 y M3 para $ECI$ y $DIVX$, con la única exclusión sustantiva
 	de $HHI$ en las ecuaciones de $DIVX$.
 
-	En tercer lugar, se estiman M1 y M2 como especificaciones temáticas paralelas y
-	M3 como especificación completa principal. En todos los casos se incorporan
-	efectos fijos por país y por año y se calculan errores estándar agrupados por
-	país. La interacción $RENTS_{it}\times INST_{it}$ se incluye junto con sus
-	términos constitutivos.
+	En tercer lugar, sobre M3 se comparan cuatro familias de estimadores mediante
+	cinco especificaciones: MCO agrupado sin y con indicadores de año, efectos
+	fijos por país, efectos fijos bidireccionales y efectos aleatorios con
+	indicadores de año. La selección combina pruebas conjuntas de efectos de
+	país y año, la prueba LM de componentes de varianza, el contraste clásico de
+	Hausman y una prueba de Mundlak con errores agrupados por país. Con base en
+	este recorrido, se adopta TWFE y se estiman M1 y M2 como especificaciones
+	temáticas paralelas y M3 como especificación completa principal. En todos los
+	casos se calculan errores estándar agrupados por país y la interacción
+	$RENTS_{it}\times INST_{it}$ se incluye junto con sus términos constitutivos.
 
-	En cuarto lugar, se realiza un diagnóstico descriptivo de persistencia mediante
-	coeficientes autorregresivos AR(1), sin convertirlos en categorías mecánicas,
-	y se aplican pruebas Fisher--ADF como información complementaria sobre el
-	comportamiento temporal de las series. Sus resultados no se utilizan para
-	clasificar automáticamente las variables como $I(0)$ o $I(1)$, transformar
-	las series ni seleccionar el estimador. Sobre los residuos de M3 se aplican la
-	prueba de Wald modificada para heterocedasticidad, la prueba de Wooldridge para
-	autocorrelación y la prueba de Pesaran CD para dependencia transversal; la
-	colinealidad se examina mediante factores de inflación de la varianza en la
-	transformación \textit{within}.\footnote{En este diagnóstico, la transformación
-	\textit{within} retira de cada regresor los componentes asociados a los efectos
-	fijos de país y de año, de modo que el factor de inflación de la varianza se
-	calcule sobre la variación residual utilizada por la estimación.} Estas pruebas se interpretan como diagnósticos y no
-	como reglas automáticas de reemplazo de la especificación principal.
+	En cuarto lugar, se examina el comportamiento temporal de las 18 variables
+	sustantivas mediante pruebas Fisher--ADF en niveles y primeras diferencias. La
+	evidencia se consolida en 36 evaluaciones: para $ECI$, $DIVX$, $RENTS$ e
+	$INST$ se conservan ocho variantes predefinidas, mientras que para cada control
+	se dispone de una variante. Como la prueba conjunta puede rechazar la raíz
+	unitaria aunque no todos los paneles sean estacionarios, sus resultados no se
+	utilizan para clasificar mecánicamente cada variable como $I(0)$ o $I(1)$. En
+	cambio, se estima una sensibilidad de M3 en primeras diferencias y se compara
+	con TWFE en niveles sobre la misma muestra de pares consecutivos: 869
+	observaciones, 49 países y 19 años efectivos. Sobre esta muestra también se
+	compara el TWFE estático con una especificación de efectos fijos que incorpora
+	un rezago de la variable dependiente. Las transformaciones y la dinámica se
+	interpretan como sensibilidades con estimandos distintos y no como criterios
+	automáticos para reemplazar el modelo principal.
 
-	En quinto lugar, la inferencia y la estabilidad de M3 se evalúan mediante
-	\textit{Wild Cluster Bootstrap} con 9.999 replicaciones
-	(\textcite{Cameron2008};
-	\textcite{Roodman2019}), exclusión iterativa de países
-	(\textit{leave-one-out}), análisis de observaciones influyentes y cálculo de
-	efectos marginales de $RENTS$ dentro del soporte observado de $INST$. También
-	se estiman especificaciones con tendencias lineales por país. El año 2014 se
-	incorpora únicamente como sensibilidad temporal preespecificada mediante
-	interacciones en la muestra completa y pruebas conjuntas; no se divide el
-	panel en regresiones separadas antes y después de ese año ni se interpreta
+	En quinto lugar, sobre los residuos de M3 se aplican la prueba de Wald
+	modificada para heterocedasticidad, la prueba de Wooldridge para autocorrelación
+	y la prueba de Pesaran CD para dependencia transversal; la colinealidad se
+	examina mediante factores de inflación de la varianza en la transformación
+	\textit{within}.\footnote{En este diagnóstico, la transformación \textit{within}
+	retira de cada regresor los componentes asociados a los efectos fijos de país y
+	de año, de modo que el factor de inflación de la varianza se calcule sobre la
+	variación residual utilizada por la estimación.} La inferencia principal emplea
+	errores estándar agrupados por país. Se complementa con
+	\textit{wild cluster bootstrap} de 9.999 replicaciones para los términos
+	focales (\textcite{Cameron2008}; \textcite{Roodman2019}) y con
+	Driscoll--Kraay como sensibilidad secundaria para todos los coeficientes
+	sustantivos, utilizando dos rezagos conforme a una regla de Newey--West
+	\parencite{Driscoll1998, NeweyWest1994}.
+
+	En sexto lugar, la estabilidad de M3 se examina mediante exclusión iterativa de
+	países (\textit{leave-one-out}), análisis de observaciones influyentes y cálculo
+	de efectos marginales de $RENTS$ dentro del soporte observado de $INST$.
+	También se estiman especificaciones con tendencias lineales por país. El año
+	2014 se incorpora únicamente como sensibilidad temporal preespecificada
+	mediante interacciones en la muestra completa y pruebas conjuntas; no se divide
+	el panel en regresiones separadas antes y después de ese año ni se interpreta
 	como un quiebre causal.
 
-	En sexto lugar, se estiman por separado las dos variantes completas de M3 que
+	En séptimo lugar, se estiman por separado las dos variantes completas de M3 que
 	distinguen las rentas de petróleo y gas de las rentas de minería y carbón. La
 	presentación de coeficientes y canales se realiza con estas variantes, mientras
 	que $M_{3}^{SIM}$ mantiene ambos componentes en una misma ecuación para las
@@ -1422,6 +1490,35 @@ empírico. La selección definitiva de indicadores responde a criterios de
 	identificación adicional suficientemente defendible. La inclusión o exclusión
 	de cada extensión se definió antes de interpretar los coeficientes principales.
 
+	\noindent\textit{Estacionariedad y primeras diferencias:} Las pruebas
+	Fisher--ADF entregan evidencia heterogénea según la variable, la forma de la
+	serie y los componentes determinísticos. En particular, las ocho variantes no
+	producen una clasificación unívoca en niveles para $ECI$ ni $DIVX$; para los
+	controles, una única variante constituye una señal diagnóstica y no una
+	clasificación definitiva de su orden de integración. Por ello, no se diferencia
+	solo el subconjunto de variables que no rechaza una prueba particular, pues esa
+	decisión produciría una ecuación híbrida de interpretación poco clara. La
+	sensibilidad transforma conjuntamente la variable dependiente y todos los
+	regresores de M3, conserva indicadores de año y errores agrupados por país, y
+	se contrasta con el modelo en niveles restringido exactamente a la misma
+	muestra de 869 pares consecutivos. Este ejercicio aproxima asociaciones entre
+	cambios de corto plazo; no permite reinterpretar TWFE en niveles como una
+	relación de cointegración o de equilibrio de largo plazo.
+
+	\noindent\textit{Persistencia y sensibilidad dinámica:} Para evaluar si la
+	complejidad y la diversificación dependen de su trayectoria reciente, se añade
+	un único rezago de la variable dependiente a M3, manteniendo los regresores,
+	los efectos de país y año y la inferencia agrupada. La comparación se realiza
+	frente a un TWFE estático estimado sobre los mismos 869 pares consecutivos. Los
+	coeficientes del rezago son $0{,}467$ para $ECI$ y $0{,}631$ para $DIVX$, con
+	$p<0{,}001$ en ambos casos, lo que documenta persistencia condicional. Esta
+	especificación no se eleva a modelo principal: la inclusión de la dependiente
+	rezagada cambia el estimando y el estimador de efectos fijos puede presentar
+	sesgo de Nickell en paneles con dimensión temporal finita
+	\parencite{Nickell1981}. En consecuencia, el ejercicio informa sobre la
+	sensibilidad a la dinámica, pero no constituye por sí solo una estrategia de
+	identificación causal.
+
 	\noindent\textit{Diagnósticos e inferencia:} Los residuos de M3 presentan
 	heterocedasticidad entre países y autocorrelación de primer orden. Por ello,
 	la inferencia principal utiliza errores estándar agrupados por país, que
@@ -1431,11 +1528,16 @@ empírico. La selección definitiva de indicadores responde a criterios de
 	\parencite{Cameron2008, Roodman2019}.
 	La prueba de Pesaran CD aplicada a residuos con efectos fijos anuales no
 	rechaza la independencia transversal ni para $ECI$ ($p=0{,}663$) ni para
-	$DIVX$ ($p=0{,}442$) \parencite{Pesaran2004}. En consecuencia,
-	Driscoll--Kraay no sustituye la inferencia agrupada ni se activa
-	automáticamente como sensibilidad; su uso requeriría una justificación,
-	especificación y regla de rezagos separadas
-	\parencite{Driscoll1998}.
+	$DIVX$ ($p=0{,}442$) \parencite{Pesaran2004}. Esta ausencia de rechazo no
+	justifica sustituir la inferencia principal. No obstante, se estima una única
+	sensibilidad Driscoll--Kraay sobre la misma muestra y especificación, con dos
+	rezagos derivados de la regla de Newey--West para 23 períodos efectivos
+	\parencite{Driscoll1998, NeweyWest1994}. Se estiman y auditan todos los
+	coeficientes para evitar seleccionar resultados según significancia; el
+	capítulo de resultados presenta los términos focales y sintetiza los cambios
+	relevantes entre los controles. Driscoll--Kraay permanece
+	como contraste secundario; PCSE no se incorpora porque no responde a una
+	necesidad diagnóstica adicional ni aportaría una jerarquía inferencial distinta.
 
 	\noindent\textit{Cointegración y modelos de corrección de errores:} No se estiman
 	pruebas de cointegración en panel ni modelos de corrección de errores. Las
@@ -1464,12 +1566,13 @@ empírico. La selección definitiva de indicadores responde a criterios de
 	\subsection{Métodos adicionales descartados}
 
 	\begin{enumerate}
-		\item \textit{Panel dinámico mediante GMM}: los estimadores GMM pueden
-		ser vulnerables a la proliferación de instrumentos y a pruebas de validez
-		poco informativas cuando la dimensión temporal no es corta
-		\parencite{Roodman2009}. Además, la pregunta central no
-		requiere incluir una variable dependiente rezagada como componente del
-		modelo principal.
+		\item \textit{Panel dinámico mediante GMM}: la sensibilidad con un rezago
+		de la variable dependiente documenta persistencia, pero no suministra por sí
+		misma instrumentos ni restricciones de momentos válidas. Los estimadores GMM
+		pueden ser vulnerables a la proliferación de instrumentos y a pruebas de
+		validez poco informativas cuando la dimensión temporal no es corta
+		\parencite{Roodman2009}. Sin una estrategia de momentos preespecificada y
+		defendible, GMM no reemplaza el TWFE principal.
 		\item \textit{Variables instrumentales y 2SLS}: no se dispone de un
 		instrumento externo que satisfaga de manera defendible la relevancia y la
 		restricción de exclusión para $ECI$ y $DIVX$

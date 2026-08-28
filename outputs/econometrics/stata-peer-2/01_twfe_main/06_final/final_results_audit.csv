@@ -1,0 +1,11 @@
+audit_item,passed,note
+FINAL_COEFFICIENTS,1,33 coeficientes finales coinciden con sus fuentes ECI y DIVX.
+FINAL_MODEL_SUMMARIES,1,Dos resúmenes finales conservan 1.044 observaciones y 49 países.
+FINAL_WILD_BOOTSTRAP,1,Seis contrastes bootstrap finales coinciden con el archivo de estabilidad.
+INFERENCE_DECISION,1,Cluster y wild se mantienen; DK queda como sensibilidad secundaria.
+VALIDATION_MANIFEST,1,51 productos existen; 34 modelos y 17 CSV cumplen el contrato.
+VALIDATION_SPECIFICATIONS,1,"20 modelos: diez por resultado, con muestras 1.044 o 869 documentadas."
+VALIDATION_COEFFICIENTS,1,332 coeficientes completos; los 33 TWFE reproducen el paquete final.
+VALIDATION_TRANSFORMATIONS,1,"Estacionariedad, primeras diferencias y dinámica conservan su jerarquía."
+VALIDATION_INFERENCE,1,72 coeficientes inferenciales y seis pruebas conjuntas están completos.
+VALIDATION_DECISIONS,1,"13 decisiones preservan TWFE, cluster principal y alcance no causal."

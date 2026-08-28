@@ -100,10 +100,11 @@ La comparación estudiará:
 
 No se realizará una votación de resultados entre modelos.
 
-## 8. Arquitectura definitiva de scripts
+## 8. Arquitectura operativa de scripts
 
-Se conservan los ocho archivos existentes. Su jerarquía metodológica queda
-definida de la siguiente manera.
+El flujo reproducible comprende los archivos `01` a `09` y la auditoría `99`.
+El archivo auxiliar `00_validation_helpers.do` centraliza controles repetidos,
+pero no constituye una etapa independiente de estimación.
 
 ### 8.1. Núcleo principal: archivos 01 a 05
 
@@ -147,9 +148,23 @@ M3_AGG, M3_OG, M3_MIN y M3_SIM y genera una comparación reproducible de
 coeficientes, canales comunes, términos de rentas, ajuste y pruebas conjuntas en
 `13_m3_component_comparison`.
 
+### 8.5. Validación de especificación y auditoría final
+
+9. `09_panel_specification_validation.do` compara pooled OLS, FE y RE;
+   documenta efectos de país y año, Mundlak/CRE, estacionariedad, primeras
+   diferencias, persistencia dinámica e inferencia alternativa. TWFE en niveles
+   permanece como especificación principal y las extensiones conservan una
+   jerarquía explícitamente secundaria.
+99. `99_final_results_audit.do` no estima modelos. Reconciliará los productos
+    finales y los resultados del archivo 09 mediante diez controles de
+    integridad, muestra, coeficientes, transformaciones, inferencia y decisiones.
+
+Los archivos 09 y 99 deben ejecutarse en ese orden después de disponer de los
+productos vigentes de 01 y 04. No modifican el TFM.
+
 ## 9. Estado de implementación
 
-- Los archivos 01 a 08 están implementados.
+- Los archivos 01 a 09 y la auditoría 99 están implementados.
 - M1, M2 y M3 utilizan la misma muestra congelada de 1.044 observaciones y 49
   países.
 - La comparación M1--M3 del archivo 05 está programada y validada.
@@ -166,6 +181,10 @@ coeficientes, canales comunes, términos de rentas, ajuste y pruebas conjuntas e
   `13_m3_component_comparison`: 136 coeficientes, 29 filas de canales comunes,
   20 términos de rentas, ocho resúmenes de modelo y 54 pruebas conjuntas.
 - El contraste desagregado integrado se mantiene aislado en el archivo 08.
+- El archivo 09 valida 20 especificaciones, 332 coeficientes sustantivos y 13
+  decisiones econométricas; su manifiesto declara 51 productos.
+- La auditoría 99 aprueba diez reconciliaciones y verifica el archivo 09 sin
+  reestimar ni redefinir el modelo principal.
 - Los resultados de cada archivo se almacenan en rutas separadas para evitar
   sobrescrituras.
 
@@ -176,8 +195,9 @@ coeficientes, canales comunes, términos de rentas, ajuste y pruebas conjuntas e
 - `-Stage core`: ejecuta 01, 02, 03, 04 y 05. Es la opción predeterminada.
 - `-Stage extensions`: ejecuta 06 y 07, en ese orden.
 - `-Stage formal`: ejecuta únicamente 08.
-- `-Stage all`: ejecuta 01 a 08 en orden.
-- `-Stage 01` a `-Stage 08`: ejecuta un archivo específico.
+- `-Stage review`: ejecuta 09 y luego 99.
+- `-Stage all`: ejecuta 01 a 09 y finalmente 99.
+- `-Stage 01` a `-Stage 09` y `-Stage 99`: ejecuta un archivo específico.
 
 Las extensiones requieren que los resultados del núcleo estén disponibles. El
 contraste formal requiere, como mínimo, los resultados vigentes de 01 y 04; se
@@ -206,13 +226,13 @@ tesis requerirá una instrucción posterior y explícita.
 
 ## 13. Punto de reinicio
 
-1. Incorporar M3_OG en el archivo 06 sin modificar M1_OG ni M2_OG.
-2. Incorporar M3_MIN en el archivo 07 sin modificar M1_MIN ni M2_MIN.
-3. Ejecutar y validar las cuatro ecuaciones nuevas sobre la muestra congelada.
-4. La comparación con el M3 agregado y el contraste simultáneo del archivo 08
-   está cerrada en `13_m3_component_comparison`.
-5. Revisar esa lectura antes de modificar el TFM; la incorporación al manuscrito
-   requiere una autorización explícita posterior.
+1. Ejecutar `-Stage review` para reproducir 09 y 99 sobre los productos
+   vigentes.
+2. Revisar la matriz de 13 decisiones y los coeficientes completos antes de
+   actualizar la metodología, los resultados y las limitaciones del TFM.
+3. Modificar el TFM únicamente bajo instrucción explícita.
+4. Posponer la refactorización extensa de los scripts hasta cerrar la
+   actualización econométrica del manuscrito.
 
 ## 14. Preespecificación de M3 por componente
 
