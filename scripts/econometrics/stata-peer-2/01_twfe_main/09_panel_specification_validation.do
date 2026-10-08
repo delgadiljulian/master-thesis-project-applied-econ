@@ -58,6 +58,18 @@
 // 0. INICIALIZACIÓN Y LOCALIZACIÓN DEL PROYECTO
 // *****************************************************************************
 
+// Explicación para lectores no familiarizados con Stata / Econometría:
+// Este bloque inicializa el entorno de trabajo. Limpia la memoria RAM, fija la precisión
+// numérica a 64 bits (doble precisión), establece la semilla aleatoria para garantizar
+// reproducibilidad exacta de los resultados, ubica automáticamente la carpeta raíz del
+// repositorio y crea la estructura de directorios para guardar los productos y la bitácora (log).
+
+// 0.0. Limpieza de memoria y configuración inicial de Stata:
+// - version 17.0: Fija la versión de sintaxis y algoritmos de Stata para consistencia de cálculo.
+// - clear all: Borra cualquier conjunto de datos previo cargado en la memoria RAM.
+// - cls: Limpia el texto visible en la consola de comandos de Stata.
+// - macro drop _all: Elimina todas las variables macro globales y locales guardadas en memoria.
+// - capture log close _all: Cierra de forma segura cualquier bitácora/log abierta previamente.
 version 17.0
 clear all
 cls
@@ -68,11 +80,20 @@ set more off
 set varabbrev off
 set type double
 set linesize 255
+// Parámetros de configuración del entorno de ejecución:
+// - set more off: Desactiva la pausa automática ('---more---') en salidas largas.
+// - set varabbrev off: Desactiva abreviaturas automáticas de nombres de variables (evita ambigüedades).
+// - set type double: Fuerza alta precisión de 64 bits para números reales.
+// - set linesize 255: Amplía el ancho de línea en la consola y reportes de salida.
+// - set seed / sortseed: Establece semillas estables para ordenamientos y sorteos estocásticos idénticos.
 set seed 20260827
 set sortseed 20260827
 
 
 // 0.1. Localizar la raíz del repositorio
+
+// Algoritmo de búsqueda dinámica: navega hacia arriba en la estructura de carpetas
+// verificando la existencia del archivo marcador 'master_panel_country_year.dta'.
 
 local project_marker ///
     "data/processed/00_master_panel/master_panel_country_year.dta"
@@ -121,10 +142,14 @@ pwd
 
 // 0.2. Cargar las rutinas compartidas de validación
 
+// Carga mediante 'do' un script secundario con funciones auxiliares y herramientas personalizadas.
 do "scripts/econometrics/stata-peer-2/01_twfe_main/00_validation_helpers.do"
 
 
 // 0.3. Definir entradas y salidas exclusivas del archivo 09
+
+// Definición de rutas globales (global) para organizar los archivos generados (.csv, .ster, .log)
+// y creación automática de carpetas con 'capture mkdir'.
 
 global OUTPUT_ROOT ///
     "$PROJECT_ROOT/outputs/econometrics/stata-peer-2/01_twfe_main"
@@ -162,6 +187,7 @@ foreach validation_directory in ///
     capture mkdir "`validation_directory'"
 }
 
+// Iniciar archivo de bitácora (log) para registrar textualmente toda la salida y comandos de la sesión.
 log using ///
     "$OUTPUT_VALIDATION_LOGS/09_panel_specification_validation.log", ///
     text replace name(validation_log)
@@ -170,6 +196,14 @@ log using ///
 // *****************************************************************************
 // 1. CONTRATO DE ENTRADAS Y MUESTRA CONGELADA
 // *****************************************************************************
+
+// Explicación para lectores no familiarizados con Stata / Econometría:
+// Este bloque verifica que existan todos los archivos de entrada requeridos y carga la base de datos de panel.
+// Define y "congela" la muestra común de estimación (1.044 observaciones: 49 países y 23 años, 1996-2021)
+// que utilizarán absolutamente todas las regresiones. Utiliza comandos de comprobación estricta ('assert')
+// para garantizar que si alguna cifra o variable no cuadra exactamente con el diseño, Stata detenga la ejecución.
+
+// 1.1. Verificación de insumos requeridos (capture confirm file) para prevenir fallos a mitad del proceso:
 
 local validation_panel ///
     "$OUTPUT_SAMPLE/master_panel_estimation_sample.dta"
@@ -195,10 +229,13 @@ foreach validation_input in ///
     }
 }
 
+// Cargar en la memoria RAM la base de datos de panel balanceada:
 use "`validation_panel'", clear
 
+// isid: Verifica que la combinación de país (country_id) y año (year) identifique de forma única cada fila.
 isid country_id year
 
+// Verificación de existencia de todas las variables requeridas para los modelos ECI y DIVX:
 local validation_required_variables ///
     country_id country_iso3_code year ///
     sample_eci sample_divx ///
@@ -221,10 +258,13 @@ foreach validation_variable of local validation_required_variables {
 assert sample_eci == sample_divx
 assert inlist(sample_eci, 0, 1)
 
+// Creación del filtro muestral común 'sample_validation' (1 si pertenece a la muestra balanceada M3):
 generate byte sample_validation = sample_eci == 1
 label variable sample_validation ///
     "Muestra común congelada para validación de especificación"
 
+// Verificaciones automáticas de seguridad (assert):
+// Si la muestra no tiene exactamente 1.044 observaciones, 49 países y 23 años (1996-2021), Stata aborta la ejecución.
 quietly count if sample_validation == 1
 local validation_expected_n = r(N)
 assert `validation_expected_n' == 1044
@@ -244,6 +284,7 @@ quietly summarize year if sample_validation == 1, meanonly
 assert r(min) == 1996
 assert r(max) == 2021
 
+// xtset: Declara formalmente a Stata la estructura de datos de panel indexada por país (entidad) y año (tiempo).
 xtset country_id year
 
 display as result ///
@@ -253,6 +294,12 @@ display as result ///
 // *****************************************************************************
 // 2. ESPECIFICACIONES M3 QUE DEBEN PERMANECER INALTERADAS
 // *****************************************************************************
+
+// Explicación para lectores no familiarizados con Stata / Econometría:
+// Este bloque fija las listas globales de variables explicativas y controles para ECI y DIVX.
+// Ambas ecuaciones incluyen la interacción focal 'c.rents#c.inst' (rentas del subsuelo x calidad institucional).
+// Se comprueba que HHI (índice Herfindahl-Hirschman) no ingrese en la ecuación de DIVX (pues DIVX = 1 - HHI).
+// Se define el método de inferencia principal: errores estándar agrupados por país ('vce(cluster country_id)').
 
 global VALIDATION_ECI_REGRESSORS ///
     c.rents##c.inst ///
@@ -280,6 +327,17 @@ global VALIDATION_INFERENCE_MAIN "vce(cluster country_id)"
 // *****************************************************************************
 // 3. BLOQUE 1: COMPARACIÓN ENTRE POOLED, FE, TWFE Y RE
 // *****************************************************************************
+
+// Explicación para lectores no familiarizados con Stata / Econometría:
+// Este bloque evalúa 5 estructuras econométricas distintas para cada una de las 2 variables dependientes (10 modelos en total):
+// 1. Pooled OLS (regress): Regresión agrupada que ignora la estructura de datos de panel.
+// 2. Pooled OLS + year FE (regress ... i.year): MCO agrupado controlando por shocks temporales anuales globales.
+// 3. Country FE (xtreg ..., fe): Efectos Fijos por país (elimina la heterogeneidad inobservada constante de cada país).
+// 4. Country & Year FE / TWFE (xtreg ... i.year, fe): Efectos Fijos Bidireccionales (modelo principal del trabajo).
+// 5. Random Effects / RE (xtreg ... i.year, re): Efectos Aleatorios (asume que los efectos fijos no se correlacionan con las explicativas).
+//
+// Mecánica Stata: Usa 'postfile', 'post' y 'postclose' para construir tablas en memoria y exportarlas a CSV,
+// y 'estimates save' para guardar cada modelo estimado en disco como archivo '.ster'.
 
 // Este bloque cambia únicamente la estructura del estimador. La muestra y los
 // regresores M3 permanecen constantes dentro de cada resultado. Así, cualquier
@@ -341,6 +399,7 @@ postfile `validation_focal_post' ///
 
 local validation_model_order = 0
 
+// Recorrer secuencialmente los dos resultados principales: ECI (Complejidad) y DIVX (Diversificación)
 foreach validation_outcome in eci divx {
 
     if "`validation_outcome'" == "eci" {
@@ -352,6 +411,7 @@ foreach validation_outcome in eci divx {
         local validation_outcome_label "DIVX"
     }
 
+        // Bucle para estimar las 5 variantes de estimadores sobre la misma muestra común:
     forvalues validation_model = 1/5 {
 
         local ++validation_model_order
@@ -470,6 +530,7 @@ foreach validation_outcome in eci divx {
 
         local validation_estimate_name ///
             "`validation_outcome_label'_`validation_model_code'"
+                // Guardar el modelo en la memoria de Stata (estimates store) y en disco en formato .ster (estimates save):
         estimates store `validation_estimate_name'
         estimates save ///
             "$OUTPUT_VALIDATION_SELECTION/`validation_estimate_name'.ster", ///
@@ -597,6 +658,12 @@ display as result ///
 // 4. BLOQUE 2: CONTRASTES DE EFECTOS DE PAÍS Y DE AÑO
 // *****************************************************************************
 
+// Explicación para lectores no familiarizados con Stata / Econometría:
+// Este bloque ejecuta 3 pruebas de hipótesis estadísticas para validar la necesidad de usar Efectos Fijos:
+// 4.1 Prueba F de efectos de país: Contrasta H0: todos los u_i = 0. Si p < 0.05, OLS agrupado simple está sesgado.
+// 4.2 Prueba Wald F de efectos de año (testparm i.year): Contrasta H0: las dummies de año son conjuntamente cero. Si p < 0.05, los shocks globales de año son indispensables.
+// 4.3 Prueba LM de Breusch-Pagan (xttest0): Contrasta H0: var(u_i) = 0. Si p < 0.05, los datos tienen estructura de panel no despreciable.
+
 // La prueba F clásica de efectos de país y la prueba LM requieren la matriz de
 // varianzas convencional de sus estimadores. Se reportan como diagnósticos de
 // especificación, no como inferencia principal sobre los coeficientes de M3.
@@ -638,7 +705,8 @@ foreach validation_outcome in eci divx {
         local validation_outcome_label "DIVX"
     }
 
-    // 4.1. Efectos de país: F clásica de que todos los u_i son cero,
+        // 4.1. Prueba F clásica de heterogeneidad no observada de país:
+    //      Evalúa si los efectos fijos por país son conjuntamente distintos de cero.
     //      condicionando por los mismos indicadores de año de TWFE.
     quietly xtreg `validation_outcome' ///
         `validation_regressors' i.year ///
@@ -686,7 +754,8 @@ foreach validation_outcome in eci divx {
         (`validation_expected_years') ///
         ("Diagnostic for time-invariant country heterogeneity")
 
-    // 4.2. Efectos de año: Wald F agrupada por país dentro de FE de país.
+        // 4.2. Prueba Wald F de efectos temporales (testparm i.year):
+    //      Evalúa si las variables dicotómicas por año aportan información relevante para controlar shocks comunes.
     quietly xtreg `validation_outcome' ///
         `validation_regressors' i.year ///
         if sample_validation == 1, ///
@@ -732,7 +801,8 @@ foreach validation_outcome in eci divx {
         (`validation_expected_years') ///
         ("Diagnostic for common time shocks")
 
-    // 4.3. Efectos aleatorios: LM clásica de var(u_i) = 0, con los mismos
+        // 4.3. Prueba LM de Breusch-Pagan (xttest0 después de xtreg, re):
+    //      Evalúa si la varianza del error individual es cero frente a un OLS agrupado.
     //      indicadores de año usados en la comparación del bloque 1.
     quietly xtreg `validation_outcome' ///
         `validation_regressors' i.year ///
@@ -801,6 +871,13 @@ display as result ///
 // *****************************************************************************
 // 5. BLOQUE 3: COMPARACIÓN FE--RE Y MUNDLAK/CRE
 // *****************************************************************************
+
+// Explicación para lectores no familiarizados con Stata / Econometría:
+// Este bloque evalúa formalmente si el estimador de Efectos Aleatorios (RE) es consistente o si se debe usar Efectos Fijos (FE):
+// 5.1 Prueba de Hausman clásica (hausman): Compara los coeficientes entre FE y RE. Si difieren significativamente, RE es inconsistente.
+// 5.2 Modelo Correlacionado de Efectos Aleatorios de Mundlak / CRE: Incluye las medias por país de los regresores en RE y prueba
+//     mediante 'testparm' si son conjuntamente cero. Si p < 0.05, demuestra que los efectos de país están correlacionados con los regresores,
+//     confirmando a Efectos Fijos (TWFE) como el único estimador válido e insesgado.
 
 // Hausman se conserva como diagnóstico clásico bajo matriz convencional. La
 // prueba Mundlak/CRE es el diagnóstico principal de este bloque porque permite
@@ -904,7 +981,8 @@ foreach validation_outcome in eci divx {
     local validation_means_count : word count ///
         `validation_mean_variables'
 
-    // 5.1. Hausman clásico: mismas variables, años y muestra en FE y RE.
+        // 5.1. Prueba de Hausman clásica (hausman fe re):
+    //      Compara sistemáticamente los vectores de coeficientes de FE y RE.
     quietly xtreg `validation_outcome' ///
         `validation_regressors' i.year ///
         if sample_validation == 1, fe
@@ -974,7 +1052,8 @@ foreach validation_outcome in eci divx {
         (0) ///
         ("Undefined under non-PD covariance difference; report with caveat")
 
-    // 5.2. Mundlak/CRE: RE con las medias por país de todos los regresores
+        // 5.2. Modelo de Mundlak / Correlated Random Effects (CRE):
+    //      Estima RE agregando las medias por país de las variables explicativas y prueba su significancia conjunta (testparm).
     //      temporales, incluida la media de la interacción observada.
     quietly xtreg `validation_outcome' ///
         `validation_regressors' i.year ///
@@ -1109,7 +1188,14 @@ display as result ///
 // 6. BLOQUE 4: ESTACIONARIEDAD Y PRIMERAS DIFERENCIAS
 // *****************************************************************************
 
-// 6.1. Consolidar la evidencia Fisher--ADF existente sin repetir pruebas.
+// Explicación para lectores no familiarizados con Stata / Econometría:
+// Este bloque evalúa la estacionariedad de las series y estima el modelo en Primeras Diferencias (cambios interanuales):
+// 6.1 Estacionariedad: Consolida los resultados de las pruebas de raíz unitaria en panel (Fisher-ADF).
+// 6.2 Primeras Diferencias (D.variable): Construye los cambios interanuales (Delta y_t = y_t - y_t-1), ajusta la muestra apareada
+//     a 869 observaciones consecutivas (L.sample_validation) y compara el modelo en niveles frente a primeras diferencias para verificar
+//     si las relaciones encontradas se sostienen en el corto plazo.
+
+// 6.1. Consolidación de evidencia de raíz unitaria Fisher-ADF importada de diagnósticos previos.
 
 tempfile validation_stationarity_focal
 tempfile validation_stat_controls
@@ -1180,7 +1266,7 @@ preserve
         replace
 restore
 
-// 6.2. Construir la muestra apareada de primeras diferencias.
+// 6.2. Construcción de variables en primeras diferencias (D.variable) y muestra apareada (869 obs consecutivos).
 //      L.sample_validation exige que t y t-1 pertenezcan a la muestra M3 y que
 //      sean años consecutivos según xtset; no se rellenan brechas internas.
 
@@ -1492,6 +1578,11 @@ display as result ///
 // 7. BLOQUE 5: SENSIBILIDAD DINÁMICA ACOTADA
 // *****************************************************************************
 
+// Explicación para lectores no familiarizados con Stata / Econometría:
+// Este bloque evalúa la inercia o persistencia temporal agregando el valor del año anterior (L.y) como explicativo.
+// Al usar un rezago, la muestra se reduce a 869 observaciones. Se compara un modelo estático de referencia reestimado sobre esta muestra
+// (matched_static_twfe) frente al modelo dinámico (dynamic_fe_lag1). Se señala el posible sesgo de Nickell en paneles de T moderado (T=23).
+
 // Se añade únicamente L.y al M3 completo. El TWFE estático se reestima sobre
 // la misma muestra dinámica para separar el efecto del rezago del efecto de la
 // pérdida mecánica de observaciones. El modelo dinámico se interpreta como una
@@ -1775,6 +1866,12 @@ display as result ///
 // 8. BLOQUE 6: SENSIBILIDAD DE INFERENCIA
 // *****************************************************************************
 
+// Explicación para lectores no familiarizados con Stata / Econometría:
+// Este bloque evalúa la robustez de los p-valores y la significancia estadística comparando 3 métodos de matriz de varianza-covarianza:
+// 8.1 Inferencia principal: Errores estándar agrupados por país (vce(cluster country_id)).
+// 8.2 Driscoll-Kraay (xtscc lag 2): Corrige por heterocedasticidad, correlación serial y dependencia espacial o cruzada entre países.
+// 8.3 Wild Cluster Bootstrap: Reutiliza los p-valores simulados con 9.999 réplicas Rademacher para corroborar la inferencia en muestras con un número finito de clusters.
+
 // Cluster por país permanece como inferencia principal. El wild cluster
 // bootstrap ya ejecutado por 04_twfe_full.do se reutiliza sin repetir 9.999
 // réplicas. Driscoll--Kraay se estima una sola vez con lag(2), derivado de la
@@ -1888,7 +1985,7 @@ foreach validation_outcome in eci divx {
         local validation_outcome_label "DIVX"
     }
 
-    // 8.1. Inferencia principal agrupada por país.
+        // 8.1. Inferencia principal con errores estándar robustos a heterocedasticidad y autocorrelación agrupados por país:
     quietly xtreg `validation_outcome' ///
         `validation_regressors' i.year ///
         if sample_validation == 1, ///
@@ -2004,7 +2101,7 @@ foreach validation_outcome in eci divx {
         ("MAIN") ///
         ("Joint Wald test with country-clustered covariance")
 
-    // 8.2. Driscoll--Kraay: mismos coeficientes FE, distinta covarianza.
+        // 8.2. Inferencia complementaria de Driscoll-Kraay (xtscc con lag 2 según regla de Newey-West):
     quietly xtscc `validation_outcome' ///
         `validation_regressors' i.year ///
         if sample_validation == 1, ///
@@ -2125,7 +2222,7 @@ foreach validation_outcome in eci divx {
 postclose `validation_inference_post'
 postclose `validation_joint_post'
 
-// 8.3. Incorporar las pruebas wild bootstrap ya verificadas por archivo 04.
+// 8.3. Integración de resultados de Wild Cluster Bootstrap (9.999 réplicas) para evaluar sensibilidad con clusters finitos.
 preserve
     import delimited using "`validation_wild_individual'", ///
         varnames(1) clear encoding(utf8)
@@ -2230,7 +2327,13 @@ display as result ///
 // 9. BLOQUE 7: REGISTRO INTEGRAL Y MATRIZ DE DECISIONES
 // *****************************************************************************
 
-// 9.1. Extraer todos los coeficientes sustantivos de las especificaciones.
+// Explicación para lectores no familiarizados con Stata / Econometría:
+// Este bloque sintetiza toda la evidencia de los bloques 1 a 6:
+// 9.1 Registro de coeficientes: Extrae de forma sistemática 332 coeficientes sustantivos de los 20 modelos econométricos estimados.
+// 9.2 Verificación de diagnósticos: Comprueba mediante 'assert' que todas las pruebas cumplan con los criterios metodológicos.
+// 9.3 Matriz de Decisiones Econométricas (D01 a D13): Construye el registro razonado de 13 decisiones clave (muestra, estimador principal TWFE, inferencia y alcance interpretativo).
+
+// 9.1. Extracción y consolidación de 332 coeficientes sustantivos en un registro unificado.
 //      Los indicadores de año permanecen en los modelos, pero se documentan
 //      mediante su prueba conjunta y no como covariables sustantivas separadas.
 
@@ -2550,7 +2653,7 @@ preserve
         replace
 restore
 
-// 9.2. Verificar los productos que alimentan la matriz de decisiones.
+// 9.2. Verificación de consistencia diagnóstica sobre las tablas intermedias.
 preserve
     import delimited using ///
         "$OUTPUT_VALIDATION_EFFECTS/fixed_effects_joint_tests.csv", ///
@@ -2600,7 +2703,7 @@ preserve
     assert observations == `validation_expected_n'
 restore
 
-// 9.3. Registrar decisiones, jerarquía y acciones documentales.
+// 9.3. Construcción de la Matriz de Decisiones Econométricas (decisiones D01 a D13 con su justificación y acción en el TFM).
 tempfile validation_decision_matrix
 tempname validation_decision_post
 
@@ -2740,7 +2843,12 @@ display as result ///
 // 10. BLOQUE 8: MANIFIESTO REPRODUCIBLE Y CONTRATO DE AUDITORÍA
 // *****************************************************************************
 
-// 10.1. Inventariar todos los productos analíticos de los bloques 1 a 7.
+// Explicación para lectores no familiarizados con Stata:
+// Este bloque es la garantía de auditabilidad y reproducibilidad del script:
+// 10.1 Inventario de productos: Registra en una lista formal los 51 artefactos generados (34 modelos .ster y 17 tablas .csv).
+// 10.2 Auditoría de existencia: Recorre mediante 'capture confirm file' cada archivo declarado para comprobar físicamente que existe en el disco.
+
+// 10.1. Registro en tabla del manifiesto de reproducibilidad (51 productos analíticos).
 //       El manifiesto incluye sus propios metadatos para que la auditoría 99
 //       pueda verificar existencia, número de filas y muestra esperada.
 
@@ -2915,7 +3023,7 @@ preserve
         replace datafmt
 restore
 
-// 10.2. Confirmar que cada producto declarado existe después de la exportación.
+// 10.2. Verificación física (confirm file) de la existencia de cada producto en el disco.
 preserve
     use `validation_results_manifest', clear
     sort artifact_order
@@ -2939,6 +3047,8 @@ display as result ///
 // *****************************************************************************
 // 11. CIERRE DEL ARCHIVO 09
 // *****************************************************************************
+
+// Finalización exitosa del script 09. Impresión de mensaje de éxito y cierre formal de la bitácora (log close validation_log).
 
 display as result ///
     "Archivo 09: bloques 1 a 8 implementados y validados."
