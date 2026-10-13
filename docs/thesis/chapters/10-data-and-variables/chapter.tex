@@ -25,13 +25,13 @@
 
 	La base integra información de comercio internacional, estructura
 	productiva, desempeño macroeconómico y calidad institucional. El
-	\textit{Economic Complexity Index} ($ECI$), $DRES$, $HHI$, $DIVX$, $PEXP$ y
+	$ECI$, $DRES$, $HHI$, $DIVX$, $PEXP$ y
 	$FEXP$ se obtienen o construyen a partir del \textit{Atlas of Economic
 	Complexity}; $RENTS$, $OILPC$, $GASPC$, $COALPC$, $INNOV$, $NET$,
 	$LOG\_GDPPC$ y $FIN$ utilizan insumos de los \textit{World Development
 	Indicators}; $GOVCONS$ procede de \textit{National Accounts Main Aggregates}
 	de Naciones Unidas; $INST$ emplea tres estimadores de los \textit{Worldwide
-	Governance Indicators}; $VOL$ utiliza el índice CTOT del Fondo Monetario
+	Governance Indicators}; $VOL$ utiliza el índice $CTOT$ del Fondo Monetario
 	Internacional con ponderaciones fijas; $RER$ procede de Penn World Table
 	11.0; y $HUMCAP$ se construye con los años promedio de escolaridad de adultos
 	publicados por el PNUD y la función de retornos educativos utilizada por
@@ -61,7 +61,7 @@
 	\begin{figure}[!htbp]
 		\centering
 		\includegraphics[width=\linewidth]{\subfix{../../figures/dres_distribution}}
-		\caption[Distribución de DRES]{Distribución del promedio de DRES durante
+		\caption[Distribución de $DRES$]{Distribución del promedio de $DRES$ durante
 		1990--1995 para los 55 países de la muestra. La línea discontinua indica
 		el umbral de selección del 20\%.}
 		\label{fig:dres-distribution-cap10}
@@ -133,8 +133,7 @@
 	recursos naturales no renovables del subsuelo en las exportaciones de
 	mercancías y mediante las rentas de petróleo, gas natural, carbón y minerales
 	como proporción del PIB. La transformación estructural externa se aproxima
-	con el Índice de Complejidad Económica ($ECI$) y con la diversificación
-	exportadora, definida como $DIVX=1-HHI$. El nivel de desarrollo económico se
+	con el $ECI$ y el $DIVX$. El nivel de desarrollo económico se
 	resume mediante el logaritmo del PIB per cápita en paridad de poder
 	adquisitivo constante.
 
@@ -350,7 +349,7 @@
 
 	La distribución de los 53 países con información para ambos componentes,
 	según esta clasificación del perfil extractivo y su grupo de ingreso del
-	Banco Mundial, se detalla en la \autoref{tab:extractive_typology}.
+	Banco Mundial, se detalla en la \autoref{tab:extractive_typology}. Los cuatro grupos de ingreso son LIC, LMIC, UMIC y HIC.
 
 	\begin{table}[htbp]
 		\centering
@@ -395,26 +394,23 @@
 
 			\begin{tablenotes}[para,flushleft]
 				\footnotesize
-				\item \textit{Nota: LIC = Low Income Countries; LMIC = Lower Middle Income Countries; UMIC = Upper Middle Income Countries; HIC = High Income Countries. Los países se representan mediante sus códigos ISO3 oficiales (ver Tabla A.2). La clasificación por nivel de ingresos sigue la tipología del Banco Mundial, mientras que el perfil extractivo se define según la participación promedio observada en el panel empírico (1996--2021). Sierra Leona y Nauru, incluidas en la selección inicial de 55 países, no se clasifican por falta de información para ambos componentes.}
+				\item \textit{Nota: Los países se representan mediante sus códigos ISO3 oficiales (ver Tabla A.2). La clasificación por nivel de ingresos sigue la tipología del Banco Mundial, mientras que el perfil extractivo se define según la participación promedio observada en el panel empírico (1996--2021). Sierra Leona y Nauru, incluidas en la selección inicial de 55 países, no se clasifican por falta de información para ambos componentes.}
 				\item \textit{Fuente: Elaboración propia a partir del panel maestro y de la clasificación por ingresos del Banco Mundial.}
 			\end{tablenotes}
 		\end{threeparttable}
 	\end{table}
 
-	Adicionalmente, el análisis de la distribución de la muestra por grupos de ingreso del Banco Mundial (\textit{LIC, LMIC, UMIC y HIC}), presentado formalmente mediante diagramas de caja con rotulación país por país en la \autoref{sec:figuras-panel-ingreso} del Apéndice A (\autoref{fig:panel-commodities-income}, \autoref{fig:panel-oil-gas-rents-income} y \autoref{fig:panel-mining-rents-income}), revela tres regularidades empíricas sustantivas para la investigación:
+	Adicionalmente, el análisis de la distribución de la muestra por grupos de ingreso del Banco Mundial (LIC, LMIC, UMIC y HIC), presentado formalmente mediante diagramas de caja con rotulación país por país en la \autoref{sec:figuras-panel-ingreso} del Apéndice A (\autoref{fig:panel-commodities-income}, \autoref{fig:panel-oil-gas-rents-income} y \autoref{fig:panel-mining-rents-income}), revela tres regularidades empíricas sustantivas para la investigación:
 
-	En primer lugar, la dependencia exportadora extractiva total ($DRES\%$, \autoref{fig:panel-commodities-income}) no exhibe un gradiente de reducción monotónica a medida que aumenta el ingreso per cápita. La mediana de $DRES\%$ se mantiene en niveles elevados a través de todos los tramos de ingreso (fluctuando entre el 50\% y el 77\%), abarcando desde economías de bajos ingresos (como Liberia \textit{LBR} o Yemen \textit{YEM}) hasta países de altos ingresos altamente especializados en bienes primarios (tales como Kuwait \textit{KWT}, Qatar \textit{QAT}, Arabia Saudita \textit{SAU} o Noruega \textit{NOR}).
+	En primer lugar, $DRES\%$ (\autoref{fig:panel-commodities-income}) no exhibe un gradiente de reducción monotónica a medida que aumenta el ingreso per cápita. La mediana de $DRES\%$ se mantiene en niveles elevados a través de todos los tramos de ingreso (fluctuando entre el 50\% y el 77\%), abarcando desde economías de bajos ingresos (como Liberia \textit{LBR} o Yemen \textit{YEM}) hasta países de altos ingresos altamente especializados en bienes primarios (tales como Kuwait \textit{KWT}, Qatar \textit{QAT}, Arabia Saudita \textit{SAU} o Noruega \textit{NOR}).
 
-	En segundo lugar, la intensidad macroeconómica de las rentas de petróleo y
-	gas natural ($RENTS^{OIL+GAS}$,
-	\autoref{fig:panel-oil-gas-rents-income}) presenta valores elevados en varias
+	En segundo lugar, $RENTS^{OIL+GAS}$ (\autoref{fig:panel-oil-gas-rents-income}) presenta valores elevados en varias
 	economías de ingresos medios-altos y altos, entre ellas Irak, Libia, Angola y
 	varios exportadores de hidrocarburos del Golfo. El gráfico describe la
 	distribución por grupos de ingreso, pero no permite atribuir a las rentas el
 	nivel de PIB per cápita observado.
 
-	En tercer lugar, las rentas mineras ($RENTS^{MINING}$,
-	\autoref{fig:panel-mining-rents-income}) se concentran principalmente en
+	En tercer lugar, los valores de $RENTS^{MINING}$ (\autoref{fig:panel-mining-rents-income}) se concentran principalmente en
 	economías de ingresos medios-bajos y medios-altos, con casos como Mongolia,
 	Mauritania, Zambia, Chile, Surinam, Guyana y Perú. Esta diferencia descriptiva
 	frente a los hidrocarburos motiva la desagregación complementaria de las
@@ -428,7 +424,7 @@
 		\begin{subfigure}{0.85\linewidth}
 			\centering
 			\includegraphics[width=\linewidth]{\subfix{../../figures/eci_annual_evolution}}
-			\caption[Evolución temporal promedio del ECI]{Evolución temporal del valor medio muestral del Índice de Complejidad Económica (ECI), 1996--2021.}
+			\caption[Evolución temporal promedio del $ECI$]{Evolución temporal del valor medio muestral del $ECI$, 1996--2021.}
 			\label{fig:eci-annual-evolution-cap10}
 			\caption*{\footnotesize \textit{Fuente: Elaboración propia a partir del panel maestro.}}
 		\end{subfigure}
@@ -438,7 +434,7 @@
 		\begin{subfigure}{0.85\linewidth}
 			\centering
 			\includegraphics[width=\linewidth]{\subfix{../../figures/divx_annual_evolution}}
-			\caption[Evolución anual de DIVX]{Evolución anual de la Diversificación Exportadora (DIVX), 1996--2021. La línea representa la mediana de los 55 países y la banda, el intervalo intercuartílico.}
+			\caption[Evolución anual de $DIVX$]{Evolución anual de la diversificación exportadora, 1996--2021. La línea representa la mediana de los 55 países y la banda, el intervalo intercuartílico.}
 			\label{fig:divx-annual-evolution-cap10}
 			\caption*{\footnotesize \textit{Fuente: Elaboración propia a partir del panel maestro.}}
 		\end{subfigure}
@@ -476,7 +472,7 @@
 		\begin{subfigure}{0.85\linewidth}
 			\centering
 			\includegraphics[width=\linewidth]{\subfix{../../figures/rents_eci_country_means}}
-			\caption[RENTS vs. ECI promedio]{Rentas extractivas medias vs. ECI medio por país.}
+			\caption[$RENTS$ vs. $ECI$ promedio]{Rentas extractivas medias vs. $ECI$ medio por país.}
 			\label{fig:rents-eci-means-cap10}
 			\caption*{\footnotesize \textit{Fuente: Elaboración propia a partir del panel maestro.}}
 		\end{subfigure}
@@ -486,7 +482,7 @@
 		\begin{subfigure}{0.85\linewidth}
 			\centering
 			\includegraphics[width=\linewidth]{\subfix{../../figures/rents_divx_country_means}}
-			\caption[Rentas extractivas y DIVX por país]{Relación entre el promedio de las rentas extractivas (\% del PIB) y el promedio de DIVX por país, 1996--2021. La línea corresponde a la tendencia lineal y la banda a su intervalo de confianza del 95\%.}
+			\caption[Rentas extractivas y $DIVX$ por país]{Relación entre el promedio de las rentas extractivas (\% del PIB) y el promedio de $DIVX$ por país, 1996--2021. La línea corresponde a la tendencia lineal y la banda a su intervalo de confianza del 95\%.}
 			\label{fig:rents-divx-means-cap10}
 			\caption*{\footnotesize \textit{Fuente: Elaboración propia a partir del panel maestro.}}
 		\end{subfigure}
@@ -509,12 +505,12 @@
 	descriptiva más estrecha con la concentración de la canasta exportadora que
 	con el contenido de capacidades sintetizado por el $ECI$.
 
-	Complementariamente, la \autoref{fig:eci-log-rents-quadrants-cap10} examina la relación entre el $ECI$ medio y el logaritmo de las rentas extractivas medias dividida por cuadrantes. La transformación logarítmica de $RENTS$ atenúa la compresión en el extremo inferior de rentas y permite agrupar los países en cuatro cuadrantes según el umbral $ECI=0$ y la mediana muestral de $RENTS$. Los ajustes no lineal (LOESS) y lineal (OLS) ilustran la marcada heterogeneidad entre cuadrantes: se distinguen economías de rentas elevadas con complejidad positiva (como Noruega o Arabia Saudita), rentas altas con reducida complejidad (como Irak, Angola o Libia), y países con niveles moderados o bajos de rentas distribuidos en ambos lados de la mediana de complejidad.
+	Complementariamente, la \autoref{fig:eci-log-rents-quadrants-cap10} examina la relación entre el $ECI$ medio y el logaritmo de las rentas extractivas medias dividida por cuadrantes. La transformación logarítmica de $RENTS$ atenúa la compresión en el extremo inferior de rentas y permite agrupar los países en cuatro cuadrantes según el umbral $ECI=0$ y la mediana muestral de $RENTS$. El ajuste mediante Regresión Local Ponderada (LOESS, del inglés \textit{locally estimated scatterplot smoothing}) y el ajuste lineal mediante OLS ilustran la marcada heterogeneidad entre cuadrantes: se distinguen economías de rentas elevadas con complejidad positiva (como Noruega o Arabia Saudita), rentas altas con reducida complejidad (como Irak, Angola o Libia), y países con niveles moderados o bajos de rentas distribuidos en ambos lados de la mediana de complejidad.
 
 	\begin{figure}[!htbp]
 		\centering
 		\includegraphics[width=\linewidth]{\subfix{../../figures/eci_log_rents_quadrants}}
-		\caption[ECI y rentas extractivas en escala logarítmica por cuadrantes]{Relación entre el promedio del ECI y las rentas extractivas medias en escala logarítmica por cuadrantes, 1996--2021. Los cuadrantes se definen por $ECI=0$ y la mediana muestral de $RENTS$.}
+		\caption[$ECI$ y rentas extractivas en escala logarítmica por cuadrantes]{Relación entre el promedio del $ECI$ y las rentas extractivas medias en escala logarítmica por cuadrantes, 1996--2021. Los cuadrantes se definen por $ECI=0$ y la mediana muestral de $RENTS$.}
 		\label{fig:eci-log-rents-quadrants-cap10}
 		\caption*{\footnotesize \textit{Fuente: Elaboración propia a partir del panel maestro.}}
 	\end{figure}

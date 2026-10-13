@@ -47,15 +47,20 @@
 	transformación estructural externa de economías dependientes de recursos
 	naturales. El estudio distingue entre la dependencia externa de recursos
 	---utilizada únicamente para delimitar la muestra a partir de la estructura
-	exportadora--- y la intensidad macroeconómica de las rentas extractivas,
-	incorporada como variable explicativa. La transformación estructural externa
-	se aproxima principalmente mediante la complejidad económica y, de manera
-	complementaria, mediante la diversificación de la canasta exportadora. El
+	exportadora--- y el Indicador de Rentas Extractivas Totales del Subsuelo ($RENTS$, código en inglés),
+	que mide la suma de las rentas de petróleo, gas natural, carbón y minerales
+	como porcentaje del Producto Interno Bruto (PIB) y se incorpora como variable
+	explicativa. La transformación estructural externa
+	se aproxima principalmente mediante el Índice de Complejidad Económica
+	($ECI$, por sus siglas en inglés), que sintetiza información sobre la diversidad
+	y la ubicuidad de las exportaciones para aproximar las capacidades productivas
+	de una economía. De manera complementaria, se considera la diversificación
+	de la canasta exportadora. El
 	diseño permite estimar asociaciones condicionales dentro de los países, pero
 	no identificar efectos causales ni observar directamente la conversión de las
 	rentas en capacidades productivas.
 
-	En lugar de evaluar si la abundancia de recursos constituye en sí misma una ventaja o una desventaja para el crecimiento económico, el análisis compara cómo los canales productivos, institucionales y macroeconómicos se relacionan con la complejidad económica y la diversificación exportadora dentro del universo seleccionado. Para ello, el estudio adopta un enfoque cuantitativo longitudinal. El período 1990--1995 se utiliza exclusivamente para seleccionar 55 economías en las que la participación de las exportaciones de recursos naturales no renovables del subsuelo en las exportaciones totales de mercancías alcanza, en promedio, al menos el 20\%. La estimación se realiza para 1996--2021 sobre una muestra común desbalanceada de 1.044 observaciones, 49 países y 23 años efectivos. Los insumos originales cubren horizontes más amplios según la fuente, pero no definen una muestra econométrica adicional.
+	En lugar de evaluar si la abundancia de recursos constituye en sí misma una ventaja o una desventaja para el crecimiento económico, el análisis compara cómo los canales productivos, institucionales y macroeconómicos se relacionan con la complejidad económica y la diversificación exportadora dentro del universo seleccionado. Para ello, el estudio adopta un enfoque cuantitativo longitudinal. El Indicador de Dependencia Exportadora de Recursos Naturales No Renovables del Subsuelo ($DRES$) mide la participación de las exportaciones de estos recursos en las exportaciones totales de mercancías. Su promedio durante 1990--1995 se utiliza exclusivamente para seleccionar las 55 economías en las que esa participación alcanza al menos el 20\%. La estimación se realiza para 1996--2021 sobre una muestra común desbalanceada de 1.044 observaciones, 49 países y 23 años efectivos. Los insumos originales cubren horizontes más amplios según la fuente, pero no definen una muestra econométrica adicional.
 
 	En este contexto, la investigación busca contribuir a la literatura sobre desarrollo económico y economías extractivas mediante un análisis comparado que vincula dependencia externa de recursos, rentas extractivas, transformación estructural y acumulación de capacidades productivas. Tras presentar la pregunta, la justificación, el planteamiento del problema, los objetivos y las hipótesis, la \autoref{sec:contribucion} precisa los aportes esperados de la investigación. El resto del documento se organiza de la siguiente manera: el \autoref{chap:marco-teorico} desarrolla el marco teórico y conceptual del estudio; el \autoref{chap:literatura-empirica} revisa la literatura empírica relevante; el \autoref{chap:metodologia} presenta la estrategia metodológica y las técnicas empíricas utilizadas; el \autoref{chap:resultados} expone los resultados del análisis econométrico; y finalmente el \autoref{chap:conclusiones} discute las implicaciones de los hallazgos y las principales conclusiones de la investigación.
 
@@ -69,16 +74,21 @@
 
 	La literatura sobre economías dependientes de recursos naturales ha destacado la existencia de trayectorias de desarrollo divergentes. Mientras algunas economías logran avanzar hacia estructuras exportadoras más complejas y diversificadas, otras permanecen atrapadas en patrones de especialización extractiva.
 
+	La transformación
+	estructural externa se observa principalmente mediante el $ECI$, como
+	aproximación a la sofisticación y a las capacidades productivas reveladas.
+	El Índice de Herfindahl--Hirschman ($HHI$) mide la concentración de las
+	exportaciones por producto: valores mayores indican una canasta exportadora
+	más concentrada. A partir de este índice se construye el Indicador de
+	Diversificación Exportadora ($DIVX$), definido como $DIVX=1-HHI$. Sus valores
+	más altos indican una canasta exportadora menos concentrada.
+
 	En este contexto, la pregunta general que guía esta investigación es:
 
 	\begin{quote}
 	¿Cómo se asocian las rentas extractivas y los canales productivos,
 	institucionales y macroeconómicos con la transformación estructural externa de
-	las economías dependientes de recursos naturales?\footnote{La transformación
-	estructural externa se observa principalmente mediante el $ECI$, como
-	aproximación a la sofisticación y a las capacidades productivas reveladas, y
-	complementariamente mediante $DIVX=1-HHI$, como medida de diversificación de
-	la canasta exportadora.}
+	las economías dependientes de recursos naturales?
 	\end{quote}
 
 	Con el fin de abordar empíricamente esta cuestión, la tesis se propone responder la siguiente pregunta específica:
@@ -103,7 +113,7 @@
 
 	Desde una perspectiva académica, la investigación se inserta en un debate amplio y aún abierto sobre los efectos económicos de la dependencia de recursos naturales y de las rentas extractivas. Si bien la literatura ha avanzado de manera significativa en la identificación de mecanismos vinculados a la denominada ``maldición de los recursos'', los resultados empíricos muestran una notable diversidad de trayectorias \parencite{Brunnschweiler2006,Brunnschweiler2008,Lebdioui2019}. Mientras algunas economías han logrado traducir las rentas extractivas en mejoras de complejidad económica y diversificación exportadora, otras permanecen atrapadas en trayectorias de especialización primaria \parencite{Lebdioui2019,Ville2013}. Esta coexistencia de resultados divergentes pone de manifiesto la necesidad de profundizar el análisis de las condiciones productivas, institucionales y macroeconómicas que median entre la dependencia extractiva, la gestión de las rentas y los resultados de desarrollo observados.
 
-	\textcite{Ajide2022} señalan que, aunque la literatura sobre la maldición de los recursos naturales se ha centrado predominantemente en sus efectos sobre el crecimiento económico, su impacto sobre dimensiones estructurales del desarrollo, como la complejidad económica, ha sido ampliamente ignorado. En este sentido, la complejidad económica ofrece una aproximación relevante a la transformación estructural externa, al captar la diversificación y el contenido tecnológico de la canasta exportadora. Para los fines de este trabajo, ese énfasis se complementa con una medida directa de diversificación exportadora, definida como el complemento de la concentración de Herfindahl--Hirschman. De este modo, la investigación busca cubrir un vacío de la literatura empírica mediante una aproximación centrada en la sofisticación y diversificación de la inserción productiva externa.
+	\textcite{Ajide2022} señalan que, aunque la literatura sobre la maldición de los recursos naturales se ha centrado predominantemente en sus efectos sobre el crecimiento económico, su impacto sobre dimensiones estructurales del desarrollo, como la complejidad económica, ha sido ampliamente ignorado. En este sentido, la complejidad económica ofrece una aproximación relevante a la transformación estructural externa, al captar la diversificación y el contenido tecnológico de la canasta exportadora. Para los fines de este trabajo, ese énfasis se complementa con el indicador $DIVX$. De este modo, la investigación busca cubrir un vacío de la literatura empírica mediante una aproximación centrada en la sofisticación y diversificación de la inserción productiva externa.
 
 	En este contexto, resulta pertinente adoptar un enfoque integrador que permita examinar de manera conjunta los mecanismos estructurales que condicionan dichas trayectorias. El análisis comparativo entre países, basado en indicadores de dependencia extractiva, rentas extractivas, complejidad económica, diversificación exportadora, capacidades humanas, innovación y desempeño macroeconómico, ofrece una vía adecuada para identificar regularidades y contrastar hipótesis sobre factores asociados con el cambio estructural. De este modo, la investigación busca contribuir a una comprensión más precisa de los canales teóricos vinculados con las diferencias observadas en la complejidad y la diversificación exportadoras de las economías basadas en recursos naturales, evitando enfoques deterministas y simplificaciones normativas.
 
@@ -120,6 +130,19 @@
 	Esta heterogeneidad plantea un problema central: la dependencia de recursos naturales no conduce de manera automática ni a la denominada ``maldición'' ni al desarrollo exitoso, sino que se relaciona con resultados heterogéneos según la estructura productiva, el marco institucional y las condiciones macroeconómicas \parencite{Lebdioui2019}. En particular, persiste una brecha analítica sobre la forma en que las rentas extractivas y esos canales se asocian con la sofisticación y la diversificación exportadoras dentro de un conjunto comparable de economías dependientes.
 
 	El problema de investigación consiste en evaluar comparativamente esas asociaciones durante 1996--2021. La dependencia exportadora de 1990--1995 delimita el universo de análisis; dentro de este, las rentas extractivas y los canales institucional, estructural, macroeconómico, de capacidades productivas, fiscal y financiero se incorporan como variables explicativas de $ECI$ y $DIVX$.
+
+	La dimensión institucional se aproxima mediante el Indicador de Calidad
+	Institucional ($INST$), que sintetiza el control de la corrupción, el estado
+	de derecho y la efectividad gubernamental. Valores más altos indican una
+	mejor calidad institucional en estas tres dimensiones.
+
+	En la dimensión macroeconómica, el Indicador de Volatilidad de los Términos
+	de Intercambio de Commodities ($VOL$) recoge la variabilidad de los cambios
+	anuales de un índice de precios de exportaciones netas de commodities.
+	Por su parte, el Indicador de Tipo de Cambio Real
+	($RER$, por sus siglas en inglés) se construye a partir del nivel de precios
+	del producto relativo al de Estados Unidos. Valores más altos del indicador
+	representan una apreciación real.
 
 	Este planteamiento permite contrastar hipótesis de asociación mediante modelos con efectos fijos de país y año estimados sobre una muestra común. La investigación busca identificar regularidades dentro de los países y comparar su estabilidad entre $ECI$ y $DIVX$, sin interpretar los coeficientes como efectos causales ni como mediciones directas de mecanismos no observados.
 
@@ -271,11 +294,11 @@
 
 	El primer aporte consiste en separar la dependencia externa de recursos naturales de la intensidad macroeconómica de las rentas extractivas. Varios estudios analizan la relación entre rentas de recursos naturales y complejidad económica en muestras amplias de países, países en desarrollo o economías ricas en recursos, y algunos distinguen incluso entre petróleo, minería y gas \parencite{Canh2020,Hoang2023,Li2024,Ul-Durar2023,Valentine2024,Zhang2023}. Esta tesis toma ese punto de partida, pero utiliza la dependencia externa, medida por la participación de las exportaciones de recursos naturales no renovables del subsuelo ---hidrocarburos, carbón, minerales y metales--- en la canasta exportadora, como criterio para delimitar la muestra. En cambio, las rentas de recursos naturales como porcentaje del PIB se incorporan como una variable explicativa dentro del modelo econométrico. Esta distinción evita confundir la dependencia de recursos como condición estructural de partida con las rentas extractivas cuya asociación condicional se estima durante el período econométrico.
 
-	El segundo aporte se encuentra en las variables explicadas. La literatura más cercana se concentra principalmente en el Índice de Complejidad Económica (ECI) como resultado para estudiar si las rentas, la abundancia o la dependencia de recursos naturales limitan la sofisticación productiva de las economías \parencite{Ajide2022,Canh2020,Hoang2023,Owjimehr2024,Valentine2024,Zhang2023}. En este marco, la tesis aproxima la transformación estructural desde la inserción externa. La variable dependiente principal es el ECI, entendido como una medida de sofisticación exportadora y de capacidades productivas reveladas. De manera complementaria, se incorpora la diversificación exportadora, definida como $DIVX=1-HHI$, donde $HHI$ corresponde al índice de concentración de Herfindahl--Hirschman. Esta segunda variable no reemplaza al ECI, sino que permite observar si los mecanismos asociados a la complejidad económica también se relacionan con una canasta exportadora menos concentrada. Así, la tesis distingue entre sofisticación y diversificación, dos dimensiones próximas pero no equivalentes de la transformación estructural externa.
+	El segundo aporte se encuentra en las variables explicadas. La literatura más cercana se concentra principalmente en el $ECI$ como resultado para estudiar si las rentas, la abundancia o la dependencia de recursos naturales limitan la sofisticación productiva de las economías \parencite{Ajide2022,Canh2020,Hoang2023,Owjimehr2024,Valentine2024,Zhang2023}. En este marco, la tesis aproxima la transformación estructural desde la inserción externa. La variable dependiente principal es el $ECI$, entendido como una medida de sofisticación exportadora y de capacidades productivas reveladas. De manera complementaria, se incorpora el indicador $DIVX$. Esta segunda variable no reemplaza al $ECI$, sino que permite observar si los mecanismos asociados a la complejidad económica también se relacionan con una canasta exportadora menos concentrada. Así, la tesis distingue entre sofisticación y diversificación, dos dimensiones próximas pero no equivalentes de la transformación estructural externa.
 
 	El tercer aporte consiste en articular en un mismo marco empírico distintos canales explicativos que la literatura cercana suele tratar de manera separada. Algunos estudios enfatizan el papel de las instituciones, la estabilidad política o la calidad institucional en economías ricas en recursos \parencite{Ajide2022,Avom2022,Olaniyi-Odhiambo2025-3,Olaniyi-Odhiambo2025,Owjimehr2024}; otros destacan el desarrollo financiero, la innovación, el capital humano o el nivel de ingreso como condiciones que pueden modificar la relación entre recursos y complejidad \parencite{Alvarado2023,Li2024,Valentine2024}. A partir de estos antecedentes, el modelo incorpora un canal institucional, asociado a la calidad institucional y a su interacción con las rentas extractivas; rentas específicas de petróleo, gas y carbón por habitante; un canal estructural, relacionado con concentración y especialización exportadora; un canal macroeconómico, asociado a volatilidad y tipo de cambio real; un canal de capacidades productivas, aproximado mediante capital humano, innovación y conectividad; y controles fiscales y financieros. $M_1$ y $M_2$ organizan estos canales en especificaciones temáticas paralelas, mientras $M_3$ los integra en el modelo completo. El aporte no reside en afirmar que cada canal sea novedoso, sino en compararlos sobre la misma muestra y frente a dos resultados no equivalentes.
 
-	Finalmente, la tesis aporta una estrategia empírica comparada que busca diferenciarse de los estudios existentes no por el simple uso de datos de panel, sino por la forma en que define y organiza el universo de análisis. En efecto, ya existen aplicaciones de panel sobre recursos naturales y complejidad económica, incluyendo estudios con muestras globales, países en desarrollo, economías ricas en recursos y casos africanos \parencite{Ajide2022,Avom2022,Owjimehr2024,Valentine2024,Zhang2023}, así como análisis de causalidad o no linealidad entre complejidad y rentas de recursos naturales \parencite{Olaniyi-Odhiambo2025-2,Ul-Durar2023}. Frente a esos antecedentes, el diseño selecciona 55 países cuya dependencia externa de recursos alcanza al menos 20\% durante 1990--1995 y estima, para 1996--2021, un modelo principal con $ECI$ y una especificación complementaria con $DIVX=1-HHI$. La muestra econométrica común contiene 1.044 observaciones de 49 países y 23 años efectivos. En conjunto, la contribución es ofrecer evidencia comparada sobre asociaciones condicionales, sin atribuir causalidad al diseño ni presentar como inéditos elementos que la literatura ya ha trabajado.
+	Finalmente, la tesis aporta una estrategia empírica comparada que busca diferenciarse de los estudios existentes no por el simple uso de datos de panel, sino por la forma en que define y organiza el universo de análisis. En efecto, ya existen aplicaciones de panel sobre recursos naturales y complejidad económica, incluyendo estudios con muestras globales, países en desarrollo, economías ricas en recursos y casos africanos \parencite{Ajide2022,Avom2022,Owjimehr2024,Valentine2024,Zhang2023}, así como análisis de causalidad o no linealidad entre complejidad y rentas de recursos naturales \parencite{Olaniyi-Odhiambo2025-2,Ul-Durar2023}. Frente a esos antecedentes, el diseño selecciona 55 países cuya dependencia externa de recursos alcanza al menos 20\% durante 1990--1995 y estima, para 1996--2021, un modelo principal con $ECI$ y una especificación complementaria con $DIVX$. La muestra econométrica común contiene 1.044 observaciones de 49 países y 23 años efectivos. En conjunto, la contribución es ofrecer evidencia comparada sobre asociaciones condicionales, sin atribuir causalidad al diseño ni presentar como inéditos elementos que la literatura ya ha trabajado.
 
 	\thesisendchap{hipotesis}
 

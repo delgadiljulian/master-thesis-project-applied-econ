@@ -54,7 +54,7 @@
 			& 55 países \\
 
 			$ECI$
-			& Índice de Complejidad Económica calculado por el Atlas bajo la clasificación HS92.
+			& Índice calculado por el Atlas bajo la clasificación HS92.
 			& Harvard Growth Lab, \textit{Atlas of Economic Complexity}, API GraphQL, campo \texttt{countryYear.eci}.
 			& 1995--2022
 			& 1.430 (100,00\,\%) \\
@@ -90,7 +90,7 @@
 			& 1.384 (96,78\,\%) \\
 
 			$INST$
-			& Promedio simple de Control de la Corrupción, Estado de Derecho y Efectividad Gubernamental, solo cuando los tres componentes están observados.
+			& Promedio simple de $CC$, $RL$ y $GE$, solo cuando los tres componentes están observados.
 			& Banco Mundial, WGI: \texttt{GOV\_WGI\_CC.EST}, \texttt{GOV\_WGI\_RL.EST} y \texttt{GOV\_WGI\_GE.EST}.
 			& 1996--2024
 			& 1.257 (87,90\,\%) \\
@@ -132,7 +132,7 @@
 			& 1.430 (100,00\,\%) \\
 
 			$VOL$
-			& Desviación estándar muestral móvil de cinco años de $100\Delta\log(CEMPI)$; cada valor requiere seis niveles anuales consecutivos.
+			& Desviación estándar muestral móvil de cinco años de $100\Delta\log(CTOT)$; cada valor requiere seis niveles anuales consecutivos.
 			& FMI, \textit{Commodity Terms of Trade}: \texttt{CEMPI\_CTOTNX\_TT}, ponderaciones fijas \texttt{H\_FW\_IX}, frecuencia anual.
 			& 1962--2022
 			& 1.403 (98,11\,\%) \\
@@ -185,7 +185,7 @@
 	\end{footnotesize}
 	\thesissource{Elaboración propia a partir de los archivos, metadatos y scripts reproducibles del proyecto.}
 
-	\section{Países seleccionados mediante DRES}
+	\section{Países seleccionados mediante $DRES$}
 	\label{sec:muestra-dres}
 
 	La \autoref{tab:muestra_dres20} identifica las 55 economías que integran la
@@ -204,15 +204,15 @@
 				>{\RaggedLeft\arraybackslash}p{1.3cm}
 			}
 
-			\caption[Países seleccionados mediante DRES]{Países seleccionados mediante el umbral de $DRES\geq 20\%$.}
+			\caption[Países seleccionados mediante $DRES$]{Países seleccionados mediante el umbral de $DRES\geq 20\%$.}
 			\label{tab:muestra_dres20} \\
 			\hline
-			País (\isocode{ISO3}) & DRES medio & País (\isocode{ISO3}) & DRES medio \\
+			País (\isocode{ISO3}) & $DRES$ medio & País (\isocode{ISO3}) & $DRES$ medio \\
 			\hline
 			\endfirsthead
 
 			\hline
-			País (\isocode{ISO3}) & DRES medio & País (\isocode{ISO3}) & DRES medio \\
+			País (\isocode{ISO3}) & $DRES$ medio & País (\isocode{ISO3}) & $DRES$ medio \\
 			\hline
 			\endhead
 
@@ -291,8 +291,8 @@
 
 				% Nivel 2: Mecanismo focal (y = 5.0)
 				\node[box] (rents) at (0, 5.0) {\textbf{Exposición focal y heterogeneidad sectorial}\\[3pt]
-					Rentas Extractivas Totales ($RENTS$)\\[2pt]
-					\footnotesize Hidrocarburos ($rents\_oil\_gas$) \quad $\cdot$ \quad Minería y Carbón ($rents\_mining$)};
+					$RENTS$\\[2pt]
+					\footnotesize $RENTS^{OIL+GAS}$ \quad $\cdot$ \quad $RENTS^{MINING}$};
 
 				% Nivel 3: Canales explicativos (y = 2.4, x=-3.6 y x=+3.6 -> deja 1.8cm libres al centro)
 				\node[sidebox] (inst) at (-3.6, 2.4) {\textbf{Canal Institucional}\\[3pt]
@@ -305,8 +305,8 @@
 
 				% Nivel 4: Resultados (y = -0.3)
 				\node[box] (out) at (0, -0.3) {\textbf{Resultados de Transformación Estructural Externa}\\[4pt]
-					Complejidad cualitativa ($ECI, \beta_{RENTS} = -0,010^{**}, p = 0,023$)\\[2pt]
-					Diversificación cuantitativa ($DIVX, \beta_{RENTS} = -0,004^{***}, p = 0,009$)};
+					$ECI$: $\beta_{RENTS} = -0,010^{**}, p = 0,023$\\[2pt]
+					$DIVX$: $\beta_{RENTS} = -0,004^{***}, p = 0,009$};
 
 				% Flechas
 				\draw[arrow] (dres) -- (rents);
@@ -318,13 +318,13 @@
 			\end{tikzpicture}%
 		}
 
-		\caption[Diseño empírico y asociaciones principales]{Diseño empírico y asociaciones principales entre la selección por dependencia extractiva ($DRES$), las rentas ($RENTS$), los canales considerados y los resultados de complejidad ($ECI$) y diversificación ($DIVX$).}
+		\caption[Diseño empírico y asociaciones principales]{Diseño empírico y asociaciones principales entre la selección mediante $DRES$, $RENTS$, los canales considerados y los resultados en $ECI$ y $DIVX$.}
 
 		\label{fig:arquitectura-mecanismos}
 		\caption*{\footnotesize \textit{Nota:} Las flechas organizan el diseño analítico y no representan relaciones causales. \textit{Fuente: Elaboración propia a partir de las estimaciones TWFE presentadas en el Capítulo 11.}}
 	\end{figure}
 
-	Con el fin de evaluar un resultado complementario de transformación estructural externa, la tesis contrasta el modelo basado en el \textit{Economic Complexity Index} (ECI) con una segunda especificación en la que la variable dependiente corresponde a la diversificación exportadora ($DIVX=1-HHI$). Esta medida no reemplaza al ECI, sino que permite observar si los mecanismos asociados a la sofisticación de la canasta exportadora también se relacionan con una menor concentración de dicha canasta. En el modelo con $DIVX$, $HHI$ se excluye del conjunto de regresores para evitar una relación mecánica entre la variable dependiente y sus componentes de construcción.
+	Con el fin de evaluar un resultado complementario de transformación estructural externa, la tesis contrasta el modelo basado en el $ECI$ con una segunda especificación en la que la variable dependiente es el $DIVX$. Esta medida no reemplaza al $ECI$, sino que permite observar si los mecanismos asociados a la sofisticación de la canasta exportadora también se relacionan con una menor concentración de dicha canasta. En el modelo con $DIVX$, $HHI$ se excluye del conjunto de regresores para evitar una relación mecánica entre la variable dependiente y sus componentes de construcción.
 
 
 
@@ -334,44 +334,44 @@
 	\subsection{Perfiles extractivos e ingreso en el panel empírico}
 	\label{sec:figuras-panel-ingreso}
 
-	Como análisis descriptivo de la heterogeneidad de las economías seleccionadas en el panel ($DRES \ge 20\%$), la \autoref{fig:panel-commodities-income} presenta la distribución de la dependencia exportadora extractiva ($DRES\%$) clasificada según el grupo de ingreso del Banco Mundial: bajos ingresos (\textit{LIC}), ingresos medios bajos (\textit{LMIC}), ingresos medios altos (\textit{UMIC}) y altos ingresos (\textit{HIC}).
+	Como análisis descriptivo de la heterogeneidad de las economías seleccionadas en el panel ($DRES \ge 20\%$), la \autoref{fig:panel-commodities-income} presenta la distribución de $DRES\%$ clasificada según el grupo de ingreso del Banco Mundial: LIC, LMIC, UMIC y HIC.
 
-	La \autoref{fig:panel-commodities-income} muestra que la dependencia exportadora extractiva no disminuye de manera monotónica con el nivel de ingreso per cápita. Los grupos de ingreso medio alto (\textit{UMIC}) y alto (\textit{HIC}) también albergan economías con una elevada especialización en bienes primarios no renovables del subsuelo (tales como Noruega, Australia, Kuwait, Omán o Qatar).
+	La \autoref{fig:panel-commodities-income} muestra que la dependencia exportadora extractiva no disminuye de manera monotónica con el nivel de ingreso per cápita. Los grupos de ingreso medio alto y alto también albergan economías con una elevada especialización en bienes primarios no renovables del subsuelo (tales como Noruega, Australia, Kuwait, Omán o Qatar).
 
 	\begin{figure}[htbp]
 		\centering
 		\includegraphics[width=0.85\textwidth]{\subfix{../../figures/panel_extractive_dependence_by_income_group}}
-		\caption[Dependencia exportadora extractiva por grupo de ingreso en el panel]{Distribución de la dependencia exportadora extractiva ($DRES\%$) en las economías del panel empírico según grupo de ingreso: bajos ingresos (LIC), ingresos medios bajos (LMIC), ingresos medios altos (UMIC) y altos ingresos (HIC).}
+		\caption[Dependencia exportadora extractiva por grupo de ingreso en el panel]{Distribución de $DRES\%$ en las economías del panel empírico según grupo de ingreso: LIC, LMIC, UMIC y HIC.}
 		\label{fig:panel-commodities-income}
 		\caption*{\footnotesize \textit{Fuente: Elaboración propia a partir de $DRES$ medio durante 1990--1995 y la clasificación de ingresos utilizada en la investigación.}}
 	\end{figure}
 
-	De manera específica para el sector de hidrocarburos, la \autoref{fig:panel-oil-gas-rents-income} analiza la distribución de las rentas de petróleo y gas natural ($RENTS^{OIL+GAS}$ como $\%$ del PIB) a través de los cuatro grupos de ingreso. Se observan valores elevados en varias economías de ingresos altos (\textit{HIC}) y medios altos (\textit{UMIC}); esta comparación es descriptiva y no identifica el efecto de las rentas sobre el nivel de ingreso.
+	De manera específica para el sector de hidrocarburos, la \autoref{fig:panel-oil-gas-rents-income} analiza la distribución de $RENTS^{OIL+GAS}$, en porcentaje del PIB, a través de los cuatro grupos de ingreso. Se observan valores elevados en varias economías de ingresos altos y medios altos; esta comparación es descriptiva y no identifica el efecto de las rentas sobre el nivel de ingreso.
 
 	\begin{figure}[htbp]
 		\centering
 		\includegraphics[width=0.85\textwidth]{\subfix{../../figures/panel_oil_gas_rents_by_income_group}}
-		\caption[Rentas de petróleo y gas natural por grupo de ingreso en el panel]{Distribución de las rentas de petróleo y gas natural ($RENTS^{OIL+GAS}$ como $\%$ del PIB) en las economías del panel empírico según grupo de ingreso: bajos ingresos (LIC), ingresos medios bajos (LMIC), ingresos medios altos (UMIC) y altos ingresos (HIC).}
+		\caption[Rentas de petróleo y gas natural por grupo de ingreso en el panel]{Distribución de $RENTS^{OIL+GAS}$, en porcentaje del PIB, en las economías del panel empírico según grupo de ingreso: LIC, LMIC, UMIC y HIC.}
 		\label{fig:panel-oil-gas-rents-income}
 		\caption*{\footnotesize \textit{Fuente: Elaboración propia a partir del panel maestro de la investigación (1996--2021).}}
 	\end{figure}
 
-	Por su parte, la \autoref{fig:panel-mining-rents-income} presenta la distribución de las rentas mineras ($RENTS^{MINING}$ como $\%$ del PIB) a través de los cuatro grupos de ingreso. En la muestra, los valores más elevados se observan principalmente en economías de ingresos medios bajos (\textit{LMIC}) y medios altos (\textit{UMIC}); el gráfico no implica que el grupo de ingreso determine la composición extractiva.
+	Por su parte, la \autoref{fig:panel-mining-rents-income} presenta la distribución de $RENTS^{MINING}$, en porcentaje del PIB, a través de los cuatro grupos de ingreso. En la muestra, los valores más elevados se observan principalmente en economías de ingresos medios bajos y medios altos; el gráfico no implica que el grupo de ingreso determine la composición extractiva.
 
 	\begin{figure}[htbp]
 		\centering
 		\includegraphics[width=0.85\textwidth]{\subfix{../../figures/panel_mining_rents_by_income_group}}
-		\caption[Rentas de minería por grupo de ingreso en el panel]{Distribución de las rentas de minería ($RENTS^{MINING}$ como $\%$ del PIB) en las economías del panel empírico según grupo de ingreso: bajos ingresos (LIC), ingresos medios bajos (LMIC), ingresos medios altos (UMIC) y altos ingresos (HIC).}
+		\caption[Rentas de minería por grupo de ingreso en el panel]{Distribución de $RENTS^{MINING}$, en porcentaje del PIB, en las economías del panel empírico según grupo de ingreso: LIC, LMIC, UMIC y HIC.}
 		\label{fig:panel-mining-rents-income}
 		\caption*{\footnotesize \textit{Fuente: Elaboración propia a partir del panel maestro de la investigación (1996--2021).}}
 	\end{figure}
 
-	Como análisis complementario de la heterogeneidad de las economías extractivas, la \autoref{fig:recreated_owjimehr} presenta la evolución temporal del Índice de Complejidad Económica (ECI) para una selección de los principales países exportadores de recursos de la muestra (1996--2021) (réplica metodológica adaptada de \textcite{Owjimehr2024}). A diferencia del gráfico original de rankings, en este caso se presenta la trayectoria del puntaje de ECI continuo, lo que permite apreciar las brechas absolutas de capacidades productivas de manera más intuitiva. Se observa una notable persistencia en los extremos: Noruega mantiene de forma constante los mayores niveles de complejidad, mientras que economías como Angola y el Congo permanecen en niveles sumamente bajos durante todo el período.
+	Como análisis complementario de la heterogeneidad de las economías extractivas, la \autoref{fig:recreated_owjimehr} presenta la evolución temporal del $ECI$ para una selección de los principales países exportadores de recursos de la muestra (1996--2021) (réplica metodológica adaptada de \textcite{Owjimehr2024}). A diferencia del gráfico original de rankings, en este caso se presenta la trayectoria del puntaje de $ECI$ continuo, lo que permite apreciar las brechas absolutas de capacidades productivas de manera más intuitiva. Se observa una notable persistencia en los extremos: Noruega mantiene de forma constante los mayores niveles de complejidad, mientras que economías como Angola y el Congo permanecen en niveles sumamente bajos durante todo el período.
 
 	\begin{figure}[htbp]
 		\centering
 		\includegraphics[width=0.85\textwidth]{\subfix{../../figures/recreated_owjimehr}}
-		\caption[Evolución del ECI en países exportadores de recursos]{Evolución del Índice de Complejidad Económica (ECI) en una selección de los principales países exportadores de recursos, 1996--2021 (adaptado de \textcite{Owjimehr2024}).}
+		\caption[Evolución del $ECI$ en países exportadores de recursos]{Evolución del $ECI$ en una selección de los principales países exportadores de recursos, 1996--2021 (adaptado de \textcite{Owjimehr2024}).}
 		\label{fig:recreated_owjimehr}
 		\caption*{\footnotesize \textit{Fuente: Elaboración propia a partir del panel maestro de la investigación, adaptando el análisis de \textcite{Owjimehr2024}.}}
 	\end{figure}
@@ -391,25 +391,25 @@
 		\caption*{\footnotesize \textit{Fuente: Elaboración propia con base en el panel de datos de la investigación.}}
 	\end{figure}
 
-	La \autoref{fig:eci-world-map} presenta la distribución global del Índice de Complejidad Económica (ECI), un indicador que captura el grado de sofisticación productiva de las economías a partir de la diversidad y ubicuidad de los bienes que exportan. En general, valores más altos del ECI se asocian con estructuras productivas más diversificadas y mayores capacidades tecnológicas, mientras que valores bajos reflejan economías más concentradas en productos primarios o de menor intensidad tecnológica; en este contexto, el mapa ofrece un marco descriptivo para observar las diferencias en capacidades productivas entre países y su posible relación con la dependencia de recursos naturales.
+	La \autoref{fig:eci-world-map} presenta la distribución global del $ECI$, un indicador que captura el grado de sofisticación productiva de las economías a partir de la diversidad y ubicuidad de los bienes que exportan. En general, valores más altos del $ECI$ se asocian con estructuras productivas más diversificadas y mayores capacidades tecnológicas, mientras que valores bajos reflejan economías más concentradas en productos primarios o de menor intensidad tecnológica; en este contexto, el mapa ofrece un marco descriptivo para observar las diferencias en capacidades productivas entre países y su posible relación con la dependencia de recursos naturales.
 
 	\begin{figure}[htbp]
 		\centering
 		\includegraphics[width=\textwidth]{\subfix{../../figures/eci_world_map}}
 
-		\caption[Distribución global del ECI]{Distribución global del Índice de Complejidad Económica (ECI).}
+		\caption[Distribución global del $ECI$]{Distribución global del $ECI$.}
 
 		\label{fig:eci-world-map}
 		\caption*{\footnotesize \textit{Fuente: Elaboración propia con base en el panel de datos de la investigación.}}
 	\end{figure}
 
-	La \autoref{fig:eci-world-map-quartiles} muestra la distribución global del Índice de Complejidad Económica (ECI) clasificada por cuartiles. Esta representación permite comparar de manera relativa el nivel de sofisticación productiva entre economías, agrupando a los países según su posición en la distribución mundial del indicador. En particular, el primer cuartil (Q1) corresponde a economías con menor complejidad económica, mientras que el cuarto cuartil (Q4) agrupa a las economías con estructuras productivas más diversificadas y tecnológicamente avanzadas.
+	La \autoref{fig:eci-world-map-quartiles} muestra la distribución global del $ECI$ clasificada por cuartiles. Esta representación permite comparar de manera relativa el nivel de sofisticación productiva entre economías, agrupando a los países según su posición en la distribución mundial del indicador. En particular, el primer cuartil (Q1) corresponde a economías con menor complejidad económica, mientras que el cuarto cuartil (Q4) agrupa a las economías con estructuras productivas más diversificadas y tecnológicamente avanzadas.
 
 	\begin{figure}[htbp]
 		\centering
 		\includegraphics[width=\textwidth]{\subfix{../../figures/eci_world_map_quartiles}}
 
-		\caption[ECI por cuartiles]{Distribución global del Índice de Complejidad Económica (ECI) por cuartiles.}
+		\caption[$ECI$ por cuartiles]{Distribución global del $ECI$ por cuartiles.}
 
 		\label{fig:eci-world-map-quartiles}
 		\caption*{\footnotesize \textit{Fuente: Elaboración propia con base en el panel de datos de la investigación.}}
@@ -442,13 +442,13 @@
 		\caption*{\footnotesize \textit{Fuente: Adaptado de \textcite{Hausmann2014}, The Atlas of Economic Complexity.}}
 	\end{figure}
 
-	Como se observa en la \autoref{tab:product_communities_selected}, las comunidades asociadas a industrias extractivas presentan valores sustancialmente menores del \textit{Product Complexity Index} (PCI) en comparación con sectores manufactureros intensivos en conocimiento. Este contraste refleja diferencias estructurales en las capacidades productivas requeridas por cada tipo de actividad y resulta consistente con la literatura sobre complejidad económica y diversificación productiva \parencite{Hausmann2014}.
+	Como se observa en la \autoref{tab:product_communities_selected}, las comunidades asociadas a industrias extractivas presentan valores sustancialmente menores del Índice de Complejidad del Producto ($PCI$, por sus siglas en inglés) en comparación con sectores manufactureros intensivos en conocimiento. Este contraste refleja diferencias estructurales en las capacidades productivas requeridas por cada tipo de actividad y resulta consistente con la literatura sobre complejidad económica y diversificación productiva \parencite{Hausmann2014}.
 
 	\begin{table}[htbp]
 		\centering
 		\small
-		\caption[Comunidades de productos y complejidad (PCI)]{
-			Características seleccionadas de comunidades de productos en el espacio productivo, incluyendo complejidad promedio (PCI), número de productos y participación en el comercio mundial.
+		\caption[Comunidades de productos y complejidad]{
+			Características seleccionadas de comunidades de productos en el espacio productivo, incluyendo el $PCI$ promedio, número de productos y participación en el comercio mundial.
 		}
 		\label{tab:product_communities_selected}
 
@@ -456,7 +456,7 @@
 			\begin{adjustbox}{max width=\textwidth}
 			\begin{tabular}{L{2.8cm}L{2.2cm}L{2.6cm}L{2.2cm}L{2.8cm}}
 				\toprule
-				Comunidad & PCI promedio & Número de productos & Comercio mundial & Participación mundial \\
+				Comunidad & $PCI$ promedio & Número de productos & Comercio mundial & Participación mundial \\
 				\midrule
 				\multicolumn{5}{l}{\textit{Industrias extractivas}} \\
 
@@ -524,7 +524,9 @@
 	La persistencia AR(1) de la \autoref{tab:anexo_persistencia_fisher_peer2}
 	se estima de manera descriptiva sobre 869 pares temporales válidos. La misma
 	tabla resume cuántas de ocho variantes Fisher--ADF rechazan al 5\% la
-	hipótesis nula de que todos los paneles contienen raíz unitaria.
+	hipótesis nula de que todos los paneles contienen raíz unitaria. La Prueba
+	de Im--Pesaran--Shin (IPS) no resulta aplicable por los huecos internos de
+	este panel.
 
 	\begin{table}[htbp]
 		\centering
@@ -541,7 +543,7 @@
 			$INST$  & 0,809 & 6 de 8 & 8 de 8 \\
 			\bottomrule
 		\end{tabular}
-		\caption*{\footnotesize \textit{Nota:} Los coeficientes AR(1) son descriptivos y se estiman condicionando por efectos fijos de país y año, con errores estándar agrupados por país. Las variantes Fisher--ADF combinan constante o tendencia, uno o dos rezagos y series originales o descentradas transversalmente. Fisher--ADF permite los huecos internos de este panel; IPS no resulta aplicable bajo esa estructura. Un rechazo solo indica que al menos uno de los paneles es estacionario y no permite asignar un orden de integración común.}
+		\caption*{\footnotesize \textit{Nota:} Los coeficientes AR(1) son descriptivos y se estiman condicionando por efectos fijos de país y año, con errores estándar agrupados por país. Las variantes Fisher--ADF combinan constante o tendencia, uno o dos rezagos y series originales o descentradas transversalmente. Fisher--ADF permite los huecos internos de este panel. Un rechazo solo indica que al menos uno de los paneles es estacionario y no permite asignar un orden de integración común.}
 		\caption*{\footnotesize \textit{Fuente: Elaboración propia a partir de los diagnósticos temporales de la investigación.}}
 	\end{table}
 
@@ -601,7 +603,7 @@
 			\bottomrule
 		\end{tabular}
 		\end{adjustbox}
-		\caption*{\footnotesize \textit{Nota:} El bootstrap emplea 9.999 replicaciones y pesos Rademacher. LOO indica la exclusión de un país por vez. La columna final excluye las observaciones identificadas por los diagnósticos de influencia.}
+		\caption*{\footnotesize \textit{Nota:} El bootstrap emplea 9.999 replicaciones y pesos Rademacher. La columna final excluye las observaciones identificadas por los diagnósticos de influencia.}
 		\caption*{\footnotesize \textit{Fuente: Elaboración propia a partir de los ejercicios de estabilidad de las estimaciones.}}
 	\end{table}
 

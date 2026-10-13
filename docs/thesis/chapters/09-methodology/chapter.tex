@@ -25,11 +25,12 @@
 	\emph{no experimental} y \emph{longitudinal} (panel), y se basa en el
 	uso de datos secundarios comparables internacionalmente para un conjunto
 	de países. La cobertura histórica de los insumos varía según la fuente:
-	Penn World Table ofrece series desde 1950; el índice CTOT del Fondo
-	Monetario Internacional, desde 1962; los \textit{World Development
-	Indicators}, desde 1980; la información comercial del
+	\textit{Penn World Table} (PWT) ofrece series desde 1950; el Índice de Términos de
+	Intercambio de Commodities ($CTOT$, por sus siglas en inglés) del Fondo
+	Monetario Internacional (FMI), desde 1962; los Indicadores del Desarrollo Mundial
+	(WDI, por sus siglas en inglés) del Banco Mundial, desde 1980; la información comercial del
 	\textit{Atlas of Economic Complexity} y los años promedio de escolaridad
-	del PNUD, desde 1990; y los
+	del Programa de las Naciones Unidas para el Desarrollo (PNUD), desde 1990; y los
 	\textit{Worldwide Governance Indicators}, desde 1996. El período común de
 	análisis econométrico se fija en 1996--2021: comienza con la disponibilidad
 	de los indicadores institucionales y termina en el último año para el cual
@@ -39,8 +40,9 @@
 	indicador $DRES$.
 
 	En este marco, la estrategia empírica combina análisis descriptivo y dos
-	familias de estimaciones en datos de panel con efectos fijos bidireccionales.
-	La familia principal utiliza el índice de complejidad económica ($ECI$) como
+	familias de estimaciones en datos de panel con Efectos Fijos Bidireccionales
+	(TWFE, por sus siglas en inglés).
+	La familia principal utiliza el $ECI$ como
 	variable dependiente, mientras que la familia complementaria utiliza
 	$DIVX=1-HHI$. Ambas incorporan el mismo conjunto de canales teóricos y la
 	interacción entre rentas extractivas y calidad institucional; la única
@@ -110,8 +112,8 @@
 	\autoref{fig:sample_selection_pipeline} resume este procedimiento.
 
 	El universo inicial corresponde a las 233 economías del catálogo comercial
-	del \textit{Atlas of Economic Complexity} para la clasificación SITC
-	Revisión 2. Se exige que las exportaciones de mercancías sean positivas en cada uno
+	del \textit{Atlas of Economic Complexity} para la Clasificación Uniforme
+	para el Comercio Internacional (SITC, por sus siglas en inglés), Revisión 2. Se exige que las exportaciones de mercancías sean positivas en cada uno
 	de los seis años comprendidos entre 1990 y 1995, condición que cumplen 185
 	economías. Posteriormente se restringe el universo a 159 países, excluyendo
 	territorios dependientes, regiones administrativas especiales, entidades
@@ -245,7 +247,7 @@
 	diferenciadas.
 
 	La disponibilidad de PIB y de las demás variables del modelo no interviene
-	en el cálculo de DRES ni en la clasificación inicial. La muestra efectiva de
+	en el cálculo de $DRES$ ni en la clasificación inicial. La muestra efectiva de
 	cada especificación corresponde posteriormente a la intersección entre la
 	lista definida por el umbral y la información disponible para las variables
 	econométricas. Por ello, el número de países y observaciones puede disminuir
@@ -369,9 +371,9 @@
 	mediante una caracterización más fina de la muestra seleccionada.
 
 	Finalmente, se incorpora una clasificación por nivel de ingreso de acuerdo
-	con la tipología del Banco Mundial ---\textit{ingreso bajo (LICs)},
-	\textit{ingreso medio-bajo (LMICs)}, \textit{ingreso medio-alto (UMICs)}
-	y \textit{ingreso alto (HICs)}---, siguiendo el enfoque de
+	con la tipología del Banco Mundial y sus siglas en inglés ---Países de Ingresos Bajos (LIC),
+	Países de Ingresos Medios Bajos (LMIC), Países de Ingresos Medios Altos (UMIC)
+	y Países de Ingresos Altos (HIC)---, siguiendo el enfoque de
 	\textcite{Anne2021}. Con el fin de evitar cambios en la composición de los
 	grupos a lo largo del tiempo, se adopta una clasificación fija basada en
 	el nivel de ingreso correspondiente al año 2010. Esta dimensión permite
@@ -426,19 +428,19 @@ vinculadas y no vinculadas a los recursos naturales
 \parencite{Lashitew2021}. Si bien este enfoque resulta intuitivo, suele
 ser sensible a problemas de clasificación, disponibilidad y
 comparabilidad internacional de los datos. Por esta razón, este trabajo
-adopta como aproximación principal el \textit{Economic Complexity Index}
-($ECI_{it}$), entendido como una medida de las capacidades productivas
+adopta como aproximación principal el $ECI_{it}$, entendido como una medida de las capacidades productivas
 acumuladas y de la sofisticación de la estructura exportadora. En este
-sentido, el ECI permite captar de forma más estructural la evolución de
+sentido, el $ECI$ permite captar de forma más estructural la evolución de
 las capacidades productivas, relativamente menos expuesta a fluctuaciones
 coyunturales asociadas a los ciclos de precios de commodities.
 
-Operativamente, se utiliza el campo \texttt{countryYear.eci} de la API
-GraphQL oficial del \textit{Atlas of Economic Complexity}
-\parencite{HarvardGrowthLab2024}. La versión vigente del Atlas representa la
-intensidad de la especialización mediante
-$M_{cp}=RCA_{cp}/(1+RCA_{cp})$\footnote{$RCA_{cp}$ corresponde a la ventaja
-comparativa revelada del país $c$ en el producto $p$: compara la participación
+Operativamente, se utiliza el campo \texttt{countryYear.eci} de la Interfaz de
+Programación de Aplicaciones (API, por sus siglas en inglés) GraphQL oficial del \textit{Atlas of Economic Complexity}
+\parencite{HarvardGrowthLab2024}. La clasificación comercial de referencia es el Sistema Armonizado de Designación y Codificación de Mercancías de 1992 (HS92, por sus siglas en inglés). La versión vigente del Atlas representa la
+intensidad de la especialización a partir de la Ventaja Comparativa Revelada
+($RCA_{cp}$, por sus siglas en inglés), mediante
+$M_{cp}=RCA_{cp}/(1+RCA_{cp})$\footnote{Los subíndices $c$ y $p$ identifican
+al país y al producto, respectivamente. Para calcular $RCA_{cp}$, se compara la participación
 del producto en las exportaciones del país con su participación en el comercio
 mundial. Un valor superior a uno indica que el país exporta ese producto por
 encima de su participación proporcional en el comercio mundial.}, en lugar de
@@ -450,32 +452,37 @@ período 1996--2021, esta fuente cubre los 55 países y las 1.430 observaciones
 país--año de la grilla maestra, incluso cuando alguna economía no sea elegible
 para aparecer en los rankings públicos del Atlas.
 
-No obstante, dado que el ECI combina información sobre diversificación y
+No obstante, dado que el $ECI$ combina información sobre diversificación y
 sofisticación exportadora, el análisis incorpora como resultado
 complementario una medida más directa de diversificación de la canasta
 exportadora. Esta variable, denotada como $DIVX_{it}=1-HHI_{it}$, permite
 evaluar si los mecanismos asociados a mayores niveles de complejidad
 económica también se relacionan con una menor concentración exportadora.
-La medida se interpreta como complemento del ECI, no como sustituto de la
+La medida se interpreta como complemento del $ECI$, no como sustituto de la
 sofisticación productiva capturada por dicho índice.
 
 En el plano explicativo, $RENTS_{it}$ se incorpora como uno de los componentes
 del modelo, junto con variables que capturan distintas dimensiones de la
 inserción extractiva y de sus canales de transmisión. Entre ellas se incluyen
-las rentas reales por habitante provenientes del petróleo, el gas y el carbón
-($OILPC_{it}$, $GASPC_{it}$ y $COALPC_{it}$), indicadores de especialización exportadora como la
-participación de exportaciones primarias no energéticas ($PEXP_{it}$) y de combustibles
-($FEXP_{it}$), y una medida de concentración exportadora ($HHI_{it}$).
-Asimismo, la calidad institucional ($INST_{it}$) se incorpora como
+la Renta Petrolera Real por Habitante ($OILPC_{it}$, código en inglés), la Renta de Gas Natural
+Real por Habitante ($GASPC_{it}$, código en inglés) y la Renta del Carbón Real por Habitante
+($COALPC_{it}$, código en inglés), indicadores de especialización exportadora como la
+Participación de las Exportaciones Primarias No Energéticas ($PEXP_{it}$, código en inglés)
+en las exportaciones de mercancías y la Participación de las Exportaciones
+de Combustibles ($FEXP_{it}$, código en inglés) en ese mismo total, y el $HHI_{it}$.
+Asimismo, $INST_{it}$ se incorpora como
 variable moderadora para evaluar si la asociación entre las rentas extractivas
 y la transformación estructural varía con el entorno institucional.
 Junto con ello, se añaden variables macroeconómicas, fiscales, financieras
-y de capacidades productivas, tales como el tipo de cambio real
-($RER_{it}$), la volatilidad ($VOL_{it}$), el consumo final del gobierno
-como porcentaje del PIB ($GOVCONS_{it}$), la profundidad financiera ($FIN_{it}$), el capital humano
-($HUMCAP_{it}$), la innovación ($INNOV_{it}$), la conectividad digital
-($NET_{it}$) y el logaritmo del PIB per cápita ($\log(GDPPC_{it})$),
-utilizado como proxy del nivel de desarrollo económico.
+y de capacidades productivas, tales como $RER_{it}$,
+$VOL_{it}$, el Consumo Final del Gobierno General ($GOVCONS_{it}$, código en inglés),
+medido como porcentaje del PIB, el Indicador de Profundidad Financiera ($FIN_{it}$), el Índice de Capital Humano
+($HUMCAP_{it}$, código en inglés), el Indicador de Innovación ($INNOV_{it}$), el Indicador de Conectividad Digital
+($NET_{it}$) y el PIB por Habitante ($GDPPC_{it}$, por sus siglas en inglés),
+expresado en dólares internacionales constantes ajustados por Paridad de Poder
+Adquisitivo (PPA). El Logaritmo Natural del PIB por Habitante
+($LOG\_GDPPC_{it}$), equivalente a $\log(GDPPC_{it})$, se incorpora como
+proxy del nivel de desarrollo económico.
 
 La \autoref{tab:variables} presenta la descripción, definición
 operacional y fuentes de las variables utilizadas en el análisis
@@ -487,10 +494,10 @@ empírico. La selección definitiva de indicadores responde a criterios de
 	\small
 
 	\begin{longtable}{|
-			>{\raggedright\arraybackslash}p{0.21\textwidth}|
-			>{\centering\arraybackslash\ttfamily}p{0.10\textwidth}|
+			>{\raggedright\arraybackslash}p{0.19\textwidth}|
+			>{\centering\arraybackslash}p{0.15\textwidth}|
 			>{\raggedright\arraybackslash}p{0.13\textwidth}|
-			>{\raggedright\arraybackslash}p{0.32\textwidth}|
+			>{\raggedright\arraybackslash}p{0.29\textwidth}|
 			>{\raggedright\arraybackslash}p{0.14\textwidth}|}
 
 		\caption[Variables y definiciones]{Descripción y definición operacional de las variables del modelo econométrico.}
@@ -499,7 +506,7 @@ empírico. La selección definitiva de indicadores responde a criterios de
 		\hline
 
 		Variable
-		& \multicolumn{1}{|>{\centering\arraybackslash}p{0.10\textwidth}|}{Símbolo}
+		& \multicolumn{1}{|>{\centering\arraybackslash}p{0.15\textwidth}|}{Símbolo}
 		& Tipo
 		& Definición operacional
 		& Fuente \\
@@ -511,7 +518,7 @@ empírico. La selección definitiva de indicadores responde a criterios de
 		\hline
 
 		Variable
-		& \multicolumn{1}{|>{\centering\arraybackslash}p{0.10\textwidth}|}{Símbolo}
+		& \multicolumn{1}{|>{\centering\arraybackslash}p{0.15\textwidth}|}{Símbolo}
 		& Tipo
 		& Definición operacional
 		& Fuente \\
@@ -530,7 +537,7 @@ empírico. La selección definitiva de indicadores responde a criterios de
 		} \\[0.3em]
 
 		\multicolumn{5}{p{\dimexpr\textwidth-2\tabcolsep\relax}}{%
-			\textit{Nota: La transformación estructural se aproxima desde su dimensión externa mediante el Índice de Complejidad Económica (ECI) como variable dependiente principal y la diversificación exportadora ($DIVX=1-HHI$) como resultado complementario. Cada variable utiliza exclusivamente la definición y la transformación indicadas en esta tabla y en las ecuaciones siguientes.}
+			\textit{Nota: La transformación estructural se aproxima desde su dimensión externa mediante el $ECI$ como variable dependiente principal y $DIVX=1-HHI$ como resultado complementario. Cada variable utiliza exclusivamente la definición y la transformación indicadas en esta tabla y en las ecuaciones siguientes.}
 		} \\
 
 		\endlastfoot
@@ -540,16 +547,16 @@ empírico. La selección definitiva de indicadores responde a criterios de
 		% -----------------------------------------------------
 
 		Complejidad económica
-		& ECI
+		& $ECI$
 		& Dependiente (externa)
-		& Índice de Complejidad Económica que combina la diversidad de la canasta exportadora y la ubicuidad de sus productos. Se utiliza la serie homogénea \texttt{countryYear.eci} de la API oficial; valores mayores indican mayores capacidades productivas y sofisticación exportadora.
+		& Índice que combina la diversidad de la canasta exportadora y la ubicuidad de sus productos. Se utiliza la serie homogénea \texttt{countryYear.eci} de la API oficial; valores mayores indican mayores capacidades productivas y sofisticación exportadora.
 		& Atlas of Economic Complexity / Harvard Growth Lab (API GraphQL) \\
 		\hline
 
 		Diversificación exportadora
-		& DIVX
+		& $DIVX$
 		& Dependiente complementaria
-		& Complemento del índice de concentración de Herfindahl--Hirschman, definido como $1-HHI$; valores mayores indican una canasta exportadora menos concentrada.
+		& Complemento del $HHI$, definido como $1-HHI$; valores mayores indican una canasta exportadora menos concentrada.
 		& Atlas of Economic Complexity / elaboración propia \\
 		\hline
 
@@ -558,21 +565,21 @@ empírico. La selección definitiva de indicadores responde a criterios de
 		% -----------------------------------------------------
 
 		Rentas extractivas del subsuelo (\% del PIB)
-		& RENTS
+		& $RENTS$
 		& Explicativa principal
 		& Suma de las rentas de petróleo, gas natural, carbón y minerales como porcentaje del PIB. Excluye rentas forestales y otros recursos renovables.
 		& World Development Indicators (Banco Mundial) \\
 		\hline
 
 		Calidad institucional
-		& INST
+		& $INST$
 		& Explicativa moderadora
 		& Promedio simple de los estimadores WGI de control de la corrupción, estado de derecho y efectividad gubernamental, calculado únicamente cuando los tres están observados; proxy de capacidad institucional.
 		& Worldwide Governance Indicators \\
 		\hline
 
 		Interacción entre rentas extractivas e instituciones
-		& RENTS $\times$ INST
+		& $RENTS\times INST$
 		& Interacción
 		& Término de interacción que evalúa si la asociación entre la intensidad de las rentas extractivas y la transformación estructural varía con la calidad institucional.
 		& Elaboración propia \\
@@ -583,21 +590,21 @@ empírico. La selección definitiva de indicadores responde a criterios de
 		% -----------------------------------------------------
 
 		Renta petrolera per cápita
-		& OILPC
+		& $OILPC$
 		& Explicativa de intensidad extractiva
 		& Valor real de la renta petrolera por habitante, obtenido al aplicar la renta petrolera como porcentaje del PIB al PIB real y dividir el resultado por la población. En las estimaciones se utiliza $\ln(1+OILPC)$.
 		& World Development Indicators / elaboración propia \\
 		\hline
 
 		Renta gasífera per cápita
-		& GASPC
+		& $GASPC$
 		& Explicativa de intensidad extractiva
 		& Valor real de la renta de gas natural por habitante, obtenido al aplicar la renta gasífera como porcentaje del PIB al PIB real y dividir el resultado por la población. En las estimaciones se utiliza $\ln(1+GASPC)$.
 		& World Development Indicators / elaboración propia \\
 		\hline
 
 		Renta carbonífera per cápita
-		& COALPC
+		& $COALPC$
 		& Explicativa de intensidad extractiva
 		& Valor real de la renta del carbón por habitante, obtenido al aplicar la renta carbonífera como porcentaje del PIB al PIB real y dividir el resultado por la población. En las estimaciones se utiliza $\ln(1+COALPC)$.
 		& World Development Indicators / elaboración propia \\
@@ -608,23 +615,23 @@ empírico. La selección definitiva de indicadores responde a criterios de
 		% -----------------------------------------------------
 
 		Concentración de la estructura exportadora
-		& HHI
+		& $HHI$
 		& Explicativa estructural condicionada
-		& Índice de Herfindahl--Hirschman calculado como la suma de los cuadrados de las participaciones de los productos SITC Rev. 2 de cuatro dígitos en las exportaciones de mercancías clasificadas. Se excluyen los servicios y el residuo \texttt{XXXX}. Se omite como regresor cuando $DIVX=1-HHI$ es la variable dependiente.
+		& Índice calculado como la suma de los cuadrados de las participaciones de los productos SITC Rev. 2 de cuatro dígitos en las exportaciones de mercancías clasificadas. Se excluyen los servicios y el residuo \texttt{XXXX}. Se omite como regresor cuando $DIVX=1-HHI$ es la variable dependiente.
 		& Atlas of Economic Complexity / elaboración propia \\
 		\hline
 
 		Exportaciones primarias no energéticas (\% de exportaciones de mercancías)
-		& PEXP
+		& $PEXP$
 		& Explicativa estructural
 		& Participación de las secciones 0, 1, 2 y 4 y de la división 68 de la SITC Rev. 2 en las exportaciones de mercancías; proxy de especialización externa en productos primarios no energéticos. El denominador incluye el residuo no clasificable XXXX y excluye los servicios.
 		& Atlas of Economic Complexity / elaboración propia \\
 		\hline
 
 		Exportaciones de combustibles (\% de exportaciones de mercancías)
-		& FEXP
+		& $FEXP$
 		& Explicativa estructural
-		& Participación de la sección 3 de la SITC Rev. 2 en las exportaciones de mercancías; indicador de especialización exportadora en recursos energéticos. Comparte con PEXP el denominador, que incluye XXXX y excluye los servicios, pero sus numeradores no se superponen.
+		& Participación de la sección 3 de la SITC Rev. 2 en las exportaciones de mercancías; indicador de especialización exportadora en recursos energéticos. Comparte con $PEXP$ el denominador, que incluye XXXX y excluye los servicios, pero sus numeradores no se superponen.
 		& Atlas of Economic Complexity / elaboración propia \\
 		\hline
 
@@ -633,14 +640,14 @@ empírico. La selección definitiva de indicadores responde a criterios de
 		% -----------------------------------------------------
 
 		Volatilidad de los términos de intercambio de commodities
-		& VOL
+		& $VOL$
 		& Explicativa macroeconómica
 		& Desviación estándar móvil de cinco años de las variaciones logarítmicas anuales del índice de precios de exportaciones netas de commodities del FMI (\texttt{CEMPI\_CTOTNX\_TT}), utilizando exclusivamente ponderaciones fijas (\texttt{H\_FW\_IX}).
-		& Fondo Monetario Internacional (CTOT) \\
+		& Fondo Monetario Internacional, base CTOT \\
 		\hline
 
 		Tipo de cambio real
-		& RER
+		& $RER$
 		& Explicativa macroeconómica
 		& Logaritmo del nivel de precios del producto relativo a Estados Unidos (\texttt{pl\_gdpo}); un aumento representa una apreciación real.
 		& Penn World Table 11.0 \\
@@ -651,21 +658,21 @@ empírico. La selección definitiva de indicadores responde a criterios de
 		% -----------------------------------------------------
 
 		Capital humano
-		& HUMCAP
+		& $HUMCAP$
 		& Explicativa de capacidades
 		& Exponencial de una función por tramos de los años promedio de escolaridad de adultos de 25 años o más; aplica los retornos educativos utilizados por PWT y aproxima capacidades productivas acumuladas. No se interpreta como años de escolaridad.
 		& PNUD, \textit{Human Development Report 2025}; construcción propia \\
 		\hline
 
 		Innovación
-		& INNOV
+		& $INNOV$
 		& Explicativa de capacidades
 		& Logaritmo de uno más los artículos científicos y técnicos por millón de habitantes; proxy de capacidades científico-tecnológicas y producción de conocimiento.
 		& World Development Indicators (Banco Mundial) \\
 		\hline
 
 		Conectividad digital
-		& NET
+		& $NET$
 		& Explicativa de capacidades
 		& Personas que utilizan internet como porcentaje de la población (\texttt{IT.NET.USER.ZS}); proxy de difusión tecnológica y acceso a información productiva.
 		& World Development Indicators (Banco Mundial) \\
@@ -676,9 +683,9 @@ empírico. La selección definitiva de indicadores responde a criterios de
 		% -----------------------------------------------------
 
 		Logaritmo del PIB per cápita
-		& \begin{tabular}[c]{@{}c@{}}LOG\_\\GDPPC\end{tabular}
+		& \begin{tabular}[c]{@{}c@{}}$LOG\_$\\$GDPPC$\end{tabular}
 		& Control
-		& Logaritmo del Producto Interno Bruto per cápita en PPA y dólares internacionales constantes (\texttt{NY.GDP.PCAP.PP.KD}); se utiliza como proxy del nivel de desarrollo económico.
+		& Logaritmo del PIB per cápita en PPA y dólares internacionales constantes (\texttt{NY.GDP.PCAP.PP.KD}); se utiliza como proxy del nivel de desarrollo económico.
 		& World Development Indicators (Banco Mundial) \\
 		\hline
 
@@ -687,14 +694,14 @@ empírico. La selección definitiva de indicadores responde a criterios de
 		% -----------------------------------------------------
 
 		Consumo final del gobierno (\% del PIB)
-		& GOVCONS
+		& $GOVCONS$
 		& Control fiscal
 		& Gasto de consumo final del gobierno general como porcentaje del PIB (serie 16, componente 3); controla por el tamaño relativo del consumo público y no se interpreta como una medida directa de capacidad ni de prociclicidad fiscal.
 		& \textit{National Accounts Main Aggregates} (Naciones Unidas) \\
 		\hline
 
 		Profundidad financiera
-		& FIN
+		& $FIN$
 		& Explicativa financiera
 		& Crédito doméstico al sector privado otorgado por bancos como porcentaje del PIB (\texttt{FD.AST.PRVT.GD.ZS}); proxy de la profundidad del crédito bancario privado, no de su acceso, eficiencia o calidad.
 		& World Development Indicators (Banco Mundial) \\
@@ -704,7 +711,10 @@ empírico. La selección definitiva de indicadores responde a criterios de
 	\normalsize
 
 	Las rentas extractivas se construyen únicamente cuando están observados sus
-	cuatro componentes:
+	cuatro componentes, expresados como porcentaje del PIB: Rentas Petroleras
+	($OILRENT$), Rentas Gasíferas ($GASRENT$), Rentas Carboníferas ($COALRENT$)
+	y Rentas Minerales ($MINERALRENT$). Estos códigos corresponden a los nombres
+	de los componentes en inglés. La suma se define como:
 	\[
 		RENTS_{it}
 		=
@@ -717,7 +727,9 @@ empírico. La selección definitiva de indicadores responde a criterios de
 		MINERALRENT_{it}.
 	\]
 	El panel conserva además dos desagregaciones para distinguir mecanismos sin
-	incorporar petróleo y gas como regresores separados:
+	incorporar petróleo y gas como regresores separados: Rentas de Petróleo y Gas
+	($RENTS^{OIL+GAS}$, con superíndice en inglés) y Rentas de Minería y Carbón
+	($RENTS^{MINING}$, con superíndice en inglés). Sus expresiones son:
 	\[
 		\begin{aligned}
 			RENTS^{OIL+GAS}_{it} &= OILRENT_{it}+GASRENT_{it}, \\
@@ -736,7 +748,10 @@ empírico. La selección definitiva de indicadores responde a criterios de
 	(\texttt{NY.GDP.MINR.RT.ZS}).
 
 	El índice institucional se calcula como el promedio simple de los tres
-	estimadores WGI, que se publican en una escala comparable:
+	estimadores WGI: Control de la Corrupción ($CC$, por sus siglas en inglés),
+	Estado de Derecho ($RL$, por sus siglas en inglés) y Efectividad
+	Gubernamental ($GE$, por sus siglas en inglés). Los tres se publican en una
+	escala comparable:
 	\[
 		INST_{it}
 		=
@@ -748,12 +763,15 @@ empírico. La selección definitiva de indicadores responde a criterios de
 			GE_{it}
 		}{3},
 	\]
-	donde $CC$ representa control de la corrupción, $RL$ estado de derecho y
-	$GE$ efectividad gubernamental. El índice se construye únicamente cuando
+	El índice se construye únicamente cuando
 	los tres componentes están disponibles; no se interpolan los vacíos
 	estructurales de 1997, 1999 y 2001.
 
-	Las medidas de rentas por habitante se construyen de forma homogénea:
+	La Renta Real por Habitante del Recurso $K$ ($KPC$) se construye de forma
+	homogénea para petróleo, gas y carbón; $K$ identifica estos recursos mediante
+	los códigos en inglés $OIL$, $GAS$ y $COAL$, respectivamente. La conversión
+	por habitante utiliza la Población Total ($POP$, abreviatura del inglés
+	\textit{population}) como denominador:
 	\[
 		KPC_{it}
 		=
@@ -766,8 +784,8 @@ empírico. La selección definitiva de indicadores responde a criterios de
 		K\in\{OIL,GAS,COAL\},
 	\]
 	donde $R^{K}_{it}$ es la renta del recurso correspondiente como porcentaje
-	del PIB, $Y^{real}_{it}$ es el PIB en dólares constantes y $POP_{it}$ es la
-	población total. No se imputan componentes faltantes.
+	del PIB y $Y^{real}_{it}$ es el PIB en dólares constantes. No se imputan
+	componentes faltantes.
 
 	La medida de volatilidad se construye a partir del
 	\textit{Commodity Net Export Price Index} del FMI
@@ -872,13 +890,16 @@ empírico. La selección definitiva de indicadores responde a criterios de
 	aplicar las transformaciones econométricas. La capa
 	\texttt{data/processed} implementa, mediante un script específico, la única
 	definición activa de cada variable. Finalmente, el panel maestro integra
-	estas salidas mediante uniones uno a uno por código ISO3 y año sobre la
-	grilla fija de 55 países y 1996--2021. Esta separación permite rastrear cada
+	estas salidas mediante uniones uno a uno por Código de País de Tres Letras
+	(ISO3), establecido por la Organización Internacional de Normalización, y
+	año sobre la grilla fija de 55 países y 1996--2021. Esta separación permite rastrear cada
 	valor desde el panel analítico hasta su insumo original y evita mezclar
 	procesos de descarga, construcción e integración.
 
 	La validación comprueba la unicidad de las 1.430 llaves país--año, la
-	ausencia de duplicados, la equivalencia entre las salidas CSV y Stata, los
+	ausencia de duplicados, la equivalencia entre las salidas en formato de
+	Valores Separados por Comas (CSV, por sus siglas en inglés) y en formato
+	Stata, los
 	rangos admisibles y las identidades de las variables derivadas, entre ellas
 	$DIVX=1-HHI$ y $RENTS\times INST$. La grilla maestra es balanceada en sus
 	identificadores, pero conserva explícitamente la disponibilidad desigual de
@@ -926,7 +947,7 @@ empírico. La selección definitiva de indicadores responde a criterios de
 
 	La especificación econométrica adoptada se presenta en la \autoref{eq:modelo_base} y se ilustra conceptualmente en la \autoref{fig:modelo-econometrico}. Esta propuesta desplaza el foco analítico desde la dependencia de recursos naturales como variable de resultado hacia la transformación estructural externa, aproximada principalmente mediante la complejidad económica.
 
-	En este marco, la transformación estructural se aproxima desde su dimensión externa. La variable dependiente principal es la complejidad económica ($ECI$), que refleja la sofisticación de la canasta exportadora, y se considera como resultado complementario la diversificación exportadora ($DIVX=1-HHI$), que captura el grado de dispersión de dicha canasta.
+	En este marco, la transformación estructural se aproxima desde su dimensión externa. La variable dependiente principal es el $ECI$, que refleja la sofisticación de la canasta exportadora, y se considera como resultado complementario el $DIVX$, que captura el grado de dispersión de dicha canasta.
 
 	$DRES$ se utiliza exclusivamente para seleccionar la muestra y no interviene
 	como variable dependiente ni como regresor. Por su parte, $RENTS$ aproxima la
@@ -949,7 +970,7 @@ empírico. La selección definitiva de indicadores responde a criterios de
 	mediante la transformación $\ln(1+x)$: no representan precios
 	internacionales ni dotaciones físicas de recursos. Asimismo, $VOL$ es la
 	desviación estándar móvil de cinco años de las variaciones logarítmicas del
-	índice CTOT del FMI con ponderaciones fijas, y no un indicador de volatilidad
+	índice $CTOT$ del FMI con ponderaciones fijas, y no un indicador de volatilidad
 	financiera o del precio internacional del petróleo.
 
 	La especificación econométrica de referencia se define como:
@@ -979,7 +1000,7 @@ empírico. La selección definitiva de indicadores responde a criterios de
 		\end{aligned}
 	\end{equation}
 
-	donde $ECI_{it}$ representa la complejidad económica del país $i$ en el período $t$, $\mu_i$ corresponde a efectos fijos por país, $\lambda_t$ a efectos temporales comunes y $\varepsilon_{it}$ al término de error. Esta especificación constituye el modelo principal de la tesis, dado que el ECI captura la sofisticación de la canasta exportadora y las capacidades productivas reveladas.
+	donde $ECI_{it}$ representa la complejidad económica del país $i$ en el período $t$, $\mu_i$ corresponde a efectos fijos por país, $\lambda_t$ a efectos temporales comunes y $\varepsilon_{it}$ al término de error. Esta especificación constituye el modelo principal de la tesis, dado que el $ECI$ captura la sofisticación de la canasta exportadora y las capacidades productivas reveladas.
 
 	La especificación incorpora de manera explícita las rentas extractivas
 	específicas por habitante ($OILPC_{it}$, $GASPC_{it}$, $COALPC_{it}$), la
@@ -993,10 +1014,9 @@ empírico. La selección definitiva de indicadores responde a criterios de
 	público. Este conjunto de variables es consistente con el esquema conceptual
 	presentado en la \autoref{fig:modelo-econometrico}.
 
-	Desde el punto de vista teórico, se espera que una mayor concentración exportadora ($HHI$), así como condiciones macroeconómicas adversas ---particularmente la volatilidad de los términos de intercambio de commodities y la apreciación del tipo de cambio real---, afecten negativamente la complejidad económica. Por el contrario, mayores niveles de capital humano e innovación deberían favorecer la acumulación de capacidades productivas y la diversificación exportadora.
+	Desde el punto de vista teórico, se espera que un mayor $HHI$, así como condiciones macroeconómicas adversas ---particularmente la volatilidad de los términos de intercambio de commodities y la apreciación del tipo de cambio real---, afecten negativamente la complejidad económica. Por el contrario, mayores niveles de capital humano e innovación deberían favorecer la acumulación de capacidades productivas y la diversificación exportadora.
 
-	En relación con el canal institucional, la asociación entre las rentas
-	extractivas ($RENTS$) y la transformación estructural puede variar con la
+	En relación con el canal institucional, la asociación entre $RENTS$ y la transformación estructural puede variar con la
 	calidad institucional. La hipótesis plantea que una mayor intensidad de rentas
 	puede asociarse con patrones de especialización en entornos institucionales
 	débiles y con trayectorias productivas distintas en contextos institucionales
@@ -1006,7 +1026,7 @@ empírico. La selección definitiva de indicadores responde a criterios de
 	diferenciadas según el entorno institucional. Esta es la única interacción
 	constitutiva incluida en las dos ecuaciones centrales del estudio.
 
-	Como resultado complementario, la tesis estima una segunda especificación en la que la variable dependiente es la diversificación exportadora, definida como $DIVX_{it}=1-HHI_{it}$. Esta especificación permite evaluar si los mecanismos asociados a la complejidad económica también se relacionan con una menor concentración de la canasta exportadora:
+	Como resultado complementario, la tesis estima una segunda especificación en la que la variable dependiente es $DIVX_{it}$. Esta especificación permite evaluar si los mecanismos asociados a la complejidad económica también se relacionan con una menor concentración de la canasta exportadora:
 
 	\begin{equation}
 		\label{eq:modelo_divx}
@@ -1032,7 +1052,7 @@ empírico. La selección definitiva de indicadores responde a criterios de
 		\end{aligned}
 	\end{equation}
 
-	En la \autoref{eq:modelo_divx}, $HHI_{it}$ se excluye del conjunto de regresores porque $DIVX_{it}$ se construye directamente como su complemento. Esta es la única exclusión respecto del canal estructural: $PEXP_{it}$ y $FEXP_{it}$ permanecen como regresores y capturan, respectivamente, la especialización primaria no energética y la especialización en combustibles. De este modo, se evita introducir una relación mecánica entre la variable dependiente y una covariable explicativa sin alterar los demás canales del modelo. La interpretación de esta especificación es complementaria a la del modelo principal: mientras el ECI mide sofisticación y capacidades productivas reveladas, $DIVX$ captura la dispersión de la canasta exportadora.
+	En la \autoref{eq:modelo_divx}, $HHI_{it}$ se excluye del conjunto de regresores porque $DIVX_{it}$ se construye directamente como su complemento. Esta es la única exclusión respecto del canal estructural: $PEXP_{it}$ y $FEXP_{it}$ permanecen como regresores y capturan, respectivamente, la especialización primaria no energética y la especialización en combustibles. De este modo, se evita introducir una relación mecánica entre la variable dependiente y una covariable explicativa sin alterar los demás canales del modelo. La interpretación de esta especificación es complementaria a la del modelo principal: mientras el $ECI$ mide sofisticación y capacidades productivas reveladas, $DIVX$ captura la dispersión de la canasta exportadora.
 
 	\subsection{Arquitectura de especificaciones M1, M2 y M3}
 	\label{subsec:arquitectura-modelos}
@@ -1060,8 +1080,9 @@ empírico. La selección definitiva de indicadores responde a criterios de
 	Todas las especificaciones incluyen efectos fijos por país y por año y
 	errores estándar agrupados por país. Como extensión complementaria, la
 	desagregación predefinida de $RENTS$ se implementa mediante dos variantes
-	completas de M3: una incorpora las rentas de petróleo y gas y la otra las rentas
-	de minería y carbón. Un tercer contraste, $M_{3}^{SIM}$, incluye ambos
+	completas de M3: la Variante de Petróleo y Gas ($M_{3}^{OG}$, cuyo
+	superíndice corresponde al inglés \textit{oil and gas}) y la Variante de
+	Minería y Carbón ($M_{3}^{MIN}$). Cada una incorpora las rentas del componente correspondiente. Un tercer modelo, denominado Contraste Simultáneo ($M_{3}^{SIM}$), incluye ambos
 	componentes simultáneamente para comparar sus coeficientes y evaluar la
 	estabilidad sectorial. Este ejercicio no modifica el centro analítico en $ECI$
 	y $DIVX$ ni se interpreta como una nueva variable de resultado.
@@ -1073,19 +1094,21 @@ empírico. La selección definitiva de indicadores responde a criterios de
 	se deriva de la significancia de los coeficientes sustantivos. La selección se
 	evalúa sobre M3 y sobre la misma muestra común de 1.044 observaciones y 49
 	países utilizada en las ecuaciones de $ECI$ y $DIVX$. Se comparan cuatro
-	familias de estimadores mediante cinco especificaciones: MCO agrupado sin
-	efectos temporales, MCO agrupado con indicadores
-	de año, efectos fijos por país, efectos fijos por país y año, y efectos
-	aleatorios con indicadores de año. Mantener constantes la muestra y el conjunto
+	familias de estimadores mediante cinco especificaciones: OLS agrupado sin
+	efectos temporales, OLS agrupado con indicadores
+	de año, Efectos Fijos (FE, por sus siglas en inglés) por país, efectos fijos
+	por país y año, y Efectos Aleatorios (RE, por sus siglas en inglés) con
+	indicadores de año. Mantener constantes la muestra y el conjunto
 	de regresores permite atribuir las diferencias a la estructura del estimador y
 	no a cambios de cobertura o especificación.
 
 	En primer lugar, se contrasta el modelo agrupado frente a la existencia de
 	heterogeneidad específica de los países. La prueba conjunta de los efectos de
 	país rechaza que todos sean iguales a cero en las dos ecuaciones. La prueba del
-	multiplicador de Lagrange para componentes de varianza también rechaza la
+	Multiplicador de Lagrange (LM, por sus siglas en inglés) para componentes
+	de varianza también rechaza la
 	ausencia de variación específica del panel \parencite{BreuschPagan1980}. Estos
-	resultados descartan MCO agrupado como referencia principal. De manera
+	resultados descartan OLS agrupado como referencia principal. De manera
 	separada, la prueba conjunta de los indicadores temporales rechaza su nulidad
 	para $ECI$ y $DIVX$; por ello, los efectos de año se conservan para absorber
 	shocks internacionales comunes y cambios globales no observados.
@@ -1164,82 +1187,82 @@ empírico. La selección definitiva de indicadores responde a criterios de
 
 		\multicolumn{3}{p{\dimexpr\textwidth-2\tabcolsep\relax}}{
 			\footnotesize
-			\textit{Nota: Los signos esperados corresponden a las hipótesis teóricas planteadas para el modelo de transformación estructural externa. La variable dependiente principal es el Índice de Complejidad Económica (ECI), y la diversificación exportadora ($DIVX=1-HHI$) se utiliza como resultado complementario. Los signos pueden diferir entre ambas variables dependientes.}
+			\textit{Nota: Los signos esperados corresponden a las hipótesis teóricas planteadas para el modelo de transformación estructural externa. La variable dependiente principal es el $ECI$, y $DIVX=1-HHI$ se utiliza como resultado complementario. Los signos pueden diferir entre ambas variables dependientes.}
 		} \\
 
 		\endlastfoot
 
-		RENTS
+		$RENTS$
 		& (-)
 		& Una mayor participación de las rentas de petróleo, gas natural, carbón y minerales en el PIB se asocia con menores niveles de transformación estructural debido a efectos de especialización extractiva, desplazamiento de sectores transables y dinámicas de enclave. \\
 		\hline
 
-		INST
+		$INST$
 		& (+)
 		& Una mayor calidad institucional favorece la estabilidad de reglas, la asignación eficiente de recursos y la coordinación de políticas necesarias para la transformación productiva. \\
 		\hline
 
-		RENTS $\times$ INST
+		$RENTS\times INST$
 		& (+)
 		& Instituciones de mayor calidad pueden atenuar la asociación adversa entre una mayor intensidad de rentas extractivas y la transformación estructural, y facilitar su conversión en capacidades productivas. \\
 		\hline
 
-		OILPC
+		$OILPC$
 		& (-)
 		& Una mayor renta petrolera per cápita puede reforzar la especialización extractiva y desplazar actividades transables más complejas cuando no existen mecanismos eficaces de diversificación.
 		\\
 		\hline
 
-		GASPC
+		$GASPC$
 		& (-)
 		& Una mayor renta gasífera real por habitante puede profundizar patrones de enclave y dependencia de rentas, limitando la diversificación productiva.
 		\\
 		\hline
 
-		COALPC
+		$COALPC$
 		& (-)
 		& Una mayor renta carbonífera real por habitante tiende a asociarse con especialización en actividades extractivas de bajo encadenamiento local y menor transformación estructural.
 		\\
 		\hline
 
-		HHI$^{*}$
+		$HHI^{*}$
 		& (-)
 		& Un mayor nivel de concentración productiva y exportadora indica especialización en pocos sectores o productos, lo que suele asociarse con menor diversificación y menor transformación estructural. Se incluye únicamente en las especificaciones donde $ECI$ es la variable dependiente. \\
 		\hline
 
-		PEXP
+		$PEXP$
 		& (-)
 		& Una mayor participación de exportaciones primarias no energéticas en la canasta exportadora refleja especialización en bienes de bajo procesamiento y menores oportunidades de escalamiento productivo.
 		\\
 		\hline
 
-		FEXP
+		$FEXP$
 		& (-)
 		& Una mayor participación de combustibles en las exportaciones suele reforzar la dependencia de recursos energéticos y reducir los incentivos a diversificar la estructura productiva.
 		\\
 		\hline
 
-		VOL
+		$VOL$
 		& (-)
 		& Una mayor volatilidad de los términos de intercambio de commodities incrementa la incertidumbre sobre los ingresos externos, puede desalentar la inversión de largo plazo y dificulta la acumulación sostenida de capacidades productivas. \\
 		\hline
 
-		RER (apreciación)
+		$RER$ (apreciación)
 		& (-)
 		& La apreciación del tipo de cambio real reduce la competitividad de sectores transables distintos del extractivo y limita la expansión de actividades manufactureras y complejas. \\
 		\hline
 
-		HUMCAP
+		$HUMCAP$
 		& (+)
 		& Un mayor nivel de capital humano facilita la adopción tecnológica, el aprendizaje productivo y la diversificación hacia actividades de mayor complejidad. \\
 		\hline
 
-		INNOV
+		$INNOV$
 		& (+)
 		& La innovación impulsa procesos de escalamiento productivo, difusión tecnológica y expansión hacia actividades de mayor sofisticación económica. \\
 		\hline
 
-		NET
+		$NET$
 		& (+)
 		& Una mayor conectividad digital favorece la difusión de conocimiento, la coordinación productiva y la incorporación de tecnologías complementarias a la diversificación estructural.
 		\\
@@ -1250,12 +1273,12 @@ empírico. La selección definitiva de indicadores responde a criterios de
 		& Un mayor valor de $\log(GDPPC_{it})$, utilizado como proxy del nivel de desarrollo económico, suele asociarse con estructuras productivas más diversificadas, mayores capacidades tecnológicas y mayor complejidad económica. \\
 		\hline
 
-		GOVCONS
+		$GOVCONS$
 		& ($\pm$)
 		& El consumo final del gobierno como porcentaje del PIB se incorpora como control. Su asociación con la transformación estructural es teóricamente ambigua, pues puede reflejar provisión de capacidades públicas o desplazamiento de actividad privada. \\
 		\hline
 
-		FIN
+		$FIN$
 		& (+)
 		& Una mayor profundidad del crédito privado puede facilitar el financiamiento de actividades productivas e innovadoras, aunque el indicador no identifica por sí solo la asignación ni la calidad de ese crédito. \\
 		\hline
@@ -1297,8 +1320,8 @@ empírico. La selección definitiva de indicadores responde a criterios de
 			% CANAL INSTITUCIONAL
 			% -------------------------------
 			\node[channel] (c1) {Canal institucional};
-			\node[var, below=of c1] (res) {RENTS};
-			\node[var, below=of res] (inst) {INST};
+			\node[var, below=of c1] (res) {$RENTS$};
+			\node[var, below=of res] (inst) {$INST$};
 			\node[var, below=of inst] (inter) {$RENTS \times INST$};
 
 			% -------------------------------
@@ -1313,24 +1336,24 @@ empírico. La selección definitiva de indicadores responde a criterios de
 			% CANAL ESTRUCTURAL
 			% -------------------------------
 			\node[channel, below=0.5cm of coal] (c2) {Canal estructural};
-			\node[var, below=of c2] (hhi) {HHI$^{*}$};
-			\node[var, below=of hhi] (pexp) {PEXP};
-			\node[var, below=of pexp] (fexp) {FEXP};
+			\node[var, below=of c2] (hhi) {$HHI^{*}$};
+			\node[var, below=of hhi] (pexp) {$PEXP$};
+			\node[var, below=of pexp] (fexp) {$FEXP$};
 
 			% -------------------------------
 			% CANAL MACRO
 			% -------------------------------
 			\node[channel, below=0.5cm of fexp] (c3) {Canal macroeconómico};
-			\node[var, below=of c3] (vol) {VOL};
-			\node[var, below=of vol] (rer) {RER};
+			\node[var, below=of c3] (vol) {$VOL$};
+			\node[var, below=of vol] (rer) {$RER$};
 
 			% -------------------------------
 			% CAPACIDADES
 			% -------------------------------
 			\node[channel, below=0.5cm of rer] (c4) {Capacidades productivas};
-			\node[var, below=of c4] (hum) {HUMCAP};
-			\node[var, below=of hum] (inn) {INNOV};
-			\node[var, below=of inn] (net) {NET};
+			\node[var, below=of c4] (hum) {$HUMCAP$};
+			\node[var, below=of hum] (inn) {$INNOV$};
+			\node[var, below=of inn] (net) {$NET$};
 
 			% -------------------------------
 			% CONTROL
@@ -1342,16 +1365,16 @@ empírico. La selección definitiva de indicadores responde a criterios de
 			% FINANCIERO
 			% -------------------------------
 			\node[channel, below=0.5cm of gdp] (c6) {Controles fiscales y financieros};
-			\node[var, below=of c6] (govcons) {GOVCONS};
-			\node[var, below=of govcons] (fin) {FIN};
+			\node[var, below=of c6] (govcons) {$GOVCONS$};
+			\node[var, below=of govcons] (fin) {$FIN$};
 
 			% -------------------------------
 			% VARIABLE DEPENDIENTE
 			% -------------------------------
 			\node[dep, right=5cm of vol] (depvar) {
 				\textbf{Transformación estructural}\\
-				\textit{ECI}\\
-				\textit{DIVX = 1 - HHI}
+				$ECI$\\
+				$DIVX = 1 - HHI$
 			};
 
 			% -------------------------------
@@ -1403,7 +1426,7 @@ empírico. La selección definitiva de indicadores responde a criterios de
 	de $HHI$ en las ecuaciones de $DIVX$.
 
 	En tercer lugar, sobre M3 se comparan cuatro familias de estimadores mediante
-	cinco especificaciones: MCO agrupado sin y con indicadores de año, efectos
+	cinco especificaciones: OLS agrupado sin y con indicadores de año, efectos
 	fijos por país, efectos fijos bidireccionales y efectos aleatorios con
 	indicadores de año. La selección combina pruebas conjuntas de efectos de
 	país y año, la prueba LM de componentes de varianza, el contraste clásico de
@@ -1414,7 +1437,9 @@ empírico. La selección definitiva de indicadores responde a criterios de
 	$RENTS_{it}\times INST_{it}$ se incluye junto con sus términos constitutivos.
 
 	En cuarto lugar, se examina el comportamiento temporal de las 18 variables
-	sustantivas mediante pruebas Fisher--ADF en niveles y primeras diferencias. La
+	sustantivas mediante Pruebas de Dickey--Fuller Aumentadas (ADF, por sus
+	siglas en inglés), combinadas mediante el procedimiento de Fisher
+	(Fisher--ADF), en niveles y primeras diferencias. La
 	evidencia se consolida en 36 evaluaciones: para $ECI$, $DIVX$, $RENTS$ e
 	$INST$ se conservan ocho variantes predefinidas, mientras que para cada control
 	se dispone de una variante. Como la prueba conjunta puede rechazar la raíz
@@ -1430,8 +1455,10 @@ empírico. La selección definitiva de indicadores responde a criterios de
 
 	En quinto lugar, sobre los residuos de M3 se aplican la prueba de Wald
 	modificada para heterocedasticidad, la prueba de Wooldridge para autocorrelación
-	y la prueba de Pesaran CD para dependencia transversal; la colinealidad se
-	examina mediante factores de inflación de la varianza en la transformación
+	y la prueba de Dependencia Transversal (CD, por sus siglas en inglés) de
+	Pesaran; la colinealidad se
+	examina mediante los Factores de Inflación de la Varianza (VIF, por sus
+	siglas en inglés) en la transformación
 	\textit{within}.\footnote{En este diagnóstico, la transformación \textit{within}
 	retira de cada regresor los componentes asociados a los efectos fijos de país y
 	de año, de modo que el factor de inflación de la varianza se calcule sobre la
@@ -1443,8 +1470,8 @@ empírico. La selección definitiva de indicadores responde a criterios de
 	sustantivos, utilizando dos rezagos conforme a una regla de Newey--West
 	\parencite{Driscoll1998, NeweyWest1994}.
 
-	En sexto lugar, la estabilidad de M3 se examina mediante exclusión iterativa de
-	países (\textit{leave-one-out}), análisis de observaciones influyentes y cálculo
+	En sexto lugar, la estabilidad de M3 se examina mediante Exclusión de un País
+	por Vez (LOO, del inglés \textit{leave-one-out}), análisis de observaciones influyentes y cálculo
 	de efectos marginales de $RENTS$ dentro del soporte observado de $INST$.
 	También se estiman especificaciones con tendencias lineales por país. El año
 	2014 se incorpora únicamente como sensibilidad temporal preespecificada
@@ -1536,7 +1563,8 @@ empírico. La selección definitiva de indicadores responde a criterios de
 	coeficientes para evitar seleccionar resultados según significancia; el
 	capítulo de resultados presenta los términos focales y sintetiza los cambios
 	relevantes entre los controles. Driscoll--Kraay permanece
-	como contraste secundario; PCSE no se incorpora porque no responde a una
+	como contraste secundario; la estimación con Errores Estándar Corregidos
+	para Panel (PCSE, por sus siglas en inglés) no se incorpora porque no responde a una
 	necesidad diagnóstica adicional ni aportaría una jerarquía inferencial distinta.
 
 	\noindent\textit{Cointegración y modelos de corrección de errores:} No se estiman
@@ -1551,8 +1579,8 @@ empírico. La selección definitiva de indicadores responde a criterios de
 	asociaciones contemporáneas condicionadas y no formula afirmaciones de
 	equilibrio de largo plazo.
 
-	\noindent\textit{Filtro HP y proyecciones locales:} Tampoco se utiliza el filtro
-	Hodrick--Prescott. Una descomposición mecánica entre tendencia y ciclo no
+	\noindent\textit{Filtro de Hodrick--Prescott y proyecciones locales:} Tampoco se utiliza el
+	Filtro de Hodrick--Prescott (HP). Una descomposición mecánica entre tendencia y ciclo no
 	resuelve la endogeneidad de un diseño observacional ni identifica una relación
 	estructural de largo plazo; además, puede introducir dinámicas artificiales y
 	distorsiones en los extremos de la muestra \parencite{Hamilton2017}. Filtrar
@@ -1561,7 +1589,7 @@ empírico. La selección definitiva de indicadores responde a criterios de
 	describir asociaciones dinámicas, pero no permiten denominar sus coeficientes
 	respuestas a impulsos causales cuando no existe un \textit{shock} identificado
 	ni una estrategia de identificación externa \parencite{Jord2005}. Por ello,
-	no se incorporan como evidencia del TFM.
+	no se incorporan como evidencia de este trabajo.
 
 	\subsection{Métodos adicionales descartados}
 

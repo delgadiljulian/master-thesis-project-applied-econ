@@ -13,9 +13,7 @@
 \thesisstartchap{resultados}
 
 Este capítulo presenta los resultados obtenidos con la estrategia empírica
-descrita en el \autoref{chap:metodologia}. El análisis mantiene al Índice de
-Complejidad Económica ($ECI$) como resultado principal y a la diversificación
-exportadora ($DIVX=1-HHI$) como resultado complementario. Todas las
+descrita en el \autoref{chap:metodologia}. El análisis mantiene al $ECI$ como resultado principal y al $DIVX$ como resultado complementario. Todas las
 estimaciones corresponden a asociaciones condicionales dentro de los países,
 con efectos fijos por país y por año y errores estándar agrupados por país; no
 se interpretan como efectos causales.
@@ -47,7 +45,8 @@ para $ECI$ y $DIVX$ y no incorpora imputaciones ni interpolaciones. Esta regla
 permite comparar $M_1$, $M_2$ y $M_3$ sin que los cambios entre especificaciones
 respondan a una composición muestral diferente.
 
-El diagnóstico descriptivo de persistencia arroja coeficientes AR(1) de 0,495
+El diagnóstico descriptivo de persistencia utiliza un Modelo Autorregresivo
+de Primer Orden (AR(1)) y arroja coeficientes de 0,495
 para $ECI$, 0,744 para $DIVX$, 0,701 para $RENTS$ y 0,809 para $INST$. Estos
 valores describen la continuidad temporal de las series, pero no constituyen
 una clasificación automática de su orden de integración ni corresponden a los
@@ -108,7 +107,7 @@ La \autoref{tab:seleccion_estimador_panel} presenta el recorrido de selección
 estimado sobre $M_3$, manteniendo las mismas 1.044 observaciones y los mismos
 regresores. Las pruebas conjuntas rechazan la ausencia de efectos de país y de
 año en ambas ecuaciones. La prueba LM también rechaza que la varianza específica
-del panel sea cero. En consecuencia, MCO agrupado no constituye una referencia
+del panel sea cero. En consecuencia, OLS agrupado no constituye una referencia
 adecuada y los efectos temporales comunes deben permanecer en la especificación.
 
 \begin{table}[htbp]
@@ -122,7 +121,7 @@ adecuada y los efectos temporales comunes deben permanecer en la especificación
         Efectos de país conjuntos
         & $F(48,956)=44,84^{***}$
         & $F(48,957)=30,73^{***}$
-        & Se rechaza MCO agrupado frente a efectos de país. \\
+        & Se rechaza OLS agrupado frente a efectos de país. \\
         Efectos de año conjuntos
         & $F(22,48)=3,53^{***}$
         & $F(22,48)=3,86^{***}$
